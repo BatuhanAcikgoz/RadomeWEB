@@ -43,10 +43,10 @@ class RadomeWEB_Template extends TemplateBase {
 
 		$this->addCSSFiles([
 			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' => ['integrity' => 'sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2', 'crossorigin' => 'anonymous'),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"),
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"],
 			$template['path'] . 'css/new-radomeweb.css?v=' . Output::getClean($radomeweb_local_version) => [],
-			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'")
-		];
+			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"]
+		]);
 
         if (Output::getClean($font) !== "Verdana") {
             $this->addCSSFiles([
@@ -62,7 +62,7 @@ class RadomeWEB_Template extends TemplateBase {
 			'https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js' => ['integrity' => 'sha256-dOvlmZEDY4iFbZBwD8WWLNMbYhevyx6lzTpfVdo0asA=', 'crossorigin' => 'anonymous', 'defer' => true],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery.cookie.js' => []
-		];
+		]);
 
 		if((null !== Output::getClean($particles)) && Output::getClean($particles) == "yes"){
 			$this->addJSFiles([
@@ -283,7 +283,7 @@ class RadomeWEB_Template extends TemplateBase {
 		}
 
 	}
-
+}
 
 $cache->setCache('social_media');
 if(!$cache->isCached('discord_count')){
