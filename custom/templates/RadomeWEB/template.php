@@ -83,8 +83,8 @@ class RadomeWEB_Template extends TemplateBase {
 			$logo_margin_final = ((($logo_size_trimmed * -1) + (($logo_size_trimmed - $bg_height_trimmed) / 2)) - 5);
 			$logo_margin_m_final = ((($logo_size_m_trimmed * -1) + (($logo_size_m_trimmed - $bg_height_m_trimmed) / 2)) - 5);
 		} else {
-			$logo_margin_final = (($logo_size_trimmed * -1) + (($logo_size_trimmed - $bg_height_trimmed) / 2]);
-			$logo_margin_m_final = (($logo_size_m_trimmed * -1) + (($logo_size_m_trimmed - $bg_height_m_trimmed) / 2]);
+			$logo_margin_final = (($logo_size_trimmed * -1) + (($logo_size_trimmed - $bg_height_trimmed) / 2));
+			$logo_margin_m_final = (($logo_size_m_trimmed * -1) + (($logo_size_m_trimmed - $bg_height_m_trimmed) / 2));
 		}
 
 		$this->addCSSStyle('@media (min-width: 801px) {.box {margin-top: '. $box_margin_final .'px !important;}}');
