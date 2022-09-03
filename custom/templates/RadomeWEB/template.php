@@ -50,7 +50,7 @@ class RadomeWEB_Template extends TemplateBase {
 
 
             $this->addCSSFiles([
-				'https://fonts.googleapis.com/css2?family=' . Output::getClean($font) . '&display=swap' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"
+				'https://fonts.googleapis.com/css2?family=' . Output::getClean($font) . '&display=swap' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"]
         	]);
 		
 
