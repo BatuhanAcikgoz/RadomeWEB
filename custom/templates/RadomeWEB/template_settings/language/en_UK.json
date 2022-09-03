@@ -182,5 +182,5 @@
 	"language/yes": "Evet",
 	"language/no": "Hayır",
 	"language/unable_to_write_to_settings": "<strong>modules/RadomeWEB/pages/settings.php</strong> Yazılamıyor. Lütfen dosya izinlerini kontrol edin.",
-	"language/successfully_updated": "Başarılı bir şekilde güncellendi.",
+	"language/successfully_updated": "Başarılı bir şekilde güncellendi."
 }
