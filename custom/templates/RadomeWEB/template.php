@@ -201,9 +201,15 @@ class RadomeWEB_Template extends TemplateBase {
 
 	}
 
-	public function onPageLoad(){
+    public function onPageLoad() {
+        $page_load = microtime(true) - PAGE_START_TIME;
+        define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
-		$route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
+        $this->addCSSFiles([
+            $this->_template['path'] . 'css/custom.css?v=200' => []
+        ]);
+
+        $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
@@ -234,55 +240,32 @@ class RadomeWEB_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
- 		$JSVars = '';
-	    $i = 0;
-		foreach ($JSVariables as $var => $value) {
-		    $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
-		    $i++;
-		}
-		
-		$this->addJSScript($JSVars);
+        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+            $this->assets()->include([
+                AssetTree::JQUERY_UI,
+            ]);
+        }
 
-		if(defined('PAGE')){
-			if(PAGE == 'cc_messaging'){
-				$this->addCSSFiles([
-					$this->_template['path'] . 'css/bootstrap-tokenfield.min.css' => [],
-					(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/css/jquery-ui.min.css' => []
-				]);
-				$this->addJSFiles([
-					'https://cdn.jsdelivr.net/npm/bootstrap-tokenfield@0.12.0/dist/bootstrap-tokenfield.min.js' => [],
-					(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
-				]);
-			}
-			if (PAGE == 'resources_licenses') {
-				$this->addCSSFiles([
-					$this->_template['path'] . 'css/typeaheadjs.css' => [],
-				]);
+        $JSVars = '';
+        $i = 0;
+        foreach ($JSVariables as $var => $value) {
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
+            $i++;
+        }
 
-				$this->addJSFiles([
-					$this->_template['path'] . 'js/typeahead.bundle.min.js' => [],
-				]);
-			}
-		}
+        $this->addJSScript($JSVars);
 
-		$this->addJSFiles([
-			$this->_template['path'] . 'js/core/core.js?v=8' => [],
-			$this->_template['path'] . 'js/core/user.js?v=2' => [],
-			$this->_template['path'] . 'js/core/pages.js?v=3' => []
-		]);
+        $this->addJSFiles([
+            $this->_template['path'] . 'js/core/core.js?v=202' => [],
+            $this->_template['path'] . 'js/core/user.js' => [],
+            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
+            $this->_template['path'] . 'js/scripts.js' => [],
+        ]);
 
-		if(strpos($route, '/forum/topic/') !== false){
-			$this->addJSFiles([
-				(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery-ui.min.js' => []
-			]);
-		}
-
-		if(count($this->_pages->getAjaxScripts())){
-			foreach($this->_pages->getAjaxScripts() as $script)
-		    	$this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
-		}
-
-	}
+        foreach ($this->_pages->getAjaxScripts() as $script) {
+            $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
+        }
+    }
 }
 
 $cache->setCache('social_media');
