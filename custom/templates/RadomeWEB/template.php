@@ -77,7 +77,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$logo_size_m_trimmed = trim($logo_size_m, 'px');
 		$bg_height_m_trimmed = trim($bg_height_m, 'px');
 
-		$box_margin_final = (-92.5 + ((92.5 - $bg_height_trimmed) / 2]);
+		$box_margin_final = (-92.5 + ((92.5 - $bg_height_trimmed) / 2));
 
 		if (Output::getClean($al) == "yes") {
 			$logo_margin_final = ((($logo_size_trimmed * -1) + (($logo_size_trimmed - $bg_height_trimmed) / 2)) - 5);
