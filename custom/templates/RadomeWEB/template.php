@@ -148,7 +148,7 @@ class RadomeWEB_Template extends TemplateBase {
 		    'noPlayersOnline' => $this->_language->get('general', 'no_players_online'),
 		    'bungeeInstance' => $this->_language->get('general', 'bungee_instance'),
 		    'online' => $this->_language->get('general', 'online'),
-		    'avatarSource' => Util::getAvatarSource(),
+            'avatarSource' => AvatarSource::getUrlToFormat(),
 		    'andMoreX' => $this->_language->get('general', 'and_x_more'),
 		    'loadingTime' => ((defined('PAGE_LOADING') && PAGE_LOADING == 1) ? PAGE_LOAD_TIME : ''),
 		    'route' => $route
