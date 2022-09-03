@@ -416,21 +416,5 @@
         {/if}
     {/if}
 
-    {if !empty($ANNOUNCEMENTS)}
-        {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
-            <div class="alert{if $ANNOUNCEMENT->closable} alert-dismissible fade show{/if}" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}" role="alert">
-                {if isset($ANNOUNCEMENT->icon)}
-                    <i class="{$ANNOUNCEMENT->icon} float-left mr-3" style="font-size: 40px"></i>
-                {/if}
-                <b style="font-size: 17px">{$ANNOUNCEMENT->header}</b><br />{$ANNOUNCEMENT->message|htmlspecialchars_decode}
-                {if $ANNOUNCEMENT->closable}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                {/if}
-            </div>
-        {/foreach}
-    {/if}
-
     <div class="chatbox mb-3" id="chatbox-top"></div>
 </div>
