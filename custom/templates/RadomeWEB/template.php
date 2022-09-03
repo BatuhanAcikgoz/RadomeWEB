@@ -10,7 +10,7 @@ class RadomeWEB_Template extends TemplateBase {
     private array $_template;
 	private Language $_language;
 	private User $_user;
-	private Pages $_pages,
+	private Pages $_pages,;
 
 	public function __construct($cache, $smarty, $language, $user, $pages){
 
