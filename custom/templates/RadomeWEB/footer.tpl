@@ -1,10 +1,6 @@
     </div>
   </div>
 
-<div class="ui inverted vertical footer segment">
-    <a class="btn btn-secondary" href="#" id="scroll" {if isset($THEME_TS) && $THEME_TS eq 'icon'}style="right: 80px; display: none;"{else}style="right: 30px; display: none;"{/if}><i class="fas fa-arrow-up"></i></a>
-    <div class="chatbox" id="chatbox-bottom"></div>
-</div>
 {if isset($GLOBAL_WARNING_TITLE)}
 <div class="modal fade show-punishment" data-keyboard="false" data-backdrop="static" id="acknowledgeModal" tabindex="-1" role="dialog" aria-labelledby="acknowledgeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
