@@ -1,0 +1,14 @@
+.p-image {
+     max-width: 80%;
+}
+.p-image {
+     transition: all .2s ease-in-out;
+}
+.p-image:hover {
+     transform: scale(1.1);
+}
+@media only screen and (max-width: 767px) {
+    .p-image {
+         max-width: 40%;
+    }
+}
