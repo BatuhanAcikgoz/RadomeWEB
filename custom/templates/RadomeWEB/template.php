@@ -49,7 +49,7 @@ class RadomeWEB_Template extends TemplateBase {
         $this->addCSSFiles([
 			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' => array('integrity' => 'sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2', 'crossorigin' => 'anonymous'),
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array('rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"),
-			$template['path'] . 'css/radomeweb.css?v=' . Output::getClean($radomeweb_local_version) => array(),
+			$template['path'] . 'css/radomeweb.css?v=200',
 			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => array('rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'")
 		]);
 
@@ -58,13 +58,6 @@ class RadomeWEB_Template extends TemplateBase {
 				'https://fonts.googleapis.com/css2?family=' . Output::getClean($font) . '&display=swap' => array('rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'")
         	));
 		}
-
-        $this->addCSSFiles([
-			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' => array('integrity' => 'sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2', 'crossorigin' => 'anonymous'),
-			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => array('rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"),
-			$template['path'] . 'css/new-radomeweb.css?v=' . Output::getClean($radomeweb_local_version) => array(),
-			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => array('rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'")
-        ]);
 
         $this->addCSSFiles([
             $template['path'] . 'css/fomantic.min.css' => [],
