@@ -6,10 +6,10 @@
  *
  *    License: MIT
  *
- *    DefaultRevamp Template
+ *    RadomeWEB Template
  */
 
-class DefaultRevamp_Template extends TemplateBase {
+class RadomeWEB_Template extends TemplateBase {
 
     private array $_template;
 
@@ -182,5 +182,5 @@ class DefaultRevamp_Template extends TemplateBase {
     }
 }
 
-$template = new DefaultRevamp_Template($cache, $smarty, $language, $user, $pages);
+$template = new RadomeWEB_Template($cache, $smarty, $language, $user, $pages);
 $template_pagination = ['div' => 'ui mini pagination menu', 'a' => '{x}item'];
