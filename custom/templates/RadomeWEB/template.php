@@ -48,11 +48,11 @@ class RadomeWEB_Template extends TemplateBase {
 			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"]
 		]);
 
-        if (Output::getClean($font) !== "Verdana") {
+
             $this->addCSSFiles([
 				'https://fonts.googleapis.com/css2?family=' . Output::getClean($font) . '&display=swap' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"
-        	];
-		}
+        	]);
+		
 
 		$this->addJSScript('var particles = "' . Output::getClean($particles) .'"; var swal_server_copy = "' . $radomeweb_language->get('language', 'swal_server_copy') .'";');
 
