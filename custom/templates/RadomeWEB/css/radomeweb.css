@@ -227,7 +227,6 @@ a {
 
 @media only screen and (min-width: 768px) {
     .mobile_only {
-        display: none;
     }
 }
 
@@ -654,7 +653,6 @@ pre.language-markup {
 }
 
 html {
-    display: none;
 }
 
 body {
@@ -1650,7 +1648,6 @@ ul.thumbnails.image_picker_selector li .thumbnail {
     position: fixed;
     -webkit-transition: 0.25s;
     transition: 0.25s;
-    display: none;
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
