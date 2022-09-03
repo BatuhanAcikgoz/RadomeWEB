@@ -194,7 +194,6 @@ class RadomeWEB_Template extends TemplateBase {
 
 		$smarty->assign('TEMPLATE', $template);
 
-		$this->_template = $template;
 		$this->_language = $language;
 		$this->_user = $user;
 		$this->_pages = $pages;
