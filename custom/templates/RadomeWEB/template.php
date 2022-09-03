@@ -198,7 +198,7 @@ class DefaultRevamp_Template extends TemplateBase {
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
 		$JSVariables = [
-		    'siteName' => output::getClean()SITE_NAME,
+            'siteName' => Output::getClean(SITE_NAME),
 		    'siteURL' => URL::build('/'),
 		    'fullSiteUrl' => Util::getSelfURL() . ltrim(URL::build('/'), '/'),
 			'page' => PAGE,
