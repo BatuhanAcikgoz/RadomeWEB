@@ -151,7 +151,7 @@
                                         </span>
                                         <input type='text' name='p_color' value='{$P_COLOR_VALUE}' class='form-control'>
                                     </div>
-                                    <label>{$S_COLOR}</label>
+                                    <label>{$S_COLOR} | {$S_COLOR_VALUE}</label>
                                     <br />
                                     <div class="input-group s-color">
                                         <span class="input-group-prepend">

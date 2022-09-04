@@ -107,7 +107,7 @@ class RadomeWEB_Template extends TemplateBase {
 		}
 
 		$this->addCSSStyle('.swal2-confirm, .color-overlay, .nav-tabs, .button-checkbox>.active, .navbar-theme, .blockquote>a:first-child, .modal-header, .spoiler .spoiler-toggle, .spoiler .spoiler-title, .page-item.active .page-link, .panel-theme .panel-heading, .footer-theme, .footer-text-bar, .header-theme, .footer-card-theme, .card-footer-theme, .btn-theme, .profile-theme .nav-link, .user-theme .nav-link, .card-inverse .header-theme, .badge-theme, #toast-container, .coldfire-navbar-menu .nav-header, .progress-bar, .popover-header {background-color: '. Output::getClean($p_color) .' !important;}');
-		$this->addCSSStyle('.dark ::-webkit-scrollbar-track, .dark ::-webkit-scrollbar-corner, .dark body,  {background-color: '. Output::getClean($s_color) .';}');
+		$this->addCSSStyle('.dark ::-webkit-scrollbar-track, .dark ::-webkit-scrollbar-corner, .dark body  {background-color: '. Output::getClean($s_color) .';}');
 		$this->addCSSStyle('.header {height: '. Output::getClean($bg_height) .';}');
 		$this->addCSSStyle('@media only screen and (max-width: 768px) {.header {height: '. Output::getClean($bg_height_m) .';}}');
 		$this->addCSSStyle('.swal2-confirm:hover, .spoiler .spoiler-toggle:hover, .spoiler .spoiler-title:hover, .btn-older-news:hover, .btn-theme:hover {background-color: '. Output::getClean($p_color) .' !important; filter: brightness(0.85)}');
