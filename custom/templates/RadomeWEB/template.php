@@ -64,6 +64,7 @@ class RadomeWEB_Template extends TemplateBase {
 			'https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js' => ['integrity' => 'sha256-dOvlmZEDY4iFbZBwD8WWLNMbYhevyx6lzTpfVdo0asA=', 'crossorigin' => 'anonymous', 'defer' => true],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery.cookie.js' => [],
+			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/RadomeWEB/js/particles.js' => [],
 		]);
 
 		if((null !== Output::getClean($particles)) && Output::getClean($particles) == "yes"){
