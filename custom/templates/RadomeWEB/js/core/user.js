@@ -1,136 +1,191 @@
-// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 if (!('Notification' in window))
-    window.Notification = null;
+	window.Notification = null;
 
 if (loggedIn == 1) {
 
-    var countPms = 0;
-    var countAlerts = 0;
 
-    function updateAlerts(data) {
-        if (data.value > 0) {
-            $("#button-alerts").removeClass('default').addClass("red");
-            var alerts_list = '';
-            for (var i in data.alerts) {
-                alerts_list += '<a class="item" href="' + URLBuild('user/alerts/?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
-            }
-            $('#list-alerts').html(alerts_list);
-        } else {
-            $('#list-alerts').html('<a class="item">' + noAlerts + '</a>');
-        }
+	if ($(".pms").length || $(".alerts").length) {
+		$(document).ready(function () {
+			if (Notification) {
+				if (Notification.permission !== "granted")
+					Notification.requestPermission();
+			}
 
-        countAlerts = data.value;
-    }
+			toastr.options.closeButton = true;
+			toastr.options.positionClass = 'toast-bottom-left';
 
-    function notifyAlerts(data) {
-        if (data.value > 0) {
-            if (data.value == 1) {
-                toastr.options.onclick = function () { redirect(URLBuild('user/alerts')) };
-                toastr.info(newAlert1);
-            } else {
-                toastr.options.onclick = function () { redirect(URLBuild('user/alerts')) };
-                toastr.info(newAlertsX.replace("{{count}}", data.value));
-            }
-            if (Notification.permission !== "granted") {
-                Notification.requestPermission();
-            } else {
-                if (data.value == 1) {
-                    var notification = new Notification(
-                        siteName, { body: newAlert1 }
-                    );
-                } else {
-                    var notification = new Notification(
-                        siteName, { body: newAlertsX.replace("{{count}}", data.value) }
-                    );
-                }
-                notification.onclick = function () {
-                    window.open(URLBuild('user/alerts', true));
-                };
-            }
-            countAlerts = data.value;
-        }
-    }
+			$.getJSON(URLBuild('queries/pms'), function (data) {
+				var pm_dropdown = $(".pm_dropdown");
 
-    function updatePMs(data) {
-        if (data.value > 0) {
-            $("#button-pms").removeClass('default').addClass("red");
-            var pms_list = '';
-            for (var i in data.pms) {
-                pms_list += '<a class="item" href="' + URLBuild('user/messaging/?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
-            }
-            $('#list-pms').html(pms_list);
-        } else {
-            $('#list-pms').html('<a class="item">' + noMessages + '</a>');
-        }
+				if (data.value > 0) {
+					$(".pms").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
+					if (pm_dropdown.html() == loading) {
 
-        countPms = data.value;
-    }
+						var new_pm_dropdown = '';
+						for (i in data.pms) {
+							new_pm_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/messaging?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
+						}
+						pm_dropdown.html(new_pm_dropdown);
+						pm_dropdown.removeClass('dropdown-item');
+					}
 
-    function notifyPMs(data) {
-        if (data.value > 0) {
-            if (data.value == 1) {
-                toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
-                toastr.info(newMessage1);
-            } else {
-                toastr.options.onclick = function () { redirect(URLBuild('user/messaging')) };
-                toastr.info(newMessagesX.replace("{{count}}", data.value));
-            }
-            if (Notification.permission !== "granted") {
-                Notification.requestPermission();
-            } else {
-                if (data.value == 1) {
-                    var notification = new Notification(
-                        siteName, { body: newMessage1 }
-                    );
-                } else {
-                    var notification = new Notification(
-                        siteName, { body: newMessagesX.replace("{{count}}", data.value) }
-                    );
-                }
-                notification.onclick = function () {
-                    window.open(URLBuild('user/messaging', true));
-                };
-            }
-            countPms = data.value;
-        }
-    }
+				} else {
+					pm_dropdown.html('<span>' + noMessages + '</span>');
+					pm_dropdown.addClass('noclick');
+				}
+			});
+			$.getJSON(URLBuild('queries/alerts'), function (data) {
+				var alert_dropdown = $(".alert_dropdown");
 
-    $(document).ready(function () {
+				if (data.value > 0) {
+					$(".alerts").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
 
-        if (Notification) {
-            if (Notification.permission !== "granted")
-                Notification.requestPermission();
-        }
+					if (alert_dropdown.html() == loading) {
 
-        $.getJSON(URLBuild('queries/alerts'), function (data) {
-            updateAlerts(data);
-        });
+						var new_alert_dropdown = '';
 
-        $.getJSON(URLBuild('queries/pms'), function (data) {
-            updatePMs(data);
-        });
+						for (i in data.alerts) {
+							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
+						}
 
-        window.setInterval(function () {
+						alert_dropdown.html(new_alert_dropdown);
+						alert_dropdown.removeClass('dropdown-item');
+					}
 
-            $.getJSON(URLBuild('queries/alerts'), function (data) {
-                if (countAlerts < data.value) {
-                    notifyAlerts(data);
-                }
+				} else {
+					alert_dropdown.html('<span>' + noAlerts + '</span>');
+					alert_dropdown.addClass('noclick');
+				}
+			});
 
-                updateAlerts(data);
-            });
+			window.setInterval(function () {
+				$.getJSON(URLBuild('queries/pms'), function (data) {
+					if (data.value > 0 && $('.pms').is(':empty')) {
+						$(".pms").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
 
-            $.getJSON(URLBuild('queries/pms'), function (data) {
-                if (countPms < data.value) {
-                    notifyPMs(data);
-                }
+						if (data.value == 1) {
+							toastr.info(newMessage1);
+						} else {
+							var x_messages = newMessagesX;
+							toastr.info(x_messages.replace("{x}", data.value));
+						}
 
-                updatePMs(data);
-            });
+						var pm_dropdown = $(".pm_dropdown");
 
-        }, 10000);
+						var new_pm_dropdown = '';
 
-    });
+						for (i in data.pms) {
+							new_pm_dropdown += '<a class="dropdown-item alert-msg-list" href="' + URLBuild('user/messaging?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
+						}
 
+						pm_dropdown.html(new_pm_dropdown);
+
+						pm_dropdown.removeClass('dropdown-item');
+
+						if (Notification.permission !== "granted")
+							Notification.requestPermission();
+						else {
+							if (data.value == 1) {
+								var notification = new Notification(siteName, {
+									body: newMessage1,
+								});
+							} else {
+								var notification = new Notification(siteName, {
+									body: x_messages.replace("{x}", data.value),
+								});
+							}
+
+							notification.onclick = function () {
+								window.open(URLBuild('user/messaging', true));
+							};
+
+						}
+					}
+				});
+
+				$.getJSON(URLBuild('queries/alerts'), function (data) {
+					if (data.value > 0 && $('.alerts').is(':empty')) {
+						$(".alerts").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
+
+						if (data.value == 1) {
+							toastr.info(newAlert1);
+						} else {
+							var x_alerts = newAlertsX;
+							toastr.info(x_alerts.replace("{x}", data.value));
+						}
+
+						var alert_dropdown = $(".alert_dropdown");
+
+						var new_alert_dropdown = '';
+
+						for (i in data.alerts) {
+							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
+						}
+
+						alert_dropdown.html(new_alert_dropdown);
+
+						alert_dropdown.removeClass('dropdown-item');
+
+						if (Notification.permission !== "granted")
+							Notification.requestPermission();
+						else {
+							if (data.value == 1) {
+								var notification = new Notification(siteName, {
+									body: newAlert1,
+								});
+							} else {
+								var notification = new Notification(siteName, {
+									body: x_alerts.replace("{x}", data.value),
+								});
+							}
+
+							notification.onclick = function () {
+								window.open(URLBuild('user/alerts', true));
+							};
+
+						}
+					}
+				});
+			}, 20000);
+		});
+
+		$('.alert-dropdown, .user-dropdown, .pm-dropdown').hover(
+			function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(25).fadeIn();
+			},
+			function () {
+				$(this).find('.dropdown-menu').stop(true, true).delay(25).fadeOut();
+			}
+		);
+
+		$('.alert-dropdown-menu, .user-dropdown-menu, .pm-dropdown-menu').hover(
+			function () {
+				$(this).stop(true, true);
+			},
+			function () {
+				$(this).stop(true, true).delay(25).fadeOut();
+			}
+		);
+
+	}
+
+	if ($('div.show-punishment').length) {
+		$('.show-punishment').modal('show');
+	}
+
+} else if (cookie == 1) {
+
+	toastr.options.timeOut = 0;
+	toastr.options.extendedTimeOut = 0;
+	toastr.options.closeButton = true;
+	toastr.options.onclick = function () {
+		$('.toast .toast-close-button').focus();
+	}
+	toastr.options.onHidden = function () {
+		$.cookie('accept', 'accepted', {
+			path: '/'
+		});
+	}
+	toastr.options.positionClass = 'toast-bottom-left';
+	toastr.info(cookieNotice);
 }
-// @license-end
