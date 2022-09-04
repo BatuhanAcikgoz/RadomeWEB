@@ -152,13 +152,13 @@
                                         <input type='text' name='p_color' value='{$P_COLOR_VALUE}' class='form-control'>
                                     </div>
                                     <label>{$S_COLOR}</label>
-                                    <br />
-                                    <div class="input-group color">
+                                    <div class="input-group loader-color">
                                         <span class="input-group-prepend">
                                             <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                         </span>
-                                        <input type='text' name='s_color' value='{$S_COLOR_VALUE}' class='form-control'>
-                                    </div>                                    
+                                        <input type='text' name='s_color' value='{$S_COLOR_VALUE}'
+                                            class='form-control'>
+                                    </div>                                 
                                 </div>
                             </div>
                             <input type='hidden' name='view' value='update'>

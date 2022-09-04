@@ -65,6 +65,13 @@ $current_template->addJSScript('
             $("#radomeweb-submit").removeClass("d-none");
         }
     }
+
+    function switchToSubmitUploadSettings() {
+        if ($("#radomeweb-upload-settings").val()) {
+            $("#radomeweb-upload-settings-label").addClass("d-none");
+            $("#radomeweb-upload-settings-submit").removeClass("d-none");
+        }
+    }   
 ');
 
 foreach ($radomeweb_settings_array as $value) {
