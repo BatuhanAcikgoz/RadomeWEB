@@ -20,7 +20,7 @@ class CookieConsent {
         $background_colour = '#202020';
         $text_colour = '#fff';
         $button_text_colour = '#fff';
-        $border_colour = '#203c5c';
+        $border_colour = '$p_color';
 
         if (
             isset($options['position'])
