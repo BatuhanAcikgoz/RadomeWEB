@@ -66,21 +66,6 @@ $current_template->addJSScript('
     }
 ');
 
-$current_template->addJSScript('
-    $(\'.color\').colorpicker({ format: \'hex\', autoInputFallback: false, color: "'. $s_color .'" });
-	var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
-	elems.forEach(function(elem) {
-		var switchery = new Switchery(elem, {color: \'#239\', secondaryColor: \'#e564\'});
-    });
-    
-    function switchToSubmit() {
-        if ($("#radomeweb-update").val()) {
-            $("#radomeweb-update-label").addClass("d-none");
-            $("#radomeweb-submit").removeClass("d-none");
-        }
-    }
-');
-
 foreach ($radomeweb_settings_array as $value) {
     $first_value = strtoupper($value[0]) . "_VALUE";
     $output_value = $value[0];

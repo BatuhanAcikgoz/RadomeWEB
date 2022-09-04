@@ -225,6 +225,7 @@
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
                                 <div class="tab-pane fade show active" id="pills-bgh" role="tabpanel" aria-labelledby="pills-bgh-tab">
+                                    <input type="hidden" name="particles" value="no">
                                     <input type="checkbox" name="particles" class="js-switch js-check-change" id="particles" value="yes" {if $PARTICLES_VALUE eq 'yes' }checked{/if}>
                                     <label>{$PARTICLES}</label>
                                     <br /><br />
