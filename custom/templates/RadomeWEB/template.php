@@ -287,7 +287,7 @@ if(!$cache->isCached('discord_count')){
   	$discord_api = file_get_contents('https://discord.com/api/guilds/821855877514133504/widget.json');
   	$discord_api_decode = json_decode($discord_api, true);
   	$discord_api_online = $discord_api_decode["presence_count"];
-  	$cache->store('discord_count', $discord_api_online, 300);
+  	$cache->store('discord_count', $discord_api_online, 10);
 } else {
   	$discord_api_online = $cache->retrieve('discord_count');
 }
