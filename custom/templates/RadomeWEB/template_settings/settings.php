@@ -70,7 +70,7 @@ $current_template->addJSScript('
     $(\'.color\').colorpicker({ format: \'hex\', autoInputFallback: false, color: "'. $s_color .'" });
 	var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 	elems.forEach(function(elem) {
-		var switchery = new Switchery(elem, {color: \'#23923d\', secondaryColor: \'#e56464\'});
+		var switchery = new Switchery(elem, {color: \'#239\', secondaryColor: \'#e564\'});
     });
     
     function switchToSubmit() {
