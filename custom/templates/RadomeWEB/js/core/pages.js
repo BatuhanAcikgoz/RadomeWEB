@@ -94,57 +94,41 @@ if (page !== '') {
         });
 
     } else if (page === 'status') {
-        $(function () {
-            $(".server").each(function () {
-                let serverID = $(this).data("id");
+
+        $(document).ready(function() {
+            $(".server").each(function() {
+                let serverId = $(this).data("id");
                 let serverBungee = $(this).data("bungee");
-                let serverBedrock = $(this).data("bedrock");
                 let serverPlayerList = $(this).data("players");
-                let serverElem = '#server' + serverID + '[data-id=' + serverID + ']';
-
                 const paramChar = URLBuild('').includes('?') ? '&' : '?';
-
-                $.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverID), function (data) {
-                    var content = '';
-                    var players = '';
-                    if (data.status_value === 1) {
-                        $(serverElem).addClass("green");
-                        content = data.player_count + "/" + data.player_count_max;
-                        if (serverBungee === 1) {
-                            players = bungeeInstance;
-                        } else if (serverBedrock === 1) {
-                            players = '';
+                $.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverId), function(data) {
+                    var html = "";
+                    if (data.status_value == 1) {
+                        html = "<p>" + online + "</p><p>" + data.player_count + "/" + data.player_count_max + "</p>";
+                        if (serverBungee == 1) {
+                            html += "<p>" + bungeeInstance + "</p>";
                         } else {
-                            if (serverPlayerList === 1) {
-                                if (data.player_count > 0 && data.player_list.length <= 0) {
-                                    // Weird edge case where player list is empty but the player count is > 0
-                                    if (data.player_count > 1) {
-                                        players += xPlayersOnline.replace('{{count}}', data.player_count);
-                                    } else {
-                                        players += onePlayerOnline;
-                                    }
-                                } else if (data.player_list.length > 0) {
+                            if (serverPlayerList == 1) {
+                                if (data.player_list.length > 0) {
+                                    html += "<p>";
                                     for (var i = 0; i < data.player_list.length; i++) {
-                                        players += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img class="ui mini circular image" src="' + avatarSource.replace('{identifier}', data.player_list[i].id).replace('{size}', 64) + '" alt="' + data.player_list[i].name + '"></a>';
+                                        html += "<a href='" + URLBuild('profile/' + data.player_list[i].name) + "' \><img style=\"margin-bottom:3px;max-width:32px;max-height:32px;\" data-toggle=\"tooltip\" title=\"" + data.player_list[i].name + "\" src=\"" + avatarSource.replace("{x}", data.player_list[i].id).replace("{y}", 64) + "\" class=\"avatar-img\" alt=\"" + data.player_list[i].name + "\"></a> ";
                                     }
-
+                                    html += "</p>";
                                     if (data.player_list.length < data.player_count) {
-                                        players += '<span class="ui blue circular label">+' + (data.player_count - data.player_list.length) + '</span>';
+                                        let andXMore = andMoreX;
+                                        html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{x}", (data.player_count - data.player_list.length)) + "</span></p>";
                                     }
-
                                 } else {
-                                    players += noPlayersOnline;
+                                    html += "<p>" + noPlayersOnline + "</p>";
                                 }
                             }
                         }
                     } else {
-                        $(serverElem).addClass("red");
-                        content = offline;
-                        players = noPlayersOnline;
+                        html = "<p>" + offline + "</p><p>0/0</p>";
                     }
-
-                    $(serverElem).find('#server-status').html(content);
-                    $(serverElem).find('#server-players').html(players);
+                    $("#content" + serverId).html(html);
+                    $('[data-toggle="tooltip"]').tooltip();
                 });
             });
         });
