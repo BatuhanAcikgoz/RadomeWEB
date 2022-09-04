@@ -17,10 +17,10 @@ class CookieConsent {
      */
     public static function generateScript(array $options): string {
         $script_options = [];
-        $background_colour = '#000';
-        $text_colour = '#000';
-        $button_text_colour = '#f1d600';
-        $border_colour = '#f1d600';
+        $background_colour = '#202020';
+        $text_colour = '#fff';
+        $button_text_colour = '#fff';
+        $border_colour = '#203c5c';
 
         if (
             isset($options['position'])
