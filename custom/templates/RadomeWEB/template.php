@@ -258,9 +258,9 @@ class RadomeWEB_Template extends TemplateBase {
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'] . 'js/core/core.js?v=8' => [],
+            $this->_template['path'] . 'js/core/core.js?v=202' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
-            $this->_template['path'] . 'js/core/pages.js?v=3' => [],
+            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
