@@ -100,9 +100,9 @@
 </nav>
 {/if}
 <div class="color-overlay">
-    <div class="header" id="header-pjs" {if isset($THEME_C_OVERLAY) && $THEME_C_OVERLAY|count_characters > 2}style="opacity: 0.2; z-index: 1"{else}style="opacity: 1; z-index: 4"{/if}></div>
+    <div class="header" id="particles-js" {if isset($THEME_C_OVERLAY) && $THEME_C_OVERLAY|count_characters > 2}style="opacity: 0.2; z-index: 1"{else}style="opacity: 1; z-index: 4"{/if}></div>
 </div>
-
+<script src="particles.js"></script>
 <a href="/">
 <picture>
     {if isset($THEME_LOGO_WEBP) && $THEME_LOGO_WEBP|count_characters > 4}<source srcset="{$THEME_LOGO_WEBP}" type="image/webp">{/if}
