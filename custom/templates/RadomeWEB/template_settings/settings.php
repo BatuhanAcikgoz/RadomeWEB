@@ -53,6 +53,7 @@ $current_template->addCSSFiles(array(
 
 $current_template->addJSScript('
     $(\'.color\').colorpicker({ format: \'hex\', autoInputFallback: false, color: "'. $p_color .'" });
+    $(\'.color\').colorpicker({ format: \'hex\', autoInputFallback: false, color: "'. $s_color .'" });
 	var elems = Array.prototype.slice.call(document.querySelectorAll(\'.js-switch\'));
 	elems.forEach(function(elem) {
 		var switchery = new Switchery(elem, {color: \'#23923d\', secondaryColor: \'#e56464\'});
