@@ -420,7 +420,7 @@
         {foreach from=$ANNOUNCEMENTS item=$ANNOUNCEMENT}
             <div class="alert{if $ANNOUNCEMENT->closable} alert-dismissible fade show{/if}" id="announcement-{$ANNOUNCEMENT->id}" style="background-color:{$ANNOUNCEMENT->background_colour}; color:{$ANNOUNCEMENT->text_colour}" role="alert">
                 {if isset($ANNOUNCEMENT->icon)}
-                    <i class="{$ANNOUNCEMENT->icon} float-left mr-3" style="font-size: 40px"></i>
+                    <i class="{$ANNOUNCEMENT->icon} float-left mr-3" style="font-size: 40px; line-height: 0.7;"></i>
                 {/if}
                 <b style="font-size: 17px">{$ANNOUNCEMENT->header}</b><br />
                 {if $ANNOUNCEMENT->closable}
