@@ -106,8 +106,10 @@ if (page !== '') {
                     var html = "";
                     if (data.status_value == 1) {
                         html = "<p>" + online + "</p><p>" + data.player_count + "/" + data.player_count_max + "</p>";
-                        if (serverBungee == 1) {
-                            html += "<p>" + bungeeInstance + "</p>";
+                        if (serverBungee === 1) {
+                            players = bungeeInstance;
+                        } else if (serverBedrock === 1) {
+                            players = '';
                         } else {
                             if (serverPlayerList == 1) {
                                 if (data.player_list.length > 0) {
