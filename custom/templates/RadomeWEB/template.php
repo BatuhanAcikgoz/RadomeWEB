@@ -281,10 +281,10 @@ class RadomeWEB_Template extends TemplateBase {
     }
 }
 
-$cache->setCache('social_media');
+$cache->setCache('settings');
 if(!$cache->isCached('discord_count')){
-  	$discord_server_id = $cache->store('discord');
-  	$discord_api = file_get_contents('https://discord.com/api/guilds/821855877514133504/widget.json');
+  	$Discord_Server_ID = $cache->retrieve('discord');
+  	$discord_api = file_get_contents('https://discord.com/api/guilds/'.$Discord_Server_ID.'/widget.json');
   	$discord_api_decode = json_decode($discord_api, true);
   	$discord_api_online = $discord_api_decode["presence_count"];
   	$cache->store('discord_count', $discord_api_online, 300);
