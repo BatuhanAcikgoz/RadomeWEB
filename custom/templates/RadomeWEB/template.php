@@ -156,6 +156,8 @@ class RadomeWEB_Template extends TemplateBase {
             }
         }
 
+
+		
 		$smarty->assign('THEME_COLDFIRE_URL', Output::getClean($coldfire_url));
 		$smarty->assign('THEME_LOCAL_VERSION', Output::getClean($radomeweb_local_version));
 		$smarty->assign('THEME_TS_PATH', $template['path'] . 'js/core/ts.js?v=3');
@@ -238,6 +240,7 @@ class RadomeWEB_Template extends TemplateBase {
             'loggedIn' => $this->_user->isLoggedIn() ? '1' : '0',
             'cookie' => defined('COOKIE_NOTICE') ? '1' : '0',
             'loadingTime' => Util::getSetting('page_loading') === '1' ? PAGE_LOAD_TIME : '',
+			'pjsPath' => $this->_template['path'] . 'js/particles.json?v=2',
             'route' => $route,
             'csrfToken' => Token::get(),
         ];
