@@ -151,10 +151,6 @@
                                         </span>
                                         <input type='text' name='p_color' value='{$P_COLOR_VALUE}' class='form-control'>
                                     </div>
-                                    <input type='hidden' name='view' value='update'>
-                                    <hr>
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <button type='submit' class='btn btn-primary'>{$SUBMIT}</button>
                                     <label>{$S_COLOR}</label>
                                     <br />
                                     <div class="input-group color">
