@@ -422,7 +422,7 @@
                 {if isset($ANNOUNCEMENT->icon)}
                     <i class="{$ANNOUNCEMENT->icon} float-left mr-3" style="font-size: 40px"></i>
                 {/if}
-                <b style="font-size: 17px">{$ANNOUNCEMENT->header}</b><br />{$ANNOUNCEMENT->message|htmlspecialchars_decode}
+                <b style="font-size: 17px">{$ANNOUNCEMENT->header}</b><br />
                 {if $ANNOUNCEMENT->closable}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
