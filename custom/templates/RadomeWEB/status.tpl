@@ -5,7 +5,7 @@
         <div class="card-body">
             {if isset($CLICK_TO_COPY_TOOLTIP)}
             <div class="text-center">
-                <span onclick="copy('#copy{$server->id|escape}')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}" style="cursor: pointer">{$CONNECT_WITH}</span>
+                <span onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}" style="cursor: pointer">{$CONNECT_WITH}</span>
             </div><br />
             {/if} {if count($SERVERS)} {assign var=i value=0} {foreach from=$SERVERS item=server name=serverArray} {if $i eq 0 OR ($i % 3) eq 0}
             <div class="card-deck text-center">
