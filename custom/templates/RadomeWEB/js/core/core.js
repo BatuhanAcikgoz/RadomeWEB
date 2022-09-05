@@ -116,7 +116,7 @@ $(document).ready(function () {
                     $(elem).popover({
                         trigger: "manual",
                         animation: false,
-                        content: loading
+                        content: loadingTime
                     }).popover("show");
                     $.get($(elem).data('poload'), function (d) {
                         (debugging && debugging == '1' ? console.log(d) : '');
