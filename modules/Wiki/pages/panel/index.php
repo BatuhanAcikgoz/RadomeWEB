@@ -44,21 +44,21 @@ $wiki->initPages(true);
 
 if(!isset($_GET['action'])){
 	if(Input::exists()){
-		$errors = array();
+		$errors = [];
 		if(Token::check(Input::get('token'))){
 			$validate = new Validate();
-			$validation = $validate->check($_POST, array(
-				'message' => array(
+			$validation = $validate->check($_POST, [
+				'message' => [
 					'required' => true,
 					'max' => 8192
-				),
-				'link_location' => array(
+				],
+				'link_location' => [
 					'required' => true
-				),
-				'icon' => array(
+				],
+				'icon' => [
 					'max' => 64
-				)
-			));		
+				]
+			]);		
 			if($validation->passed()){			
 				try {
 					if(isset($_POST['link_location'])){
@@ -81,11 +81,11 @@ if(!isset($_GET['action'])){
 					$cache->setCache('navbar_icons');
 					$cache->store('wiki_icon', Input::get('icon'));
 								
-					$message_id = $queries->getWhere('wiki_settings', array('name', '=', 'home_page'));
+					$message_id = $queries->getWhere('wiki_settings', ['name', '=', 'home_page']);
 					$message_id = $message_id[0]->id;
-					$queries->update('wiki_settings', $message_id, array(
+					$queries->update('wiki_settings', $message_id, [
 						'value' => Input::get('message'),
-					));
+					]);
 
 				} catch(Exception $e){
 					$errors[] = $e->getMessage();
@@ -102,39 +102,39 @@ if(!isset($_GET['action'])){
 	switch($_GET['action']){
 		case 'new':
 			if(Input::exists()){
-				$errors = array();
+				$errors = [];
 				if(Token::check(Input::get('token'))){
 					$validate = new Validate();
-					$validation = $validate->check($_POST, array(
-						'wiki_page_title' => array(
+					$validation = $validate->check($_POST, [
+						'wiki_page_title' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_id' => array(
+						],
+						'wiki_page_id' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_button' => array(
+						],
+						'wiki_page_button' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_icon' => array(
+						],
+						'wiki_page_icon' => [
 							'max' => 96
-						),
-						'wiki_page_context' => array(
+						],
+						'wiki_page_context' => [
 							'required' => true,
 							'min' => 1
-						)
-					));
+						]
+					]);
 					if($wiki->isPageExists(htmlspecialchars(Input::get('wiki_page_id')))){
 						$errors[] = $wiki_language->get('wiki', 'wiki_id_exists');
 					}
 					if($validation->passed()){
 						try {
-							$queries->create('wiki_pages', array(
+							$queries->create('wiki_pages', [
 								'title' => htmlspecialchars(Input::get('wiki_page_title')),
 								'parent' => $_POST['InputWikiParent'],
 								'nameid' => strtolower(Input::get('wiki_page_id')),
@@ -142,7 +142,7 @@ if(!isset($_GET['action'])){
 								'button' => htmlspecialchars(Input::get('wiki_page_button')),
 								'context' => htmlspecialchars(Input::get('wiki_page_context')),
 								'enabled' => $_POST['InputWikiEnabled'],
-							));
+							]);
 							Session::flash('staff_wiki', $wiki_language->get('wiki', 'wiki_created_successfully'));
 							Redirect::to(URL::build('/panel/wiki'));
 							die();
@@ -187,7 +187,7 @@ if(!isset($_GET['action'])){
 				}
 			}
 						
-			$smarty->assign(array(
+			$smarty->assign([
 				'NEW_PAGE' => $wiki_language->get('wiki', 'new_wiki'),
 				'BACK' => $language->get('general', 'back'),
 				'BACK_LINK' => URL::build('/panel/wiki'),
@@ -199,7 +199,7 @@ if(!isset($_GET['action'])){
 				'WIKI_PAGE_ICON' => $wiki_language->get('wiki', 'wiki_page_icon'),
 				'WIKI_PAGE_CONTEXT' => $wiki_language->get('wiki', 'wiki_page_context'),
 				'WIKI_PAGE_NOT_EXISTS' => $wiki_language->get('wiki', 'wiki_parent_not_exists')
-			));
+			]);
 			
 			$template_file = 'wiki/wiki_new.tpl';
 		break;
@@ -208,7 +208,7 @@ if(!isset($_GET['action'])){
 				Redirect::to(URL::build('/panel/wiki'));
 				die();
 			}
-			$page = $queries->getWhere('wiki_pages', array('id', '=', $_GET['id']));
+			$page = $queries->getWhere('wiki_pages', ['id', '=', $_GET['id']]);
 			if(!count($page)){
 				Redirect::to(URL::build('/panel/wiki'));
 				die();
@@ -222,33 +222,33 @@ if(!isset($_GET['action'])){
 				$found = true;
 			}
 			if(Input::exists()){
-				$errors = array();
+				$errors = [];
 				if(Token::check(Input::get('token'))){
 					$validate = new Validate();
-					$validation = $validate->check($_POST, array(
-						'wiki_page_title' => array(
+					$validation = $validate->check($_POST, [
+						'wiki_page_title' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_id' => array(
+						],
+						'wiki_page_id' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_button' => array(
+						],
+						'wiki_page_button' => [
 							'required' => true,
 							'min' => 1,
 							'max' => 48
-						),
-						'wiki_page_icon' => array(
+						],
+						'wiki_page_icon' => [
 							'max' => 96
-						),
-						'wiki_page_context' => array(
+						],
+						'wiki_page_context' => [
 							'required' => true,
 							'min' => 1
-						)
-					));
+						]
+					]);
 					$_parent = "";
 					if(isset($_POST['InputWikiParent'])){
 						$_parent = $_POST['InputWikiParent'];
@@ -357,7 +357,7 @@ if(!isset($_GET['action'])){
 	}
 }
 	
-Module::loadPage($user, $pages, $cache, $smarty, array($navigation, $cc_nav, $mod_nav), $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
 
 if(Session::exists('staff_wiki'))
 	$success = Session::flash('staff_wiki');
@@ -379,7 +379,7 @@ if(isset($errors) && count($errors))
 		'PAGE' => PANEL_PAGE,
 		'DASHBOARD' => $language->get('admin', 'dashboard'),
 		'WIKI' => $wiki_language->get('wiki', 'wiki'),
-		'WIKI_PAGES' => $wiki->getPagesArray(),
+		'WIKI_PAGES' => $wiki->getPages[],
 		'MESSAGE_VALUE' => $settings,
 		'AMOUNT_PAGES' => $wiki->getPagesAmount(),
 		'NO_WIKIS_FOUNDED' => $wiki_language->get('wiki', 'no_wikis_founded'),
