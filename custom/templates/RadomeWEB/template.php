@@ -65,7 +65,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$this->addJSScript('var particles = "' . Output::getClean($particles) .'"; var swal_server_copy = "' . $radomeweb_language->get('language', 'swal_server_copy') .'";');
 
 		$this->addJSFiles([
-			'https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js' => ['integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'],
+			'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js' => ['integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'],
 			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js' => ['integrity' => 'sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx', 'crossorigin' => 'anonymous'],
 			'https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js' => ['integrity' => 'sha256-dOvlmZEDY4iFbZBwD8WWLNMbYhevyx6lzTpfVdo0asA=', 'crossorigin' => 'anonymous', 'defer' => true],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
@@ -269,9 +269,9 @@ class RadomeWEB_Template extends TemplateBase {
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'] . 'js/core/core.js?v=8' => [],
-            $this->_template['path'] . 'js/core/user.js?vv=2' => [],
-            $this->_template['path'] . 'js/core/pages.js?v=3' => [],
+            $this->_template['path'] . 'js/core/core.js?v=202' => [],
+            $this->_template['path'] . 'js/core/user.js' => [],
+            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
