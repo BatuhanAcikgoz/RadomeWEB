@@ -48,12 +48,12 @@ class Wiki_Module extends Module {
 			$queries->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 		} catch(Exception $e){}
 		try {
-			$queries->create('wiki_settings', array(
+			$queries->create('wiki_settings', [
 				'name' => 'home_page',
 				'value' => '<div><span style="font-size:20px"><strong>Welcome to your new Wiki library!</strong></span><br />WIKI Module allows you to create unlimited amount of wiki pages,<br />Includes the ability to modify button text, title, icon, context and even the url&nbsp;ID!<br /><br /><strong>Go ahead and create your own library!</strong><br /><br /><strong>Note:</strong>&nbsp;Also, this home page section are editable in&nbsp;<strong><u><a href="/panel/wiki">StaffCP -&gt; Wiki</a></u></strong>.<br /><br />Useful links:</div><ul><li>Support through our <strong><a rel="nofollow noopener" target="_blank" href="https://discord.com/invite/es9hWUCPKN">Discord</a></strong>.</li></ul>'
-			));
+			]);
 
-			$queries->create('wiki_pages', array(
+			$queries->create('wiki_pages', [
 				'title' => 'Welcome',
 				'parent' => 'null',
 				'nameid' => 'welcome',
@@ -64,8 +64,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Rules',
 				'parent' => 'welcome',
 				'nameid' => 'rules',
@@ -76,8 +76,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Guides & Tips',
 				'parent' => 'welcome',
 				'nameid' => 'guide',
@@ -88,8 +88,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Pro Tips',
 				'parent' => 'welcome',
 				'nameid' => 'protips',
@@ -100,8 +100,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Commands',
 				'parent' => 'null',
 				'nameid' => 'commands',
@@ -112,8 +112,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Permissions',
 				'parent' => 'null',
 				'nameid' => 'permissions',
@@ -124,8 +124,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Ranks',
 				'parent' => 'null',
 				'nameid' => 'ranks',
@@ -136,8 +136,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Perks',
 				'parent' => 'ranks',
 				'nameid' => 'perks',
@@ -148,8 +148,8 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
-			$queries->create('wiki_pages', array(
+			]);
+			$queries->create('wiki_pages', [
 				'title' => 'Discord',
 				'parent' => 'null',
 				'nameid' => 'discord',
@@ -160,7 +160,7 @@ class Wiki_Module extends Module {
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
-			));
+			]);
 		} catch(Exception $e){}
     }
 	
@@ -177,39 +177,39 @@ class Wiki_Module extends Module {
 			$charset = 'utf8mb4';
 		}
 
-		if(!$engine || is_array($engine))
+		if(!$engine || is_[$engine])
 			$engine = 'InnoDB';
 
-		if(!$charset || is_array($charset))
+		if(!$charset || is_[$charset])
 			$charset = 'latin1';
 			
 		$queries = new Queries();
 		try {
-			$group = $queries->getWhere('groups', array('id', '=', 2));
+			$group = $queries->getWhere('groups', ['id', '=', 2]);
 			$group = $group[0];
 			
 			$group_permissions = json_decode($group->permissions, TRUE);
 			$group_permissions['admincp.wiki'] = 1;
 			
 			$group_permissions = json_encode($group_permissions);
-			$queries->update('groups', 2, array('permissions' => $group_permissions));
+			$queries->update('groups', 2, ['permissions' => $group_permissions]);
 
 			//update
 			try{
 				$sql = "SHOW COLUMNS FROM ".Config::get('mysql/prefix')."wiki_pages WHERE Field = ?";
-				$res = DB::getInstance()->query($sql,array("views"));
+				$res = DB::getInstance()->query($sql,["views"]);
 				if(!$res->first()){
 					DB::getInstance()->alterTable("wiki_pages", "views", "int(11) NOT NULL DEFAULT '0'");
 				}
-				$res = DB::getInstance()->query($sql,array("likes"));
+				$res = DB::getInstance()->query($sql,["likes"]);
 				if(!$res->first()){
 					DB::getInstance()->alterTable("wiki_pages", "likes", "int(11) NOT NULL DEFAULT '0'");
 				}
-				$res = DB::getInstance()->query($sql,array("enabled"));
+				$res = DB::getInstance()->query($sql,["enabled"]);
 				if(!$res->first()){
 					DB::getInstance()->alterTable("wiki_pages", "enabled", "int(11) NOT NULL DEFAULT '1'");
 				}
-				$res = DB::getInstance()->query($sql,array("likeable"));
+				$res = DB::getInstance()->query($sql,["likeable"]);
 				if(!$res->first()){
 					DB::getInstance()->alterTable("wiki_pages", "likeable", "int(11) NOT NULL DEFAULT '1'");
 				}
@@ -239,15 +239,15 @@ class Wiki_Module extends Module {
 
     public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 
-		PermissionHandler::registerPermissions('Wiki', array(
+		PermissionHandler::registerPermissions('Wiki', [
 			'admincp.wiki' => $this->_wiki_language->get('wiki', 'wiki')
-		));
+		]);
 
 		if(defined('PANEL_PAGE') && PANEL_PAGE == 'wiki'){
-			$template->addJSFiles(array(
-				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => array(),
-				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => array(),
-			));
+			$template->addJSFiles([
+				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
+				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
+			]);
 			$template->addJSScript(Input::createEditor('InputMessage', true));
 			$template->addJSScript(Input::createEditor('InputWikiPage', true));
 			$template->addJSScript(Input::createEditor('InputWikiContext', true));
