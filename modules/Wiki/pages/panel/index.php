@@ -263,7 +263,7 @@ if(!isset($_GET['action'])){
 					}
 					if($validation->passed()){	
 						try {
-							$queries->update('wiki_pages', $page->id, array(
+							$queries->update('wiki_pages', $page->id, [
 								'title' => htmlspecialchars(Input::get('wiki_page_title')),
 								'parent' => strtolower($_parent),
 								'nameid' => strtolower(Input::get('wiki_page_id')),
@@ -271,7 +271,7 @@ if(!isset($_GET['action'])){
 								'button' => htmlspecialchars(Input::get('wiki_page_button')),
 								'context' => htmlspecialchars(Input::get('wiki_page_context')),
 								'enabled' => $_enabled
-							));
+							]);
 							Session::flash('staff_wiki', $wiki_language->get('wiki', 'wiki_updated_successfully'));
 							Redirect::to(URL::build('/panel/wiki'));
 							die();
@@ -312,7 +312,7 @@ if(!isset($_GET['action'])){
 				}
 			}
 						
-			$smarty->assign(array(
+			$smarty->assign([
 				'EDIT_PAGE' => $wiki_language->get('wiki', 'edit_wiki'),
 				'BACK' => $language->get('general', 'back'),
 				'BACK_LINK' => URL::build('/panel/wiki'),
@@ -333,14 +333,14 @@ if(!isset($_GET['action'])){
 				'WIKI_PAGE_NOT_EXISTS' => $wiki_language->get('wiki', 'wiki_parent_not_exists'),
 				'SUB_PAGED' => $haveSubz,
 				'SUB_PAGES' => $thewikis
-			));
+			]);
 		
 			$template_file = 'wiki/wiki_edit.tpl';
 		break;
 		case 'delete':
 			if(isset($_GET['id']) && is_numeric($_GET['id'])){
 				try {
-					$queries->delete('wiki_pages', array('id', '=', $_GET['id']));
+					$queries->delete('wiki_pages', ['id', '=', $_GET['id']]);
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
@@ -363,19 +363,19 @@ if(Session::exists('staff_wiki'))
 	$success = Session::flash('staff_wiki');
 
 if(isset($success))
-	$smarty->assign(array(
+	$smarty->assign([
 		'SUCCESS' => $success,
 		'SUCCESS_TITLE' => $language->get('general', 'success')
-	));
+	]);
 
 if(isset($errors) && count($errors))
-	$smarty->assign(array(
+	$smarty->assign([
 		'ERRORS' => $errors,
 		'ERRORS_TITLE' => $language->get('general', 'error')
-	));
+	]);
 	$cache->setCache('navbar_icons');
 	$icon = $cache->retrieve('wiki_icon');
-	$smarty->assign(array(
+	$smarty->assign([
 		'PAGE' => PANEL_PAGE,
 		'DASHBOARD' => $language->get('admin', 'dashboard'),
 		'WIKI' => $wiki_language->get('wiki', 'wiki'),
@@ -405,7 +405,7 @@ if(isset($errors) && count($errors))
 		'ICON_VALUE' => Output::getClean(htmlspecialchars_decode($icon)),
 		'TOKEN' => Token::get(),
 		'SUBMIT' => $language->get('general', 'submit')
-	));
+	]);
 
 $page_load = microtime(true) - $start;
 define('PAGE_LOAD_TIME', str_replace('{x}', round($page_load, 3), $language->get('general', 'page_loaded_in')));
