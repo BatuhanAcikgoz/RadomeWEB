@@ -224,7 +224,7 @@ if(!isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = [];
 				if(Token::check(Input::get('token'))){
-					$validation = $validate->check($_POST, [
+					$validation = Validate::check($_POST, [
 						'wiki_page_title' => [
 							Validate::REQUIRED => true,
 							Validate::MIN => 1,
