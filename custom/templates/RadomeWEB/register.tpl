@@ -50,7 +50,7 @@
                         </div> {/if}
                         {assign var=counter value=1}
                     {foreach $FIELDS as $field_key => $field}
-                    <div class="form-group">
+                    <div class="form-control form-control-lg">
                         {if $field.type eq 1}
                         <input type="text" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             placeholder="{$field.placeholder}" tabindex="{$counter++}" {if $field.required}
