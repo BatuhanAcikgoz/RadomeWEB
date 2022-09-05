@@ -26,6 +26,17 @@ class Wiki_Module extends Module {
 		$this->_wiki_language = $wiki_language;
 	}
 
+
+    public function getDebugInfo(): array {
+        // Services
+        $services_list = [];
+        foreach (Services::getInstance()->getAll() as $service) {
+            $services_list[] = [
+                'id' => Output::getClean($service->getId()),
+                'name' => Output::getClean($service->getName()),
+            ];
+        }
+
     public function onInstall() {
 		try {
 			$engine = Config::get('mysql/engine');
