@@ -50,7 +50,6 @@ class RadomeWEB_Template extends TemplateBase {
 		}
 
 		$this->addCSSFiles([
-			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css' => ['integrity' => 'sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2', 'crossorigin' => 'anonymous'],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"],
 			$template['path'] . 'css/radomeweb.css?v=' . Output::getClean($radomeweb_local_version) => [],
 			'https://use.fontawesome.com/releases/v5.15.1/css/all.css' => ['rel' => 'preload', 'as' => 'style', 'onload' => "this.onload=null;this.rel='stylesheet'"]
@@ -65,8 +64,6 @@ class RadomeWEB_Template extends TemplateBase {
 		$this->addJSScript('var particles = "' . Output::getClean($particles) .'"; var swal_server_copy = "' . $radomeweb_language->get('language', 'swal_server_copy') .'";');
 
 		$this->addJSFiles([
-			'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js' => ['integrity' => 'sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=', 'crossorigin' => 'anonymous'],
-			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js' => ['integrity' => 'sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx', 'crossorigin' => 'anonymous'],
 			'https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js' => ['integrity' => 'sha256-dOvlmZEDY4iFbZBwD8WWLNMbYhevyx6lzTpfVdo0asA=', 'crossorigin' => 'anonymous', 'defer' => true],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/toastr/toastr.min.js' => [],
 			(defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/js/jquery.cookie.js' => [],
