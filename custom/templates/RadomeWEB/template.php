@@ -284,6 +284,7 @@ class RadomeWEB_Template extends TemplateBase {
 $cache->setCache('settings');
 if(!$cache->isCached('discord_count')){
   	$Discord_Server_ID = $cache->retrieve('discord');
+	$Discord_Server_ID = '821855877514133504';
   	$discord_api = file_get_contents('https://discord.com/api/guilds/'.$Discord_Server_ID.'/widget.json');
   	$discord_api_decode = json_decode($discord_api, true);
   	$discord_api_online = $discord_api_decode["presence_count"];
