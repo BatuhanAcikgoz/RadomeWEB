@@ -2,6 +2,17 @@ function URLBuild(path, full = false) {
     return (full ? fullSiteURL : siteURL) + path;
 }
 
+$(document).ready(function () {
+    $('[data-action="logout"]').click(function () {
+        const url = $(this).data('link');
+        $.post(url, {
+            token: csrfToken
+        }).done(function () {
+            window.location.reload();
+        });
+    });
+});
+
 $('.navbar-toggler').click(function() {
     $('.coldfire-navbar-menu').addClass("active");
     $('.overlay').addClass("active");
@@ -105,6 +116,7 @@ $(document).ready(function() {
                     $(elem).popover({ trigger: "manual", animation: false, content: "Loading..." }).popover("show");
                     $.get($(elem).data('poload'), function(d) {
                         (debugging && debugging == '1' ? console.log(d) : '');
+                        const data = JSON.parse(d);
                         cachedUsers[$(elem).data('poload')] = data;
                         $(elem).popover("dispose").popover({ trigger: "manual", animation: false, content: data.html }).popover("show");
                         $('.popover').mouseleave(function() {
