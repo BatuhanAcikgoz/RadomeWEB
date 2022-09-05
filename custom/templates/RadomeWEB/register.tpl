@@ -50,19 +50,19 @@
                         </div> {/if}
                         {assign var=counter value=1}
                     {foreach $FIELDS as $field_key => $field}
-                    <div class="form-control form-control-lg">
+                    <div class="form-group">
                         {if $field.type eq 1}
-                        <input type="text" name="{$field_key}" id="{$field_key}" value="{$field.value}"
+                        <input class="form-control form-control-lg" type="text" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             placeholder="{$field.placeholder}" tabindex="{$counter++}" {if $field.required}
                             required{/if}>
                         {else if $field.type eq 2}
                         <textarea name="{$field_key}" id="{$field_key}" placeholder="{$field.placeholder}"
                             tabindex="{$counter++}"></textarea>
                         {else if $field.type eq 3}
-                        <input type="date" name="{$field_key}" id="{$field_key}" value="{$field.value}"
+                        <input class="form-control form-control-lg" type="date" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             tabindex="{$counter++}">
                         {else if $field.type eq 4}
-                        <input type="password" name="{$field_key}" id="{$field_key}" value="{$field.value}"
+                        <input class="form-control form-control-lg" type="password" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             placeholder="{$field.placeholder}" tabindex="{$counter++}" {if $field.required}
                             required{/if}>
                         {else if $field.type eq 5}
@@ -74,10 +74,10 @@
                             {/foreach}
                         </select>
                         {else if $field.type eq 6}
-                        <input type="number" name="{$field_key}" id="{$field_key}" value="{$field.value}"
+                        <input class="form-control form-control-lg" type="number" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             placeholder="{$field.name}" tabindex="{$counter++}" {if $field.required} required{/if}>
                         {else if $field.type eq 7}
-                        <input type="email" name="{$field_key}" id="{$field_key}" value="{$field.value}"
+                        <input class="form-control form-control-lg" type="email" name="{$field_key}" id="{$field_key}" value="{$field.value}"
                             placeholder="{$field.placeholder}" tabindex="{$counter++}" {if $field.required}
                             required{/if}>
                         {else if $field.type eq 8}
