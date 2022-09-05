@@ -1,0 +1,183 @@
+<?php
+/*
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
+ *
+ *  License: MIT
+ *
+ *  Store module - Category Page
+ */
+
+// Always define page name
+define('PAGE', 'store');
+
+require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
+
+// Get category ID
+$category_id = explode('/', $route);
+$category_id = $category_id[count($category_id) - 1];
+
+if (!strlen($category_id)) {
+    require_once(ROOT_PATH . '404.php');
+    die();
+}
+
+$category_id = explode('-', $category_id);
+if (!is_numeric($category_id[0])) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+$category_id = $category_id[0];
+
+// Query category
+$category = DB::getInstance()->query('SELECT * FROM nl2_store_categories WHERE id = ?', [$category_id]);
+if (!$category->count()) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+
+$category = $category->first();
+if ($category->disabled == 1) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+
+$store_url = $store->getStoreURL();
+
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '=', $store_url . '/view'])->results();
+if (count($page_metadata)) {
+    define('PAGE_DESCRIPTION', str_replace(['{site}', '{category_title}', '{description}'], [SITE_NAME, Output::getClean($category->name), Output::getClean(strip_tags(Output::getDecoded($category->description)))], $page_metadata[0]->description));
+    define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+}
+
+$page_title = Output::getClean($category->name);
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+if (Input::exists()) {
+    if (Token::check(Input::get('token'))) {
+        $errors = [];
+
+        if (Input::get('type') == 'store_login') {
+            $validation = Validate::check($_POST, [
+                'username' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 16
+                ]
+            ]);
+
+            if ($validation->passed()) {
+                // Attempt to load customer
+                if (!$to_customer->login(Output::getClean(Input::get('username')))) {
+                    $errors[] = $language->get('user', 'invalid_mcname');
+                }
+
+                Redirect::to(URL::build($store_url . '/category/' . $category->id));
+            } else {
+                $errors[] = 'Unable to find a player with that username';
+            }
+        }
+    }
+}
+
+// Get products
+$products = DB::getInstance()->query('SELECT id, name, `order`, price, description, image FROM nl2_store_products WHERE category_id = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$category_id]);
+
+if (!$products->count()) {
+    $smarty->assign('NO_PRODUCTS', $store_language->get('general', 'no_products'));
+} else {
+    $products = $products->results();
+    $category_products = [];
+
+    foreach ($products as $product) {
+        $content = Output::getDecoded($product->description);
+        $content = Output::getPurified($content);
+
+        $image = (isset($product->image) && !is_null($product->image) ? (defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/' . 'uploads/store/' . Output::getClean(Output::getDecoded($product->image))) : null);
+
+        $category_products[] = [
+            'id' => Output::getClean($product->id),
+            'name' => Output::getClean($product->name),
+            'price' => Output::getClean($product->price),
+            'real_price' => Output::getClean($product->price),
+            'description' => $content,
+            'image' => $image,
+            'link' => URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->id))
+        ];
+    }
+
+    $smarty->assign('PRODUCTS', $category_products);
+}
+
+// Category description
+$content = Output::getDecoded($category->description);
+$content = Output::getPurified($content);
+
+$smarty->assign([
+    'ACTIVE_CATEGORY' => Output::getClean($category->name),
+    'BUY' => $store_language->get('general', 'buy'),
+    'CLOSE' => $language->get('general', 'close'),
+    'SALE' => $store_language->get('general', 'sale')
+]);
+
+if (isset($errors) && count($errors))
+    $smarty->assign('ERRORS', $errors);
+
+$smarty->assign([
+    'STORE' => $store_language->get('general', 'store'),
+    'STORE_URL' => URL::build($store_url),
+    'HOME' => $store_language->get('general', 'home'),
+    'HOME_URL' => URL::build($store_url),
+    'CATEGORIES' => $store->getNavbarMenu($category->name),
+    'CONTENT' => $content,
+    'TOKEN' => Token::get(),
+]);
+
+if ($store->isPlayerSystemEnabled() && !$to_customer->isLoggedIn()) {
+    $smarty->assign([
+        'PLEASE_ENTER_USERNAME' => $store_language->get('general', 'please_enter_username'),
+        'CONTINUE' => $store_language->get('general', 'continue'),
+    ]);
+    
+    $template_file = 'store/player_login.tpl';
+} else {
+    $template_file = 'store/category.tpl';
+}
+
+$template->assets()->include([
+    DARK_MODE
+        ? AssetTree::PRISM_DARK
+        : AssetTree::PRISM_LIGHT,
+    AssetTree::TINYMCE_SPOILER,
+]);
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('store_error')) {
+    $errors[] = Session::flash('store_error');
+}
+
+if (isset($success))
+    $smarty->assign([
+        'SUCCESS' => $success,
+        'SUCCESS_TITLE' => $language->get('general', 'success')
+    ]);
+
+if (isset($errors) && count($errors))
+    $smarty->assign([
+        'ERRORS' => $errors,
+        'ERRORS_TITLE' => $language->get('general', 'error')
+    ]);
+
+$template->onPageLoad();
+
+$smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+$smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate($template_file, $smarty);
