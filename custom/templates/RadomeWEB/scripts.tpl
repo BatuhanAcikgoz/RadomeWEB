@@ -4,4 +4,3 @@
 {foreach from=$TEMPLATE_JS item=script}
 	{$script}
 {/foreach}
-{/if}
