@@ -226,6 +226,17 @@ class Wiki_Module extends Module {
     public function onDisable() {
     }
 
+    public function getDebugInfo(): array {
+        // Services
+        $services_list = [];
+        foreach (Services::getInstance()->getAll() as $service) {
+            $services_list[] = [
+                'id' => Output::getClean($service->getId()),
+                'name' => Output::getClean($service->getName()),
+            ];
+        }
+	}	
+
     public function onPageLoad($user, $pages, $cache, $smarty, $navs, $widgets, $template) {
 
 		PermissionHandler::registerPermissions('Wiki', array(
@@ -299,14 +310,5 @@ class Wiki_Module extends Module {
 			}
 		}
     }	
-    public function getDebugInfo(): array {
-        // Services
-        $services_list = [];
-        foreach (Services::getInstance()->getAll() as $service) {
-            $services_list[] = [
-                'id' => Output::getClean($service->getId()),
-                'name' => Output::getClean($service->getName()),
-            ];
-        }
 }
 
