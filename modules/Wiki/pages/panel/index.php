@@ -356,7 +356,7 @@ if(!isset($_GET['action'])){
 	}
 }
 	
-Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $mod_nav], $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 if(Session::exists('staff_wiki'))
 	$success = Session::flash('staff_wiki');
