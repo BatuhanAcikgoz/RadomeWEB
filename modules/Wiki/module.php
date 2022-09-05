@@ -26,17 +26,6 @@ class Wiki_Module extends Module {
 		$this->_wiki_language = $wiki_language;
 	}
 
-
-    public function getDebugInfo(): array {
-        // Services
-        $services_list = [];
-        foreach (Services::getInstance()->getAll() as $service) {
-            $services_list[] = [
-                'id' => Output::getClean($service->getId()),
-                'name' => Output::getClean($service->getName()),
-            ];
-        }
-
     public function onInstall() {
 		try {
 			$engine = Config::get('mysql/engine');
@@ -174,7 +163,7 @@ class Wiki_Module extends Module {
 			));
 		} catch(Exception $e){}
     }
-
+	
     public function onUninstall() {
 
     }
@@ -309,5 +298,15 @@ class Wiki_Module extends Module {
 				$navs[2]->add('wiki', $this->_wiki_language->get('wiki', 'wiki'), URL::build('/panel/wiki'), 'top', null, $order + 0.1, $icon);
 			}
 		}
-    }
+    }	
+    public function getDebugInfo(): array {
+        // Services
+        $services_list = [];
+        foreach (Services::getInstance()->getAll() as $service) {
+            $services_list[] = [
+                'id' => Output::getClean($service->getId()),
+                'name' => Output::getClean($service->getName()),
+            ];
+        }
 }
+
