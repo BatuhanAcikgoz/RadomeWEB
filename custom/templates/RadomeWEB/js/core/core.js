@@ -104,6 +104,7 @@ $('[data-toggle="popover"]').popover({ trigger: "manual", html: true, animation:
     }, 300);
 });
 
+
 $(document).ready(function() {
     var cachedUsers = {};
     var timeoutId;
@@ -153,7 +154,10 @@ $(document).ready(function() {
     const timezone = document.getElementById('timezone');
 
     if (timezone) {
-      timezone.value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const timezoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (timezoneValue) {
+          timezone.value = timezoneValue;
+        }
     }
 });
 
