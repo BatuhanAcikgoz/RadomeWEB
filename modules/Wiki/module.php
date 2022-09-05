@@ -7,9 +7,10 @@
 
 class Wiki_Module extends Module {
 
+	private DB $_db;
 	private $_wiki_language;
 
-	public function __construct($wiki_language, $pages) {
+	public function __construct($wiki_language, $pages, $_db) {
 
         $name = 'Wiki';
 		$author = '<a href="https://reflexlabs.xyz/" target="_blank">reflexLabs</a>';
@@ -24,6 +25,7 @@ class Wiki_Module extends Module {
 		$pages->add('Wiki', '/queries/like', 'queries/like.php');
 
 		$this->_wiki_language = $wiki_language;
+		$this->_db = DB::getInstance();
 	}
 
     public function onInstall() {
@@ -38,7 +40,7 @@ class Wiki_Module extends Module {
 		if(!$engine || is_array($engine))
 			$engine = 'InnoDB';
 
-		if(!$charset || is_array($charset))
+		if(!$charset || is_array($charset)
 			$charset = 'latin1';
 
 		$queries = new Queries();
