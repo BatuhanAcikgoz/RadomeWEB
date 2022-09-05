@@ -113,7 +113,7 @@ $(document).ready(function() {
             timeoutId = window.setTimeout(function() {
                 timeoutId = null;
                 if (!($(elem).data('poload') in cachedUsers)) {
-                    $(elem).popover({ trigger: "manual", animation: false, content: "Loading..." }).popover("show");
+                    $(elem).popover({ trigger: "manual", animation: false, content: "Yükleniyor..." }).popover("show");
                     $.get($(elem).data('poload'), function(d) {
                         (debugging && debugging == '1' ? console.log(d) : '');
                         var data = JSON.parse(d);
