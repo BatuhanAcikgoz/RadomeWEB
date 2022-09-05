@@ -248,9 +248,6 @@ class Wiki_Module extends Module {
 				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/plugins/spoiler/js/spoiler.js' => [],
 				  (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/plugins/ckeditor/ckeditor.js' => [],
 			]);
-			$template->addJSScript(Input::createTinyEditor('InputMessage', true));
-			$template->addJSScript(Input::createTinyEditor('InputWikiPage', true));
-			$template->addJSScript(Input::createTinyEditor('InputWikiContext', true));
 		}
 
 	  	$cache->setCache('nav_location');
