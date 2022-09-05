@@ -104,50 +104,30 @@ $('[data-toggle="popover"]').popover({ trigger: "manual", html: true, animation:
     }, 300);
 });
 
-$(document).ready(function() {
-    var cachedUsers = {};
-    var timeoutId;
-    $('*[data-poload]').mouseenter(function() {
-        var elem = this;
-        if (!timeoutId) {
-            timeoutId = window.setTimeout(function() {
-                timeoutId = null;
-                if (!($(elem).data('poload') in cachedUsers)) {
-                    $(elem).popover({ trigger: "manual", animation: false, content: "Loading..." }).popover("show");
-                    $.get($(elem).data('poload'), function(d) {
-                        (debugging && debugging == '1' ? console.log(d) : '');
-                        var data = JSON.stringify(d);
-                        cachedUsers[$(elem).data('poload')] = data;
-                        $(elem).popover("dispose").popover({ trigger: "manual", animation: false, content: data.html }).popover("show");
-                        $('.popover').mouseleave(function() {
-                            if (!$(".popover:hover").length) {
-                                $(this).popover("hide");
-                            }
-                        });
-                    });
-                } else {
-                    var data = cachedUsers[$(elem).data('poload')];
-                    $(elem).popover({ trigger: "manual", animation: false, content: data.html }).popover("show");
-                    $('.popover').mouseleave(function() {
-                        if (!$(".popover:hover").length) {
-                            $(this).popover("hide");
-                        }
-                    });
-                }
-            }, 1000);
-        }
-    }).mouseleave(function() {
-        var elem = this;
-        if (timeoutId) {
-            window.clearTimeout(timeoutId);
-            timeoutId = null;
-        } else {
-            setTimeout(function() {
-                if (!$(".popover:hover").length) {
-                    $(elem).popover("hide");
-                }
-            }, 200);
-        }
+$(function () {
+    const cachedUsers = {};
+
+    $('*[data-poload]').mouseenter(function () {
+        const elem = this;
+        $.get($(elem).data('poload'),
+            function (d) {
+                (debugging ? console.log(d) : '');
+                const data = JSON.parse(d);
+                cachedUsers[$(elem).data('poload')] = data;
+                const tmp = document.createElement('div');
+                tmp.innerHTML = data.html;
+                const img = tmp.getElementsByTagName('img')[0];
+                const image = new Image();
+                image.src = img.src;
+            }
+        );
+    });
+
+    $('*[data-poload]').popup({
+        hoverable: true,
+        html: '<i class="circle notch loading icon"></i>',
+        delay: { show: 500, hide: 200 },
+        onShow: function (e) { this.html(cachedUsers[$(e).data('poload')].html) }
     });
 
     const timezone = document.getElementById('timezone');
@@ -155,9 +135,10 @@ $(document).ready(function() {
     if (timezone) {
         const timezoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone;
         if (timezoneValue) {
-          timezone.value = timezoneValue;
+            timezone.value = timezoneValue;
         }
     }
+
 });
 
 function copyToClipboard(element) {
