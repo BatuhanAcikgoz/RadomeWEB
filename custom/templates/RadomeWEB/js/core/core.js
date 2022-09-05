@@ -2,17 +2,6 @@ function URLBuild(path, full = false) {
     return (full ? fullSiteURL : siteURL) + path;
 }
 
-$(document).ready(function () {
-    $('[data-action="logout"]').click(function () {
-        const url = $(this).data('link');
-        $.post(url, {
-            token: csrfToken
-        }).done(function () {
-            window.location.reload();
-        });
-    });
-});
-
 $('.navbar-toggler').click(function() {
     $('.coldfire-navbar-menu').addClass("active");
     $('.overlay').addClass("active");
