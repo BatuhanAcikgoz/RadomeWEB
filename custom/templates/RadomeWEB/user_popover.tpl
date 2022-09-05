@@ -13,6 +13,7 @@
     <br />{if count($GROUPS)}
     <div class="popover-text-btm">
         {if isset($REGISTERED)}<small>{$REGISTERED}</small><br />{/if} {if isset($TOPICS) && isset($POSTS)}
+        <small>{$TOPICS}</small> &bull; <small>{$POSTS}</small> {/if}
     </div>
     {/if}
 </div>
