@@ -75,21 +75,6 @@
                             <input type="password" name="password_again" id="password_again" class="form-control form-control-lg" placeholder="{$CONFIRM_PASSWORD}" tabindex="5">
                         </div>
 
-                        {if count($CUSTOM_FIELDS)}
-                            {foreach $CUSTOM_FIELDS as $field}
-                                <div class="form-group">
-                                <label class="float-left">{$field.name}</label>
-                                    {if $field.type eq 1}
-                                    <input class="form-control form-control-lg" type="text" name="{$field.name}" id="{$field.name}" value="{$field.value}" placeholder="{$field.name}" tabindex="5">
-                                    {elseif $field.type eq 2}
-                                    <textarea class="form-control form-control-lg" name="{$field.name}" id="{$field.name}" placeholder="{$field.description}" tabindex="5"></textarea>
-                                    {elseif $field.type eq 3}
-                                    <input class="form-control form-control-lg" type="date" name="{$field.name}" id="{$field.name}" value="{$field.value}" tabindex="5">
-                                    {/if}
-                                </div>
-                            {/foreach}
-                        {/if}
-
                         <div class="row">
                             <div class="col-4 col-md-5 col-lg-4">
                                 <span class="button-checkbox">
