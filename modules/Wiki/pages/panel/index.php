@@ -46,17 +46,16 @@ if(!isset($_GET['action'])){
 	if(Input::exists()){
 		$errors = [];
 		if(Token::check(Input::get('token'))){
-			$validate = new Validate();
-			$validation = $validate->check($_POST, [
+			$validation = Validate::check($_POST, [
 				'message' => [
-					'required' => true,
-					'max' => 8192
+					Validate::REQUIRED => true,
+					Validate::MAX => 8192
 				],
 				'link_location' => [
-					'required' => true
+					Validate::REQUIRED => true
 				],
 				'icon' => [
-					'max' => 64
+					Validate::MAX => 64
 				]
 			]);		
 			if($validation->passed()){			
@@ -104,29 +103,28 @@ if(!isset($_GET['action'])){
 			if(Input::exists()){
 				$errors = [];
 				if(Token::check(Input::get('token'))){
-					$validate = new Validate();
-					$validation = $validate->check($_POST, [
+					$validation = Validate::check($_POST, [
 						'wiki_page_title' => [
-							'required' => true,
-							'min' => 1,
-							'max' => 48
+							Validate::REQUIRED => true,
+							Validate::MIN => 1,
+							Validate::MAX => 48
 						],
 						'wiki_page_id' => [
-							'required' => true,
-							'min' => 1,
-							'max' => 48
+							Validate::REQUIRED => true,
+							Validate::MIN => 1,
+							Validate::MAX => 48
 						],
 						'wiki_page_button' => [
-							'required' => true,
-							'min' => 1,
-							'max' => 48
+							Validate::REQUIRED => true,
+							Validate::MIN => 1,
+							Validate::MAX => 48
 						],
 						'wiki_page_icon' => [
-							'max' => 96
+							Validate::MAX => 96
 						],
 						'wiki_page_context' => [
-							'required' => true,
-							'min' => 1
+							Validate::REQUIRED => true,
+							Validate::MIN => 1
 						]
 					]);
 					if($wiki->isPageExists(htmlspecialchars(Input::get('wiki_page_id')))){
