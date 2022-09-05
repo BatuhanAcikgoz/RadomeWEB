@@ -117,7 +117,7 @@ $(document).ready(function() {
                     $(elem).popover({ trigger: "manual", animation: false, content: "Loading..." }).popover("show");
                     $.get($(elem).data('poload'), function(d) {
                         (debugging && debugging == '1' ? console.log(d) : '');
-                        var data = JSON.parse(d);
+                        var data = JSON.stringify(d);
                         cachedUsers[$(elem).data('poload')] = data;
                         $(elem).popover("dispose").popover({ trigger: "manual", animation: false, content: data.html }).popover("show");
                         $('.popover').mouseleave(function() {
