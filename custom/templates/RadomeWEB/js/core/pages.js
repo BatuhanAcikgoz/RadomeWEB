@@ -106,21 +106,28 @@ if (page !== '') {
                     var html = "";
                     if (data.status_value == 1) {
                         html = "<p>" + online + "</p><p>" + data.player_count + "/" + data.player_count_max + "</p>";
-                        if (serverBungee === 1) {
-                            players = bungeeInstance;
+                        if (serverBungee == 1) {
+                            html += "<p>" + bungeeInstance + "</p>";
                         } else if (serverBedrock === 1) {
-                            players = '';
+                            
                         } else {
                             if (serverPlayerList == 1) {
-                                if (data.player_list.length > 0) {
+                                if (data.player_count > 0 && data.player_list.length <= 0) {
+									// Weird edge case where player list is empty but the player count is > 0
+									if (data.player_count > 1) {
+										players += xPlayersOnline.replace('{{count}}', data.player_count);
+									} else {
+										players += onePlayerOnline;
+									}
+								} else if (data.player_list.length > 0) {
                                     html += "<p>";
                                     for (var i = 0; i < data.player_list.length; i++) {
-                                        html += '<a href="' + URLBuild('profile/' + data.player_list[i].name) + '" data-tooltip="' + data.player_list[i].name + '" data-variation="mini" data-inverted="" data-position="bottom center"><img style="margin-bottom:3px;max-width:32px;max-height:32px;" class="ui mini circular image" src="' + avatarSource.replace('{identifier}', data.player_list[i].id).replace('{size}', 64) + '" alt="' + data.player_list[i].name + '"></a> ';
+                                        html += "<a href='" + URLBuild('profile/' + data.player_list[i].name) + "' \><img style=\"margin-bottom:3px;max-width:32px;max-height:32px;\" data-toggle=\"tooltip\" title=\"" + data.player_list[i].name + "\" src=\"" + avatarSource.replace("{identifier}", data.player_list[i].id).replace("{size}", 64) + "\" class=\"avatar-img\" alt=\"" + data.player_list[i].name + "\"></a> ";
                                     }
                                     html += "</p>";
                                     if (data.player_list.length < data.player_count) {
                                         let andXMore = andMoreX;
-                                        html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{{count}}", (data.player_count - data.player_list.length)) + "</span></p>";
+                                        html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{x}", (data.player_count - data.player_list.length)) + "</span></p>";
                                     }
                                 } else {
                                     html += "<p>" + noPlayersOnline + "</p>";
