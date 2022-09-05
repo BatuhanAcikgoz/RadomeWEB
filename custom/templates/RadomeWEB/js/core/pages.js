@@ -127,7 +127,7 @@ if (page !== '') {
                                     html += "</p>";
                                     if (data.player_list.length < data.player_count) {
                                         let andXMore = andMoreX;
-                                        html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{x}", (data.player_count - data.player_list.length)) + "</span></p>";
+                                        html += "<p><span class=\"badge badge-secondary\">" + andXMore.replace("{{count}}", (data.player_count - data.player_list.length)) + "</span></p>";
                                     }
                                 } else {
                                     html += "<p>" + noPlayersOnline + "</p>";
