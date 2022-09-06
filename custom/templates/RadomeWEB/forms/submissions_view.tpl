@@ -41,16 +41,6 @@
                         </div>
                     </div>
                     </br>
-
-                    {foreach from=$ANSWERS item=answer}
-                        <strong>{$answer.question}</strong>
-                        {if $answer.field_type != 10}
-                          <p>{$answer.answer}</p>
-                        {else}
-                          <p><a href="{$PATH_TO_UPLOADS}{$answer.answer}" target="_blank">{$answer.answer}</a></p>
-                        {/if}
-                      {/foreach}
-
                     <h5>{$COMMENTS_TEXT}</h5>
                     {if count($COMMENTS)} {foreach from=$COMMENTS item=comment}
                     <div class="card">
