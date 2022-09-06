@@ -84,6 +84,7 @@
 
 {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
 <div class="modal fade" id="modal-unlink-{$provider_name}" tabindex="-1" role="dialog" aria-hidden="true">    
+<div class="modal-content">
 <div class="modal-dialog" role="document">
     <div class="modal-header">
         {$UNLINK} {$provider_name|ucfirst}
@@ -102,9 +103,11 @@
     </div>
 </div>
 </div>
+</div>
 
 <div class="modal fade" id="modal-link-{$provider_name}" tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog" role="document">
+<div class="modal-content">
     <div class="modal-header">
         {$LINK} {$provider_name|ucfirst}
     </div>
@@ -115,6 +118,7 @@
         <a class="btn btn-secondary">{$NO}</a>
         <a class="btn btn-primary" href="{$provider_data.url}">{$CONFIRM}</a>
     </div>
+</div>
 </div>
 </div>
 {/foreach}
