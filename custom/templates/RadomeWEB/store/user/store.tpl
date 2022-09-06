@@ -3,7 +3,7 @@
 {if isset($SUCCESS)}
     <div class="ui success icon message">
         <i class="check icon"></i>
-        <div class="content">
+        <div class="card-body">
             {$SUCCESS}
         </div>
     </div>
@@ -12,7 +12,7 @@
 {if isset($ERRORS)}
     <div class="ui negative icon message">
         <i class="x icon"></i>
-        <div class="content">
+        <div class="card-body">
             {foreach from=$ERRORS item=error}
                 {$error}<br />
             {/foreach}
@@ -58,7 +58,7 @@
                         </table>
                     {else}
                         <div class="ui info message">
-                            <div class="content">
+                            <div class="card-body">
                                 {$NO_TRANSACTIONS}
                             </div>
                         </div>
@@ -74,7 +74,7 @@
     <div class="header">
         {$SEND_CREDITS}
     </div>
-    <div class="content">
+    <div class="card-body">
         <form class="ui form" action="" method="post" id="sendCredits">
             <div class="field">
                 <label for="InputTo">{$TO}</label>

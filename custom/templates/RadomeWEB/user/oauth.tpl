@@ -14,7 +14,7 @@
                 {if isset($SUCCESS_MESSAGE)}
                 <div class="ui success icon message">
                     <i class="check icon"></i>
-                    <div class="content">
+                    <div class="card-body">
                         <div class="header">{$SUCCESS}</div>
                         {$SUCCESS_MESSAGE}
                     </div>
@@ -23,7 +23,7 @@
                 {if isset($ERROR_MESSAGE)}
                 <div class="ui negative icon message">
                     <i class="x icon"></i>
-                    <div class="content">
+                    <div class="card-body">
                         <div class="header">{$ERROR}</div>
                         {$ERROR_MESSAGE}
                     </div>
@@ -70,7 +70,7 @@
                     </table>
                     {else}
                     <div class="ui info message">
-                        <div class="content">
+                        <div class="card-body">
                             {$NO_PROVIDERS}
                         </div>
                     </div>
@@ -87,7 +87,7 @@
     <div class="header">
         {$UNLINK} {$provider_name|ucfirst}
     </div>
-    <div class="content">
+    <div class="card-body">
         {$OAUTH_MESSAGES[$provider_name]['unlink_confirm']}
     </div>
     <div class="actions">
@@ -105,7 +105,7 @@
     <div class="header">
         {$LINK} {$provider_name|ucfirst}
     </div>
-    <div class="content">
+    <div class="card-body">
         {$OAUTH_MESSAGES[$provider_name]['link_confirm']}
     </div>
     <div class="actions">
