@@ -1,15 +1,22 @@
-<div class="callout callout-info">
-    <h5><i class="icon fa fa-info-circle"></i> {$INFO}</h5>
-    {$WIDGET_CACHED}
+<div class="ui fluid card" id="widget-featured-package">
+    <div class="content">
+        <h4 class="ui header">{$LATEST_PURCHASES}</h4>
+        {if isset($LATEST_PURCHASES_LIST) && count($LATEST_PURCHASES_LIST)}
+            {foreach from=$LATEST_PURCHASES_LIST item=purchase name=purchaseLoop}
+                <div class="ui relaxed list">
+                    <div class="item">
+                        <img class="ui mini circular image" src="{$purchase.avatar}" alt="{$purchase.username}">
+                        <div class="content">
+                            <a class="header" {if $purchase.user_id}href="{$purchase.profile}" data-poload="{$USER_INFO_URL}{$purchase.user_id}"{/if} style="{$purchase.style|replace:';':''}!important;margin-bottom:2px">{$purchase.username}</a>
+                            {$purchase.currency_symbol}{$purchase.price} {$purchase.currency}
+                        </div>
+                    </div>
+                </div>
+                {if not $smarty.foreach.purchaseLoop.last}<div class="ui divider"></div>{/if}
+            {/foreach}
+        {else}
+            <div class="ui divider"></div>
+            {$NO_PURCHASES}
+        {/if}
+    </div>
 </div>
-
-<form action="" method="post">
-    <div class="form-group">
-        <label for="inputPackageLimit">{$LATEST_PURCHASES_LIMIT}</label>
-        <input id="inputPackageLimit" name="limit" type="number" min="1" class="form-control" placeholder="{$LATEST_PURCHASES_LIMIT}" value="{$LATEST_PURCHASES_LIMIT_VALUE}">
-    </div>
-    <div type="form-group">
-        <input type="hidden" name="token" value="{$TOKEN}">
-        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-    </div>
-</form>
