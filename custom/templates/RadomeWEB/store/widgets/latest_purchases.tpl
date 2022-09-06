@@ -15,8 +15,7 @@
                 {if not $smarty.foreach.purchaseLoop.last}<div class="card-body"></div>{/if}
             {/foreach}
         {else}
-            <div class="card-body"></div>
-            {$NO_PURCHASES}
+            <div class="card-body">{$NO_PURCHASES}</div>
         {/if}
     </div>
 </div>

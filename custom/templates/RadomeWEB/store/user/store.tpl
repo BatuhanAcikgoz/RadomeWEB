@@ -1,10 +1,5 @@
 {include file='header.tpl'}
 {include file='navbar.tpl'}
-
-<h2 class="ui header">
-    {$TITLE}
-</h2>
-
 {if isset($SUCCESS)}
     <div class="ui success icon message">
         <i class="check icon"></i>
@@ -25,22 +20,22 @@
     </div>
 {/if}
 
-<div class="ui stackable grid" id="user">
-    <div class="ui centered row">
-        <div class="ui six wide tablet four wide computer column">
+<div class="container" id="user">
+    <div class="row">
+        <div class="col-md-3">
             {include file='user/navigation.tpl'}
         </div>
-        <div class="ui ten wide tablet twelve wide computer column">
-            <div class="ui segment">
-                <h3 class="ui header">{$STORE}
+        <div class="col-md-9">
+            <div class="card">
+                <h3 class="card-header header-theme">{$STORE}
                     {if isset($CAN_SEND_CREDITS)}<div class="res right floated"><a class="ui mini green button" data-toggle="modal" data-target="#modal-send-credits">{$SEND_CREDITS}</a></div>{/if}
                 </h3>
                 
                 <p>{$CREDITS}: {$CURRENCY_SYMBOL}{$CREDITS_VALUE} {$CURRENCY}</p>
             </div>
             
-            <div class="ui segment">
-                <h3 class="ui header">{$MY_TRANSACTIONS}</h3>
+            <div class="card">
+                <h3 class="card-header header-themer">{$MY_TRANSACTIONS}</h3>
                 {nocache}
                     {if count($TRANSACTIONS_LIST)}
                         <table class="ui fixed single line selectable unstackable small padded res table">
