@@ -23,14 +23,14 @@
 </div>
 {/if}
 
-<div class="ui stackable grid" id="alerts">
-    <div class="ui centered row">
-        <div class="ui six wide tablet four wide computer column">
+<div class="container" id="alerts">
+    <div class="row">
+        <div class="col-md-3">
             {include file='user/navigation.tpl'}
         </div>
-        <div class="ui ten wide tablet twelve wide computer column">
-            <div class="ui segment">
-                <h3 class="ui header">
+        <div class="col-md-9">
+            <div class="card">
+                <h3 class="card-header header-theme">
                     {$CONNECTIONS}
                 </h3>
 
