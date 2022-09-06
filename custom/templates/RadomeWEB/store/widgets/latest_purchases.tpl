@@ -3,9 +3,9 @@
         <div class="card-header header-theme">{$LATEST_PURCHASES}</div>
         {if isset($LATEST_PURCHASES_LIST) && count($LATEST_PURCHASES_LIST)}
             {foreach from=$LATEST_PURCHASES_LIST item=purchase name=purchaseLoop}
-                <div class="ui relaxed list">
+                <div class="card-body">
                     <div class="item">
-                        <img class="ui mini circular image" src="{$purchase.avatar}" alt="{$purchase.username}">
+                        <img class="avat" src="{$purchase.avatar}" alt="{$purchase.username}">
                         <div class="content">
                             <a class="header" {if $purchase.user_id}href="{$purchase.profile}" data-poload="{$USER_INFO_URL}{$purchase.user_id}"{/if} style="{$purchase.style|replace:';':''}!important;margin-bottom:2px">{$purchase.username}</a>
                             {$purchase.currency_symbol}{$purchase.price} {$purchase.currency}

@@ -15,7 +15,7 @@
                 <div class="ui success icon message">
                     <i class="check icon"></i>
                     <div class="card-body">
-                        <div class="header">{$SUCCESS}</div>
+                        <div class="header">{$SUCCESS} <p>{$SUCCESS_MESSAGE}</p></div>
                         {$SUCCESS_MESSAGE}
                     </div>
                 </div>
@@ -37,15 +37,15 @@
                             {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
                             <tr>
                                 <td>
-                                    <div class="ui stackable middle aligned grid">
+                                    <div class="col-md-9">
                                         <div class="row">
-                                            <div class="ten wide column">
+                                            <div class="col-md-4">
                                                 {if $provider_data.icon}
                                                 <i class="{$provider_data.icon} fa-lg">&nbsp;</i>
                                                 {/if}
                                                 {$provider_name|ucfirst}
                                             </div>
-                                            <div class="four wide column">
+                                            <div class="col-md-4">
                                                 {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
                                                 <div class="res right floated">
                                                     <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
@@ -54,7 +54,7 @@
                                             </div>
                                             <div class="two wide column right aligned">
                                                 {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
-                                                <a class="ui mini red button" href="#" data-toggle="modal"
+                                                <a class="btn btn-theme res right floated" href="#" data-toggle="modal"
                                                     data-target="#modal-unlink-{$provider_name}">{$UNLINK}</a>
                                                 {else}
                                                 <a class="ui mini green button" href="#" data-toggle="modal"
