@@ -31,11 +31,11 @@
                     {if isset($CAN_SEND_CREDITS)}<div class="res right floated"><a class="ui mini green button" data-toggle="modal" data-target="#modal-send-credits">{$SEND_CREDITS}</a></div>{/if}
                 </h3>
                 
-                <p>{$CREDITS}: {$CURRENCY_SYMBOL}{$CREDITS_VALUE} {$CURRENCY}</p>
+                <div class="card-body">{$CREDITS}: {$CREDITS_VALUE}{$CURRENCY_SYMBOL} {$CURRENCY}</div>
             </div>
             
             <div class="card">
-                <h3 class="card-header header-themer">{$MY_TRANSACTIONS}</h3>
+                <h3 class="card-header header-theme">{$MY_TRANSACTIONS}</h3>
                 {nocache}
                     {if count($TRANSACTIONS_LIST)}
                         <table class="ui fixed single line selectable unstackable small padded res table">
