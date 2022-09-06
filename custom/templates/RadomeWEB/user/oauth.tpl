@@ -83,34 +83,34 @@
 </div>
 
 {foreach $OAUTH_PROVIDERS as $provider_name => $provider_data}
-<div class="ui small modal" id="modal-unlink-{$provider_name}">
-    <div class="header">
+<div class="modal-dialog" id="modal-unlink-{$provider_name}">
+    <div class="modal-header">
         {$UNLINK} {$provider_name|ucfirst}
     </div>
-    <div class="card-body">
+    <div class="modal-body">
         {$OAUTH_MESSAGES[$provider_name]['unlink_confirm']}
     </div>
-    <div class="actions">
-        <a class="ui negative button">{$NO}</a>
-        <form class="ui form" action="" method="post" style="display: inline">
+    <div class="modal-footer">
+        <a class="btn btn-secondary">{$NO}</a>
+        <form class="btn btn-primary" action="" method="post" style="display: inline">
             <input type="hidden" name="token" value="{$TOKEN}">
             <input type="hidden" name="action" value="unlink">
             <input type="hidden" name="provider" value="{$provider_name}">
-            <input type="submit" class="ui green button" value="{$YES}">
+            <input type="submit" class="" value="{$YES}">
         </form>
     </div>
 </div>
 
-<div class="ui small modal" id="modal-link-{$provider_name}">
-    <div class="header">
+<div class="modal-dialog" id="modal-link-{$provider_name}">
+    <div class="modal-header">
         {$LINK} {$provider_name|ucfirst}
     </div>
-    <div class="card-body">
+    <div class="modal-body">
         {$OAUTH_MESSAGES[$provider_name]['link_confirm']}
     </div>
-    <div class="actions">
-        <a class="ui negative button">{$NO}</a>
-        <a class="ui green button" href="{$provider_data.url}">{$CONFIRM}</a>
+    <div class="modal-footer">
+        <a class="btn btn-secondary">{$NO}</a>
+        <a class="btn btn-primary" href="{$provider_data.url}">{$CONFIRM}</a>
     </div>
 </div>
 {/foreach}
