@@ -52,7 +52,7 @@
                                                 </div>
                                                 {/if}
                                             </div>
-                                            <div class="two wide column right aligned">
+                                            <div class="col-md-4">
                                                 {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
                                                 <a class="btn btn-theme res right floated" href="#" data-toggle="modal"
                                                     data-target="#modal-unlink-{$provider_name}">{$UNLINK}</a>
