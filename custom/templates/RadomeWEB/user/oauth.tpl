@@ -15,8 +15,7 @@
                 <div class="ui success icon message">
                     <i class="check icon"></i>
                     <div class="card-body">
-                        <div class="header">{$SUCCESS} <p>{$SUCCESS_MESSAGE}</p></div>
-                        {$SUCCESS_MESSAGE}
+                        <div class="card-header">{$SUCCESS} <p>{$SUCCESS_MESSAGE}</p></div>
                     </div>
                 </div>
                 {/if}
@@ -94,11 +93,11 @@
     </div>
     <div class="modal-footer">
         <a class="btn btn-secondary">{$NO}</a>
-        <form class="btn btn-primary" action="" method="post" style="display: inline">
+        <form class="form-group" action="" method="post" style="display: inline">
             <input type="hidden" name="token" value="{$TOKEN}">
             <input type="hidden" name="action" value="unlink">
             <input type="hidden" name="provider" value="{$provider_name}">
-            <input type="submit" class="" value="{$YES}">
+            <input type="submit" class="btn btn-theme" value="{$YES}">
         </form>
     </div>
 </div>
