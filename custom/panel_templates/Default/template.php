@@ -52,7 +52,7 @@ if (!class_exists('Default_Panel_Template')) {
                 var currentPanelTheme = $.cookie("nmc_panel_theme");
 
                 if (currentPanelTheme == null) {
-                    $.cookie("nmc_panel_theme", "light", { path: "/" });
+                    $.cookie("nmc_panel_theme", "dark", { path: "/" });
                 } else {
                     if (currentPanelTheme == "dark") {
                         $("html").addClass("dark");
