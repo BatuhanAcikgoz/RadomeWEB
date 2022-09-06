@@ -35,8 +35,8 @@
                 </h3>
 
                 {foreach from=$INTEGRATIONS item=integration}
-                <div class="ui segment">
-                    <div class="ui middle aligned stackable grid">
+                <div class="card">
+                    <div class="col-md-9">
                         <div class="one wide column right aligned mobile hidden">
                             <svg width="14" height="14" viewBox="0 0 14 14"
                                 fill="{if $integration.connected}{if $integration.verified}green{else}orange{/if}{else}red{/if}"
