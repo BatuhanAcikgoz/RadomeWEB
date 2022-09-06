@@ -1,6 +1,6 @@
-<div class="ui fluid card" id="widget-featured-package">
+<div class="card" id="widget-featured-package">
     <div class="content">
-        <h4 class="ui header">{$LATEST_PURCHASES}</h4>
+        <div class="card-header header-theme">{$LATEST_PURCHASES}</div>
         {if isset($LATEST_PURCHASES_LIST) && count($LATEST_PURCHASES_LIST)}
             {foreach from=$LATEST_PURCHASES_LIST item=purchase name=purchaseLoop}
                 <div class="ui relaxed list">
@@ -12,10 +12,10 @@
                         </div>
                     </div>
                 </div>
-                {if not $smarty.foreach.purchaseLoop.last}<div class="ui divider"></div>{/if}
+                {if not $smarty.foreach.purchaseLoop.last}<div class="card-body"></div>{/if}
             {/foreach}
         {else}
-            <div class="ui divider"></div>
+            <div class="card-body"></div>
             {$NO_PURCHASES}
         {/if}
     </div>
