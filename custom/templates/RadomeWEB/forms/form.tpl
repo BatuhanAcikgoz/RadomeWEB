@@ -36,25 +36,59 @@
                                             class="text-danger"><strong>*</strong></span>{/if}</label>
                                 {/if}
                                 {if $field.type == "1"}
-                                    <input class="form-control" type="text" name="{$field.id}" id="{$field.id}" placeholder="{$field.name}"{if $field.required} required{/if}>
+                                    <input class="form-control" type="text" name="{$field.id}" id="{$field.id}"
+                                        placeholder="{$field.name}" {if $field.required} required{/if}>
                                 {elseif $field.type == "2"}
-                                    <select class="form-control"  name="{$field.id}" id="{$field.id}"{if $field.required} required{/if}>
+                                    <select class="form-control" name="{$field.id}" id="{$field.id}" {if $field.required}
+                                        required{/if}>
                                         {foreach from=$field.options item=option}
                                             <option value="{$option}">{$option}</option>
                                         {/foreach}
                                     </select>
                                 {elseif $field.type == "3"}
-                                    <textarea class="form-control" name="{$field.id}" id="{$field.id}"{if $field.required} required{/if}></textarea>
+                                    <textarea class="form-control" name="{$field.id}" id="{$field.id}" {if $field.required}
+                                        required{/if}></textarea>
                                 {elseif $field.type == "6"}
-                                    <input type="number" class="form-control" name="{$field.id}" id="{$field.id}" placeholder="{$field.name}"{if $field.required} required{/if}>
+                                    <input type="number" class="form-control" name="{$field.id}" id="{$field.id}"
+                                        placeholder="{$field.name}" {if $field.required} required{/if}>
                                 {elseif $field.type == "7"}
-                                    <input type="email" class="form-control" name="{$field.id}" id="{$field.id}" placeholder="{$field.name}"{if $field.required} required{/if}>
+                                    <input type="email" class="form-control" name="{$field.id}" id="{$field.id}"
+                                        placeholder="{$field.name}" {if $field.required} required{/if}>
+                                {elseif $field.type == "8"}
+                                    {foreach from=$field.options item=option}
+                                        <div class="field">
+                                            <div class="ui radio checkbox">
+                                                <input type="radio" name="{$field.id}" value="{$option}"
+                                                    {if $field.required}required{/if}>
+                                                <label>{$option}</label>
+                                            </div>
+                                        </div>
+                                    {/foreach}
+                                {elseif $field.type == "9"}
+                                    {foreach from=$field.options item=option}
+                                        <div class="field">
+                                            <div class="ui checkbox">
+                                                <input type="checkbox" name="{$field.id}[]" value="{$option}">
+                                                <label>{$option}</label>
+                                            </div>
+                                        </div>
+                                    {/foreach}
+                                {elseif $field.type == "10"}
+                                    <div class="field">
+                                        <input type="file" class="inputFile" name="{$field.id}" id="uploadFileButton{$field.id}"
+                                            value="{$field.value}" hidden
+                                            onchange="$('#fileName{$field.id}').html(this.files[0].name);" />
+                                        <label class="ui icon labeled default button" for="uploadFileButton{$field.id}">
+                                            <i class="ui cloud upload icon"></i> <span
+                                                id="fileName{$field.id}">{$CHOOSE_FILE}</span>
+                                        </label>
+                                    </div>
                                 {/if}
                             </div>
                         {/foreach}
                         {if $CAPTCHA}
                             <div class="form-group">
-                              {$CAPTCHA}
+                                {$CAPTCHA}
                             </div>
                         {/if}
                         <input type="hidden" name="token" value="{$TOKEN}">
