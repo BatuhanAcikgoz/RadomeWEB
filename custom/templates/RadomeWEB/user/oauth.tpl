@@ -39,7 +39,7 @@
                                 <td>
                                     <div class="col-md-9">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" style="line-height: 2.5rem;">
                                                 {if $provider_data.icon}
                                                 <i class="{$provider_data.icon} fa-lg">&nbsp;</i>
                                                 {/if}
@@ -48,7 +48,7 @@
                                             <div class="col-md-4">
                                                 {if isset($USER_OAUTH_PROVIDERS[$provider_name])}
                                                 <div class="res right floated">
-                                                    <code>{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
+                                                    <code style="line-height: 2.5rem;">{$USER_OAUTH_PROVIDERS[$provider_name]->provider_id}</code>
                                                 </div>
                                                 {/if}
                                             </div>
