@@ -74,12 +74,12 @@
                                         </div>
                                     {/foreach}
                                 {elseif $field.type == "10"}
-                                    <div class="field">
+                                    <div class="form-control">
                                         <input type="file" class="form-label" name="{$field.id}" id="uploadFileButton{$field.id}"
                                             value="{$field.value}" hidden
                                             onchange="$('#fileName{$field.id}').html(this.files[0].name);" />
                                         <label class="form-label" for="uploadFileButton{$field.id}">
-                                            <i class="ui cloud upload icon"></i> <span
+                                            <i class="fas fa-cloud"></i> <span
                                                 id="fileName{$field.id}">{$CHOOSE_FILE}</span>
                                         </label>
                                     </div>
