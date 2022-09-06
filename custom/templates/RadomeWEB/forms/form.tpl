@@ -24,7 +24,7 @@
             <div class="card">
                 <div class="card-header header-theme">{$TITLE}</div>
                 <div class="card-body">
-                    <form action="" method="post" id="forms">
+                    <form action="" method="post" id="forms" enctype="multipart/form-data">
                         {foreach from=$FIELDS item=field}
                             <div class="form-group">
                                 {if $field.type == 5}
