@@ -35,24 +35,25 @@ class Wiki_Module extends Module {
 			$charset = 'utf8mb4';
 		}
 
-		if(!$engine || is_array($engine))
+		if(!$engine || is_[$engine])
 			$engine = 'InnoDB';
 
-		if(!$charset || is_array($charset))
-			$charset = 'latin1';			
+		if(!$charset || is_[$charset])
+			$charset = 'latin1';
 
+		$queries = new Queries();
 		try {
-			$this->_db->createTable("wiki_settings", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(8192) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-			$this->_db->createTable("wiki_pages", "`id` int(11) NOT NULL AUTO_INCREMENT, `parent` varchar(48) NOT NULL, `nameid` varchar(48) NOT NULL, `title` varchar(48) NOT NULL, `button` varchar(48) NOT NULL, `icon` varchar(96) NOT NULL, `context` longtext NOT NULL, `views` int(11) NOT NULL DEFAULT '0', `likes` int(11) NOT NULL DEFAULT '0', `likeable` int(11) NOT NULL DEFAULT '1', `enabled` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-			$this->_db->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$queries->createTable("wiki_settings", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(8192) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$queries->createTable("wiki_pages", "`id` int(11) NOT NULL AUTO_INCREMENT, `parent` varchar(48) NOT NULL, `nameid` varchar(48) NOT NULL, `title` varchar(48) NOT NULL, `button` varchar(48) NOT NULL, `icon` varchar(96) NOT NULL, `context` longtext NOT NULL, `views` int(11) NOT NULL DEFAULT '0', `likes` int(11) NOT NULL DEFAULT '0', `likeable` int(11) NOT NULL DEFAULT '1', `enabled` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$queries->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 		} catch(Exception $e){}
 		try {
-			$this->_db->insert('wiki_settings', [
+			$queries->create('wiki_settings', [
 				'name' => 'home_page',
 				'value' => '<div><span style="font-size:20px"><strong>Welcome to your new Wiki library!</strong></span><br />WIKI Module allows you to create unlimited amount of wiki pages,<br />Includes the ability to modify button text, title, icon, context and even the url&nbsp;ID!<br /><br /><strong>Go ahead and create your own library!</strong><br /><br /><strong>Note:</strong>&nbsp;Also, this home page section are editable in&nbsp;<strong><u><a href="/panel/wiki">StaffCP -&gt; Wiki</a></u></strong>.<br /><br />Useful links:</div><ul><li>Support through our <strong><a rel="nofollow noopener" target="_blank" href="https://discord.com/invite/es9hWUCPKN">Discord</a></strong>.</li></ul>'
 			]);
 
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Welcome',
 				'parent' => 'null',
 				'nameid' => 'welcome',
@@ -64,7 +65,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Rules',
 				'parent' => 'welcome',
 				'nameid' => 'rules',
@@ -76,7 +77,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Guides & Tips',
 				'parent' => 'welcome',
 				'nameid' => 'guide',
@@ -88,7 +89,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Pro Tips',
 				'parent' => 'welcome',
 				'nameid' => 'protips',
@@ -100,7 +101,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Commands',
 				'parent' => 'null',
 				'nameid' => 'commands',
@@ -112,7 +113,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Permissions',
 				'parent' => 'null',
 				'nameid' => 'permissions',
@@ -124,7 +125,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Ranks',
 				'parent' => 'null',
 				'nameid' => 'ranks',
@@ -136,7 +137,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Perks',
 				'parent' => 'ranks',
 				'nameid' => 'perks',
@@ -148,7 +149,7 @@ class Wiki_Module extends Module {
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
-			$this->_db->insert('wiki_pages', [
+			$queries->create('wiki_pages', [
 				'title' => 'Discord',
 				'parent' => 'null',
 				'nameid' => 'discord',
@@ -176,21 +177,22 @@ class Wiki_Module extends Module {
 			$charset = 'utf8mb4';
 		}
 
-		if(!$engine || is_array($engine))
+		if(!$engine || is_[$engine])
 			$engine = 'InnoDB';
-		
-		if(!$charset || is_array($charset))
-			$charset = 'latin1';
 
+		if(!$charset || is_[$charset])
+			$charset = 'latin1';
+			
+		$queries = new Queries();
 		try {
-			$group = $this->_db->get('groups', ['id', '=', 2])->results();
+			$group = $queries->getWhere('groups', ['id', '=', 2]);
 			$group = $group[0];
 			
 			$group_permissions = json_decode($group->permissions, TRUE);
 			$group_permissions['admincp.wiki'] = 1;
 			
 			$group_permissions = json_encode($group_permissions);
-			$this->_db->update('groups', 2, ['permissions' => $group_permissions]);
+			$queries->update('groups', 2, ['permissions' => $group_permissions]);
 
 			//update
 			try{
@@ -215,8 +217,8 @@ class Wiki_Module extends Module {
 		} catch(Exception $e){}
 
 		try {
-			if(!$this->_db->showTables("wiki_likes")){
-				$this->_db->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			if(!$queries->tableExists("wiki_likes")){
+				$queries->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			}
 		} catch(Exception $e){}
 	}
