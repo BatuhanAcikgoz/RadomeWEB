@@ -23,7 +23,9 @@ class Wiki_Module extends Module {
 		$pages->add('Wiki', '/panel/wiki', 'pages/panel/index.php');
 		$pages->add('Wiki', '/queries/like', 'queries/like.php');
 
+		$this->_db = DB::getInstance();
 		$this->_wiki_language = $wiki_language;
+
 	}
 
     public function onInstall() {
