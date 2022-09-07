@@ -43,9 +43,9 @@ class Wiki_Module extends Module {
 
 		$queries = new Queries();
 		try {
-			DB::getInstance()->createTable("wiki_settings", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(8192) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-			DB::getInstance()->createTable("wiki_pages", "`id` int(11) NOT NULL AUTO_INCREMENT, `parent` varchar(48) NOT NULL, `nameid` varchar(48) NOT NULL, `title` varchar(48) NOT NULL, `button` varchar(48) NOT NULL, `icon` varchar(96) NOT NULL, `context` longtext NOT NULL, `views` int(11) NOT NULL DEFAULT '0', `likes` int(11) NOT NULL DEFAULT '0', `likeable` int(11) NOT NULL DEFAULT '1', `enabled` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
-			DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$this->_db->createTable("wiki_settings", "`id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(8192) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$this->_db->createTable("wiki_pages", "`id` int(11) NOT NULL AUTO_INCREMENT, `parent` varchar(48) NOT NULL, `nameid` varchar(48) NOT NULL, `title` varchar(48) NOT NULL, `button` varchar(48) NOT NULL, `icon` varchar(96) NOT NULL, `context` longtext NOT NULL, `views` int(11) NOT NULL DEFAULT '0', `likes` int(11) NOT NULL DEFAULT '0', `likeable` int(11) NOT NULL DEFAULT '1', `enabled` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			$this->_db->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 		} catch(Exception $e){}
 		try {
 			$queries->create('wiki_settings', [
@@ -180,7 +180,7 @@ class Wiki_Module extends Module {
 		if(!$engine || is_array($engine))
 			$engine = 'InnoDB';
 
-		if(!$charset || is_array($charset))
+		if(!$charset || is_array($charset)
 			$charset = 'latin1';
 			
 		$queries = new Queries();
@@ -218,7 +218,7 @@ class Wiki_Module extends Module {
 
 		try {
 			if(!$queries->tableExists("wiki_likes")){
-				DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+				$this->_db->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			}
 		} catch(Exception $e){}
 	}
