@@ -183,7 +183,7 @@ class Wiki_Module extends Module {
 			$charset = 'latin1';
 
 		try {
-			$group = $this->_db->get('groups', ['id', '=', 1]);
+			$group = $this->_db->get('groups', array('id', '=', 2))->results();
 			$group = $group[0];
 			
 			$group_permissions = json_decode($group->permissions, TRUE);
