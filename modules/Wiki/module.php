@@ -175,12 +175,6 @@ class Wiki_Module extends Module {
 			$engine = 'InnoDB';
 			$charset = 'utf8mb4';
 		}
-
-		if(!$engine || is_array($engine))
-			$engine = 'InnoDB';
-
-		if(!$charset || is_array($charset))
-			$charset = 'latin1';
 			
 		try {
             $group = $this->_db->get('groups', ['id', '=', 2])->results();
