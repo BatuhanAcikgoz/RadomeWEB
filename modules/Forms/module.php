@@ -353,11 +353,11 @@ class Forms_Module extends Module {
                 $this->_db->createTable("forms", " `id` int(11) NOT NULL AUTO_INCREMENT, `url` varchar(32) NOT NULL, `title` varchar(32) NOT NULL, `guest` tinyint(1) NOT NULL DEFAULT '0', `link_location` tinyint(1) NOT NULL DEFAULT '1', `icon` varchar(64) NULL, `can_view` tinyint(1) NOT NULL DEFAULT '0', `captcha` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NULL DEFAULT NULL, `comment_status` int(11) NOT NULL DEFAULT '0', `source` varchar(32) NOT NULL DEFAULT 'forms', `forum_id` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
 
                 $this->_db->insert('forms', array(
-                    'url' => '/apply',
-                    'title' => 'Staff Applications',
+                    'url' => '/destek',
+                    'title' => 'Destek Talebi',
                     'guest' => 0,
-                    'link_location' => 1
-                    
+                    'link_location' => 1,
+                    'icon' => '<i class="fas fa-ticket-alt"></i>'                    
                 ));
             } catch (Exception $e) {
                 // Error
@@ -407,18 +407,41 @@ class Forms_Module extends Module {
                 
                 $this->_db->insert('forms_fields', array(
                     'form_id' => 1,
-                    'name' => 'Minecraft Name',
+                    'name' => 'Kategori',
                     'type' => 1,
                     'required' => 1,
-                    'order' => 1
+                    'order' => 1,
+                    'options' => 'Hile / Küfür
+                    ,Yetkili Başvuru
+                    ,Ödeme Öncesi
+                    ,Ödeme Sonrası
+                    ,Ceza İtiraf'
                 ));
                 $this->_db->insert('forms_fields', array(
                     'form_id' => 1,
-                    'name' => 'Why you want to become staff?',
-                    'type' => 3,
+                    'name' => 'Başlık',
+                    'type' => 4,
+                    'max' => '30',
+                    'min' => '3',
                     'required' => 1,
                     'order' => 2
                 ));
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Mesaj',
+                    'type' => 4,
+                    'max' => '30',
+                    'min' => '3',
+                    'required' => 1,
+                    'order' => 3
+                ));      
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Belge / Görsel',
+                    'type' => 10,
+                    'required' => 0,
+                    'order' => 4
+                ));                            
             } catch (Exception $e) {
                 // Error
             }
@@ -447,19 +470,19 @@ class Forms_Module extends Module {
                 $this->_db->createTable("forms_statuses", " `id` int(11) NOT NULL AUTO_INCREMENT, `html` varchar(1024) NOT NULL, `open` tinyint(1) NOT NULL, `fids` varchar(128) NULL, `gids` varchar(128) NULL, `color` varchar(32) NULL DEFAULT NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
                 
                 $this->_db->insert('forms_statuses', array(
-                    'html' => '<span class="badge badge-success">Open</span>',
+                    'html' => '<span class="badge badge-success">Açık</span>',
                     'open' => 1,
                     'fids' => '1',
                     'gids' => '2,3'
                 ));
                 $this->_db->insert('forms_statuses', array(
-                    'html' => '<span class="badge badge-danger">Closed</span>',
+                    'html' => '<span class="badge badge-danger">Kapandı</span>',
                     'open' => 0,
                     'fids' => '1',
                     'gids' => '2,3'
                 ));
                 $this->_db->insert('forms_statuses', array(
-                    'html' => '<span class="badge badge-warning">Under Considering</span>',
+                    'html' => '<span class="badge badge-warning">İşleme Alındı</span>',
                     'open' => 1,
                     'fids' => '1',
                     'gids' => '2,3'
