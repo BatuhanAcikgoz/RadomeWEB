@@ -6,7 +6,7 @@
  */
 
 class Wiki_Module extends Module {
-
+    private DB $_db;
 	private $_wiki_language;
 
 	public function __construct($wiki_language, $pages) {
