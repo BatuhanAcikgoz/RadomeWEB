@@ -35,11 +35,8 @@ class Wiki_Module extends Module {
 			$charset = 'utf8mb4';
 		}
 
-		if(!$engine || is_[$engine])
+		if(!$engine || is_array($engine))
 			$engine = 'InnoDB';
-
-		if(!$charset || is_[$charset])
-			$charset = 'latin1';
 
 		$queries = new Queries();
 		try {
@@ -177,11 +174,8 @@ class Wiki_Module extends Module {
 			$charset = 'utf8mb4';
 		}
 
-		if(!$engine || is_[$engine])
+		if(!$engine || is_array($engine))
 			$engine = 'InnoDB';
-
-		if(!$charset || is_[$charset])
-			$charset = 'latin1';
 			
 		$queries = new Queries();
 		try {
