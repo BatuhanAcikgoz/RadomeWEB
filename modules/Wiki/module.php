@@ -217,7 +217,7 @@ class Wiki_Module extends Module {
 		} catch(Exception $e){}
 
 		try {
-			if(!$this->_db->createTable("wiki_likes")){
+			if(!$this->_db->showTables("wiki_likes")){
 				DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			}
 		} catch(Exception $e){}
