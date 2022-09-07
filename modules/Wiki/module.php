@@ -177,7 +177,7 @@ class Wiki_Module extends Module {
 		if(!$engine || is_array($engine))
 			$engine = 'InnoDB';
 			
-		$queries = new Queries();
+			$queries = new Queries::__construct();
 		try {
 			$group = $queries->getWhere('groups', ['id', '=', 2]);
 			$group = $group[0];
