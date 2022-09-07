@@ -177,14 +177,14 @@ class Wiki_Module extends Module {
 			$engine = 'InnoDB';
 			
 		try {
-			$group = $queries->getWhere('groups', ['id', '=', 2]);
+			$group = $this->_db->get('groups', ['id', '=', 2]);
 			$group = $group[0];
 			
 			$group_permissions = json_decode($group->permissions, TRUE);
 			$group_permissions['admincp.wiki'] = 1;
 			
 			$group_permissions = json_encode($group_permissions);
-			$queries->update('groups', 2, ['permissions' => $group_permissions]);
+			$this->_db->update('groups', 2, ['permissions' => $group_permissions]);
 
 			//update
 			try{
@@ -209,7 +209,7 @@ class Wiki_Module extends Module {
 		} catch(Exception $e){}
 
 		try {
-			if(!$queries->tableExists("wiki_likes")){
+			if(!$this->_db->showTables("wiki_likes")){
 				$this->_db->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
 			}
 		} catch(Exception $e){}
