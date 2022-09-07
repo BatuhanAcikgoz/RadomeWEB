@@ -21,9 +21,9 @@ class Store_Module extends Module {
         $this->_cache = $cache;
 
         $name = 'Store';
-        $author = '<a href="https://partydragen.com/" target="_blank" rel="nofollow noopener">Partydragen</a>';
+        $author = '<a href="https://partydragen.com/" target="_blank" rel="nofollow noopener">Verira</a>';
         $module_version = '1.4.3';
-        $nameless_version = '2.0.1';
+        $nameless_version = '2.0.2';
 
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
