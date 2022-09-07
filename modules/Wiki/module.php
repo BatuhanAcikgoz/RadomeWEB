@@ -167,21 +167,7 @@ class Wiki_Module extends Module {
 
     }
 
-    public function onEnable() {
-		try {
-			$engine = Config::get('mysql/engine');
-			$charset = Config::get('mysql/charset');
-		} catch(Exception $e){
-			$engine = 'InnoDB';
-			$charset = 'utf8mb4';
-		}
-
-		if(!$engine || is_[$engine])
-			$engine = 'InnoDB';
-
-		if(!$charset || is_[$charset])
-			$charset = 'latin1';
-			
+    public function onEnable() {			
 		try {
             $group = $this->_db->get('groups', ['id', '=', 2])->results();
 			$group = $group[0];
@@ -216,7 +202,7 @@ class Wiki_Module extends Module {
 
 		try {
 			if(!$this->_db->createTable("wiki_likes")){
-				DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+				DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)");
 			}
 		} catch(Exception $e){}
 	}
