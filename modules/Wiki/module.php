@@ -182,9 +182,8 @@ class Wiki_Module extends Module {
 		if(!$charset || is_array($charset))
 			$charset = 'latin1';
 			
-		$queries = new Queries();
 		try {
-            $group = $this->_db->get('groups', array('id', '=', 2))->results();
+            $group = $this->_db->get('groups', ['id', '=', 2])->results();
 			$group = $group[0];
 			
 			$group_permissions = json_decode($group->permissions, TRUE);
@@ -226,6 +225,8 @@ class Wiki_Module extends Module {
     }
 
     public function getDebugInfo(): array {
+        return [];
+    
         // Services
         $services_list = [];
         foreach (Services::getInstance()->getAll() as $service) {
