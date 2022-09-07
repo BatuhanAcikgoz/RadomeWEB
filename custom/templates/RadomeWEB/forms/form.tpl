@@ -46,7 +46,7 @@
                                         {/foreach}
                                     </select>
                                 {elseif $field.type == "3"}
-                                    <textarea class="form-control" name="{$field.id}" id="{$field.id}" {if $field.required}
+                                    <textarea class="form-control" placeholder="Göndermek istediğiniz mesajı yazın." name="{$field.id}" id="{$field.id}" {if $field.required}
                                         required{/if}></textarea>
                                 {elseif $field.type == "6"}
                                     <input type="number" class="form-control" name="{$field.id}" id="{$field.id}"
