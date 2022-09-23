@@ -51,28 +51,28 @@ class Wiki_Module extends Module {
 		try {
 			$this->_db->insert('wiki_settings', [
 				'name' => 'home_page',
-				'value' => '<div><span style="font-size:20px"><strong>Welcome to your new Wiki library!</strong></span><br />WIKI Module allows you to create unlimited amount of wiki pages,<br />Includes the ability to modify button text, title, icon, context and even the url&nbsp;ID!<br /><br /><strong>Go ahead and create your own library!</strong><br /><br /><strong>Note:</strong>&nbsp;Also, this home page section are editable in&nbsp;<strong><u><a href="/panel/wiki">StaffCP -&gt; Wiki</a></u></strong>.<br /><br />Useful links:</div><ul><li>Support through our <strong><a rel="nofollow noopener" target="_blank" href="https://discord.com/invite/es9hWUCPKN">Discord</a></strong>.</li></ul>'
+				'value' => '<div><span style="font-size:20px"><strong>RadomeWEB Wiki Sayfasına Hoşgeldin!</strong></span><br />Bu kısımda istediğin kadar wiki sayfası oluşturabilirsin,<br />Düğme metnini, başlığı, simgeyi, urlyi ve daha bir çok şeyi düzenleyebilirsin.<br /><br /><strong>Admin panelinden istediğin değişikliği yapabilirsin.</strong><br /><br /><strong>Not:</strong>&nbsp;Ayrıca bu kısımı&nbsp;<strong><u><a href="/panel/wiki">Admin Paneli -&gt; Wiki</a></u></strong>.<br /><br />Bağlantılar:</div><ul><li>Desteği bu  <strong><a rel="nofollow noopener" target="_blank" href="https://discord.verira.com">Discord</a></strong> sunucusundan alabilirsiniz.</li></ul>'
 			]);
 
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Welcome',
+				'title' => 'Hoşgeldiniz',
 				'parent' => 'null',
 				'nameid' => 'welcome',
-				'button' => 'Welcome',
+				'button' => 'Hoşgeldiniz',
 				'icon' => 'fas fa-users',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;WELCOME&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains links and helpful information to beginners in our server.',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Hoşgeldiniz&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa, sunucumuzdaki yeni başlayanlar için bağlantılar ve faydalı bilgiler içerir.',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Rules',
+				'title' => 'Kurallar',
 				'parent' => 'welcome',
 				'nameid' => 'rules',
-				'button' => 'Rules',
+				'button' => 'Kurallar',
 				'icon' => 'fas fa-book',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;RULES&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt;Please check out our &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;http://website.com/rules&quot;&gt;&lt;strong&gt;rules&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Kurallar&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt;Kurallarımızı bu linkten görüntüleyebilirsiniz &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;https://verira.com/kullanim-sozlesmesi/',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',

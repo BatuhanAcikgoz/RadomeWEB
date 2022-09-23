@@ -17,7 +17,7 @@ class Vote_Module extends Module {
 		$this->_vote_language = $vote_language;
 
 		$name = 'Vote';
-		$author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>';
+		$author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
 		$module_version = '2.3.3';
 		$nameless_version = '2.0.2';
 
@@ -79,7 +79,7 @@ class Vote_Module extends Module {
 		// Navigation icon
 		$cache->setCache('navbar_icons');
 		if (!$cache->isCached('vote_icon')) {
-			$icon = '';
+			$icon = '<i class="fas fa-vote-yea"></i>';
 		} else {
 			$icon = $cache->retrieve('vote_icon');
 		}
@@ -172,12 +172,12 @@ class Vote_Module extends Module {
                 DB::getInstance()->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)");
 
                 DB::getInstance()->insert('vote_sites', [
-                    'site' => 'https://mc-server-list.com/',
-                    'name' => 'MC-Server-List (Example)'
+                    'site' => 'https://minecraft-mp.com',
+                    'name' => 'Minecraft-MP (Örnek)'
                 ]);
                 DB::getInstance()->insert('vote_sites', [
-                    'site' => 'http://planetminecraft.com/',
-                    'name' => 'PlanetMinecraft (Example)'
+                    'site' => 'https://topg.org/tr/',
+                    'name' => 'TOPG (Örnek)'
                 ]);
             }
 		} catch (Exception $e) {
@@ -191,7 +191,7 @@ class Vote_Module extends Module {
                 // Insert data
                 DB::getInstance()->insert('vote_settings', [
                     'name' => 'vote_message',
-                    'value' => 'You can manage this vote module in StaffCP -> Vote'
+                    'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
                 ]);
             }
         } catch (Exception $e) {
