@@ -230,13 +230,13 @@ class DatabaseInitialiser {
 
     private function initialiseTemplates(): void {
         $this->_db->insert('templates', [
-            'name' => 'DefaultRevamp',
+            'name' => 'RadomeWEB',
             'enabled' => true,
             'is_default' => true,
         ]);
 
         $this->_cache->setCache('templatecache');
-        $this->_cache->store('default', 'DefaultRevamp');
+        $this->_cache->store('default', 'RadomeWEB');
 
         $this->_db->insert('panel_templates', [
             'name' => 'Default',

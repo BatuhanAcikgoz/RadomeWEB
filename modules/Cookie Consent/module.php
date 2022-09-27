@@ -19,7 +19,7 @@ class CookieConsent_Module extends Module {
         $this->_cookie_language = $cookie_language;
 
         $name = 'Cookie Consent';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
+        $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '2.0.2';
         $nameless_version = '2.0.2';
 

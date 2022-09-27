@@ -21,7 +21,7 @@ class Store_Module extends Module {
         $this->_cache = $cache;
 
         $name = 'Store';
-        $author = '<a href="https://partydragen.com/" target="_blank" rel="nofollow noopener">Verira</a>';
+        $author = '<a href="https://batuhanacikgoz.com.tr/" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '1.4.3';
         $nameless_version = '2.0.2';
 
@@ -32,7 +32,7 @@ class Store_Module extends Module {
         if ($cache->isCached('store_url')) {
             $this->_store_url = Output::getClean(rtrim($cache->retrieve('store_url'), '/'));
         } else {
-            $this->_store_url = '/store';
+            $this->_store_url = '/magaza';
         }
 
         // Define URLs which belong to this module
@@ -120,7 +120,7 @@ class Store_Module extends Module {
 
         $cache->setCache('navbar_icons');
         if (!$cache->isCached('store_icon'))
-            $icon = '';
+            $icon = '<i class="fas fa-store"></i>';
         else
             $icon = $cache->retrieve('store_icon');
 
@@ -497,17 +497,17 @@ class Store_Module extends Module {
             try {
                 $this->_db->insert('store_settings', [
                     'name' => 'checkout_complete_content',
-                    'value' => 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed'
+                    'value' => 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.'
                 ]);
                 
                 $this->_db->insert('store_settings', [
                     'name' => 'currency',
-                    'value' => 'USD'
+                    'value' => 'TL'
                 ]);
                 
                 $this->_db->insert('store_settings', [
                     'name' => 'currency_symbol',
-                    'value' => '$'
+                    'value' => '₺'
                 ]);
                 
                 $allow_guests_query = $this->_db->get('store_settings', ['name', '=', 'allow_guests'])->results();
@@ -922,12 +922,12 @@ class Store_Module extends Module {
 
             $this->_db->insert('store_settings', [
                 'name' => 'currency',
-                'value' => 'USD'
+                'value' => 'TL'
             ]);
 
             $this->_db->insert('store_settings', [
                 'name' => 'currency_symbol',
-                'value' => '$'
+                'value' => '₺'
             ]);
 
             $this->_db->insert('store_settings', [

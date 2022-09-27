@@ -259,7 +259,7 @@ if (!isset($_GET['action'])) {
                     $template = DB::getInstance()->get('templates', ['id', $item])->results();
                     if (count($template)) {
                         $template = $template[0];
-                        if ($template->name == 'DefaultRevamp' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
+                        if ($template->name == 'RadomeWEB' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
                             Redirect::to(URL::build('/panel/core/templates'));
                         }
 

@@ -87,7 +87,7 @@ if ($page != 'install') {
     // These options don't make sense when making requests to IP addresses anyway
     if ($host !== null) {
         if (defined('FORCE_SSL') && HttpUtils::getProtocol() === 'http') {
-            if (defined('FORCE_WWW') && !str_contains(host, 'www.')) {
+            if (defined('FORCE_WWW') && !str_contains($host, 'www.')) {
                 Redirect::to('https://www.' . $host . $_SERVER['REQUEST_URI']);
             } else {
                 Redirect::to('https://.' . $host . $_SERVER['REQUEST_URI']);
@@ -228,7 +228,7 @@ if ($page != 'install') {
         $template = $cache->retrieve('default');
 
         if (!$template) {
-            define('TEMPLATE', 'DefaultRevamp');
+            define('TEMPLATE', 'RadomeWEB');
         } else {
             define('TEMPLATE', $template);
         }
@@ -241,7 +241,7 @@ if ($page != 'install') {
             $template = $cache->retrieve('default');
 
             if (!$template) {
-                define('TEMPLATE', 'DefaultRevamp');
+                define('TEMPLATE', 'RadomeWEB');
             } else {
                 define('TEMPLATE', $template);
             }
@@ -268,7 +268,7 @@ if ($page != 'install') {
                 $template = $cache->retrieve('default');
 
                 if (!$template) {
-                    define('TEMPLATE', 'DefaultRevamp');
+                    define('TEMPLATE', 'RadomeWEB');
                 } else {
                     define('TEMPLATE', $template);
                 }
@@ -396,7 +396,7 @@ if ($page != 'install') {
     if ($cache->isCached('index_icon')) {
         $home_icon = $cache->retrieve('index_icon');
     } else {
-        $home_icon = '';
+        $home_icon = '<i class="fas fa-home"></i>';
     }
 
     $navigation->add('index', $language->get('general', 'home'), URL::build('/'), 'top', null, $home_order, $home_icon);

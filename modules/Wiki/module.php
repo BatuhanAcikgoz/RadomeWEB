@@ -79,58 +79,58 @@ class Wiki_Module extends Module {
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Guides & Tips',
+				'title' => 'Kılavuzlar & İpuçları',
 				'parent' => 'welcome',
 				'nameid' => 'guide',
-				'button' => 'Guide',
+				'button' => 'Kılavuz',
 				'icon' => 'fas fa-question',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;GUIDES & TIPS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains guides and tips to beginners in our server.',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Kılavuzlar & İpuçları&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa sunucumuzda yeni başlayanlar için kılavuzlar ve ipuçları içerir.',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Pro Tips',
+				'title' => 'Detaylı Bilgilendirme',
 				'parent' => 'welcome',
 				'nameid' => 'protips',
-				'button' => 'Pro Tips',
+				'button' => 'Detaylı Bilgilendirme',
 				'icon' => 'fas fa-exclamation',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;PRO TIPS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains a pro tips to advenced players and begginers both.',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Detaylı Bilgilendirme&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa, sunucumuzdaki ileri düzey kullanıcılar ve oyuncular için bağlantılar ve faydalı bilgiler içerir.',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Commands',
+				'title' => 'Komutlar',
 				'parent' => 'null',
 				'nameid' => 'commands',
-				'button' => 'Commands',
+				'button' => 'Komutlar',
 				'icon' => 'fas fa-terminal',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;COMMANDS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Here some of our useful commands ingame:&lt;br /&gt;&amp;nbsp;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;/Pm&lt;/strong&gt; [player] [message]: Send a private message&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/Pay&lt;/strong&gt; [player] [money]: Transfer to other player some money&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/Info&lt;/strong&gt;: Get info about current game version&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/Feed&lt;/strong&gt;: Feed yourself once in a hour&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/Balance&lt;/strong&gt;: Check wallet balance&lt;/li&gt;&lt;/ul&gt;Check &lt;strong&gt;/help&lt;/strong&gt; ingame for more commands.',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Komutlar&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu kısımdan oyun içerisindeki bazı komutlara göz atabilirsin.&lt;br /&gt;&amp;nbsp;&lt;ul&gt;&lha ot;li&gt;&lt;strong&gt;/msg&lt;/strong&gt; [player] [message]: Hedef kişiye özel mesaj gönderir.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/fly&lt;/strong&gt;: Premiumlar için uçmayı sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/customkit&lt;/strong&gt;: Sunucu içinde custom kit oluşturmanıza olanak sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/duel&lt;/strong&gt; [player] : Hedef oyuncuya duello isteği gönderir. &lt;/li&gt;&lt;li&gt;&lt;strong&gt;/ffa&lt;/strong&gt;: FFA oyun moduna gir.&lt;/li&gt;&lt;/ul&gt;Check &lt;strong&gt;/yardım&lt;/strong&gt; oyunda yardım almak için yazın.',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Permissions',
+				'title' => 'Yetkiler',
 				'parent' => 'null',
 				'nameid' => 'permissions',
-				'button' => 'Permissions',
+				'button' => 'Yetkiler',
 				'icon' => 'fas fa-user-lock',
-				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;PERMISSIONS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of permissions.',
+				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Yetkiler&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa yetkilerin listesini içeriyor.',
 				'views' => '0',
 				'likes' => '0',
 				'likeable' => '1',
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Ranks',
+				'title' => 'Rütbeler',
 				'parent' => 'null',
 				'nameid' => 'ranks',
-				'button' => 'Ranks',
+				'button' => 'Rütbeler',
 				'icon' => 'fas fa-star',
 				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;RANKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available ranks in our server.',
 				'views' => '0',
@@ -139,10 +139,10 @@ class Wiki_Module extends Module {
 				'enabled' => '1'
 			]);
 			$this->_db->insert('wiki_pages', [
-				'title' => 'Perks',
+				'title' => 'Ayrıcalıklar',
 				'parent' => 'ranks',
 				'nameid' => 'perks',
-				'button' => 'Perks',
+				'button' => 'Ayrıcalıklar',
 				'icon' => 'fas fa-grin-stars',
 				'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;PERKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available perks for each rank in our server.',
 				'views' => '0',

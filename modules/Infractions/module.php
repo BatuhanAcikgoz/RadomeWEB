@@ -17,7 +17,7 @@ class Infractions_Module extends Module {
 		$this->_infractions_language = $infractions_language;
 
 		$name = 'Infractions';
-		$author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
+		$author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
 		$module_version = '1.4.0';
 		$nameless_version = '2.0.2';
 		

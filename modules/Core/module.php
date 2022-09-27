@@ -20,7 +20,7 @@ class Core_Module extends Module {
         $this->_language = $language;
 
         $name = 'Core';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
+        $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '2.0.2';
         $nameless_version = '2.0.2';
 
@@ -841,7 +841,7 @@ class Core_Module extends Module {
 
                 $cache->setCache('navbar_icons');
                 if (!$cache->isCached('status_icon')) {
-                    $icon = '';
+                    $icon = '<i class="fas fa-server"></i>';
                 } else {
                     $icon = $cache->retrieve('status_icon');
                 }
@@ -864,7 +864,7 @@ class Core_Module extends Module {
 
             $cache->setCache('navbar_icons');
             if (!$cache->isCached('leaderboards_icon')) {
-                $leaderboards_icon = '';
+                $leaderboards_icon = '<i class="fas fa-crown"></i>';
             } else {
                 $leaderboards_icon = $cache->retrieve('leaderboards_icon');
             }

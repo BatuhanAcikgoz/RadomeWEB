@@ -626,12 +626,12 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
     DB::getInstance()->insert('languages', [
         'name' => $meta['name'],
         'short_code' => $short_code,
-        'is_default' => $short_code === 'en_UK' ? 1 : 0
+        'is_default' => $short_code === 'tr_TR' ? 1 : 0
     ]);
 }
 
 $cache->setCache('languagecache');
-$cache->store('language', 'en_UK');
+$cache->store('language', 'tr_TR');
 
 // Modules
 DB::getInstance()->insert('modules', [
@@ -650,15 +650,51 @@ DB::getInstance()->insert('modules', [
     'name' => 'Cookie Consent',
     'enabled' => true,
 ]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Forms',
+    'enabled' => true,
+]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Iframe',
+    'enabled' => true,
+]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Infractions',
+    'enabled' => true,
+]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Store',
+    'enabled' => true,
+]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Vote',
+    'enabled' => true,
+]);
+DB::getInstance()->insert('modules', [
+    'name' => 'Wiki',
+    'enabled' => true,
+]);
 $cache->setCache('modulescache');
 $cache->store('enabled_modules', [
     ['name' => 'Core', 'priority' => 1],
     ['name' => 'Forum', 'priority' => 4],
     ['name' => 'Discord Integration', 'priority' => 7],
-    ['name' => 'Cookie Consent', 'priority' => 10],
+    ['name' => 'Forms', 'priority' => 10],
+    ['name' => 'Iframe', 'priority' => 13],
+    ['name' => 'Infractions', 'priority' => 16],
+    ['name' => 'Store', 'priority' => 19],
+    ['name' => 'Vote', 'priority' => 22],
+    ['name' => 'Wiki', 'priority' => 25],
 ]);
 $cache->store('module_core', true);
 $cache->store('module_forum', true);
+$cache->store('module_forms', true);
+$cache->store('module_iframe', true);
+$cache->store('module_infractions', true);
+$cache->store('module_store', true);
+$cache->store('module_vote', true);
+$cache->store('module_wiki', true);
+
 
 // Integrations
 DB::getInstance()->insert('integrations', [
@@ -782,7 +818,7 @@ DB::getInstance()->insert('settings', [
 
 DB::getInstance()->insert('settings', [
     'name' => 'forum_reactions',
-    'value' => true,
+    'value' => false,
 ]);
 
 Util::setSetting('page_loading', '0');
@@ -795,18 +831,18 @@ if (count($use_plugin)) {
 } else {
     DB::getInstance()->insert('settings', [
         'name' => 'use_api',
-        'value' => false,
+        'value' => true,
     ]);
 }
 
 DB::getInstance()->insert('settings', [
     'name' => 'timezone',
-    'value' => 'Europe/London'
+    'value' => 'Europe/Istanbul'
 ]);
 
 DB::getInstance()->insert('settings', [
     'name' => 'maintenance_message',
-    'value' => 'This website is currently in maintenance mode.'
+    'value' => 'Sitemiz şu anda bakımdadır. Lütfen daha sonra tekrar deneyeniz.'
 ]);
 
 DB::getInstance()->insert('settings', [
@@ -904,13 +940,13 @@ DB::getInstance()->insert('settings', [
 
 // Templates
 DB::getInstance()->insert('templates', [
-    'name' => 'DefaultRevamp',
+    'name' => 'RadomeWEB',
     'enabled' => true,
     'is_default' => true,
 ]);
 
 $cache->setCache('templatecache');
-$cache->store('default', 'DefaultRevamp');
+$cache->store('default', 'RadomeWEB');
 
 DB::getInstance()->insert('panel_templates', [
     'name' => 'Default',
@@ -921,28 +957,36 @@ $cache->store('panel_default', 'Default');
 
 // Widgets - initialise just a few default ones for now
 DB::getInstance()->insert('widgets', [
-    'name' => 'Online Staff',
+    'name' => 'Server Status',
     'enabled' => true,
-    'pages' => '["index","forum"]'
-]);
-
-DB::getInstance()->insert('widgets', [
-    'name' => 'Online Users',
-    'enabled' => true,
-    'pages' => '["index","forum"]'
+    'pages' => '["index","forum","vote","form-1"]'
 ]);
 
 DB::getInstance()->insert('widgets', [
     'name' => 'Statistics',
     'enabled' => true,
-    'pages' => '["index","forum"]'
+    'pages' => '["index","forum","vote","form-1"]'
 ]);
+
+DB::getInstance()->insert('widgets', [
+    'name' => 'Latest Purchases',
+    'enabled' => true,
+    'pages' => '["index","forum","vote","form-1"]'
+]);
+
+DB::getInstance()->insert('widgets', [
+    'name' => 'Discord',
+    'enabled' => true,
+    'pages' => '["index","forum","vote","form-1"]'
+]);
+
 
 $cache->setCache('Core-widgets');
 $cache->store('enabled', [
-    'Online Staff' => 1,
-    'Online Users' => 1,
-    'Statistics' => 1
+    'Server Status' => 1,
+    'Statistics' => 1,
+    'Latest Purchases' => 1,
+    'Discord' => 1
 ]);
 
 $cache->setCache('backgroundcache');
