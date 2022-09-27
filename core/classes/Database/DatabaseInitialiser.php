@@ -25,12 +25,12 @@ class DatabaseInitialiser {
     public static function runPostUser() {
         $instance = new self();
         $instance->initialiseForum();
-        $instance->initialiseforms();
-        $instance->initialisestore();
-        $instance->initialiseinfractions();
-        $instance->initialisevote();
-        $instance->initialisewiki();
-        $instance->initialiseiframe();
+        $instance->initialiseForms();
+        $instance->initialiseStore();
+        $instance->initialiseInfractions();
+        $instance->initialiseVote();
+        $instance->initialiseWiki();
+        $instance->initialiseIframe();
     }
 
     private function initialiseGroups(): void {
@@ -184,7 +184,7 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
-    private function initialiseforms() {
+    private function initialiseForms() {
         // Generate tables
         if (!$this->_db->showTables('forms')) {
             try {
@@ -348,7 +348,7 @@ class DatabaseInitialiser {
         }
     }
     
-    public function initialiseiframe()
+    public function initialiseIframe()
     {
 
         try {
@@ -367,7 +367,7 @@ class DatabaseInitialiser {
         }
     }
 
-    public function initialiseinfractions(){
+    public function initialiseInfractions(){
 		// Install module
 		try {
 			// Update main admin group permissions
@@ -385,7 +385,7 @@ class DatabaseInitialiser {
 		}
 	}    
 
-    private function initialisestore() {
+    private function initialiseStore() {
         // Generate tables
         if (!$this->_db->showTables('store_agreements')) {
             try {
@@ -588,7 +588,7 @@ class DatabaseInitialiser {
         }
     }
 
-    private function initialisevote() {
+    private function initialiseVote() {
         // Generate tables
 		try {
             if (!DB::getInstance()->showTables('vote_sites')) {
@@ -636,7 +636,7 @@ class DatabaseInitialiser {
 		}
     }
 
-    public function initialisewiki() {
+    public function initialiseWiki() {
 		try {
 			$engine = Config::get('mysql/engine');
 			$charset = Config::get('mysql/charset');
