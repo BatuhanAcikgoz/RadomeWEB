@@ -79,6 +79,7 @@ class DatabaseInitialiser {
     }
 
     private function initialiseModules(): void {
+ 
         $this->_db->insert('modules', [
             'name' => 'Core',
             'enabled' => true,
@@ -176,6 +177,512 @@ class DatabaseInitialiser {
         $this->_cache->store('module_core', true);
         $this->_cache->store('module_forum', true);
     }
+
+    private function forms() {
+        // Generate tables
+        if (!$this->_db->showTables('forms')) {
+            try {
+                $this->_db->createTable("forms", " `id` int(11) NOT NULL AUTO_INCREMENT, `url` varchar(32) NOT NULL, `title` varchar(32) NOT NULL, `guest` tinyint(1) NOT NULL DEFAULT '0', `link_location` tinyint(1) NOT NULL DEFAULT '1', `icon` varchar(64) NULL, `can_view` tinyint(1) NOT NULL DEFAULT '0', `captcha` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NULL DEFAULT NULL, `comment_status` int(11) NOT NULL DEFAULT '0', `source` varchar(32) NOT NULL DEFAULT 'forms', `forum_id` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+
+                $this->_db->insert('forms', array(
+                    'url' => '/destek',
+                    'title' => 'Destek Talebi',
+                    'guest' => 0,
+                    'link_location' => 1,
+                    'icon' => '<i class="fas fa-ticket-alt"></i>'                    
+                ));
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('forms_permissions')) {
+            try {
+                $this->_db->createTable("forms_permissions", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `post` tinyint(1) NOT NULL DEFAULT '1', `view_own` tinyint(1) NOT NULL DEFAULT '1', `view` tinyint(1) NOT NULL DEFAULT '0', `can_delete` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+
+                $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
+                $this->_db->insert('forms_permissions', array(
+                    'group_id' => 0,
+                    'form_id' => 1,
+                    'post' => 0,
+                    'view_own' => 0,
+                    'view' => 0,
+                    'can_delete' => 0
+                ));
+
+                foreach ($groups as $group) {
+                    $this->_db->insert('forms_permissions', array(
+                        'group_id' => $group->id,
+                        'form_id' => 1,
+                        'post' => 1,
+                        'view_own' => 1,
+                        'view' => ($group->staff == 1 ? 1 : 0),
+                        'can_delete' => ($group->staff == 1 ? 1 : 0)
+                    ));
+                }
+            } catch (Exception $e) {
+                // Error
+            }
+        }  
+
+        if (!$this->_db->showTables('forms_comments')) {
+            try {
+                $this->_db->createTable("forms_comments", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `created` int(11) NOT NULL, `anonymous` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NOT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('forms_fields')) {
+            try {
+                $this->_db->createTable("forms_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `name` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `placeholder` varchar(255) NULL DEFAULT NULL, `options` text NULL, `info` text NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+                
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Kategori',
+                    'type' => 1,
+                    'required' => 1,
+                    'order' => 1,
+                    'options' => 'Hile / Küfür
+                    ,Yetkili Başvuru
+                    ,Ödeme Öncesi
+                    ,Ödeme Sonrası
+                    ,Ceza İtiraf'
+                ));
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Başlık',
+                    'type' => 4,
+                    'max' => '30',
+                    'min' => '3',
+                    'required' => 1,
+                    'order' => 2
+                ));
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Mesaj',
+                    'type' => 4,
+                    'max' => '30',
+                    'min' => '3',
+                    'required' => 1,
+                    'order' => 3
+                ));      
+                $this->_db->insert('forms_fields', array(
+                    'form_id' => 1,
+                    'name' => 'Belge / Görsel',
+                    'type' => 10,
+                    'required' => 0,
+                    'order' => 4
+                ));                            
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('forms_replies')) {
+            try {
+                $this->_db->createTable("forms_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NULL, `updated_by` int(11) NULL, `created` int(11) NOT NULL, `updated` int(11) NOT NULL, `content` mediumtext NULL DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('forms_replies_fields')) {
+            try {
+                $this->_db->createTable("forms_replies_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `submission_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY (`id`)");
+                
+                $this->_db->createQuery('ALTER TABLE `nl2_forms_replies_fields` ADD INDEX `nl2_forms_replies_fields_idx_submission_id` (`submission_id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('forms_statuses')) {
+            try {
+                $this->_db->createTable("forms_statuses", " `id` int(11) NOT NULL AUTO_INCREMENT, `html` varchar(1024) NOT NULL, `open` tinyint(1) NOT NULL, `fids` varchar(128) NULL, `gids` varchar(128) NULL, `color` varchar(32) NULL DEFAULT NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+                
+                $this->_db->insert('forms_statuses', array(
+                    'html' => '<span class="badge badge-success">Açık</span>',
+                    'open' => 1,
+                    'fids' => '1',
+                    'gids' => '2,3'
+                ));
+                $this->_db->insert('forms_statuses', array(
+                    'html' => '<span class="badge badge-danger">Kapandı</span>',
+                    'open' => 0,
+                    'fids' => '1',
+                    'gids' => '2,3'
+                ));
+                $this->_db->insert('forms_statuses', array(
+                    'html' => '<span class="badge badge-warning">İşleme Alındı</span>',
+                    'open' => 1,
+                    'fids' => '1',
+                    'gids' => '2,3'
+                ));
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        try {
+            // Update main admin group permissions
+            $group = $this->_db->get('groups', array('id', '=', 2))->results();
+            $group = $group[0];
+            
+            $group_permissions = json_decode($group->permissions, TRUE);
+            $group_permissions['forms.manage'] = 1;
+            $group_permissions['forms.view-submissions'] = 1;
+            $group_permissions['forms.manage-submission'] = 1;
+            $group_permissions['forms.anonymous'] = 1;
+            
+            $group_permissions = json_encode($group_permissions);
+            $this->_db->update('groups', 2, array('permissions' => $group_permissions));
+        } catch (Exception $e) {
+            // Error
+        }
+    }
+    
+    public function iframe()
+    {
+
+        try {
+            DB::getInstance()->createTable("iframe_pages", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `url` varchar(255) NOT NULL, PRIMARY KEY (`id`)");
+            DB::getInstance()->createTable("iframe_data", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(255) NOT NULL, `src` varchar(5000) NOT NULL, `iframe_size` varchar(255) NOT NULL, `page_id` int(11) NOT NULL, `description` text NULL, `footer_description` text NULL, PRIMARY KEY (`id`)");
+            $group = DB::getInstance()->get('groups', ['id', '=', 2])->results();
+            $group = $group[0];
+
+            $group_permissions = json_decode($group->permissions, TRUE);
+            $group_permissions['admincp.iframe'] = 1;
+
+            $group_permissions = json_encode($group_permissions);
+            DB::getInstance()->update('groups', 2, ['permissions' => $group_permissions]);
+        } catch (Exception $e) {
+            // Error
+        }
+    }
+
+    public function infractions(){
+		// Install module
+		try {
+			// Update main admin group permissions
+			$group = DB::getInstance()->get('groups', array('id', '=', 2));
+			$group = $group->first();
+			
+			$group_permissions = json_decode($group->permissions, true);
+			$group_permissions['admincp.infractions.settings'] = 1;
+			$group_permissions['infractions.view'] = 1;
+			
+			$group_permissions = json_encode($group_permissions);
+			DB::getInstance()->update('groups', 2, array('permissions' => $group_permissions));
+		} catch(Exception $e){
+			// Error
+		}
+	}    
+
+    private function store() {
+        // Generate tables
+        if (!$this->_db->showTables('store_agreements')) {
+            try {
+                $this->_db->createTable('store_agreements', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) NOT NULL, `player_id` int(11) NOT NULL, `agreement_id` varchar(32) NOT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `email` varchar(128) NOT NULL, `payment_method` int(11) NOT NULL, `verified` tinyint(1) NOT NULL, `payer_id` varchar(64) NOT NULL, `last_payment_date` int(11) NOT NULL, `next_billing_date` int(11) NOT NULL, `created` int(11) NOT NULL, `updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_categories')) {
+            try {
+                $this->_db->createTable('store_categories', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `only_subcategories` tinyint(1) NOT NULL DEFAULT \'0\', `parent_category` int(11) DEFAULT NULL, `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_products')) {
+            try {
+                $this->_db->createTable('store_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `category_id` int(11) NOT NULL, `name` varchar(128) NOT NULL, `price` varchar(8) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `global_limit` varchar(128) DEFAULT NULL, `user_limit` varchar(128) DEFAULT NULL, `required_products` varchar(128) DEFAULT NULL, `required_groups` varchar(128) DEFAULT NULL, `required_integrations` varchar(128) DEFAULT NULL, `payment_type` tinyint(1) NOT NULL DEFAULT \'1\', `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_products_connections')) {
+            try {
+                $this->_db->createTable('store_products_connections', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `action_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_products_fields')) {
+            try {
+                $this->_db->createTable("store_products_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_products_actions')) {
+            try {
+                $this->_db->createTable('store_products_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `service_id` int(11) NOT NULL, `command` varchar(2048) NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `own_connections` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_pending_actions')) {
+            try {
+                $this->_db->createTable('store_pending_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `action_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `customer_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `command` varchar(2048) NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `status` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_orders')) {
+            try {
+                $this->_db->createTable('store_orders', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) DEFAULT NULL, `from_customer_id` int(11) NOT NULL, `to_customer_id` int(11) NOT NULL, `created` int(11) NOT NULL, `ip` varchar(128) DEFAULT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_orders_products')) {
+            try {
+                $this->_db->createTable('store_orders_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `quantity` int(11) NOT NULL DEFAULT \'1\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_orders_products_fields')) {
+            try {
+                $this->_db->createTable("store_orders_products_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_payments')) {
+            try {
+                $this->_db->createTable('store_payments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `payment_id` varchar(64) DEFAULT NULL, `agreement_id` varchar(64) DEFAULT NULL, `transaction` varchar(32) DEFAULT NULL, `amount` varchar(11) DEFAULT NULL, `currency` varchar(11) DEFAULT NULL, `fee` varchar(11) DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `created` int(11) NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_customers')) {
+            try {
+                $this->_db->createTable('store_customers', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) DEFAULT NULL, `integration_id` int(11) NOT NULL, `username` varchar(64) DEFAULT NULL, `identifier` varchar(64) DEFAULT NULL, `cents` bigint(20) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_connections')) {
+            try {
+                $this->_db->createTable('store_connections', ' `id` int(11) NOT NULL AUTO_INCREMENT, `service_id` int(11) NOT NULL, `name` varchar(64) NOT NULL, `data` text DEFAULT NULL, `last_fetch` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_settings')) {
+            try {
+                $this->_db->createTable('store_settings', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `value` text, PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+
+            $this->_db->insert('store_settings', [
+                'name' => 'checkout_complete_content',
+                'value' => 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed'
+            ]);
+
+            $this->_db->insert('store_settings', [
+                'name' => 'currency',
+                'value' => 'TL'
+            ]);
+
+            $this->_db->insert('store_settings', [
+                'name' => 'currency_symbol',
+                'value' => '₺'
+            ]);
+
+            $this->_db->insert('store_settings', [
+                'name' => 'allow_guests',
+                'value' => 0
+            ]);
+
+            $this->_db->insert('store_settings', [
+                'name' => 'player_login',
+                'value' => 0
+            ]);
+        }
+
+        if (!$this->_db->showTables('store_gateways')) {
+            try {
+                $this->_db->createTable('store_gateways', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `displayname` varchar(64) NOT NULL, `enabled` tinyint(1) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+            } catch (Exception $e) {
+                // Error
+            }
+
+            $this->_db->insert('store_gateways', [
+                'name' => 'PayPal',
+                'displayname' => 'PayPal'
+            ]);
+
+            $this->_db->insert('store_gateways', [
+                'name' => 'PayPalBusiness',
+                'displayname' => 'PayPal'
+            ]);
+
+            $this->_db->insert('store_gateways', [
+                'name' => 'Store Credits',
+                'displayname' => 'Store Credits',
+                'enabled' => 1
+            ]);
+        }
+
+        if (!$this->_db->showTables('store_fields')) {
+            try {
+                $this->_db->createTable("store_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `identifier` varchar(32) NOT NULL, `description` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `options` text NULL, `regex` varchar(64) DEFAULT NULL, `default_value` varchar(64) NOT NULL DEFAULT '', `deleted` int(11) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+
+                $this->_db->insert('store_fields', [
+                    'identifier' => 'quantity',
+                    'description' => 'Quantity',
+                    'type' => '4',
+                    'required' => '1',
+                    'min' => '1',
+                    'max' => '2',
+                    'default_value' => '1',
+                    'order' => '0'
+                ]);
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        try {
+            // Update main admin group permissions
+            $group = $this->_db->get('groups', ['id', '=', 2])->results();
+            $group = $group[0];
+
+            $group_permissions = json_decode($group->permissions, TRUE);
+            $group_permissions['staffcp.store'] = 1;
+            $group_permissions['staffcp.store.settings'] = 1;
+            $group_permissions['staffcp.store.products'] = 1;
+            $group_permissions['staffcp.store.payments'] = 1;
+            $group_permissions['staffcp.store.gateways'] = 1;
+            $group_permissions['staffcp.store.connections'] = 1;
+            $group_permissions['staffcp.store.fields'] = 1;
+
+            $group_permissions = json_encode($group_permissions);
+            $this->_db->update('groups', 2, ['permissions' => $group_permissions]);
+        } catch (Exception $e) {
+            // Error
+        }
+    }
+
+    private function vote() {
+        // Generate tables
+		try {
+            if (!DB::getInstance()->showTables('vote_sites')) {
+                DB::getInstance()->createTable("vote_sites", " `id` int(11) NOT NULL AUTO_INCREMENT, `site` varchar(512) NOT NULL, `name` varchar(64) NOT NULL, PRIMARY KEY (`id`)");
+
+                DB::getInstance()->insert('vote_sites', [
+                    'site' => 'https://minecraft-mp.com',
+                    'name' => 'Minecraft-MP (Örnek)'
+                ]);
+                DB::getInstance()->insert('vote_sites', [
+                    'site' => 'https://topg.org/tr/',
+                    'name' => 'TOPG (Örnek)'
+                ]);
+            }
+		} catch (Exception $e) {
+			// Error
+		}
+
+        try {
+            if (!DB::getInstance()->showTables('vote_settings')) {
+                DB::getInstance()->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)");
+
+                // Insert data
+                DB::getInstance()->insert('vote_settings', [
+                    'name' => 'vote_message',
+                    'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
+                ]);
+            }
+        } catch (Exception $e) {
+            // Error
+        }
+
+		try {
+			// Update main admin group permissions
+			$group = DB::getInstance()->get('groups', ['id', '=', 2])->results();
+            $group = $group[0];
+
+			$group_permissions = json_decode($group->permissions, TRUE);
+			$group_permissions['admincp.vote'] = 1;
+
+			$group_permissions = json_encode($group_permissions);
+			DB::getInstance()->update('groups', 2, ['permissions' => $group_permissions]);
+		} catch (Exception $e) {
+			// Error
+		}
+    }
+
+    public function onEnable() {
+		try {
+			$engine = Config::get('mysql/engine');
+			$charset = Config::get('mysql/charset');
+		} catch(Exception $e){
+			$engine = 'InnoDB';
+			$charset = 'utf8mb4';
+		}
+
+		if(!$engine || is_array($engine))
+			$engine = 'InnoDB';
+
+		if(!$charset || is_array($charset))
+			$charset = 'latin1';
+			
+		try {
+            $group = $this->_db->get('groups', ['id', '=', 2])->results();
+			$group = $group[0];
+			
+			$group_permissions = json_decode($group->permissions, TRUE);
+			$group_permissions['admincp.wiki'] = 1;
+			
+			$group_permissions = json_encode($group_permissions);
+			$this->_db->update('groups', 2, ['permissions' => $group_permissions]);
+
+			//update
+			try{
+				$sql = "SHOW COLUMNS FROM ".Config::get('mysql/prefix')."wiki_pages WHERE Field = ?";
+				$res = DB::getInstance()->query($sql,["views"]);
+				if(!$res->first()){
+					DB::getInstance()->createTable("wiki_pages", "views", "int(11) NOT NULL DEFAULT '0'");
+				}
+				$res = DB::getInstance()->query($sql,["likes"]);
+				if(!$res->first()){
+					DB::getInstance()->createTable("wiki_pages", "likes", "int(11) NOT NULL DEFAULT '0'");
+				}
+				$res = DB::getInstance()->query($sql,["enabled"]);
+				if(!$res->first()){
+					DB::getInstance()->createTable("wiki_pages", "enabled", "int(11) NOT NULL DEFAULT '1'");
+				}
+				$res = DB::getInstance()->query($sql,["likeable"]);
+				if(!$res->first()){
+					DB::getInstance()->createTable("wiki_pages", "likeable", "int(11) NOT NULL DEFAULT '1'");
+				}
+			} catch(Exception $e){}
+		} catch(Exception $e){}
+
+		try {
+			if(!$this->_db->showTables("wiki_likes")){
+				DB::getInstance()->createTable("wiki_likes", "`id` int(11) NOT NULL AUTO_INCREMENT, `username` varchar(20) NOT NULL, `pageid` varchar(48) NOT NULL, PRIMARY KEY (`id`)", "ENGINE=$engine DEFAULT CHARSET=$charset");
+			}
+		} catch(Exception $e){}
+	}   
 
     private function initialiseIntegrations(): void {
         $this->_db->insert('integrations', [
