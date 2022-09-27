@@ -184,7 +184,7 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
-    private function initialiseForms() {
+    private function initialiseForms(): void {
         // Generate tables
         if (!$this->_db->showTables('forms')) {
             try {
@@ -348,7 +348,7 @@ class DatabaseInitialiser {
         }
     }
     
-    public function initialiseIframe()
+    private function initialiseIframe(): void
     {
 
         try {
@@ -367,7 +367,7 @@ class DatabaseInitialiser {
         }
     }
 
-    public function initialiseInfractions(){
+    private function initialiseInfractions(): void {
 		// Install module
 		try {
 			// Update main admin group permissions
@@ -385,7 +385,7 @@ class DatabaseInitialiser {
 		}
 	}    
 
-    private function initialiseStore() {
+    private function initialiseStore(): void {
         // Generate tables
         if (!$this->_db->showTables('store_agreements')) {
             try {
@@ -588,7 +588,7 @@ class DatabaseInitialiser {
         }
     }
 
-    private function initialiseVote() {
+    private function initialiseVote(): void {
         // Generate tables
 		try {
             if (!DB::getInstance()->showTables('vote_sites')) {
@@ -636,7 +636,7 @@ class DatabaseInitialiser {
 		}
     }
 
-    public function initialiseWiki() {
+    private function initialiseWiki(): void {
 		try {
 			$engine = Config::get('mysql/engine');
 			$charset = Config::get('mysql/charset');
