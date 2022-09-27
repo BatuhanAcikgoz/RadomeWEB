@@ -25,6 +25,12 @@ class DatabaseInitialiser {
     public static function runPostUser() {
         $instance = new self();
         $instance->initialiseForum();
+        $instance->initialiseforms();
+        $instance->initialisestore();
+        $instance->initialiseinfractions();
+        $instance->initialisevote();
+        $instance->initialisewiki();
+        $instance->initialiseiframe();
     }
 
     private function initialiseGroups(): void {
@@ -178,7 +184,7 @@ class DatabaseInitialiser {
         $this->_cache->store('module_forum', true);
     }
 
-    private function forms() {
+    private function initialiseforms() {
         // Generate tables
         if (!$this->_db->showTables('forms')) {
             try {
@@ -342,7 +348,7 @@ class DatabaseInitialiser {
         }
     }
     
-    public function iframe()
+    public function initialiseiframe()
     {
 
         try {
@@ -361,7 +367,7 @@ class DatabaseInitialiser {
         }
     }
 
-    public function infractions(){
+    public function initialiseinfractions(){
 		// Install module
 		try {
 			// Update main admin group permissions
@@ -379,7 +385,7 @@ class DatabaseInitialiser {
 		}
 	}    
 
-    private function store() {
+    private function initialisestore() {
         // Generate tables
         if (!$this->_db->showTables('store_agreements')) {
             try {
@@ -582,7 +588,7 @@ class DatabaseInitialiser {
         }
     }
 
-    private function vote() {
+    private function initialisevote() {
         // Generate tables
 		try {
             if (!DB::getInstance()->showTables('vote_sites')) {
@@ -630,7 +636,7 @@ class DatabaseInitialiser {
 		}
     }
 
-    public function onEnable() {
+    public function initialisewiki() {
 		try {
 			$engine = Config::get('mysql/engine');
 			$charset = Config::get('mysql/charset');
