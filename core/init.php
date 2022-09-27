@@ -186,7 +186,7 @@ if ($page != 'install') {
             $default_language = $default_language[0]->short_code;
             $cache->store('language', $default_language);
         } else {
-            $default_language = 'en_UK';
+            $default_language = 'tr_TR';
         }
     }
 

@@ -29,16 +29,16 @@ class DatabaseInitialiser {
 
     private function initialiseGroups(): void {
         $this->_db->insert('groups', [
-            'name' => 'Member',
-            'group_html' => '<span class="badge badge-success">Member</span>',
+            'name' => 'Üye',
+            'group_html' => '<span class="badge badge-success">Üye</span>',
             'permissions' => '{"usercp.messaging":1,"usercp.signature":1,"usercp.nickname":1,"usercp.private_profile":1,"usercp.profile_banner":1}',
             'default_group' => true,
             'order' => 3
         ]);
 
         $this->_db->insert('groups', [
-            'name' => 'Admin',
-            'group_html' => '<span class="badge badge-danger">Admin</span>',
+            'name' => 'Yönetici',
+            'group_html' => '<span class="badge badge-danger">Yönetici</span>',
             'group_username_color' => '#ff0000',
             'group_username_css' => '',
             'admin_cp' => true,
@@ -57,8 +57,8 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('groups', [
-            'name' => 'Unconfirmed Member',
-            'group_html' => '<span class="badge badge-secondary">Unconfirmed Member</span>',
+            'name' => 'Onaylanmamış Üye',
+            'group_html' => '<span class="badge badge-secondary">Onaylanmamış Üye</span>',
             'group_username_color' => '#6c757d',
             'permissions' => '{}',
             'order' => 4
@@ -98,6 +98,36 @@ class DatabaseInitialiser {
             'name' => 'Cookie Consent',
             'enabled' => true,
         ]);
+        
+        $this->_db->insert('modules', [
+            'name' => 'Forms',
+            'enabled' => true,
+        ]);
+        
+        $this->_db->insert('modules', [
+            'name' => 'Iframe',
+            'enabled' => true,
+        ]);
+
+        $this->_db->insert('modules', [
+            'name' => 'Infractions',
+            'enabled' => true,
+        ]);
+
+        $this->_db->insert('modules', [
+            'name' => 'Store',
+            'enabled' => true,
+        ]);
+
+        $this->_db->insert('modules', [
+            'name' => 'Vote',
+            'enabled' => true,
+        ]);
+
+        $this->_db->insert('modules', [
+            'name' => 'Wiki',
+            'enabled' => true,
+        ]);
 
         $this->_cache->setCache('modulescache');
         $this->_cache->store('enabled_modules', [
@@ -116,6 +146,30 @@ class DatabaseInitialiser {
             [
                 'name' => 'Cookie Consent',
                 'priority' => 10
+            ],
+            [
+                'name' => 'Forms',
+                'priority' => 13
+            ],
+            [
+                'name' => 'Iframe',
+                'priority' => 16
+            ],
+            [
+                'name' => 'Infractions',
+                'priority' => 19
+            ],
+            [
+                'name' => 'Store',
+                'priority' => 22
+            ],
+            [
+                'name' => 'Vote',
+                'priority' => 25
+            ],
+            [
+                'name' => 'Wiki',
+                'priority' => 28
             ],
         ]);
 
@@ -192,17 +246,17 @@ class DatabaseInitialiser {
         Util::setSetting('external_query', '0');
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
-        Util::setSetting('timezone', 'Europe/London');
+        Util::setSetting('timezone', 'Europe/Istanbul');
         Util::setSetting('maintenance', '0');
-        Util::setSetting('maintenance_message', 'This website is currently in maintenance mode.');
+        Util::setSetting('maintenance_message', 'Sitemiz şu anda bakım modundadır. Daha sonra tekrar deneyiniz.');
         Util::setSetting('authme', 0);
         Util::setSetting('default_avatar_type', 'minecraft');
         Util::setSetting('private_profile', '1');
         Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
         Util::setSetting('login_method', 'email');
         Util::setSetting('username_sync', '1');
-        Util::setSetting('status_page', '0');
-        Util::setSetting('placeholders', '0');
+        Util::setSetting('status_page', '1');
+        Util::setSetting('placeholders', '1');
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
@@ -256,28 +310,36 @@ class DatabaseInitialiser {
 
     private function initialiseWidgets(): void {
         $this->_db->insert('widgets', [
-            'name' => 'Online Staff',
+            'name' => 'Server Status',
             'enabled' => true,
-            'pages' => '["index","forum"]'
-        ]);
-
-        $this->_db->insert('widgets', [
-            'name' => 'Online Users',
-            'enabled' => true,
-            'pages' => '["index","forum"]'
+            'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
-            'pages' => '["index","forum"]'
+            'pages' => '["index","forum","vote","form-1"]'
         ]);
+
+        $this->_db->insert('widgets', [
+            'name' => 'Latest Purchases',
+            'enabled' => true,
+            'pages' => '["index","forum","vote","form-1"]'
+        ]);
+
+        $this->_db->insert('widgets', [
+            'name' => 'Discord',
+            'enabled' => true,
+            'pages' => '["index","forum","vote","form-1"]'
+        ]);
+
 
         $this->_cache->setCache('Core-widgets');
         $this->_cache->store('enabled', [
-            'Online Staff' => 1,
-            'Online Users' => 1,
-            'Statistics' => 1
+            'Server Status' => 1,
+            'Statistics' => 1,
+            'Latest Purchases' => 1,
+            'Discord' => 1
         ]);
     }
 

@@ -105,11 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
-                        $default_addr = getenv('NAMELESS_DATABASE_ADDRESS') ?: '127.0.0.1';
+                        $default_addr = getenv('NAMELESS_DATABASE_ADDRESS') ?: 'localhost';
                         $default_port = getenv('NAMELESS_DATABASE_PORT') ?: '3306';
                         $default_user = getenv('NAMELESS_DATABASE_USERNAME') ?: 'root';
                         $default_pass = getenv('NAMELESS_DATABASE_PASSWORD') ?: '';
-                        $default_name = getenv('NAMELESS_DATABASE_NAME') ?: 'nameless';
+                        $default_name = getenv('NAMELESS_DATABASE_NAME') ?: 'radomeweb';
                         $default_charset = getenv('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4';
                         $default_engine = getenv('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB';
                         create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', $default_addr);
