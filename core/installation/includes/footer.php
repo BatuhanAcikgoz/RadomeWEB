@@ -3,12 +3,7 @@
         <div class="ui middle aligned grid">
             <div class="eight wide column">
                 <h4 class="ui inverted header">
-                    Copyright &copy; NamelessMC <?php echo date('Y'); ?>
-                    <div class="sub header">
-                        Thanks to all <a href="https://github.com/NamelessMC/Nameless/graphs/contributors"
-                                         target="_blank">
-                            NamelessMC contributors</a> since 2014
-                    </div>
+                    Copyright &copy; RadomeWEB <?php echo date('Y'); ?>
                 </h4>
             </div>
             <div class="eight wide right aligned column">
@@ -21,7 +16,7 @@
                         <?php } ?>
                     </div>
                 </div>
-                <a href="https://github.com/NamelessMC/Nameless" target="_blank" class="ui inverted basic icon button">
+                <a href="https://github.com/BatuhanAcikgoz" target="_blank" class="ui inverted basic icon button">
                     <i class="github icon"></i>
                 </a>
             </div>

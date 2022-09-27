@@ -1,6 +1,6 @@
 <?php
 if (isset($_SESSION['admin_setup']) && $_SESSION['admin_setup'] == true) {
-    Redirect::to('?step=conversion');
+    Redirect::to('?step=finish');
 }
 
 if (!isset($_SESSION['site_initialized']) || $_SESSION['site_initialized'] != true) {
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['admin_setup'] = true;
                 $user->addGroup(2);
 
-                Redirect::to('?step=conversion');
+                Redirect::to('?step=finish');
             }
 
             DB::getInstance()->delete('users', ['id', 1]);

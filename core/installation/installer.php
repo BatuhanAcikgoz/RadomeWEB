@@ -43,7 +43,6 @@ require(__DIR__ . '/includes/header.php');
                         create_step($language->get('installer', 'step_database_config'), 'server icon', ['database_configuration', 'database_initialization', 'upgrade', 'upgrade_perform']);
                         create_step($language->get('installer', 'step_site_config'), 'globe icon', ['site_configuration', 'site_initialization']);
                         create_step($language->get('installer', 'step_admin_account'), 'user icon', ['admin_account_setup']);
-                        create_step($language->get('installer', 'step_conversion'), 'exchange icon', ['conversion']);
                         create_step($language->get('installer', 'step_finish'), 'check icon', ['finish']);
                         ?>
                     </div>
@@ -64,9 +63,6 @@ require(__DIR__ . '/includes/header.php');
                                 <p><?php echo $language->get('installer', 'new_installation_question'); ?></p>
                             </div>
                             <div class="ui right aligned secondary segment">
-                                <a href="?do=upgrade" class="ui small button">
-                                    <?php echo $language->get('installer', 'upgrading_from_v1'); ?>
-                                </a>
                                 <a href="?do=install" class="ui small primary button">
                                     <?php echo $language->get('installer', 'new_installation'); ?>
                                 </a>

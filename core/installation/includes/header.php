@@ -5,7 +5,7 @@ $subheader = str_replace('#', '', $readme[0]);
 if (isset($_SESSION['installer_language']) && is_file('custom/languages/' . $_SESSION['installer_language'] . '.json')) {
     $installer_language = $_SESSION['installer_language'];
 } else {
-    $installer_language = 'en_UK';
+    $installer_language = 'tr_TR';
 }
 
 $languages_folders = glob('custom' . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
@@ -24,7 +24,7 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $language->get('installer', 'install'); ?> &bull; NamelessMC</title>
+    <title><?php echo $language->get('installer', 'install'); ?> &bull; RadomeWEB</title>
     <link rel="stylesheet" href="custom/templates/RadomeWEB/css/fomantic.min.css">
 
     <style>
@@ -98,9 +98,9 @@ foreach (Language::LANGUAGES as $short_code => $meta) {
     <div class="ui inverted vertical masthead very padded segment">
         <div class="ui center aligned text container">
             <h2 class="ui inverted icon header">
-                <img class="ui image" src="core/assets/img/namelessmc_logo.png">
+                <img class="ui image" src="core/assets/img/radomeweb_logo.png">
                 <div class="content">
-                    NamelessMC Installer
+                    RadomeWEB Kurulumu
                     <div class="sub header">
                         <?php echo $subheader; ?>
                     </div>
