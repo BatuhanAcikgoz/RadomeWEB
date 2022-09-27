@@ -60,7 +60,6 @@ require(__DIR__ . '/includes/header.php');
                                 <p><?php echo $language->get('installer', 'terms_and_conditions'); ?></p>
                                 <div class="ui message"><?php echo $nameless_terms; ?></div>
                                 <div class="ui divider"></div>
-                                <p><?php echo $language->get('installer', 'new_installation_question'); ?></p>
                             </div>
                             <div class="ui right aligned secondary segment">
                                 <a href="?do=install" class="ui small primary button">
