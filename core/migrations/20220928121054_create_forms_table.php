@@ -10,7 +10,6 @@ final class CreateFormsTable extends AbstractMigration
         $table = $this->table('nl2_forms');
 
         $table
-            ->addColumn('id', 'integer', ['length' => 11])
             ->addColumn('url', 'string', ['length' => 32])
             ->addColumn('title', 'string', ['length' => 32])
             ->addColumn('guest', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
