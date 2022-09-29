@@ -15,6 +15,7 @@ final class CreateFormsPermissionsTable extends AbstractMigration
             ->addColumn('title', 'string', ['length' => 32])
             ->addColumn('post', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 1])
             ->addColumn('view_own', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 1])
+            ->addColumn('view', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('can_delete', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 1]);
 
         $table->create();
