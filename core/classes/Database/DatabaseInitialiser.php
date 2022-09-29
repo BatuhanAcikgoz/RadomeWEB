@@ -26,7 +26,6 @@ class DatabaseInitialiser {
     public static function runPostUser() {
         $instance = new self();
         $instance->initialiseForum();
-        $instance->initialisePermissions();
         $instance->initialiseEklenti();
     }
 
@@ -380,33 +379,6 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initialisePermissions(): void{
-            // Update main admin group permissions
-            $group = $this->_db->get('groups', ['id', '=', 2])->results();
-            $group = $group[0];
-
-            $group_permissions = json_decode($group->permissions, TRUE);
-            $group_permissions['staffcp.store'] = 1;
-            $group_permissions['staffcp.store.settings'] = 1;
-            $group_permissions['staffcp.store.products'] = 1;
-            $group_permissions['staffcp.store.payments'] = 1;
-            $group_permissions['staffcp.store.gateways'] = 1;
-            $group_permissions['staffcp.store.connections'] = 1;
-            $group_permissions['staffcp.store.fields'] = 1;
-            $group_permissions['admincp.vote'] = 1;
-            $group_permissions['admincp.wiki'] = 1;
-            $group_permissions['admincp.infractions.settings'] = 1;
-			$group_permissions['infractions.view'] = 1;
-            $group_permissions['admincp.iframe'] = 1;
-            $group_permissions['forms.anonymous'] = 1;
-            $group_permissions['forms.manage'] = 1;
-            $group_permissions['forms.view-submissions'] = 1;
-            $group_permissions['forms.manage-submission'] = 1;
-            $group_permissions['forms.anonymous'] = 1;
-
-            $group_permissions = json_encode($group_permissions);
-			DB::getInstance()->update('groups', 2, array('permissions' => $group_permissions));
-    }
 
     private function initialiseModules(): void {
  
