@@ -17,7 +17,6 @@ final class CreateWikiPagesTable extends AbstractMigration
             ->addColumn('icon', 'string', ['length' => 96])
             ->addColumn('guest', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('link_location', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 1])
-            ->addColumn('icon', 'string', ['length' => 64])
             ->addColumn('can_view', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('captcha', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('context', 'text')
