@@ -10,15 +10,7 @@ final class CreateStoreCategoriesTable extends AbstractMigration
         $table = $this->table('nl2_store_categories');
 
         $table
-            ->addColumn('name', 'string', ['length' => 128])
-            ->addColumn('description', 'text', ['null' => false])
-            ->addColumn('image', 'string', ['length' => 128, 'default' => NULL])
-            ->addColumn('only_subcategories', 'smallinteger', ['length' => 1, 'default' => 0])
-            ->addColumn('parent_category', 'smallinteger', ['length' => 1, 'default' => 0])
-            ->addColumn('hidden', 'smallinteger', ['length' => 1, 'default' => 0])
-            ->addColumn('disabled', 'smallinteger', ['length' => 1, 'default' => 0])
-            ->addColumn('order', 'integer', ['length' => 11])
-            ->addColumn('deleted', 'integer', ['length' => 11, 'default' => 0]);
+            ->addColumn('name', 'string', ['length' => 128]);
 
         $table->create();
     }
