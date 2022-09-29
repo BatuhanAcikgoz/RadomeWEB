@@ -14,11 +14,11 @@ final class CreateStoreCategoriesTable extends AbstractMigration
             ->addColumn('description', 'text', ['null' => false])
             ->addColumn('image', 'string', ['length' => 128, 'default' => NULL])
             ->addColumn('only_subcategories', 'smallinteger', ['length' => 1, 'default' => 0])
-            ->addColumn('parent_category', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
-            ->addColumn('hidden', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
-            ->addColumn('disabled', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
+            ->addColumn('parent_category', 'smallinteger', ['length' => 1, 'default' => 0])
+            ->addColumn('hidden', 'smallinteger', ['length' => 1, 'default' => 0])
+            ->addColumn('disabled', 'smallinteger', ['length' => 1, 'default' => 0])
             ->addColumn('order', 'integer', ['length' => 11])
-            ->addColumn('deleted', 'integer', ['length' => 11, 'null' => false, 'default' => 0]);
+            ->addColumn('deleted', 'integer', ['length' => 11, 'default' => 0]);
 
         $table->create();
     }
