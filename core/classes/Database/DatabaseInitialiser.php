@@ -83,8 +83,6 @@ class DatabaseInitialiser {
 
     private function initialiseEklenti(): void{
 
-        $this->_db->query('ALTER TABLE `nl2_forms_replies_fields` ADD INDEX `nl2_forms_replies_fields_idx_submission_id` (`submission_id`)');
-
         $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
         $forms = $this->_db->query('SELECT * FROM nl2_forms')->results();
         foreach ($forms as $form) { 
