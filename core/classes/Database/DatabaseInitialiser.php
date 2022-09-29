@@ -139,7 +139,7 @@ class DatabaseInitialiser {
         $this->_db->insert('forms_fields', array(
             'form_id' => 1,
             'name' => 'Kategori',
-            'type' => 1,
+            'type' => 2,
             'required' => 1,
             'order' => 1,
             'options' => 'Hile / Küfür
@@ -151,7 +151,7 @@ class DatabaseInitialiser {
         $this->_db->insert('forms_fields', array(
             'form_id' => 1,
             'name' => 'Başlık',
-            'type' => 4,
+            'type' => 1,
             'max' => '30',
             'min' => '3',
             'required' => 1,
@@ -160,8 +160,8 @@ class DatabaseInitialiser {
         $this->_db->insert('forms_fields', array(
             'form_id' => 1,
             'name' => 'Mesaj',
-            'type' => 4,
-            'max' => '30',
+            'type' => 3,
+            'max' => '400',
             'min' => '3',
             'required' => 1,
             'order' => 3
