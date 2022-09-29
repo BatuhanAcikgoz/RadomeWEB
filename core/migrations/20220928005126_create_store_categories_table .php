@@ -11,7 +11,7 @@ final class CreateStoreCategoriesTable extends AbstractMigration
 
         $table
             ->addColumn('name', 'string', ['length' => 128])
-            ->addColumn('description', 'text', ['null' => true])
+            ->addColumn('description', 'text')
             ->addColumn('image', 'string', ['length' => 128, 'default' => NULL])
             ->addColumn('only_subcategories', 'smallinteger', ['length' => 1, 'default' => 0])
             ->addColumn('parent_category', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
