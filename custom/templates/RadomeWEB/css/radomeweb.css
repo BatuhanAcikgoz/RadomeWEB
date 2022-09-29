@@ -15,6 +15,10 @@ footer .footer-m-alt {
 	color: #FFFFFF;
 }
 
+.social-media-div:hover{
+    transform: translate3d(0, -8px, 0);
+}
+
 .social-media-div {
 	position: relative;
 	line-height: 42px;
