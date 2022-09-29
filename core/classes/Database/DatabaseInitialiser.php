@@ -20,13 +20,12 @@ class DatabaseInitialiser {
         $instance->initialiseSettings();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
-        
+        $instance->initialiseEklenti();
     }
 
     public static function runPostUser() {
         $instance = new self();
         $instance->initialiseForum();
-        $instance->initialiseEklenti();
     }
 
     private function initialiseGroups(): void {
