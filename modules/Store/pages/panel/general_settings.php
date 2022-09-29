@@ -135,7 +135,7 @@ if (isset($_POST) && !empty($_POST)) {
                 if (isset($_POST['store_path']) && strlen(str_replace(' ', '', $_POST['store_path'])) > 0)
                     $store_path_input = rtrim(Output::getClean($_POST['store_path']), '/');
                 else
-                    $store_path_input = '/store';
+                    $store_path_input = '/magaza';
 
                 if (count($store_path)) {
                     $store_path = $store_path[0]->id;
