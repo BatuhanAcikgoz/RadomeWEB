@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateIframeTable extends AbstractMigration
+final class CreateIframePagesTable extends AbstractMigration
 {
     public function change(): void
     {
