@@ -20,11 +20,14 @@ class DatabaseInitialiser {
         $instance->initialiseSettings();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
+        
     }
 
     public static function runPostUser() {
         $instance = new self();
         $instance->initialiseForum();
+        $instance->initialisePermissions();
+        $instance->initialiseEklenti();
     }
 
     private function initialiseGroups(): void {
@@ -76,6 +79,331 @@ class DatabaseInitialiser {
 
         $this->_cache->setCache('languagecache');
         $this->_cache->store('language', Session::get('default_language'));
+    }
+
+    private function initialiseEklenti(): void{
+
+        $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
+        $forms = $this->_db->query('SELECT * FROM nl2_forms')->results();
+        foreach ($forms as $form) { 
+        $this->_db->insert('forms_permissions', array(
+            'group_id' => 0,
+            'form_id' => $form->id,
+            'post' => $form->guest,
+            'view_own' => 0,
+            'view' => 0,
+            'can_delete' => 0
+        ));
+
+        foreach ($groups as $group) {
+            $this->_db->insert('forms_permissions', array(
+                'group_id' => $group->id,
+                'form_id' => $form->id,
+                'post' => 1,
+                'view_own' => $form->can_view,
+                'view' => ($group->staff == 1 ? 1 : 0),
+                'can_delete' => ($group->staff == 1 ? 1 : 0)
+            ));
+        }
+        }
+        $this->_db->insert('forms', array(
+            'url' => '/destek',
+            'title' => 'Destek Talebi',
+            'guest' => 0,
+            'link_location' => 1,
+            'icon' => '<i class="fas fa-ticket-alt"></i>'                    
+        ));
+
+        $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
+        $this->_db->insert('forms_permissions', array(
+            'group_id' => 0,
+            'form_id' => 1,
+            'post' => 0,
+            'view_own' => 0,
+            'view' => 0,
+            'can_delete' => 0
+        ));
+
+        foreach ($groups as $group) {
+            $this->_db->insert('forms_permissions', array(
+                'group_id' => $group->id,
+                'form_id' => 1,
+                'post' => 1,
+                'view_own' => 1,
+                'view' => ($group->staff == 1 ? 1 : 0),
+                'can_delete' => ($group->staff == 1 ? 1 : 0)
+            ));
+        }
+        $this->_db->insert('forms_fields', array(
+            'form_id' => 1,
+            'name' => 'Kategori',
+            'type' => 1,
+            'required' => 1,
+            'order' => 1,
+            'options' => 'Hile / Küfür
+            ,Yetkili Başvuru
+            ,Ödeme Öncesi
+            ,Ödeme Sonrası
+            ,Ceza İtiraf'
+        ));
+        $this->_db->insert('forms_fields', array(
+            'form_id' => 1,
+            'name' => 'Başlık',
+            'type' => 4,
+            'max' => '30',
+            'min' => '3',
+            'required' => 1,
+            'order' => 2
+        ));
+        $this->_db->insert('forms_fields', array(
+            'form_id' => 1,
+            'name' => 'Mesaj',
+            'type' => 4,
+            'max' => '30',
+            'min' => '3',
+            'required' => 1,
+            'order' => 3
+        ));      
+        $this->_db->insert('forms_fields', array(
+            'form_id' => 1,
+            'name' => 'Belge / Görsel',
+            'type' => 10,
+            'required' => 0,
+            'order' => 4
+        ));                            
+        $this->_db->insert('forms_statuses', array(
+            'html' => '<span class="badge badge-success">Açık</span>',
+            'open' => 1,
+            'fids' => '1',
+            'gids' => '2,3'
+        ));
+        $this->_db->insert('forms_statuses', array(
+            'html' => '<span class="badge badge-danger">Kapandı</span>',
+            'open' => 0,
+            'fids' => '1',
+            'gids' => '2,3'
+        ));
+        $this->_db->insert('forms_statuses', array(
+            'html' => '<span class="badge badge-warning">İşleme Alındı</span>',
+            'open' => 1,
+            'fids' => '1',
+            'gids' => '2,3'
+        ));
+        $this->_db->insert('store_gateways', [
+            'name' => 'Store Credits',
+            'displayname' => 'Store Credits',
+            'enabled' => 1
+        ]);
+        $this->_db->insert('store_fields', [
+            'identifier' => 'quantity',
+            'description' => 'Quantity',
+            'type' => '4',
+            'required' => '1',
+            'min' => '1',
+            'max' => '2',
+            'default_value' => '1',
+            'order' => '0'
+        ]);
+        $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Store Credits']);
+        if (!$gateway_exists->count()) {
+            $this->_db->insert('store_gateways', [
+                'name' => 'Store Credits',
+                'displayname' => 'Store Credits',
+                'enabled' => 1
+            ]);
+        }
+        $this->_db->insert('store_settings', [
+            'name' => 'checkout_complete_content',
+            'value' => 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed'
+        ]);
+
+        $this->_db->insert('store_settings', [
+            'name' => 'currency',
+            'value' => 'TL'
+        ]);
+
+        $this->_db->insert('store_settings', [
+            'name' => 'currency_symbol',
+            'value' => '₺'
+        ]);
+
+        $this->_db->insert('store_settings', [
+            'name' => 'allow_guests',
+            'value' => 0
+        ]);
+
+        $this->_db->insert('store_settings', [
+            'name' => 'player_login',
+            'value' => 0
+        ]);
+        $this->_db->insert('store_gateways', [
+            'name' => 'PayPal',
+            'displayname' => 'PayPal'
+        ]);
+
+        $this->_db->insert('store_gateways', [
+            'name' => 'PayPalBusiness',
+            'displayname' => 'PayPal'
+        ]);
+
+        $this->_db->insert('store_gateways', [
+            'name' => 'Store Credits',
+            'displayname' => 'Store Credits',
+            'enabled' => 1
+        ]);
+        DB::getInstance()->insert('vote_sites', [
+            'site' => 'https://minecraft-mp.com',
+            'name' => 'Minecraft-MP (Örnek)'
+        ]);
+        DB::getInstance()->insert('vote_sites', [
+            'site' => 'https://topg.org/tr/',
+            'name' => 'TOPG (Örnek)'
+        ]);
+        DB::getInstance()->insert('vote_settings', [
+            'name' => 'vote_message',
+            'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
+        ]);
+        $this->_db->insert('wiki_settings', [
+            'name' => 'home_page',
+            'value' => '<div><span style="font-size:20px"><strong>RadomeWEB Wiki Sayfasına Hoşgeldin!</strong></span><br />Bu kısımda istediğin kadar wiki sayfası oluşturabilirsin,<br />Düğme metnini, başlığı, simgeyi, urlyi ve daha bir çok şeyi düzenleyebilirsin.<br /><br /><strong>Admin panelinden istediğin değişikliği yapabilirsin.</strong><br /><br /><strong>Not:</strong>&nbsp;Ayrıca bu kısımı&nbsp;<strong><u><a href="/panel/wiki">Admin Paneli -&gt; Wiki</a></u></strong>.<br /><br />Bağlantılar:</div><ul><li>Desteği bu  <strong><a rel="nofollow noopener" target="_blank" href="https://discord.verira.com">Discord</a></strong> sunucusundan alabilirsiniz.</li></ul>'
+        ]);
+
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Hoşgeldiniz',
+            'parent' => 'null',
+            'nameid' => 'welcome',
+            'button' => 'Hoşgeldiniz',
+            'icon' => 'fas fa-users',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Hoşgeldiniz&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa, sunucumuzdaki yeni başlayanlar için bağlantılar ve faydalı bilgiler içerir.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Kurallar',
+            'parent' => 'welcome',
+            'nameid' => 'rules',
+            'button' => 'Kurallar',
+            'icon' => 'fas fa-book',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Kurallar&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt;Kurallarımızı bu linkten görüntüleyebilirsiniz &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;https://verira.com/kullanim-sozlesmesi/',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Kılavuzlar & İpuçları',
+            'parent' => 'welcome',
+            'nameid' => 'guide',
+            'button' => 'Kılavuz',
+            'icon' => 'fas fa-question',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Kılavuzlar & İpuçları&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa sunucumuzda yeni başlayanlar için kılavuzlar ve ipuçları içerir.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Detaylı Bilgilendirme',
+            'parent' => 'welcome',
+            'nameid' => 'protips',
+            'button' => 'Detaylı Bilgilendirme',
+            'icon' => 'fas fa-exclamation',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Detaylı Bilgilendirme&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa, sunucumuzdaki ileri düzey kullanıcılar ve oyuncular için bağlantılar ve faydalı bilgiler içerir.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Komutlar',
+            'parent' => 'null',
+            'nameid' => 'commands',
+            'button' => 'Komutlar',
+            'icon' => 'fas fa-terminal',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Komutlar&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu kısımdan oyun içerisindeki bazı komutlara göz atabilirsin.&lt;br /&gt;&amp;nbsp;&lt;ul&gt;&lha ot;li&gt;&lt;strong&gt;/msg&lt;/strong&gt; [player] [message]: Hedef kişiye özel mesaj gönderir.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/fly&lt;/strong&gt;: Premiumlar için uçmayı sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/customkit&lt;/strong&gt;: Sunucu içinde custom kit oluşturmanıza olanak sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/duel&lt;/strong&gt; [player] : Hedef oyuncuya duello isteği gönderir. &lt;/li&gt;&lt;li&gt;&lt;strong&gt;/ffa&lt;/strong&gt;: FFA oyun moduna gir.&lt;/li&gt;&lt;/ul&gt;Check &lt;strong&gt;/yardım&lt;/strong&gt; oyunda yardım almak için yazın.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Yetkiler',
+            'parent' => 'null',
+            'nameid' => 'permissions',
+            'button' => 'Yetkiler',
+            'icon' => 'fas fa-user-lock',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Yetkiler&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa yetkilerin listesini içeriyor.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Rütbeler',
+            'parent' => 'null',
+            'nameid' => 'ranks',
+            'button' => 'Rütbeler',
+            'icon' => 'fas fa-star',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;RANKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available ranks in our server.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Ayrıcalıklar',
+            'parent' => 'ranks',
+            'nameid' => 'perks',
+            'button' => 'Ayrıcalıklar',
+            'icon' => 'fas fa-grin-stars',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;PERKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available perks for each rank in our server.',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+        $this->_db->insert('wiki_pages', [
+            'title' => 'Discord',
+            'parent' => 'null',
+            'nameid' => 'discord',
+            'button' => 'Discord',
+            'icon' => 'fab fa-discord',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;DISCORD&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt;Feel free to join to our &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;http://discord.gg/link&quot;&gt;&lt;strong&gt;Discord server&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;',
+            'views' => '0',
+            'likes' => '0',
+            'likeable' => '1',
+            'enabled' => '1'
+        ]);
+    }
+
+    private function initialisePermissions(): void{
+            // Update main admin group permissions
+            $group = $this->_db->get('groups', ['id', '=', 2])->results();
+            $group = $group[0];
+
+            $group_permissions = json_decode($group->permissions, TRUE);
+            $group_permissions['staffcp.store'] = 1;
+            $group_permissions['staffcp.store.settings'] = 1;
+            $group_permissions['staffcp.store.products'] = 1;
+            $group_permissions['staffcp.store.payments'] = 1;
+            $group_permissions['staffcp.store.gateways'] = 1;
+            $group_permissions['staffcp.store.connections'] = 1;
+            $group_permissions['staffcp.store.fields'] = 1;
+            $group_permissions['admincp.vote'] = 1;
+            $group_permissions['admincp.wiki'] = 1;
+            $group_permissions['admincp.infractions.settings'] = 1;
+			$group_permissions['infractions.view'] = 1;
+            $group_permissions['admincp.iframe'] = 1;
+            $group_permissions['forms.anonymous'] = 1;
+            $group_permissions['forms.manage'] = 1;
+            $group_permissions['forms.view-submissions'] = 1;
+            $group_permissions['forms.manage-submission'] = 1;
+            $group_permissions['forms.anonymous'] = 1;
+
+            $group_permissions = json_encode($group_permissions);
+			DB::getInstance()->update('groups', 2, array('permissions' => $group_permissions));
     }
 
     private function initialiseModules(): void {
