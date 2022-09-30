@@ -36,21 +36,6 @@ class Forms_Module extends Module {
         $pages->add('Forms', '/user/submissions', 'pages/user/submissions.php');
 
         // Check if module version changed
-        $cache->setCache('forms_module_cache');
-        if (!$cache->isCached('module_version')) {
-            $cache->store('module_version', $module_version);
-        } else {
-            if ($module_version != $cache->retrieve('module_version')) {
-                // Version have changed, Perform actions
-                $this->initialiseUpdate($cache->retrieve('module_version'));
-
-                $cache->store('module_version', $module_version);
-
-                if ($cache->isCached('update_check')) {
-                    $cache->erase('update_check');
-                }
-            }
-        }
 
         try {
             $forms = $this->_db->query('SELECT id, link_location, url, icon, title, guest FROM nl2_forms')->results();
@@ -247,105 +232,6 @@ class Forms_Module extends Module {
         return [];
     }
 
-    private function initialiseUpdate($old_version) {
-        $old_version = str_replace(array(".", "-"), "", $old_version);
-
-        if ($old_version < 192) {
-            try {
-                $this->_db->addColumn('forms', '`source`', "varchar(32) NOT NULL DEFAULT 'forms'");
-                $this->_db->addColumn('forms', '`forum_id`', "int(11) NOT NULL DEFAULT '0'");
-                $this->_db->addColumn('forms_statuses', '`color`', "varchar(32) NULL DEFAULT NULL");
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-
-        if ($old_version < 180) {
-            try {
-                // Generate table
-                $this->_db->createTable("forms_replies_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `submission_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY (`id`)");
-                $this->_db->createQuery('ALTER TABLE `nl2_forms_replies_fields` ADD INDEX `nl2_forms_replies_fields_idx_submission_id` (`submission_id`)');
-            } catch (Exception $e) {
-                // Error
-            }
-
-            try {
-                $this->_db->addColumn('forms_fields', '`info`', "text NULL");
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-
-        if ($old_version < 170) {
-            try {
-                $this->_db->addColumn('forms_comments', '`anonymous`', "tinyint(1) NOT NULL DEFAULT '0'");
-                $this->_db->addColumn('forms_fields', '`min`', "int(11) NOT NULL DEFAULT '0'");
-                $this->_db->addColumn('forms_fields', '`max`', "int(11) NOT NULL DEFAULT '0'");
-                $this->_db->addColumn('forms_fields', '`placeholder`', "varchar(255) NULL DEFAULT NULL");
-                $this->_db->addColumn('forms', '`comment_status`', "int(11) NOT NULL DEFAULT '0'");
-
-                // Update main admin group permissions
-                $group = $this->_db->get('groups', array('id', '=', 2))->results();
-                $group = $group[0];
-                
-                $group_permissions = json_decode($group->permissions, TRUE);
-                $group_permissions['forms.anonymous'] = 1;
-                
-                $group_permissions = json_encode($group_permissions);
-                $this->_db->update('groups', 2, array('permissions' => $group_permissions));
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-
-        if ($old_version < 160) {
-            try {
-                if (!$this->_db->showTables('forms_permissions')) {
-                    try {
-                        $this->_db->createTable("forms_permissions", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `post` tinyint(1) NOT NULL DEFAULT '1', `view_own` tinyint(1) NOT NULL DEFAULT '1', `view` tinyint(1) NOT NULL DEFAULT '0', `can_delete` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
-                    } catch(Exception $e) {
-                        // Error
-                    }
-
-                    $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
-                    $forms = $this->_db->query('SELECT * FROM nl2_forms')->results();
-                    foreach ($forms as $form) {
-                        $this->_db->insert('forms_permissions', array(
-                            'group_id' => 0,
-                            'form_id' => $form->id,
-                            'post' => $form->guest,
-                            'view_own' => 0,
-                            'view' => 0,
-                            'can_delete' => 0
-                        ));
-
-                        foreach ($groups as $group) {
-                            $this->_db->insert('forms_permissions', array(
-                                'group_id' => $group->id,
-                                'form_id' => $form->id,
-                                'post' => 1,
-                                'view_own' => $form->can_view,
-                                'view' => ($group->staff == 1 ? 1 : 0),
-                                'can_delete' => ($group->staff == 1 ? 1 : 0)
-                            ));
-                        }
-                    }
-                } 
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-
-        if ($old_version < 134) {
-            try {
-                $this->_db->addColumn('forms', '`captcha`', "tinyint(1) NOT NULL DEFAULT '0'");
-                $this->_db->addColumn('forms', '`content`', "mediumtext NULL DEFAULT NULL");
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-    }
-
     private function initialise() {
         // Generate tables
         if (!$this->_db->showTables('forms')) {
@@ -354,7 +240,7 @@ class Forms_Module extends Module {
 
                 $this->_db->insert('forms', array(
                     'url' => '/destek',
-                    'title' => 'Destek Talebi',
+                    'title' => 'Destek',
                     'guest' => 0,
                     'link_location' => 1,
                     'icon' => '<i class="fas fa-ticket-alt"></i>'                    
