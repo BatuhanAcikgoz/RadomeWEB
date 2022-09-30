@@ -69,7 +69,7 @@ switch($inf_config['plugin']) {
 		$infractions = new AdvancedBan($inf_db, $infractions_language);
 		break;
 	default:
-		die('Plugin not supported!');
+		die('Eklenti kurulumunu ve MYSQL kurulumunu yaptıktan sonra kontrol panelinden eklentiyi ayarlayıp tekrar deneyiniz!');
 }
 
 if(!isset($_GET['view']) && !isset($_GET['id'])){
