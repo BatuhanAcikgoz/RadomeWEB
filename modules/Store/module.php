@@ -917,7 +917,7 @@ class Store_Module extends Module {
 
             $this->_db->insert('store_settings', [
                 'name' => 'checkout_complete_content',
-                'value' => 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed'
+                'value' => 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.'
             ]);
 
             $this->_db->insert('store_settings', [

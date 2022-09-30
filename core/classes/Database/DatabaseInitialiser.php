@@ -110,7 +110,7 @@ class DatabaseInitialiser {
         }
         $this->_db->insert('forms', array(
             'url' => '/destek',
-            'title' => 'Destek Talebi',
+            'title' => 'Destek',
             'guest' => 0,
             'link_location' => 1,
             'icon' => '<i class="fas fa-ticket-alt"></i>'                    
@@ -193,7 +193,7 @@ class DatabaseInitialiser {
         ));
         $this->_db->insert('store_gateways', [
             'name' => 'Store Credits',
-            'displayname' => 'Store Credits',
+            'displayname' => 'Mağaza Bakiyesi',
             'enabled' => 1
         ]);
         $this->_db->insert('store_fields', [
@@ -210,7 +210,7 @@ class DatabaseInitialiser {
         if (!$gateway_exists->count()) {
             $this->_db->insert('store_gateways', [
                 'name' => 'Store Credits',
-                'displayname' => 'Store Credits',
+                'displayname' => 'Mağaza Bakiyesi',
                 'enabled' => 1
             ]);
         }
@@ -271,7 +271,7 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('wiki_pages', [
-            'title' => 'Hoşgeldiniz',
+            'title' => 'Hoş geldiniz',
             'parent' => 'null',
             'nameid' => 'welcome',
             'button' => 'Hoşgeldiniz',
