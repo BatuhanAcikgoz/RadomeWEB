@@ -213,7 +213,7 @@ if (count($store_path)) {
 }
 
 // Currency
-$currency_list = ['USD', 'EUR', 'TL'];
+$currency_list = ['TL', 'USD', 'EUR'];
 $currency = $configuration->get('currency');
 
 // Currency Symbol
