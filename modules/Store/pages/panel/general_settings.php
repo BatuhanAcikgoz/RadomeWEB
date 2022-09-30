@@ -209,11 +209,11 @@ $store_path = DB::getInstance()->get('store_settings', ['name', '=', 'store_path
 if (count($store_path)) {
     $store_path = Output::getClean($store_path[0]->value);
 } else {
-    $store_path = '/store';
+    $store_path = '/magaza';
 }
 
 // Currency
-$currency_list = ['USD', 'EUR', 'GBP', 'NOK', 'SEK', 'PLN', 'DKK', 'CAD', 'BRL', 'AUD'];
+$currency_list = ['USD', 'EUR', 'TL'];
 $currency = $configuration->get('currency');
 
 // Currency Symbol
