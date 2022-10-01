@@ -90,7 +90,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
         $pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
-        $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
