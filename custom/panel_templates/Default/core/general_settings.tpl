@@ -94,6 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                <div class="row">
                                         <div class="col-md-6">
                                             <label for="inputLoginMethod">{$LOGIN_METHOD}</label>
                                             <select name="login_method" class="form-control" id="inputLoginMethod">
@@ -107,7 +108,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div
+                                </div>
+                                </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
