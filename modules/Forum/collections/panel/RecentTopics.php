@@ -1,11 +1,11 @@
 <?php
 
 /*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Recent topics dashboard collection item
  */
