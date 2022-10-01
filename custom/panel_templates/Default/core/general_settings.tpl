@@ -94,18 +94,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="inputHomepage">{$HOMEPAGE_TYPE}</label>
-                                            <select name="homepage" class="form-control" id="inputHomepage">
-                                                <option value="news" {if $HOMEPAGE_VALUE eq 'news' } selected{/if}>
-                                                    {$HOMEPAGE_NEWS}</option>
-                                                <option value="custom" {if $HOMEPAGE_VALUE eq 'custom' } selected{/if}>
-                                                    {$HOMEPAGE_CUSTOM}</option>
-                                                <option value="portal" {if $HOMEPAGE_VALUE eq 'portal' } selected{/if}>
-                                                    {$HOMEPAGE_PORTAL}</option>
-                                            </select>
-                                        </div>
                                         <div class="col-md-6">
                                             <label for="inputLoginMethod">{$LOGIN_METHOD}</label>
                                             <select name="login_method" class="form-control" id="inputLoginMethod">
@@ -119,69 +107,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="inputFriendlyURL">{$USE_FRIENDLY_URLS}</label>
-                                            <span class="badge badge-info"><i class="fas fa-question-circle"
-                                                    data-container="body" data-toggle="popover" data-placement="top"
-                                                    title="{$INFO}" data-content="{$USE_FRIENDLY_URLS_HELP}"></i></span>
-                                            <select name="friendlyURL" class="form-control" id="inputFriendlyURL">
-                                                <option value="true" {if $USE_FRIENDLY_URLS_VALUE} selected{/if}>
-                                                    {$ENABLED}</option>
-                                                <option value="false" {if !$USE_FRIENDLY_URLS_VALUE} selected{/if}>
-                                                    {$DISABLED}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPrivateProfile">{$PRIVATE_PROFILES}</label>
-                                            <select name="privateProfile" class="form-control" id="inputPrivateProfile">
-                                                <option value="1" {if $PRIVATE_PROFILES_VALUE} selected{/if}>{$ENABLED}
-                                                </option>
-                                                <option value="0" {if !$PRIVATE_PROFILES_VALUE} selected{/if}>
-                                                    {$DISABLED}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="inputForceHTTPS">{$FORCE_HTTPS}</label>
-                                            <span class="badge badge-info"><i class="fas fa-question-circle"
-                                                    data-container="body" data-toggle="popover" data-placement="top"
-                                                    title="{$INFO}" data-content="{$FORCE_HTTPS_HELP}"></i></span>
-                                            <select name="forceHTTPS" class="form-control" id="inputForceHTTPS">
-                                                <option value="true" {if $FORCE_HTTPS_VALUE} selected{/if}>{$ENABLED}
-                                                </option>
-                                                <option value="false" {if !$FORCE_HTTPS_VALUE} selected{/if}>{$DISABLED}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputForceWWW">{$FORCE_WWW}</label>
-                                            <select name="forceWWW" class="form-control" id="inputForceWWW">
-                                                <option value="true" {if $FORCE_WWW_VALUE} selected{/if}>{$ENABLED}
-                                                </option>
-                                                <option value="false" {if !$FORCE_WWW_VALUE} selected{/if}>{$DISABLED}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="inputEnableNicknames">{$ENABLE_NICKNAMES}</label>
-                                            <select name="displaynames" class="form-control" id="inputEnableNicknames">
-                                                <option value="true" {if $ENABLE_NICKNAMES_VALUE eq "1" }
-                                                    selected{/if}>{$ENABLED}</option>
-                                                <option value="false" {if $ENABLE_NICKNAMES_VALUE eq "0" }
-                                                    selected{/if}>{$DISABLED}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
