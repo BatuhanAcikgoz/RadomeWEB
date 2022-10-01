@@ -296,15 +296,6 @@ class Forum_Module extends Module {
                     $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
                     $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
 
-                    if (!$cache->isCached('forum_icon')) {
-                        $icon = '<i class="nav-icon fas fa-comments"></i>';
-                        $cache->store('forum_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('forum_icon');
-                    }
-
-                    $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forums'), 'top', null, $order + 0.2, $icon);
-
                     if (!$cache->isCached('forum_label_icon')) {
                         $icon = '<i class="nav-icon fas fa-tags"></i>';
                         $cache->store('forum_label_icon', $icon);
