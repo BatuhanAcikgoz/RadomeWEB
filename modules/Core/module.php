@@ -87,7 +87,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
         $pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
         $pages->add('Core', '/panel/core/panel_templates', 'pages/panel/panel_templates.php');
-        $pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
         $pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
