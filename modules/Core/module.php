@@ -1102,16 +1102,6 @@ class Core_Module extends Module {
                     $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', null, $icon, $order);
                 }
 
-                if ($user->hasPermission('admincp.core.debugging')) {
-                    if (!$cache->isCached('debugging_icon')) {
-                        $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
-                        $cache->store('debugging_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('debugging_icon');
-                    }
-
-                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', null, $icon, $order);
-                }
 
                 if ($user->hasPermission('admincp.core.emails')) {
                     if (!$cache->isCached('email_icon')) {
@@ -1296,7 +1286,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('templates_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates/?action=settings&template=1'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
