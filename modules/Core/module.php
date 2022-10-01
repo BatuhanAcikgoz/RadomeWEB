@@ -1312,24 +1312,6 @@ class Core_Module extends Module {
                 }
             }
 
-            if ($user->hasPermission('admincp.modules')) {
-                if (!$cache->isCached('modules_order')) {
-                    $order = 7;
-                    $cache->store('modules_order', 7);
-                } else {
-                    $order = $cache->retrieve('modules_order');
-                }
-
-                if (!$cache->isCached('modules_icon')) {
-                    $icon = '<i class="nav-icon fas fa-puzzle-piece"></i>';
-                    $cache->store('modules_icon', $icon);
-                } else {
-                    $icon = $cache->retrieve('modules_icon');
-                }
-
-                $navs[2]->add('modules', $language->get('admin', 'modules'), URL::build('/panel/core/modules'), 'top', null, $order, $icon);
-            }
-
             if ($user->hasPermission('admincp.pages')) {
                 if (!$cache->isCached('pages_order')) {
                     $order = 8;
