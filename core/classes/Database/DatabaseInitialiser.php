@@ -192,8 +192,8 @@ class DatabaseInitialiser {
             'gids' => '2,3'
         ));
         $this->_db->insert('store_gateways', [
-            'name' => 'Store Credits',
-            'displayname' => 'Mağaza Bakiyesi',
+            'name' => 'Bakiye',
+            'displayname' => 'Bakiye',
             'enabled' => 1
         ]);
         $this->_db->insert('store_fields', [
@@ -206,17 +206,17 @@ class DatabaseInitialiser {
             'default_value' => '1',
             'order' => '0'
         ]);
-        $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Store Credits']);
+        $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Bakiye']);
         if (!$gateway_exists->count()) {
             $this->_db->insert('store_gateways', [
-                'name' => 'Store Credits',
-                'displayname' => 'Mağaza Bakiyesi',
+                'name' => 'Bakiye',
+                'displayname' => 'Bakiye',
                 'enabled' => 1
             ]);
         }
         $this->_db->insert('store_settings', [
             'name' => 'checkout_complete_content',
-            'value' => 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed'
+            'value' => 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.'
         ]);
 
         $this->_db->insert('store_settings', [
@@ -249,8 +249,8 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('store_gateways', [
-            'name' => 'Store Credits',
-            'displayname' => 'Store Credits',
+            'name' => 'Bakiye',
+            'displayname' => 'Bakiye',
             'enabled' => 1
         ]);
         DB::getInstance()->insert('vote_sites', [
@@ -324,7 +324,7 @@ class DatabaseInitialiser {
             'nameid' => 'commands',
             'button' => 'Komutlar',
             'icon' => 'fas fa-terminal',
-            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Komutlar&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu kısımdan oyun içerisindeki bazı komutlara göz atabilirsin.&lt;br /&gt;&amp;nbsp;&lt;ul&gt;&lha ot;li&gt;&lt;strong&gt;/msg&lt;/strong&gt; [player] [message]: Hedef kişiye özel mesaj gönderir.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/fly&lt;/strong&gt;: Premiumlar için uçmayı sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/customkit&lt;/strong&gt;: Sunucu içinde custom kit oluşturmanıza olanak sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/duel&lt;/strong&gt; [player] : Hedef oyuncuya duello isteği gönderir. &lt;/li&gt;&lt;li&gt;&lt;strong&gt;/ffa&lt;/strong&gt;: FFA oyun moduna gir.&lt;/li&gt;&lt;/ul&gt;Check &lt;strong&gt;/yardım&lt;/strong&gt; oyunda yardım almak için yazın.',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Komutlar&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu kısımdan oyun içerisindeki bazı komutlara göz atabilirsin.&lt;br /&gt;&amp;nbsp;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;/msg&lt;/strong&gt; [player] [message]: Hedef kişiye özel mesaj gönderir.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/fly&lt;/strong&gt;: Premiumlar için uçmayı sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/customkit&lt;/strong&gt;: Sunucu içinde custom kit oluşturmanıza olanak sağlar.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;/duel&lt;/strong&gt; [player] : Hedef oyuncuya duello isteği gönderir. &lt;/li&gt;&lt;li&gt;&lt;strong&gt;/ffa&lt;/strong&gt;: FFA oyun moduna gir.&lt;/li&gt;&lt;/ul&gt;Check &lt;strong&gt;/yardım&lt;/strong&gt; oyunda yardım almak için yazın.',
             'views' => '0',
             'likes' => '0',
             'likeable' => '1',
@@ -348,7 +348,7 @@ class DatabaseInitialiser {
             'nameid' => 'ranks',
             'button' => 'Rütbeler',
             'icon' => 'fas fa-star',
-            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;RANKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available ranks in our server.',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;RANKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa sunucumuzda yer alan rütbeleri gösterir.',
             'views' => '0',
             'likes' => '0',
             'likeable' => '1',
@@ -360,7 +360,7 @@ class DatabaseInitialiser {
             'nameid' => 'perks',
             'button' => 'Ayrıcalıklar',
             'icon' => 'fas fa-grin-stars',
-            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;PERKS&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;This page contains list of available perks for each rank in our server.',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Ayrıcalıklar&lt;/strong&gt;&lt;/span&gt;&lt;br /&gt;Bu sayfa sunucumuzda yer alan ayrıcalıkları gösterir.',
             'views' => '0',
             'likes' => '0',
             'likeable' => '1',
@@ -591,12 +591,12 @@ class DatabaseInitialiser {
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
-            'value' => '<p>You agree to be bound by our website rules and any laws which may apply to this website and your participation.</p><p>The website administration have the right to terminate your account at any time, delete any content you may have posted, and your IP address and any data you input to the website is recorded to assist the site staff with their moderation duties.</p><p>The site administration have the right to change these terms and conditions, and any site rules, at any point without warning. Whilst you may be informed of any changes, it is your responsibility to check these terms and the rules at any point.</p>'
+            'value' => '<p>Web sitesi kurallarımıza ve bu web sitesi ve katılımınız için geçerli olabilecek tüm yasalara bağlı kalmayı kabul ediyorsunuz.</p><p>Web sitesi yönetimi, hesabınızı herhangi bir zamanda feshetme, herhangi bir içeriği silme hakkına sahiptir. yayınlamış olabilir ve IP adresiniz ve web sitesine girdiğiniz herhangi bir veri, site personeline moderatörlük görevlerinde yardımcı olmak için kaydedilir.</p><p>Site yönetimi, bu hüküm ve koşulları ve herhangi bir değişiklik yapma hakkına sahiptir. site kuralları, herhangi bir noktada uyarı yapmadan. Herhangi bir değişiklikten haberdar olsanız da, bu şartları ve kuralları istediğiniz zaman kontrol etmek sizin sorumluluğunuzdadır.</p>'
         ]);
 
         $this->_db->insert('privacy_terms', [
             'name' => 'cookies',
-            'value' => '<span style="font-size:18px"><strong>What are cookies?</strong></span><br />Cookies are small files which are stored on your device by a website, unique to your web browser. The web browser will send these files to the website each time it communicates with the website.<br />Cookies are used by this website for a variety of reasons which are outlined below.<br /><br /><strong>Necessary cookies</strong><br />Necessary cookies are required for this website to function. These are used by the website to maintain your session, allowing for you to submit any forms, log into the website amongst other essential behaviour. It is not possible to disable these within the website, however you can disable cookies altogether via your browser.<br /><br /><strong>Functional cookies</strong><br />Functional cookies allow for the website to work as you choose. For example, enabling the &quot;Remember Me&quot; option as you log in will create a functional cookie to automatically log you in on future visits.<br /><br /><strong>Analytical cookies</strong><br />Analytical cookies allow both this website, and any third party services used by this website, to collect non-personally identifiable data about the user. This allows us (the website staff) to continue to improve the user experience and understand how the website is used.<br /><br />Further information about cookies can be found online, including the <a rel="nofollow noopener" target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICO&#39;s website</a> which contains useful links to further documentation about configuring your browser.<br /><br /><span style="font-size:18px"><strong>Configuring cookie use</strong></span><br />By default, only necessary cookies are used by this website. However, some website functionality may be unavailable until the use of cookies has been opted into.<br />You can opt into, or continue to disallow, the use of cookies using the cookie notice popup on this website. If you would like to update your preference, the cookie notice popup can be re-enabled by clicking the button below.'
+            'value' => '<span style="font-size:18px"><strong>Çerezler nedir?</strong></span><br />Çerezler, bir web sitesi tarafından cihazınızda saklanan, web tarayıcınıza özgü küçük dosyalardır. Web tarayıcısı, web sitesiyle her iletişim kurduğunda bu dosyaları web sitesine gönderir.<br />Çerezler, bu web sitesi tarafından aşağıda özetlenen çeşitli nedenlerle kullanılmaktadır.<br /><br /><strong>Gerekli çerezler</strong><br />Bu web sitesinin çalışması için gerekli çerezler gereklidir. Bunlar, web sitesi tarafından oturumunuzu sürdürmek için kullanılır, diğer önemli davranışların yanı sıra herhangi bir form göndermenize, web sitesinde oturum açmanıza olanak tanır. Bunları web sitesi içinde devre dışı bırakmak mümkün değildir, ancak çerezleri tarayıcınız üzerinden tamamen devre dışı bırakabilirsiniz.<br /><br /><strong>İşlevsel çerezler</strong><br />İşlevsel çerezler, web sitesinin çalışmasına izin verir. seçtiğiniz gibi. Örneğin, &quot;Beni Hatırla&quot; Giriş yaptığınızda bu seçenek, gelecekteki ziyaretlerinizde otomatik olarak oturum açmanız için işlevsel bir çerez oluşturacaktır.<br /><br /><strong>Analitik çerezler</strong><br />Analitik çerezler hem bu web sitesine hem de herhangi bir üçüncü web sitesine izin verir. Kullanıcı hakkında kişisel olarak tanımlanamayan verileri toplamak için bu web sitesi tarafından kullanılan taraf hizmetleri. Bu, bizim (web sitesi personelinin) kullanıcı deneyimini iyileştirmeye ve web sitesinin nasıl kullanıldığını anlamaya devam etmemizi sağlar.<br /><br />Çerezler hakkında <a rel="nofollow noopener" dahil olmak üzere çevrimiçi olarak daha fazla bilgi bulunabilir. target="_blank" href="https://ico.org.uk/your-data-matters/online/cookies/">ICOnun web sitesi</a>; tarayıcı.<br /><br /><span style="font-size:18px"><strong>Çerez kullanımını yapılandırma</strong></span><br />Varsayılan olarak, bu tarafından yalnızca gerekli çerezler kullanılır İnternet sitesi. Ancak, bazı web sitesi işlevleri, çerez kullanımı etkinleştirilene kadar kullanılamayabilir.<br />Bu web sitesindeki çerez bildirimi açılır penceresini kullanarak çerez kullanımını etkinleştirebilir veya buna izin vermemeye devam edebilirsiniz. Tercihinizi güncellemek isterseniz, aşağıdaki düğmeyi tıklayarak çerez bildirimi açılır penceresi yeniden etkinleştirilebilir.'
         ]);
 
         $this->_db->insert('privacy_terms', [
@@ -604,13 +604,11 @@ class DatabaseInitialiser {
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $nameless_terms = 'This website uses "Nameless" website software. The ' .
-                        '"Nameless" software creators will not be held responsible for any content ' .
-                        'that may be experienced whilst browsing this site, nor are they responsible ' .
-                        'for any loss of data which may come about, for example a hacking attempt. ' .
-                        'The website is run independently from the software creators, and any content' .
-                        ' is the responsibility of the website administration.';
-        Util::setSetting('t_and_c', 'By registering on our website, you agree to the following:<p>' . $nameless_terms . '</p>');
+        $nameless_terms = 'Bu site RadomeWEB kullanılarak oluşturulmuştur. ' .
+                        'Verira firması için yapılmış olup site tamamen site sorumluluğu ' .
+                        'tamamen site yöneticisine aittir. Verira çalışanları veya RadomeWEB ' .
+                        'yapımcıları herhangi bir sorumluluk kabul etmez.';
+        Util::setSetting('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $nameless_terms . '</p>');
     }
 
     private function initialiseTemplates(): void {
@@ -675,25 +673,19 @@ class DatabaseInitialiser {
     }
 
     private function initialiseForum() {
-        $this->_db->insert('forums', [
-            'forum_title' => 'Category',
-            'forum_description' => 'The first forum category!',
-            'forum_order' => 1,
-            'forum_type' => 'category'
-        ]);
 
         $this->_db->insert('forums', [
-            'forum_title' => 'Forum',
-            'forum_description' => 'The first discussion forum!',
-            'forum_order' => 2,
+            'forum_title' => 'Haberler',
+            'forum_description' => 'Sunucumuz hakkında haberler!',
+            'forum_order' => 1,
             'parent' => 1,
             'forum_type' => 'forum',
             'news' => 1
         ]);
 
         $this->_db->insert('topics', [
-            'forum_id' => 2,
-            'topic_title' => 'Welcome to NamelessMC!',
+            'forum_id' => 1,
+            'topic_title' => 'RadomeWEB Minecraft WebScripti',
             'topic_creator' => 1,
             'topic_last_user' => 1,
             'topic_date' => date('U'),
@@ -702,15 +694,53 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('posts', [
-            'forum_id' => 2,
+            'forum_id' => 1,
             'topic_id' => 1,
             'post_creator' => 1,
             'post_content' => Output::getClean(
-                '&lt;p&gt;Welcome!&lt;/p&gt;
-                    &lt;p&gt;To get started with NamelessMC, visit your StaffCP using the blue gear icon in the top right of your screen.&lt;/p&gt;
-                    &lt;p&gt;If you need support, visit our Discord server: &lt;a href=&quot;https://discord.gg/nameless&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://discord.gg/nameless&lt;/a&gt;&lt;/p&gt;
-                    &lt;p&gt;Thank you and enjoy,&lt;/p&gt;
-                    &lt;p&gt;The NamelessMC Development team.&lt;/p&gt;'
+                '<p>RadomeWEB Gelişmiş Minecraft WebScripti</p>
+                <ul>
+                <li>🙋 Haberler</li>
+                <li>🧭 Destek sistemi</li>
+                <li>🔨 AdvancedBan, LiteBans banlarını sitede g&ouml;r&uuml;nt&uuml;leme</li>
+                <li>🛒 Mağaza sistemi ile &uuml;r&uuml;nler ekleme &uuml;r&uuml;nleri kategorize etme ve VeriraAPI, PayTR ile &ouml;deme alma imkanı</li>
+                <li>📃 IFrame destekli &ouml;zel sayfalar ile sitenizde kendi sayfalarınızı oluşturabilirsiniz</li>
+                <li>👥 OAuth desteği ile siteye discord veya google hesabı kullanarak kayıt olabilirsiniz</li>
+                <li>🎮 Minecraft entegrasyonu
+                <ul>
+                <li>Bedrock veya Java edition sunucularınızın durumunu g&ouml;r&uuml;nt&uuml;leyin</li>
+                <li>RadomeWEB Eklentisi
+                <ul>
+                <li>Mağaza bağlantısı ile sunucuya komut g&ouml;nderme</li>
+                <li>Vault ranklarını RadomeWEB ile eşitleme ( oyundan -&gt; siteye )</li>
+                <li>Oyun sohbetinde site duyurularını g&ouml;r&uuml;nt&uuml;leme</li>
+                <li>Authme desteği ile site i&ccedil;erisinden kayıt olma</li>
+                <li>Siteden yasaklanan oyuncunun sunucudan da yasaklanması &ouml;zelliği</li>
+                <li>PlaceholderAPI datalarını siteye g&ouml;nderip Lider Tablosunda g&ouml;sterme &ouml;zelliği.</li>
+                </ul>
+                </li>
+                </ul>
+                </li>
+                <li>🗨️ Discord entegrasyonu
+                <ul>
+                <li>Webhook: Satın alımlar. kredi yatıranlar, yeni destek a&ccedil;anlar, siteye kayıt olanlar, siteden ceza yiyenler gibi daha bir &ccedil;ok şeyi discord sunucunuzda g&ouml;sterebilirsiniz.</li>
+                <li>Radome-DiscordBOT
+                <ul>
+                <li>RadomeWEB ile discord hesaplarını linkleme</li>
+                <li>Discord rolleri ile site rollerini eşitleme</li>
+                </ul>
+                </li>
+                </ul>
+                </li>
+                <li>⚙️ PHP 8 ve PDO kapalı kaynak altyapısı sayesinde a&ccedil;ıksız bir site deneyimi</li>
+                <li>✨ SEO y&ouml;neticisi ile sitenizi googleda bir adım &ouml;ne taşıyın.</li>
+                <li>🗺️ Widget: Widget ile sitenizde &ccedil;oğu şeyi g&ouml;r&uuml;nt&uuml;leyebilirsiniz: ( Son satın alımlar, Discord, Sunucu durumu, Site İstatistiği vs. )</li>
+                <li>🖌️ &Ouml;zelleştirilebilir tema: site renklerini, slider ayarlarını, g&ouml;rselleri, başlıkları ve daha bir &ccedil;ok şeyi admin panelinden d&uuml;zenleyebilirsiniz</li>
+                <li>🚩 İngilizce ve T&uuml;rk&ccedil;e dil desteği</li>
+                </ul>
+                <h4>&nbsp;</h4>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>'
             ),
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U'),

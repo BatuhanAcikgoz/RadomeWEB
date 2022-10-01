@@ -10,7 +10,7 @@
 class Credits_Gateway extends GatewayBase {
 
     public function __construct() {
-        $name = 'Store Credits';
+        $name = 'Bakiye';
         $settings = ROOT_PATH . '/modules/Store/gateways/Credits/gateway_settings/settings.php';
 
         parent::__construct($name, $settings);
