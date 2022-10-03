@@ -747,20 +747,6 @@ class DatabaseInitialiser {
         ]);
         
         // Permissions
-        for ($i = 0; $i < 4; $i++) {
-            for ($n = 1; $n < 3; $n++) {
-                $this->_db->insert('forums_permissions', [
-                    'group_id' => $i,
-                    'forum_id' => $n,
-                    'view' => true,
-                    'create_topic' => ($i == 0 ? 0 : 1),
-                    'edit_topic' => ($i == 0 ? 0 : 1),
-                    'create_post' => ($i == 0 ? 0 : 1),
-                    'view_other_topics' => true,
-                    'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
-                ]);
-            }
-        }
 
         // Forum Labels
         $this->_db->insert('forums_labels', [
