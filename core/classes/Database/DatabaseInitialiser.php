@@ -678,7 +678,6 @@ class DatabaseInitialiser {
             'forum_title' => 'Haberler',
             'forum_description' => 'Sunucumuz hakkında haberler!',
             'forum_order' => 1,
-            'parent' => 1,
             'forum_type' => 'forum',
             'news' => 1
         ]);
