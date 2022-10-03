@@ -1,8 +1,8 @@
 <?php
 /**
- * Handles caching for NamelessMC.
+ * Handles caching for RadomeWEB.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Christian Metz
  * @version 1.6-Nameless
  * @license BSD http://www.opensource.org/licenses/bsd-license.php

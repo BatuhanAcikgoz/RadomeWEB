@@ -3,7 +3,7 @@
 /**
  * Template asset management class.
  *
- * @package NamelessMC\Templates
+ * @package RadomeWEB\Templates
  * @see TemplateBase
  * @author Aberdeener
  * @version 2.0.0-pr13

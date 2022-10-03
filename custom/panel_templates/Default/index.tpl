@@ -87,7 +87,7 @@
                                 <div
                                     class="card-header bg-primary py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-white"><i class="far fa-newspaper"></i>
-                                        {$NAMELESS_NEWS}</h6>
+                                        {$RADOME_NEWS}</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -112,7 +112,7 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    {$NAMELESS_VERSION}
+                                    {$RADOME_VERSION}
                                     <hr />
                                     {foreach from=$COMPAT_SUCCESS item=item}
                                     <i class="fas fa-check-circle text-success"></i> {$item}

@@ -83,10 +83,10 @@ class DatabaseInitialiser {
 
     private function initialiseEklenti(): void{
 
-        $this->_db->query('ALTER TABLE `nl2_forms_replies_fields` ADD INDEX `nl2_forms_replies_fields_idx_submission_id` (`submission_id`)');
+        $this->_db->query('ALTER TABLE `rw_forms_replies_fields` ADD INDEX `rw_forms_replies_fields_idx_submission_id` (`submission_id`)');
 
-        $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
-        $forms = $this->_db->query('SELECT * FROM nl2_forms')->results();
+        $groups = $this->_db->query('SELECT id, staff FROM rw_groups')->results();
+        $forms = $this->_db->query('SELECT * FROM rw_forms')->results();
         foreach ($forms as $form) { 
         $this->_db->insert('forms_permissions', array(
             'group_id' => 0,
@@ -116,7 +116,7 @@ class DatabaseInitialiser {
             'icon' => '<i class="fas fa-ticket-alt"></i>'                    
         ));
 
-        $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
+        $groups = $this->_db->query('SELECT id, staff FROM rw_groups')->results();
         $this->_db->insert('forms_permissions', array(
             'group_id' => 0,
             'form_id' => 1,

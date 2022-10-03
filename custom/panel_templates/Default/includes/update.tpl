@@ -8,7 +8,7 @@
         </button>
     {/if}
     {$NEW_UPDATE}<br />
-    <a href="{$NAMELESS_UPDATE_LINK}" class="btn btn-info">{$NAMELESS_UPDATE}</a>
+    <a href="{$RADOME_UPDATE_LINK}" class="btn btn-info">{$RADOME_UPDATE}</a>
     <hr style="border-color: rgba(0,0,0,.1)" /> {$CURRENT_VERSION}
     <br />{$NEW_VERSION}
     </div>

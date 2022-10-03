@@ -67,7 +67,7 @@ if (Input::exists()) {
             if (!count($errors)) {
                 if (!$action->exists()) {
                     // Create new action
-                    $last_order = DB::getInstance()->query('SELECT id FROM nl2_store_products_actions WHERE product_id = ? ORDER BY `order` DESC LIMIT 1', [$product->id])->results();
+                    $last_order = DB::getInstance()->query('SELECT id FROM rw_store_products_actions WHERE product_id = ? ORDER BY `order` DESC LIMIT 1', [$product->id])->results();
                     if (count($last_order)) $last_order = $last_order[0]->order;
                     else $last_order = 0;
 
@@ -130,7 +130,7 @@ if (!$action->exists()) {
 
 $smarty->assign([
     'ALL_GROUPS' => $groups = DB::getInstance()->orderAll('groups', '`order`', 'ASC')->results(),
-    'SETTINGS_TEMPLATE' => ROOT_PATH . '/modules/Store/services/NamelessMC/settings/action_settings.tpl'
+    'SETTINGS_TEMPLATE' => ROOT_PATH . '/modules/Store/services/RadomeWEB/settings/action_settings.tpl'
 ]);
 
 $template->addJSScript('

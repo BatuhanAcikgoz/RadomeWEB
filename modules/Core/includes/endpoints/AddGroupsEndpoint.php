@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $user NamelessMC ID of user to add groups to
+ * @param int $user RadomeWEB ID of user to add groups to
  * @param array $groups ID of group ids
  *
  * @return string JSON Array
@@ -36,7 +36,7 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
-            NamelessMCGroupSyncInjector::class,
+            RadomeWEBGroupSyncInjector::class,
             $user->getAllGroupIds(),
         );
 

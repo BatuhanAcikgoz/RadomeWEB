@@ -9,7 +9,7 @@ class ListProductsEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT * FROM nl2_store_products';
+        $query = 'SELECT * FROM rw_store_products';
         $where = ' WHERE deleted = 0';
         $order = ' ORDER BY `order` ASC';
         $limit = '';

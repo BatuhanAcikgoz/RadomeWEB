@@ -3,8 +3,8 @@
 class ForumSubforumSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_forums',
-        'nl2_forums_permissions',
+        'rw_forums',
+        'rw_forums_permissions',
     ];
 
     public const GROUP_PERMISSIONS = [

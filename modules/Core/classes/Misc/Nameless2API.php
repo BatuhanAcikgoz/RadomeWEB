@@ -1,6 +1,6 @@
 <?php
 /**
- * NamelessMC API v2 class
+ * RadomeWEB API v2 class
  *
  * @package Modules\Core\Misc
  * @author Samerton

@@ -2,7 +2,7 @@
 /**
  * Provides a baseline for custom group sync injectors.
  *
- * @package NamelessMC\Group_Sync
+ * @package RadomeWEB\Group_Sync
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT
@@ -107,7 +107,7 @@ interface GroupSyncInjector {
      * Can do anything in here (go for a walk, call your API, write a book, etc),
      * as long as the user gets the group applied on your service!
      *
-     * @param User $user Instance of affected NamelessMC user.
+     * @param User $user Instance of affected RadomeWEB user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
      * @return bool Whether the group was successfully added or not
      */
@@ -116,7 +116,7 @@ interface GroupSyncInjector {
     /**
      * Remove this group from the user
      *
-     * @param User $user Instance of affected NamelessMC user.
+     * @param User $user Instance of affected RadomeWEB user.
      * @param mixed $group_id Native group ID to use for lookup on your service.
      * @return bool Whether the group was successfully removed or not
      */

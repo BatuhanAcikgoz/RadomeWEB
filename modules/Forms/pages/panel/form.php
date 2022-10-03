@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://github.com/partydragen/Nameless-Forms
  *  https://partydragen.com/
- *  NamelessMC version 2.0.1
+ *  RadomeWEB version 2.0.1
  *
  *  License: MIT
  *

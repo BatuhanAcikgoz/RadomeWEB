@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0
  *
  *  License: MIT
  *
@@ -509,26 +509,26 @@ class Core_Module extends Module {
         AvatarSource::registerSource(new CravatarAvatarSource());
         AvatarSource::registerSource(new MCHeadsAvatarSource());
         AvatarSource::registerSource(new MinotarAvatarSource());
-        AvatarSource::registerSource(new NamelessMCAvatarSource($language));
+        AvatarSource::registerSource(new RadomeWEBAvatarSource($language));
         AvatarSource::registerSource(new VisageAvatarSource());
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Core/includes/endpoints');
 
-        GroupSyncManager::getInstance()->registerInjector(new NamelessMCGroupSyncInjector);
+        GroupSyncManager::getInstance()->registerInjector(new RadomeWEBGroupSyncInjector);
         GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
         Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
             $lookup_data = explode(':', $value);
             if (count($lookup_data) === 1) {
-                // assume it is a namelessmc user id
+                // assume it is a radomeweb user id
                 $user = new User($lookup_data[0]);
                 if ($user->exists()) {
                     return $user;
                 }
             } else if (count($lookup_data) === 2) {
-                // probably handling native namelessmc user
+                // probably handling native radomeweb user
                 [$lookup_type, $lookup_value] = $lookup_data;
                 if ($lookup_type === 'id') {
                     $column = 'id';
@@ -804,13 +804,13 @@ class Core_Module extends Module {
                             : $language->get('admin', 'new_update_available'),
                         'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
                         'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
-                            'version' => Output::getClean(NAMELESS_VERSION)
+                            'version' => Output::getClean(RADOME_VERSION)
                         ]),
                         'NEW_VERSION' => $language->get('admin', 'new_version_x', [
                             'version' => Output::getClean($update_check->version())
                         ]),
-                        'NAMELESS_UPDATE' => $language->get('admin', 'update'),
-                        'NAMELESS_UPDATE_LINK' => URL::build('/panel/update')
+                        'RADOME_UPDATE' => $language->get('admin', 'update'),
+                        'RADOME_UPDATE_LINK' => URL::build('/panel/update')
                     ]);
                 }
             }

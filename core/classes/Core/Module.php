@@ -2,7 +2,7 @@
 /**
  * Module base class as well as management class.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -166,9 +166,9 @@ abstract class Module {
     }
 
     /**
-     * Get this module's supported NamelessMC version.
+     * Get this module's supported RadomeWEB version.
      *
-     * @return string The supported NamelessMC version of this module.
+     * @return string The supported RadomeWEB version of this module.
      */
     public function getNamelessVersion(): string {
         return $this->_nameless_version;

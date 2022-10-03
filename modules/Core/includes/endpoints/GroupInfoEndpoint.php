@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of group to view
- * @param string $name The NamelessMC NAME of the group to view
+ * @param int $id RadomeWEB ID of group to view
+ * @param string $name The RadomeWEB NAME of the group to view
  *
  * @return string JSON Array
  */

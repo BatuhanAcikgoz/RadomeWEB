@@ -56,9 +56,9 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), NAMELESS_VERSION) ? $language->get('admin', 'template_outdated', [
+            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
                 'intendedVersion' => Text::bold(Output::getClean($template->getNamelessVersion())),
-                'actualVersion' => Text::bold(NAMELESS_VERSION)
+                'actualVersion' => Text::bold(RADOME_VERSION)
             ]) : false,
             'enabled' => $item->enabled,
             'default_warning' => (Output::getClean($item->name) == 'Default') ? $language->get('admin', 'template_not_supported') : null,

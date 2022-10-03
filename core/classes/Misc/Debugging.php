@@ -3,7 +3,7 @@
  * Class to help manage global state of various debugging variables.
  * TODO: Make `Debugging::enabled()` instead of needing to do `defined('DEBUGGING') && DEBUGGING`
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0
  * @license MIT

@@ -2,7 +2,7 @@
 /**
  * Base class templates should extend to add functionality.
  *
- * @package NamelessMC\Templates
+ * @package RadomeWEB\Templates
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -20,7 +20,7 @@ abstract class TemplateBase {
     protected string $_version = '';
 
     /**
-     * @var string The NamelessMC version this template supports.
+     * @var string The RadomeWEB version this template supports.
      */
     protected string $_nameless_version = '';
 
@@ -143,9 +143,9 @@ abstract class TemplateBase {
     }
 
     /**
-     * Get NamelessMC version of this template.
+     * Get RadomeWEB version of this template.
      *
-     * @return string NamelessMC version of template.
+     * @return string RadomeWEB version of template.
      */
     public function getNamelessVersion(): string {
         return $this->_nameless_version;

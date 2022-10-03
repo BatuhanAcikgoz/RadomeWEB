@@ -11,7 +11,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-if (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING'])) {
+if (getenv('RADOME_DEBUGGING') || isset($_SERVER['RADOME_DEBUGGING'])) {
     define('DEBUGGING', 1);
 }
 

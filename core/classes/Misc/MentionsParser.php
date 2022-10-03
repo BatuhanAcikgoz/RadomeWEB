@@ -2,7 +2,7 @@
 /**
  * Handles parsing username mentions in forum posts.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Samerton
  * @author fetch404
  * @version 2.0.0-pr13

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $user The NamelessMC user ID to edit
+ * @param int $user The RadomeWEB user ID to edit
  * @param string $roles An array of Discord Role ID to give to the user
  *
  * @return string JSON Array
@@ -11,7 +11,7 @@ class SetDiscordRolesEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'discord/set-roles';
         $this->_module = 'Discord Integration';
-        $this->_description = 'Set a NamelessMC user\'s according to the supplied Discord Role ID list';
+        $this->_description = 'Set a RadomeWEB user\'s according to the supplied Discord Role ID list';
         $this->_method = 'POST';
     }
 

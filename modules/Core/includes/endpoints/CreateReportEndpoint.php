@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @param string $reporter The NamelessMC ID of the user who is creating the report
- * @param string $reported The NamelessMC ID of the user who is getting reported (optional, required if reported_username/reported_uid not provided)
+ * @param string $reporter The RadomeWEB ID of the user who is creating the report
+ * @param string $reported The RadomeWEB ID of the user who is getting reported (optional, required if reported_username/reported_uid not provided)
  * @param string $content The content of the report
  * @param string $reported_username The username of the reported user (optional, required if reported not provided)
  * @param string $reported_uid A unique ID for the reported user (optional, required if reported not provided)

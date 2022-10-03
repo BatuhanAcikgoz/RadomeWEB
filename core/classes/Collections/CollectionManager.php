@@ -2,7 +2,7 @@
 /**
  * Provides static access to manage and get Collections.
  *
- * @package NamelessMC\Collections
+ * @package RadomeWEB\Collections
  * @see Collection
  * @author Samerton
  * @version 2.0.0-pr8

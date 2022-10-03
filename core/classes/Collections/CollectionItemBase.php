@@ -2,7 +2,7 @@
 /**
  * Represents a single item within a Collection.
  *
- * @package NamelessMC\Collections
+ * @package RadomeWEB\Collections
  * @see Collection
  * @author Samerton
  * @version 2.0.0-pr8

@@ -2,7 +2,7 @@
 /**
  * Helps build URLs which match the site's URL configuration.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0
  * @license MIT
@@ -26,7 +26,7 @@ class URL {
             return self::buildNonFriendly($url, $params);
         }
 
-        // Use non-friendly URLs if NamelessMC is not installed yet
+        // Use non-friendly URLs if RadomeWEB is not installed yet
         if (!Config::exists()) {
             return self::buildFriendly($url, $params);
         }

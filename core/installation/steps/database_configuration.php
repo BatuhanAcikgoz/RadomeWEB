@@ -105,13 +105,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
-                        $default_addr = getenv('NAMELESS_DATABASE_ADDRESS') ?: 'localhost';
-                        $default_port = getenv('NAMELESS_DATABASE_PORT') ?: '3306';
-                        $default_user = getenv('NAMELESS_DATABASE_USERNAME') ?: 'root';
-                        $default_pass = getenv('NAMELESS_DATABASE_PASSWORD') ?: '';
-                        $default_name = getenv('NAMELESS_DATABASE_NAME') ?: 'radomeweb';
-                        $default_charset = getenv('NAMELESS_DATABASE_CHARSET') ?: 'utf8mb4';
-                        $default_engine = getenv('NAMELESS_DATABASE_ENGINE') ?: 'InnoDB';
+                        $default_addr = getenv('RADOME_DATABASE_ADDRESS') ?: 'localhost';
+                        $default_port = getenv('RADOME_DATABASE_PORT') ?: '3306';
+                        $default_user = getenv('RADOME_DATABASE_USERNAME') ?: 'root';
+                        $default_pass = getenv('RADOME_DATABASE_PASSWORD') ?: '';
+                        $default_name = getenv('RADOME_DATABASE_NAME') ?: 'radomeweb';
+                        $default_charset = getenv('RADOME_DATABASE_CHARSET') ?: 'utf8mb4';
+                        $default_engine = getenv('RADOME_DATABASE_ENGINE') ?: 'InnoDB';
                         create_field('text', $language->get('installer', 'database_address'), 'db_address', 'inputDBAddress', $default_addr);
                         create_field('text', $language->get('installer', 'database_port'), 'db_port', 'inputDBPort', $default_port);
                         create_field('text', $language->get('installer', 'database_username'), 'db_username', 'inputDBUsername', $default_user);

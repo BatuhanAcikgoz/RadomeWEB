@@ -35,7 +35,7 @@ $field_types[7] = ['id' => 7, 'name' => $store_language->get('admin', 'checkbox'
 
 if (!isset($_GET['action'])) {
     // Get fields from database
-    $fields = DB::getInstance()->query('SELECT * FROM nl2_store_fields WHERE deleted = 0 ORDER BY `order`')->results();
+    $fields = DB::getInstance()->query('SELECT * FROM rw_store_fields WHERE deleted = 0 ORDER BY `order`')->results();
     $fields_array = [];
     if (count($fields)) {
         foreach ($fields as $field) {

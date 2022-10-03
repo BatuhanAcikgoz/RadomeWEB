@@ -2,7 +2,7 @@
 /**
  * Abstract class for modules create custom avatar sources.
  *
- * @package NamelessMC\Avatars
+ * @package RadomeWEB\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr10
  * @license MIT
@@ -17,7 +17,7 @@ abstract class AvatarSourceBase {
     protected string $_base_url = '';
 
     /**
-     * A map of `NamelessMC perspective name` => `Avatar source route`,
+     * A map of `RadomeWEB perspective name` => `Avatar source route`,
      * as not all avatar sources will have the same name, and subsequentally route, for each perspective.
      */
     protected array $_perspectives_map = [];
@@ -41,7 +41,7 @@ abstract class AvatarSourceBase {
     }
 
     /**
-     * Get "NamelessMC names" of supported perspectives for this avatar source.
+     * Get "RadomeWEB names" of supported perspectives for this avatar source.
      *
      * @return array Array of perspective names.
      */
@@ -91,9 +91,9 @@ abstract class AvatarSourceBase {
     abstract public function getUrlToFormat(string $perspective): string;
 
     /**
-     * Translate NamelessMC perspective name to the relative name for this avatar source.
+     * Translate RadomeWEB perspective name to the relative name for this avatar source.
      *
-     * @param string $perspective NamelessMC perspective name to translate.
+     * @param string $perspective RadomeWEB perspective name to translate.
      * @return string Translated perspective name.
      * @throws InvalidArgumentException When an invalid perspective is passed.
      */

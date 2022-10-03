@@ -30,7 +30,7 @@ $search_value = $_GET["search"];
 
 if(isset($search_value)){
     $sRequest = '%'.$search_value.'%';
-    $sResults = DB::getInstance()->query('SELECT * FROM nl2_wiki_pages WHERE title like ? OR nameid like ? OR context like ?',array($sRequest,$sRequest,$sRequest)); 
+    $sResults = DB::getInstance()->query('SELECT * FROM rw_wiki_pages WHERE title like ? OR nameid like ? OR context like ?',array($sRequest,$sRequest,$sRequest)); 
     $pageResult = 3;
     $sResults = $sResults->results();
     if(!empty($sResults)){
@@ -43,9 +43,9 @@ if(isset($search_value)){
         $pageResult = 0;
     } else {
         if($wpage_id != $wcat_id){
-            $wpage = DB::getInstance()->query('SELECT * FROM nl2_wiki_pages WHERE parent = ? AND nameid = ?',array($wcat_id,$wpage_id));
+            $wpage = DB::getInstance()->query('SELECT * FROM rw_wiki_pages WHERE parent = ? AND nameid = ?',array($wcat_id,$wpage_id));
         } else {
-            $wpage = DB::getInstance()->query('SELECT * FROM nl2_wiki_pages WHERE nameid = ?', array($wpage_id));
+            $wpage = DB::getInstance()->query('SELECT * FROM rw_wiki_pages WHERE nameid = ?', array($wpage_id));
         }
         $wpage = $wpage->first();
         if(!empty($wpage)){

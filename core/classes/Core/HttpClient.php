@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
  * Wrapper around GuzzleHttp\Client.
  *
  * @see GuzzleHttp\Client
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

@@ -187,7 +187,7 @@ $smarty->assign([
     'CAPTCHA_OPTIONS' => $captcha_options,
     'OAUTH' => $language->get('admin', 'oauth'),
     'OAUTH_INFO' => $language->get('admin', 'oauth_info', [
-        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/oauth" target="_blank">',
+        'docLinkStart' => '<a href="https://docs.radome.web.tr/en/oauth" target="_blank">',
         'docLinkEnd' => '</a>'
     ]),
     'REDIRECT_URL' => $language->get('admin', 'redirect_url'),

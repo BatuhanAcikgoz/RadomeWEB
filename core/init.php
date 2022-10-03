@@ -122,7 +122,7 @@ if ($page != 'install') {
     }
 
     // Get the Nameless version
-    define('NAMELESS_VERSION', Util::getSetting('nameless_version'));
+    define('RADOME_VERSION', Util::getSetting('nameless_version'));
 
     // Set the date format
     define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');

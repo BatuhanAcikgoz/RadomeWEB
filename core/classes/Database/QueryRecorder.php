@@ -2,7 +2,7 @@
 /**
  * Records PDO queries to display on exception page.
  *
- * @package NamelessMC\Database
+ * @package RadomeWEB\Database
  * @see ErrorHandler
  * @author Aberdeener
  * @version 2.0.0-pr13

@@ -3,7 +3,7 @@
 class ProfileFieldsSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_profile_fields',
+        'rw_profile_fields',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {

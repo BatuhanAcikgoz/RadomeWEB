@@ -2,7 +2,7 @@
 /**
  * Simple object to make checking result of an update check more consistent.
  *
- * @package NamelessMC\DTO
+ * @package RadomeWEB\DTO
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

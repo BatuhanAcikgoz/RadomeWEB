@@ -3,7 +3,7 @@
  * Validates an array of data.
  * Often used for POST requests.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @author Aberdeener
  * @version 2.0.0-pr13

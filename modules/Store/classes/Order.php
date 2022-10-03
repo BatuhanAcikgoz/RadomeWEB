@@ -111,7 +111,7 @@ class Order {
     /**
      * Register the order to database.
      *
-     * @param User $user The NamelessMC user buying the product.
+     * @param User $user The RadomeWEB user buying the product.
      * @param Customer $from_customer The customer buying the product.
      * @param Customer $to_customer The customer who is receiving the product.
      * @param array $items The list of products along with custom fields for product

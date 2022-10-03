@@ -3,7 +3,7 @@
 /**
  * No params
  *
- * @return string JSON Array of NamelessMC information
+ * @return string JSON Array of RadomeWEB information
  */
 class InfoEndpoint extends KeyAuthEndpoint {
 

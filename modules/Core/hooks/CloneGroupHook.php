@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Partydragen
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0
  *
  *  Clone group event listener handler class
  */

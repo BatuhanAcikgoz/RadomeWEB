@@ -50,13 +50,13 @@ if (!file_exists('./vendor/autoload.php')) {
 }
 
 if (!$reinstall && file_exists('./core/config.php')) {
-    print('⚠️  NamelessMC is already installed! ' . PHP_EOL);
+    print('⚠️  RadomeWEB is already installed! ' . PHP_EOL);
     print("🧨 If you want to reinstall, run this script with the '--reinstall' flag." . PHP_EOL);
     exit(1);
 }
 
 // check all the required environment variables are set
-foreach (['NAMELESS_SITE_NAME', 'NAMELESS_SITE_CONTACT_EMAIL', 'NAMELESS_SITE_OUTGOING_EMAIL', 'NAMELESS_ADMIN_EMAIL'] as $var) {
+foreach (['RADOME_SITE_NAME', 'RADOME_SITE_CONTACT_EMAIL', 'RADOME_SITE_OUTGOING_EMAIL', 'RADOME_ADMIN_EMAIL'] as $var) {
     getEnvVar($var);
 }
 
@@ -95,15 +95,15 @@ require './vendor/autoload.php';
 print('✍️  Creating new config.php file...' . PHP_EOL);
 $conf = [
     'mysql' => [
-        'host' => getEnvVar('NAMELESS_DATABASE_ADDRESS', '127.0.0.1'),
-        'port' => getEnvVar('NAMELESS_DATABASE_PORT', '3306'),
-        'username' => getEnvVar('NAMELESS_DATABASE_USERNAME', 'root'),
-        'password' => getEnvVar('NAMELESS_DATABASE_PASSWORD', ''),
-        'db' => getEnvVar('NAMELESS_DATABASE_NAME', 'nameless'),
+        'host' => getEnvVar('RADOME_DATABASE_ADDRESS', '127.0.0.1'),
+        'port' => getEnvVar('RADOME_DATABASE_PORT', '3306'),
+        'username' => getEnvVar('RADOME_DATABASE_USERNAME', 'root'),
+        'password' => getEnvVar('RADOME_DATABASE_PASSWORD', ''),
+        'db' => getEnvVar('RADOME_DATABASE_NAME', 'nameless'),
         'initialise_charset' => true,
     ],
     'remember' => [
-        'cookie_name' => 'nl2',
+        'cookie_name' => 'rw',
         'cookie_expiry' => 604800,
     ],
     'session' => [
@@ -112,9 +112,9 @@ $conf = [
         'token_name' => '2token',
     ],
     'core' => [
-        'hostname' => getEnvVar('NAMELESS_HOSTNAME', 'localhost'),
-        'path' => getEnvVar('NAMELESS_PATH', ''),
-        'friendly' => getEnvVar('NAMELESS_FRIENDLY_URLS', 'false') === 'true',
+        'hostname' => getEnvVar('RADOME_HOSTNAME', 'localhost'),
+        'path' => getEnvVar('RADOME_PATH', ''),
+        'friendly' => getEnvVar('RADOME_FRIENDLY_URLS', 'false') === 'true',
         'force_https' => false,
         'force_www' => false,
         'captcha' => false,
@@ -148,22 +148,22 @@ if (!str_contains($message, 'All Done')) {
     exit(1);
 }
 
-Session::put('default_language', getEnvVar('NAMELESS_DEFAULT_LANGUAGE', 'en_UK'));
+Session::put('default_language', getEnvVar('RADOME_DEFAULT_LANGUAGE', 'en_UK'));
 
 print('✍️  Inserting default data to database...' . PHP_EOL);
 
 DatabaseInitialiser::runPreUser();
 
-Util::setSetting('sitename', getEnvVar('NAMELESS_SITE_NAME'));
-Util::setSetting('incoming_email', getEnvVar('NAMELESS_SITE_CONTACT_EMAIL'));
-Util::setSetting('outgoing_email', getEnvVar('NAMELESS_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('NAMELESS_EMAIL_VERIFICATION', '1', $valid_values = ['0', '1']));
+Util::setSetting('sitename', getEnvVar('RADOME_SITE_NAME'));
+Util::setSetting('incoming_email', getEnvVar('RADOME_SITE_CONTACT_EMAIL'));
+Util::setSetting('outgoing_email', getEnvVar('RADOME_SITE_OUTGOING_EMAIL'));
+Util::setSetting('email_verification', getEnvVar('RADOME_EMAIL_VERIFICATION', '1', $valid_values = ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 
-$username = getEnvVar('NAMELESS_ADMIN_USERNAME', 'admin');
-$password = getEnvVar('NAMELESS_ADMIN_PASSWORD', 'password');
-$email = getEnvVar('NAMELESS_ADMIN_EMAIL');
+$username = getEnvVar('RADOME_ADMIN_USERNAME', 'admin');
+$password = getEnvVar('RADOME_ADMIN_PASSWORD', 'password');
+$email = getEnvVar('RADOME_ADMIN_EMAIL');
 
 $user = new User();
 $user->create([
@@ -178,7 +178,7 @@ $user->create([
     'last_online' => date('U'),
     'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
 ]);
-DB::getInstance()->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
+DB::getInstance()->query('INSERT INTO `rw_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,
     2,
     date('U'),

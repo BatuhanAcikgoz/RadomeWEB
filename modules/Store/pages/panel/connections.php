@@ -25,7 +25,7 @@ $services = Services::getInstance();
 
 if (!isset($_GET['action'])) {
 
-    $connections = DB::getInstance()->query('SELECT * FROM nl2_store_connections');
+    $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections');
     if ($connections->count()) {
         $connections = $connections->results();
 
@@ -128,7 +128,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/store/connections/'));
             }
 
-            $connection = DB::getInstance()->query('SELECT * FROM nl2_store_connections WHERE id = ?', [$_GET['id']]);
+            $connection = DB::getInstance()->query('SELECT * FROM rw_store_connections WHERE id = ?', [$_GET['id']]);
             if (!$connection->count()) {
                 Redirect::to(URL::build('/panel/store/connections/'));
             }

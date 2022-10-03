@@ -3,8 +3,8 @@
 /*
  *  Made by Partydragen
  *  Updated by BrightSkyz
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0-pr8
  *
  *  License: MIT
  *

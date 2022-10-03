@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $user NamelessMC ID of user to view
+ * @param int $user RadomeWEB ID of user to view
  * @param array $groups ID of group ids
  *
  * @return string JSON Array
@@ -29,7 +29,7 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
-            NamelessMCGroupSyncInjector::class,
+            RadomeWEBGroupSyncInjector::class,
             $user->getAllGroupIds(),
         );
 

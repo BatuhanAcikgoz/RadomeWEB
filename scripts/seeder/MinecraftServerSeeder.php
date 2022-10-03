@@ -3,7 +3,7 @@
 class MinecraftServerSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_mc_servers',
+        'rw_mc_servers',
     ];
 
     // Disclaimer: These are randomly picked servers, not endorsements/opinionated.

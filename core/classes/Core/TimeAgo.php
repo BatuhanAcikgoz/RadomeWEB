@@ -6,7 +6,7 @@
  * - `inWords()` which gives you the "time ago in words" between two dates.
  * - `dateDifference()` which returns an array of years, months, days, hours, minutes and seconds between the two dates.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author jimmiw
  * @author Samerton
  * @version 2.0.0-pr8

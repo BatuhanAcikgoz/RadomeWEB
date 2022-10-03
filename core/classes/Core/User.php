@@ -2,7 +2,7 @@
 /**
  * Represents a user, logged in or not.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener

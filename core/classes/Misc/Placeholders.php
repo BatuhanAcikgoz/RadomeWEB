@@ -2,7 +2,7 @@
 /**
  * Manages registering and retrieving PAPI placeholders.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT
@@ -54,7 +54,7 @@ class Placeholders extends Instanceable {
     }
 
     /**
-     * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple NamelessMC plugin servers).
+     * Create a new row in nl2_placeholders_settings if a row with the "server_id" of $server_id and "name" of $name does not exist (this lets the same placeholder name be used across multiple RadomeWEB plugin servers).
      *
      * @param int $server_id ID of the server this placeholder resides on
      *

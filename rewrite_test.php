@@ -12,7 +12,7 @@
 <html lang="en">
 
 <head>
-    <title>Rewrite Test &bull; NamelessMC</title>
+    <title>Rewrite Test &bull; RadomeWEB</title>
 
     <link rel="stylesheet" href="core/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="core/assets/css/custom.css">
@@ -32,7 +32,7 @@
 <div style="text-align: center">
     <br/><br/><br/>
 
-    <h1>NamelessMC v2</h1>
+    <h1>RadomeWEB v2</h1>
 
     <hr/>
 

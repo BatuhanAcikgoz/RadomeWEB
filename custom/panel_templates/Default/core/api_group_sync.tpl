@@ -106,7 +106,7 @@
                                             {if in_array($injector, $ENABLED_GROUP_SYNC_INJECTORS)}
                                             <select name="{$column_name}" class="form-control"
                                                 id="input_{$column_name}">
-                                                {if $column_name != $NAMELESS_INJECTOR_COLUMN}
+                                                {if $column_name != $RADOME_INJECTOR_COLUMN}
                                                 <option value="0">{$NONE} ({$DISABLED})</option>
                                                 {/if}
                                                 {foreach from=$injector->getSelectionOptions() item=group}

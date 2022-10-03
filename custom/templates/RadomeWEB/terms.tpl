@@ -6,7 +6,7 @@
         <div class="card-body">
             <p>{$SITE_TERMS}</p>
             <hr />
-            <p>{$NAMELESS_TERMS}</p>
+            <p>{$RADOME_TERMS}</p>
         </div>
     </div>
 </div>

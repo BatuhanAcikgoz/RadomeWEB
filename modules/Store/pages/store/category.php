@@ -31,7 +31,7 @@ if (!is_numeric($category_id[0])) {
 $category_id = $category_id[0];
 
 // Query category
-$category = DB::getInstance()->query('SELECT * FROM nl2_store_categories WHERE id = ?', [$category_id]);
+$category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE id = ?', [$category_id]);
 if (!$category->count()) {
     require_once(ROOT_PATH . '/404.php');
     die();
@@ -82,7 +82,7 @@ if (Input::exists()) {
 }
 
 // Get products
-$products = DB::getInstance()->query('SELECT id, name, `order`, price, description, image FROM nl2_store_products WHERE category_id = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$category_id]);
+$products = DB::getInstance()->query('SELECT id, name, `order`, price, description, image FROM rw_store_products WHERE category_id = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$category_id]);
 
 if (!$products->count()) {
     $smarty->assign('NO_PRODUCTS', $store_language->get('general', 'no_products'));

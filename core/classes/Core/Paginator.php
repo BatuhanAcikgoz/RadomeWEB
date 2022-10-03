@@ -2,7 +2,7 @@
 /**
  * Helps paginate data to an HTML table easily.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @author graphiteisaac
  * @version 2.0.0-pr13

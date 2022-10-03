@@ -5,7 +5,7 @@ use Astrotomic\Twemoji\Twemoji;
 /**
  * Helps with common text related tasks.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0
  * @license MIT

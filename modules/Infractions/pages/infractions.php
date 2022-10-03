@@ -2,7 +2,7 @@
 /*
  *	Made by Samerton and Partydragen
  *  https://github.com/samerton/Nameless-Infractions
- *  NamelessMC version 2.0.0-pr13
+ *  RadomeWEB version 2.0.0-pr13
  *
  *  License: MIT
  *

@@ -1,13 +1,13 @@
 <?php
 /**
- * Built-in NamelessMC Avatar class
+ * Built-in RadomeWEB Avatar class
  *
  * @package Modules\Core\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT
  */
-class NamelessMCAvatarSource extends AvatarSourceBase {
+class RadomeWEBAvatarSource extends AvatarSourceBase {
 
     public function __construct(Language $language) {
         $this->_name = 'Nameless';

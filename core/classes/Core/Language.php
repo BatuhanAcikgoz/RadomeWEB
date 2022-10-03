@@ -2,7 +2,7 @@
 /**
  * Provides utilities for retrieving/handling language strings.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

@@ -28,9 +28,9 @@ class Customer {
         $this->_db = DB::getInstance();
 
         if ($user != null && $user->exists()) {
-            // Load customer by NamelessMC User
+            // Load customer by RadomeWEB User
             if (!$this->find($user->data()->id, 'user_id')) {
-                // Customer data for NamelessMC User missing, Register it
+                // Customer data for RadomeWEB User missing, Register it
                 $this->create(['user_id' => $user->data()->id, 'integration_id' => 0]);
             }
 
@@ -126,9 +126,9 @@ class Customer {
     }
     
     /**
-     * Try to get the NamelessMC User for this customer
+     * Try to get the RadomeWEB User for this customer
      *
-     * @return User NamelessMC User
+     * @return User RadomeWEB User
      */
     public function getUser(): User {
         return $this->_user ??= (function (): User {

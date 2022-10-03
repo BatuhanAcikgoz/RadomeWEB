@@ -192,7 +192,7 @@ if ($user->hasPermission('admincp.core.debugging')) {
         $compat_success[] = $language->get('admin', 'trusted_proxies_configured');
     } else {
         $compat_errors[] = $language->get('admin', 'trusted_proxies_not_configured', [
-            'linkStart' => '<a href="https://docs.namelessmc.com/trusted-proxies" target="_blank">',
+            'linkStart' => '<a href="https://docs.radome.web.tr/trusted-proxies" target="_blank">',
             'linkEnd' => '</a>',
         ]);
     }
@@ -232,7 +232,7 @@ $smarty->assign([
     'PARENT_PAGE' => PANEL_PAGE,
     'GRAPHS' => $graphs,
     'STATISTICS' => $language->get('admin', 'statistics'),
-    'NAMELESS_NEWS' => $language->get('admin', 'nameless_news'),
+    'RADOME_NEWS' => $language->get('admin', 'nameless_news'),
     'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site', [
         'link' => '<strong id="leaveSiteURL">{x}</strong>',
     ]),
@@ -241,8 +241,8 @@ $smarty->assign([
     'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
-    'NAMELESS_VERSION' => $language->get('admin', 'running_nameless_version', [
-        'version' => Text::bold(NAMELESS_VERSION)
+    'RADOME_VERSION' => $language->get('admin', 'running_nameless_version', [
+        'version' => Text::bold(RADOME_VERSION)
     ]),
 ]);
 

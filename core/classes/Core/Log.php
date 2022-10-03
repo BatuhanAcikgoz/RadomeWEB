@@ -2,7 +2,7 @@
 /**
  * Log handling class
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Timothy Gibbons
  * @version 2.0.0-pr13
  * @license MIT

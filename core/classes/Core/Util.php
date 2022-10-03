@@ -5,7 +5,7 @@ use Astrotomic\Twemoji\Twemoji;
 /**
  * Contains misc utility methods.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @author Aberdeener
  * @author Partydragen
@@ -225,11 +225,11 @@ class Util {
     public static function updateCheck() {
         $uid = self::getSetting('unique_id');
 
-        $update_check_response = HttpClient::get('https://namelessmc.com/api/v2/updateCheck&uid=' . $uid .
-            '&version=' . NAMELESS_VERSION .
+        $update_check_response = HttpClient::get('https://radome.web.tr/api/v2/updateCheck&uid=' . $uid .
+            '&version=' . RADOME_VERSION .
             '&php_version=' . urlencode(PHP_VERSION) .
             '&language=' . LANGUAGE .
-            '&docker=' . (getenv('NAMELESSMC_METRICS_DOCKER') === false ? 'false' : 'true') .
+            '&docker=' . (getenv('RADOMEWEB_METRICS_DOCKER') === false ? 'false' : 'true') .
             '&mysql_server=' . DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION)
         );
 
@@ -257,10 +257,10 @@ class Util {
     /**
      * Get the latest Nameless news.
      *
-     * @return string NamelessMC news in JSON.
+     * @return string RadomeWEB news in JSON.
      */
     public static function getLatestNews(): string {
-        $news = HttpClient::get('https://namelessmc.com/news');
+        $news = HttpClient::get('https://radome.web.tr/news');
 
         if ($news->hasError()) {
             return json_encode([
@@ -386,7 +386,7 @@ class Util {
      * @return string|null Name of in-game rank or null if rule is not set up.
      */
     public static function getIngameRankName(int $website_group_id): ?string {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
         $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
 
         if ($data->count()) {
@@ -525,11 +525,11 @@ class Util {
     }
 
     /**
-     * Determine whether a module/template version is compatible with the current NamelessMC version.
+     * Determine whether a module/template version is compatible with the current RadomeWEB version.
      * This ignores patch versions, and only checks major and minor versions.
      * For example, 2.0.0 and 2.0.1 are compatible, but 2.0.0 and 2.1.0 are not.
      * @param string $version Version of module/template to check
-     * @param string $nameless_version Current NamelessMC version
+     * @param string $nameless_version Current RadomeWEB version
      * @return bool Whether they are compatible or not
      */
     public static function isCompatible(string $version, string $nameless_version): bool {

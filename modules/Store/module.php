@@ -3,7 +3,7 @@
  *  Made by Partydragen
  *  https://partydragen.com/resources/resource/5-store-module/
  *  https://partydragen.com/
- *  NamelessMC version 2.0.0-pr13
+ *  RadomeWEB version 2.0.0-pr13
  *
  *  License: MIT
  *
@@ -234,7 +234,7 @@ class Store_Module extends Module {
 
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                 // Dashboard graph
-                $latest_payments = $this->_db->query('SELECT id, created FROM nl2_store_payments WHERE created > ? AND status_id = 1 ORDER BY created ASC', [strtotime('-1 week')])->results();
+                $latest_payments = $this->_db->query('SELECT id, created FROM rw_store_payments WHERE created > ? AND status_id = 1 ORDER BY created ASC', [strtotime('-1 week')])->results();
 
                 $cache->setCache('dashboard_graph');
                 if ($cache->isCached('payments_data')) {
@@ -293,7 +293,7 @@ class Store_Module extends Module {
 
         // Connections
         $connections_list = [];
-        $connections_query = $this->_db->query('SELECT * FROM nl2_store_connections')->results();
+        $connections_query = $this->_db->query('SELECT * FROM rw_store_connections')->results();
         foreach ($connections_query as $data) {
             $connections_list[] = [
                 'id' => (int)$data->id,
@@ -305,7 +305,7 @@ class Store_Module extends Module {
 
         // Fields
         $fields_list = [];
-        $fields_query = $this->_db->query('SELECT * FROM nl2_store_fields')->results();
+        $fields_query = $this->_db->query('SELECT * FROM rw_store_fields')->results();
         foreach ($fields_query as $data) {
             $fields_list[] = [
                 'id' => $data->id,
@@ -320,7 +320,7 @@ class Store_Module extends Module {
 
         // Products
         $products_list = [];
-        $products_query = $this->_db->query('SELECT * FROM nl2_store_products WHERE deleted = 0 ORDER BY `order` ASC')->results();
+        $products_query = $this->_db->query('SELECT * FROM rw_store_products WHERE deleted = 0 ORDER BY `order` ASC')->results();
         foreach ($products_query as $data) {
             $product = new Product(null, null, $data);
 

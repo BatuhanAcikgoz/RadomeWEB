@@ -10,7 +10,7 @@ class SubmitDiscordRoleListEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'discord/submit-role-list';
         $this->_module = 'Discord Integration';
-        $this->_description = 'Update NamelessMC\'s list of your Discord guild\'s roles.';
+        $this->_description = 'Update RadomeWEB\'s list of your Discord guild\'s roles.';
         $this->_method = 'POST';
     }
 

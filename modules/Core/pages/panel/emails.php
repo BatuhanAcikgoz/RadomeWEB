@@ -66,7 +66,7 @@ if (isset($_GET['action'])) {
                 'TEST_EMAIL_SUGGEST_1' => $language->get('admin', 'test_email_suggest_1'),
                 'TEST_EMAIL_SUGGEST_2' => $language->get('admin', 'test_email_suggest_2'),
                 'TEST_EMAIL_SUGGEST_3' => $language->get('admin', 'test_email_suggest_3', [
-                    'docLinkStart' => '<a href=\'https://docs.namelessmc.com/smtp\' target=\'_blank\'>',
+                    'docLinkStart' => '<a href=\'https://docs.radome.web.tr/smtp\' target=\'_blank\'>',
                     'docLinkEnd' => '</a>'
                 ])
             ]);
@@ -206,7 +206,7 @@ if (isset($_GET['action'])) {
         'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
         'INFO' => $language->get('general', 'info'),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
-            'docLinkStart' => "<a href='https://docs.namelessmc.com/smtp' target='_blank'>",
+            'docLinkStart' => "<a href='https://docs.radome.web.tr/smtp' target='_blank'>",
             'docLinkEnd' => '</a>'
         ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),

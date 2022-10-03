@@ -2,7 +2,7 @@
 /**
  * Management of input fields
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Partydragen
  * @version 2.0.0-pr13
  * @license MIT

@@ -2,7 +2,7 @@
 /**
  * Handles registering and triggering events.
  *
- * @package NamelessMC\Events
+ * @package RadomeWEB\Events
  * @author Samerton
  * @author Aberdeener
  * @version 2.0.0-pr13

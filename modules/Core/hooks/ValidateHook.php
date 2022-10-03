@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0
  *
  *  Validate user event listener handler class
  */
@@ -23,7 +23,7 @@ class ValidateHook {
 
         GroupSyncManager::getInstance()->broadcastChange(
             $validate_user,
-            NamelessMCGroupSyncInjector::class,
+            RadomeWEBGroupSyncInjector::class,
             [VALIDATED_DEFAULT]
         );
     }

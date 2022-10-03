@@ -1,11 +1,11 @@
 <?php
-class NamelessMCService extends ServiceBase {
+class RadomeWEBService extends ServiceBase {
     public function __construct() {
         $id = 1;
-        $name = 'NamelessMC';
-        $description = 'With this action you can reward your NamelessMC User with groups and credits (Must be registered on website)';
+        $name = 'RadomeWEB';
+        $description = 'With this action you can reward your RadomeWEB User with groups and credits (Must be registered on website)';
         $connection_settings = null;
-        $action_settings = ROOT_PATH . '/modules/Store/services/NamelessMC/settings/action_settings.php';
+        $action_settings = ROOT_PATH . '/modules/Store/services/RadomeWEB/settings/action_settings.php';
 
         parent::__construct($id, $name, $description, $connection_settings, $action_settings);
     }
@@ -63,4 +63,4 @@ class NamelessMCService extends ServiceBase {
     }
 }
 
-$service = new NamelessMCService();
+$service = new RadomeWEBService();

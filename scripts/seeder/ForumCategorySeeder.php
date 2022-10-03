@@ -3,7 +3,7 @@
 class ForumCategorySeeder extends Seeder {
 
     public array $tables = [
-        'nl2_forums',
+        'rw_forums',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {

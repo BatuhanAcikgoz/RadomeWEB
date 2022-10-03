@@ -9,7 +9,7 @@ class ListPaymentsEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT p.*, o.from_customer_id, o.to_customer_id FROM nl2_store_payments AS p LEFT JOIN nl2_store_orders AS o ON order_id=o.id';
+        $query = 'SELECT p.*, o.from_customer_id, o.to_customer_id FROM rw_store_payments AS p LEFT JOIN rw_store_orders AS o ON order_id=o.id';
         $where = ' WHERE p.id <> 0';
         $order = ' ORDER BY `created` DESC';
         $limit = '';
@@ -66,7 +66,7 @@ class ListPaymentsEndpoint extends KeyAuthEndpoint {
             ];
 
             $products = [];
-            $products_query = $api->getDb()->query('SELECT product_id, name FROM nl2_store_orders_products LEFT JOIN nl2_store_products ON product_id=nl2_store_products.id WHERE order_id = ?', [$payment->order_id])->results();
+            $products_query = $api->getDb()->query('SELECT product_id, name FROM rw_store_orders_products LEFT JOIN rw_store_products ON product_id=rw_store_products.id WHERE order_id = ?', [$payment->order_id])->results();
             foreach ($products_query as $product) {
                 $products[] = [
                     'id' => (int)$product->product_id,

@@ -2,7 +2,7 @@
 /**
  * Manages registration of GroupSyncInjectors as well as broadcasting group changes to them.
  *
- * @package NamelessMC\Group_Sync
+ * @package RadomeWEB\Group_Sync
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT
@@ -140,7 +140,7 @@ final class GroupSyncManager extends Instanceable {
      * Execute respective `addGroup()` or `removeGroup()` function on each of the injectors
      * synced to the changed group.
      *
-     * @param User $user NamelessMC user to apply changes to
+     * @param User $user RadomeWEB user to apply changes to
      * @param string $sending_injector_class Class name of injector broadcasting this change
      * @param array $group_ids Array of Group IDs native to the sending injector which were added/removed to the user
      *
@@ -157,8 +157,8 @@ final class GroupSyncManager extends Instanceable {
 
         $modified = [];
 
-        $namelessmc_injector = $this->getInjectorByClass(NamelessMCGroupSyncInjector::class);
-        $namelessmc_column = $namelessmc_injector->getColumnName();
+        $radomeweb_injector = $this->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
+        $radomeweb_column = $radomeweb_injector->getColumnName();
 
         // Get all group sync rules where this injector is not null
         $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
@@ -203,7 +203,7 @@ final class GroupSyncManager extends Instanceable {
                 if (in_array($sending_group_id, $group_ids)) {
                     // TODO: add bot status of "nochange" @ https://canary.discord.com/channels/246705793066467328/434751012428054530/995503906350174290
                     // Attempt to add group if this group id was sent in the broadcastChange() method
-                    // and if they don't have the namelessmc equivilant of it
+                    // and if they don't have the radomeweb equivilant of it
                     if ($injector->addGroup($user, $injector_group_id)) {
                         $modified[$injector_column][] = $injector_group_id;
                         $logs['added'][] = "{$injector_column} -> {$injector_group_id}";
@@ -211,7 +211,7 @@ final class GroupSyncManager extends Instanceable {
                 } else {
                     foreach ($rules as $item) {
                         if (in_array($item->{$sending_injector->getColumnName()}, $group_ids)) {
-                            if ($item->{$namelessmc_column} == $rule->{$namelessmc_column}) {
+                            if ($item->{$radomeweb_column} == $rule->{$radomeweb_column}) {
                                 continue 2;
                             }
                         }

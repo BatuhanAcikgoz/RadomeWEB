@@ -136,8 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
                         <?php
-                        create_field('text', $language->get('installer', 'username'), 'username', 'inputUsername', getenv('NAMELESS_ADMIN_USERNAME') ?: '');
-                        create_field('email', $language->get('installer', 'email_address'), 'email', 'inputEmail', getenv('NAMELESS_ADMIN_EMAIL') ?: '');
+                        create_field('text', $language->get('installer', 'username'), 'username', 'inputUsername', getenv('RADOME_ADMIN_USERNAME') ?: '');
+                        create_field('email', $language->get('installer', 'email_address'), 'email', 'inputEmail', getenv('RADOME_ADMIN_EMAIL') ?: '');
                         create_field('password', $language->get('installer', 'password'), 'password', 'inputPassword');
                         create_field('password', $language->get('installer', 'confirm_password'), 'password_again', 'inputPasswordAgain');
                         ?>

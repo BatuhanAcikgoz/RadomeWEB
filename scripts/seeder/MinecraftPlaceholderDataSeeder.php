@@ -3,7 +3,7 @@
 class MinecraftPlaceholderDataSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_users_placeholders',
+        'rw_users_placeholders',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
@@ -17,7 +17,7 @@ class MinecraftPlaceholderDataSeeder extends Seeder {
             $user = $faker->randomElement($users);
 
             if (!array_key_exists($user->id, $user_uuids)) {
-                $uuid = hex2bin($db->query('SELECT identifier FROM nl2_users_integrations WHERE user_id = ?', [$user->id])->first()->identifier);
+                $uuid = hex2bin($db->query('SELECT identifier FROM rw_users_integrations WHERE user_id = ?', [$user->id])->first()->identifier);
                 $user_uuids[$user->id] = $uuid;
             } else {
                 $uuid = $user_uuids[$user->id];

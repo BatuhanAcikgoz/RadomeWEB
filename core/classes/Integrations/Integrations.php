@@ -2,7 +2,7 @@
 /**
  * Integrations class
  *
- * @package NamelessMC\Integrations
+ * @package RadomeWEB\Integrations
  * @author Partydragen
  * @version 2.0.0-pr13
  * @license MIT

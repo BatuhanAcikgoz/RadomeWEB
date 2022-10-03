@@ -10,9 +10,9 @@ use DebugBar\DataCollector\PDO\PDOCollector;
 use Junker\DebugBar\Bridge\SmartyCollector;
 
 /**
- * Class to help integrate the PHPDebugBar with NamelessMC.
+ * Class to help integrate the PHPDebugBar with RadomeWEB.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

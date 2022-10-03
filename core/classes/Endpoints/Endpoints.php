@@ -2,7 +2,7 @@
 /**
  * Endpoint management class.
  *
- * @package NamelessMC\Endpoints
+ * @package RadomeWEB\Endpoints
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

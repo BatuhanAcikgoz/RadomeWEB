@@ -2,7 +2,7 @@
 /**
  * Repesents a single navigation menu.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0
  * @license MIT

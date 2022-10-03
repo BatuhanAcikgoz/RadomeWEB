@@ -20,7 +20,7 @@ $errors = [];
 
 $cache = new Cache();
 
-// TODO: https://github.com/NamelessMC/Nameless/issues/2812
+// TODO: https://github.com/RadomeWEB/Nameless/issues/2812
 DB::getInstance()->query('SET foreign_key_checks = 0');
 
 // Alerts -> custom page permissions

@@ -2,7 +2,7 @@
 /**
  * Easy read/write of cookies.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr10
  * @license MIT

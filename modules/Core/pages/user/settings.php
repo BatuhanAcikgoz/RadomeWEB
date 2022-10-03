@@ -127,7 +127,7 @@ if (isset($_GET['do'])) {
     } else {
         if ($_GET['do'] == 'disable_tfa') {
             // Disable TFA
-            // TODO - https://github.com/NamelessMC/Nameless/issues/3017
+            // TODO - https://github.com/RadomeWEB/Nameless/issues/3017
             if (Input::exists()) {
                 if (Token::check()) {
                     $user->update([

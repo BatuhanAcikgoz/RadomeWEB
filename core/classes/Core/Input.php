@@ -3,7 +3,7 @@
 /**
  * Input class
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT

@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\IpUtils;
 /**
  * Helps with common HTTP related tasks.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Derkades
  * @version 2.0.0
  * @license MIT
@@ -132,7 +132,7 @@ class HttpUtils {
      */
     public static function isTrustedProxiesConfigured(): bool {
         $config_proxies = Config::get('core.trustedProxies');
-        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        $env_proxies = getenv('RADOME_TRUSTED_PROXIES');
         return ($config_proxies !== false && is_array($config_proxies)) || $env_proxies !== false;
     }
 
@@ -152,7 +152,7 @@ class HttpUtils {
         }
 
         // Add trusted proxies from environment variable (comma-separated string)
-        $env_proxies = getenv('NAMELESS_TRUSTED_PROXIES');
+        $env_proxies = getenv('RADOME_TRUSTED_PROXIES');
         if ($env_proxies !== false && $env_proxies !== 'none') {
             $env_proxies_array = explode(',', $env_proxies);
             $trusted_proxies = array_merge($trusted_proxies, $env_proxies_array);

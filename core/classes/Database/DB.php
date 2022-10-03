@@ -2,7 +2,7 @@
 /**
  * Creates a singleton connection to the database with credentials from the config file.
  *
- * @package NamelessMC\Database
+ * @package RadomeWEB\Database
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -47,7 +47,7 @@ class DB {
         string $password,
         int $port = 3306,
         ?string $force_charset = null,
-        string $prefix = 'nl2_'
+        string $prefix = 'rw_'
     ): DB {
         return new DB($host, $database, $username, $password, $port, $force_charset, $prefix);
     }

@@ -3,7 +3,7 @@
 /**
  * Allows classes to extend this to make singleton instances easily.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

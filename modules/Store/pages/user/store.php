@@ -27,7 +27,7 @@ $currency = Output::getClean($configuration->get('currency'));
 $currency_symbol = Output::getClean($configuration->get('currency_symbol'));
 
 $transactions_list = [];
-$transactions = DB::getInstance()->query('SELECT nl2_store_payments.* FROM nl2_store_payments INNER JOIN nl2_store_orders ON order_id=nl2_store_orders.id WHERE from_customer_id = ? ORDER BY nl2_store_payments.created DESC', [$customer->data()->id]);
+$transactions = DB::getInstance()->query('SELECT rw_store_payments.* FROM rw_store_payments INNER JOIN rw_store_orders ON order_id=rw_store_orders.id WHERE from_customer_id = ? ORDER BY rw_store_payments.created DESC', [$customer->data()->id]);
 if ($transactions->count()) {
     foreach ($transactions->results() as $transaction) {
         $transactions_list[] = [

@@ -2,7 +2,7 @@
 /*
  *  Made by Partydragen
  *  https://github.com/partydragen/Nameless-Forms
- *  NamelessMC version 2.0.1
+ *  RadomeWEB version 2.0.1
  *
  *  Delete user event listener for Forms module
  */

@@ -4,7 +4,7 @@
  * Template asset tree.
  * In different class to keep the TemplateAssets class clean.
  *
- * @package NamelessMC\Templates
+ * @package RadomeWEB\Templates
  * @see AssetResolver
  * @author Aberdeener
  * @version 2.0.0-pr13

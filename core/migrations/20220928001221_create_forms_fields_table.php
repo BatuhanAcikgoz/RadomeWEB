@@ -7,7 +7,7 @@ final class CreateFormsFieldsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forms_fields');
+        $table = $this->table('rw_forms_fields');
 
         $table
             ->addColumn('form_id', 'integer', ['length' => 11])

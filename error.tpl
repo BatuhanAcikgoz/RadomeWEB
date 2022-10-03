@@ -354,7 +354,7 @@
                 $('#show_debug_modal').removeClass('btn-info');
                 $('#debug_link_text').hide();
 
-                if (!url.startsWith('https://debug.namelessmc.com/')) {
+                if (!url.startsWith('https://debug.radome.web.tr/')) {
                     $('#show_debug_modal').addClass('btn-danger');
                     $('#debug_link_error').show();
                     console.error(url);

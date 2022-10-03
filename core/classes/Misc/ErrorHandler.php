@@ -2,7 +2,7 @@
 /**
  * Handles rendering the exception page as well as logging errors.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Samerton
  * @author Aberdeener
  * @version 2.0.0-pr9
@@ -109,12 +109,12 @@ class ErrorHandler {
         if (defined('LANGUAGE')) {
             $language = new Language('core', LANGUAGE);
         } else {
-            // NamelessMC not installed yet
+            // RadomeWEB not installed yet
             $language = new Language('core', 'en_UK');
         }
 
         $path = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/';
-        $site_name = defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'NamelessMC';
+        $site_name = defined('SITE_NAME') ? Output::getClean(SITE_NAME) : 'RadomeWEB';
 
         $smarty = new Smarty();
 

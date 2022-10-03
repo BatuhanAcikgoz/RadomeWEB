@@ -3,11 +3,11 @@
 class MinecraftPlaceholderSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_placeholders_settings',
+        'rw_placeholders_settings',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
-        $db->query('UPDATE nl2_settings SET value = ? WHERE name = ?', [
+        $db->query('UPDATE rw_settings SET value = ? WHERE name = ?', [
             1, 'placeholders',
         ]);
 

@@ -2,7 +2,7 @@
 /**
  * Provides access to create & get alerts for a user, as well as their PMs.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT

@@ -56,7 +56,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         // Get last order
-                        $last_order = DB::getInstance()->query('SELECT * FROM nl2_store_categories ORDER BY `order` DESC LIMIT 1')->results();
+                        $last_order = DB::getInstance()->query('SELECT * FROM rw_store_categories ORDER BY `order` DESC LIMIT 1')->results();
                         if (count($last_order)) $last_order = $last_order[0]->order;
                         else $last_order = 0;
 
@@ -97,7 +97,7 @@ if (!isset($_GET['action'])) {
             }
 
             $categories_list = [];
-            $categories = DB::getInstance()->query('SELECT id, name FROM nl2_store_categories WHERE deleted = 0')->results();
+            $categories = DB::getInstance()->query('SELECT id, name FROM rw_store_categories WHERE deleted = 0')->results();
             foreach ($categories as $category) {
                 $categories_list[] = [
                     'id' => Output::getClean($category->id),

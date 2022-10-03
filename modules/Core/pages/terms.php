@@ -27,7 +27,7 @@ $nameless_terms = Output::getPurified($nameless_terms[0]->value);
 $smarty->assign([
     'TERMS' => $language->get('user', 'terms_and_conditions'),
     'SITE_TERMS' => $site_terms,
-    'NAMELESS_TERMS' => $nameless_terms
+    'RADOME_TERMS' => $nameless_terms
 ]);
 
 // Load modules + template

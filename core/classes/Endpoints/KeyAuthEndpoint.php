@@ -2,7 +2,7 @@
 /**
  * Allows an endpoint to require an API key to be present (and valid) in the request.
  *
- * @package NamelessMC\Endpoints
+ * @package RadomeWEB\Endpoints
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

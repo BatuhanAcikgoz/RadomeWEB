@@ -13,7 +13,7 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'integration/verify';
         $this->_module = 'Core';
-        $this->_description = 'Verify and link a NamelessMC user\'s Integration account using their validation code';
+        $this->_description = 'Verify and link a RadomeWEB user\'s Integration account using their validation code';
         $this->_method = 'POST';
     }
 

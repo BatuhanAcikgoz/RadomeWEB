@@ -3,9 +3,9 @@
 class UserProfilePostSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_user_profile_wall_posts',
-        'nl2_user_profile_wall_posts_replies',
-        'nl2_user_profile_wall_posts_reactions',
+        'rw_user_profile_wall_posts',
+        'rw_user_profile_wall_posts_replies',
+        'rw_user_profile_wall_posts_reactions',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {

@@ -5,7 +5,7 @@ class BanUserEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'users/{user}/ban';
         $this->_module = 'Core';
-        $this->_description = 'Ban a NamelessMC user by their NamelessMC ID';
+        $this->_description = 'Ban a RadomeWEB user by their RadomeWEB ID';
         $this->_method = 'POST';
     }
 

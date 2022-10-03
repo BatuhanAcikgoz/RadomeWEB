@@ -46,9 +46,9 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), NAMELESS_VERSION) ? $language->get('admin', 'template_outdated', [
+            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
                 'intendedVersion' => Output::getClean($template->getNamelessVersion()),
-                'actualVersion' => NAMELESS_VERSION,
+                'actualVersion' => RADOME_VERSION,
             ]) : false,
             'enabled' => $item->enabled,
             'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/panel_templates/', 'action=activate&template=' . urlencode($item->id))),
@@ -70,7 +70,7 @@ if (!isset($_GET['action'])) {
     } else {
         $all_templates = [];
 
-        $all_templates_query = HttpClient::get('https://namelessmc.com/panel_templates');
+        $all_templates_query = HttpClient::get('https://radome.web.tr/panel_templates');
 
         if ($all_templates_query->hasError()) {
             $all_templates_error = $all_templates_query->getError();
@@ -134,9 +134,9 @@ if (!isset($_GET['action'])) {
         'FIND_TEMPLATES' => $language->get('admin', 'find_templates'),
         'WEBSITE_TEMPLATES' => $all_templates,
         'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
-        'VIEW_ALL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/2-namelessmc-v2-templates/',
+        'VIEW_ALL_TEMPLATES_LINK' => 'https://radome.web.tr/resources/category/2-radomeweb-v2-templates/',
         'VIEW_ALL_PANEL_TEMPLATES' => $language->get('admin', 'view_all_panel_templates'),
-        'VIEW_ALL_PANEL_TEMPLATES_LINK' => 'https://namelessmc.com/resources/category/8-namelessmc-panel-templates/',
+        'VIEW_ALL_PANEL_TEMPLATES_LINK' => 'https://radome.web.tr/resources/category/8-radomeweb-panel-templates/',
         'UNABLE_TO_RETRIEVE_TEMPLATES' => $language->get('admin', 'unable_to_retrieve_templates'),
         'VIEW' => $language->get('general', 'view'),
         'TEMPLATE' => $language->get('admin', 'template'),

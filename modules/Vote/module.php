@@ -3,7 +3,7 @@
  *	Made by Partydragen
  *  https://github.com/partydragen/Vote-Module
  *  https://partydragen.com
- *  NamelessMC version 2.0.0
+ *  RadomeWEB version 2.0.0
  *
  *  License: MIT
  *
@@ -153,8 +153,8 @@ class Vote_Module extends Module {
                         'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
                         'CURRENT_VERSION' => $this->_vote_language->get('vote', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
                         'NEW_VERSION' => $this->_vote_language->get('vote', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
-                        'NAMELESS_UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
-                        'NAMELESS_UPDATE_LINK' => Output::getClean($update_check->link)
+                        'RADOME_UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
+                        'RADOME_UPDATE_LINK' => Output::getClean($update_check->link)
                     ]);
                 }
             }

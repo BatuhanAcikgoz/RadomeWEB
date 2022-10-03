@@ -193,7 +193,7 @@ if (Input::exists()) {
                             // Dispatch groupsync with all of their groups
                             GroupSyncManager::getInstance()->broadcastChange(
                                 $view_user,
-                                NamelessMCGroupSyncInjector::class,
+                                RadomeWEBGroupSyncInjector::class,
                                 $view_user->getAllGroupIds(),
                             );
                         }

@@ -2,7 +2,7 @@
 /*
  *  Made by Partydragen
  *  https://github.com/partydragen/Nameless-Forms
- *  NamelessMC version 2.0.1
+ *  RadomeWEB version 2.0.1
  *
  *  License: MIT
  *
@@ -38,7 +38,7 @@ class Forms_Module extends Module {
         // Check if module version changed
 
         try {
-            $forms = $this->_db->query('SELECT id, link_location, url, icon, title, guest FROM nl2_forms')->results();
+            $forms = $this->_db->query('SELECT id, link_location, url, icon, title, guest FROM rw_forms')->results();
             if (count($forms)) {
                 if ($user->isLoggedIn()) {
                     $group_ids = implode(',', $user->getAllGroupIds());
@@ -56,7 +56,7 @@ class Forms_Module extends Module {
                     }
 
                     if (!$perm) {
-                        $hasperm = $this->_db->query('SELECT form_id FROM nl2_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN('.$group_ids.')', array($form->id));
+                        $hasperm = $this->_db->query('SELECT form_id FROM rw_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN('.$group_ids.')', array($form->id));
                         if ($hasperm->count()) {
                             $perm = true;
                         }
@@ -220,8 +220,8 @@ class Forms_Module extends Module {
                         'NEW_VERSION' => $this->_forms_language->get('forms', 'new_version_x', [
                             'new_version' => Output::getClean($update_check->new_version)
                         ]),
-                        'NAMELESS_UPDATE' => $this->_forms_language->get('forms', 'view_resource'),
-                        'NAMELESS_UPDATE_LINK' => Output::getClean($update_check->link)
+                        'RADOME_UPDATE' => $this->_forms_language->get('forms', 'view_resource'),
+                        'RADOME_UPDATE_LINK' => Output::getClean($update_check->link)
                     ));
                 }
             }
@@ -254,7 +254,7 @@ class Forms_Module extends Module {
             try {
                 $this->_db->createTable("forms_permissions", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `group_id` int(11) NOT NULL, `post` tinyint(1) NOT NULL DEFAULT '1', `view_own` tinyint(1) NOT NULL DEFAULT '1', `view` tinyint(1) NOT NULL DEFAULT '0', `can_delete` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
 
-                $groups = $this->_db->query('SELECT id, staff FROM nl2_groups')->results();
+                $groups = $this->_db->query('SELECT id, staff FROM rw_groups')->results();
                 $this->_db->insert('forms_permissions', array(
                     'group_id' => 0,
                     'form_id' => 1,
@@ -345,7 +345,7 @@ class Forms_Module extends Module {
             try {
                 $this->_db->createTable("forms_replies_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `submission_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY (`id`)");
                 
-                $this->_db->createQuery('ALTER TABLE `nl2_forms_replies_fields` ADD INDEX `nl2_forms_replies_fields_idx_submission_id` (`submission_id`)');
+                $this->_db->createQuery('ALTER TABLE `rw_forms_replies_fields` ADD INDEX `rw_forms_replies_fields_idx_submission_id` (`submission_id`)');
             } catch (Exception $e) {
                 // Error
             }

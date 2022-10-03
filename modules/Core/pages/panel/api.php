@@ -82,7 +82,7 @@ if (!isset($_GET['view'])) {
 
                 $external = false;
                 $fields = [];
-                $nameless_injector_column = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName();
+                $nameless_injector_column = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class)->getColumnName();
                 foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $column_name => $injector) {
                     if (!$_POST[$column_name]) {
                         continue;
@@ -108,7 +108,7 @@ if (!isset($_GET['view'])) {
             } else {
                 if ($_POST['action'] == 'update') {
 
-                    $namelessmc_injector = GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class);
+                    $radomeweb_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
 
                     foreach ($_POST['existing'] as $group_sync_id => $values) {
                         $errors = [];
@@ -123,7 +123,7 @@ if (!isset($_GET['view'])) {
                                 if (
                                     $group
                                     && $group !== 0
-                                    && $column != $namelessmc_injector->getColumnName()
+                                    && $column != $radomeweb_injector->getColumnName()
                                 ) {
                                     $external = true;
                                 }
@@ -208,9 +208,9 @@ if (!isset($_GET['view'])) {
             'API' => $language->get('admin', 'api'),
             'PAGE' => PANEL_PAGE,
             'API_INFO' => $language->get('admin', 'api_info', [
-                'pluginLinkStart' => '<a href="https://plugin.namelessmc.com" target="_blank">',
+                'pluginLinkStart' => '<a href="https://plugin.radome.web.tr" target="_blank">',
                 'pluginLinkEnd' => '</a>',
-                'botLinkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link" target="_blank">',
+                'botLinkStart' => '<a href="https://github.com/RadomeWEB/Nameless-Link" target="_blank">',
                 'botLinkEnd' => '</a>',
             ]),
             'INFO' => $language->get('general', 'info'),
@@ -271,7 +271,7 @@ if (!isset($_GET['view'])) {
                 'GROUP_SYNC_VALUES' => $group_sync_values,
                 'GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getInjectors(),
                 'ENABLED_GROUP_SYNC_INJECTORS' => GroupSyncManager::getInstance()->getEnabledInjectors(),
-                'NAMELESS_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(NamelessMCGroupSyncInjector::class)->getColumnName(),
+                'RADOME_INJECTOR_COLUMN' => GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class)->getColumnName(),
                 'LANGUAGE' => $language,
                 'DELETE' => $language->get('general', 'delete'),
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
@@ -312,7 +312,7 @@ if (!isset($_GET['view'])) {
                     'MODULE' => $language->get('admin', 'module'),
                     'METHOD' => $language->get('admin', 'method'),
                     'ENDPOINTS_INFO' => $language->get('admin', 'api_endpoints_info', [
-                        'docLinkStart' => '<a href="https://docs.namelessmc.com/en/api-documentation" target="_blank">',
+                        'docLinkStart' => '<a href="https://docs.radome.web.tr/en/api-documentation" target="_blank">',
                         'docLinkEnd' => '</a>'
                     ]),
                     'ENDPOINTS_ARRAY' => $endpoints_array,

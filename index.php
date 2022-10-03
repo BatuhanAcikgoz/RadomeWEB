@@ -14,7 +14,7 @@
 
 header('X-Frame-Options: SAMEORIGIN');
 
-if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('NAMELESS_DEBUGGING') || isset($_SERVER['NAMELESS_DEBUGGING']))) {
+if ((!defined('DEBUGGING') || !DEBUGGING) && (getenv('RADOME_DEBUGGING') || isset($_SERVER['RADOME_DEBUGGING']))) {
     define('DEBUGGING', true);
 }
 
@@ -26,7 +26,7 @@ if (defined('DEBUGGING') && DEBUGGING) {
 
 // Ensure PHP version >= 7.4
 if (PHP_VERSION_ID < 70400) {
-    die('NamelessMC is not compatible with PHP versions older than 7.4, you are running PHP ' . PHP_VERSION);
+    die('RadomeWEB is not compatible with PHP versions older than 7.4, you are running PHP ' . PHP_VERSION);
 }
 
 // Start page load timer

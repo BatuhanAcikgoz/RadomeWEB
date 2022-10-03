@@ -2,7 +2,7 @@
 /**
  * Manages avatar sources and provides static methods for fetching avatars.
  *
- * @package NamelessMC\Avatars
+ * @package RadomeWEB\Avatars
  * @author Aberdeener
  * @version 2.0.0-pr10
  * @license MIT

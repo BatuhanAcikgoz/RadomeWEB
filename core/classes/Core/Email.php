@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\SMTP;
 /**
  * Handles sending emails and registering email placeholders.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @author Aberdeener
  * @version 2.0.0-pr13

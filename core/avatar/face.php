@@ -5,7 +5,7 @@ URL:        http://github.com/jamiebicknell/Minecraft-Avatar
 Author:     Jamie Bicknell
 Twitter:    @jamiebicknell
 
-Modified by Samerton for NamelessMC
+Modified by Samerton for RadomeWEB
 */
 
 require '../../vendor/autoload.php';

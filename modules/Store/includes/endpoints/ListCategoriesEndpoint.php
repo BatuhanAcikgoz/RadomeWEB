@@ -9,7 +9,7 @@ class ListCategoriesEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT * FROM nl2_store_categories WHERE deleted = 0;';
+        $query = 'SELECT * FROM rw_store_categories WHERE deleted = 0;';
         $order = ' ORDER BY `order` ASC';
 
         // Ensure the user exists

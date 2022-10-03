@@ -37,7 +37,7 @@ if (isset($_GET['c'])) {
 
         GroupSyncManager::getInstance()->broadcastChange(
             $user,
-            NamelessMCGroupSyncInjector::class,
+            RadomeWEBGroupSyncInjector::class,
             [$user->getMainGroup()->id]
         );
 

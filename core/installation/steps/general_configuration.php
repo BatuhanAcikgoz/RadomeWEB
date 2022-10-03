@@ -34,20 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="ui centered grid">
                 <div class="sixteen wide mobile twelve wide tablet ten wide computer column">
                     <div class="ui form">
-                        <div <?php if (getenv('NAMELESS_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('text', $language->get('installer', 'host'), 'hostname', 'inputHostname', getenv('NAMELESS_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
+                        <div <?php if (getenv('RADOME_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>>
+                            <?php create_field('text', $language->get('installer', 'host'), 'hostname', 'inputHostname', getenv('RADOME_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
                             <p><?php echo $language->get('installer', 'host_help'); ?></p>
                             <div class="ui divider"></div>
                         </div>
 
-                        <div <?php if (getenv('NAMELESS_PATH_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('text', $language->get('installer', 'nameless_path'), 'install_path', 'inputPath', getenv('NAMELESS_PATH') ?: Output::getClean($install_path)); ?>
+                        <div <?php if (getenv('RADOME_PATH_HIDE') !== false) echo 'style="display: none"' ?>>
+                            <?php create_field('text', $language->get('installer', 'nameless_path'), 'install_path', 'inputPath', getenv('RADOME_PATH') ?: Output::getClean($install_path)); ?>
                             <p><?php echo $language->get('installer', 'nameless_path_info'); ?></p>
                             <div class="ui divider"></div>
                         </div>
 
-                        <div <?php if (getenv('NAMELESS_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('select', $language->get('installer', 'friendly_urls'), 'friendly', 'inputFriendly', getenv('NAMELESS_FRIENDLY_URLS') ?: 'true', [
+                        <div <?php if (getenv('RADOME_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>>
+                            <?php create_field('select', $language->get('installer', 'friendly_urls'), 'friendly', 'inputFriendly', getenv('RADOME_FRIENDLY_URLS') ?: 'true', [
                                 'true' => $language->get('installer', 'enabled'),
                                 'false' => $language->get('installer', 'disabled'),
                             ]); ?>

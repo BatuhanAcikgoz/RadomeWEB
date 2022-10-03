@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @param int $id NamelessMC ID of user to view
- * @param string $username The NamelessMC username of the user to view
+ * @param int $id RadomeWEB ID of user to view
+ * @param string $username The RadomeWEB username of the user to view
  * @param string $uuid The Minecraft UUID of the user
  *
  * @return string JSON Array
@@ -12,7 +12,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'users/{user}';
         $this->_module = 'Core';
-        $this->_description = 'Get information about a NamelessMC user';
+        $this->_description = 'Get information about a RadomeWEB user';
         $this->_method = 'GET';
     }
 

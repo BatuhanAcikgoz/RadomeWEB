@@ -2,7 +2,7 @@
 /**
  * Provides simpler abstractions over common database queries.
  *
- * @package NamelessMC\Database
+ * @package RadomeWEB\Database
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

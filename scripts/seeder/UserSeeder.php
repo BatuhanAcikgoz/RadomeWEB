@@ -3,9 +3,9 @@
 class UserSeeder extends Seeder {
 
     public array $tables = [
-        'nl2_users',
-        'nl2_users_groups',
-        'nl2_users_integrations',
+        'rw_users',
+        'rw_users_groups',
+        'rw_users_integrations',
     ];
 
     public function run(DB $db, \Faker\Generator $faker): void {
@@ -24,14 +24,14 @@ class UserSeeder extends Seeder {
             'language_id' => $db->get('languages', ['is_default', '=', 1])->first()->id,
         ]);
         $user_id = $db->lastId();
-        $db->query('INSERT INTO `nl2_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
+        $db->query('INSERT INTO `rw_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
             1,
             2,
             date('U'),
             0,
         ]);
         $db->query(
-            'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+            'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                 $user_id,
                 1,
                 str_replace('-', '', $faker->unique()->uuid),
@@ -88,7 +88,7 @@ class UserSeeder extends Seeder {
             }
 
             $db->query(
-                'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+                'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                     $user_id,
                     1,
                     str_replace('-', '', $faker->unique()->uuid),

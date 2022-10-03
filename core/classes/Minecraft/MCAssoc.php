@@ -2,7 +2,7 @@
 /**
  * MCAssoc utility class
  *
- * @package NamelessMC\Minecraft
+ * @package RadomeWEB\Minecraft
  * @author lukegb
  * @site https://github.com/lukegb/mcassoc.php
  */

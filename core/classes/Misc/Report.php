@@ -2,7 +2,7 @@
 /**
  * Report creation class
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT

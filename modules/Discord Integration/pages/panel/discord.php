@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0-pr9
  *
  *  License: MIT
  *
@@ -54,7 +54,7 @@ if (Input::exists()) {
             if ($_POST['enable_discord'] === '1') {
                 if (BOT_URL == '' || BOT_USERNAME == '' || Discord::getGuildId() == '') {
                     $errors[] = Discord::getLanguageTerm('discord_bot_must_be_setup', [
-                        'linkStart' => '<a href="https://github.com/NamelessMC/Nameless-Link/wiki/Setup" target="_blank">',
+                        'linkStart' => '<a href="https://github.com/RadomeWEB/Nameless-Link/wiki/Setup" target="_blank">',
                         'linkEnd' => '</a>',
                     ]);
                     Util::setSetting('discord_integration', '0');
@@ -111,10 +111,10 @@ $smarty->assign([
     'ENABLE_DISCORD_INTEGRATION' => Discord::getLanguageTerm('enable_discord_integration'),
     'DISCORD_ENABLED' => Discord::isBotSetup(),
     'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info', [
-        'inviteLinkStart' => '<a target="_blank" href="https://namelessmc.com/discord-bot-invite">',
+        'inviteLinkStart' => '<a target="_blank" href="https://radome.web.tr/discord-bot-invite">',
         'inviteLinkEnd' => '</a>',
         'command' => '<code>/apiurl</code>',
-        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/NamelessMC/Nameless-Link/wiki/Installation-guide">',
+        'selfHostLinkStart' => '<a target="_blank" href="https://github.com/RadomeWEB/Nameless-Link/wiki/Installation-guide">',
         'selfHostLinkEnd' => '</a>',
     ]),
     'GUILD_ID_SET' => (Discord::getGuildId() != ''),

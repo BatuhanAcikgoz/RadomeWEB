@@ -2,7 +2,7 @@
 /**
  * Provides static methods for cleansing user input before storing in the database.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0-pr8
  * @license MIT
@@ -64,7 +64,7 @@ class Output {
             $purifierConfig->set('Core.EscapeInvalidTags', $escape_invalid);
             $purifierConfig->set('AutoFormat.Linkify', true);
 
-            $purifierConfig->set('HTML.DefinitionID', 'namelessmc');
+            $purifierConfig->set('HTML.DefinitionID', 'radomeweb');
             $purifierConfig->set('HTML.DefinitionRev', 1);
             $purifierConfig->set('Cache.DefinitionImpl', null);
 

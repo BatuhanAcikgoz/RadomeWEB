@@ -54,9 +54,9 @@ if (!isset($_GET['action'])) {
             'nameless_version' => Output::getClean($module->getNamelessVersion()),
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
-            'version_mismatch' => !Util::isCompatible($module->getNamelessVersion(), NAMELESS_VERSION) ? $language->get('admin', 'module_outdated', [
+            'version_mismatch' => !Util::isCompatible($module->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'module_outdated', [
                 'intendedVersion' => Text::bold(Output::getClean($module->getNamelessVersion())),
-                'actualVersion' => Text::bold(NAMELESS_VERSION)
+                'actualVersion' => Text::bold(RADOME_VERSION)
             ]) : false,
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
             'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
@@ -72,7 +72,7 @@ if (!isset($_GET['action'])) {
     } else {
         $all_modules = [];
 
-        $all_modules_query = HttpClient::get('https://namelessmc.com/resources_modules');
+        $all_modules_query = HttpClient::get('https://radome.web.tr/resources_modules');
 
         if ($all_modules_query->hasError()) {
             $all_modules_error = $all_modules_query->getError();
@@ -126,7 +126,7 @@ if (!isset($_GET['action'])) {
         'FIND_MODULES' => $language->get('admin', 'find_modules'),
         'WEBSITE_MODULES' => $all_modules,
         'VIEW_ALL_MODULES' => $language->get('admin', 'view_all_modules'),
-        'VIEW_ALL_MODULES_LINK' => 'https://namelessmc.com/resources/category/1-namelessmc-modules/',
+        'VIEW_ALL_MODULES_LINK' => 'https://radome.web.tr/resources/category/1-radomeweb-modules/',
         'UNABLE_TO_RETRIEVE_MODULES' => $language->get('admin', 'unable_to_retrieve_modules'),
         'VIEW' => $language->get('general', 'view'),
         'MODULE' => $language->get('admin', 'module'),

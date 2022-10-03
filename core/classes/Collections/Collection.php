@@ -2,7 +2,7 @@
 /**
  * Base Collection class
  *
- * @package NamelessMC\Collections
+ * @package RadomeWEB\Collections
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT

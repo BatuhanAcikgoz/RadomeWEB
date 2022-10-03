@@ -2,7 +2,7 @@
 /**
  * Announcement management class for creating and getting announcements.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0-pr12
  * @license MIT

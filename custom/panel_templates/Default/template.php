@@ -3,9 +3,9 @@
  *  Made by Coldfire
  *  https://coldfiredzn.com
  *
- *  For NamelessMC
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0
+ *  For RadomeWEB
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.0
  *
  *  License: MIT
  *
@@ -133,7 +133,7 @@ if (!class_exists('Default_Panel_Template')) {
 
             ');
 
-            $smarty->assign('NAMELESS_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/namelessmc_logo.png');
+            $smarty->assign('RADOME_LOGO', (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/assets/img/radomeweb_logo.png');
         }
 
         public function onPageLoad() {

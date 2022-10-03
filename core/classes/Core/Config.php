@@ -2,7 +2,7 @@
 /**
  * Provides static methods to get and set configuration values from the `core/config.php` file.
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.0.0
  * @license MIT

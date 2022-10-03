@@ -2,7 +2,7 @@
 /**
  * Represents data which belongs to a user.
  *
- * @package NamelessMC\DTO
+ * @package RadomeWEB\DTO
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT

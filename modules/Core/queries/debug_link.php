@@ -6,9 +6,9 @@ if (!defined('DEBUGGING') && !$user->hasPermission('admincp.core.debugging')) {
     die();
 }
 
-$namelessmc_modules = [];
-$namelessmc_fe_templates = [];
-$namelessmc_panel_templates = [];
+$radomeweb_modules = [];
+$radomeweb_fe_templates = [];
+$radomeweb_panel_templates = [];
 
 // Get all modules
 $modules = DB::getInstance()->get('modules', ['id', '<>', 0])->results();
@@ -32,12 +32,12 @@ foreach ($modules as $item) {
         require_once(ROOT_PATH . '/modules/' . $item->name . '/init.php');
     }
 
-    $namelessmc_modules[$module->getName()] = [
+    $radomeweb_modules[$module->getName()] = [
         'name' => $module->getName(),
         'enabled' => Util::isModuleEnabled($module->getName()),
         'author' => $module->getAuthor(),
         'module_version' => $module->getVersion(),
-        'namelessmc_version' => $module->getNamelessVersion(),
+        'radomeweb_version' => $module->getNamelessVersion(),
         'debug_info' => $module->getDebugInfo(),
     ];
 }
@@ -50,13 +50,13 @@ foreach ($templates_query as $fe_template) {
         require_once($template_path);
     }
 
-    $namelessmc_fe_templates[$fe_template->name] = [
+    $radomeweb_fe_templates[$fe_template->name] = [
         'name' => $fe_template->name,
         'enabled' => (bool)$fe_template->enabled,
         'is_default' => (bool)$fe_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
-        'namelessmc_version' => $template->getNamelessVersion(),
+        'radomeweb_version' => $template->getNamelessVersion(),
     ];
 }
 
@@ -69,13 +69,13 @@ foreach ($panel_templates_query as $panel_template) {
         require_once($template_path);
     }
 
-    $namelessmc_panel_templates[$panel_template->name] = [
+    $radomeweb_panel_templates[$panel_template->name] = [
         'name' => $panel_template->name,
         'enabled' => (bool)$panel_template->enabled,
         'is_default' => (bool)$panel_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
-        'namelessmc_version' => $template->getNamelessVersion(),
+        'radomeweb_version' => $template->getNamelessVersion(),
     ];
 }
 
@@ -164,7 +164,7 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $data
     ];
 }
 
-$namelessmc_version = Util::getSetting('nameless_version');
+$radomeweb_version = Util::getSetting('nameless_version');
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM nl2_users_integrations INNER JOIN nl2_integrations on integration_id=nl2_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
@@ -183,8 +183,8 @@ $data = [
     'generated_at' => time(),
     'generated_by_name' => $user->data()->username,
     'generated_by_uuid' => $uuid,
-    'namelessmc' => [
-        'version' => $namelessmc_version,
+    'radomeweb' => [
+        'version' => $radomeweb_version,
         'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
         'update_checked' => (int) Util::getSetting('version_checked'),
         'settings' => [
@@ -212,10 +212,10 @@ $data = [
                 ARRAY_FILTER_USE_KEY
             ),
         ],
-        'modules' => $namelessmc_modules,
+        'modules' => $radomeweb_modules,
         'templates' => [
-            'front_end' => $namelessmc_fe_templates,
-            'panel' => $namelessmc_panel_templates,
+            'front_end' => $radomeweb_fe_templates,
+            'panel' => $radomeweb_panel_templates,
         ],
         'integrations' => $integrations,
         'oauth_providers' => $oauth_providers,
@@ -232,7 +232,7 @@ $data = [
         'php_modules' => get_loaded_extensions(),
         'host_os' => PHP_OS,
         'host_kernel_version' => php_uname('r'),
-        'official_docker_image' => getenv('NAMELESSMC_METRICS_DOCKER') == true,
+        'official_docker_image' => getenv('RADOMEWEB_METRICS_DOCKER') == true,
         'disk_total_space' => disk_total_space('./'),
         'disk_free_space' => disk_free_space('./'),
         'memory_total_space' => ini_get('memory_limit'),
@@ -245,8 +245,8 @@ $data = [
 $result = HttpClient::post('https://bytebin.rkslot.nl/post', json_encode($data, JSON_PRETTY_PRINT), [
     'headers' => [
         'Content-Type' => 'application/json',
-        'User-Agent' => 'NamelessMC/' . $namelessmc_version,
+        'User-Agent' => 'RadomeWEB/' . $radomeweb_version,
     ],
 ])->json(true);
 
-die('https://debug.namelessmc.com/' . $result['key']);
+die('https://debug.radome.web.tr/' . $result['key']);

@@ -2,7 +2,7 @@
 /**
  * Represents a integration user
  *
- * @package NamelessMC\Integrations
+ * @package RadomeWEB\Integrations
  * @author Partydragen
  * @version 2.0.0-pr13
  * @license MIT
@@ -41,9 +41,9 @@ class IntegrationUser {
     }
 
     /**
-     * Get the NamelessMC User that belong to this integration user
+     * Get the RadomeWEB User that belong to this integration user
      *
-     * @return User NamelessMC User that belong to this integration user
+     * @return User RadomeWEB User that belong to this integration user
      */
     public function getUser(): User {
         return $this->_user ??= new User($this->data()->user_id);

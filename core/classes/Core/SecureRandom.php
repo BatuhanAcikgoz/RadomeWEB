@@ -3,7 +3,7 @@
 /**
  * Secure random token generation
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Derkades
  * @version 2.0.0-pr13
  * @license MIT

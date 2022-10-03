@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @param int $id The NamelessMC user to update
+ * @param int $id The RadomeWEB user to update
  * @param string $username The new username of the user
  *
  * @return string JSON Array
@@ -11,7 +11,7 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'users/{user}/update-username';
         $this->_module = 'Core';
-        $this->_description = 'Update a users NamelessMC username to a new username';
+        $this->_description = 'Update a users RadomeWEB username to a new username';
         $this->_method = 'POST';
     }
 

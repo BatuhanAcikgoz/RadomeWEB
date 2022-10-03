@@ -2,7 +2,7 @@
 /**
  * Queries Minecraft servers using the external querying API.
  *
- * @package NamelessMC\Minecraft
+ * @package RadomeWEB\Minecraft
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -18,7 +18,7 @@ class ExternalMCQuery {
      * @return object|false Query result, false on failure.
      */
     public static function query(string $ip, int $port = 25565, bool $bedrock = false) {
-        $client = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
+        $client = HttpClient::get('https://api.radome.web.tr/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
 
         if (!$client->hasError()) {
             return $client->json();
@@ -44,7 +44,7 @@ class ExternalMCQuery {
         $ip = $query_ip[0];
         $port = $query_ip[1] ?? ($bedrock ? 19132 : 25565);
 
-        $client = HttpClient::get('https://api.namelessmc.com/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
+        $client = HttpClient::get('https://api.radome.web.tr/api/' . ($bedrock ? 'bedrock' : 'server') . '/' . $ip . '/' . $port);
         if ($client->hasError()) {
             return false;
         }

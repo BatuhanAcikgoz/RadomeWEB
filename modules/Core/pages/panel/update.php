@@ -62,7 +62,7 @@ if (!is_string($update_check)) {
                 : $language->get('admin', 'new_update_available'),
             'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
             'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
-                'version' => Output::getClean(NAMELESS_VERSION)
+                'version' => Output::getClean(RADOME_VERSION)
             ]),
             'NEW_VERSION' => $language->get('admin', 'new_version_x', [
                 'version' => Output::getClean($update_check->version())
@@ -85,7 +85,7 @@ if (!is_string($update_check)) {
 if (PHP_VERSION_ID < 70400) {
     $smarty->assign('PHP_WARNING', $language->get('admin', 'upgrade_php_version'));
 
-    if (NAMELESS_VERSION !== '2.0.0-pr11') {
+    if (RADOME_VERSION !== '2.0.0-pr11') {
         $smarty->assign('PREVENT_UPGRADE', true);
     }
 }

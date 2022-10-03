@@ -5,7 +5,7 @@ use League\OAuth2\Client\Provider\AbstractProvider;
 /**
  * OAuth utility class.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.0.0-pr13
  * @license MIT
@@ -186,7 +186,7 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
-     * Check if a NamelessMC user has already connected their account to a specific provider.
+     * Check if a RadomeWEB user has already connected their account to a specific provider.
      *
      * @param string $provider The provider name
      * @param string $provider_id The provider user ID
@@ -200,11 +200,11 @@ class NamelessOAuth extends Instanceable {
     }
 
     /**
-     * Get the NamelessMC user ID for a specific provider user ID.
+     * Get the RadomeWEB user ID for a specific provider user ID.
      *
      * @param string $provider The provider name
      * @param string $provider_id The provider user ID for lookup
-     * @return int The NamelessMC user ID of the user linked to the provider
+     * @return int The RadomeWEB user ID of the user linked to the provider
      */
     public function getUserIdFromProviderId(string $provider, string $provider_id): int {
         return $this->_db->query(
@@ -216,7 +216,7 @@ class NamelessOAuth extends Instanceable {
     /**
      * Save a new user linked to a specific provider.
      *
-     * @param string $user_id The NamelessMC user ID
+     * @param string $user_id The RadomeWEB user ID
      * @param string $provider The provider name
      * @param string $provider_id  The provider user ID
      */
@@ -230,7 +230,7 @@ class NamelessOAuth extends Instanceable {
     /**
      * Get an array of provider names and provider user IDs for a specific user
      *
-     * @param int $user_id The NamelessMC user ID
+     * @param int $user_id The RadomeWEB user ID
      * @return array The array
      */
     public function getAllProvidersForUser(int $user_id): array {
