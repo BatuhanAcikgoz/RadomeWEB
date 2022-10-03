@@ -7,7 +7,7 @@ final class CreateUsersUsernameHistoryTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_username_history');
+        $table = $this->table('rw_users_username_history');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -16,7 +16,7 @@ final class CreateUsersUsernameHistoryTable extends AbstractMigration
             ->addColumn('original', 'boolean', ['default' => false]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE']);
 
         $table->create();
     }

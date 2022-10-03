@@ -7,7 +7,7 @@ final class CreateStoreOrdersProductsFieldsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_orders_products_fields');
+        $table = $this->table('rw_store_orders_products_fields');
 
         $table
             ->addColumn('order_id', 'integer', ['length' => 11])

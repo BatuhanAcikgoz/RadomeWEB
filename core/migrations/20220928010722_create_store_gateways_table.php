@@ -7,7 +7,7 @@ final class CreateStoreGatewaysTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_gateways');
+        $table = $this->table('rw_store_gateways');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

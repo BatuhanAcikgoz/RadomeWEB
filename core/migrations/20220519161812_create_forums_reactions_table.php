@@ -7,7 +7,7 @@ final class CreateForumsReactionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forums_reactions');
+        $table = $this->table('rw_forums_reactions');
 
         $table
             ->addColumn('post_id', 'integer', ['length' => 11])
@@ -17,10 +17,10 @@ final class CreateForumsReactionsTable extends AbstractMigration
             ->addColumn('time', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('post_id', 'nl2_posts', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('user_received', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('user_given', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('reaction_id', 'nl2_reactions', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('post_id', 'rw_posts', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('user_received', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('user_given', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('reaction_id', 'rw_reactions', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

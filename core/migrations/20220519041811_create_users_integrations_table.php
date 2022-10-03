@@ -7,7 +7,7 @@ final class CreateUsersIntegrationsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_integrations');
+        $table = $this->table('rw_users_integrations');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -21,8 +21,8 @@ final class CreateUsersIntegrationsTable extends AbstractMigration
             ->addColumn('last_sync', 'integer', ['length' => 11, 'default' => 0]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE'])
-            ->addForeignKey('integration_id', 'nl2_integrations', 'id', ['delete' => 'CASCADE']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE'])
+            ->addForeignKey('integration_id', 'rw_integrations', 'id', ['delete' => 'CASCADE']);
 
         $table
             ->addIndex(['user_id', 'integration_id'], ['unique' => true]);

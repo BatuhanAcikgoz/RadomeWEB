@@ -28,7 +28,7 @@ Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp
 
 if (isset($_GET['customer'])) {
     // Get payments for user
-    $payments = DB::getInstance()->query('SELECT nl2_store_payments.*, order_id, nl2_store_orders.user_id, to_customer_id FROM nl2_store_payments LEFT JOIN nl2_store_orders ON order_id=nl2_store_orders.id LEFT JOIN nl2_store_customers ON to_customer_id=nl2_store_customers.id WHERE nl2_store_customers.username = ? ORDER BY created DESC', [$_GET['customer']]);
+    $payments = DB::getInstance()->query('SELECT rw_store_payments.*, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id WHERE rw_store_customers.username = ? ORDER BY created DESC', [$_GET['customer']]);
 
     if ($payments->count()) {
         $payments = $payments->results();
@@ -170,7 +170,7 @@ if (isset($_GET['customer'])) {
     $products_list = [];
     foreach ($order->getProducts() as $product) {
         $fields_array = [];
-        $fields = DB::getInstance()->query('SELECT identifier, value FROM nl2_store_orders_products_fields INNER JOIN nl2_store_fields ON field_id=nl2_store_fields.id WHERE order_id = ? AND product_id = ?', [$payment->data()->order_id, $product->data()->id])->results();
+        $fields = DB::getInstance()->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$payment->data()->order_id, $product->data()->id])->results();
         foreach ($fields as $field) {
             $fields_array[] = [
                 'identifier' => Output::getClean($field->identifier),
@@ -185,7 +185,7 @@ if (isset($_GET['customer'])) {
         ];
     }
 
-    $pending_commands = DB::getInstance()->query('SELECT * FROM nl2_store_pending_actions INNER JOIN nl2_store_connections ON connection_id=nl2_store_connections.id WHERE order_id = ? AND status = 0', [$payment->data()->order_id])->results();
+    $pending_commands = DB::getInstance()->query('SELECT * FROM rw_store_pending_actions INNER JOIN rw_store_connections ON connection_id=rw_store_connections.id WHERE order_id = ? AND status = 0', [$payment->data()->order_id])->results();
     $pending_commands_array = [];
     foreach ($pending_commands as $command) {
         $pending_commands_array[] = [
@@ -195,7 +195,7 @@ if (isset($_GET['customer'])) {
         ];
     }
 
-    $processed_commands = DB::getInstance()->query('SELECT * FROM nl2_store_pending_actions LEFT JOIN nl2_store_connections ON connection_id=nl2_store_connections.id WHERE order_id = ? AND status = 1', [$payment->data()->order_id])->results();
+    $processed_commands = DB::getInstance()->query('SELECT * FROM rw_store_pending_actions LEFT JOIN rw_store_connections ON connection_id=rw_store_connections.id WHERE order_id = ? AND status = 1', [$payment->data()->order_id])->results();
     $processed_commands_array = [];
     foreach ($processed_commands as $command) {
         $processed_commands_array[] = [

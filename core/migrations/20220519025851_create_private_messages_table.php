@@ -7,7 +7,7 @@ final class CreatePrivateMessagesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_private_messages');
+        $table = $this->table('rw_private_messages');
 
         $table
             ->addColumn('author_id', 'integer', ['length' => 11])
@@ -17,8 +17,8 @@ final class CreatePrivateMessagesTable extends AbstractMigration
             ->addColumn('last_reply_date', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('author_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('last_reply_user', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('author_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('last_reply_user', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

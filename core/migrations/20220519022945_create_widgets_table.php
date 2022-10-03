@@ -7,7 +7,7 @@ final class CreateWidgetsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_widgets');
+        $table = $this->table('rw_widgets');
 
         $table
             ->addColumn('name', 'string', ['length' => 20])

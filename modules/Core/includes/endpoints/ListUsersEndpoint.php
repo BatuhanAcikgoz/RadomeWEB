@@ -15,7 +15,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM nl2_users u';
+        $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM rw_users u';
         $where = [];
         $params = [];
 
@@ -24,13 +24,13 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
             : ' AND ';
 
         if (isset($_GET['group_id'])) {
-            $query .= ' INNER JOIN nl2_users_groups ug ON u.id = ug.user_id';
+            $query .= ' INNER JOIN rw_users_groups ug ON u.id = ug.user_id';
             $where[] = 'ug.group_id = ?';
             $params[] = $_GET['group_id'];
         }
 
         if (isset($_GET['integration'])) {
-            $query .= ' INNER JOIN nl2_users_integrations ui ON ui.user_id=u.id INNER JOIN nl2_integrations i ON i.id=ui.integration_id';
+            $query .= ' INNER JOIN rw_users_integrations ui ON ui.user_id=u.id INNER JOIN rw_integrations i ON i.id=ui.integration_id';
             $where[] = 'i.name = ?';
             $params[] = $_GET['integration'];
         }
@@ -88,7 +88,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $users_json = [];
         foreach ($users as $user) {
             $integrations = [];
-            $integrations_query = $api->getDb()->query('SELECT ui.*, i.name FROM nl2_users_integrations ui INNER JOIN nl2_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
+            $integrations_query = $api->getDb()->query('SELECT ui.*, i.name FROM rw_users_integrations ui INNER JOIN rw_integrations i ON i.id=ui.integration_id WHERE user_id = ? AND username IS NOT NULL AND identifier IS NOT NULL', [$user->id])->results();
             foreach ($integrations_query as $integration) {
                 $integrations[] = [
                     'integration' => Output::getClean($integration->name),

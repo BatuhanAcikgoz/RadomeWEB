@@ -7,7 +7,7 @@ final class CreateOauthTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_oauth', ['id' => false, 'primary_key' => ['provider']]);
+        $table = $this->table('rw_oauth', ['id' => false, 'primary_key' => ['provider']]);
 
         $table
             ->addColumn('provider', 'string', ['length' => 256])

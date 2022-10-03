@@ -7,7 +7,7 @@ final class CreateUuidCacheTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_uuid_cache');
+        $table = $this->table('rw_uuid_cache');
 
         $table
             ->addColumn('mcname', 'string', ['limit' => 20])

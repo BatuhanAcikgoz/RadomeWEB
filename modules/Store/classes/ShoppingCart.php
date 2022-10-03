@@ -34,7 +34,7 @@ class ShoppingCart {
             $products_ids .= ')';
 
             // Get products
-            $products_query = DB::getInstance()->query('SELECT * FROM nl2_store_products WHERE id in '.$products_ids.' AND disabled = 0 AND deleted = 0 ')->results();
+            $products_query = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE id in '.$products_ids.' AND disabled = 0 AND deleted = 0 ')->results();
             foreach ($products_query as $product) {
                 $this->_products[$product->id] = $product;
             }

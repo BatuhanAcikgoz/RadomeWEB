@@ -7,7 +7,7 @@ final class CreateStoreCategoriesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_categories');
+        $table = $this->table('rw_store_categories');
 
         $table
             ->addColumn('name', 'string', ['length' => 128])

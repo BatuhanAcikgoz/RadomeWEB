@@ -7,7 +7,7 @@ final class CreateUsersGroupsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_groups');
+        $table = $this->table('rw_users_groups');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -16,8 +16,8 @@ final class CreateUsersGroupsTable extends AbstractMigration
             ->addColumn('expire', 'integer', ['length' => 11, 'default' => 0]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',])
-            ->addForeignKey('group_id', 'nl2_groups', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',]);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',])
+            ->addForeignKey('group_id', 'rw_groups', 'id', ['delete'=> 'CASCADE', 'update'=> 'CASCADE',]);
 
         $table
             ->addIndex(['user_id', 'group_id'], ['unique' => true]);

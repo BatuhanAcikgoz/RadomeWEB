@@ -7,7 +7,7 @@ final class CreateFormsRepliesFieldsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forms_replies_fields');
+        $table = $this->table('rw_forms_replies_fields');
 
         $table
             ->addColumn('submission_id', 'integer', ['length' => 11])

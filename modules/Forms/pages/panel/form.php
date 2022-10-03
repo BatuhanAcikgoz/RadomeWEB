@@ -433,7 +433,7 @@ if (!isset($_GET['action'])) {
                     $view_submissions = 0;
                     $delete_submissions = 0;
                     
-                    $groups = DB::getInstance()->query('SELECT id FROM nl2_groups')->results();
+                    $groups = DB::getInstance()->query('SELECT id FROM rw_groups')->results();
                     $form_perm_query = DB::getInstance()->get('forms_permissions', ['form_id', '=', $form->data()->id])->results();
                     
                     $cat_perm_exists = 0;
@@ -524,8 +524,8 @@ if (!isset($_GET['action'])) {
                     $errors[] = $language->get('general', 'invalid_token');
             }
             
-            $guest_query = DB::getInstance()->query('SELECT 0 AS id, post AS can_post, view_own AS can_view_own FROM nl2_forms_permissions WHERE group_id = 0 AND form_id = ?', [$form->data()->id])->results();
-            $group_query = DB::getInstance()->query('SELECT id, name, can_post, can_view_own, can_view, can_delete FROM nl2_groups A LEFT JOIN (SELECT group_id, post AS can_post, `view_own` AS can_view_own, `view` AS can_view, can_delete FROM nl2_forms_permissions WHERE form_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$form->data()->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, post AS can_post, view_own AS can_view_own FROM rw_forms_permissions WHERE group_id = 0 AND form_id = ?', [$form->data()->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, name, can_post, can_view_own, can_view, can_delete FROM rw_groups A LEFT JOIN (SELECT group_id, post AS can_post, `view_own` AS can_view_own, `view` AS can_view, can_delete FROM rw_forms_permissions WHERE form_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$form->data()->id])->results();
         
             $smarty->assign([
                 'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
@@ -555,7 +555,7 @@ if (!isset($_GET['action'])) {
                     $selected_statuses = (isset($_POST['status']) && is_array($_POST['status']) ? $_POST['status'] : []);
                     
                     // Get statuses from database
-                    $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0')->results();
+                    $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
                     foreach ($statuses as $status) {
                         $forms = (!empty($status->fids) ? explode(',', $status->fids) : []);
                         
@@ -599,7 +599,7 @@ if (!isset($_GET['action'])) {
             }
             
             // Get statuses from database
-            $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0')->results();
+            $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
             $status_array = [];
             if (count($statuses)) {
                 foreach ($statuses as $status) {

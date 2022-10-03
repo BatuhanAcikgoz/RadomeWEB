@@ -17,7 +17,7 @@ class DeleteUserHook {
             $db->delete('users', ['id', $params['user_id']]);
 
             // All the below tables have foreign key constrains which
-            // should be deleted after deleting the user from nl2_users, but since these
+            // should be deleted after deleting the user from rw_users, but since these
             // keys were added in a later update, we cannot be sure they exist, hence needing to
             // delete them manually still. Maybe in the future we can rely more on the foreign keys.
 

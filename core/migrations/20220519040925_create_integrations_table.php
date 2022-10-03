@@ -7,7 +7,7 @@ final class CreateIntegrationsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_integrations');
+        $table = $this->table('rw_integrations');
 
         $table
             ->addColumn('name', 'string', ['length' => 32])

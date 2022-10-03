@@ -7,7 +7,7 @@ final class CreateModulesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_modules');
+        $table = $this->table('rw_modules');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

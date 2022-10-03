@@ -7,7 +7,7 @@ final class CreateForumsLabelsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forums_labels');
+        $table = $this->table('rw_forums_labels');
 
         $table
             ->addColumn('name', 'string', ['length' => 32])

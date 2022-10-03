@@ -18,7 +18,7 @@ final class MakeUsernameColumnNullableOnUserIntegrationsTable extends AbstractMi
      */
     public function change(): void
     {
-        $table = $this->table('nl2_users_integrations');
+        $table = $this->table('rw_users_integrations');
 
         $table->changeColumn('username', 'string', ['length' => 32, 'null' => true, 'default' => null]);
 

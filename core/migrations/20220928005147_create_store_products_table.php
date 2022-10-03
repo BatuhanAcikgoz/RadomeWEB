@@ -7,7 +7,7 @@ final class CreateStoreProductsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_products');
+        $table = $this->table('rw_store_products');
 
         $table
             ->addColumn('category_id', 'integer', ['length' => 11])

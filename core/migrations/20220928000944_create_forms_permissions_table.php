@@ -7,7 +7,7 @@ final class CreateFormsPermissionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forms_permissions');
+        $table = $this->table('rw_forms_permissions');
 
         $table
             ->addColumn('form_id', 'integer', ['length' => 11])

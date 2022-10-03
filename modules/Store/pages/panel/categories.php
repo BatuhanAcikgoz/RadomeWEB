@@ -139,7 +139,7 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/store/products'));
             }
 
-            $category = DB::getInstance()->query('SELECT * FROM nl2_store_categories WHERE id = ?', [$_GET['id']])->results();
+            $category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE id = ?', [$_GET['id']])->results();
             if (!count($category)) {
                 Redirect::to(URL::build('/panel/store/products'));
             }
@@ -197,7 +197,7 @@ if (!isset($_GET['action'])) {
             }
 
             $categories_list = [];
-            $categories = DB::getInstance()->query('SELECT id, name FROM nl2_store_categories WHERE id <> ? AND deleted = 0', [$category->id])->results();
+            $categories = DB::getInstance()->query('SELECT id, name FROM rw_store_categories WHERE id <> ? AND deleted = 0', [$category->id])->results();
             foreach ($categories as $item) {
                 $categories_list[] = [
                     'id' => Output::getClean($item->id),
@@ -239,13 +239,13 @@ if (!isset($_GET['action'])) {
                 Redirect::to(URL::build('/panel/store/products'));
             }
 
-            $category = DB::getInstance()->query('SELECT * FROM `nl2_store_categories` WHERE id = ?', [$_GET['id']])->results();
+            $category = DB::getInstance()->query('SELECT * FROM `rw_store_categories` WHERE id = ?', [$_GET['id']])->results();
             if (!count($category)) {
                 Redirect::to(URL::build('/panel/store/products'));
             }
             $category = $category[0];
 
-            $products = DB::getInstance()->query('SELECT id FROM `nl2_store_products` WHERE category_id = ? AND deleted = 0', [$_GET['id']])->results();
+            $products = DB::getInstance()->query('SELECT id FROM `rw_store_products` WHERE category_id = ? AND deleted = 0', [$_GET['id']])->results();
             if (count($products)) {
                 foreach ($products as $product) {
                     DB::getInstance()->update('store_products', $product->id, [

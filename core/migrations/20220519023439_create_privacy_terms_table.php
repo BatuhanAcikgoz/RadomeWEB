@@ -7,7 +7,7 @@ final class CreatePrivacyTermsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_privacy_terms');
+        $table = $this->table('rw_privacy_terms');
 
         $table
             ->addColumn('name', 'string', ['length' => 8])

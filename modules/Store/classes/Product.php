@@ -12,7 +12,7 @@ class Product {
     private $_db;
 
     /**
-     * @var object|null The product data. Basically just the row from `nl2_store_products` where the product ID is the key.
+     * @var object|null The product data. Basically just the row from `rw_store_products` where the product ID is the key.
      */
     private $_data;
 
@@ -85,7 +85,7 @@ class Product {
         $this->_connections ??= (function (): array {
             $this->_connections = [];
 
-            $connections_query = $this->_db->query('SELECT nl2_store_connections.* FROM nl2_store_products_connections INNER JOIN nl2_store_connections ON connection_id = nl2_store_connections.id WHERE product_id = ? AND action_id IS NULL', [$this->data()->id]);
+            $connections_query = $this->_db->query('SELECT rw_store_connections.* FROM rw_store_products_connections INNER JOIN rw_store_connections ON connection_id = rw_store_connections.id WHERE product_id = ? AND action_id IS NULL', [$this->data()->id]);
             if ($connections_query->count()) {
                 $connections_query = $connections_query->results();
                 foreach ($connections_query as $item) {
@@ -120,7 +120,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('INSERT INTO `nl2_store_products_connections` (`product_id`, `connection_id`) VALUES (?, ?)',
+        $this->_db->createQuery('INSERT INTO `rw_store_products_connections` (`product_id`, `connection_id`) VALUES (?, ?)',
             [
                 $this->data()->id,
                 $connection_id
@@ -140,7 +140,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('DELETE FROM `nl2_store_products_connections` WHERE `product_id` = ? AND `connection_id` = ? AND action_id IS NULL',
+        $this->_db->createQuery('DELETE FROM `rw_store_products_connections` WHERE `product_id` = ? AND `connection_id` = ? AND action_id IS NULL',
             [
                 $this->data()->id,
                 $connection_id
@@ -159,7 +159,7 @@ class Product {
         return $this->_fields ??= (function (): array {
             $this->_fields = [];
 
-            $fields_query = $this->_db->query('SELECT nl2_store_fields.* FROM nl2_store_products_fields INNER JOIN nl2_store_fields ON field_id = nl2_store_fields.id WHERE product_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
+            $fields_query = $this->_db->query('SELECT rw_store_fields.* FROM rw_store_products_fields INNER JOIN rw_store_fields ON field_id = rw_store_fields.id WHERE product_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($fields_query->count()) {
                 $fields_query = $fields_query->results();
                 foreach ($fields_query as $field) {
@@ -181,7 +181,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('INSERT INTO `nl2_store_products_fields` (`product_id`, `field_id`) VALUES (?, ?)',
+        $this->_db->createQuery('INSERT INTO `rw_store_products_fields` (`product_id`, `field_id`) VALUES (?, ?)',
             [
                 $this->data()->id,
                 $field_id
@@ -201,7 +201,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('DELETE FROM `nl2_store_products_fields` WHERE `product_id` = ? AND `field_id` = ?',
+        $this->_db->createQuery('DELETE FROM `rw_store_products_fields` WHERE `product_id` = ? AND `field_id` = ?',
             [
                 $this->data()->id,
                 $field_id
@@ -222,7 +222,7 @@ class Product {
         $this->_actions ??= (function (): array {
             $this->_actions = [];
 
-            $actions_query = $this->_db->query('SELECT * FROM nl2_store_products_actions WHERE product_id = ? ORDER BY `order` ASC', [$this->data()->id]);
+            $actions_query = $this->_db->query('SELECT * FROM rw_store_products_actions WHERE product_id = ? ORDER BY `order` ASC', [$this->data()->id]);
             if ($actions_query->count()) {
                 $actions_query = $actions_query->results();
                 
@@ -304,7 +304,7 @@ class Product {
                 'deleted' => date('U')
             ]);
             
-            $this->_db->createQuery('DELETE FROM `nl2_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);
+            $this->_db->createQuery('DELETE FROM `rw_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);
             
             return true;
         }

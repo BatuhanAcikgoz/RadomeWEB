@@ -16,7 +16,7 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT id, name, staff, `order` FROM nl2_groups';
+        $query = 'SELECT id, name, staff, `order` FROM rw_groups';
         $where = '';
         $order = ' ORDER BY `order`';
         $params = [];

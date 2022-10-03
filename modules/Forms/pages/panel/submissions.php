@@ -55,7 +55,7 @@ if (!isset($_GET['view'])) {
                 if (is_numeric($target_user)) {
                     $url_parameters[] = 'user='.$target_user;
                 } else {
-                    $user_query = DB::getInstance()->query('SELECT id FROM nl2_users WHERE username = ?', [Output::getClean($target_user)]);
+                    $user_query = DB::getInstance()->query('SELECT id FROM rw_users WHERE username = ?', [Output::getClean($target_user)]);
                     if ($user_query->count()) {
                         $url_parameters[] = 'user='.$user_query->first()->id;
                     }
@@ -69,8 +69,8 @@ if (!isset($_GET['view'])) {
         }
     }
 
-    $query = 'SELECT * FROM nl2_forms_replies';
-    $where = ' WHERE form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
+    $query = 'SELECT * FROM rw_forms_replies';
+    $where = ' WHERE form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
     $order = ' ORDER BY created DESC';
     $limit = '';
     $params = [];
@@ -78,7 +78,7 @@ if (!isset($_GET['view'])) {
 
     if (!isset($_GET['form']) && !isset($_GET['status']) && !isset($_GET['user'])) {
         // sort by open submissions
-        $where .= ' AND status_id IN (SELECT id FROM nl2_forms_statuses WHERE open = 1)';
+        $where .= ' AND status_id IN (SELECT id FROM rw_forms_statuses WHERE open = 1)';
     } else {
         if (isset($_GET['form'])) {
             $url_parameters[] = 'form=' . $_GET['form'];
@@ -209,7 +209,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Get statuses from database
-    $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0')->results();
+    $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
     $status_array = [];
     if (count($statuses)) {
             $status_array[] = [
@@ -489,7 +489,7 @@ if (!isset($_GET['view'])) {
         // Form statuses
         $statuses = [];
 
-        $form_statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0')->results();
+        $form_statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
         if (count($form_statuses)) {
             foreach($form_statuses as $status_query) {
                 $form_ids = explode(',', $status_query->fids);
@@ -576,7 +576,7 @@ if (!isset($_GET['view'])) {
                     Redirect::to(URL::build('/panel/forms/submissions'));
                 }
 
-                $comment = DB::getInstance()->query('SELECT id, form_id as submission_id FROM nl2_forms_comments WHERE id = ?', [$_GET['comment']])->first();
+                $comment = DB::getInstance()->query('SELECT id, form_id as submission_id FROM rw_forms_comments WHERE id = ?', [$_GET['comment']])->first();
                 $submission = new Submission($comment->submission_id);
                 if ($submission->exists() && $forms->canDeleteSubmission($group_ids, $submission->data()->form_id)) {
                     try {

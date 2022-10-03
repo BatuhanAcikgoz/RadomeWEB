@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
     }
 
     // Get statuses from database
-    $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0')->results();
+    $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
     $status_array = [];
     if (count($statuses)) {
         foreach ($statuses as $status) {

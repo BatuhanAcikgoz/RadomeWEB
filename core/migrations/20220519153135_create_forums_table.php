@@ -7,7 +7,7 @@ final class CreateForumsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forums');
+        $table = $this->table('rw_forums');
 
         $table
             ->addColumn('forum_title', 'string', ['length' => 150])
@@ -27,7 +27,7 @@ final class CreateForumsTable extends AbstractMigration
             ->addColumn('default_labels', 'text', ['null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('last_user_posted', 'nl2_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
+            ->addForeignKey('last_user_posted', 'rw_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
 
         $table->create();
     }

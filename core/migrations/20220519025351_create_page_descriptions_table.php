@@ -7,7 +7,7 @@ final class CreatePageDescriptionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_page_descriptions');
+        $table = $this->table('rw_page_descriptions');
 
         $table
             ->addColumn('page', 'string', ['length' => 64])

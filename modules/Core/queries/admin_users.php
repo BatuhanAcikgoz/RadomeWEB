@@ -10,8 +10,8 @@ $sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 
 
 $db = DB::getInstance();
 
-$total = $db->query('SELECT COUNT(*) as `total` FROM nl2_users', [])->first()->total;
-$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(nl2_users_integrations.identifier, \'none\') as uuid FROM nl2_users u LEFT JOIN nl2_users_integrations ON user_id=u.id AND integration_id=1';
+$total = $db->query('SELECT COUNT(*) as `total` FROM rw_users', [])->first()->total;
+$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(rw_users_integrations.identifier, \'none\') as uuid FROM rw_users u LEFT JOIN rw_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';
@@ -57,7 +57,7 @@ if (isset($_GET['start']) && $_GET['length'] != -1) {
 }
 
 if (strlen($where) > 0) {
-    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM nl2_users u' . $where, $params)->first()->total;
+    $totalFiltered = $db->query('SELECT COUNT(*) as `total` FROM rw_users u' . $where, $params)->first()->total;
 }
 
 $results = $db->query($query . $where . $order . $limit, $params)->results();
@@ -74,7 +74,7 @@ if (count($results)) {
         $obj->joined = date('d M Y', $result->joined);
 
         // Get group
-        $group = DB::getInstance()->query('SELECT `name` FROM nl2_groups g JOIN nl2_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);
+        $group = DB::getInstance()->query('SELECT `name` FROM rw_groups g JOIN rw_users_groups ug ON g.id = ug.group_id WHERE ug.user_id = ? ORDER BY g.order LIMIT 1', [$result->id]);
         $obj->groupName = $group->first()->name;
 
         $data[] = $obj;

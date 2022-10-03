@@ -7,7 +7,7 @@ final class CreateLogsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_logs');
+        $table = $this->table('rw_logs');
 
         $table
             ->addColumn('time', 'integer', ['length' => 11])

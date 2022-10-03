@@ -7,7 +7,7 @@ final class CreatePlaceholdersSettingsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_placeholders_settings', ['id' => false, 'primary_key' => ['server_id', 'name']]);
+        $table = $this->table('rw_placeholders_settings', ['id' => false, 'primary_key' => ['server_id', 'name']]);
 
         $table
             ->addColumn('server_id', 'integer', ['length' => 11])
@@ -20,7 +20,7 @@ final class CreatePlaceholdersSettingsTable extends AbstractMigration
             ->addColumn('leaderboard_sort', 'string', ['length' => 4, 'default' => 'DESC']);
 
         $table
-            ->addForeignKey('server_id', 'nl2_mc_servers', 'id', ['delete' => 'CASCADE']);
+            ->addForeignKey('server_id', 'rw_mc_servers', 'id', ['delete' => 'CASCADE']);
 
         $table->create();
     }

@@ -7,7 +7,7 @@ final class CreateLanguagesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_languages');
+        $table = $this->table('rw_languages');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

@@ -7,7 +7,7 @@ final class CreateUsersPlaceholdersTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_placeholders', ['id' => false, 'primary_key' => ['server_id', 'uuid', 'name']]);
+        $table = $this->table('rw_users_placeholders', ['id' => false, 'primary_key' => ['server_id', 'uuid', 'name']]);
 
         $table
             ->addColumn('server_id', 'integer', ['length' => 11])
@@ -17,7 +17,7 @@ final class CreateUsersPlaceholdersTable extends AbstractMigration
             ->addColumn('last_updated', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('server_id', 'nl2_mc_servers', 'id', ['delete' => 'CASCADE']);
+            ->addForeignKey('server_id', 'rw_mc_servers', 'id', ['delete' => 'CASCADE']);
 
         $table->create();
     }

@@ -15,7 +15,7 @@ class Customer {
     private User $_user;
 
     /**
-     * @var object|null The customer's data. Basically just the row from `nl2_store_customers` where the customer ID is the key.
+     * @var object|null The customer's data. Basically just the row from `rw_store_customers` where the customer ID is the key.
      */
     private $_data;
 
@@ -63,7 +63,7 @@ class Customer {
         }
 
         if ($field == 'id' || $field == 'user_id') {
-            $data = $this->_db->query('SELECT `c`.`id`, `c`.`user_id`, `c`.`integration_id`, `c`.`cents`, IFNULL(`c`.`username`, ui.username) as username, IFNULL(`c`.`identifier`, `ui`.`identifier`) as identifier FROM `nl2_store_customers` AS c LEFT JOIN nl2_users_integrations AS ui ON c.user_id=ui.user_id AND ui.integration_id=1 WHERE `c`.`'.$field.'` = ?', [$value]);
+            $data = $this->_db->query('SELECT `c`.`id`, `c`.`user_id`, `c`.`integration_id`, `c`.`cents`, IFNULL(`c`.`username`, ui.username) as username, IFNULL(`c`.`identifier`, `ui`.`identifier`) as identifier FROM `rw_store_customers` AS c LEFT JOIN rw_users_integrations AS ui ON c.user_id=ui.user_id AND ui.integration_id=1 WHERE `c`.`'.$field.'` = ?', [$value]);
         } else {
             $data = $this->_db->get('store_customers', [$field, '=', $value]);
         }
@@ -163,7 +163,7 @@ class Customer {
      * @param int $cents The amount of cents to add to their balance
      */
     public function addCents(int $cents): void {
-        $this->_db->createQuery('UPDATE nl2_store_customers SET cents = cents + ? WHERE id = ?', [$cents, $this->_data->id]);
+        $this->_db->createQuery('UPDATE rw_store_customers SET cents = cents + ? WHERE id = ?', [$cents, $this->_data->id]);
     }
 
     /**
@@ -172,13 +172,13 @@ class Customer {
      * @param int $cents The amount of cents to remove from their balance
      */
     public function removeCents(int $cents): void {
-        $this->_db->createQuery('UPDATE nl2_store_customers SET cents = cents - ? WHERE id = ?', [$cents, $this->_data->id]);
+        $this->_db->createQuery('UPDATE rw_store_customers SET cents = cents - ? WHERE id = ?', [$cents, $this->_data->id]);
     }
 
     public function getPayments(): array {
         $payments_list = [];
 
-        $payments = DB::getInstance()->query('SELECT nl2_store_payments.*, order_id, user_id FROM nl2_store_payments LEFT JOIN nl2_store_orders ON order_id=nl2_store_orders.id WHERE nl2_store_orders.user_id = ? ORDER BY created DESC', [$this->_data->user_id]);
+        $payments = DB::getInstance()->query('SELECT rw_store_payments.*, order_id, user_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id WHERE rw_store_orders.user_id = ? ORDER BY created DESC', [$this->_data->user_id]);
         if ($payments->count()) {
             $payments = $payments->results();
 
@@ -202,7 +202,7 @@ class Customer {
     public function getPurchasedProducts(): array {
         $products = [];
 
-        $bought_products = DB::getInstance()->query('SELECT DISTINCT(product_id) FROM `nl2_store_orders_products` INNER JOIN nl2_store_orders ON nl2_store_orders.id=nl2_store_orders_products.order_id INNER JOIN nl2_store_payments ON nl2_store_payments.order_id=nl2_store_orders_products.order_id WHERE to_customer_id = ?', [$this->data()->id]);
+        $bought_products = DB::getInstance()->query('SELECT DISTINCT(product_id) FROM `rw_store_orders_products` INNER JOIN rw_store_orders ON rw_store_orders.id=rw_store_orders_products.order_id INNER JOIN rw_store_payments ON rw_store_payments.order_id=rw_store_orders_products.order_id WHERE to_customer_id = ?', [$this->data()->id]);
         if ($bought_products->count()) {
             foreach ($bought_products->results() as $product) {
                 $products[$product->product_id] = $product->product_id;

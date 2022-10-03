@@ -7,7 +7,7 @@ final class CreateStorePaymentsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_payments');
+        $table = $this->table('rw_store_payments');
 
         $table
             ->addColumn('order_id', 'integer', ['length' => 11])

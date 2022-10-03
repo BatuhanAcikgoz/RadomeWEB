@@ -24,7 +24,7 @@ class Forum_Sitemap {
 
         $db = DB::getInstance();
 
-        $forums = $db->query('SELECT id, forum_title, last_post_date FROM nl2_forums WHERE id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id = 0 AND `view` = 1)')->results();
+        $forums = $db->query('SELECT id, forum_title, last_post_date FROM rw_forums WHERE id IN (SELECT forum_id FROM rw_forums_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($forums as $forum) {
             $sitemap->addItem(URL::build('/forum/view/' . urlencode($forum->id) . '-' . Text::urlSafe($forum->forum_title)), 0.5, 'daily', date('Y-m-d', $forum->last_post_date));
@@ -32,7 +32,7 @@ class Forum_Sitemap {
 
         $forums = null;
 
-        $topics = $db->query('SELECT id, forum_id, topic_title FROM nl2_topics WHERE deleted = 0 AND forum_id IN (SELECT forum_id FROM nl2_forums_permissions WHERE group_id = 0 AND `view` = 1)')->results();
+        $topics = $db->query('SELECT id, forum_id, topic_title FROM rw_topics WHERE deleted = 0 AND forum_id IN (SELECT forum_id FROM rw_forums_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($topics as $topic) {
             $sitemap->addItem(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . Text::urlSafe($topic->topic_title)), 0.5);

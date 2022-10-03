@@ -7,7 +7,7 @@ final class CreateIframePagesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_iframe_pages');
+        $table = $this->table('rw_iframe_pages');
 
         $table
             ->addColumn('name', 'string', ['length' => 255])

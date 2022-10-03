@@ -7,7 +7,7 @@ final class CreateReportsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_reports');
+        $table = $this->table('rw_reports');
 
         $table
             ->addColumn('type', 'integer', ['length' => 1])
@@ -26,10 +26,10 @@ final class CreateReportsTable extends AbstractMigration
             ->addColumn('reported_uuid', 'string', ['length' => 64, 'null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('reporter_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('reported_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('updated_by', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('reported_post', 'nl2_posts', 'id', ['delete' => 'SET_NULL', 'update' => 'CASCADE']);
+            ->addForeignKey('reporter_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('reported_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('updated_by', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('reported_post', 'rw_posts', 'id', ['delete' => 'SET_NULL', 'update' => 'CASCADE']);
 
         $table->create();
     }

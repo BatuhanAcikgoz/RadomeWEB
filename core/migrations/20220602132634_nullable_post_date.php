@@ -18,7 +18,7 @@ final class NullablePostDate extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('nl2_posts');
+        $table = $this->table('rw_posts');
 
         $table->changeColumn('post_date', 'datetime', ['null' => true, 'default' => null]);
 

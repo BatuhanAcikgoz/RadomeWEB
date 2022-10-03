@@ -7,7 +7,7 @@ final class CreateReportsCommentsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_reports_comments');
+        $table = $this->table('rw_reports_comments');
 
         $table
             ->addColumn('report_id', 'integer', ['length' => 11])
@@ -17,8 +17,8 @@ final class CreateReportsCommentsTable extends AbstractMigration
             ->addColumn('comment_content', 'text');
 
         $table
-            ->addForeignKey('report_id', 'nl2_reports', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('commenter_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('report_id', 'rw_reports', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('commenter_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

@@ -425,7 +425,7 @@
        */
 
 
-      function binl2rstr(input) {
+      function birwrstr(input) {
         var i;
         var output = '';
         var length32 = input.length * 32;
@@ -471,7 +471,7 @@
 
 
       function rstrMD5(s) {
-        return binl2rstr(binlMD5(rstr2binl(s), s.length * 8));
+        return birwrstr(binlMD5(rstr2binl(s), s.length * 8));
       }
       /**
        * Calculates the HMAC-MD5 of a key and some data (raw strings)
@@ -500,7 +500,7 @@
         }
 
         hash = binlMD5(ipad.concat(rstr2binl(data)), 512 + data.length * 8);
-        return binl2rstr(binlMD5(opad.concat(hash), 512 + 128));
+        return birwrstr(binlMD5(opad.concat(hash), 512 + 128));
       }
       /**
        * Convert a raw string to a hex string

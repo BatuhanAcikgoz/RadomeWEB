@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'initialise_charset' => true,
                 ],
                 'remember' => [
-                    'cookie_name' => 'nl2',
+                    'cookie_name' => 'rw',
                     'cookie_expiry' => 604800,
                 ],
                 'session' => [

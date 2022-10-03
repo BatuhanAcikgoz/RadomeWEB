@@ -13,7 +13,7 @@ class CloneGroupFormsHook {
 
         // Clone group permissions for forms
         $new_group_id = $params['group_id'];
-        $permissions = DB::getInstance()->query('SELECT * FROM nl2_forms_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
+        $permissions = DB::getInstance()->query('SELECT * FROM rw_forms_permissions WHERE group_id = ?', [$params['cloned_group_id']]);
         if ($permissions->count()) {
             $permissions = $permissions->results();
 
@@ -22,7 +22,7 @@ class CloneGroupFormsHook {
                 $inserts[] = '(' .$new_group_id . ',' . $permission->form_id . ',' . $permission->post . ',' . $permission->view_own. ',' . $permission->view . ',' . $permission->can_delete . ')';
             }
 
-            $query = 'INSERT INTO nl2_forms_permissions (group_id, form_id, post, view_own, view, can_delete) VALUES ';
+            $query = 'INSERT INTO rw_forms_permissions (group_id, form_id, post, view_own, view, can_delete) VALUES ';
             $query .= implode(',', $inserts);
 
             DB::getInstance()->query($query);

@@ -7,7 +7,7 @@ final class CreateInfractionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_infractions');
+        $table = $this->table('rw_infractions');
 
         $table
             ->addColumn('type', 'integer', ['length' => 11])
@@ -22,9 +22,9 @@ final class CreateInfractionsTable extends AbstractMigration
             ->addColumn('revoked_at', 'integer', ['length' => 11, 'null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('punished', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('staff', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('revoked_by', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('punished', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('staff', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('revoked_by', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

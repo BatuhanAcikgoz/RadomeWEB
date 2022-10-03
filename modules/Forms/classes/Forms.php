@@ -27,7 +27,7 @@ class Forms {
             $group_ids = implode(',', $group_ids);
         }
         
-        return $this->_db->query('SELECT `post` FROM nl2_forms_permissions WHERE form_id = ? AND `post` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
+        return $this->_db->query('SELECT `post` FROM rw_forms_permissions WHERE form_id = ? AND `post` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
     }
     
     // Can the user view a submission in the given form?
@@ -36,7 +36,7 @@ class Forms {
             $group_ids = implode(',', $group_ids);
         }
         
-        return $this->_db->query('SELECT `view_own` FROM nl2_forms_permissions WHERE form_id = ? AND `view_own` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
+        return $this->_db->query('SELECT `view_own` FROM rw_forms_permissions WHERE form_id = ? AND `view_own` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
     }
     
     // Can the user view a submission in the given form?
@@ -45,7 +45,7 @@ class Forms {
             $group_ids = implode(',', $group_ids);
         }
         
-        return $this->_db->query('SELECT `view` FROM nl2_forms_permissions WHERE form_id = ? AND `view` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
+        return $this->_db->query('SELECT `view` FROM rw_forms_permissions WHERE form_id = ? AND `view` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
     }
     
     // Can the user view a submission in the given form?
@@ -54,7 +54,7 @@ class Forms {
             $group_ids = implode(',', $group_ids);
         }
         
-        return $this->_db->query('SELECT `can_delete` FROM nl2_forms_permissions WHERE form_id = ? AND `can_delete` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
+        return $this->_db->query('SELECT `can_delete` FROM rw_forms_permissions WHERE form_id = ? AND `can_delete` = 1 AND group_id IN (' . $group_ids . ')', array($form_id))->count() ? true : false;
     }
 
     /**

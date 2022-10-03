@@ -27,7 +27,7 @@ $configuration = new Configuration('store');
 
 if (!isset($_GET['action'])) {
     // Get all products and categories
-    $categories = DB::getInstance()->query('SELECT * FROM nl2_store_categories WHERE deleted = 0 ORDER BY `order` ASC', []);
+    $categories = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE deleted = 0 ORDER BY `order` ASC', []);
     $all_categories = [];
 
     if ($categories->count()) {
@@ -44,7 +44,7 @@ if (!isset($_GET['action'])) {
                 'delete_link' => URL::build('/panel/store/categories/', 'action=delete&id=' . Output::getClean($category->id))
             ];
 
-            $products = DB::getInstance()->query('SELECT * FROM nl2_store_products WHERE category_id = ? AND deleted = 0 ORDER BY `order` ASC', [Output::getClean($category->id)]);
+            $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE category_id = ? AND deleted = 0 ORDER BY `order` ASC', [Output::getClean($category->id)]);
 
             if ($products->count()) {
                 $products = $products->results();
@@ -116,7 +116,7 @@ if (!isset($_GET['action'])) {
 
                     if ($validation->passed()) {
                         // Validate if category exist
-                        $category = DB::getInstance()->query('SELECT id FROM nl2_store_categories WHERE id = ?', [Input::get('category')])->results();
+                        $category = DB::getInstance()->query('SELECT id FROM rw_store_categories WHERE id = ?', [Input::get('category')])->results();
                         if (!count($category)) {
                             $errors[] = $store_language->get('admin', 'invalid_category');
                         }
@@ -131,7 +131,7 @@ if (!isset($_GET['action'])) {
                         // insert into database if there is no errors
                         if (!count($errors)) {
                             // Get last order
-                            $last_order = DB::getInstance()->query('SELECT * FROM nl2_store_products ORDER BY `order` DESC LIMIT 1')->results();
+                            $last_order = DB::getInstance()->query('SELECT * FROM rw_store_products ORDER BY `order` DESC LIMIT 1')->results();
                             if (count($last_order)) $last_order = $last_order[0]->order;
                             else $last_order = 0;
 
@@ -188,7 +188,7 @@ if (!isset($_GET['action'])) {
 
             // Connections
             $connections_array = [];
-            $connections = DB::getInstance()->query('SELECT * FROM nl2_store_connections')->results();
+            $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections')->results();
             foreach ($connections as $connection) {
                 $connections_array[] = [
                     'id' => Output::getClean($connection->id),
@@ -199,7 +199,7 @@ if (!isset($_GET['action'])) {
 
             // Fields
             $fields_array = [];
-            $fields = DB::getInstance()->query('SELECT * FROM nl2_store_fields WHERE deleted = 0')->results();
+            $fields = DB::getInstance()->query('SELECT * FROM rw_store_fields WHERE deleted = 0')->results();
             foreach ($fields as $field) {
                 $fields_array[] = [
                     'id' => Output::getClean($field->id),

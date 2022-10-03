@@ -7,7 +7,7 @@ final class CreateEmailErrorsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_email_errors');
+        $table = $this->table('rw_email_errors');
 
         $table
             ->addColumn('type', 'integer', ['length' => 1])
@@ -16,7 +16,7 @@ final class CreateEmailErrorsTable extends AbstractMigration
             ->addColumn('user_id', 'integer', ['length' => 11, 'null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
 
         $table->create();
     }

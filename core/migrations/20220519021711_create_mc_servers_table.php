@@ -7,7 +7,7 @@ final class CreateMcServersTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_mc_servers');
+        $table = $this->table('rw_mc_servers');
 
         $table
             ->addColumn('ip', 'string', ['length' => 64])

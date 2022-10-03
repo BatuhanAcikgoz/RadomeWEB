@@ -7,7 +7,7 @@ final class CreateHooksTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_hooks');
+        $table = $this->table('rw_hooks');
 
         $table
             ->addColumn('name', 'string', ['length' => 128])

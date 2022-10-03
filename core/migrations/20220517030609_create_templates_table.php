@@ -7,7 +7,7 @@ final class CreateTemplatesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_templates');
+        $table = $this->table('rw_templates');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

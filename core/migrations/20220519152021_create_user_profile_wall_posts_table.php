@@ -7,7 +7,7 @@ final class CreateUserProfileWallPostsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_user_profile_wall_posts');
+        $table = $this->table('rw_user_profile_wall_posts');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -16,8 +16,8 @@ final class CreateUserProfileWallPostsTable extends AbstractMigration
             ->addColumn('content', 'text');
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('author_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('author_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

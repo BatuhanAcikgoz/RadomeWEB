@@ -7,7 +7,7 @@ final class CreateIframeDataTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_iframe_data');
+        $table = $this->table('rw_iframe_data');
 
         $table
             ->addColumn('name', 'string', ['length' => 255])

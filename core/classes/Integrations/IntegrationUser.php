@@ -21,7 +21,7 @@ class IntegrationUser {
         if (!$query_data && $value) {
             $field = preg_replace('/[^A-Za-z_]+/', '', $field);
 
-            $data = $this->_db->query("SELECT * FROM nl2_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
+            $data = $this->_db->query("SELECT * FROM rw_users_integrations WHERE $field = ? AND integration_id = ?", [$value, $integration->data()->id]);
             if ($data->count()) {
                 $this->_data = new IntegrationUserData($data->first());
             }
@@ -99,7 +99,7 @@ class IntegrationUser {
      */
     public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void {
         $this->_db->query(
-            'INSERT INTO nl2_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+            'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, verified, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                 $user->data()->id,
                 $this->_integration->data()->id,
                 Output::getClean($identifier),
@@ -111,7 +111,7 @@ class IntegrationUser {
         );
 
         // Load the data for this integration from the query we just made
-        $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM nl2_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
+        $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM rw_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
 
         $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('linkIntegrationUser', [
@@ -168,7 +168,7 @@ class IntegrationUser {
      */
     public function unlinkIntegration(): void {
         $this->_db->query(
-            'DELETE FROM nl2_users_integrations WHERE user_id = ? AND integration_id = ?', [
+            'DELETE FROM rw_users_integrations WHERE user_id = ? AND integration_id = ?', [
                 $this->data()->user_id,
                 $this->_integration->data()->id
             ]

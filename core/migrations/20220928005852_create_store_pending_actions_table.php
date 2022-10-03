@@ -7,7 +7,7 @@ final class CreateStorePendingActionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_pending_actions');
+        $table = $this->table('rw_store_pending_actions');
 
         $table
             ->addColumn('order_id', 'string', ['length' => 11])

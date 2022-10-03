@@ -300,7 +300,7 @@ class Util {
     }
 
     /**
-     * Get a setting from the database table `nl2_settings`.
+     * Get a setting from the database table `rw_settings`.
      *
      * @param string $setting Setting to check.
      * @param ?string $fallback Fallback to return if $setting is not set in DB. Defaults to null.
@@ -314,9 +314,9 @@ class Util {
         if ($cache === null) {
             // Load all settings for this module and store it as a dictionary
             if ($module === 'core') {
-                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` IS NULL')->results();
+                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `rw_settings` WHERE `module` IS NULL')->results();
             } else {
-                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `nl2_settings` WHERE `module` = ?', [$module])->results();
+                $result = DB::getInstance()->query('SELECT `name`, `value` FROM `rw_settings` WHERE `module` = ?', [$module])->results();
             }
 
             $cache = [];
@@ -330,7 +330,7 @@ class Util {
     }
 
     /**
-     * Modify a setting in the database table `nl2_settings`.
+     * Modify a setting in the database table `rw_settings`.
      *
      * @param string $setting Setting name.
      * @param string|null $new_value New setting value, or null to delete
@@ -340,26 +340,26 @@ class Util {
     public static function setSetting(string $setting, ?string $new_value, string $module = 'core'): void {
         if ($new_value == null) {
             if ($module === 'core') {
-                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
+                DB::getInstance()->query('DELETE FROM `rw_settings` WHERE `name` = ? AND `module` IS NULL', [$setting]);
             } else {
-                DB::getInstance()->query('DELETE FROM `nl2_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
+                DB::getInstance()->query('DELETE FROM `rw_settings` WHERE `name` = ? AND `module` = ?', [$setting, $module]);
             }
         } else {
             if ($module === 'core') {
-                if (DB::getInstance()->query('SELECT * FROM nl2_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
+                if (DB::getInstance()->query('SELECT * FROM rw_settings WHERE `name` = ? and `module` IS NULL', [$setting])->count()) {
                     DB::getInstance()->query(
-                        'UPDATE `nl2_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
+                        'UPDATE `rw_settings` SET `value` = ? WHERE `name` = ? AND `module` IS NULL',
                         [$new_value, $setting]
                     );
                 } else {
                     DB::getInstance()->query(
-                        'INSERT INTO `nl2_settings` (`name`, `value`) VALUES (?, ?)',
+                        'INSERT INTO `rw_settings` (`name`, `value`) VALUES (?, ?)',
                         [$setting, $new_value]
                     );
                 }
             } else {
                 DB::getInstance()->query(
-                    'INSERT INTO `nl2_settings` (`name`, `value`, `module`)
+                    'INSERT INTO `rw_settings` (`name`, `value`, `module`)
                      VALUES (?, ?, ?)
                      ON DUPLICATE KEY UPDATE `value` = ?',
                     [$setting, $new_value, $module, $new_value]

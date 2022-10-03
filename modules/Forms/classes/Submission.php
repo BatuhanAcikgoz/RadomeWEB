@@ -111,7 +111,7 @@ class Submission {
                 }
             }
 
-            $query = 'INSERT INTO nl2_forms_replies_fields (submission_id, field_id, value) VALUES ';
+            $query = 'INSERT INTO rw_forms_replies_fields (submission_id, field_id, value) VALUES ';
             $query .= implode('', $inserts);
             DB::getInstance()->createQuery(rtrim($query, ','), $insert_values);
         } catch (Exception $e) {
@@ -166,7 +166,7 @@ class Submission {
         $answer_array = [];
         if (empty($this->data()->content)) {
             // New fields generation
-            $fields = $this->_db->query('SELECT name, value, type FROM nl2_forms_replies_fields LEFT JOIN nl2_forms_fields ON field_id=nl2_forms_fields.id WHERE submission_id = ?', [$this->data()->id])->results();
+            $fields = $this->_db->query('SELECT name, value, type FROM rw_forms_replies_fields LEFT JOIN rw_forms_fields ON field_id=rw_forms_fields.id WHERE submission_id = ?', [$this->data()->id])->results();
             foreach ($fields as $field) {
                 $answer_array[] = [
                     'question' => Output::getClean($field->name),

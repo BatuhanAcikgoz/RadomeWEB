@@ -7,7 +7,7 @@ final class CreateFormsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forms');
+        $table = $this->table('rw_forms');
 
         $table
             ->addColumn('url', 'string', ['length' => 32])

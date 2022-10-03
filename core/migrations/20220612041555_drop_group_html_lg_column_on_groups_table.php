@@ -18,7 +18,7 @@ final class DropGroupHtmlLgColumnOnGroupsTable extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('nl2_groups');
+        $table = $this->table('rw_groups');
 
         if ($table->hasColumn('group_html_lg')) {
             $table->removeColumn('group_html_lg');

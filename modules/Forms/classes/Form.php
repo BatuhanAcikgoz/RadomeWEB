@@ -64,7 +64,7 @@ class Form {
         if ($this->_fields == null) {
             $this->_fields = [];
             
-            $fields_query = $this->_db->query('SELECT * FROM nl2_forms_fields WHERE form_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
+            $fields_query = $this->_db->query('SELECT * FROM rw_forms_fields WHERE form_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($fields_query->count()) {
                 $fields_query = $fields_query->results();
                 foreach ($fields_query as $field) {

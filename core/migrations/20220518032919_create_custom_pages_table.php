@@ -7,7 +7,7 @@ final class CreateCustomPagesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_custom_pages');
+        $table = $this->table('rw_custom_pages');
 
         $table
             ->addColumn('url', 'string', ['length' => 255])

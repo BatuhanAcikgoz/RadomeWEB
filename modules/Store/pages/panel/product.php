@@ -65,7 +65,7 @@ if (!isset($_GET['action'])) {
 
             if ($validation->passed()) {
                 // Validate if category exist
-                $category = DB::getInstance()->query('SELECT id FROM nl2_store_categories WHERE id = ?', [Input::get('category')])->results();
+                $category = DB::getInstance()->query('SELECT id FROM rw_store_categories WHERE id = ?', [Input::get('category')])->results();
                 if (!count($category)) {
                     $errors[] = $store_language->get('admin', 'invalid_category');
                 }
@@ -179,7 +179,7 @@ if (!isset($_GET['action'])) {
     $connections_array = [];
     $selected_connections = $product->getConnections();
 
-    $connections = DB::getInstance()->query('SELECT * FROM nl2_store_connections')->results();
+    $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections')->results();
     foreach ($connections as $connection) {
         $connections_array[] = [
             'id' => Output::getClean($connection->id),
@@ -192,7 +192,7 @@ if (!isset($_GET['action'])) {
     $fields_array = [];
     $selected_fields = $product->getFields();
 
-    $fields = DB::getInstance()->query('SELECT * FROM nl2_store_fields WHERE deleted = 0')->results();
+    $fields = DB::getInstance()->query('SELECT * FROM rw_store_fields WHERE deleted = 0')->results();
     foreach ($fields as $field) {
         $fields_array[] = [
             'id' => Output::getClean($field->id),
@@ -466,7 +466,7 @@ if (!isset($_GET['action'])) {
 
             $products_list = [];
             $selected_products = json_decode($product->data()->required_products, true) ?? [];
-            $products = DB::getInstance()->query('SELECT * FROM nl2_store_products WHERE id <> ? AND deleted = 0', [$product->data()->id])->results();
+            $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE id <> ? AND deleted = 0', [$product->data()->id])->results();
             foreach ($products as $item) {
                 $products_list[] = [
                     'id' => $item->id,
@@ -477,7 +477,7 @@ if (!isset($_GET['action'])) {
 
             $groups_list = [];
             $selected_groups = json_decode($product->data()->required_groups, true) ?? [];
-            $groups = DB::getInstance()->query('SELECT * FROM nl2_groups')->results();
+            $groups = DB::getInstance()->query('SELECT * FROM rw_groups')->results();
             foreach ($groups as $item) {
                 $groups_list[] = [
                     'id' => $item->id,

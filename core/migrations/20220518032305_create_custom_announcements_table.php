@@ -7,7 +7,7 @@ final class CreateCustomAnnouncementsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_custom_announcements');
+        $table = $this->table('rw_custom_announcements');
 
         $table
             ->addColumn('pages', 'text')

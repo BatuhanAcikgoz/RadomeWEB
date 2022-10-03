@@ -40,7 +40,7 @@ final class GroupSyncManager extends Instanceable {
     }
 
     /**
-     * Add a new column to the `nl2_group_sync` table for this injector
+     * Add a new column to the `rw_group_sync` table for this injector
      * to use. Should be called during module initialisation.
      *
      * @param GroupSyncInjector $injector Injector to add column for.
@@ -161,7 +161,7 @@ final class GroupSyncManager extends Instanceable {
         $radomeweb_column = $radomeweb_injector->getColumnName();
 
         // Get all group sync rules where this injector is not null
-        $rules = DB::getInstance()->query("SELECT * FROM nl2_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
+        $rules = DB::getInstance()->query("SELECT * FROM rw_group_sync WHERE {$sending_injector->getColumnName()} IS NOT NULL")->results();
         foreach ($rules as $rule) {
             if ($rule->website_group_id == PRE_VALIDATED_DEFAULT) {
                 // Require atleast 1 group if default group is synced

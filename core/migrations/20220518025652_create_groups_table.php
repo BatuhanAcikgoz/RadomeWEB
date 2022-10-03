@@ -7,7 +7,7 @@ final class CreateGroupsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_groups');
+        $table = $this->table('rw_groups');
 
         $table
             ->addColumn('name', 'string', ['length' => 20])

@@ -7,7 +7,7 @@ final class CreateOnlineGuestsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_online_guests');
+        $table = $this->table('rw_online_guests');
 
         $table
             ->addColumn('ip', 'string', ['length' => 128])

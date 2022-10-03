@@ -9,7 +9,7 @@ class ListSubmissionsEndpoint extends KeyAuthEndpoint {
     }
 
     public function execute(Nameless2API $api): void {
-        $query = 'SELECT * FROM nl2_forms_replies';
+        $query = 'SELECT * FROM rw_forms_replies';
         $where = ' WHERE id <> 0';
         $order = ' ORDER BY `created` DESC';
         $limit = '';

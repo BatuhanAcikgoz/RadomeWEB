@@ -7,7 +7,7 @@ final class CreateUsersTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users');
+        $table = $this->table('rw_users');
 
         $table
             ->addColumn('username', 'string', ['length' => 20])
@@ -46,8 +46,8 @@ final class CreateUsersTable extends AbstractMigration
             ->addIndex(['id', 'last_online']);
 
         $table
-            ->addForeignKey('theme_id', 'nl2_templates', 'id', ['delete' => 'SET_NULL'])
-            ->addForeignKey('language_id', 'nl2_languages', 'id', ['delete' => 'SET_NULL']);
+            ->addForeignKey('theme_id', 'rw_templates', 'id', ['delete' => 'SET_NULL'])
+            ->addForeignKey('language_id', 'rw_languages', 'id', ['delete' => 'SET_NULL']);
 
         $table->create();
     }

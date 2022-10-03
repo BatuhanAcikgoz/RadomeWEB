@@ -30,7 +30,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     $submissions = [];
-    $submissions_query = DB::getInstance()->query('SELECT * FROM nl2_forms_replies WHERE user_id = ? AND form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$user->data()->id])->results();
+    $submissions_query = DB::getInstance()->query('SELECT * FROM rw_forms_replies WHERE user_id = ? AND form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$user->data()->id])->results();
 
     if (count($submissions_query)) {
         // Get page
@@ -109,7 +109,7 @@ if (!isset($_GET['view'])) {
     $template_file = 'forms/submissions.tpl';
 } else {
     // Get submission by id
-    $submission = DB::getInstance()->query('SELECT * FROM nl2_forms_replies WHERE id = ? AND user_id = ? AND form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$_GET['view'], $user->data()->id]);
+    $submission = DB::getInstance()->query('SELECT * FROM rw_forms_replies WHERE id = ? AND user_id = ? AND form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$_GET['view'], $user->data()->id]);
     if (!$submission->count()) {
         Redirect::to(URL::build('/user/submissions'));
     }

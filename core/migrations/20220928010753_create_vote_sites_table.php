@@ -7,7 +7,7 @@ final class CreateVoteSitesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_vote_sites');
+        $table = $this->table('rw_vote_sites');
 
         $table
             ->addColumn('site', 'string', ['length' => 512])

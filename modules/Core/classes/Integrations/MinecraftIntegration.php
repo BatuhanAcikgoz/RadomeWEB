@@ -91,7 +91,7 @@ class MinecraftIntegration extends IntegrationBase {
             }
         } else {
             // Ensure identifier doesn't already exist
-            $exists = DB::getInstance()->query("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
+            $exists = DB::getInstance()->query("SELECT * FROM rw_users_integrations WHERE integration_id = ? AND username = ? AND id <> ?", [$this->data()->id, $username, $integration_user_id]);
             if ($exists->count()) {
                 $this->addError($this->_language->get('user', 'integration_username_already_linked', ['integration' => $this->getName()]));
                 return false;
@@ -123,7 +123,7 @@ class MinecraftIntegration extends IntegrationBase {
             }
         } else {
             // Ensure identifier doesn't already exist
-            $exists = DB::getInstance()->query("SELECT * FROM nl2_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
+            $exists = DB::getInstance()->query("SELECT * FROM rw_users_integrations WHERE integration_id = ? AND identifier = ? AND id <> ?", [$this->data()->id, $identifier, $integration_user_id]);
             if ($exists->count()) {
                 $this->addError($this->_language->get('user', 'integration_identifier_already_linked', ['integration' => $this->getName()]));
                 return false;

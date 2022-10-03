@@ -7,7 +7,7 @@ final class CreateProfileFieldsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_profile_fields');
+        $table = $this->table('rw_profile_fields');
 
         $table
             ->addColumn('name', 'string', ['length' => 255])

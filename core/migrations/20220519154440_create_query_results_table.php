@@ -7,7 +7,7 @@ final class CreateQueryResultsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_query_results');
+        $table = $this->table('rw_query_results');
 
         $table
             ->addColumn('server_id', 'integer', ['length' => 11])
@@ -16,7 +16,7 @@ final class CreateQueryResultsTable extends AbstractMigration
             ->addColumn('groups', 'text', ['null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('server_id', 'nl2_mc_servers', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('server_id', 'rw_mc_servers', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

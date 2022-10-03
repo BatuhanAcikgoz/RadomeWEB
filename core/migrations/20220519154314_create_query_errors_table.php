@@ -7,7 +7,7 @@ final class CreateQueryErrorsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_query_errors');
+        $table = $this->table('rw_query_errors');
 
         $table
             ->addColumn('date', 'integer', ['length' => 11])

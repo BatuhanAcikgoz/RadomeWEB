@@ -7,7 +7,7 @@ final class CreateIpBansTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_ip_bans');
+        $table = $this->table('rw_ip_bans');
 
         $table
             ->addColumn('ip', 'string', ['length' => 128])
@@ -16,7 +16,7 @@ final class CreateIpBansTable extends AbstractMigration
             ->addColumn('reason', 'text', ['null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('banned_by', 'nl2_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
+            ->addForeignKey('banned_by', 'rw_users', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
 
         $table->create();
     }

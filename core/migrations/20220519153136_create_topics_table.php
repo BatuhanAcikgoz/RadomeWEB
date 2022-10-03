@@ -7,7 +7,7 @@ final class CreateTopicsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_topics');
+        $table = $this->table('rw_topics');
 
         $table
             ->addColumn('forum_id', 'integer', ['length' => 11])
@@ -24,15 +24,15 @@ final class CreateTopicsTable extends AbstractMigration
             ->addColumn('labels', 'string', ['length' => 128, 'null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('forum_id', 'nl2_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('topic_creator', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('topic_last_user', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('forum_id', 'rw_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('topic_creator', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('topic_last_user', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
 
         // avoid circular dependency
-        $forums_table = $this->table('nl2_forums');
-        $forums_table->addForeignKey('last_topic_posted', 'nl2_topics', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
+        $forums_table = $this->table('rw_forums');
+        $forums_table->addForeignKey('last_topic_posted', 'rw_topics', 'id', ['delete' => 'SET_NULL', 'update' => 'NO_ACTION']);
         $forums_table->update();
     }
 }

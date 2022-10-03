@@ -7,7 +7,7 @@ final class CreateStoreAgreementsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_store_agreements');
+        $table = $this->table('rw_store_agreements');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])

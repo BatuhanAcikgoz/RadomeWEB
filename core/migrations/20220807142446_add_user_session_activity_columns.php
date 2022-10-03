@@ -7,7 +7,7 @@ final class AddUserSessionActivityColumns extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_session');
+        $table = $this->table('rw_users_session');
         $table->addColumn('remember_me', 'boolean', ['default' => false]);
         $table->addColumn('active', 'boolean', ['default' => false]);
         $table->addColumn('device_name', 'string', ['length' => 256, 'null' => true, 'default' => null]);

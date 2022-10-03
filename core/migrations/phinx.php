@@ -20,7 +20,7 @@ return [
             'port' => $config['port'],
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'default_migration_table' => 'nl2_phinxlog',
+            'default_migration_table' => 'rw_phinxlog',
         ],
     ],
 ];

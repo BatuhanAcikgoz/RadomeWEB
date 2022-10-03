@@ -7,7 +7,7 @@ final class CreateWikiPagesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_wiki_pages');
+        $table = $this->table('rw_wiki_pages');
 
         $table
             ->addColumn('parent', 'string', ['length' => 48])

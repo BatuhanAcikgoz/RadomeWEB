@@ -12,7 +12,7 @@ class Action {
     private DB $_db;
 
     /**
-     * @var object|null The action data. Basically just the row from `nl2_store_products_actions` where the action ID is the key.
+     * @var object|null The action data. Basically just the row from `rw_store_products_actions` where the action ID is the key.
      */
     private $_data;
 
@@ -83,7 +83,7 @@ class Action {
         return $this->_connections ??= (function (): array {
             $this->_connections = [];
 
-            $connections_query = $this->_db->query('SELECT nl2_store_connections.* FROM nl2_store_products_connections INNER JOIN nl2_store_connections ON connection_id = nl2_store_connections.id WHERE action_id = ?', [$this->data()->id]);
+            $connections_query = $this->_db->query('SELECT rw_store_connections.* FROM rw_store_products_connections INNER JOIN rw_store_connections ON connection_id = rw_store_connections.id WHERE action_id = ?', [$this->data()->id]);
             if ($connections_query->count()) {
                 $connections_query = $connections_query->results();
                 foreach ($connections_query as $item) {
@@ -105,7 +105,7 @@ class Action {
             return false;
         }
 
-        $this->_db->createQuery('INSERT INTO `nl2_store_products_connections` (`product_id`, `action_id`, `connection_id`) VALUES (?, ?, ?)',
+        $this->_db->createQuery('INSERT INTO `rw_store_products_connections` (`product_id`, `action_id`, `connection_id`) VALUES (?, ?, ?)',
             [
                 $this->data()->product_id,
                 $this->data()->id,
@@ -126,7 +126,7 @@ class Action {
             return false;
         }
 
-        $this->_db->createQuery('DELETE FROM `nl2_store_products_connections` WHERE `action_id` = ? AND `connection_id` = ?',
+        $this->_db->createQuery('DELETE FROM `rw_store_products_connections` WHERE `action_id` = ? AND `connection_id` = ?',
             [
                 $this->data()->id,
                 $connection_id
@@ -143,7 +143,7 @@ class Action {
         $placeholders = [];
 
         $quantity = 1;
-        $custom_fields = $this->_db->query('SELECT identifier, value FROM nl2_store_orders_products_fields INNER JOIN nl2_store_fields ON field_id=nl2_store_fields.id WHERE order_id = ? AND product_id = ?', [$order->data()->id, $product->data()->id])->results();
+        $custom_fields = $this->_db->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$order->data()->id, $product->data()->id])->results();
         foreach ($custom_fields as $field) {
             $placeholders['{'.$field->identifier.'}'] = Output::getClean($field->value);
 
@@ -183,9 +183,9 @@ class Action {
 
     public function delete() {
         if ($this->exists()) {
-            $this->_db->createQuery('DELETE FROM `nl2_store_products_actions` WHERE `id` = ?', [$this->data()->id]);
-            $this->_db->createQuery('DELETE FROM `nl2_store_products_connections` WHERE `action_id` = ?', [$this->data()->id]);
-            $this->_db->createQuery('DELETE FROM `nl2_store_pending_actions` WHERE `action_id` = ?', [$this->data()->id]);
+            $this->_db->createQuery('DELETE FROM `rw_store_products_actions` WHERE `id` = ?', [$this->data()->id]);
+            $this->_db->createQuery('DELETE FROM `rw_store_products_connections` WHERE `action_id` = ?', [$this->data()->id]);
+            $this->_db->createQuery('DELETE FROM `rw_store_pending_actions` WHERE `action_id` = ?', [$this->data()->id]);
 
             return true;
         }

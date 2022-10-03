@@ -7,7 +7,7 @@ final class CreateReactionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_reactions');
+        $table = $this->table('rw_reactions');
 
         $table
             ->addColumn('name', 'string', ['length' => 16])

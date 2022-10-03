@@ -41,7 +41,7 @@ class Store {
     public function getProducts() {
         $products_list = [];
 
-        $products = $this->_db->query('SELECT * FROM nl2_store_products WHERE deleted = 0 ORDER BY `order` ASC')->results();
+        $products = $this->_db->query('SELECT * FROM rw_store_products WHERE deleted = 0 ORDER BY `order` ASC')->results();
         foreach ($products as $data) {
             $product = new Product(null, null, $data);
 
@@ -53,14 +53,14 @@ class Store {
     
     // Get all payments
     public function getAllPayments() {
-        $payments = $this->_db->query('SELECT nl2_store_payments.*, identifier, username, order_id, nl2_store_orders.user_id, to_customer_id FROM nl2_store_payments LEFT JOIN nl2_store_orders ON order_id=nl2_store_orders.id LEFT JOIN nl2_store_customers ON to_customer_id=nl2_store_customers.id ORDER BY created DESC')->results();
+        $payments = $this->_db->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC')->results();
 
         return $payments;
     }
     
     // Get all categories
     public function getAllCategories() {
-        $categories = $this->_db->query('SELECT * FROM nl2_store_categories WHERE deleted = 0 ORDER BY `order` ASC')->results();
+        $categories = $this->_db->query('SELECT * FROM rw_store_categories WHERE deleted = 0 ORDER BY `order` ASC')->results();
 
         $categories_array = [];
         foreach ($categories as $category) {
@@ -75,7 +75,7 @@ class Store {
     
     // Get all connections
     public function getAllConnections() {
-        $connections = $this->_db->query('SELECT * FROM nl2_store_connections')->results();
+        $connections = $this->_db->query('SELECT * FROM rw_store_connections')->results();
 
         $connections_array = [];
         foreach ($connections as $connection) {
@@ -99,10 +99,10 @@ class Store {
             'active' => Output::getClean($active) == 'Home'
         ];
 
-        $categories_query = DB::getInstance()->query('SELECT * FROM nl2_store_categories WHERE parent_category IS NULL AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC')->results();
+        $categories_query = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE parent_category IS NULL AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC')->results();
         if (count($categories_query)) {
             foreach ($categories_query as $item) {
-                $subcategories_query = DB::getInstance()->query('SELECT id, `name` FROM nl2_store_categories WHERE parent_category = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$item->id])->results();
+                $subcategories_query = DB::getInstance()->query('SELECT id, `name` FROM rw_store_categories WHERE parent_category = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$item->id])->results();
 
                 $subcategories = [];
                 $sub_active = false;

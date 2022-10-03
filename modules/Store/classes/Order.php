@@ -59,7 +59,7 @@ class Order {
         return $this->_products ??= (function (): array {
             $products = [];
 
-            $products_query = $this->_db->query('SELECT nl2_store_products.* FROM nl2_store_orders_products INNER JOIN nl2_store_products ON nl2_store_products.id=product_id WHERE order_id = ?', [$this->data()->id]);
+            $products_query = $this->_db->query('SELECT rw_store_products.* FROM rw_store_orders_products INNER JOIN rw_store_products ON rw_store_products.id=product_id WHERE order_id = ?', [$this->data()->id]);
             if ($products_query->count()) {
                 $products_query = $products_query->results();
 
@@ -79,7 +79,7 @@ class Order {
      */
     public function getProductFields(int $product_id): array {
         $fields = [];
-        $fields_query = $this->_db->query('SELECT identifier, value FROM nl2_store_orders_products_fields INNER JOIN nl2_store_fields ON field_id=nl2_store_fields.id WHERE order_id = ? AND product_id = ?', [$this->data()->id, $product_id])->results();
+        $fields_query = $this->_db->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$this->data()->id, $product_id])->results();
         foreach ($fields_query as $field) {
             $fields[$field->identifier] = [
                 'identifier' => Output::getClean($field->identifier),

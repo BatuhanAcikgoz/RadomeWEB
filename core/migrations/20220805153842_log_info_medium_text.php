@@ -8,7 +8,7 @@ final class LogInfoMediumText extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_logs');
+        $table = $this->table('rw_logs');
         $table->changeColumn('info', 'text', ['limit' => MysqlAdapter::TEXT_MEDIUM]);
         $table->update();
     }

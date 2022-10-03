@@ -7,7 +7,7 @@ final class CreateUsersProfileFieldsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_users_profile_fields');
+        $table = $this->table('rw_users_profile_fields');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -16,8 +16,8 @@ final class CreateUsersProfileFieldsTable extends AbstractMigration
             ->addColumn('updated', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('field_id', 'nl2_profile_fields', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('field_id', 'rw_profile_fields', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

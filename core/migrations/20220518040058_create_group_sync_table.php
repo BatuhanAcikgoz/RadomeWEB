@@ -7,7 +7,7 @@ final class CreateGroupSyncTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_group_sync');
+        $table = $this->table('rw_group_sync');
 
         $table
             ->addColumn('website_group_id', 'integer', ['length' => 11])
@@ -15,7 +15,7 @@ final class CreateGroupSyncTable extends AbstractMigration
             ->addColumn('ingame_rank_name', 'string', ['length' => 64, 'null' => true, 'default' => null]);
 
         $table
-            ->addForeignKey('website_group_id', 'nl2_groups', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('website_group_id', 'rw_groups', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

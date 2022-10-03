@@ -7,7 +7,7 @@ final class CreatePostsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_posts');
+        $table = $this->table('rw_posts');
 
         $table
             ->addColumn('forum_id', 'integer', ['length' => 11])
@@ -21,9 +21,9 @@ final class CreatePostsTable extends AbstractMigration
             ->addColumn('created', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('forum_id', 'nl2_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('topic_id', 'nl2_topics', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
-            ->addForeignKey('post_creator', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('forum_id', 'rw_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('topic_id', 'rw_topics', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
+            ->addForeignKey('post_creator', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table
             ->addIndex('topic_id');

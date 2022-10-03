@@ -7,7 +7,7 @@ final class CreateForumsPermissionsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_forums_permissions');
+        $table = $this->table('rw_forums_permissions');
 
         $table
             ->addColumn('group_id', 'integer', ['length' => 11]) // No foreign key because we use 0 for guests
@@ -20,7 +20,7 @@ final class CreateForumsPermissionsTable extends AbstractMigration
             ->addColumn('moderate', 'boolean', ['default' => false]);
 
         $table
-            ->addForeignKey('forum_id', 'nl2_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('forum_id', 'rw_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

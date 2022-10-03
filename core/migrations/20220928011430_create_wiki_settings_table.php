@@ -7,7 +7,7 @@ final class CreateWikiSettingsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_wiki_settings');
+        $table = $this->table('rw_wiki_settings');
 
         $table
             ->addColumn('name', 'string', ['length' => 20])

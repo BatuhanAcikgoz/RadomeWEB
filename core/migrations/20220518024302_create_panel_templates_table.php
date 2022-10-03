@@ -7,7 +7,7 @@ final class CreatePanelTemplatesTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_panel_templates');
+        $table = $this->table('rw_panel_templates');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

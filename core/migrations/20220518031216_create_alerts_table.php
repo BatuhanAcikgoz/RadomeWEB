@@ -7,7 +7,7 @@ final class CreateAlertsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_alerts');
+        $table = $this->table('rw_alerts');
 
         $table
             ->addColumn('user_id', 'integer', ['length' => 11])
@@ -19,7 +19,7 @@ final class CreateAlertsTable extends AbstractMigration
             ->addColumn('read', 'boolean', ['default' => false]);
 
         $table
-            ->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+            ->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table->create();
     }

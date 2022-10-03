@@ -7,7 +7,7 @@ final class CreateSettingsTable extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_settings');
+        $table = $this->table('rw_settings');
 
         $table
             ->addColumn('name', 'string', ['length' => 64])

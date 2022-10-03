@@ -33,7 +33,7 @@ if ($_GET['action'] == 'new_action') {
 
                 if (!count($errors)) {
                     // Get last order
-                    $last_order = DB::getInstance()->query('SELECT id FROM nl2_store_products_actions WHERE product_id = ? ORDER BY `order` DESC LIMIT 1', [$product->id])->results();
+                    $last_order = DB::getInstance()->query('SELECT id FROM rw_store_products_actions WHERE product_id = ? ORDER BY `order` DESC LIMIT 1', [$product->id])->results();
                     if (count($last_order)) $last_order = $last_order[0]->order;
                     else $last_order = 0;
 
@@ -72,7 +72,7 @@ if ($_GET['action'] == 'new_action') {
     }
 
     // Connections
-    $connections = DB::getInstance()->query('SELECT * FROM nl2_store_connections WHERE service_id = ?', [$service->getId()])->results();
+    $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections WHERE service_id = ?', [$service->getId()])->results();
     $connections_array[] = [
         'id' => 0,
         'name' => 'Execute on all Minecraft Server connections selected on product',
@@ -170,7 +170,7 @@ if ($_GET['action'] == 'new_action') {
     $connections_array = [];
     $selected_connections = ($action->data()->own_connections ? $action->getConnections() : []);
 
-    $connections = DB::getInstance()->query('SELECT * FROM nl2_store_connections WHERE service_id = ?', [$service->getId()])->results();
+    $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections WHERE service_id = ?', [$service->getId()])->results();
     $connections_array[] = [
         'id' => 0,
         'name' => 'Execute on all Minecraft Server connections selected on product',

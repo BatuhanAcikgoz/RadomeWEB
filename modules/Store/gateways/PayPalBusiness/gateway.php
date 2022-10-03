@@ -256,7 +256,7 @@ class PayPal_Business_Gateway extends GatewayBase {
                         case 'BILLING.SUBSCRIPTION.CANCELLED':
                             $id = $response->resource->id;
 
-                            DB::getInstance()->createQuery('UPDATE `nl2_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
+                            DB::getInstance()->createQuery('UPDATE `rw_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
                                 2,
                                 date('U'),
                                 $id
@@ -266,7 +266,7 @@ class PayPal_Business_Gateway extends GatewayBase {
                         case 'BILLING.SUBSCRIPTION.SUSPENDED':
                             $id = $response->resource->id;
 
-                            DB::getInstance()->createQuery('UPDATE `nl2_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
+                            DB::getInstance()->createQuery('UPDATE `rw_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
                                 3,
                                 date('U'),
                                 $id
@@ -276,7 +276,7 @@ class PayPal_Business_Gateway extends GatewayBase {
                         case 'BILLING.SUBSCRIPTION.RE-ACTIVATED':
                             $id = $response->resource->id;
 
-                            DB::getInstance()->createQuery('UPDATE `nl2_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
+                            DB::getInstance()->createQuery('UPDATE `rw_store_agreements` SET status = ?, updated = ? WHERE agreement_id = ?', [
                                 1,
                                 date('U'),
                                 $id

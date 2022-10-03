@@ -22,7 +22,7 @@ class PhinxAdapter {
 
         $migration_database_entries = array_map(static function ($row) {
             return $row->version . '_' . $row->migration_name;
-        }, DB::getInstance()->query('SELECT version, migration_name FROM nl2_phinxlog')->results());
+        }, DB::getInstance()->query('SELECT version, migration_name FROM rw_phinxlog')->results());
 
         $missing = array_diff($migration_files, $migration_database_entries);
         $extra = array_diff($migration_database_entries, $migration_files);
@@ -37,7 +37,7 @@ class PhinxAdapter {
         }
 
         // Something went wonky, either they've deleted migration files,
-        // or they've added stuff to the nl2_phinxlog table.
+        // or they've added stuff to the rw_phinxlog table.
         if (($extra_count = count($extra)) > 0) {
             if ($missing_count > 0) {
                 echo '<br>';

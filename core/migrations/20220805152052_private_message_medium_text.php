@@ -8,7 +8,7 @@ final class PrivateMessageMediumText extends AbstractMigration
 {
     public function change(): void
     {
-        $table = $this->table('nl2_private_messages_replies');
+        $table = $this->table('rw_private_messages_replies');
         $table->changeColumn('content', 'text', ['limit' => MysqlAdapter::TEXT_MEDIUM]);
         $table->update();
     }
