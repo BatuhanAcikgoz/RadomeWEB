@@ -678,9 +678,7 @@ class DatabaseInitialiser {
             'forum_title' => 'Haberler',
             'forum_description' => 'Sunucumuz hakkında haberler!',
             'forum_order' => 1,
-            'parent' => 1,
-            'forum_type' => 'forum',
-            'news' => 1
+            'forum_type' => 'category'
         ]);
 
         $this->_db->insert('topics', [
@@ -754,7 +752,7 @@ class DatabaseInitialiser {
         ]);
 
         // Permissions
-        for ($i = 1; $i < 4; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             for ($n = 1; $n < 3; $n++) {
                 $this->_db->insert('forums_permissions', [
                     'group_id' => $i,
