@@ -264,6 +264,7 @@ class DatabaseInitialiser {
         DB::getInstance()->insert('mc_servers', [
             'ip' => 'oyna.zorapvp.xyz',
             'query_ip' => 'oyna.zorapvp.xyz',
+            'name' => 'ZoraPvP',
             'is_default' => '1',
             'display' => '1',
             'pre' => '0',
