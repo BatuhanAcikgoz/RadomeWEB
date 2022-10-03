@@ -261,22 +261,6 @@ class DatabaseInitialiser {
             'site' => 'https://topg.org/tr/',
             'name' => 'TOPG (Örnek)'
         ]);
-        DB::getInstance()->insert('mc_servers', [
-            'ip' => 'oyna.zorapvp.xyz',
-            'query_ip' => 'oyna.zorapvp.xyz',
-            'is_default' => '1',
-            'display' => '1',
-            'pre' => '0',
-            'player_list' => '1',
-            'parent_server' => '0',
-            'bungee' => '0',
-            'bedrock' => '0',
-            'port' => '25565',
-            'query_port' => '25565',
-            'banner_background' => 'backgroup.png',
-            'shop_ip' => '1',
-            'order' => '1'
-        ]);
 
         DB::getInstance()->insert('vote_settings', [
             'name' => 'vote_message',
