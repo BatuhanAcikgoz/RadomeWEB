@@ -16,7 +16,7 @@ final class CreateFormsFieldsTable extends AbstractMigration
             ->addColumn('required', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('min', 'integer', ['length' => 11, 'null' => false, 'default' => 0])
             ->addColumn('max', 'integer', ['length' => 11, 'null' => false, 'default' => 0])
-            ->addColumn('placeholder', 'string', ['length' => 255])
+            ->addColumn('placeholder', 'string', ['length' => 255, 'default' => NULL])
             ->addColumn('options', 'text', ['null' => true, 'default' => null])
             ->addColumn('info', 'text', ['null' => true, 'default' => null])
             ->addColumn('deleted', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
