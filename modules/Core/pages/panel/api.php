@@ -82,7 +82,7 @@ if (!isset($_GET['view'])) {
 
                 $external = false;
                 $fields = [];
-                $nameless_injector_column = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class)->getColumnName();
+                $radome_injector_column = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class)->getColumnName();
                 foreach (GroupSyncManager::getInstance()->getEnabledInjectors() as $column_name => $injector) {
                     if (!$_POST[$column_name]) {
                         continue;
@@ -90,7 +90,7 @@ if (!isset($_GET['view'])) {
 
                     $fields[$column_name] = $_POST[$column_name];
 
-                    if ($column_name !== $nameless_injector_column) {
+                    if ($column_name !== $radome_injector_column) {
                         $external = true;
                     }
                 }

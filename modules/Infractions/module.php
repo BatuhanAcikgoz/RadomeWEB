@@ -19,9 +19,9 @@ class Infractions_Module extends Module {
 		$name = 'Infractions';
 		$author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
 		$module_version = '1.4.0';
-		$nameless_version = '2.0.2';
+		$radome_version = '2.0.2';
 		
-		parent::__construct($this, $name, $author, $module_version, $nameless_version);
+		parent::__construct($this, $name, $author, $module_version, $radome_version);
 
 		// Define URLs which belong to this module
 		$pages->add('Infractions', '/panel/infractions', 'pages/panel/index.php');

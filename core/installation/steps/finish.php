@@ -36,7 +36,7 @@ try {
             <p><?php echo $language->get('installer', 'support_message', [
                 'websiteLinkStart' => '<a href="https://radome.web.tr" target="_blank">',
                 'websiteLinkEnd' => '</a>',
-                'discordLinkStart' => '<a href="https://discord.gg/nameless" target="_blank">',
+                'discordLinkStart' => '<a href="https://discord.gg/radome" target="_blank">',
                 'discordLinkEnd' => '</a>',
                 'githubLinkStart' => '<a href="https://github.com/RadomeWEB/Radome/" target="_blank">',
                 'githubLinkEnd' => '</a>'

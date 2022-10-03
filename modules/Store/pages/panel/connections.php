@@ -41,7 +41,7 @@ if (!isset($_GET['action'])) {
                 'name' => Output::getClean($connection->name),
                 'service' => Output::getClean($service->getName()),
                 'edit_link' => URL::build('/panel/store/connections/', 'action=edit&id=' . Output::getClean($connection->id)),
-                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the nameless plugin installed, and is store module integration enabled in modules.yaml?' : false
+                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false
             ];
         }
 

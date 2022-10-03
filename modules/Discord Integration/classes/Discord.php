@@ -116,13 +116,13 @@ class Discord {
      * Get the associated RadomeWEB group ID for a Discord role.
      *
      * @param DB $db Instance of DB class
-     * @param int $nameless_group_id The ID of the RadomeWEB group
+     * @param int $radome_group_id The ID of the RadomeWEB group
      * @return null|int The Discord role ID for the RadomeWEB group
      */
-    public static function getDiscordRoleId(DB $db, int $nameless_group_id): ?int {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
+    public static function getDiscordRoleId(DB $db, int $radome_group_id): ?int {
+        $radome_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
 
-        $discord_role_id = $db->get('group_sync', [$nameless_injector->getColumnName(), $nameless_group_id]);
+        $discord_role_id = $db->get('group_sync', [$radome_injector->getColumnName(), $radome_group_id]);
         if ($discord_role_id->count()) {
             return $discord_role_id->first()->discord_role_id;
         }

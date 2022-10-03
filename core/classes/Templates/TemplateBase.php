@@ -22,7 +22,7 @@ abstract class TemplateBase {
     /**
      * @var string The RadomeWEB version this template supports.
      */
-    protected string $_nameless_version = '';
+    protected string $_radome_version = '';
 
     /**
      * @var string The template author name (supports HTML)
@@ -46,10 +46,10 @@ abstract class TemplateBase {
      */
     protected array $_js = [];
 
-    public function __construct(string $name, string $version, string $nameless_version, string $author) {
+    public function __construct(string $name, string $version, string $radome_version, string $author) {
         $this->_name = $name;
         $this->_version = $version;
-        $this->_nameless_version = $nameless_version;
+        $this->_radome_version = $radome_version;
         $this->_author = $author;
     }
 
@@ -148,7 +148,7 @@ abstract class TemplateBase {
      * @return string RadomeWEB version of template.
      */
     public function getRadomeVersion(): string {
-        return $this->_nameless_version;
+        return $this->_radome_version;
     }
 
     /**

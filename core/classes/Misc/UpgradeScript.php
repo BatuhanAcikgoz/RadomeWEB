@@ -13,7 +13,7 @@ abstract class UpgradeScript {
 
     public function __construct() {
         $this->_cache = new Cache(
-            ['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
+            ['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']
         );
     }
 
@@ -154,7 +154,7 @@ abstract class UpgradeScript {
      * @param string $version Version to set
      */
     protected function setVersion(string $version): void {
-        Util::setSetting('nameless_version', $version);
+        Util::setSetting('radome_version', $version);
         Util::setSetting('version_update', null);
     }
 }

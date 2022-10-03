@@ -556,7 +556,7 @@ class DatabaseInitialiser {
         Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
         Util::setSetting('email_verification', '1');
-        Util::setSetting('nameless_version', '2.0.2');
+        Util::setSetting('radome_version', '2.0.2');
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
         Util::setSetting('phpmailer_type', 'smtp');
@@ -604,11 +604,11 @@ class DatabaseInitialiser {
             'value' => 'The following privacy policy outlines how your data is used on our website.<br /><br /><strong>Data</strong><br />Basic non-identifiable information about your user on the website is collected; the majority of which is provided during registration, such as email addresses and usernames.<br />In addition to this, IP addresses for registered users are stored within the system to aid with moderation duties. This includes spam prevention, and detecting alternative accounts.<br /><br />Accounts can be deleted by a site administrator upon request, which will remove all data relating to your user from our system.<br /><br /><strong>Cookies</strong><br />Cookies are used to store small pieces of non-identifiable information with your consent. In order to consent to the use of cookies, you must either close the cookie notice (as explained within the notice) or register on our website.<br />Data stored by cookies include any recently viewed topic IDs, along with a unique, unidentifiable hash upon logging in and selecting &quot;Remember Me&quot; to automatically log you in next time you visit.'
         ]);
 
-        $nameless_terms = 'Bu site RadomeWEB kullanılarak oluşturulmuştur. ' .
+        $radome_terms = 'Bu site RadomeWEB kullanılarak oluşturulmuştur. ' .
                         'Verira firması için yapılmış olup site tamamen site sorumluluğu ' .
                         'tamamen site yöneticisine aittir. Verira çalışanları veya RadomeWEB ' .
                         'yapımcıları herhangi bir sorumluluk kabul etmez.';
-        Util::setSetting('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $nameless_terms . '</p>');
+        Util::setSetting('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $radome_terms . '</p>');
     }
 
     private function initialiseTemplates(): void {

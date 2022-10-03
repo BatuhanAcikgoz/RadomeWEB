@@ -14,7 +14,7 @@ class Vote {
      *  Returns JSON object with information about any updates
      */
     public static function updateCheck() {
-        $current_version = Util::getSetting('nameless_version');
+        $current_version = Util::getSetting('radome_version');
         $uid = Util::getSetting('unique_id');
 
 		$enabled_modules = Module::getModules();

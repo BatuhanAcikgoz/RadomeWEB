@@ -91,7 +91,7 @@ if (!isset($_GET['action'])) {
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
                             Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
-                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_radome_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [
@@ -289,7 +289,7 @@ if (!isset($_GET['action'])) {
                             Validate::REQUIRED => $language->get('admin', 'page_url_required'),
                             Validate::MIN => $language->get('admin', 'page_url_minimum_2'),
                             Validate::MAX => $language->get('admin', 'page_url_maximum_255'),
-                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_nameless_path'),
+                            Validate::NOT_START_WITH => $language->get('admin', 'page_url_contains_radome_path'),
                         ],
                         'content' => $language->get('admin', 'page_content_maximum_100000'),
                         'link_location' => [

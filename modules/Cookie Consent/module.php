@@ -21,9 +21,9 @@ class CookieConsent_Module extends Module {
         $name = 'Cookie Consent';
         $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '2.0.2';
-        $nameless_version = '2.0.2';
+        $radome_version = '2.0.2';
 
-        parent::__construct($this, $name, $author, $module_version, $nameless_version);
+        parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Define URLs which belong to this module
         $pages->add('Cookie Consent', '/cookies', 'pages/cookies.php');

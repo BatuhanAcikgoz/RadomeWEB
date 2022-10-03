@@ -164,7 +164,7 @@ foreach (RadomeOAuth::getInstance()->getProviders() as $provider_name => $data) 
     ];
 }
 
-$radomeweb_version = Util::getSetting('nameless_version');
+$radomeweb_version = Util::getSetting('radome_version');
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM rw_users_integrations INNER JOIN rw_integrations on integration_id=rw_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {

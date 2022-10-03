@@ -11,7 +11,7 @@
                 <div class="float-right">
                     <a class="ml-1" href="https://github.com/RadomeWEB/Radome" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="{$SOURCE}"><i class="fab fa-github fa-fw text-github"></i></a>
-                    <a class="ml-1" href="https://discord.gg/nameless" target="_blank" data-toggle="tooltip"
+                    <a class="ml-1" href="https://discord.gg/radome" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
                     <a class="ml-1" href="https://docs.radome.web.tr/en/faq" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="FAQ"><i class="fas fa-info-circle fa-fw text-info"></i></a>

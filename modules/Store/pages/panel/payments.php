@@ -191,7 +191,7 @@ if (isset($_GET['customer'])) {
         $pending_commands_array[] = [
             'command' => Output::getClean($command->command),
             'connection_name' => Output::getClean($command->name),
-            'error' => $command->service_id == 2 && $command->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the nameless plugin installed, and is store module integration enabled in modules.yaml?' : false
+            'error' => $command->service_id == 2 && $command->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false
         ];
     }
 

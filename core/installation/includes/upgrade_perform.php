@@ -770,17 +770,17 @@ DB::getInstance()->insert('settings', [
 
 Util::setSetting('recaptcha_type', 'Recaptcha3');
 
-// convert from "version" to "nameless_version"
+// convert from "version" to "radome_version"
 $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
 if (count($version)) {
     DB::getInstance()->update('settings', $version[0]->id, [
-        'name' => 'nameless_version',
+        'name' => 'radome_version',
         'value' => '2.0.2'
     ]);
     DB::getInstance()->delete('settings', ['name', 'version']);
 } else {
     DB::getInstance()->insert('settings', [
-        'name' => 'nameless_version',
+        'name' => 'radome_version',
         'value' => '2.0.2'
     ]);
 }

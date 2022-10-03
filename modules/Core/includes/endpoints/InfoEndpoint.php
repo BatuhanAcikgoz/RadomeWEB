@@ -24,7 +24,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
         $ret = [];
 
-        $ret['nameless_version'] = Util::getSetting('nameless_version');
+        $ret['radome_version'] = Util::getSetting('radome_version');
 
         if (Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true') {
             $ret['version_update'] = [

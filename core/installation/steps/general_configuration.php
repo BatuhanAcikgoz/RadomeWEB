@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <div <?php if (getenv('RADOME_PATH_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('text', $language->get('installer', 'nameless_path'), 'install_path', 'inputPath', getenv('RADOME_PATH') ?: Output::getClean($install_path)); ?>
-                            <p><?php echo $language->get('installer', 'nameless_path_info'); ?></p>
+                            <?php create_field('text', $language->get('installer', 'radome_path'), 'install_path', 'inputPath', getenv('RADOME_PATH') ?: Output::getClean($install_path)); ?>
+                            <p><?php echo $language->get('installer', 'radome_path_info'); ?></p>
                             <div class="ui divider"></div>
                         </div>
 

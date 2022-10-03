@@ -1,5 +1,5 @@
 <?php
-$nameless_terms = 'This website uses "Radome" website software. The ' .
+$radome_terms = 'This website uses "Radome" website software. The ' .
     '"Radome" software creators will not be held responsible for any content ' .
     'that may be experienced whilst browsing this site, nor are they responsible ' .
     'for any loss of data which may come about, for example a hacking attempt. ' .

@@ -71,7 +71,7 @@ if (count($dashboard_graphs)) {
 
 $dashboard_graphs = null;
 
-$cache->setCache('nameless_news');
+$cache->setCache('radome_news');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 
@@ -105,7 +105,7 @@ if ($cache->isCached('news')) {
 }
 
 if (!count($news)) {
-    $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_nameless_news'));
+    $smarty->assign('NO_NEWS', $language->get('admin', 'unable_to_retrieve_radome_news'));
 } else {
     $smarty->assign('NEWS', $news);
 }
@@ -232,7 +232,7 @@ $smarty->assign([
     'PARENT_PAGE' => PANEL_PAGE,
     'GRAPHS' => $graphs,
     'STATISTICS' => $language->get('admin', 'statistics'),
-    'RADOME_NEWS' => $language->get('admin', 'nameless_news'),
+    'RADOME_NEWS' => $language->get('admin', 'radome_news'),
     'CONFIRM_LEAVE_SITE' => $language->get('admin', 'confirm_leave_site', [
         'link' => '<strong id="leaveSiteURL">{x}</strong>',
     ]),
@@ -241,7 +241,7 @@ $smarty->assign([
     'MAIN_ITEMS' => CollectionManager::getEnabledCollection('dashboard_main_items'),
     'SIDE_ITEMS' => CollectionManager::getEnabledCollection('dashboard_side_items'),
     // TODO: show latest git commit hash?
-    'RADOME_VERSION' => $language->get('admin', 'running_nameless_version', [
+    'RADOME_VERSION' => $language->get('admin', 'running_radome_version', [
         'version' => Text::bold(RADOME_VERSION)
     ]),
 ]);

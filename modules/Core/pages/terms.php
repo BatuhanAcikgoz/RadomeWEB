@@ -21,13 +21,13 @@ if (!count($site_terms)) {
 }
 $site_terms = Output::getPurified($site_terms[0]->value);
 
-$nameless_terms = DB::getInstance()->get('settings', ['name', 't_and_c'])->results();
-$nameless_terms = Output::getPurified($nameless_terms[0]->value);
+$radome_terms = DB::getInstance()->get('settings', ['name', 't_and_c'])->results();
+$radome_terms = Output::getPurified($radome_terms[0]->value);
 
 $smarty->assign([
     'TERMS' => $language->get('user', 'terms_and_conditions'),
     'SITE_TERMS' => $site_terms,
-    'RADOME_TERMS' => $nameless_terms
+    'RADOME_TERMS' => $radome_terms
 ]);
 
 // Load modules + template

@@ -17,7 +17,7 @@ abstract class Module {
     private string $_name;
     private string $_author;
     private string $_version;
-    private string $_nameless_version;
+    private string $_radome_version;
     private array $_load_before;
     private array $_load_after;
 
@@ -26,7 +26,7 @@ abstract class Module {
         string $name,
         string $author,
         string $version,
-        string $nameless_version,
+        string $radome_version,
         array $load_before = [],
         array $load_after = []
     ) {
@@ -34,7 +34,7 @@ abstract class Module {
         $this->_name = $name;
         $this->_author = $author;
         $this->_version = $version;
-        $this->_nameless_version = $nameless_version;
+        $this->_radome_version = $radome_version;
 
         // All modules should load after core
         if ($name !== 'Core') {
@@ -171,6 +171,6 @@ abstract class Module {
      * @return string The supported RadomeWEB version of this module.
      */
     public function getRadomeVersion(): string {
-        return $this->_nameless_version;
+        return $this->_radome_version;
     }
 }

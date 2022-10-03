@@ -14,9 +14,9 @@ class Wiki_Module extends Module {
         $name = 'Wiki';
 		$author = '<a href="https://reflexlabs.xyz/" target="_blank">reflexLabs</a>';
 		$module_version = '1.2.1';
-		$nameless_version = '2.0.2';
+		$radome_version = '2.0.2';
 
-		parent::__construct($this, $name, $author, $module_version, $nameless_version);
+		parent::__construct($this, $name, $author, $module_version, $radome_version);
 
 		$pages->add('Wiki', '/wiki', 'pages/wiki/index.php');
 		$pages->add('Wiki', '/wiki/page', 'pages/wiki/page.php');

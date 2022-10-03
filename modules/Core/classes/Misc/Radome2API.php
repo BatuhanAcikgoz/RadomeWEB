@@ -13,16 +13,16 @@ class Radome2API {
     private DB $_db;
     private Language $_language;
 
-    public const ERROR_API_DISABLED = 'nameless:api_is_disabled';
-    public const ERROR_UNKNOWN_ERROR = 'nameless:unknown_error';
-    public const ERROR_NOT_AUTHORIZED = 'nameless:not_authorized';
-    public const ERROR_INVALID_API_KEY = 'nameless:invalid_api_key';
-    public const ERROR_MISSING_API_KEY = 'nameless:missing_api_key';
-    public const ERROR_INVALID_API_METHOD = 'nameless:invalid_api_method';
-    public const ERROR_CANNOT_FIND_USER = 'nameless:cannot_find_user';
-    public const ERROR_INVALID_POST_CONTENTS = 'nameless:invalid_post_contents';
-    public const ERROR_INVALID_GET_CONTENTS = 'nameless:invalid_get_contents';
-    public const ERROR_NO_SITE_UID = 'nameless:no_site_uid';
+    public const ERROR_API_DISABLED = 'radome:api_is_disabled';
+    public const ERROR_UNKNOWN_ERROR = 'radome:unknown_error';
+    public const ERROR_NOT_AUTHORIZED = 'radome:not_authorized';
+    public const ERROR_INVALID_API_KEY = 'radome:invalid_api_key';
+    public const ERROR_MISSING_API_KEY = 'radome:missing_api_key';
+    public const ERROR_INVALID_API_METHOD = 'radome:invalid_api_method';
+    public const ERROR_CANNOT_FIND_USER = 'radome:cannot_find_user';
+    public const ERROR_INVALID_POST_CONTENTS = 'radome:invalid_post_contents';
+    public const ERROR_INVALID_GET_CONTENTS = 'radome:invalid_get_contents';
+    public const ERROR_NO_SITE_UID = 'radome:no_site_uid';
 
     /**
      * Create an instance of the API class and forward the request to the Endpoints class.

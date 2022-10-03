@@ -51,7 +51,7 @@ if (!isset($_GET['action'])) {
         $template_array[] = [
             'name' => Output::getClean($module->getName()),
             'version' => Output::getClean($module->getVersion()),
-            'nameless_version' => Output::getClean($module->getRadomeVersion()),
+            'radome_version' => Output::getClean($module->getRadomeVersion()),
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
             'version_mismatch' => !Util::isCompatible($module->getRadomeVersion(), RADOME_VERSION) ? $language->get('admin', 'module_outdated', [

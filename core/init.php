@@ -72,7 +72,7 @@ if ($page != 'install') {
     define('FRIENDLY_URLS', Config::get('core.friendly') == 'true');
 
     // Set up cache
-    $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+    $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
 
     // Force https/www?
     if (Config::get('core.force_https')) {
@@ -122,7 +122,7 @@ if ($page != 'install') {
     }
 
     // Get the Radome version
-    define('RADOME_VERSION', Util::getSetting('nameless_version'));
+    define('RADOME_VERSION', Util::getSetting('radome_version'));
 
     // Set the date format
     define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');

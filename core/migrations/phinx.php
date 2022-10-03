@@ -11,7 +11,7 @@ return [
         'migrations' => __DIR__,
     ],
     'environments' => [
-        'nameless' => [
+        'radome' => [
             'adapter' => 'mysql',
             'host' => $config['host'],
             'name' => $config['db'],

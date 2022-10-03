@@ -99,7 +99,7 @@ $conf = [
         'port' => getEnvVar('RADOME_DATABASE_PORT', '3306'),
         'username' => getEnvVar('RADOME_DATABASE_USERNAME', 'root'),
         'password' => getEnvVar('RADOME_DATABASE_PASSWORD', ''),
-        'db' => getEnvVar('RADOME_DATABASE_NAME', 'nameless'),
+        'db' => getEnvVar('RADOME_DATABASE_NAME', 'radome'),
         'initialise_charset' => true,
     ],
     'remember' => [

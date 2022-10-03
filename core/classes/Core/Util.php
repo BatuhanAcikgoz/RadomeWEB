@@ -386,8 +386,8 @@ class Util {
      * @return string|null Name of in-game rank or null if rule is not set up.
      */
     public static function getIngameRankName(int $website_group_id): ?string {
-        $nameless_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
-        $data = DB::getInstance()->get('group_sync', [$nameless_injector->getColumnName(), $website_group_id]);
+        $radome_injector = GroupSyncManager::getInstance()->getInjectorByClass(RadomeWEBGroupSyncInjector::class);
+        $data = DB::getInstance()->get('group_sync', [$radome_injector->getColumnName(), $website_group_id]);
 
         if ($data->count()) {
             return $data->first()->ingame_rank_name;
@@ -407,7 +407,7 @@ class Util {
             return true;
         }
 
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('modulescache');
 
         $enabled_modules = $cache->retrieve('enabled_modules');
@@ -529,14 +529,14 @@ class Util {
      * This ignores patch versions, and only checks major and minor versions.
      * For example, 2.0.0 and 2.0.1 are compatible, but 2.0.0 and 2.1.0 are not.
      * @param string $version Version of module/template to check
-     * @param string $nameless_version Current RadomeWEB version
+     * @param string $radome_version Current RadomeWEB version
      * @return bool Whether they are compatible or not
      */
-    public static function isCompatible(string $version, string $nameless_version): bool {
+    public static function isCompatible(string $version, string $radome_version): bool {
         [$major, $minor, ] = explode('.', $version);
-        [$nameless_major, $nameless_minor, ] = explode('.', $nameless_version);
+        [$radome_major, $radome_minor, ] = explode('.', $radome_version);
 
-        return $major == $nameless_major && $minor == $nameless_minor;
+        return $major == $radome_major && $minor == $radome_minor;
     }
 
 }

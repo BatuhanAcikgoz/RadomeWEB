@@ -99,7 +99,7 @@ class AvatarSource {
      * @return bool Whether the URL is a valid image URL
      */
     private static function validImageUrl(string $url): bool {
-        $cache = new Cache(['name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+        $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('avatar_validity');
 
         if ($cache->isCached($url)) {

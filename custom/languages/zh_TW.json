@@ -209,7 +209,7 @@
     "admin/registration_email": "註冊電子郵件",
     "admin/required": "必填",
     "admin/reset_background": "重設背景",
-    "admin/running_nameless_version": "使用中的RadomeWEB版本 {{version}}",
+    "admin/running_radome_version": "使用中的RadomeWEB版本 {{version}}",
     "admin/security": "安全",
     "admin/select_default_avatar": "選擇新的預設頭像:",
     "admin/select_user_group": "你必須選取使用者群組。",

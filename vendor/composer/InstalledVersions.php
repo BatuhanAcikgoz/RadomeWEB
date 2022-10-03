@@ -31,7 +31,7 @@ class InstalledVersions
     array (
     ),
     'reference' => '26bbbae0a8cfbd50a28e226970737d5cd9d5fd62',
-    'name' => 'radomeweb/nameless',
+    'name' => 'radomeweb/radome',
   ),
   'versions' => 
   array (
@@ -170,7 +170,7 @@ class InstalledVersions
       ),
       'reference' => 'db6d8ad67cdd7d014a1e5dd5c204a319a966de86',
     ),
-    'radomeweb/nameless' => 
+    'radomeweb/radome' => 
     array (
       'pretty_version' => 'dev-develop',
       'version' => 'dev-develop',

@@ -10,9 +10,9 @@ class Discord_Module extends Module {
         $name = 'Discord Integration';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
         $module_version = '2.0.2';
-        $nameless_version = '2.0.2';
+        $radome_version = '2.0.2';
 
-        parent::__construct($this, $name, $author, $module_version, $nameless_version);
+        parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         $bot_url = Util::getSetting('discord_bot_url');
         if ($bot_url === null) {

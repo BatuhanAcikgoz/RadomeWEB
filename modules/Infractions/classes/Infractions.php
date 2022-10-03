@@ -20,7 +20,7 @@ abstract class Infractions {
     public function __construct($inf_db, $language){
         $this->_db_details = $inf_db;
         $this->_language = $language;
-        $this->_cache = new Cache(array('name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/infractions/'));
+        $this->_cache = new Cache(array('name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/infractions/'));
     }
 
     // Connect to database

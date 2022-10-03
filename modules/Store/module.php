@@ -23,9 +23,9 @@ class Store_Module extends Module {
         $name = 'Store';
         $author = '<a href="https://batuhanacikgoz.com.tr/" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '1.4.3';
-        $nameless_version = '2.0.2';
+        $radome_version = '2.0.2';
 
-        parent::__construct($this, $name, $author, $module_version, $nameless_version);
+        parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Get variables from cache
         $cache->setCache('store_settings');
