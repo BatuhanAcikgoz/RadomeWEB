@@ -10,10 +10,10 @@ final class CreateStoreCustomersTable extends AbstractMigration
         $table = $this->table('nl2_store_customers');
 
         $table
-            ->addColumn('user_id', 'integer', ['length' => 11, 'default' => null])
+            ->addColumn('user_id', 'integer', ['length' => 11, 'default' => NULL])
             ->addColumn('integration_id', 'integer', ['length' => 11])
-            ->addColumn('username', 'string', ['length' => 64, 'default' => null])
-            ->addColumn('identifier', 'string', ['length' => 64, 'default' => null])
+            ->addColumn('username', 'string', ['length' => 64, 'null' => true,  'default' => NULL])
+            ->addColumn('identifier', 'string', ['length' => 64, 'null' => true, 'default' => NULL])
             ->addColumn('cents', 'integer', ['length' => 11, 'default' => 0]);
 
         $table->create();
