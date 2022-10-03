@@ -673,18 +673,25 @@ class DatabaseInitialiser {
     }
 
     private function initialiseForum() {
+        $this->_db->insert('forums', [
+            'forum_title' => 'Category',
+            'forum_description' => 'The first forum category!',
+            'forum_order' => 1,
+            'forum_type' => 'category'
+        ]);
+
 
         $this->_db->insert('forums', [
             'forum_title' => 'Haberler',
             'forum_description' => 'Sunucumuz hakkında haberler!',
-            'forum_order' => 1,
+            'forum_order' => 2,
             'parent' => 1,
             'forum_type' => 'forum',
             'news' => 1
         ]);
 
         $this->_db->insert('topics', [
-            'forum_id' => 1,
+            'forum_id' => 2,
             'topic_title' => 'RadomeWEB Minecraft WebScripti',
             'topic_creator' => 1,
             'topic_last_user' => 1,
@@ -694,7 +701,7 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('posts', [
-            'forum_id' => 1,
+            'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
             'post_content' => Output::getClean(
