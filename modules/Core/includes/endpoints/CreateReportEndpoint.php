@@ -18,12 +18,12 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided
         if (!$_POST['reported'] && !($_POST['reported_username'] && $_POST['reported_uid'])) {
-            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER);
+            $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER);
         }
 
         // Ensure content is correct length

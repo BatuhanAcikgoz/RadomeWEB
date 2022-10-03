@@ -1,6 +1,6 @@
 <?php
-$nameless_terms = 'This website uses "Nameless" website software. The ' .
-    '"Nameless" software creators will not be held responsible for any content ' .
+$nameless_terms = 'This website uses "Radome" website software. The ' .
+    '"Radome" software creators will not be held responsible for any content ' .
     'that may be experienced whilst browsing this site, nor are they responsible ' .
     'for any loss of data which may come about, for example a hacking attempt. ' .
     'The website is run independently from the software creators, and any content' .

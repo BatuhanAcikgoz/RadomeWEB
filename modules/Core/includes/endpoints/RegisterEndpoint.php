@@ -15,7 +15,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['username', 'email']);
 
         if (strlen($_POST['username']) > 20) {
@@ -81,7 +81,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * For internal API use only
      *
-     * @param Nameless2API $api
+     * @param Radome2API $api
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
      * @param bool $return
@@ -89,7 +89,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @return array
      */
-    private function createUser(Nameless2API $api, string $username, string $email, bool $return, string $code = null): array {
+    private function createUser(Radome2API $api, string $username, string $email, bool $return, string $code = null): array {
         try {
             // Get default group ID
             if (!is_file(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('default_group') . '.cache')) {
@@ -189,10 +189,10 @@ class RegisterEndpoint extends KeyAuthEndpoint {
      *
      * @param string $username The username of the new user to create
      * @param string $email The email of the new user
-     * @see Nameless2API::register()
+     * @see Radome2API::register()
      *
      */
-    private function sendRegistrationEmail(Nameless2API $api, string $username, string $email): void {
+    private function sendRegistrationEmail(Radome2API $api, string $username, string $email): void {
         // Generate random code
         $code = SecureRandom::alphanumeric();
 

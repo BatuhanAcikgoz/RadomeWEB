@@ -11,7 +11,7 @@
     "discord_integration/discord_bot_must_be_setup": "您必须配置 Discord 机器人后才能启用 Discord 集成。您可 {{linkStart}}点击此处{{linkEnd}} 了解详情。",
     "discord_integration/discord_bot_setup": "机器人已配置?",
     "discord_integration/discord_communication_error": "无法与 Discord 机器人交流。请您确保机器人正在运行并且您的机器人链接是正确的。",
-    "discord_integration/discord_database_error": "Nameless Link 数据库目前掉线了。请您稍后再试。",
+    "discord_integration/discord_database_error": "Radome Link 数据库目前掉线了。请您稍后再试。",
     "discord_integration/discord_guild_id": "Discord 服务器 ID",
     "discord_integration/discord_id_help": "您可阅读 {{linkStart}}此文章{{linkEnd}} 来了解如何获得您的用户 ID。",
     "discord_integration/discord_id_length": "请确保您的 Discord ID 长 18 位。",
@@ -45,7 +45,7 @@
     "discord_integration/discord_bot_check_logs": "您应在 管理人员面板 -> 安全 -> 全部日志中查找更详细的错误信息 (如果有的话)。",
     "discord_integration/discord_bot_error_partsuccess": "由于 Discord 权限顺序配置错误，本机器人无法编辑一个或更多权限组。",
     "discord_integration/discord_id_confirm": "请在 Discord 中运行 \"/verify {{token}}\" 指令来链接您的 Discord 账号。",
-    "discord_integration/discord_invite_info": "{{inviteLinkStart}}点击这里{{inviteLinkEnd}} 即可邀请 Nameless Link 机器人加入您的 Discord服务器。随后，您可运行 {{command}} 命令来将机器人链接到您的网站上。您也可以 {{selfHostLinkStart}}了解如何自建机器人{{selfHostLinkEnd}}。",
+    "discord_integration/discord_invite_info": "{{inviteLinkStart}}点击这里{{inviteLinkEnd}} 即可邀请 Radome Link 机器人加入您的 Discord服务器。随后，您可运行 {{command}} 命令来将机器人链接到您的网站上。您也可以 {{selfHostLinkStart}}了解如何自建机器人{{selfHostLinkEnd}}。",
     "discord_integration/discord_widget_disabled": "本组件在本 Discord 服务器上被禁用了。请在您的 Discord 服务器设置中前往 \"组件\" 标签页，并确保 Discord 组件已经启用，并且 ID 也是正确的。",
     "discord_integration/get_link_code": "获得链接代码"
 }

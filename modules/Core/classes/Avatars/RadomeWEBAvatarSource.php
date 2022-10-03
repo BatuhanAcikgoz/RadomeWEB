@@ -10,7 +10,7 @@
 class RadomeWEBAvatarSource extends AvatarSourceBase {
 
     public function __construct(Language $language) {
-        $this->_name = 'Nameless';
+        $this->_name = 'Radome';
         $this->_base_url = $language->get('admin', 'built_in_avatars');
         $this->_perspectives_map = [
             'face' => '' // Don't need to provide any mapping here, just using this map for the dropdown in staffcp.

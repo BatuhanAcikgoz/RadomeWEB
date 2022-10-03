@@ -10,16 +10,16 @@ class InfoEndpoint extends KeyAuthEndpoint {
     public function __construct() {
         $this->_route = 'info';
         $this->_module = 'Core';
-        $this->_description = 'Return info about the Nameless installation';
+        $this->_description = 'Return info about the Radome installation';
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
 
         $site_id = Util::getSetting('unique_id');
 
         if ($site_id === null) {
-            $api->throwError(Nameless2API::ERROR_NO_SITE_UID);
+            $api->throwError(Radome2API::ERROR_NO_SITE_UID);
         }
 
         $ret = [];

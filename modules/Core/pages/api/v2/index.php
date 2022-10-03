@@ -3,7 +3,7 @@
  *  Made by Samerton
  *  Additions by Aberdeener
  *
- *  https://github.com/RadomeWEB/Nameless/
+ *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0-pr12
  *
  *  License: MIT
@@ -20,4 +20,4 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 // Initialise
-$api = new Nameless2API($route, $language, $endpoints);
+$api = new Radome2API($route, $language, $endpoints);

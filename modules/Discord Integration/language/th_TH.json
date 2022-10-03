@@ -13,7 +13,7 @@
     "discord_integration/discord_bot_must_be_setup": "ไม่สามารถเปิดใช้งานการรวม Discord กันจนกว่าคุณจะตั้งค่าบอท สําหรับข้อมูลเพิ่มเติมโปรด {{linkStart}}click here{{linkEnd}}.",
     "discord_integration/discord_bot_setup": "เซ็ตค่าบอทหรือไม่",
     "discord_integration/discord_communication_error": "เกิดข้อผิดพลาดขณะสื่อสารกับ Discord Bot โปรดตรวจสอบว่าบอทกำลังทำงานและ URL บอทของคุณถูกต้อง",
-    "discord_integration/discord_database_error": "ขณะนี้ฐานข้อมูล Nameless Link หยุดทำงาน โปรดลองอีกครั้งในภายหลัง.",
+    "discord_integration/discord_database_error": "ขณะนี้ฐานข้อมูล Radome Link หยุดทำงาน โปรดลองอีกครั้งในภายหลัง.",
     "discord_integration/discord_guild_id": "ID เซิฟเวอร์ Discord",
     "discord_integration/discord_id_confirm": "โปรดเรียกใช้คำสั่ง \"/verify {{token}}\" ใน Discord เพื่อสิ้นสุดการเชื่อมโยงบัญชี Discord ของคุณ.",
     "discord_integration/discord_id_help": "สำหรับข้อมูลเกี่ยวกับตำแหน่งของ Discord ID โปรดอ่าน {{linkStart}}this.{{linkEnd}}",

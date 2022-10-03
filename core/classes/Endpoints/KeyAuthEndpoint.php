@@ -12,21 +12,21 @@ class KeyAuthEndpoint extends EndpointBase {
     /**
      * Determine if the passed API key (in Authorization header) is valid.
      *
-     * @param Nameless2API $api Instance of the Nameless2API class
+     * @param Radome2API $api Instance of the Radome2API class
      * @return bool Whether the API key is valid
      */
-    final public function isAuthorised(Nameless2API $api): bool {
+    final public function isAuthorised(Radome2API $api): bool {
         $auth_header = HttpUtils::getHeader('Authorization');
 
         if ($auth_header === null) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
+            $api->throwError(Radome2API::ERROR_MISSING_API_KEY, 'Missing authorization header');
         }
 
         $exploded = explode(' ', trim($auth_header));
 
         if (count($exploded) !== 2 ||
             strcasecmp($exploded[0], 'Bearer') !== 0) {
-            $api->throwError(Nameless2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
+            $api->throwError(Radome2API::ERROR_MISSING_API_KEY, 'Authorization header not in expected format');
         }
 
         $api_key = $exploded[1];
@@ -37,11 +37,11 @@ class KeyAuthEndpoint extends EndpointBase {
     /**
      * Validate provided API key to make sure it matches.
      *
-     * @param Nameless2API $api Instance of API to use for database connection.
+     * @param Radome2API $api Instance of API to use for database connection.
      * @param string $api_key API key to check.
      * @return bool Whether it matches or not.
      */
-    private function validateKey(Nameless2API $api, string $api_key): bool {
+    private function validateKey(Radome2API $api, string $api_key): bool {
         $correct_key = Util::getSetting('mc_api_key');
         if ($correct_key === null) {
             die('API key is null');

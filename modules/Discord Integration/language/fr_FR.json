@@ -42,7 +42,7 @@
     "discord_integration/discord_bot_check_logs": "Vous devez rechercher une erreur plus spécifique (si elle existe) dans StaffCP -> Sécurité -> Tous les journaux.",
     "discord_integration/discord_id_numeric": "Veuillez vous assurer que votre ID de serveur Discord est numérique (uniquement des chiffres).",
     "discord_integration/discord_id_set": "L'ID de Discord a été défini avec succès",
-    "discord_integration/discord_invite_info": "Pour inviter le bot Nameless Link sur votre serveur Discord, cliquez sur {{inviteLinkStart}} ici{{inviteLinkEnd}}. Ensuite, exécutez la commande {{command}} pour lier le robot à votre site Web. Vous pouvez également {{selfHostLinkStart}} héberger le robot vous-même{{selfHostLinkEnd}}.",
+    "discord_integration/discord_invite_info": "Pour inviter le bot Radome Link sur votre serveur Discord, cliquez sur {{inviteLinkStart}} ici{{inviteLinkEnd}}. Ensuite, exécutez la commande {{command}} pour lier le robot à votre site Web. Vous pouvez également {{selfHostLinkStart}} héberger le robot vous-même{{selfHostLinkEnd}}.",
     "discord_integration/discord_role_id_length": "L'identifiant de rôle Discord doit comporter 18 chiffres.",
     "discord_integration/discord_role_id_numeric": "L'ID de rôle Discord doit être numérique.",
     "discord_integration/discord_widget_disabled": "Le widget est désactivé pour le serveur Discord spécifié. Veuillez accéder à l'onglet \"Widget\" dans les paramètres de votre serveur Discord, et assurez-vous que le widget Discord est activé et que l'ID est correct.",

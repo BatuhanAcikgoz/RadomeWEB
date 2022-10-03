@@ -9,7 +9,7 @@
             </div>
             <div class="col-sm-5 mb-0">
                 <div class="float-right">
-                    <a class="ml-1" href="https://github.com/RadomeWEB/Nameless" target="_blank" data-toggle="tooltip"
+                    <a class="ml-1" href="https://github.com/RadomeWEB/Radome" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="{$SOURCE}"><i class="fab fa-github fa-fw text-github"></i></a>
                     <a class="ml-1" href="https://discord.gg/nameless" target="_blank" data-toggle="tooltip"
                         data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>

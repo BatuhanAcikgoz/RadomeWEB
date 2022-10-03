@@ -14,7 +14,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $query = 'SELECT u.id, u.username, u.isbanned AS banned, u.active FROM rw_users u';
         $where = [];
         $params = [];

@@ -15,7 +15,7 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user): void {
+    public function execute(Radome2API $api, User $user): void {
         $api->validateParams($_POST, ['username']);
 
         $fields = ['username' => $_POST['username']];

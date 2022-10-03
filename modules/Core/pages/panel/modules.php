@@ -51,11 +51,11 @@ if (!isset($_GET['action'])) {
         $template_array[] = [
             'name' => Output::getClean($module->getName()),
             'version' => Output::getClean($module->getVersion()),
-            'nameless_version' => Output::getClean($module->getNamelessVersion()),
+            'nameless_version' => Output::getClean($module->getRadomeVersion()),
             'author' => Output::getPurified($module->getAuthor()),
             'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($module->getAuthor())]),
-            'version_mismatch' => !Util::isCompatible($module->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'module_outdated', [
-                'intendedVersion' => Text::bold(Output::getClean($module->getNamelessVersion())),
+            'version_mismatch' => !Util::isCompatible($module->getRadomeVersion(), RADOME_VERSION) ? $language->get('admin', 'module_outdated', [
+                'intendedVersion' => Text::bold(Output::getClean($module->getRadomeVersion())),
                 'actualVersion' => Text::bold(RADOME_VERSION)
             ]) : false,
             'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
@@ -64,7 +64,7 @@ if (!isset($_GET['action'])) {
         ];
     }
 
-    // Get templates from Nameless website
+    // Get templates from Radome website
     $cache->setCache('all_templates');
     if ($cache->isCached('all_modules')) {
         $all_modules = $cache->retrieve('all_modules');

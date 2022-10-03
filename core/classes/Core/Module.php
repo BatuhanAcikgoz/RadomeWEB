@@ -170,7 +170,7 @@ abstract class Module {
      *
      * @return string The supported RadomeWEB version of this module.
      */
-    public function getNamelessVersion(): string {
+    public function getRadomeVersion(): string {
         return $this->_nameless_version;
     }
 }

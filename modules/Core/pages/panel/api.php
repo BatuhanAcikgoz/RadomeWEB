@@ -210,7 +210,7 @@ if (!isset($_GET['view'])) {
             'API_INFO' => $language->get('admin', 'api_info', [
                 'pluginLinkStart' => '<a href="https://plugin.radome.web.tr" target="_blank">',
                 'pluginLinkEnd' => '</a>',
-                'botLinkStart' => '<a href="https://github.com/RadomeWEB/Nameless-Link" target="_blank">',
+                'botLinkStart' => '<a href="https://github.com/RadomeWEB/Radome-Link" target="_blank">',
                 'botLinkEnd' => '</a>',
             ]),
             'INFO' => $language->get('general', 'info'),

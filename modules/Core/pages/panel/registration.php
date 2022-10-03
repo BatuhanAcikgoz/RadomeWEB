@@ -38,16 +38,16 @@ if (Input::exists()) {
 
             if (Input::get('action') == 'oauth') {
 
-                foreach (array_keys(NamelessOAuth::getInstance()->getProviders()) as $provider_name) {
+                foreach (array_keys(RadomeOAuth::getInstance()->getProviders()) as $provider_name) {
                     $client_id = Input::get("client-id-{$provider_name}");
                     $client_secret = Input::get("client-secret-{$provider_name}");
                     if ($client_id && $client_secret) {
-                        NamelessOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
+                        RadomeOAuth::getInstance()->setEnabled($provider_name, Input::get("enable-{$provider_name}") == 'on' ? 1 : 0);
                     } else {
-                        NamelessOAuth::getInstance()->setEnabled($provider_name, 0);
+                        RadomeOAuth::getInstance()->setEnabled($provider_name, 0);
                     }
 
-                    NamelessOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
+                    RadomeOAuth::getInstance()->setCredentials($provider_name, $client_id, $client_secret);
                 }
 
             } else {
@@ -153,11 +153,11 @@ foreach ($all_captcha_options as $option) {
 }
 
 $oauth_provider_data = [];
-foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
-    [$client_id, $client_secret] = NamelessOAuth::getInstance()->getCredentials($provider_name);
+foreach (RadomeOAuth::getInstance()->getProviders() as $provider_name => $provider_data) {
+    [$client_id, $client_secret] = RadomeOAuth::getInstance()->getCredentials($provider_name);
     $oauth_provider_data[$provider_name] = [
-        'enabled' => NamelessOAuth::getInstance()->isEnabled($provider_name),
-        'setup' => NamelessOAuth::getInstance()->isSetup($provider_name),
+        'enabled' => RadomeOAuth::getInstance()->isEnabled($provider_name),
+        'setup' => RadomeOAuth::getInstance()->isSetup($provider_name),
         'icon' => $provider_data['icon'],
         'client_id' => $client_id,
         'client_secret' => $client_secret,

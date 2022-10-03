@@ -8,7 +8,7 @@ class CreditsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, User $user): void {
+    public function execute(Radome2API $api, User $user): void {
         $customer = new Customer($user);
 
         $api->returnArray([

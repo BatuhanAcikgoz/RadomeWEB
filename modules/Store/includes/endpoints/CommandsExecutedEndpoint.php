@@ -8,7 +8,7 @@ class CommandsExecutedEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $commands = $_POST['commands'];
         if (!is_array($commands) || !count($commands)) {
             $api->throwError('store:no_commands_provided');

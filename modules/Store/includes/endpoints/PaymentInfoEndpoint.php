@@ -8,7 +8,7 @@ class PaymentInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_GET, ['id']);
 
         // Get payment

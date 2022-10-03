@@ -78,9 +78,9 @@ abstract class EndpointBase {
      * - NoAuthEndpoint to return true
      * - KeyAuthEndpoint to return true if the API key in header is valid
      *
-     * @param Nameless2API $api Instance of Nameless2API.
+     * @param Radome2API $api Instance of Radome2API.
      * @return bool
      */
-    abstract public function isAuthorised(Nameless2API $api): bool;
+    abstract public function isAuthorised(Radome2API $api): bool;
 
 }

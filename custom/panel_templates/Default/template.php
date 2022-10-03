@@ -4,7 +4,7 @@
  *  https://coldfiredzn.com
  *
  *  For RadomeWEB
- *  https://github.com/RadomeWEB/Nameless/
+ *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0
  *
  *  License: MIT
@@ -18,14 +18,14 @@ if (!class_exists('Default_Panel_Template')) {
 
         private Language $_language;
 
-        // Constructor - set template name, version, Nameless version and author here
+        // Constructor - set template name, version, Radome version and author here
         public function __construct(Smarty $smarty, Language $language) {
             $this->_language = $language;
 
             parent::__construct(
                 'Default',  // Template name
                 '2.0.2',  // Template version
-                '2.0.2',  // Nameless version template is made for
+                '2.0.2',  // Radome version template is made for
                 '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
             );
 

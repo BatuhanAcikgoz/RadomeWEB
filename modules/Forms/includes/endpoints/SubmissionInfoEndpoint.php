@@ -8,7 +8,7 @@ class SubmissionInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, Submission $submission): void {
+    public function execute(Radome2API $api, Submission $submission): void {
         $form = new Form($submission->data()->form_id);
         $status = new Status($submission->data()->status_id);
 

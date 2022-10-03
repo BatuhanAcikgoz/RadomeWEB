@@ -15,7 +15,7 @@ class AddGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user): void {
+    public function execute(Radome2API $api, User $user): void {
         $groups = $_POST['groups'];
         if ($groups === null || !count($groups)) {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_FIND_GROUP, 'No groups provided');

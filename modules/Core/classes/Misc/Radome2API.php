@@ -8,7 +8,7 @@
  * @version 2.0.0-pr13
  * @license MIT
  */
-class Nameless2API {
+class Radome2API {
 
     private DB $_db;
     private Language $_language;

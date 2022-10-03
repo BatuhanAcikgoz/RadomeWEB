@@ -8,7 +8,7 @@ class CreateOrderEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['customer', 'recipient', 'products']);
 
         $user != null;
@@ -32,7 +32,7 @@ class CreateOrderEndpoint extends KeyAuthEndpoint {
         $api->returnArray(['id' => $order->data()->id]);
     }
 
-    private function transformUser(Nameless2API $api, string $value) {
+    private function transformUser(Radome2API $api, string $value) {
         return Endpoints::getAllTransformers()['user']['transformer']($api, $value);
     }
 }

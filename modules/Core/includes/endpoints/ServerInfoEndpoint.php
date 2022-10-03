@@ -9,10 +9,10 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['server-id', 'max-memory', 'free-memory', 'allocated-memory']);
         if (!isset($_POST['players'])) {
-            $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS, 'players');
+            $api->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS, 'players');
         }
 
         $serverId = $_POST['server-id'];

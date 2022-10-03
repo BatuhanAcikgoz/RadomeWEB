@@ -56,8 +56,8 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
-                'intendedVersion' => Text::bold(Output::getClean($template->getNamelessVersion())),
+            'version_mismatch' => !Util::isCompatible($template->getRadomeVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
+                'intendedVersion' => Text::bold(Output::getClean($template->getRadomeVersion())),
                 'actualVersion' => Text::bold(RADOME_VERSION)
             ]) : false,
             'enabled' => $item->enabled,

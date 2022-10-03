@@ -8,7 +8,7 @@ class FormInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api, Form $form): void {
+    public function execute(Radome2API $api, Form $form): void {
         $return = [
             'id' => $form->data()->id,
             'url' => $form->data()->url,

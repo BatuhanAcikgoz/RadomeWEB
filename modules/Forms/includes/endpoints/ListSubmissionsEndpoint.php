@@ -8,7 +8,7 @@ class ListSubmissionsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $query = 'SELECT * FROM rw_forms_replies';
         $where = ' WHERE id <> 0';
         $order = ' ORDER BY `created` DESC';

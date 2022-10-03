@@ -29,9 +29,9 @@ class Endpoints {
      *
      * @param string $route Route to find endpoint for.
      * @param string $method HTTP method to find endpoint for.
-     * @param Nameless2API $api Instance of api instance to provide the endpoint.
+     * @param Radome2API $api Instance of api instance to provide the endpoint.
      */
-    public function handle(string $route, string $method, Nameless2API $api): void {
+    public function handle(string $route, string $method, Radome2API $api): void {
         $available_methods = [];
         $matched_endpoint = null;
 
@@ -46,8 +46,8 @@ class Endpoints {
                     if (!$endpoint->isAuthorised($api)) {
                         $api->throwError(
                             $endpoint->getAuthType() === EndpointBase::AUTH_TYPE_API_KEY
-                                ? Nameless2API::ERROR_INVALID_API_KEY
-                                : Nameless2API::ERROR_NOT_AUTHORIZED,
+                                ? Radome2API::ERROR_INVALID_API_KEY
+                                : Radome2API::ERROR_NOT_AUTHORIZED,
                             null,
                             403
                         );
@@ -74,10 +74,10 @@ class Endpoints {
         }
 
         if ($matched_endpoint !== null) {
-            $api->throwError(Nameless2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
+            $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
         }
 
-        $api->throwError(Nameless2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
+        $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this does not mean your API is not functioning!', 404);
     }
 
     /**

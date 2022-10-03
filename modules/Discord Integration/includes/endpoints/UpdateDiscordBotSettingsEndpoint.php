@@ -15,7 +15,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         if (isset($_POST['url'])) {
             try {
                 Util::setSetting('discord_bot_url', $_POST['url']);

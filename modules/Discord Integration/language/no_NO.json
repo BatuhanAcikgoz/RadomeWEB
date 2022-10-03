@@ -12,7 +12,7 @@
     "discord_integration/discord_bot_must_be_setup": "Kan ikke aktivere Discord-integrering før du har satt opp boten. For informasjon, vennligst {{linkStart}}klikk her{{linkEnd}}.",
     "discord_integration/discord_bot_setup": "Bot-oppsett",
     "discord_integration/discord_communication_error": "Det oppstod en feil under kommuniseringen med Discord-boten. Sjekk om boten er oppe, og at bot-URL-en er korrekt.",
-    "discord_integration/discord_database_error": "Nameless Link-databasen er nede for øyeblikket. Prøv igjen senere.",
+    "discord_integration/discord_database_error": "Radome Link-databasen er nede for øyeblikket. Prøv igjen senere.",
     "discord_integration/discord_guild_id": "Discord Server-ID",
     "discord_integration/discord_id_help": "For mer informasjon om hvordan man finner Discord-bruker-ID, vennligst les {{linkStart}}denne artikkelen.{{linkEnd}}",
     "discord_integration/discord_id_length": "Pass på at Discord-ID-en inneholder 18 tegn.",

@@ -4,7 +4,7 @@ const PAGE = 'oauth';
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!isset($_GET['provider'], $_GET['code'])) {
-    if (!array_key_exists($_GET['provider'], NamelessOAuth::getInstance()->getProvidersAvailable())) {
+    if (!array_key_exists($_GET['provider'], RadomeOAuth::getInstance()->getProvidersAvailable())) {
         ErrorHandler::logWarning("Invalid provider {$_GET['provider']}");
         Session::flash('home_error', $language->get('general', 'oauth_failed'));
         Redirect::to(URL::build('/'));
@@ -43,7 +43,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['tfa_code'])) {
 }
 
 $provider_name = $_GET['provider'];
-$provider = NamelessOAuth::getInstance()->getProviderInstance($provider_name);
+$provider = RadomeOAuth::getInstance()->getProviderInstance($provider_name);
 try {
     $token = $provider->getAccessToken('authorization_code', [
         'code' => $_GET['code']
@@ -66,11 +66,11 @@ try {
 }
 
 $oauth_user = $provider->getResourceOwner($token)->toArray();
-$provider_id = $oauth_user[NamelessOAuth::getInstance()->getUserIdName($provider_name)];
+$provider_id = $oauth_user[RadomeOAuth::getInstance()->getUserIdName($provider_name)];
 
 // register
 if (Session::get('oauth_method') === 'register') {
-    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/register'));
     }
@@ -87,12 +87,12 @@ if (Session::get('oauth_method') === 'register') {
 
 // login
 if (Session::get('oauth_method') === 'login') {
-    if (!NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (!RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/login'));
     }
 
-    $user_id = NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
+    $user_id = RadomeOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);
     $user = new User($user_id);
 
     // If the user has 2FA enabled, ask for those credentials
@@ -106,7 +106,7 @@ if (Session::get('oauth_method') === 'login') {
 
     // Log the user in
     if ((new User())->login(
-        NamelessOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
+        RadomeOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id),
         '', true, 'oauth'
     )) {
         Log::getInstance()->log(Log::Action('user/login'));
@@ -125,12 +125,12 @@ if (Session::get('oauth_method') === 'login') {
 
 // link
 if (Session::get('oauth_method') === 'link') {
-    if (NamelessOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
+    if (RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
         Redirect::to(URL::build('/user/oauth'));
     }
 
-    NamelessOAuth::getInstance()->saveUserProvider(
+    RadomeOAuth::getInstance()->saveUserProvider(
         $user->data()->id,
         $provider_name,
         $provider_id,

@@ -1,7 +1,7 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/samerton/Nameless-Infractions
+ *  https://github.com/samerton/Radome-Infractions
  *  RadomeWEB version 2.0.0-pr13
  *
  *  License: MIT

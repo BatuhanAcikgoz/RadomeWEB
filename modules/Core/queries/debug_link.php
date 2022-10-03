@@ -37,7 +37,7 @@ foreach ($modules as $item) {
         'enabled' => Util::isModuleEnabled($module->getName()),
         'author' => $module->getAuthor(),
         'module_version' => $module->getVersion(),
-        'radomeweb_version' => $module->getNamelessVersion(),
+        'radomeweb_version' => $module->getRadomeVersion(),
         'debug_info' => $module->getDebugInfo(),
     ];
 }
@@ -56,7 +56,7 @@ foreach ($templates_query as $fe_template) {
         'is_default' => (bool)$fe_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
-        'radomeweb_version' => $template->getNamelessVersion(),
+        'radomeweb_version' => $template->getRadomeVersion(),
     ];
 }
 
@@ -75,7 +75,7 @@ foreach ($panel_templates_query as $panel_template) {
         'is_default' => (bool)$panel_template->is_default,
         'author' => $template->getAuthor(),
         'template_version' => $template->getVersion(),
-        'radomeweb_version' => $template->getNamelessVersion(),
+        'radomeweb_version' => $template->getRadomeVersion(),
     ];
 }
 
@@ -151,8 +151,8 @@ foreach (Integrations::getInstance()->getAll() as $integration) {
 }
 
 $oauth_providers = [];
-$providers_available = array_keys(NamelessOAuth::getInstance()->getProvidersAvailable());
-foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $data) {
+$providers_available = array_keys(RadomeOAuth::getInstance()->getProvidersAvailable());
+foreach (RadomeOAuth::getInstance()->getProviders() as $provider_name => $data) {
     $oauth_providers[$provider_name] = [
         'provider_name' => $provider_name,
         'module' => $data['module'],
@@ -160,7 +160,7 @@ foreach (NamelessOAuth::getInstance()->getProviders() as $provider_name => $data
         'user_id_name' => $data['user_id_name'],
         'scope_id_name' => $data['scope_id_name'],
         'enabled' => in_array($provider_name, $providers_available),
-        'client_id' => NamelessOAuth::getInstance()->getCredentials($provider_name)[0],
+        'client_id' => RadomeOAuth::getInstance()->getCredentials($provider_name)[0],
     ];
 }
 

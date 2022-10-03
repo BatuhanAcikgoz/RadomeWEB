@@ -8,7 +8,7 @@ class ListPaymentsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $query = 'SELECT p.*, o.from_customer_id, o.to_customer_id FROM rw_store_payments AS p LEFT JOIN rw_store_orders AS o ON order_id=o.id';
         $where = ' WHERE p.id <> 0';
         $order = ' ORDER BY `created` DESC';

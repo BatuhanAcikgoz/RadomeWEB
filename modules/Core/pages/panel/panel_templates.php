@@ -46,8 +46,8 @@ if (!isset($_GET['action'])) {
             'version' => Output::getClean($template->getVersion()),
             'author' => $template->getAuthor(),
             'author_x' => $language->get('admin', 'author_x', ['author' => $template->getAuthor()]),
-            'version_mismatch' => !Util::isCompatible($template->getNamelessVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
-                'intendedVersion' => Output::getClean($template->getNamelessVersion()),
+            'version_mismatch' => !Util::isCompatible($template->getRadomeVersion(), RADOME_VERSION) ? $language->get('admin', 'template_outdated', [
+                'intendedVersion' => Output::getClean($template->getRadomeVersion()),
                 'actualVersion' => RADOME_VERSION,
             ]) : false,
             'enabled' => $item->enabled,
@@ -62,7 +62,7 @@ if (!isset($_GET['action'])) {
 
     $template = $current_template;
 
-    // Get templates from Nameless website
+    // Get templates from Radome website
     $cache->setCache('all_templates');
     if ($cache->isCached('all_panel_templates')) {
         $all_templates = $cache->retrieve('all_panel_templates');

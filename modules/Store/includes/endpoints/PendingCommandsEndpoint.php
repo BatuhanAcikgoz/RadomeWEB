@@ -8,7 +8,7 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $query = 'SELECT * FROM rw_store_pending_actions';
         $where = ' WHERE status = 0';
         $order = ' ORDER BY `order` ASC';

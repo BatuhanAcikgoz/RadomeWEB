@@ -147,7 +147,7 @@ abstract class TemplateBase {
      *
      * @return string RadomeWEB version of template.
      */
-    public function getNamelessVersion(): string {
+    public function getRadomeVersion(): string {
         return $this->_nameless_version;
     }
 

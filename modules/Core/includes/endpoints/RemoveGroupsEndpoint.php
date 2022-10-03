@@ -15,12 +15,12 @@ class RemoveGroupsEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, User $user): void {
+    public function execute(Radome2API $api, User $user): void {
         $api->validateParams($_POST, ['groups']);
 
         $groups = $_POST['groups'];
         if (!count($groups)) {
-            $api->throwError(Nameless2API::ERROR_INVALID_POST_CONTENTS);
+            $api->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS);
         }
 
         foreach ($groups as $group) {

@@ -17,7 +17,7 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['integration', 'code', 'identifier', 'username']);
 
         $integration = Integrations::getInstance()->getIntegration($_POST['integration']);

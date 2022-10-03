@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/RadomeWEB/Nameless/
+ *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0
  *
  *  License: MIT
@@ -479,14 +479,14 @@ class Core_Module extends Module {
             ]
         );
 
-        NamelessOAuth::getInstance()->registerProvider('discord', 'Core', [
+        RadomeOAuth::getInstance()->registerProvider('discord', 'Core', [
             'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
             'user_id_name' => 'id',
             'scope_id_name' => 'identify',
             'icon' => 'fab fa-discord',
         ]);
 
-        NamelessOAuth::getInstance()->registerProvider('google', 'Core', [
+        RadomeOAuth::getInstance()->registerProvider('google', 'Core', [
             'class' => \League\OAuth2\Client\Provider\Google::class,
             'user_id_name' => 'sub',
             'scope_id_name' => 'openid',
@@ -519,7 +519,7 @@ class Core_Module extends Module {
         GroupSyncManager::getInstance()->registerInjector(new RadomeWEBGroupSyncInjector);
         GroupSyncManager::getInstance()->registerInjector(new MinecraftGroupSyncInjector);
 
-        Endpoints::registerTransformer('user', 'Core', static function (Nameless2API $api, string $value) {
+        Endpoints::registerTransformer('user', 'Core', static function (Radome2API $api, string $value) {
             $lookup_data = explode(':', $value);
             if (count($lookup_data) === 1) {
                 // assume it is a radomeweb user id
@@ -535,7 +535,7 @@ class Core_Module extends Module {
                 } else if ($lookup_type === 'username') {
                     $column = 'username';
                 } else {
-                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid native lookup type: $value");
+                    $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, "invalid native lookup type: $value");
                 }
 
                 $user = new User($lookup_value, $column);
@@ -554,23 +554,23 @@ class Core_Module extends Module {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
+                        $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else if ($integration_lookup_type === 'integration_name') {
                         $integrationUser = new IntegrationUser($integration, $lookup_value, 'username');
                         if ($integrationUser->exists()) {
                             return $integrationUser->getUser();
                         }
 
-                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
+                        $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     } else {
-                        $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
+                        $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup name: $value");
                     }
                 } else {
-                    $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup type: $value");
+                    $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, "invalid integration lookup type: $value");
                 }
             }
 
-            $api->throwError(Nameless2API::ERROR_CANNOT_FIND_USER, $value);
+            $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER, $value);
         });
 
         // Minecraft Integration

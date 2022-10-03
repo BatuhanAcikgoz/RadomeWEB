@@ -218,7 +218,7 @@ class Util {
     }
 
     /**
-     * Check for Nameless updates.
+     * Check for Radome updates.
      *
      * @return string|UpdateCheck Object with information about any updates, or error message.
      */
@@ -255,7 +255,7 @@ class Util {
     }
 
     /**
-     * Get the latest Nameless news.
+     * Get the latest Radome news.
      *
      * @return string RadomeWEB news in JSON.
      */

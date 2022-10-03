@@ -5,8 +5,8 @@
             <div class="ui centered grid">
                 <div class="ten wide column">
                     <div class="ui warning message">
-                        It appears Nameless has already been installed. If you
-                        want to re-install Nameless, you should remove the
+                        It appears Radome has already been installed. If you
+                        want to re-install Radome, you should remove the
                         database tables and the configuration file located at:
                         <span class="ui basic label">/core/config.php</span>
                     </div>

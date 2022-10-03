@@ -8,7 +8,7 @@ class CreatePaymentEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $api->validateParams($_POST, ['order', 'amount', 'currency']);
 
         $order = new Order($_POST['order']);

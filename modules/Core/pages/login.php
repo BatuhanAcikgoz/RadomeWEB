@@ -295,8 +295,8 @@ $smarty->assign([
     'ERROR_TITLE' => $language->get('general', 'error'),
     'ERROR' => ($return_error ?? []),
     'NOT_REGISTERED_YET' => $language->get('general', 'not_registered_yet'),
-    'OAUTH_AVAILABLE' => NamelessOAuth::getInstance()->isAvailable(),
-    'OAUTH_PROVIDERS' => NamelessOAuth::getInstance()->getProvidersAvailable(),
+    'OAUTH_AVAILABLE' => RadomeOAuth::getInstance()->isAvailable(),
+    'OAUTH_PROVIDERS' => RadomeOAuth::getInstance()->getProvidersAvailable(),
     'OR' => $language->get('general', 'or'),
 ]);
 

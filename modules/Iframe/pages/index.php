@@ -1,7 +1,7 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/RadomeWEB/Nameless/tree/v2/
+ *  https://github.com/RadomeWEB/Radome/tree/v2/
  *  RadomeWEB version 2.0.0-pr7
  *
  *  License: MIT

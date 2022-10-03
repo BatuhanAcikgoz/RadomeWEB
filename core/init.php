@@ -9,7 +9,7 @@
  *  Initialisation file
  */
 
-// Nameless error handling
+// Radome error handling
 set_exception_handler([ErrorHandler::class, 'catchException']);
 // catchError() used for throw_error or any exceptions which may be missed by catchException()
 set_error_handler([ErrorHandler::class, 'catchError']);
@@ -121,7 +121,7 @@ if ($page != 'install') {
         DebugBarHelper::getInstance()->enable($smarty);
     }
 
-    // Get the Nameless version
+    // Get the Radome version
     define('RADOME_VERSION', Util::getSetting('nameless_version'));
 
     // Set the date format

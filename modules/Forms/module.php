@@ -1,7 +1,7 @@
 <?php 
 /*
  *  Made by Partydragen
- *  https://github.com/partydragen/Nameless-Forms
+ *  https://github.com/partydragen/Radome-Forms
  *  RadomeWEB version 2.0.1
  *
  *  License: MIT
@@ -107,7 +107,7 @@ class Forms_Module extends Module {
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Forms/includes/endpoints');
 
-        Endpoints::registerTransformer('form', 'Forms', static function (Nameless2API $api, string $value) {
+        Endpoints::registerTransformer('form', 'Forms', static function (Radome2API $api, string $value) {
             if (is_numeric($value)) {
                 // Get form by id
                 $form = new Form($value);
@@ -123,7 +123,7 @@ class Forms_Module extends Module {
             $api->throwError(FormsApiErrors::ERROR_FORM_NOT_FOUND);
         });
 
-        Endpoints::registerTransformer('submission', 'Forms', static function (Nameless2API $api, string $value) {
+        Endpoints::registerTransformer('submission', 'Forms', static function (Radome2API $api, string $value) {
             $submission = new Submission($value);
             if ($submission->exists()) {
                 return $submission;

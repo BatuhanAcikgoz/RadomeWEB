@@ -2,7 +2,7 @@
 
 /*
  *  Made by Aberdeener
- *  https://github.com/RadomeWEB/Nameless/
+ *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0-pr13
  *
  *  License: MIT
@@ -25,7 +25,7 @@ if (Input::exists()) {
         $provider_name = Input::get('provider');
 
         if (Input::get('action') === 'unlink') {
-            NamelessOAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
+            RadomeOAuth::getInstance()->unlinkProviderForUser($user->data()->id, $provider_name);
             Session::flash('oauth_success', $language->get('user', 'oauth_unlinked'));
         }
     } else {
@@ -36,8 +36,8 @@ if (Input::exists()) {
 
 Session::put('oauth_method', 'link');
 
-$providers = NamelessOAuth::getInstance()->getProvidersAvailable();
-$user_providers = NamelessOAuth::getInstance()->getAllProvidersForUser($user->data()->id);
+$providers = RadomeOAuth::getInstance()->getProvidersAvailable();
+$user_providers = RadomeOAuth::getInstance()->getAllProvidersForUser($user->data()->id);
 
 $user_providers_template = [];
 foreach ($user_providers as $user_provider) {

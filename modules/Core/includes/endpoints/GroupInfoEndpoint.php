@@ -15,7 +15,7 @@ class GroupInfoEndpoint extends KeyAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $query = 'SELECT id, name, staff, `order` FROM rw_groups';
         $where = '';
         $order = ' ORDER BY `order`';

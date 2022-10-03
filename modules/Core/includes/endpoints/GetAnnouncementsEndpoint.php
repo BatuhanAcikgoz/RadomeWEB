@@ -12,7 +12,7 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
         $this->_method = 'GET';
     }
 
-    public function execute(Nameless2API $api): void {
+    public function execute(Radome2API $api): void {
         $guest_announcements = [];
 
         $announcements = new Announcements(
