@@ -261,6 +261,11 @@ class DatabaseInitialiser {
             'site' => 'https://topg.org/tr/',
             'name' => 'TOPG (Örnek)'
         ]);
+        DB::getInstance()->insert('settings', [
+            'name' => 'discord',
+            'value' => '821855877514133504',
+            'module' => NULL
+        ]);
         DB::getInstance()->insert('vote_settings', [
             'name' => 'vote_message',
             'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'

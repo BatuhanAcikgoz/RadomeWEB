@@ -7,7 +7,7 @@
 
 $radomeweb_local_version = "1.0";
 $coldfire_url = "https://verira.com";
-$support_url = "https://verira.com/dc";
+$support_url = "https://discord.verira.com/";
 
 $radomeweb_settings_array = array(
 
@@ -42,8 +42,8 @@ $radomeweb_settings_array = array(
     array('wb_s1', '6011d988377d4a3489af570b2397ea61', 'THEME_WB_S1'),
     array('wb_s2', '449bfe5d39ea407eb52bfb8f093f2637', 'THEME_WB_S2'),
     array('wb_s3', 'ce5a752ace874b029464de883a8495c5', 'THEME_WB_S3'),
-    array('wb_s4', '432d956ef18649d0bdc71995842c58ae', 'THEME_WB_S4'),
-    array('wb_s5', '0a609248009f4486b7a4e349cb72cbbb', 'THEME_WB_S5'),
+    array('wb_s4', 'bf232ed38a564985a05f71d2f5a6d0e1', 'THEME_WB_S4'),
+    array('wb_s5', 'a62ddc8186f84298adb290bbea5d0932', 'THEME_WB_S5'),
     array('wb_s6', 'd77c98db8636414ab844195c996127fb', 'THEME_WB_S6'),
     array('wb_t', ' Sunucumuza hoşgeldin!', 'THEME_WB_T'),
     array('wb_d', 'Sunucumuza katılmak için giriş yapabilir veya hesabın yoksa kayıt olabilirsin.', 'THEME_WB_D'),
