@@ -678,6 +678,7 @@ class DatabaseInitialiser {
             'forum_title' => 'Haberler',
             'forum_description' => 'Sunucumuz hakkında haberler!',
             'forum_order' => 1,
+            'parent' => 1,
             'forum_type' => 'forum',
             'news' => 1
         ]);
@@ -697,12 +698,54 @@ class DatabaseInitialiser {
             'topic_id' => 1,
             'post_creator' => 1,
             'post_content' => Output::getClean(
-                'deneme'
+                '<p>RadomeWEB Gelişmiş Minecraft WebScripti</p>
+                <ul>
+                <li>🙋 Haberler</li>
+                <li>🧭 Destek sistemi</li>
+                <li>🔨 AdvancedBan, LiteBans banlarını sitede g&ouml;r&uuml;nt&uuml;leme</li>
+                <li>🛒 Mağaza sistemi ile &uuml;r&uuml;nler ekleme &uuml;r&uuml;nleri kategorize etme ve VeriraAPI, PayTR ile &ouml;deme alma imkanı</li>
+                <li>📃 IFrame destekli &ouml;zel sayfalar ile sitenizde kendi sayfalarınızı oluşturabilirsiniz</li>
+                <li>👥 OAuth desteği ile siteye discord veya google hesabı kullanarak kayıt olabilirsiniz</li>
+                <li>🎮 Minecraft entegrasyonu
+                <ul>
+                <li>Bedrock veya Java edition sunucularınızın durumunu g&ouml;r&uuml;nt&uuml;leyin</li>
+                <li>RadomeWEB Eklentisi
+                <ul>
+                <li>Mağaza bağlantısı ile sunucuya komut g&ouml;nderme</li>
+                <li>Vault ranklarını RadomeWEB ile eşitleme ( oyundan -&gt; siteye )</li>
+                <li>Oyun sohbetinde site duyurularını g&ouml;r&uuml;nt&uuml;leme</li>
+                <li>Authme desteği ile site i&ccedil;erisinden kayıt olma</li>
+                <li>Siteden yasaklanan oyuncunun sunucudan da yasaklanması &ouml;zelliği</li>
+                <li>PlaceholderAPI datalarını siteye g&ouml;nderip Lider Tablosunda g&ouml;sterme &ouml;zelliği.</li>
+                </ul>
+                </li>
+                </ul>
+                </li>
+                <li>🗨️ Discord entegrasyonu
+                <ul>
+                <li>Webhook: Satın alımlar. kredi yatıranlar, yeni destek a&ccedil;anlar, siteye kayıt olanlar, siteden ceza yiyenler gibi daha bir &ccedil;ok şeyi discord sunucunuzda g&ouml;sterebilirsiniz.</li>
+                <li>Radome-DiscordBOT
+                <ul>
+                <li>RadomeWEB ile discord hesaplarını linkleme</li>
+                <li>Discord rolleri ile site rollerini eşitleme</li>
+                </ul>
+                </li>
+                </ul>
+                </li>
+                <li>⚙️ PHP 8 ve PDO kapalı kaynak altyapısı sayesinde a&ccedil;ıksız bir site deneyimi</li>
+                <li>✨ SEO y&ouml;neticisi ile sitenizi googleda bir adım &ouml;ne taşıyın.</li>
+                <li>🗺️ Widget: Widget ile sitenizde &ccedil;oğu şeyi g&ouml;r&uuml;nt&uuml;leyebilirsiniz: ( Son satın alımlar, Discord, Sunucu durumu, Site İstatistiği vs. )</li>
+                <li>🖌️ &Ouml;zelleştirilebilir tema: site renklerini, slider ayarlarını, g&ouml;rselleri, başlıkları ve daha bir &ccedil;ok şeyi admin panelinden d&uuml;zenleyebilirsiniz</li>
+                <li>🚩 İngilizce ve T&uuml;rk&ccedil;e dil desteği</li>
+                </ul>
+                <h4>&nbsp;</h4>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>'
             ),
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U')
         ]);
-
+        
         // Permissions
         for ($i = 0; $i < 4; $i++) {
             for ($n = 1; $n < 3; $n++) {
