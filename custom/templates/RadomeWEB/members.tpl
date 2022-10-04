@@ -33,9 +33,9 @@
                                 {foreach from=$MEMBERS item=member}
                                     <tr>
                                         <td><a href="{$member.profile}"><img src="{$member.avatar}" class="avatar-img"
-                                                    style="height:35px; width:35px;" alt="{$member.nickname}" /></a> <a
+                                                    style="height:35px; width:35px;" alt="{$member.username}" /></a> <a
                                                 style="color:{$member.group_colour};"
-                                                href="{$member.profile}">{$member.nickname}</a></td>
+                                                href="{$member.profile}">{$member.username}</a></td>
                                         <td>{foreach from=$member.groups item=group}{$group}{/foreach}</td>
                                         <td>{$member.joined}</td>
                                     </tr>
