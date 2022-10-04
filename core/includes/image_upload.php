@@ -131,14 +131,6 @@ if ($image['file']) {
                     unlink($file);
                 }
             }
-
-            $user->update([
-                'has_avatar' => true,
-                'avatar_updated' => date('U')
-            ]);
-
-            Session::flash('settings_success', $language->get('user', 'avatar_set_successfully'));
-            Redirect::to(URL::build('/user/settings'));
         }
 
         if (Input::get('type') === 'avatar') {
