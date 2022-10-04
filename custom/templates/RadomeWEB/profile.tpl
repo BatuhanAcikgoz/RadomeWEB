@@ -270,19 +270,6 @@
                             <input type="hidden" name="action" value="banner">
                         </form>
                         <hr />
-                        {if isset($PROFILE_BANNER)}
-                            <hr />
-                            <strong>{$UPLOAD_PROFILE_BANNER}</strong>
-                            <form class="inline-form" action="{$UPLOAD_BANNER_URL}" method="post" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label class="btn btn-secondary upload-banner-btn">{$BROWSE}<input type="file" name="file" hidden /></label>
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="hidden" name="type" value="profile_banner">
-                                    <button type="submit" class="btn btn-theme">{$UPLOAD}</button>
-                                </div>
-                            </form>
-                            <hr />
-                        {/if}
                         <button type="button" onclick="document.updateBanner.submit()" class="btn btn-theme">{$SUBMIT}</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
                     </div>
