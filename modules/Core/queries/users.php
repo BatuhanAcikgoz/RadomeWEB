@@ -10,7 +10,7 @@ if (!isset($_GET['search']) || strlen($_GET['search']) < 3) {
 
 $query = '%' . $_GET['search'] . '%';
 
-$users = DB::getInstance()->query('SELECT id, username, nickname FROM rw_users WHERE username LIKE ? OR nickname LIKE ?', [
+$users = DB::getInstance()->query('SELECT id, username FROM rw_users WHERE username LIKE ?', [
     $query, $query
 ]);
 
