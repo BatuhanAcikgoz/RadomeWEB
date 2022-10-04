@@ -71,13 +71,6 @@ $smarty->assign([
     'MINECRAFT_ENABLED' => $minecraft_enabled
 ]);
 
-if ($minecraft_enabled == 1) {
-    if ($user->hasPermission('admincp.minecraft.authme')) {
-        $smarty->assign([
-            'AUTHME' => $language->get('admin', 'authme_integration'),
-            'AUTHME_LINK' => URL::build('/panel/minecraft/authme')
-        ]);
-    }
 
     if ($user->hasPermission('admincp.minecraft.verification')) {
         $smarty->assign([
