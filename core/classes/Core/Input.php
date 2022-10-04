@@ -83,15 +83,15 @@ class Input {
                                 columns: 1,
                                 fetch: function (pattern) {
                                     return new tinymce.util.Promise(function (resolve) {
-                                        fetch('" . URL::build('/queries/mention_users', 'nickname') . "=' + pattern)
+                                        fetch('" . URL::build('/queries/mention_users', 'username') . "=' + pattern)
                                             .then((resp) => resp.json())
                                             .then(function (data) {
                                                 const results = [];
     
                                                 for (const user of data) {
                                                     results.push({
-                                                        value: '@' + user.nickname,
-                                                        text: user.nickname,
+                                                        value: '@' + user.username,
+                                                        text: user.username,
                                                         icon: '<img style=\"height:20px; width:20px;\" src=\"' + user.avatar_url + '\">'
                                                     });
                                                 }
