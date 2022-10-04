@@ -6,12 +6,12 @@ if (!$user->isLoggedIn() || !$user->hasPermission('admincp.users')) {
     die(json_encode('Unauthenticated'));
 }
 
-$sortColumns = ['username' => 'username', 'nickname' => 'nickname', 'joined' => 'joined'];
+$sortColumns = ['username' => 'username', 'joined' => 'joined'];
 
 $db = DB::getInstance();
 
 $total = $db->query('SELECT COUNT(*) as `total` FROM rw_users', [])->first()->total;
-$query = 'SELECT u.id, u.username, u.nickname, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(rw_users_integrations.identifier, \'none\') as uuid FROM rw_users u LEFT JOIN rw_users_integrations ON user_id=u.id AND integration_id=1';
+$query = 'SELECT u.id, u.username, u.joined, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(rw_users_integrations.identifier, \'none\') as uuid FROM rw_users u LEFT JOIN rw_users_integrations ON user_id=u.id AND integration_id=1';
 $where = '';
 $order = '';
 $limit = '';
