@@ -65,9 +65,13 @@ if (page !== '') {
 
     } else if (page === 'profile') {
 
-        $('#imageModal').on('show.bs.modal', function(e) {
-            $("select").imagepicker();
-        });
+        function showBannerSelect() {
+            $('#imageModal').modal({
+                onVisible: function () {
+                    $("select").imagepicker();
+                }
+            }).modal('show');
+        }
 
         if (loggedIn == 1) {
 
