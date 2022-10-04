@@ -277,6 +277,7 @@ class User {
         return null;
     }
 
+
     /**
      * Log the user in.
      *
@@ -390,13 +391,15 @@ class User {
     /**
      * Get user's display name.
      *
-     * @param bool $username If true, will use their username. If false, will use their .
+     * @param bool $username If true, will use their username. If false, will use their nickname.
      * @return string Their display name.
      */
     public function getDisplayname(bool $username = false): string {
         if ($username) {
             return Output::getClean($this->data()->username);
         }
+
+        return Output::getClean($this->data()->username);
     }
 
     /**
