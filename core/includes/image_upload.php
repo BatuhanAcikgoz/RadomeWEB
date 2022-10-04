@@ -143,7 +143,7 @@ if ($image['file']) {
 
         if (Input::get('type') === 'profile_banner') {
             $user->update([
-                'banner' => Output::getClean($user->data()->id)
+                'banner' => Output::getClean('deneme')
             ]);
 
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
