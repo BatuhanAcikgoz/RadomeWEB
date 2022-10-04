@@ -269,6 +269,7 @@
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <input type="hidden" name="action" value="banner">
                         </form>
+                        <hr />
                         <button type="button" onclick="document.updateBanner.submit()" class="btn btn-theme">{$SUBMIT}</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
                     </div>
