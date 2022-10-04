@@ -73,7 +73,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
         $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
         $pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
-        $pages->add('Core', '/panel/core/profile_fields', 'pages/panel/profile_fields.php');
         $pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
         $pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
@@ -81,7 +80,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/emails/mass_message', 'pages/panel/emails_mass_message.php');
         $pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
         $pages->add('Core', '/panel/core/privacy_and_terms', 'pages/panel/privacy_and_terms.php');
-        $pages->add('Core', '/panel/core/reactions', 'pages/panel/reactions.php');
         $pages->add('Core', '/panel/core/registration', 'pages/panel/registration.php');
         $pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
         $pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
@@ -1091,17 +1089,6 @@ class Core_Module extends Module {
                     $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', null, $icon, $order);
                 }
 
-                if ($user->hasPermission('admincp.core.fields')) {
-                    if (!$cache->isCached('custom_profile_fields_icon')) {
-                        $icon = '<i class="nav-icon fas fa-id-card"></i>';
-                        $cache->store('custom_profile_fields_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('custom_profile_fields_icon');
-                    }
-
-                    $navs[2]->addItemToDropdown('core_configuration', 'custom_profile_fields', $language->get('admin', 'custom_fields'), URL::build('/panel/core/profile_fields'), 'top', null, $icon, $order);
-                }
-
                 if ($user->hasPermission('admincp.core.debugging')) {
                     if (!$cache->isCached('debugging_icon')) {
                         $icon = '<i class="nav-icon fas fa-tachometer-alt"></i>';
@@ -1144,17 +1131,6 @@ class Core_Module extends Module {
                     }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
-                }
-
-                if ($user->hasPermission('admincp.core.reactions')) {
-                    if (!$cache->isCached('reactions_icon')) {
-                        $icon = '<i class="nav-icon fas fa-smile"></i>';
-                        $cache->store('reactions_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('reactions_icon');
-                    }
-
-                    $navs[2]->addItemToDropdown('core_configuration', 'reactions', $language->get('user', 'reactions'), URL::build('/panel/core/reactions'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {

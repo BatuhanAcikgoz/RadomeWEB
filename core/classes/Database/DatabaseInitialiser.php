@@ -16,7 +16,6 @@ class DatabaseInitialiser {
         $instance->initialiseLanguages();
         $instance->initialiseModules();
         $instance->initialiseIntegrations();
-        $instance->initialiseReactions();
         $instance->initialiseSettings();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
@@ -547,28 +546,6 @@ class DatabaseInitialiser {
         ]);
     }
 
-    private function initialiseReactions(): void {
-        $this->_db->insert('reactions', [
-            'name' => 'Like',
-            'html' => '<i class="fas fa-thumbs-up text-success"></i>',
-            'enabled' => true,
-            'type' => 2
-        ]);
-
-        $this->_db->insert('reactions', [
-            'name' => 'Dislike',
-            'html' => '<i class="fas fa-thumbs-down text-danger"></i>',
-            'enabled' => true,
-            'type' => 0
-        ]);
-
-        $this->_db->insert('reactions', [
-            'name' => 'Meh',
-            'html' => '<i class="fas fa-meh text-warning"></i>',
-            'enabled' => true,
-            'type' => 1
-        ]);
-    }
 
     private function initialiseSettings(): void {
         Util::setSetting('registration_enabled', '1');
