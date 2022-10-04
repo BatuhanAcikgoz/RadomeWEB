@@ -4,7 +4,7 @@ if (!$user->isLoggedIn()) {
     die(json_encode(['error' => 'Unauthenticated']));
 }
 
-if (!isset($_GET['search']) || strlen($_GET['search']) < 3) {
+if (!isset($_GET['search']) || strlen($_GET['search']) < 2) {
     die(json_encode(['error' => 'Please enter a search query of at least 3 characters']));
 }
 
