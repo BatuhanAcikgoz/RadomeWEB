@@ -71,6 +71,7 @@ $smarty->assign([
     'MINECRAFT_ENABLED' => $minecraft_enabled
 ]);
 
+if ($minecraft_enabled == 1) {
 
     if ($user->hasPermission('admincp.minecraft.verification')) {
         $smarty->assign([
