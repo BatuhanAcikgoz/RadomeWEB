@@ -26,7 +26,7 @@
                     <div class="col-md-7">
                         <h2>
                             <img class="avatar-img" style="height:60px;width:60px;" src="{$AVATAR}" />
-                            <strong{if $USERNAME_COLOUR !=false} style="{$USERNAME_COLOUR}" {/if}>{$NICKNAME}</strong>
+                            <strong{if $USERNAME_COLOUR !=false} style="{$USERNAME_COLOUR}" {/if}>{$USERNAME}</strong>
                             {foreach from=$GROUPS item=group} {$group}{/foreach}
                         </h2>
                     </div>
@@ -93,7 +93,7 @@
                                                 <img class="avatar-img" style="height:40px; width:40px;" src="{$post.avatar}" />
                                             </div>
                                             <div class="panel-heading">
-                                                <h2 class="panel-title panel-title-inline"><a href="{$post.profile}" style="{$post.user_style}" data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top">{$post.nickname}</a></h2>
+                                                <h2 class="panel-title panel-title-inline"><a href="{$post.profile}" style="{$post.user_style}" data-poload="{$USER_INFO_URL}{$post.user_id}" data-html="true" data-placement="top">{$post.username}</a></h2>
                                                 <span class="pull-right" rel="tooltip" data-original-title="{$post.date}">{$post.date_rough}</span>
                                             </div>
                                             <div class="panel-body">
@@ -102,7 +102,7 @@
                                                 </div>
                                             </div>
                                             <div class="panel-footer">
-                                                <a href="{if $post.reactions_link ne " # "}{$post.reactions_link}{else}#{/if}" class="grey-link" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="avatar-img" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.nickname}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'>
+                                                <a href="{if $post.reactions_link ne " # "}{$post.reactions_link}{else}#{/if}" class="grey-link" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="avatar-img" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.username}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'>
                                                     <i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a class="grey-link" href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
                                                 <span class="float-right">
                                                     {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
@@ -165,7 +165,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         {if isset($post.replies.replies)} {foreach from=$post.replies.replies name=replies item=reply}
-                                                            <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="avatar-img" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.nickname}</a>
+                                                            <img src="{$reply.avatar}" alt="{$reply.username}" style="max-height:20px; max-width:20px;" class="avatar-img" /> <a href="{$reply.profile}" style="{$reply.style}">{$reply.username}</a>
                                                             <span class="pull-right">
                                                                 <span rel="tooltip" title="{$reply.time_full}">{$reply.time_friendly}</span>
                                                             </span>

@@ -10,7 +10,7 @@
                         <div class="card-header" style="border-radius: 10px" id="headingReport{$i}">
                             <h5 class="mb-0">
                                 <button class="btn btn-link btn-block btn-accordion" data-toggle="collapse" data-target="#collapseReport{$i}" aria-expanded="true" aria-controls="collapseReport{$i}">
-                                    <span style="{$report.reported_style}"><img src="{$report.reported_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reported_username}" /> {$report.reported_nickname}</span>
+                                    <span style="{$report.reported_style}"><img src="{$report.reported_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reported_username}" /> {$report.reported_username}</span>
                                     {if $report.type eq 0}
                                         <span class="badge badge-info">{$WEBSITE}</span>
                                     {else}
@@ -20,7 +20,7 @@
                             </h5>
                             <div id="collapseReport{$i}" class="collapse text-center" aria-labelledby="collapseReport{$i}" data-parent="#accordion">
                                 {$CREATED} <span data-toggle="tooltip" data-title="{$report.time_full}">{$report.time}</span><br />
-                                {$REPORTED_BY} <span style="{$report.reporter_style}">{$report.reporter_nickname}  <img src="{$report.reporter_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reporter_username}" /></span><br />
+                                {$REPORTED_BY} <span style="{$report.reporter_style}">{$report.reporter_username}  <img src="{$report.reporter_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reporter_username}" /></span><br />
                                 {$REASON} {$report.reason}
                                 <hr />
                                 <a class="btn btn-primary btn-block text-white" href="{$report.url}">{$VIEW}</a>

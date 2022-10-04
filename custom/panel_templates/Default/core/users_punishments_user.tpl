@@ -91,7 +91,7 @@
                                     <span class="badge badge-success">{$ACKNOWLEDGED}</span>
                                     {/if}
                                     <a href="{$punishment.issued_by_profile}"
-                                        style="{$punishment.issued_by_style}">{$punishment.issued_by_nickname}</a>
+                                        style="{$punishment.issued_by_style}">{$punishment.issued_by_username}</a>
                                     <span class="pull-right"><span data-toggle="tooltip"
                                             data-original-title="{$punishment.date_full}">{$punishment.date_friendly}</span></span>
                                 </div>

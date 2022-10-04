@@ -37,7 +37,7 @@
                                                             src="{$topic.reply_author_avatar}">
                                                         <a href="{$topic.reply_author_link}" data-toggle="popup"
                                                             data-poload="{$USER_INFO_URL}{$topic.reply_author_id}"
-                                                            style="{$topic.reply_author_style}">{$topic.reply_author_nickname}</a>
+                                                            style="{$topic.reply_author_style}">{$topic.reply_author_username}</a>
                                                         <div data-toggle="tooltip" data-content="{$topic.reply_date_full}">
                                                             {$topic.reply_date}
                                                         </div>

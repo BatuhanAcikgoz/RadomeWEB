@@ -131,7 +131,7 @@
                 {foreach from=$reply.post_reactions name=reactions item=reaction}
                 <strong>{$reaction.html} x {$reaction.count}:</strong>
                 <br />{foreach from=$reaction.users item=user}
-                <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="avatar-img" style="height:20px;width:20px;" alt="{$user.username}"/> {$user.nickname}</a>
+                <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="avatar-img" style="height:20px;width:20px;" alt="{$user.username}"/> {$user.username}</a>
                 <br/> {/foreach} {if !($smarty.foreach.reactions.last)}
                 <hr/> {/if} {/foreach}
             </div>

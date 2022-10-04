@@ -89,12 +89,12 @@
                                 </div>
                                 {if $DISPLAYNAMES eq true}
                                 <div class="form-group">
-                                    <label for="InputUsername">{$NICKNAME}</label>
-                                    <input type="text" name="nickname" class="form-control" id="InputUsername"
-                                        placeholder="{$NICKNAME}" value="{$NICKNAME_VALUE}">
+                                    <label for="InputUsername">{$USERNAME}</label>
+                                    <input type="text" name="username" class="form-control" id="InputUsername"
+                                        placeholder="{$USERNAME}" value="{$USERNAME_VALUE}">
                                 </div>
                                 {else}
-                                <input type="hidden" name="nickname" value="{$NICKNAME_VALUE}">
+                                <input type="hidden" name="username" value="{$USERNAME_VALUE}">
                                 {/if}
                                 <div class="form-group">
                                     <label for="InputEmail">{$EMAIL_ADDRESS}</label>

@@ -4,7 +4,7 @@
             <a href="{$PROFILE}"><img src="{$AVATAR}" alt="{$USERNAME}" class="avatar-img popover-img"/></a>
         </div>
         <div class="col-8">
-            <a href="{$PROFILE}" style="font-size: 16px; {$STYLE}"><b>{$NICKNAME}</b></a><br /> {if count($GROUPS)} {foreach from=$GROUPS item=group}
+            <a href="{$PROFILE}" style="font-size: 16px; {$STYLE}"><b>{$USERNAME}</b></a><br /> {if count($GROUPS)} {foreach from=$GROUPS item=group}
             <span class="popover-15px">{$group}</span> {/foreach} {else}
             <div class="badge badge-secondary popover-15px">{$GUEST}</div>
             {/if}

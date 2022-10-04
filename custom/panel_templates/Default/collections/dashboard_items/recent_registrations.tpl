@@ -10,7 +10,7 @@
                 <div class="card-header" style="border-radius: 10px" id="headingRegistration{$i}">
                     <h5 class="mb-0">
                         <button class="btn btn-link btn-block btn-accordion" data-toggle="collapse" data-target="#collapseRegistration{$i}" aria-expanded="true" aria-controls="collapseRegistration{$i}">
-                                    <span style="{$registration.style}"><img src="{$registration.avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$registration.username}" /> {$registration.nickname}</span>
+                                    <span style="{$registration.style}"><img src="{$registration.avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$registration.username}" /> {$registration.username}</span>
                                     {$registration.groups[0]}
                         </button>
                     </h5>

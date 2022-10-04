@@ -44,7 +44,7 @@
                         <tbody>
                             {foreach from=$RESULTS item=result}
                             <tr>
-                                <td>{if $result.exists eq true}<img src="{$result.avatar}" style="max-height:25px;max-width:25px;" class="avatar-img" alt="{$result.name}" /> <a href="{$result.profile}" style="{$result.user_style}">{$result.nickname}</a>{else}<img src="{$result.avatar}" style="max-height:25px;max-width:25px;" class="rounded-circle" alt="{$result.name}" /> {$result.name}{/if}</td>
+                                <td>{if $result.exists eq true}<img src="{$result.avatar}" style="max-height:25px;max-width:25px;" class="avatar-img" alt="{$result.name}" /> <a href="{$result.profile}" style="{$result.user_style}">{$result.username}</a>{else}<img src="{$result.avatar}" style="max-height:25px;max-width:25px;" class="rounded-circle" alt="{$result.name}" /> {$result.name}{/if}</td>
                                 <td>{$result.daily}</td>
                                 <td>{$result.weekly}</td>
                                 <td>{$result.monthly}</td>

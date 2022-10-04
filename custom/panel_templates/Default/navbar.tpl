@@ -51,7 +51,7 @@
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link" href="{$LOGGED_IN_USER.panel_profile}">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{$LOGGED_IN_USER.nickname}</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{$LOGGED_IN_USER.username}</span>
                 <img class="img-profile rounded-circle" src="{$LOGGED_IN_USER.avatar}" alt="{$LOGGED_IN_USER.username}">
             </a>
         </li>

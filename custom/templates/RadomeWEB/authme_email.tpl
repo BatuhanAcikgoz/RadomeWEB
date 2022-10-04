@@ -19,10 +19,10 @@
                     <label for="inputEmail">{$EMAIL}</label>
                     <input type="email" id="inputEmail" name="email" class="form-control" placeholder="{$EMAIL}">
                 </div>
-                {if isset($NICKNAME)}
+                {if isset($USERNAME)}
                 <div class="form-group">
-                    <label for="inputNickname">{$NICKNAME}</label>
-                    <input type="text" id="inputNickname" name="nickname" class="form-control" placeholder="{$NICKNAME}">
+                    <label for="inputNickname">{$USERNAME}</label>
+                    <input type="text" id="inputNickname" name="username" class="form-control" placeholder="{$USERNAME}">
                 </div>
                 {/if}
                 <div class="form-group">

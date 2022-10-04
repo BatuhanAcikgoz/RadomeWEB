@@ -27,7 +27,7 @@
     {foreach from=$FRIENDS.list item=$friend}
     <div class="col-md-3 text-center mb-3">
         <img src="{$friend.avatar}" class="avatar-img friend-img">
-        <a style="{$friend.style}" href="{$friend.profile}">{$friend.nickname}</a>
+        <a style="{$friend.style}" href="{$friend.profile}">{$friend.username}</a>
     </div>
     {/foreach}
 </div>

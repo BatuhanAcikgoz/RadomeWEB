@@ -67,12 +67,12 @@
                                         <tr>
                                             <td><a href="{$result.profile}" style="{$result.style}"><img
                                                         src="{$result.avatar}" class="rounded"
-                                                        style="max-width:25px;max-height:25px;"> {$result.nickname}
+                                                        style="max-width:25px;max-height:25px;"> {$result.username}
                                                 </a></td>
                                             <td><a href="{$result.staff_profile}" style="{$result.staff_style}"><img
                                                         src="{$result.staff_avatar}" class="rounded"
                                                         style="max-width:25px;max-height:25px;">
-                                                    {$result.staff_nickname}
+                                                    {$result.staff_username}
                                                 </a></td>
                                             <td>
                                                 {if $result.type_numeric == 1}

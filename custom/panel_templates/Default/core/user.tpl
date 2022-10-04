@@ -22,10 +22,10 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">{$NICKNAME}</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{$USERNAME}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$NICKNAME}</li>
+                            <li class="breadcrumb-item active">{$USERNAME}</li>
                         </ol>
                     </div>
 
@@ -43,7 +43,7 @@
                                         <img class="profile-user-img rounded-circle" src="{$AVATAR}" alt="{$USERNAME}">
                                     </div>
 
-                                    <h4 class="text-center" style="{$USER_STYLE}">{$NICKNAME}</h4>
+                                    <h4 class="text-center" style="{$USER_STYLE}">{$USERNAME}</h4>
 
                                     <p class="text-muted text-center">{foreach from=$USER_GROUPS item=item}{$item}
                                         {/foreach}</p>
@@ -85,9 +85,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="nickname">{$NICKNAME_LABEL}</label>
-                                                <input id="nickname" type="text" class="form-control"
-                                                    value="{$NICKNAME}" readonly>
+                                                <label for="username">{$USERNAME_LABEL}</label>
+                                                <input id="username" type="text" class="form-control"
+                                                    value="{$USERNAME}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
