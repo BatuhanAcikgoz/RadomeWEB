@@ -19,7 +19,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
     public function execute(Radome2API $api, User $user): void {
         $discord_enabled = Util::isModuleEnabled('Discord Integration');
 
-        $query = 'SELECT rw_users.id, rw_users.username, rw_languages.short_code as `locale`, rw_users.nickname as displayname, rw_users.joined as registered_timestamp, rw_users.last_online as last_online_timestamp, rw_users.isbanned as banned, rw_users.active as validated, rw_users.user_title as user_title FROM rw_users LEFT JOIN rw_languages ON rw_users.language_id = rw_languages.id';
+        $query = 'SELECT rw_users.id, rw_users.username, rw_languages.short_code as displayname, rw_users.joined as registered_timestamp, rw_users.last_online as last_online_timestamp, rw_users.isbanned as banned, rw_users.active as validated, rw_users.user_title as user_title FROM rw_users LEFT JOIN rw_languages ON rw_users.language_id = rw_languages.id';
 
         // Ensure the user exists
         $results = $api->getDb()->query($query . ' WHERE rw_users.id = ?', [(int) $user->data()->id]);

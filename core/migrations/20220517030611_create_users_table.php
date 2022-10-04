@@ -11,7 +11,6 @@ final class CreateUsersTable extends AbstractMigration
 
         $table
             ->addColumn('username', 'string', ['length' => 20])
-            ->addColumn('nickname', 'string', ['length' => 255])
             ->addColumn('password', 'string', ['length' => 255])
             ->addColumn('pass_method', 'string', ['length' => 12, 'default' => 'default'])
             ->addColumn('joined', 'integer', ['length' => 11])

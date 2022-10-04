@@ -302,7 +302,6 @@ if (Input::exists()) {
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,
                 'username' => $user->data()->username,
-                'nickname' => $user->data()->nickname,
                 'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
                     'topic' => $topic->topic_title,
                     'author' => $user->getDisplayname(),
@@ -313,7 +312,6 @@ if (Input::exists()) {
                 'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
                 'topic_author_username' => $topic_user->data()->username,
-                'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
                 'available_hooks' => $available_hooks === null ? [] : $available_hooks
@@ -329,8 +327,8 @@ if (Input::exists()) {
                             Alert::create(
                                 $user_following->user_id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/topic/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
@@ -685,7 +683,6 @@ foreach ($results->data as $n => $nValue) {
                 $reaction_user = new User($item->user_given);
                 $post_reactions[$item->reaction_id]['users'][] = [
                     'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
                     'style' => $reaction_user->getGroupStyle(),
                     'avatar' => $reaction_user->getAvatar(),
                     'profile' => $reaction_user->getProfileURL()

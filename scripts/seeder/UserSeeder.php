@@ -13,7 +13,6 @@ class UserSeeder extends Seeder {
 
         $db->insert('users', [
             'username' => 'admin',
-            'nickname' => 'admin',
             'password' => $password,
             'pass_method' => 'default',
             'joined' => date('U'),
@@ -50,7 +49,6 @@ class UserSeeder extends Seeder {
 
             $db->insert('users', [
                 'username' => $username,
-                'nickname' => $faker->boolean ? $username : $full_name,
                 'password' => $password,
                 'email' => $faker->email,
                 'isbanned' => $faker->boolean(20) ? 1 : 0,

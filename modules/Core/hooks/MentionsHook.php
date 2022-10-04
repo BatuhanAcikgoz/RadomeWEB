@@ -43,7 +43,7 @@ class MentionsHook extends HookBase {
                 '/\[user\](.*?)\[\/user\]/ism',
                 static function (array $match) {
                     if (isset(MentionsHook::$_cache[$match[1]])) {
-                        [$userId, $userStyle, $userNickname, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
+                        [$userId, $userStyle, $userProfileUrl] = MentionsHook::$_cache[$match[1]];
                     } else {
                         $user = new User($match[1]);
 
@@ -53,13 +53,12 @@ class MentionsHook extends HookBase {
 
                         $userId = $user->data()->id;
                         $userStyle = $user->getGroupStyle();
-                        $userNickname = $user->data()->nickname;
                         $userProfileUrl = $user->getProfileURL();
 
-                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userNickname, $userProfileUrl];
+                        MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userProfileUrl];
                     }
 
-                    return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . Output::getClean($userNickname) . '</a>';
+                    return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . '</a>';
                 },
                 $params['content']
             );

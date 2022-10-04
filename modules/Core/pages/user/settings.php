@@ -169,23 +169,6 @@ if (isset($_GET['do'])) {
                     ]
                 ];
 
-                // Permission to use nickname?
-                if ($user->hasPermission('usercp.nickname')) {
-                    $to_validate['nickname'] = [
-                        Validate::REQUIRED => true,
-                        Validate::UNIQUE => [
-                            'users',
-                            'id:' . $user->data()->id // ignore current user
-                        ],
-                        Validate::MIN => 3,
-                        Validate::MAX => 20
-                    ];
-
-                    $displayname = Output::getClean(Input::get('nickname'));
-                } else {
-                    $displayname = $user->data()->username;
-                }
-
                 // Get a list of required profile fields
                 $profile_fields = $user->getProfileFields(true);
                 foreach ($profile_fields as $field) {
@@ -206,12 +189,6 @@ if (isset($_GET['do'])) {
                     $_POST, $to_validate
                 )->messages([
                     'signature' => $language->get('user', 'signature_max_900'),
-                    'nickname' => [
-                        Validate::REQUIRED => $language->get('user', 'nickname_required'),
-                        Validate::UNIQUE => $language->get('user', 'nickname_already_exists'),
-                        Validate::MIN => $language->get('user', 'nickname_minimum_3'),
-                        Validate::MAX => $language->get('user', 'nickname_maximum_20')
-                    ],
                     'timezone' => $language->get('general', 'invalid_timezone'),
                     // fallback message for required profile fields
                     '*' => static function ($field) use ($language) {

@@ -94,19 +94,6 @@
                                 </select>
                             </div>
                         {/if}
-                        {foreach from=$PROFILE_FIELDS item=field}
-                            <div class="form-group">
-                                {if !isset($field.disabled)}
-                                    <label for="input{$field.id}">{$field.name}</label> {if $field.type == "text"}
-                                        <input type="text" class="form-control" name="{$field.id}" id="input{$field.id}"
-                                        value="{$field.value}" placeholder="{$field.name}"> {else if $field.type == "textarea"}
-                                        <textarea class="form-control" name="{$field.id}"
-                                        id="input{$field.id}">{$field.value}</textarea> {else if $field.type == "date"}
-                                        <input name="{$field.id}" id="input{$field.id}" value="{$field.value}" type="text"
-                                        class="form-control datepicker"> {/if}
-                                {/if}
-                            </div>
-                        {/foreach}
                         {if isset($SIGNATURE)}
                             <label for="inputSignature">{$SIGNATURE}</label> {if !isset($MARKDOWN)}
                                 <textarea style="width:100%" name="signature" id="inputSignature"

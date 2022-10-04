@@ -481,7 +481,6 @@ try {
             DB::getInstance()->insert('users', [
                 'id' => $item->id,
                 'username' => $item->mcname,
-                'nickname' => $item->username,
                 'password' => $item->password,
                 'pass_method' => $item->pass_method,
                 'joined' => $item->joined,

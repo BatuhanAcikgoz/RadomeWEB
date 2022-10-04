@@ -88,7 +88,6 @@ if (isset($_GET['uid'])) {
                 if (count($username)) {
                     $accounts[] = [
                         'username' => Output::getClean($username[0]->username),
-                        'nickname' => Output::getClean($username[0]->nickname),
                         'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
                         'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
                         'style' => $user->getGroupStyle()
@@ -118,11 +117,6 @@ if (isset($_GET['uid'])) {
             if (Token::check()) {
                 // Search
                 $query = DB::getInstance()->get('users', ['username', Output::getClean(Input::get('search'))])->results();
-
-                if (!count($query)) {
-                    // Try nickname
-                    $query = DB::getInstance()->get('users', ['nickname', Output::getClean(Input::get('search'))])->results();
-                }
 
                 if (count($query)) {
                     Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($query[0]->id)));

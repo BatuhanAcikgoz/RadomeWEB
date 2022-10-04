@@ -601,7 +601,6 @@ if ($page != 'install') {
         // Basic user variables
         $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
-            'nickname' => $user->getDisplayname(),
             'profile' => $user->getProfileURL(),
             'panel_profile' => URL::build('/panel/user/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
             'username_style' => $user->getGroupStyle(),

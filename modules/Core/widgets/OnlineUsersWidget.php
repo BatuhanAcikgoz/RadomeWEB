@@ -39,19 +39,12 @@ class OnlineUsersWidget extends WidgetBase {
 
         if ($this->_cache->isCached('users')) {
             $online = $this->_cache->retrieve('users');
-            $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
         } else {
             if ($this->_cache->isCached('include_staff_in_users')) {
                 $include_staff = $this->_cache->retrieve('include_staff_in_users');
             } else {
                 $include_staff = 0;
                 $this->_cache->store('include_staff_in_users', 0);
-            }
-            if ($this->_cache->isCached('show_nickname_instead')) {
-                $use_nickname_show = $this->_cache->retrieve('show_nickname_instead');
-            } else {
-                $use_nickname_show = 0;
-                $this->_cache->store('show_nickname_instead', 0);
             }
 
             if ($include_staff) {
@@ -74,7 +67,6 @@ class OnlineUsersWidget extends WidgetBase {
                         'profile' => $online_user->getProfileURL(),
                         'style' => $online_user->getGroupStyle(),
                         'username' => $online_user->getDisplayname(true),
-                        'nickname' => $online_user->getDisplayname(),
                         'avatar' => $online_user->getAvatar(),
                         'id' => Output::getClean($online_user->data()->id),
                         'title' => Output::getClean($online_user->data()->user_title),
@@ -84,7 +76,6 @@ class OnlineUsersWidget extends WidgetBase {
             }
 
             $this->_smarty->assign([
-                'SHOW_NICKNAME_INSTEAD' => $use_nickname_show,
                 'ONLINE_USERS' => $this->_language->get('general', 'online_users'),
                 'ONLINE_USERS_LIST' => $users,
                 'TOTAL_ONLINE_USERS' => $this->_language->get('general', 'total_online_users', ['count' => count($users)])

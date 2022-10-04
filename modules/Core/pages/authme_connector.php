@@ -29,12 +29,6 @@ if (Input::exists()) {
             // Are custom usernames enabled?
             if (Util::getSetting('displaynames') === '1') {
                 $validation = Validate::check($_POST, [
-                    'nickname' => [
-                        Validate::REQUIRED => true,
-                        Validate::MIN => 3,
-                        Validate::MAX => 20,
-                        Validate::UNIQUE => 'users'
-                    ],
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 4,
@@ -89,12 +83,6 @@ if (Input::exists()) {
                     // Valid IP
                 } else {
                     $ip = $_SESSION['authme']['ip'];
-                }
-
-                if ($custom_usernames == 'true') {
-                    $nickname = Input::get('nickname');
-                } else {
-                    $nickname = $_SESSION['authme']['user'];
                 }
 
                 $mcname = Output::getClean($_SESSION['authme']['user']);

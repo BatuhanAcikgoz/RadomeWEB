@@ -278,24 +278,6 @@ class User {
     }
 
     /**
-     * Get a user's nickname from their ID.
-     *
-     * @param int $id Their ID.
-     *
-     * @return ?string Their nickname, null on failure.
-     */
-    public function idToNickname(int $id): ?string {
-        $data = $this->_db->get('users', ['id', $id]);
-
-        if ($data->count()) {
-            $results = $data->results();
-            return $results[0]->nickname;
-        }
-
-        return null;
-    }
-
-    /**
      * Log the user in.
      *
      * @param string|null $username Their username (or email, depending on $method).
@@ -415,8 +397,6 @@ class User {
         if ($username) {
             return Output::getClean($this->data()->username);
         }
-
-        return Output::getClean($this->data()->nickname);
     }
 
     /**

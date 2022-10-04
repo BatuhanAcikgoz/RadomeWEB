@@ -97,7 +97,6 @@ if (!isset($_GET['step'])) {
 
                 $user->create([
                     'username' => $username,
-                    'nickname' => $_SESSION['mcassoc']['username'],
                     'password' => $password,
                     'pass_method' => 'default',
                     'joined' => date('U'),

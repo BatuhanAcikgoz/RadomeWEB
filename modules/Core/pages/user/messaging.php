@@ -70,7 +70,7 @@ if (!isset($_GET['action'])) {
         $participants = '';
 
         foreach ($nValue['users'] as $item) {
-            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToName($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 
@@ -178,7 +178,7 @@ if (!isset($_GET['action'])) {
                             $username = $item;
                         }
 
-                        if ($username == $user->data()->nickname || $username == $user->data()->username) {
+                        if ($username == $user->data()->username) {
                             unset($users[$n]);
                             continue;
                         }

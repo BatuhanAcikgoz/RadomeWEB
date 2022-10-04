@@ -29,7 +29,7 @@ class MentionsParser {
                 $user = null;
 
                 while (($possible_username != '') && !$user) {
-                    $user = new User($possible_username, 'nickname');
+                    $user = new User($possible_username);
 
                     if ($user->exists()) {
                         $value = preg_replace('/' . preg_quote("@$possible_username", '/') . '/', '[user]' . $user->data()->id . '[/user]', $value);

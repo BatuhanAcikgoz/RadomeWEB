@@ -104,11 +104,6 @@ if (Input::exists()) {
                     Validate::MIN => 3,
                     Validate::MAX => 20
                 ],
-                'nickname' => [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 3,
-                    Validate::MAX => 20
-                ]
             ])->messages([
                 'email' => [
                     Validate::REQUIRED => $language->get('user', 'email_required'),
@@ -120,11 +115,6 @@ if (Input::exists()) {
                     Validate::UNIQUE => $language->get('user', 'username_already_exists'),
                     Validate::MIN => $language->get('user', 'mcname_minimum_3'),
                     Validate::MAX => $language->get('user', 'mcname_maximum_20')
-                ],
-                'nickname' => [
-                    Validate::REQUIRED => $language->get('user', 'username_required'),
-                    Validate::MIN => $language->get('user', 'username_minimum_3'),
-                    Validate::MAX => $language->get('user', 'username_maximum_20')
                 ]
             ]);
 
@@ -152,16 +142,9 @@ if (Input::exists()) {
                         $new_template = $user_query->theme_id;
                     }
 
-                    // Nicknames?
                     $username = Input::get('username');
-                    if (Util::getSetting('displaynames') === '1') {
-                        $nickname = Input::get('nickname');
-                    } else {
-                        $nickname = Input::get('username');
-                    }
 
                     $view_user->update([
-                        'nickname' => Output::getClean($nickname),
                         'email' => Output::getClean(Input::get('email')),
                         'username' => Output::getClean($username),
                         'user_title' => Output::getClean(Input::get('title')),
@@ -330,7 +313,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'EDITING_USER' => $language->get('admin', 'editing_user_x', [
-        'user' => Output::getClean($user_query->nickname),
+        'user' => Output::getClean($user_query->username),
     ]),
     'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
@@ -339,8 +322,6 @@ $smarty->assign([
     'DISPLAYNAMES' => Util::getSetting('displaynames') === '1',
     'USERNAME' => $language->get('user', 'username'),
     'USERNAME_VALUE' => Output::getClean($user_query->username),
-    'NICKNAME' => $language->get('user', 'nickname'),
-    'NICKNAME_VALUE' => Output::getClean($user_query->nickname),
     'EMAIL_ADDRESS' => $language->get('user', 'email_address'),
     'EMAIL_ADDRESS_VALUE' => Output::getClean($user_query->email),
     'USER_TITLE' => $language->get('admin', 'title'),
