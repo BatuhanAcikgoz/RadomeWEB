@@ -141,10 +141,6 @@ if (!isset($_GET['id'])) {
         }
     }
 
-    if (isset($_GET['uid'])) {
-        $smarty->assign('VIEWING_USER', Output::getClean($user->idToNickname((int)$_GET['uid'])));
-    }
-
     // Smarty variables
     $smarty->assign([
         'ALL_REPORTS' => $reports,

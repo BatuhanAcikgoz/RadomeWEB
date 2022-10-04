@@ -52,7 +52,6 @@ class StatsWidget extends WidgetBase {
                 'profile' => $latest_user->getProfileURL(),
                 'avatar' => $latest_user->getAvatar(),
                 'username' => $latest_user->getDisplayname(true),
-                'nickname' => $latest_user->getDisplayname(),
                 'id' => Output::getClean($users_query[0]->id)
             ];
 

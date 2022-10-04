@@ -266,7 +266,6 @@ if (isset($_GET['do'])) {
                             'language_id' => $new_language,
                             'timezone' => $timezone,
                             'signature' => $signature,
-                            'nickname' => $displayname,
                             'private_profile' => $privateProfile,
                             'theme_id' => $new_template,
                             'gravatar' => $gravatar
@@ -467,23 +466,6 @@ if (isset($_GET['do'])) {
             'id' => Output::getClean($item->id),
             'active' => $item->id === $user->data()->theme_id,
             'name' => Output::getClean($item->name)
-        ];
-    }
-
-    // Get custom fields
-    $custom_fields_template = [];
-    if ($user->hasPermission('usercp.nickname')) {
-        $custom_fields_template['nickname'] = [
-            'name' => $language->get('user', 'nickname'),
-            'value' => Output::getClean($user->data()->nickname),
-            'id' => 'nickname',
-            'type' => 'text'
-        ];
-    } else {
-        $custom_fields_template['nickname'] = [
-            'nickname' => [
-                'disabled' => true
-            ]
         ];
     }
 

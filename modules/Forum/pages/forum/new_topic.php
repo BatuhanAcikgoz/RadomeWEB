@@ -206,7 +206,6 @@ if (Input::exists()) {
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
                     'username' => $user->getDisplayname(true),
-                    'nickname' => $user->getDisplayname(),
                     'content' => $default_forum_language->get('forum', 'new_topic_text', [
                         'forum' => $forum_title,
                         'author' => $user->getDisplayname(),

@@ -115,7 +115,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             } else {
                 $user->update([
                     'username' => $player['name'],
-                    'nickname' => $player['name']
                 ]);
             }
         }

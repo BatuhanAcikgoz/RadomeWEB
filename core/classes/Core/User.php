@@ -390,7 +390,7 @@ class User {
     /**
      * Get user's display name.
      *
-     * @param bool $username If true, will use their username. If false, will use their nickname.
+     * @param bool $username If true, will use their username. If false, will use their .
      * @return string Their display name.
      */
     public function getDisplayname(bool $username = false): string {

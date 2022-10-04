@@ -8,6 +8,7 @@ if (!$user->isLoggedIn()) {
 
 $users = DB::getInstance()->query(
     'SELECT u.id, u.username, u.gravatar, u.email, u.has_avatar, u.avatar_updated, IFNULL(rw_users_integrations.identifier, \'none\') as uuid FROM rw_users u LEFT JOIN rw_users_integrations ON user_id=u.id AND integration_id=1 WHERE u.username LIKE ?',
+    ["{$_GET['username']}%", "{$_GET['username']}%"]
 )->results();
 
 $users_json = [];

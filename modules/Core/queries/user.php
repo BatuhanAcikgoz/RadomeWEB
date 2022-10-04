@@ -11,7 +11,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 if (!is_numeric($_GET['id'])) {
     // Username
     $username = Output::getClean($_GET['id']);
-    $nickname = $username;
     $profile = URL::build('/profile/' . $username);
     $avatar = (isset($_GET['uuid']) ? AvatarSource::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : AvatarSource::getAvatarFromUUID($username));
     $style = '';
@@ -21,7 +20,7 @@ if (!is_numeric($_GET['id'])) {
     $cache->setCache('user_query');
 
     if ($cache->isCached($_GET['id'])) {
-        [$username, $nickname, $profile, $avatar, $style, $groups, $id] = $cache->retrieve($_GET['id']);
+        [$username, $profile, $avatar, $style, $groups, $id] = $cache->retrieve($_GET['id']);
 
     } else {
         $target_user = new User($_GET['id']);
@@ -30,21 +29,19 @@ if (!is_numeric($_GET['id'])) {
         }
 
         $username = $target_user->getDisplayname(true);
-        $nickname = $target_user->getDisplayname();
         $profile = $target_user->getProfileURL();
         $avatar = $target_user->getAvatar();
         $style = $target_user->getGroupStyle();
         $groups = $target_user->getAllGroupHtml();
         $id = Output::getClean($target_user->data()->id);
 
-        $cache->store($_GET['id'], [$username, $nickname, $profile, $avatar, $style, $groups, $id], 60);
+        $cache->store($_GET['id'], [$username, $profile, $avatar, $style, $groups, $id], 60);
     }
 }
 
 $smarty->assign([
     'PROFILE' => $profile,
     'USERNAME' => $username,
-    'NICKNAME' => $nickname,
     'AVATAR' => $avatar,
     'STYLE' => $style,
     'GROUPS' => $groups,
@@ -60,7 +57,6 @@ echo json_encode([
     'id' => $id,
     'profile' => $profile,
     'username' => $username,
-    'nickname' => $nickname,
     'avatar' => $avatar,
     'style' => $style,
     'groups' => $groups,

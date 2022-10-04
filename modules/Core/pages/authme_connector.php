@@ -116,7 +116,6 @@ if (Input::exists()) {
 
                         $user->create([
                             'username' => $_SESSION['authme']['user'],
-                            'nickname' => $nickname,
                             'password' => $_SESSION['authme']['pass'],
                             'pass_method' => $authme_hash['hash'],
                             'joined' => date('U'),
@@ -353,7 +352,6 @@ if (!isset($_GET['step'])) {
     // Are custom usernames enabled?
     if (Util::getSetting('displaynames') === '1') {
         $info = $language->get('user', 'authme_email_help_2');
-        $smarty->assign('NICKNAME', $language->get('user', 'username'));
     } else {
         $info = $language->get('user', 'authme_email_help_1');
     }

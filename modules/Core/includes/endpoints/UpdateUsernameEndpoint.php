@@ -20,10 +20,6 @@ class UpdateUsernameEndpoint extends KeyAuthEndpoint {
 
         $fields = ['username' => $_POST['username']];
 
-        if (Util::getSetting('displaynames') !== '1') {
-            $fields['nickname'] = $_POST['username'];
-        }
-
         try {
             $api->getDb()->update('users', $user->data()->id, $fields);
         } catch (Exception $e) {

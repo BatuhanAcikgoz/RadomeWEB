@@ -279,8 +279,6 @@ $smarty->assign([
     'FORCE_HTTPS_HELP' => $language->get('admin', 'force_https_help'),
     'FORCE_WWW' => $language->get('admin', 'force_www'),
     'FORCE_WWW_VALUE' => (defined('FORCE_WWW')),
-    'ENABLE_NICKNAMES' => $language->get('admin', 'enable_nicknames_on_registration'),
-    'ENABLE_NICKNAMES_VALUE' => $displaynames,
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),

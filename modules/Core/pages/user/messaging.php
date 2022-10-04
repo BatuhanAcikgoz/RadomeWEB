@@ -462,7 +462,7 @@ if (!isset($_GET['action'])) {
         $participants = '';
 
         foreach ($pm[1] as $item) {
-            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToNickname($item)) . '</a>, ';
+            $participants .= '<a href="' . URL::build('/profile/' . urlencode($user->idToName($item))) . '">' . Output::getClean($user->idToName($item)) . '</a>, ';
         }
         $participants = rtrim($participants, ', ');
 

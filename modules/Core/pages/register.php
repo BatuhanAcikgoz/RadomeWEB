@@ -154,18 +154,6 @@ if (Input::exists()) {
                 // ]
             ];
 
-            if (Util::getSetting('displaynames') === '1') {
-                // Nickname enabled
-                $to_validation['nickname'] = [
-                    Validate::REQUIRED => true,
-                    Validate::MIN => 3,
-                    Validate::MAX => 20,
-                    Validate::UNIQUE => 'users'
-                ];
-                $nickname = Output::getClean(Input::get('nickname'));
-            } else {
-                $nickname = Output::getClean(Input::get('username'));
-            }
             $username = Output::getClean(Input::get('username'));
 
             // Validate custom fields
@@ -317,7 +305,6 @@ if (Input::exists()) {
                         // Create user
                         $user->create([
                             'username' => $username,
-                            'nickname' => $nickname,
                             'password' => $password,
                             'pass_method' => 'default',
                             'joined' => $date,
@@ -416,13 +403,6 @@ if (isset($errors)) {
 }
 
 $fields = new Fields();
-
-// Are custom usernames enabled?
-if (Util::getSetting('displaynames') === '1') {
-    $nickname_value = ((isset($_POST['nickname']) && $_POST['nickname']) ? Output::getClean(Input::get('nickname')) : '');
-
-    $fields->add('nickname', Fields::TEXT, $language->get('user', 'nickname'), true, $nickname_value);
-}
 
 $username_value = ((isset($_POST['username']) && $_POST['username']) ? Output::getClean(Input::get('username')) : '');
 $email_value = ((isset($_POST['email']) && $_POST['email']) ? Output::getClean(Input::get('email')) : '');

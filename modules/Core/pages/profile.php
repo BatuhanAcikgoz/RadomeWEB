@@ -565,7 +565,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $smarty->assign([
-        'NICKNAME' => $profile_user->getDisplayname(true),
         'USERNAME' => $profile_user->getDisplayname(),
         'GROUPS' => (isset($query) ? $profile_user->getAllGroupHtml() : [Output::getPurified($group)]),
         'USERNAME_COLOUR' => $profile_user->getGroupStyle(),
@@ -643,7 +642,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $reactions['reactions'][] = [
                         'user_id' => Output::getClean($reaction->user_id),
                         'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
                         'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
@@ -669,7 +667,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
                         'username' => $target_user->getDisplayname(true),
-                        'nickname' => $target_user->getDisplayname(),
                         'style' => $target_user->getGroupStyle(),
                         'profile' => $target_user->getProfileURL(),
                         'avatar' => $target_user->getAvatar(500),
@@ -690,7 +687,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'id' => $nValue->id,
                 'user_id' => Output::getClean($post_user[0]->id),
                 'username' => $target_user->getDisplayname(true),
-                'nickname' => $target_user->getDisplayname(),
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),

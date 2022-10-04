@@ -11,7 +11,6 @@ class UserData {
 
     public int $id;
     public string $username;
-    public string $nickname;
     public string $password;
     public string $pass_method;
     public int $joined;
@@ -44,7 +43,6 @@ class UserData {
     public function __construct(object $row) {
         $this->id = $row->id;
         $this->username = $row->username;
-        $this->nickname = $row->nickname;
         $this->password = $row->password;
         $this->pass_method = $row->pass_method;
         $this->joined = $row->joined;

@@ -168,7 +168,6 @@ $email = getEnvVar('RADOME_ADMIN_EMAIL');
 $user = new User();
 $user->create([
     'username' => $username,
-    'nickname' => $username,
     'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]),
     'pass_method' => 'default',
     'joined' => date('U'),
