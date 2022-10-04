@@ -93,7 +93,6 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
-        $pages->add('Core', '/panel/minecraft/account_verification', 'pages/panel/minecraft_account_verification.php');
         $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
