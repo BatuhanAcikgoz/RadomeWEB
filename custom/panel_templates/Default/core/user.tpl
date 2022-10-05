@@ -78,16 +78,15 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="title">{$USER_TITLE_LABEL}</label>
-                                                <input id="title" type="text" class="form-control" value="{$USER_TITLE}"
-                                                    readonly>
+                                                <label for="username">{$USERNAME_LABEL}</label>
+                                                <input id="username" type="text" class="form-control"
+                                                    value="{$USERNAME}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="language">{$LANGUAGE_LABEL}</label>
-                                                <input id="language" type="text" class="form-control"
-                                                    value="{$LANGUAGE}" readonly>
+                                            <label for="credits">{$CREDITS}</label>
+                                            <input id="credits" type="number" class="form-control" value="{$CREDITS_VALUE}" readonly>
                                             </div>
                                         </div>
                                         {if isset($EMAIL_ADDRESS)}
