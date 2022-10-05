@@ -16,7 +16,6 @@ if (!$user->handlePanelPageLoad()) {
 
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
-$customer = new Customer($view_user);
 
 if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
@@ -44,27 +43,6 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
-
-    $this->_db = DB::getInstance();
-
-    if ($user != null && $user->exists()) {
-        // Load customer by RadomeWEB User
-        if (!$this->find($user->data()->id, 'user_id')) {
-            // Customer data for RadomeWEB User missing, Register it
-            $this->create(['user_id' => $user->data()->id, 'integration_id' => 0]);
-        }
-
-        $this->_user = $user;
-    } else if ($value != null) {
-        $this->find($value, $field);
-
-    } else if (Session::exists('store_customer')) {
-        $customer = Session::get('store_customer');
-
-        if ($this->find($customer, 'id')) {
-            $this->_isLoggedIn = true;
-        }
-    }
 
 if (isset($success)) {
     $smarty->assign([
@@ -114,7 +92,7 @@ $smarty->assign([
     'LANGUAGE' => Output::getClean($user_language),
     'TIMEZONE' => Output::getClean($user_query->timezone),
     'CREDITS' => $store_language->get('general', 'credits'),
-    'CREDITS_VALUE' => $customer->getCredits(),
+    'CREDITS_VALUE' => $user->getCredits(),
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
