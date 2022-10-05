@@ -45,24 +45,26 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-if ($user != null && $user->exists()) {
-    // Load customer by RadomeWEB User
-    if (!$this->find($user->data()->id, 'user_id')) {
-        // Customer data for RadomeWEB User missing, Register it
-        $this->create(['user_id' => $user->data()->id, 'integration_id' => 0]);
+    $this->_db = DB::getInstance();
+
+    if ($user != null && $user->exists()) {
+        // Load customer by RadomeWEB User
+        if (!$this->find($user->data()->id, 'user_id')) {
+            // Customer data for RadomeWEB User missing, Register it
+            $this->create(['user_id' => $user->data()->id, 'integration_id' => 0]);
+        }
+
+        $this->_user = $user;
+    } else if ($value != null) {
+        $this->find($value, $field);
+
+    } else if (Session::exists('store_customer')) {
+        $customer = Session::get('store_customer');
+
+        if ($this->find($customer, 'id')) {
+            $this->_isLoggedIn = true;
+        }
     }
-
-    $this->_user = $user;
-} else if ($value != null) {
-    $this->find($value, $field);
-
-} else if (Session::exists('store_customer')) {
-    $customer = Session::get('store_customer');
-
-    if ($this->find($customer, 'id')) {
-        $this->_isLoggedIn = true;
-    }
-}
 
 if (isset($success)) {
     $smarty->assign([
