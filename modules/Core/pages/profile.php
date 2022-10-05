@@ -63,16 +63,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if ($user->data()->username == $profile) {
                         if (Token::check()) {
                             // Update banner
-                            if (isset('banner')) {
+                            if (isset($_POST['banner'])) {
                                 // Check image specified actually exists
-                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'banner']))) {
+                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]))) {
                                     // Exists
                                     // Is it an image file?
-                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'banner']), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
+                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $_POST['banner']]), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
                                         // Yes, update settings
                                         $user->update(
                                             [
-                                                'banner' => Output::getClean('banner')
+                                                'banner' => Output::getClean($_POST['banner'])
                                             ]
                                         );
 
@@ -492,8 +492,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 $banners[] = [
-                    'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($image),
-                    'name' => Output::getClean($image),
+                    'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean('custom_banner'),
+                    'name' => Output::getClean('custom_banner'),
                     'active' => $user->data()->banner == $image
                 ];
             }
@@ -510,8 +510,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     $banners[] = [
-                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
-                        'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
+                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean('custom_banner'),
+                        'name' => Output::getClean($user->data()->id) . '/' . Output::getClean('custom_banner'),
                         'active' => $user->data()->banner == $user->data()->id . '/' . $image
                     ];
                 }
