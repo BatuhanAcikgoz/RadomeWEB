@@ -36,8 +36,8 @@
 
                 {foreach from=$INTEGRATIONS item=integration}
                 <div class="card">
-                    <div class="col-md-9">
-                        <div class="one wide column right aligned mobile hidden">
+                    <div class="col-md-9" style="margin: 15px;">
+                        <div class="col-md-2" style="display: ruby;">
                             <svg width="14" height="14" viewBox="0 0 14 14"
                                 fill="{if $integration.connected}{if $integration.verified}green{else}orange{/if}{else}red{/if}"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@
                                     fill-opacity="0.27" />
                             </svg>
                         </div>
-                        <div class="nine wide column">
+                        <div class="col-md-2" style="display: ruby;">
                             <strong>{$integration.name}</strong>
                             {if $integration.connected && !$integration.verified}
                             <div class="ui orange tiny label">{$PENDING_VERIFICATION}</div> {if $integration.required}
@@ -63,7 +63,7 @@
                             {$NOT_CONNECTED}
                             {/if}
                         </div>
-                        <div class="six wide column right aligned">
+                        <div class="col-md-2" style="display: ruby;">
                             {if $integration.connected}
                             {if $integration.connected && !$integration.verified}
                             <form class="ui form" action="" method="post" style="display: inline">
