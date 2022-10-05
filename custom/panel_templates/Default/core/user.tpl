@@ -111,6 +111,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                     <!-- Spacing -->
                     <div style="height:1rem;"></div>
