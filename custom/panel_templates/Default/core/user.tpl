@@ -78,20 +78,6 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="username">{$USERNAME_LABEL}</label>
-                                                <input id="username" type="text" class="form-control"
-                                                    value="{$USERNAME}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="username">{$USERNAME_LABEL}</label>
-                                                <input id="username" type="text" class="form-control"
-                                                    value="{$USERNAME}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
                                                 <label for="title">{$USER_TITLE_LABEL}</label>
                                                 <input id="title" type="text" class="form-control" value="{$USER_TITLE}"
                                                     readonly>
@@ -102,13 +88,6 @@
                                                 <label for="language">{$LANGUAGE_LABEL}</label>
                                                 <input id="language" type="text" class="form-control"
                                                     value="{$LANGUAGE}" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="timezone">{$TIMEZONE_LABEL}</label>
-                                                <input id="timezone" type="text" class="form-control"
-                                                    value="{$TIMEZONE}" readonly>
                                             </div>
                                         </div>
                                         {if isset($EMAIL_ADDRESS)}
