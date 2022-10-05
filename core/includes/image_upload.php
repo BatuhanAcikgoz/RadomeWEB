@@ -102,7 +102,7 @@ switch ($_POST['type']) {
         }
 
         $folder = 'avatars';
-        $image->setName($user->data()->id);
+        $image->setName($user->data()->id . '-custom_banner');
         break;
 }
 
