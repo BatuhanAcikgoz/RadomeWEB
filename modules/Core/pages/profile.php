@@ -510,8 +510,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
 
                     $banners[] = [
-                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean('custom_banner'),
-                        'name' => Output::getClean($user->data()->id) . '/' . Output::getClean('custom_banner'),
+                        'src' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/profile_images/' . Output::getClean($user->data()->id) . '/' . Output::getClean($image),
+                        'name' => Output::getClean($user->data()->id) . '/' . Output::getClean($image),
                         'active' => $user->data()->banner == $user->data()->id . '/' . $image
                     ];
                 }

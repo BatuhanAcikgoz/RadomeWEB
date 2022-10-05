@@ -50,7 +50,7 @@ if ($_POST['type'] === 'favicon') {
     $image_extensions[] = 'ico';
 }
 
-$image = ($_FILES['kullanici_dosyasi']['name'])
+$image = (new \Bulletproof\Image($_FILES))
         ->setSize(1, 1048576 /* 2MB */)
         ->setDimension(2000, 2000) // 2k x 2k pixel maximum
         ->setMime($image_extensions);
@@ -82,6 +82,7 @@ switch ($_POST['type']) {
         if (!$user->hasPermission('usercp.profile_banner')) {
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
         }
+        $image->setName($user->data()->id);
 
         if (
             !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
