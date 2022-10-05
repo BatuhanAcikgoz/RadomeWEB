@@ -31,6 +31,7 @@ $view_user = new User($uid);
 if (!$view_user->exists()) {
     Redirect::to(URL::build('/panel'));
 }
+$customer = new Customer($view_user);
 $user_query = $view_user->data();
 
 $timeago = new TimeAgo(TIMEZONE);
@@ -92,6 +93,7 @@ $smarty->assign([
     'LANGUAGE' => Output::getClean($user_language),
     'TIMEZONE' => Output::getClean($user_query->timezone),
     'CREDITS' => $store_language->get('general', 'credits'),
+    'CREDITS_VALUE' => $customer->getCredits(),
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
