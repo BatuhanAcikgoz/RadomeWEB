@@ -32,7 +32,7 @@
                     {if isset($CAN_SEND_CREDITS)}<div class="res right floated"><a class="ui mini green button" data-toggle="modal" data-target="#modal-send-credits">{$SEND_CREDITS}</a></div>{/if}
                 </h3>
                 
-                <div class="card-body">{$CREDITS}: {$CREDITS_VALUE}{$CURRENCY_SYMBOL} {$CURRENCY}</div>
+                <div class="card-body">{$CREDITS}: {$CREDITS_VALUE}{$CURRENCY_SYMBOL}</div>
             </div>
             
             <div class="card">

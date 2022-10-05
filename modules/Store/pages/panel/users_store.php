@@ -106,7 +106,6 @@ $smarty->assign([
     'BACK_LINK' => URL::build('/panel/user/' . $view_user->data()->id),
     'BACK' => $language->get('general', 'back'),
     'CREDITS' => $store_language->get('general', 'credits'),
-    'CREDITS_VALUE' => $customer->getCredits(),
     'AMOUNT' => $store_language->get('admin', 'amount'),
     'STATUS' => $store_language->get('admin', 'status'),
     'DATE' => $store_language->get('admin', 'date'),
