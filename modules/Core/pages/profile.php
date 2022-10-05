@@ -63,16 +63,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if ($user->data()->username == $profile) {
                         if (Token::check()) {
                             // Update banner
-                            if (isset('custom_banner')) {
+                            if (isset($_POST['banner'])) {
                                 // Check image specified actually exists
-                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'custom_banner']))) {
+                                if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'banner']))) {
                                     // Exists
                                     // Is it an image file?
-                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'custom_banner']), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
+                                    if (in_array(pathinfo(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'banner']), PATHINFO_EXTENSION), ['gif', 'png', 'jpg', 'jpeg'])) {
                                         // Yes, update settings
                                         $user->update(
                                             [
-                                                'banner' => Output::getClean('custom_banner')
+                                                'banner' => Output::getClean('banner')
                                             ]
                                         );
 
