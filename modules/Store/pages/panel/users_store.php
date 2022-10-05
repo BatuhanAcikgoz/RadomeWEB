@@ -22,6 +22,7 @@ $view_user = new User($_GET['user']);
 if (!$view_user->exists()) {
     Redirect::to('/panel/users');
 }
+$customer = new Customer($view_user);
 
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'users');
@@ -122,5 +123,4 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/user.tpl', $smarty);
 $template->displayTemplate('store/users_store.tpl', $smarty);

@@ -16,7 +16,7 @@ if (!$user->handlePanelPageLoad()) {
 
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
-$customer = new Customer($view_user);
+
 
 if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
