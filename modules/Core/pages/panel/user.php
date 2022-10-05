@@ -17,7 +17,6 @@ if (!$user->handlePanelPageLoad()) {
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
 
-
 if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
 }
@@ -93,7 +92,7 @@ $smarty->assign([
     'LANGUAGE' => Output::getClean($user_language),
     'TIMEZONE' => Output::getClean($user_query->timezone),
     'CREDITS' => $store_language->get('general', 'credits'),
-    'CREDITS_VALUE' => $customer->getCredits(),
+    'CREDITS_VALUE' => $view_user->getCredits(),
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
