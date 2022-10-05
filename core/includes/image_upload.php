@@ -50,7 +50,7 @@ if ($_POST['type'] === 'favicon') {
     $image_extensions[] = 'ico';
 }
 
-$image = ()
+$image = ($_FILES['kullanici_dosyasi']['name'])
         ->setSize(1, 1048576 /* 2MB */)
         ->setDimension(2000, 2000) // 2k x 2k pixel maximum
         ->setMime($image_extensions);
