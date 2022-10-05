@@ -82,7 +82,7 @@ switch ($_POST['type']) {
         if (!$user->hasPermission('usercp.profile_banner')) {
             Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
         }
-        $image->setName($user->data()->id);
+        $image->setName($user->data()->id . '-custom_banner');
 
         if (
             !is_dir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
@@ -102,7 +102,7 @@ switch ($_POST['type']) {
         }
 
         $folder = 'avatars';
-        $image->setName($user->data()->id . '-custom_banner');
+        $image->setName($user->data()->id);
         break;
 }
 
