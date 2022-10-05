@@ -769,34 +769,5 @@ class DatabaseInitialiser {
         }
 
         // Forum Labels
-        $this->_db->insert('forums_labels', [
-            'name' => 'Default',
-            'html' => '<span class="badge badge-default">{x}</span>'
-        ]);
-
-        $this->_db->insert('forums_labels', [
-            'name' => 'Primary',
-            'html' => '<span class="badge badge-primary">{x}</span>'
-        ]);
-
-        $this->_db->insert('forums_labels', [
-            'name' => 'Success',
-            'html' => '<span class="badge badge-success">{x}</span>'
-        ]);
-
-        $this->_db->insert('forums_labels', [
-            'name' => 'Info',
-            'html' => '<span class="badge badge-info">{x}</span>'
-        ]);
-
-        $this->_db->insert('forums_labels', [
-            'name' => 'Warning',
-            'html' => '<span class="badge badge-warning">{x}</span>'
-        ]);
-
-        $this->_db->insert('forums_labels', [
-            'name' => 'Danger',
-            'html' => '<span class="badge badge-danger">{x}</span>'
-        ]);
     }
 }
