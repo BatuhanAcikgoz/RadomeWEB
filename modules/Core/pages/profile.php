@@ -63,7 +63,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     if ($user->data()->username == $profile) {
                         if (Token::check()) {
                             // Update banner
-                            if (isset($_POST['banner'])) {
+                            if (isset('banner')) {
                                 // Check image specified actually exists
                                 if (is_file(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', 'banner']))) {
                                     // Exists
