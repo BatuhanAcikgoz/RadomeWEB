@@ -86,7 +86,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                             <label for="credits">{$CREDITS}</label>
-                                            <input id="credits" type="number" class="form-control" value="{$CREDITS_VALUE}TL" readonly>
+                                            <input id="credits" type="text" class="form-control" value="{$CREDITS_VALUE}TL" readonly>
                                             </div>
                                         </div>
                                         {if isset($EMAIL_ADDRESS)}
