@@ -19,6 +19,9 @@ final class CreateForumsPermissionsTable extends AbstractMigration
             ->addColumn('view_other_topics', 'boolean', ['default' => false])
             ->addColumn('moderate', 'boolean', ['default' => false]);
 
+        $table
+            ->addForeignKey('forum_id', 'rw_forums', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
+
         $table->create();
     }
 }
