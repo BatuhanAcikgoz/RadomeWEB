@@ -1,5 +1,6 @@
 {include file='header.tpl'}
 {include file='navbar.tpl'}
+<div class="container" style="min-height: calc(-175.133px + 100vh);">
 {if isset($SUCCESS)}
 <div class="ui success icon message">
     <i class="check icon"></i>
