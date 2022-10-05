@@ -393,7 +393,7 @@ class DatabaseInitialiser {
             'nameid' => 'discord',
             'button' => 'Discord',
             'icon' => 'fab fa-discord',
-            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;DISCORD&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt;Feel free to join to our &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;http://discord.gg/link&quot;&gt;&lt;strong&gt;Discord server&lt;/strong&gt;&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;',
+            'context' => '&lt;span style=&quot;font-size:36px;&quot;&gt;&lt;strong&gt;Discord Sunucumuz&lt;/strong&gt;&lt;/span&gt;&lt;ul&gt;&lt;li&gt; &lt;a rel=&quot;nofollow noopener&quot; target=&quot;_blank&quot; href=&quot;https://discord.gg/v3ERpXEBc5&quot;&gt;&lt;strong&gt;Discord sunucumuza &lt;/strong&gt;&lt;/a&gt;katılarak radomeweb hakkında detaylı destek alabilirsiniz.&lt;/li&gt;&lt;/ul&gt;',
             'views' => '0',
             'likes' => '0',
             'likeable' => '1',
@@ -672,13 +672,6 @@ class DatabaseInitialiser {
     }
 
     private function initialiseForum() {
-
-        $this->_db->insert('forums', [
-            'forum_title' => 'Haberler',
-            'forum_description' => 'Sunucu hakkında haberler!',
-            'forum_order' => 1,
-            'forum_type' => 'category'
-        ]);
 
         $this->_db->insert('forums', [
             'forum_title' => 'Haberler',
