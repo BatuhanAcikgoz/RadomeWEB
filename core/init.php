@@ -173,7 +173,7 @@ if ($page != 'install') {
     }
 
     // Set timezone
-    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Util::getSetting('timezone', 'Europe/London'));
+    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Util::getSetting('timezone', 'Europe/Istanbul'));
     date_default_timezone_set(TIMEZONE);
 
     // Language

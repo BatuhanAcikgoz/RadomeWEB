@@ -32,7 +32,7 @@ error_reporting(0);
 ini_set('display_errors', 0);
 
 // Set default timezone to prevent potential issues
-date_default_timezone_set('Europe/London');
+date_default_timezone_set('Europe/Istanbul');
 
 // Select language
 if (isset($_SESSION['installer_language'])
@@ -41,7 +41,7 @@ if (isset($_SESSION['installer_language'])
     $language_short_code = $_SESSION['installer_language'];
 } else {
     // Require default language (English UK)
-    $language_short_code = 'en_UK';
+    $language_short_code = 'tr_TR';
 }
 
 $language = new Language('core', $language_short_code);
