@@ -87,38 +87,11 @@
                                     <input type="text" name="username" class="form-control" id="InputMCUsername"
                                         placeholder="{$USERNAME}" value="{$USERNAME_VALUE}">
                                 </div>
-                                {if $DISPLAYNAMES eq true}
-                                <div class="form-group">
-                                    <label for="InputUsername">{$USERNAME}</label>
-                                    <input type="text" name="username" class="form-control" id="InputUsername"
-                                        placeholder="{$USERNAME}" value="{$USERNAME_VALUE}">
-                                </div>
-                                {else}
-                                <input type="hidden" name="username" value="{$USERNAME_VALUE}">
-                                {/if}
                                 <div class="form-group">
                                     <label for="InputEmail">{$EMAIL_ADDRESS}</label>
                                     <input type="email" name="email" class="form-control" id="InputEmail"
                                         placeholder="{$EMAIL_ADDRESS}" value="{$EMAIL_ADDRESS_VALUE}">
                                 </div>
-                                <div class="form-group">
-                                    <label for="InputTitle">{$USER_TITLE}</label>
-                                    <input type="text" name="title" class="form-control" id="InputTitle"
-                                        placeholder="{$USER_TITLE}" value="{$USER_TITLE_VALUE}">
-                                </div>
-                                {if $PRIVATE_PROFILE_ENABLED eq true}
-                                <div class="form-group">
-                                    <label for="inputPrivateProfile">{$PRIVATE_PROFILE}</label>
-                                    <select name="privateProfile" class="form-control" id="inputPrivateProfile">
-                                        <option value="1" {if $PRIVATE_PROFILE_VALUE eq 1} selected{/if}>{$ENABLED}
-                                        </option>
-                                        <option value="0" {if $PRIVATE_PROFILE_VALUE eq 0} selected{/if}>{$DISABLED}
-                                        </option>
-                                    </select>
-                                </div>
-                                {else}
-                                <input type="hidden" name="privateProfile" value="0">
-                                {/if}
                                 <div class="form-group">
                                     <label for="inputTemplate">{$ACTIVE_TEMPLATE}</label>
                                     <select name="template" class="form-control" id="inputTemplate">
