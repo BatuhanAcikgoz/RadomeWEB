@@ -271,7 +271,6 @@
                         </form>
                         <hr />
                         {if isset($PROFILE_BANNER)}
-                            <hr />
                             <strong>{$UPLOAD_PROFILE_BANNER}</strong>
                             <form class="inline-form" action="{$UPLOAD_BANNER_URL}" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
