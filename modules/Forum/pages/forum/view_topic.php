@@ -509,8 +509,6 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
     $smarty->assign([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
-        'LOCK_URL' => URL::build('/forum/lock/', 'tid=' . urlencode($tid)),
-        'LOCK' => (($topic->locked == 1) ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
         'MERGE_URL' => URL::build('/forum/merge/', 'tid=' . urlencode($tid)),
         'MERGE' => $forum_language->get('forum', 'merge_topic'),
         'DELETE_URL' => URL::build('/forum/delete/', 'tid=' . urlencode($tid)),
@@ -520,8 +518,6 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
         'DELETE' => $forum_language->get('forum', 'delete_topic'),
         'MOVE_URL' => URL::build('/forum/move/', 'tid=' . urlencode($tid)),
         'MOVE' => $forum_language->get('forum', 'move_topic'),
-        'STICK_URL' => URL::build('/forum/stick/', 'tid=' . urlencode($tid)),
-        'STICK' => (($topic->sticky == 1) ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
         'MARK_AS_SPAM' => $language->get('moderator', 'mark_as_spam'),
         'CONFIRM_SPAM_POST' => $language->get('moderator', 'confirm_spam')
     ]);
