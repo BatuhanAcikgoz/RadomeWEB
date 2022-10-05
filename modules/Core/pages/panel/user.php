@@ -16,6 +16,7 @@ if (!$user->handlePanelPageLoad()) {
 
 $uid = explode('/', $route);
 $uid = $uid[count($uid) - 1];
+$customer = new Customer($view_user);
 
 if (!strlen($uid)) {
     Redirect::to(URL::build('/panel'));
@@ -43,6 +44,42 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Input::exists()) {
+    $errors = [];
+
+    if (Token::check()) {
+        // Validation
+        $validation = Validate::check($_POST, [
+            'credits' => [
+                Validate::REQUIRED => true,
+                Validate::MIN => 1,
+                Validate::MAX => 11,
+                Validate::NUMERIC => true
+            ]
+        ]);
+
+        if ($validation->passed()) {
+            $credits = Input::get('credits');
+
+            if (Input::get('action') == 'addCredits') {
+                $customer->addCents(Store::toCents($credits));
+
+                Session::flash('users_store_success', $store_language->get('admin', 'successfully_added_credits', ['amount' => $credits]));
+            } else if (Input::get('action') == 'removeCredits') {
+                $customer->removeCents(Store::toCents($credits));
+
+                Session::flash('users_store_success', $store_language->get('admin', 'successfully_removed_credits', ['amount' => $credits]));
+            }
+
+            Redirect::to(URL::build('/panel/users/store/', 'user=' . $view_user->data()->id));
+        } else {
+            $errors = $validation->errors();
+        }
+    } else {
+        $errors[] = $language->get('general', 'invalid_token');
+    }
+}
 
 if (isset($success)) {
     $smarty->assign([
@@ -92,7 +129,7 @@ $smarty->assign([
     'LANGUAGE' => Output::getClean($user_language),
     'TIMEZONE' => Output::getClean($user_query->timezone),
     'CREDITS' => $store_language->get('general', 'credits'),
-    'CREDITS_VALUE' => $view_user->getCredits(),
+    'CREDITS_VALUE' => $customer->getCredits(),
     'REGISTERED' => $language->get('user', 'registered'),
     'REGISTERED_VALUE' => date('d M Y', $user_query->joined),
     'LAST_SEEN' => $language->get('user', 'last_seen'),
