@@ -58,15 +58,6 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        $this->_db->insert('groups', [
-            'name' => 'Onaylanmamış Üye',
-            'group_html' => '<span class="badge badge-secondary">Onaylanmamış Üye</span>',
-            'group_username_color' => '#6c757d',
-            'permissions' => '{}',
-            'order' => 4
-        ]);
-    }
-
     private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
             $this->_db->insert('languages', [
