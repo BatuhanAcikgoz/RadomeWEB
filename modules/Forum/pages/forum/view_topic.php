@@ -461,7 +461,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
 $breadcrumbs[] = [
     'id' => 'index',
     'forum_title' => $forum_language->get('forum', 'forum_index'),
-    'link' => URL::build('/forum')
+    'link' => URL::build('/')
 ];
 
 $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
