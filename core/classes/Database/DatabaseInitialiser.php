@@ -776,5 +776,6 @@ class DatabaseInitialiser {
         }
 
         // Forum Labels
+        $this->_db->query("DELETE FROM rw_forums WHERE `rw_forums`.`id` = 1");
     }
 }
