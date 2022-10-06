@@ -758,9 +758,9 @@ class DatabaseInitialiser {
                     'group_id' => $i,
                     'forum_id' => $n,
                     'view' => true,
-                    'create_topic' => ($i == 0 ? 0 : 1),
-                    'edit_topic' => ($i == 0 ? 0 : 1),
-                    'create_post' => ($i == 0 ? 0 : 1),
+                    'create_topic' => ($i == 0 ? 0 : 0),
+                    'edit_topic' => ($i == 0 ? 0 : 0),
+                    'create_post' => ($i == 0 ? 0 : 0),
                     'view_other_topics' => true,
                     'moderate' => (($i == 2 || $i == 3) ? 1 : 0)
                 ]);
