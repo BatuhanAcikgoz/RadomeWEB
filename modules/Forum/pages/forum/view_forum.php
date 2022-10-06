@@ -177,7 +177,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SERVER_STATUS', '');
 
     // Assignments
-    $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
+    $smarty->assign('FORUM_INDEX_LINK', URL::build('/'));
 
     // Any subforums?
     $subforums = DB::getInstance()->query('SELECT * FROM rw_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();
