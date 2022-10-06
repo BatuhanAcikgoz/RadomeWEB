@@ -551,7 +551,7 @@ class DatabaseInitialiser {
         Util::setSetting('version_checked', date('U'));
         Util::setSetting('phpmailer', '0');
         Util::setSetting('phpmailer_type', 'smtp');
-        Util::setSetting('verify_accounts', '0');
+        Util::setSetting('verify_accounts', '1');
         Util::setSetting('user_avatars', '0');
         Util::setSetting('forum_layout', '1');
         Util::setSetting('avatar_site', 'cravatar');
