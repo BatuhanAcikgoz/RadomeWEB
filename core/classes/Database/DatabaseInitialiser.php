@@ -57,6 +57,7 @@ class DatabaseInitialiser {
             'order' => 2,
             'staff' => true,
         ]);
+    }
 
     private function initialiseLanguages(): void {
         foreach (Language::LANGUAGES as $short_code => $meta) {
