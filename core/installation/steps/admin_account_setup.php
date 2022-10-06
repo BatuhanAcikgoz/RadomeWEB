@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             Validate::REQUIRED => true,
             Validate::MIN => $username_min,
             Validate::MAX => $username_max,
-            Validate::REGEX => '[a-zA-Z0-9_]*',
         ],
         'email' => [
             Validate::REQUIRED => true,
