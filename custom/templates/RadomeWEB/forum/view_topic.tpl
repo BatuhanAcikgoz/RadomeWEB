@@ -9,11 +9,6 @@
     <div class="row">
         <div class="col-md-12">
             <span class="float-right forum-btns">
-            {if isset($UNFOLLOW)}
-                <a class="btn btn-secondary" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
-              {elseif isset($FOLLOW)}
-                <a class="btn btn-theme" href="{$FOLLOW_URL}">{$FOLLOW}</a>
-            {/if}
             <div class="btn-group">
             	<button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown" style="vertical-align:baseline;">{$SHARE} <span class="caret"></span></button>
             	    <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -25,11 +20,9 @@
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown">{$MOD_ACTIONS} <span class="caret"></span></button>
             	<ul class="dropdown-menu" role="menu">
-                	<li><a class="dropdown-item" href="{$LOCK_URL}"><i class="fas fa-lock"></i> {$LOCK}</a></li>
                 	<li><a class="dropdown-item" href="{$MERGE_URL}"><i class="fas fa-compress-arrows-alt"></i> {$MERGE}</a></li>
                 	<li><a class="dropdown-item" href="" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i> {$DELETE}</a></li>
                 	<li><a class="dropdown-item" href="{$MOVE_URL}"><i class="fas fa-arrow-right"></i> {$MOVE}</a></li>
-                	<li><a class="dropdown-item" href="{$STICK_URL}"><i class="fas fa-thumbtack"></i> {$STICK}</a></li>
             	</ul>
             </div>
             {/if}
