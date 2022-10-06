@@ -129,7 +129,7 @@ if (Input::exists()) {
                     Validate::MIN => 3,
                     Validate::MAX => 20,
                     Validate::UNIQUE => 'users',
-                    Validate::REGEX => '[a-zA-Z0-9_]*'
+                    Validate::REGEX => '[a-zA-Z0-9_]'
                 ],
                 'password' => [
                     Validate::REQUIRED => true,
