@@ -14,7 +14,7 @@ final class CreateStoreProductsTable extends AbstractMigration
             ->addColumn('name', 'string', ['length' => 128])
             ->addColumn('price', 'string', ['length' => 8])
             ->addColumn('description', 'text', ['null' => true])
-            ->addColumn('image', 'string', ['length' => 128, 'default' => NULL])
+            ->addColumn('image', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('global_limit', 'string', ['length' => 128,  'default' => NULL])
             ->addColumn('user_limit', 'string', ['length' => 128, 'default' => NULL])
             ->addColumn('required_products', 'string', ['length' => 128, 'default' => NULL])
