@@ -13,7 +13,7 @@ final class CreateStorePendingActionsTable extends AbstractMigration
             ->addColumn('order_id', 'string', ['length' => 11])
             ->addColumn('action_id', 'string', ['length' => 11])
             ->addColumn('product_id', 'string', ['length' => 11])
-            ->addColumn('customer_id', 'string', ['length' => 11, 'default' => NULL])
+            ->addColumn('customer_id', 'string', ['length' => 11, 'null' => true, 'default' => NULL])
             ->addColumn('connection_id', 'string', ['length' => 11])
             ->addColumn('type', 'string', ['length' => 11, 'default' => 1])
             ->addColumn('command', 'string', ['length' => 2048])

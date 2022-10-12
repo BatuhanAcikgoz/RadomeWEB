@@ -12,7 +12,7 @@ final class CreateStoreConnectionsTable extends AbstractMigration
         $table
             ->addColumn('service_id', 'integer', ['length' => 11])
             ->addColumn('name', 'string', ['length' => 64])
-            ->addColumn('data', 'text', ['default' => null])
+            ->addColumn('data', 'text', ['null' => true, 'default' => null])
             ->addColumn('last_fetch', 'integer', ['length' => 11, 'null' => false, 'default' => 0]);
 
         $table->create();

@@ -10,7 +10,7 @@ final class CreateStoreCustomersTable extends AbstractMigration
         $table = $this->table('rw_store_customers');
 
         $table
-            ->addColumn('user_id', 'integer', ['length' => 11, 'default' => NULL])
+            ->addColumn('user_id', 'integer', ['length' => 11, 'null' => true, 'default' => NULL])
             ->addColumn('integration_id', 'integer', ['length' => 11])
             ->addColumn('username', 'string', ['length' => 64, 'null' => true,  'default' => NULL])
             ->addColumn('identifier', 'string', ['length' => 64, 'null' => true, 'default' => NULL])

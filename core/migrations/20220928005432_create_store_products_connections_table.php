@@ -11,7 +11,7 @@ final class CreateStoreProductsConnectionsTable extends AbstractMigration
 
         $table
             ->addColumn('product_id', 'integer', ['length' => 11])
-            ->addColumn('action_id', 'integer', ['length' => 11, 'default' => NULL])
+            ->addColumn('action_id', 'integer', ['length' => 11, 'null' => true, 'default' => NULL])
             ->addColumn('connection_id', 'integer', ['length' => 11]);
 
         $table->create();
