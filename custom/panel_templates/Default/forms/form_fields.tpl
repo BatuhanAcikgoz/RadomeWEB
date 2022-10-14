@@ -96,9 +96,7 @@
                             {$NONE_FIELDS_DEFINED}
                         {/if}
                         
-                        {if !isset($PARTYDRAGEN_PREMIUM) || isset($PARTYDRAGEN_PREMIUM) && $PARTYDRAGEN_PREMIUM != true}
-                        <center><p>Forms Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></br>Support on <a href="https://discord.gg/TtH6tpp" target="_blank">Discord</a></p></center>
-                        {/if}
+
                     </div>
                 </div>
 
