@@ -626,6 +626,7 @@ if (!isset($_GET['action'])) {
             
             $template_file = 'forms/form_statuses.tpl';
         break;
+}
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
