@@ -39,8 +39,8 @@
 	"wiki/wiki_page_icon": "Sayfa simgesi (devre dışı bırakmak için boş bırakın)",
 	"wiki/wiki_404_message": "Bu sayfa mevcut değil.",
 	"wiki/search_placeholder": "Arama...",
-	"wiki/search_results": "Sonuçları:",
-	"wiki/search_no_results": "Sonuç yok.",
+	"wiki/search_results": "Sonuç:",
+	"wiki/search_no_results": "Arama sonucu bulunamadı.",
 	"wiki/who_liked": "Kimin beğendiğini görün ...",
 	"wiki/all_likes": "Beğenen tüm kullanıcılar",
 	"wiki/no_like_yet": "Henüz kimse bu sayfayı beğenmedi."
