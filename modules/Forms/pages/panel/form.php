@@ -626,6 +626,9 @@ if (!isset($_GET['action'])) {
             
             $template_file = 'forms/form_statuses.tpl';
         break;
+        default:
+        Redirect::to(URL::build('/panel/forms'));
+    break;
     }
 }
 
