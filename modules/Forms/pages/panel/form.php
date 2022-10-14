@@ -663,8 +663,6 @@ $smarty->assign([
     'PERMISSIONS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=permissions'),
     'STATUSES' => $forms_language->get('forms', 'statuses'),
     'STATUSES_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=statuses'),
-    'ADVANCED' => $forms_language->get('forms', 'advanced'),
-    'ADVANCED_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=advanced'),
     'GUEST_VALUE' => $form->data()->guest
 ]);
 
