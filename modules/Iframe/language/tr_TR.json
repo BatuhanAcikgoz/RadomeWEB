@@ -1,0 +1,13 @@
+{
+    "general/add_errors": "Tüm alanları doldurunuz!",
+    "general/add_iframe": "<i class=\"fa fa-plus-circle\"><\/i> Yeni Iframe ekle",
+    "general/edit_errors": "Hatayı düzenle",
+    "general/footer_description": "Footer İçeriği",
+    "general/group_permission": "Iframe modülüne tam erişim",
+    "general/iframe": "Iframe",
+    "general/iframe_size": "Iframe boyutu",
+    "general/no_iframe": "Hiç Iframe eklenmemiş",
+    "general/required_matches_errors": "URL / ile başlamalı",
+    "general/src": "Iframe URL",
+    "general/title": "Iframe"
+}

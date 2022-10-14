@@ -9,7 +9,7 @@
 	"language/optimize_info": "Sitenizin performansını arttırmak için resimleri (.png/.jpg) webp formatına çevirebilirsiniz.",
 	"language/optimize_tab": "Optimizasyon",
 	"language/ez_msg_1": "Lütfen MC-Market üzerinden indirilen ZIP dosyasını kullanın.",
-	"language/swal_server_copy": "Şimdi sunucuya bağlanabilirsiniz\Şimdi gidip sunucuya bağlanın!", 
+	"language/swal_server_copy": "Şimdi sunucuya bağlanabilirsiniz Şimdi gidip sunucuya bağlanın!", 
 	"language/ez_msg_2": "Dosya maksimum boyutu aşıyor (15MB).",
 	"language/ez_msg_3": "Reddet",
 	"language/ez_msg_4": "Güncelleme Başarılı!",
@@ -48,7 +48,7 @@
 	"language/ts_panel": "Thema Değiştirici Yeri",
 	"language/ts_us": "Kullanıcı ayarları",
 	"language/ts_icon": "Floating Icon", 
-	"language/ts_nodisplay": "Görüntüleme \ Görüntü verme ", 
+	"language/ts_nodisplay": "Görüntüleme  Görüntü verme ", 
 	"language/menu": "Menü",
 	"language/server_box_title": "Sunucu",
 	"language/news_button": "Eski haber postlarını/iletilerini göster", 
@@ -182,5 +182,5 @@
 	"language/yes": "Evet",
 	"language/no": "Hayır",
 	"language/unable_to_write_to_settings": "<strong>modules/RadomeWEB/pages/settings.php</strong> Yazılamıyor. Lütfen dosya izinlerini kontrol edin.",
-	"language/successfully_updated": "Başarılı bir şekilde güncellendi.",
+	"language/successfully_updated": "Başarılı bir şekilde güncellendi."
 }
