@@ -31,10 +31,10 @@
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="modal fade" tabindex="-1" role="dialog">
+          <div class="modal-body" tabindex="-1" role="dialog">
           <div class="modal-dialog">
             <i class="fas fa-times"></i>
-            <div class="modal-body">
+            <div class="modal-content">
               {foreach from=$ERRORS item=error}
                 {$error}<br />
               {/foreach}
