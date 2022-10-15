@@ -31,7 +31,7 @@
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="modal fade" id="modal-" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal fade" tabindex="-1" role="dialog">
           <div class="modal-dialog">
             <i class="fas fa-times"></i>
             <div class="modal-body">
