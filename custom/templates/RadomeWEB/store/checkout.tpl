@@ -22,7 +22,7 @@
         </br>
         
         {if isset($SUCCESS)}
-          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="btn btn-success btn-lg">
             <i class="fas fa-check"></i>
             <div class="content">
              {$SUCCESS}
@@ -31,18 +31,13 @@
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="modal" tabindex="-1" id="modal" role="dialog">
-          <div class="modal-dialog">
+          <div class="ui negative icon message">
             <i class="fas fa-times"></i>
-            <div class="modal-content">
+            <div class="content">
               {foreach from=$ERRORS item=error}
                 {$error}<br />
               {/foreach}
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-          </div>
           </div>
         {/if}
         
