@@ -13,10 +13,10 @@
       </div>
     {/if}
     
-       <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
+       <div style="padding: 20px;" class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
       <div class="card">
 
-        <h1 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h1>
+        <h1 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h1>
         {include file='store/navbar.tpl'}
         
         </br>
