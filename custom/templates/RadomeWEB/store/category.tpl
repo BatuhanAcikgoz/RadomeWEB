@@ -62,7 +62,7 @@
                   <div class="modal-header">
                     {$product.name} | {$CURRENCY_SYMBOL}{$product.price} {$CURRENCY}
                   </div>
-                  <div class="{if $product.image}image {/if}content">
+                  <div class="modal-content">
                     {if $product.image}
                       <div class="ui small image">
                         <img src="{$product.image}" alt="{$product.name}">
