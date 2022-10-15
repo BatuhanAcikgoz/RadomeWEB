@@ -176,7 +176,7 @@
     "admin\/viewing_payment": "Ödemeyi Görüntüleme {{payment}}",
     "admin\/viewing_payments_for_user_x": "{{user}} kullanıcı için ödemeleri görüntüleme",
     "admin\/limits_and_requirements": "Sınırlar ve Gereksinimler",
-    "general\/agree_t_and_c_purchase": "Bu satın alma işleminin {{termslinkstart}} Şartlar ve Koşullarını {{terimlinkend}} kabul ediyorum.",
+    "general\/agree_t_and_c_purchase": "Bu satın alma işleminin {{termsLinkStart}} Şartlar ve Koşullarını {{termsLinkEnd}} kabul ediyorum.",
     "general\/accept_terms": "Şartlar ve koşulları kabul etmelisiniz",
     "general\/buy": "Satın almak",
     "general\/checkout": "Ödeme",
