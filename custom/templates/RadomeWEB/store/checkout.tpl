@@ -22,7 +22,7 @@
         </br>
         
         {if isset($SUCCESS)}
-          <div class="modal fade" id="modal-" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
             <i class="fas fa-check"></i>
             <div class="content">
              {$SUCCESS}
@@ -31,7 +31,7 @@
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="modal" tabindex="-1" role="dialog" style="display: inline-flex;">
+          <div class="modal" tabindex="-1" id="modal" role="dialog" style="display: inline-flex;">
           <div class="modal-dialog">
             <i class="fas fa-times"></i>
             <div class="modal-content">
