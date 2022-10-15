@@ -12,9 +12,9 @@
     {/if}
     
        <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
-      <div class="ui segment">
+      <div class="card">
 
-        <h1 style="display:inline;">{$STORE} &raquo; {$ACTIVE_CATEGORY}</h1>
+        <h2 style="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$ACTIVE_CATEGORY}</h2>
         {include file='store/navbar.tpl'}
                 
         <div class="ui bottom attached segment">
@@ -57,8 +57,9 @@
                   </div>
                 </div>
 
-                <div class="ui small modal" id="modal{$product.id}">
-                  <div class="header">
+                <div class="modal" id="modal{$product.id}">
+                <div class="modal-dialog">
+                  <div class="modal-header">
                     {$product.name} | {$CURRENCY_SYMBOL}{$product.price} {$CURRENCY}
                   </div>
                   <div class="{if $product.image}image {/if}content">
@@ -67,19 +68,20 @@
                         <img src="{$product.image}" alt="{$product.name}">
                       </div>
                     {/if}
-                    <div class="description forum_post">
+                    <div class="modal-body">
                       {$product.description}
                     </div>
                   </div>
-                  <div class="actions">
-                    <div class="ui red deny button">
+                  <div class="modal-footer">
+                    <div class="btn btn-secondary">
                       {$CLOSE}
                     </div>
-                    <a class="ui positive right labeled icon button" href="{$product.link}">
+                    <a class="btn btn-primary" href="{$product.link}">
                       {$BUY}
-                      <i class="shopping cart icon"></i>
+                      <i class="fas fa-shopping-cart"></i>
                     </a>
                   </div>
+                </div>
                 </div>
               {/foreach}
             </div>

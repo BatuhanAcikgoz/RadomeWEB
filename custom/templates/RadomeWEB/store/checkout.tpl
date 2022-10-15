@@ -32,8 +32,8 @@
                     
         {if isset($ERRORS)}
           <div class="ui negative icon message">
-            <i class="fas fa-times"></i>
             <div class="content">
+            <i class="fas fa-times"></i>
               {foreach from=$ERRORS item=error}
                 {$error}<br />
               {/foreach}
