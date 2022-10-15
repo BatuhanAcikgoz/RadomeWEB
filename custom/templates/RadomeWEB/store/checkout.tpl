@@ -14,7 +14,7 @@
     {/if}
     
        <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
-      <div class="ui segment">
+      <div class="card">
 
         <h1 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h1>
         {include file='store/navbar.tpl'}
@@ -22,8 +22,8 @@
         </br>
         
         {if isset($SUCCESS)}
-          <div class="ui success icon message">
-            <i class="check icon"></i>
+          <div class="btn btn-success btn-lg">
+            <i class="fas fa-check"></i>
             <div class="content">
              {$SUCCESS}
             </div>
@@ -32,7 +32,7 @@
                     
         {if isset($ERRORS)}
           <div class="ui negative icon message">
-            <i class="x icon"></i>
+            <i class="fas fa-times"></i>
             <div class="content">
               {foreach from=$ERRORS item=error}
                 {$error}<br />
@@ -41,9 +41,9 @@
           </div>
         {/if}
         
-        <form class="ui form" action="" method="post" id="forms">
+        <form class="form-control inline-form" action="" method="post" id="forms">
           <h3>{$SHOPPING_CART}</h3>
-          <table class="ui fixed single line selectable unstackable small padded res table">
+          <table class="table table-striped">
             <thead>
               <tr>
                 <th>{$NAME}</th>
@@ -72,7 +72,7 @@
           <hr />
           {foreach from=$PAYMENT_METHODS item=gateway}
             <div class="field">
-              <div class="ui radio checkbox">
+              <div class="form-group custom-control custom-switch">
                 <input type="radio" name="payment_method" value="{$gateway.name}" required>
                 <label>{$gateway.displayname}</label>
               </div>
@@ -83,7 +83,7 @@
           <h3>{$PURCHASE}</h3>
           <hr />
           <div class="field">
-            <div class="ui checkbox" style="display:inline;">
+            <div class="form-group custom-control custom-switchx" style="display:inline;">
               <input type="hidden" name="token" value="{$TOKEN}">
               <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE} <span class="right floated"><input type="submit" class="ui green button right floated" value="{$PURCHASE} &raquo;"></span></label>
             </div>

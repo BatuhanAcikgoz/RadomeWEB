@@ -22,7 +22,7 @@
         </br>
         
         {if isset($SUCCESS)}
-          <div class="ui success icon message">
+          <div class="btn btn-success btn-lg">
             <i class="check icon"></i>
             <div class="content">
              {$SUCCESS}

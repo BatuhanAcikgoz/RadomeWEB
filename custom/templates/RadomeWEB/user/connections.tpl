@@ -2,7 +2,7 @@
 {include file='navbar.tpl'}
 <div class="container" style="min-height: calc(-175.133px + 100vh);">
 {if isset($SUCCESS)}
-<div class="ui success icon message">
+<div class="btn btn-success btn-lg">
     <i class="check icon"></i>
     <div class="content">
         <div class="header">{$SUCCESS_TITLE}</div>

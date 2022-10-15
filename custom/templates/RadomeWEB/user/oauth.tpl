@@ -13,7 +13,7 @@
                     {$OAUTH}
                 </h3>
                 {if isset($SUCCESS_MESSAGE)}
-                <div class="ui success icon message">
+                <div class="btn btn-success btn-lg">
                     <i class="check icon"></i>
                     <div class="card-body">
                         <div class="card-header">{$SUCCESS} <p>{$SUCCESS_MESSAGE}</p></div>
