@@ -31,7 +31,7 @@
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="modal-body" tabindex="-1" role="dialog">
+          <div class="modal" tabindex="-1" role="dialog" style="display: inline-flex;">
           <div class="modal-dialog">
             <i class="fas fa-times"></i>
             <div class="modal-content">
@@ -39,6 +39,10 @@
                 {$error}<br />
               {/foreach}
             </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
           </div>
           </div>
         {/if}
