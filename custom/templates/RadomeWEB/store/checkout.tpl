@@ -41,7 +41,7 @@
           </div>
         {/if}
         
-        <form class="form-control inline-form" action="" method="post" id="forms">
+        <form class="" action="" method="post" id="forms">
           <h3>{$SHOPPING_CART}</h3>
           <table class="table table-striped">
             <thead>

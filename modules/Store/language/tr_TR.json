@@ -193,7 +193,7 @@
     "general\/no_products": "Hiçbir ürün bulunamadı!",
     "general\/no_purchases": "Satın Alma Yok",
     "general\/options": "Seçenekler",
-    "general\/pay_with_credits": "{{Currency_symbol}} {{credits}} {{currices}} kredi bakiyenizle ödeme yapın",
+    "general\/pay_with_credits": "{{currency_symbol}} {{credits}} {{currency}} kredi bakiyenizle ödeme yapın",
     "general\/payment_method": "Payment Method",
     "general\/pending_payment_text": "Pending payment from {{user}}",
     "general\/please_enter_username": "Please enter your Minecraft Username to continue",
@@ -223,7 +223,7 @@
     "general\/x_items_for_y": "{{items}} ürün(ler) fiyatı: {{currency_symbol}}{{amount}} {{currency}}",
     "general/product_global_limit_reached": "Bu ürün stokta yoktur",
     "general/product_user_limit_reached": "Bu ürünün sınırına ulaştınız",
-    "general/product_requires_products": "Bu ürünü satın almak için gerekli {{ürün}} ürününü kaçırıyorsunuz",
+    "general/product_requires_products": "Bu ürünü satın almak için gerekli {{product}} ürünü eksik.",
     "general/product_requires_groups": "Bu ürünü satın almak için gerekli {{group}} grubunu kaçırıyorsunuz",
-    "general/product_requires_integration": "Bu ürün {{integration}} hesabınızı bağlamanızı gerektirir, bunu {{linkstart}} hesap bağlantıları {{linkend}} adresinden yapabilirsiniz."
+    "general/product_requires_integration": "Bu ürün {{integration}} hesabınızı bağlamanızı gerektirir, bunu {{linkStart}} hesap bağlantıları {{linkEnd}} adresinden yapabilirsiniz."
 }
