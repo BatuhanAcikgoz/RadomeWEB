@@ -1,5 +1,5 @@
         <span class="right floated">
-          <div class="col-md-12">
+          <div class="col-md-12" style="padding: 20px;">
             
             {if isset($STORE_PLAYER)}
               <div class="btn btn-theme">
