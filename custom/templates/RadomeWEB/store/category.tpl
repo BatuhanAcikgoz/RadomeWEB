@@ -14,7 +14,7 @@
        <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
       <div class="card">
 
-        <h2 style="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$ACTIVE_CATEGORY}</h2>
+        <h2 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$ACTIVE_CATEGORY}</h2>
         {include file='store/navbar.tpl'}
                 
         <div class="ui bottom attached segment">
@@ -72,7 +72,7 @@
                       {$product.description}
                     </div>
                   </div>
-                  <div class="modal-footer">
+                  <div class="modal-footer" style="pointer-events: auto;">
                     <div class="btn btn-secondary">
                       {$CLOSE}
                     </div>
