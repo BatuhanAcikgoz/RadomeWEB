@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="InputName">{$CATEGORY_IMAGE}</label>
-                                <input type="text" name="name" class="form-control" id="InputName" value="{$CATEGORY_IMAGE_VALUE}" placeholder="https://minecraft-tutos.com/wp-content/uploads/2022/03/wallpaper-minecraft-alex-steve-universe.jpeg" required>
+                                <input type="text" name="image" class="form-control" id="InputName" value="{$CATEGORY_IMAGE_VALUE}" placeholder="https://minecraft-tutos.com/wp-content/uploads/2022/03/wallpaper-minecraft-alex-steve-universe.jpeg" required>
                             </div>
                             <div class="form-group custom-control custom-switch">
                                 <input id="inputOnlySubCategories" name="only_subcategories" type="checkbox" class="custom-control-input"{if $ONLY_SUBCATEGORIES_VALUE eq 1} checked{/if} />
