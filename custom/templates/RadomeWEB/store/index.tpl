@@ -15,8 +15,11 @@
                 <div class=img-card-wrapper>
                 <div class="img-container">
                 <a class="{if $category.active}active {/if}img-card" href="{$category.url}">
-                    <img class="card-img-top lazyload loaded" src="https://premium.leaderos.com.tr/apps/main/public/assets/img/servers/1f803f144d902384e58557e0f8b5ed62.jpg" alt="LeaderOS Sunucu - Factions" data-ll-status="loaded">
+                    <img class="card-img-top lazyload loaded" src="https://premium.leaderos.com.tr/apps/main/public/assets/img/servers/1f803f144d902384e58557e0f8b5ed62.jpg" alt="{$STORE}-{$category.title}" data-ll-status="loaded">
                 </a>
+                <div class="img-card-bottom">
+                <h5 class="mb-0">{$category.title}</h5>
+                </div>
                 </div>
                 </div>
                 </div>
