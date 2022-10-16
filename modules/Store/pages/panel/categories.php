@@ -15,12 +15,12 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
     die();
 }
 
-if (!isset($_GET['category']) || !is_numeric($_GET['category'])) {
+if (!isset($_GET['product']) || !is_numeric($_GET['product'])) {
     Redirect::to(URL::build('/panel/store/products'));
 }
 
-$category = new Product($_GET['category']);
-if (!$category->exists()) {
+$product = new Product($_GET['product']);
+if (!$product->exists()) {
     Redirect::to(URL::build('/panel/store/products'));
 }
 
@@ -157,7 +157,7 @@ if (!isset($_GET['action'])) {
                 'PARENT_CATEGORY_VALUE' => ((isset($_POST['parent_category']) && $_POST['parent_category']) ? Output::getClean(Input::get('parent_category')) : 0),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
                 'CATEGORY_IMAGE' => $store_language->get('admin', 'product_image'),
-                'CATEGORY_IMAGE_VALUE' => (!is_null($category->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($category->data()->image)) : null),
+                'CATEGORY_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => ((isset($_POST['only_subcategories'])) ? 1 : 0),
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
@@ -259,7 +259,7 @@ if (!isset($_GET['action'])) {
                 'PARENT_CATEGORY_VALUE' => Output::getClean($category->parent_category),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
                 'CATEGORY_IMAGE' => $store_language->get('admin', 'product_image'),
-                'CATEGORY_IMAGE_VALUE' => (!is_null($category->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($category->data()->image)) : null),
+                'CATEGORY_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => $category->only_subcategories,
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
