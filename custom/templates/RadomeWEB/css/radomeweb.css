@@ -356,6 +356,9 @@ a,
 .img-card-wrapper .img-container {
 	border-radius: .625rem !important;
 }
+.img-card-wrapper .img-card::before {
+	height: 100%;
+}
 .img-card::before {
 	position: absolute;
 	bottom: 0;
@@ -366,8 +369,13 @@ a,
 	z-index: 99;
 	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, .9) 100%);
 }
-
-
+.img-card-bottom {
+	position: absolute;
+	bottom: 20px;
+	left: 1.5rem;
+	right: 1.5rem;
+	z-index: 99;
+}
 
 .dark .card,
 .dark .popover,
