@@ -9,10 +9,11 @@
             <div class="card">
                 <div class="card-header header-theme">{$STORE}</div>
                 <div class="card-body">{$CONTENT}</div>
-                <div class="card-body">              
+                <div class="card-body">
+                <div class="row">              
                 {foreach from=$CATEGORIES item=category}
                 <div class="col-md-3">
-                <div class=img-card-wrapper>
+                <div class="img-card-wrapper">
                 <div class="img-container">
                 <a class="{if $category.active}active {/if}img-card" href="{$category.url}">
                     <img class="card-img-top lazyload loaded" src="https://premium.leaderos.com.tr/apps/main/public/assets/img/servers/1f803f144d902384e58557e0f8b5ed62.jpg" alt="{$STORE}-{$category.title}" data-ll-status="loaded">
@@ -24,6 +25,7 @@
                 </div>
                 </div>
                 {/foreach}
+                </div>
             </div>
         </div>
 
