@@ -63,25 +63,6 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <h5>{$CATEGORY_IMAGE}</h5>
-                            <form action="" method="post" enctype="multipart/form-data" style="display:inline;">
-                                <div class="form-group">
-                                    {if $CATEGORY_IMAGE_VALUE}
-                                        <img src="{$CATEGORY_IMAGE_VALUE}" alt="{$CATEGORY_NAME}" style="max-height:200px;max-width:200px;"><br />
-                                    {/if}
-                                    <strong>{$UPLOAD_NEW_IMAGE}</strong><br />
-                                    <label class="btn btn-secondary">
-                                        {$BROWSE} <input type="file" name="category_image" hidden/>
-                                    </label>
-                                </div>
-                                
-                                <input type="hidden" name="token" value="{$TOKEN}">
-                                <input type="hidden" name="type" value="image">
-                                <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
-                            </form>
-                            {if $CATEGORY_IMAGE_VALUE}
-                                <a href="{$REMOVE_IMAGE_LINK}" class="btn btn-danger">{$REMOVE}</a>
-                            {/if}
                             <div class="form-group custom-control custom-switch">
                                 <input id="inputOnlySubCategories" name="only_subcategories" type="checkbox" class="custom-control-input"{if $ONLY_SUBCATEGORIES_VALUE eq 1} checked{/if} />
                                 <label class="custom-control-label" for="inputOnlySubCategories">{$ONLY_SUBCATEGORIES}</label>

@@ -15,8 +15,6 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
     die();
 }
 
-$product = new Product($_GET['product']);
-
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'store');
 define('PANEL_PAGE', 'store_products');
@@ -92,40 +90,10 @@ if (!isset($_GET['action'])) {
                     } else {
                         $errors = $validation->errors();
                     }
-                    } else if (Input::get('type') == 'image') {
-                        // Product image
-                        if (!is_dir(ROOT_PATH . '/uploads/store')) {
-                            try {
-                                mkdir(ROOT_PATH . '/uploads/store');
-                            } catch (Exception $e) {
-                                $errors[] = $store_language->get('admin', 'unable_to_create_image_directory');
-                            }
-                        }
-        
-                        if (!count($errors)) {
-                            $image = new Bulletproof\Image($_FILES);
-        
-                            $image->setSize(1000, 2 * 1048576)
-                                ->setMime(['jpeg', 'png', 'gif'])
-                                ->setDimension(2000, 2000)
-                                ->setLocation(ROOT_PATH . '/uploads/store', 0777);
-        
-                            if ($image['category_image']) {
-                                $upload = $image->upload();
-        
-                                if ($upload) {
-                                    $category->update([
-                                        'image' => $image->getName() . '.' . $image->getMime()
-                                    ]);
-        
-                                    Session::flash('products_success', $store_language->get('admin', 'image_updated_successfully'));
-                                    Redirect::to(URL::build('/panel/store/product/'));
-                                } else {
-                                    $errors[] = $store_language->get('admin', 'unable_to_upload_image', ['error' => Output::getClean($image->getError())]);
-                                }
-                            }
-                        }
-                    }
+                } else {
+                    // Invalid token
+                    $errors[] = $language->get('general', 'invalid_token');
+                }
             }
 
             $categories_list = [];
@@ -149,8 +117,6 @@ if (!isset($_GET['action'])) {
                 'PARENT_CATEGORY_LIST' => $categories_list,
                 'PARENT_CATEGORY_VALUE' => ((isset($_POST['parent_category']) && $_POST['parent_category']) ? Output::getClean(Input::get('parent_category')) : 0),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
-                'CATEGORY_IMAGE' => $store_language->get('admin', 'product_image'),
-                'CATEGORY_IMAGE_VALUE' => (((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($category->image))),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => ((isset($_POST['only_subcategories'])) ? 1 : 0),
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
@@ -251,12 +217,6 @@ if (!isset($_GET['action'])) {
                 'PARENT_CATEGORY_LIST' => $categories_list,
                 'PARENT_CATEGORY_VALUE' => Output::getClean($category->parent_category),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
-                'CATEGORY_IMAGE' => $store_language->get('admin', 'product_image'),
-                'CATEGORY_IMAGE_VALUE' => (((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($category->image))),
-                'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
-                'BROWSE' => $language->get('general', 'browse'),
-                'REMOVE' => $language->get('general', 'remove'),
-                'REMOVE_IMAGE_LINK' => URL::build('/panel/store/product/' , 'action=remove_image&product=' . $category->id),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => $category->only_subcategories,
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
