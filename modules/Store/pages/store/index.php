@@ -18,7 +18,7 @@ require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
 $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
-$image = DB::getInstance()->get('store_categories', ['name', '=', 'image'])->results();
+$image = DB::getInstance()->get('store_categories', ['image', $image])->results();
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
