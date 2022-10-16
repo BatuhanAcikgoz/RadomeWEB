@@ -19,11 +19,11 @@ $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
 $categories_list = [];
-$categories = DB::getInstance()->query('SELECT id, name FROM rw_store_categories WHERE deleted = 0')->results();
+$categories = DB::getInstance()->query('SELECT id, image FROM rw_store_categories WHERE deleted = 0')->results();
 foreach ($categories as $category) {
     $categories_list[] = [
         'id' => Output::getClean($category->id),
-        'name' => Output::getClean($category->name),
+        'image' => Output::getClean($category->image),
     ];
 }
 
