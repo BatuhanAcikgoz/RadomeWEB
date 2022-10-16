@@ -19,7 +19,7 @@
                     <img class="card-img-top lazyload loaded" src="https://premium.leaderos.com.tr/apps/main/public/assets/img/servers/1f803f144d902384e58557e0f8b5ed62.jpg" alt="{$STORE}-{$category.title}" data-ll-status="loaded">
                 </a>
                 <div class="img-card-bottom">
-                <h5 class="mb-0">{$category.title}</h5>
+                <h5 style="font-size: 1.5rem;">{$category.title}</h5>
                 </div>
                 </div>
                 </div>
