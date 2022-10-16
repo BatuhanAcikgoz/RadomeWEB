@@ -15,6 +15,8 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
     die();
 }
 
+$product = new Product($_GET['product']);
+
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'store');
 define('PANEL_PAGE', 'store_products');
