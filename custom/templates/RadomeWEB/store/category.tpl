@@ -31,7 +31,7 @@
             <div class="row">
               {foreach from=$PRODUCTS item=product}
                 <div class="col-md-3">
-                  <div id="rdm-50" class="rdm-50 card server" style="height: 300px">
+                  <div id="rdm-50" class="card server" style="height: 300px">
                   <div class="card-header header-theme">
                   <span>{$product.name}   |   </span>
                   {if $product.sale_active}
