@@ -18,15 +18,7 @@ require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
 $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
-$categories_list = [];
-$categories = DB::getInstance()->query('SELECT id, name FROM rw_store_categories WHERE deleted = 0')->results();
-foreach ($categories as $category) {
-    $categories_list[] = [
-        'id' => Output::getClean($category->id),
-        'image' => Output::getClean($category->image),
-        'name' => Output::getClean($category->name),
-    ];
-}
+$categories = DB::getInstance()->query('SELECT id, image FROM rw_store_categories WHERE deleted = 0')->results();
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
