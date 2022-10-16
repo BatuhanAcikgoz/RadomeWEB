@@ -19,19 +19,13 @@ $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
 $categories_list = [];
-$categories = DB::getInstance()->query('SELECT id, name FROM rw_store_categories WHERE deleted = 0')->results();
-foreach ($categories as $category) {
-    $categories_list[] = [
-        'id' => Output::getClean($category->id),
-        'name' => Output::getClean($category->name),
-    ];
-}
+$categories = DB::getInstance()->get('store_categories', ['image'])->results();
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
     'STORE_URL' => URL::build($store->getStoreURL()),
     'CATEGORIES' => $store->getNavbarMenu('Home'),
-    'CATEGORY_IMAGE_VALUE' => Output::getClean($category->image),
+    'CATEGORY_IMAGE_VALUE' => Output::getClean($categories->image),
     'CONTENT' => $content,
     'TOKEN' => Token::get(),
 ]);
