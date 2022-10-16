@@ -359,6 +359,13 @@ a,
 .img-card-wrapper .img-card::before {
 	height: 100%;
 }
+.img-card {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
 .img-card::before {
 	position: absolute;
 	bottom: 0;
@@ -376,7 +383,18 @@ a,
 	right: 1.5rem;
 	z-index: 99;
 }
-
+.img-container .img-card .card-img-top {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    -webkit-transition: filter 0s, transform .4s ease;
+    transition: filter 0s, transform .4s ease;
+  }
+  
+  .img-container:hover .img-card .card-img-top {
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+  }
+  
 .dark .card,
 .dark .popover,
 .dark .dropdown-menu,
