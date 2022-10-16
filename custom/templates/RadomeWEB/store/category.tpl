@@ -28,10 +28,10 @@
               </div>
             </div>
           {else}
-            <div class="ui centered stackable grid">
+            <div class="row">
               {foreach from=$PRODUCTS item=product}
                 <div class="col-md-3">
-                  <div class="card server" style="height: 300px">
+                  <div class="card server mb50" style="height: 300px">
                   <div class="card-header header-theme">
                   <span>{$product.name}</span>
                   {if $product.sale_active}

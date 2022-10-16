@@ -1066,6 +1066,10 @@ button:focus {
     }
 }
 
+.mb50{
+    margin-bottom: 50px;
+}
+
 .nav-item {
     margin-left: 0!important
 }
