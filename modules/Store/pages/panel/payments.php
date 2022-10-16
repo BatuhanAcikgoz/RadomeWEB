@@ -268,17 +268,8 @@ if (isset($_GET['customer'])) {
 
                 // Valid, continue with validation
                 $validation = Validate::check($_POST, $to_validation);
-                if ($validation->passed()) {
-
-                    if ($store->isPlayerSystemEnabled()) {
-                        // Attempt to load recipient
-                        $recipient = new Customer();
-                        if (!$recipient->login(Output::getClean(Input::get('username')), false)) {
-                            $errors[] = $language->get('user', 'invalid_mcname');
-                        }
-
-                        $target_user = new User(Output::getClean(Input::get('username')), 'username');
-                    } else {
+                      if ($validation->passed()) {
+                        {
                         // User required
                         $target_user = new User(Output::getClean(Input::get('username')), 'username');
                         if (!$target_user->exists()) {
