@@ -14,17 +14,18 @@ define('PAGE', 'store');
 $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
+require_once(ROOT_PATH . '/modules/Store/pages/panel/categories.php');
 
 $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
-$categories = DB::getInstance()->query('SELECT id, image FROM rw_store_categories WHERE deleted = 0')->results();
+$categories = DB::getInstance()->query('SELECT id, image FROM rw_store_categories')->results();
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
     'STORE_URL' => URL::build($store->getStoreURL()),
     'CATEGORIES' => $store->getNavbarMenu('Home'),
-    'CATEGORY_IMAGE_VALUE' => Output::getClean($category->image),
+    'CATEGORY_IMAGE_VALUE' => Output::getClean($categories->image),
     'CONTENT' => $content,
     'TOKEN' => Token::get(),
 ]);
