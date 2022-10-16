@@ -16,7 +16,7 @@
                 <div class="img-card-wrapper">
                 <div class="img-container">
                 <a class="{if $category.active}active {/if}img-card" href="{$category.url}">
-                    <img class="card-img-top lazyload loaded" src="{$product.image}" alt="{$STORE}-{$category.title}" data-ll-status="loaded">
+                    <img class="card-img-top lazyload loaded" src="{$CATEGORY_IMAGE_VALUE}" alt="{$STORE}-{$category.title}" data-ll-status="loaded">
                 </a>
                 <div class="img-card-bottom">
                 <h5 style="font-size: 1.5rem;">{$category.title}</h5>
