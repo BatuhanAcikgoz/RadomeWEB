@@ -33,7 +33,7 @@
                 <div class="col-md-4">
                   <div class="ui card" style="height: 300px">
                     {if $product.image}
-                      <div class="image">
+                      <div class="img-fluid">
                         {if $product.sale_active}
                           <span class="ui right ribbon red label">
                             {$SALE}
