@@ -185,9 +185,6 @@ if (isset($errors) && count($errors))
 // Can guest make purchases
 $allow_guests = $configuration->get('allow_guests');
 
-// Require player to enter minecraft username when visiting store
-$player_login = $configuration->get('player_login');
-
 // Store content
 $store_index_content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
 if (count($store_index_content)) {
