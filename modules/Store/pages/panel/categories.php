@@ -43,7 +43,7 @@ if (!isset($_GET['action'])) {
                         'image' => [
                                 Validate::REQUIRED => true,
                                 Validate::MIN => 1,
-                                Validate::MAX => 128
+                                Validate::MAX => 512
                             ],
                         'description' => [
                             Validate::MAX => 100000
