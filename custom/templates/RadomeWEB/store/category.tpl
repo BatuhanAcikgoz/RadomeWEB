@@ -30,8 +30,8 @@
           {else}
             <div class="row">
               {foreach from=$PRODUCTS item=product}
-                <div class="col-md-3">
-                  <div id="rdm-50" class="card server" style="height: 300px">
+                <div class="col-md-3 rdm-50">
+                  <div class="card server" style="height: 300px">
                   <div class="card-header header-theme">
                   <span>{$product.name}   |   </span>
                   {if $product.sale_active}
