@@ -33,11 +33,11 @@
                 <div class="col-md-3">
                   <div class="card server mb50" style="height: 300px">
                   <div class="card-header header-theme">
-                  <span>{$product.name}</span>
+                  <span>{$product.name}   |   </span>
                   {if $product.sale_active}
-                    <span style="color: #dc3545;text-decoration:line-through;">{$CURRENCY_SYMBOL}{$product.price}{$CURRENCY}</span>
+                    <span style="color: #dc3545;text-decoration:line-through;">{$product.price}{$CURRENCY_SYMBOL}</span>
                   {/if}
-                  {$CURRENCY_SYMBOL}{$product.real_price} {$CURRENCY}
+                  {$product.real_price}{$CURRENCY_SYMBOL}
                 </div>
                     {if $product.image}
                       <div class="img-fluid">
