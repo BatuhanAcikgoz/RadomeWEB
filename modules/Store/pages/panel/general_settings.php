@@ -52,7 +52,7 @@ if (isset($_POST) && !empty($_POST)) {
 
             // Enable Player Login
             if (isset($_POST['player_login']) && $_POST['player_login'] == 'on')
-                $player_login = 1;
+                $player_login = 0;
             else
                 $player_login = 0;
 
@@ -237,7 +237,7 @@ $smarty->assign([
     'ALLOW_GUESTS' => $store_language->get('admin', 'allow_guests'),
     'ALLOW_GUESTS_VALUE' => ($allow_guests == 1),
     'PLAYER_LOGIN' => $store_language->get('admin', 'enable_player_login'),
-    'PLAYER_LOGIN_VALUE' => ($player_login == 1),
+    'PLAYER_LOGIN_VALUE' => ($player_login == 0),
     'SHOW_CREDITS_AMOUNT' => $store_language->get('admin', 'show_credits_amount'),
     'SHOW_CREDITS_AMOUNT_VALUE' => $show_credits_amount,
     'STORE_PATH' => $store_language->get('admin', 'store_path'),
