@@ -187,6 +187,7 @@ if (!isset($_GET['action'])) {
                         DB::getInstance()->update('store_categories', $category->id, [
                             'name' => Input::get('name'),
                             'description' => Input::get('description'),
+                            'image' => Input::get('image'),
                             'parent_category' => $parent_category != 0 ? $parent_category : null,
                             'only_subcategories' => $only_subcategories,
                             'hidden' => $hidden,
