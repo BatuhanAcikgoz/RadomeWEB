@@ -23,7 +23,7 @@ $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
     'STORE_URL' => URL::build($store->getStoreURL()),
     'CATEGORIES' => $store->getNavbarMenu('Home'),
-    'CATEGORY_IMAGE_VALUE' => ((isset($_POST['image']) && $_POST['image']) ? Output::getClean(Input::get('image')) : ''),
+    'CATEGORY_IMAGE_VALUE' => Output::getClean($category->image),
     'CONTENT' => $content,
     'TOKEN' => Token::get(),
 ]);
