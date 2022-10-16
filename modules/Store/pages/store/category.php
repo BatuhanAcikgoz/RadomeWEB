@@ -134,16 +134,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
 ]);
 
-if ($store->isPlayerSystemEnabled() && !$to_customer->isLoggedIn()) {
-    $smarty->assign([
-        'PLEASE_ENTER_USERNAME' => $store_language->get('general', 'please_enter_username'),
-        'CONTINUE' => $store_language->get('general', 'continue'),
-    ]);
-    
-    $template_file = 'store/player_login.tpl';
-} else {
-    $template_file = 'store/category.tpl';
-}
+$template_file = 'store/category.tpl';
 
 $template->assets()->include([
     DARK_MODE
