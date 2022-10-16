@@ -110,16 +110,6 @@
                                 <input id="inputDisabled" name="disabled" type="checkbox" class="custom-control-input"{if $DISABLE_PRODUCT_VALUE eq 1} checked{/if} />
                                 <label class="custom-control-label" for="inputDisabled">{$DISABLE_PRODUCT}</label>
                             </div>
-                            <form action="" method="post" enctype="multipart/form-data" style="display:inline;">
-                            <div class="form-group">
-                                {if $PRODUCT_IMAGE_VALUE}
-                                    <img src="{$PRODUCT_IMAGE_VALUE}" alt="{$PRODUCT_NAME}" style="max-height:200px;max-width:200px;"><br />
-                                {/if}
-                                <strong>{$UPLOAD_NEW_IMAGE}</strong><br />
-                                <label class="btn btn-secondary">
-                                    {$BROWSE} <input type="file" name="product_image" hidden/>
-                                </label>
-                            </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="hidden" name="type" value="settings">

@@ -135,7 +135,7 @@ if (!isset($_GET['action'])) {
             } else {
                 $errors = $validation->errors();
             }
-            } else if (Input::get('type') == 'settings') {
+            } else if (Input::get('type') == 'image') {
                 // Product image
                 if (!is_dir(ROOT_PATH . '/uploads/store')) {
                     try {
