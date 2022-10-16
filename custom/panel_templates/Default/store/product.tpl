@@ -189,7 +189,7 @@
                                     </div>
                                     
                                     <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="hidden" name="type" value="image">
+                                    <input type="hidden" name="type" value="settings">
                                     <input type="submit" value="{$SUBMIT}" class="btn btn-primary">
                                 </form>
                                 {if $PRODUCT_IMAGE_VALUE}
