@@ -220,7 +220,7 @@
     "general\/widget_cached": "En son satın alma widget'ı 2 dakika önbelleğe alınmıştır, değişiklikleriniz hemen yürürlüğe girmeyebilir.",
     "general\/x_field_maximum_y": "{{field}} maksimum {{max}} karakterler olmalıdır.",
     "general\/x_field_minimum_y": "{{field}} minimum {{min}} karakter olmalıdır.",
-    "general\/x_items_for_y": "{{items}} ürün(ler) fiyatı: {{currency_symbol}}{{amount}} {{currency}}",
+    "general\/x_items_for_y": "{{items}} ürün fiyatı: {{amount}}{{currency_symbol}}",
     "general/product_global_limit_reached": "Bu ürün stokta yoktur",
     "general/product_user_limit_reached": "Bu ürünün sınırına ulaştınız",
     "general/product_requires_products": "Bu ürünü satın almak için gerekli {{product}} ürünü eksik.",
