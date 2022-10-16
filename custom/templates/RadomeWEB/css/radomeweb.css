@@ -1066,9 +1066,6 @@ button:focus {
     }
 }
 
-.rdm-50 {
-    margin-bottom: 50px;
-}
 
 .nav-item {
     margin-left: 0!important
@@ -1472,6 +1469,10 @@ button:focus {
 .card-header {
     text-transform: uppercase;
     font-weight: bold;
+}
+
+.rdm-50 {
+    margin-bottom: 50px;
 }
 
 .card {
