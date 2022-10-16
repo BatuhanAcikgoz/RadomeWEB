@@ -15,10 +15,6 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
     die();
 }
 
-if (!isset($_GET['product']) || !is_numeric($_GET['product'])) {
-    Redirect::to(URL::build('/panel/store/products'));
-}
-
 $product = new Product($_GET['product']);
 if (!$product->exists()) {
     Redirect::to(URL::build('/panel/store/products'));
