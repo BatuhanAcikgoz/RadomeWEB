@@ -30,27 +30,25 @@
           {else}
             <div class="ui centered stackable grid">
               {foreach from=$PRODUCTS item=product}
-                <div class="col-md-4">
-                  <div class="ui card" style="height: 300px">
+                <div class="col-md-3">
+                  <div class="card server" style="height: 300px">
+                  <div class="card-header header-theme">
+                  <span>{$product.name}</span>
+                  {if $product.sale_active}
+                    <span style="color: #dc3545;text-decoration:line-through;">{$CURRENCY_SYMBOL}{$product.price}{$CURRENCY}</span>
+                  {/if}
+                  {$CURRENCY_SYMBOL}{$product.real_price} {$CURRENCY}
+                </div>
                     {if $product.image}
                       <div class="img-fluid">
                         {if $product.sale_active}
-                          <span class="ui right ribbon red label">
+                          <span class="badge badge-danger">
                             {$SALE}
                           </span>
                         {/if}
                         <img src="{$product.image}" style="height: 225px" alt="{$product.name}">
                       </div>
                     {/if}
-                      
-                    <div class="center aligned content">
-                      <span class="header">{$product.name}</span>
-                      <div class="ui divider"></div>
-                      {if $product.sale_active}
-                        <span style="color: #dc3545;text-decoration:line-through;">{$CURRENCY_SYMBOL}{$product.price}{$CURRENCY}</span>
-                      {/if}
-                      {$CURRENCY_SYMBOL}{$product.real_price} {$CURRENCY}
-                    </div>
                     <div class="ui bottom attached blue button" onClick="$('#modal{$product.id}').modal('show');">
                       {$BUY} &raquo;
                     </div>
