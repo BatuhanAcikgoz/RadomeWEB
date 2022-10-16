@@ -1,5 +1,5 @@
         <span class="col-lg-12">
-          <div class="col-md-12" style="margin-bottom: 20px;">
+          <div class="col-md-12" style="padding-bottom: 20px;">
             
 
 
