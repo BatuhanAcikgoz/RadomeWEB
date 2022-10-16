@@ -31,7 +31,7 @@
             <div class="row">
               {foreach from=$PRODUCTS item=product}
                 <div class="col-md-3">
-                  <div class="card server mb50" style="height: 300px">
+                  <div class="card server mb-50" style="height: 300px">
                   <div class="card-header header-theme">
                   <span>{$product.name}   |   </span>
                   {if $product.sale_active}
@@ -49,7 +49,7 @@
                         <img src="{$product.image}" style="height: 225px" alt="{$product.name}">
                       </div>
                     {/if}
-                    <div class="ui bottom attached blue button" onClick="$('#modal{$product.id}').modal('show');">
+                    <div class="btn btn-theme" onClick="$('#modal{$product.id}').modal('show');">
                       {$BUY} &raquo;
                     </div>
                   </div>
