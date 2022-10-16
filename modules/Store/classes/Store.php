@@ -125,12 +125,6 @@ class Store {
         return $categories;
     }
 
-    public function isPlayerSystemEnabled() {
-        $configuration = new Configuration('store');
-
-        return $configuration->get('player_login');
-    }
-
     /**
      * @return Language The current language instance for translations
      */
