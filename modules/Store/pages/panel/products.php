@@ -222,6 +222,8 @@ if (!isset($_GET['action'])) {
                 'CATEGORY_LIST' => $store->getAllCategories(),
                 'CONNECTIONS' => $store_language->get('admin', 'service_connections'),
                 'CONNECTIONS_LIST' => $connections_array,
+                'PRODUCT_IMAGE' => $store_language->get('admin', 'product_image'),
+                'PRODUCT_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
                 'FIELDS' => $store_language->get('admin', 'fields'),
                 'FIELDS_LIST' => $fields_array,
                 'CURRENCY' => Output::getClean($configuration->get('currency')),

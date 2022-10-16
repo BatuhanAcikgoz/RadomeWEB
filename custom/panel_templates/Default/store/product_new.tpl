@@ -116,7 +116,6 @@
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
                         </form>
-                        {if isset($ACTIONS)}
                             <hr>
                             <h5>{$PRODUCT_IMAGE}</h5>
                             <form action="" method="post" enctype="multipart/form-data" style="display:inline;">
@@ -137,7 +136,6 @@
                             {if $PRODUCT_IMAGE_VALUE}
                                 <a href="{$REMOVE_IMAGE_LINK}" class="btn btn-danger">{$REMOVE}</a>
                             {/if}
-                        {/if}
                     </div>
                 </div>
 
