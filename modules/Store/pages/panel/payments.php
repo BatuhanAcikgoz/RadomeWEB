@@ -344,7 +344,6 @@ if (isset($_GET['customer'])) {
             }
 
             $smarty->assign([
-                'USERNAME' => $store->isPlayerSystemEnabled() ? $store_language->get('admin', 'ign') : $language->get('user', 'username'),
                 'PRODUCTS' => $store_language->get('general', 'products') . ' ' . $store_language->get('admin', 'select_multiple_with_ctrl'),
                 'PRODUCTS_LIST' => $template_products
             ]);

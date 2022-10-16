@@ -16,13 +16,6 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
 
-$configuration = new Configuration('store');
-if (!$store->isPlayerSystemEnabled() || !$configuration->get('allow_guests')) {
-    if (!$user->isLoggedIn()) {
-        Redirect::to(URL::build('/login/'));
-    }
-}
-
 $gateways = new Gateways();
 
 $store_url = $store->getStoreURL();
@@ -387,9 +380,6 @@ if (isset($_GET['do'])) {
 }
 
 // Check if store customer is required and isset
-if ($store->isPlayerSystemEnabled() && !$to_customer->isLoggedIn()) {
-    Redirect::to(URL::build($store_url));
-}
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),

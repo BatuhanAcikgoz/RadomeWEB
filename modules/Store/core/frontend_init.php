@@ -13,13 +13,8 @@ $store = new Store($cache, $store_language);
 $shopping_cart = new ShoppingCart();
 
 $from_customer = new Customer($user);
-if ($store->isPlayerSystemEnabled()) {
-    // Customer will need to enter minecraft username to buy the products for
-    $to_customer = new Customer();
-} else {
-    // Customer will buy the products for them self
-    $to_customer = $from_customer;
-}
+$to_customer = $from_customer;
+
 
 // Check if customer tries to logout
 if (Input::exists()) {
@@ -29,14 +24,6 @@ if (Input::exists()) {
             $to_customer->logout();
         }
     }
-}
-
-// Assign smarty variables
-if ($store->isPlayerSystemEnabled() && $to_customer->isLoggedIn()) {
-    $smarty->assign([
-        'STORE_PLAYER' => $to_customer->getUsername(),
-        'LOGOUT' => $store_language->get('general', 'logout'),
-    ]);
 }
 
 $configuration = new Configuration('store');
