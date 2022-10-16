@@ -17,7 +17,7 @@
         <h2 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$ACTIVE_CATEGORY}</h2>
         {include file='store/navbar.tpl'}
                 
-        <div class="ui bottom attached segment">
+        <div class="card-body">
           {$CONTENT}
             
           {if isset($NO_PRODUCTS)}
