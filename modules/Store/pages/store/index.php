@@ -18,14 +18,13 @@ require_once(ROOT_PATH . '/modules/Store/core/frontend_init.php');
 $content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
 $content = Output::getDecoded($content[0]->value);
 $content = Output::getPurified($content);
-$categories_list = [];
-$categories = DB::getInstance()->get('store_categories', ['image'])->results();
+$image = DB::getInstance()->get('store_categories', ['image'])->results();
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
     'STORE_URL' => URL::build($store->getStoreURL()),
     'CATEGORIES' => $store->getNavbarMenu('Home'),
-    'CATEGORY_IMAGE_VALUE' => Output::getClean($categories->image),
+    'CATEGORY_IMAGE_VALUE' => $image,
     'CONTENT' => $content,
     'TOKEN' => Token::get(),
 ]);
