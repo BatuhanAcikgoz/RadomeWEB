@@ -18,7 +18,7 @@
                 </div>
               </div>
             {else}
-              <a class="{if $category.active}active {/if}btn btn-theme" href="{$category.url}" style="float: inline-end;">
+              <a class="{if $category.active}active {/if}btn btn-theme" href="{$category.url}" style="float: inline-end; margin-left: 25px;">
                {$category.title}
               </a>
             {/if}
