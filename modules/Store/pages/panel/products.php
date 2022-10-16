@@ -15,6 +15,15 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
     die();
 }
 
+if (!isset($_GET['product']) || !is_numeric($_GET['product'])) {
+    Redirect::to(URL::build('/panel/store/products'));
+}
+
+$product = new Product($_GET['product']);
+if (!$product->exists()) {
+    Redirect::to(URL::build('/panel/store/products'));
+}
+
 define('PAGE', 'panel');
 define('PARENT_PAGE', 'store');
 define('PANEL_PAGE', 'store_products');
@@ -224,6 +233,10 @@ if (!isset($_GET['action'])) {
                 'CONNECTIONS_LIST' => $connections_array,
                 'PRODUCT_IMAGE' => $store_language->get('admin', 'product_image'),
                 'PRODUCT_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
+                'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
+                'BROWSE' => $language->get('general', 'browse'),
+                'REMOVE' => $language->get('general', 'remove'),
+                'REMOVE_IMAGE_LINK' => URL::build('/panel/store/product/' , 'action=remove_image&product=' . $product->data()->id),
                 'FIELDS' => $store_language->get('admin', 'fields'),
                 'FIELDS_LIST' => $fields_array,
                 'CURRENCY' => Output::getClean($configuration->get('currency')),
