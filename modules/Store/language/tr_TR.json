@@ -178,7 +178,7 @@
     "admin\/limits_and_requirements": "Sınırlar ve Gereksinimler",
     "general\/agree_t_and_c_purchase": "Bu satın alma işleminin {{termsLinkStart}} Şartlar ve Koşullarını {{termsLinkEnd}} kabul ediyorum.",
     "general\/accept_terms": "Şartlar ve koşulları kabul etmelisiniz",
-    "general\/buy": "Satın almak",
+    "general\/buy": "Satın al",
     "general\/checkout": "Ödeme",
     "general\/completed_payment_text": "Aşağıdaki ürünleri satın alan {{user}} kişisinden yeni ödeme {{products}}",
     "general\/continue": "Devam et",
