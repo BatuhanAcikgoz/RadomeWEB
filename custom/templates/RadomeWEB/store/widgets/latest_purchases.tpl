@@ -5,7 +5,7 @@
         <thead>
                 <tr>
                   <th class="text-center">#</th>
-                  <th>Kullanıcı Adı</th>
+                  <th>İsim</th>
                   <th class="text-center">Ürün</th>
                   <th class="text-center">Tarih</th>
                 </tr>
