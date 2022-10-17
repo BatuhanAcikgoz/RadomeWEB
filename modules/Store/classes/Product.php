@@ -301,7 +301,7 @@ class Product {
     public function delete() {
         if ($this->exists()) {
             $this->update([
-                'deleted' => date('U')
+                'deleted' => 1
             ]);
             
             $this->_db->createQuery('DELETE FROM `rw_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);
