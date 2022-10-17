@@ -46,7 +46,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$purchase_limit = 10;
 			}
 
-            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, rw_store_products.name, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
+            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, rw_store_products.*, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
 			$latest_purchases = [];
 
 			if (count($latest_purchases_query)) {
@@ -67,7 +67,6 @@ class LatestStorePurchasesWidget extends WidgetBase {
                         $style = $recipient_user->getGroupStyle();
                         $identifier = Output::getClean($recipient->getIdentifier());
                         $user_id = $recipient_user->data()->id;
-						$product = $recipient_user->data()->id;
                     } else {
                         $username = $recipient->getUsername();
                         $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
