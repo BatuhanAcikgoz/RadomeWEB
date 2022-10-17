@@ -46,7 +46,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$purchase_limit = 10;
 			}
 
-            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
+            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_products ON product=rw_store_orders.description LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
 			$latest_purchases = [];
 
 			if (count($latest_purchases_query)) {
@@ -79,6 +79,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'avatar' => $avatar,
 						'profile' => URL::build('/profile/' . $username),
 						'price' => Output::getClean($purchase->amount),
+						'product' => Output::getClean($purchase->product),
 						'currency' => Output::getClean($purchase->currency),
 						'currency_symbol' => Output::getClean(Store::getCurrencySymbol()),
 						'uuid' => Output::getClean($purchase->identifier),
