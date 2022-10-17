@@ -14,7 +14,7 @@
             {foreach from=$LATEST_PURCHASES_LIST item=purchase name=purchaseLoop}
                 <tr>
                         <td class="text-center">
-                        <img class="avatar" src="{$purchase.avatar}" alt="{$purchase.username}" width="32" height="32">
+                        <img class="avatar" src="{$purchase.avatar}" alt="{$purchase.username}" width="32" height="32" style="max-width: 150px;">
                         </td>
                         <td><a class="" {if $purchase.user_id}href="{$purchase.profile}" data-poload="{$USER_INFO_URL}{$purchase.user_id}" data-html="true"{/if} style="{$purchase.style|replace:';':''}!important;margin:5px">{$purchase.username}</a></td>
                         <td class="text-center">{$purchase.price}{$purchase.currency_symbol}</td>
