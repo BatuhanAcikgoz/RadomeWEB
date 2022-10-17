@@ -958,25 +958,29 @@ $cache->store('panel_default', 'Default');
 DB::getInstance()->insert('widgets', [
     'name' => 'Server Status',
     'enabled' => true,
-    'pages' => '["index","forum","vote","form-1"]'
+    'pages' => '["index","forum","vote","form-1"]',
+    'order' => '3'
 ]);
 
 DB::getInstance()->insert('widgets', [
     'name' => 'Statistics',
     'enabled' => true,
-    'pages' => '["index","forum","vote","form-1"]'
+    'pages' => '["index","forum","vote","form-1"]',
+    'order' => '5'
 ]);
 
 DB::getInstance()->insert('widgets', [
     'name' => 'Latest Purchases',
     'enabled' => true,
-    'pages' => '["index","forum","vote","form-1"]'
+    'pages' => '["index","forum","vote","form-1"]',
+    'order' => '7'
 ]);
 
 DB::getInstance()->insert('widgets', [
     'name' => 'Discord',
     'enabled' => true,
-    'pages' => '["index","forum","vote","form-1"]'
+    'pages' => '["index","forum","vote","form-1"]',
+    'order' => '10'
 ]);
 
 
