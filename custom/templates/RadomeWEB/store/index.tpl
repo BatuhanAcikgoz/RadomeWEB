@@ -3,11 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            {include file='store/navbar.tpl'}
-        </div>
-        <div class="col-lg-12">
             <div class="card">
-                <div class="card-header header-theme">{$STORE}</div>
+                <h2 class="card-header header-theme">{$STORE}</h2>
+                <div class="col-lg-12">
+                {include file='store/navbar.tpl'}
+                </div>
                 <div class="card-body">{$CONTENT}</div>
                 <div class="card-body">
                 <div class="row">              
