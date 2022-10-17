@@ -10,14 +10,14 @@
  */
 
 class LatestStorePurchasesWidget extends WidgetBase {
-	private $_language, $_cache, $_store_language;
+	private $db_, $_language, $_cache, $_store_language;
 
     public function __construct(Smarty $smarty, Language $language, Language $store_language, Cache $cache) {
 		$this->_smarty = $smarty;
 		$this->_language = $language;
 		$this->_store_language = $store_language;
 		$this->_cache = $cache;
-
+		$this->_db = DB::getInstance();
         // Get widget
         $widget_query = self::getData('Latest Purchases');
 
@@ -80,6 +80,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'profile' => URL::build('/profile/' . $username),
 						'price' => Output::getClean($purchase->amount),
 						'currency' => Output::getClean($purchase->currency),
+						'name' => $this->getOrder()->getDescription(),
 						'currency_symbol' => Output::getClean(Store::getCurrencySymbol()),
 						'uuid' => Output::getClean($purchase->identifier),
 						'date_full' => date(DATE_FORMAT, $purchase->created),
