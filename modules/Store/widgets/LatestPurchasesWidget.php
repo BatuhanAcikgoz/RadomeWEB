@@ -46,9 +46,9 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$purchase_limit = 10;
 			}
 
-			$product = DB::getInstance()->get('store_products', ['id', 'name'])->results();
-			$product = $product[0];
+
             $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
+			$latest_purchases_query = DB::getInstance()->get('store_products', ['name'])->results();
 			$latest_purchases = [];
 
 			if (count($latest_purchases_query)) {
@@ -82,7 +82,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'profile' => URL::build('/profile/' . $username),
 						'price' => Output::getClean($purchase->amount),
 						'currency' => Output::getClean($purchase->currency),
-						'product' => Output::getClean($product->name),
+						'product' => Output::getClean($purchase->name),
 						'currency_symbol' => Output::getClean(Store::getCurrencySymbol()),
 						'uuid' => Output::getClean($purchase->identifier),
 						'date_full' => date(DATE_FORMAT, $purchase->created),
