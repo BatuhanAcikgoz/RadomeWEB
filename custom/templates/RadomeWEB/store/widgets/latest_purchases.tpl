@@ -8,7 +8,7 @@
                         <div class="content">
                         <img class="avatar" src="{$purchase.avatar}" alt="{$purchase.username}" width="48" height="48">
                             <a class="" {if $purchase.user_id}href="{$purchase.profile}" data-poload="{$USER_INFO_URL}{$purchase.user_id}" data-html="true"{/if} style="{$purchase.style|replace:';':''}!important;margin:5px">{$purchase.username}</a>
-                            {$purchase.currency_symbol}{$purchase.price} {$purchase.currency}
+                            {$purchase.price}{$purchase.currency_symbol}
                         </div>
                     </div>
                 </div>
