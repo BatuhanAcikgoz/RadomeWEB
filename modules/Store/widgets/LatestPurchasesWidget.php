@@ -43,7 +43,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 			if ($this->_cache->isCached('purchase_limit')) {
 				$purchase_limit = intval($this->_cache->retrieve('purchase_limit'));
 			} else {
-				$purchase_limit = 10;
+				$purchase_limit = 5;
 			}
 
             $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, product_id, username, rw_store_orders_products.product_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products ON rw_store_orders_products.product_id=rw_store_orders_products.product_id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
@@ -56,9 +56,9 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				foreach ($latest_purchases_query as $purchase) {
                     // Recipient	
 					$product_id = Output::getClean($purchase->product_id);
-					$product_name = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
+					$result = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
 					//$result = mysqli_fetch_assoc($result);
-					//$product_name = $result["name"];
+					$product_name = $result["name"];
 
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
