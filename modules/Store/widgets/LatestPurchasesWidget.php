@@ -77,9 +77,8 @@ class LatestStorePurchasesWidget extends WidgetBase {
                     }
 
 					$product_id  = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
-					$abc= DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					$product_name= json_encode($abc, JSON_UNESCAPED_UNICODE);
-
+					$product_name= DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
+					
 					$latest_purchases[] = [
 						'avatar' => $avatar,
 						'profile' => URL::build('/profile/' . $username),
