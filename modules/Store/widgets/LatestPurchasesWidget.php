@@ -49,7 +49,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
             $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
 			$latest_purchases = [];
 
-			
+
 			if (count($latest_purchases_query)) {
 				$timeago = new TimeAgo(TIMEZONE);
 
@@ -90,7 +90,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'date_full' => date(DATE_FORMAT, $purchase->created),
 						'date_friendly' => $timeago->inWords($purchase->created, $this->_language),
 						'style' => $style,
-						'product_name' => Output::getClean($product_name),
+						'product_name' => $product_name,
 						'username' => $username,
 						'user_id' => $user_id
 					];
