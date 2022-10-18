@@ -46,7 +46,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$purchase_limit = 5;
 			}
 
-            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, product_id, username, rw_store_orders_products.product_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products ON rw_store_orders_products.product_id=rw_store_orders_products.product_id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
+            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, rw_store_orders_products.product_id, rw_store_orders.user_id, to_customer_id, rw_store_products.name FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products ON rw_store_payments.order_id=rw_store_orders_products.order_id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id LEFT JOIN rw_store_products ON rw_store_orders_products.product_id=rw_store_products.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
 			$latest_purchases = [];
 
 			
@@ -54,11 +54,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$timeago = new TimeAgo(TIMEZONE);
 
 				foreach ($latest_purchases_query as $purchase) {
-                    // Recipient	
-					$product_id = Output::getClean($purchase->product_id);
-					$result = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					//$result = mysqli_fetch_assoc($result);
-					$product_name = print_r($result["name"]);
+                    // Recipient
 
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
@@ -80,7 +76,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
                         $identifier = Output::getClean($recipient->getIdentifier());
                         $user_id = null;
                     }
-
+					
 					$latest_purchases[] = [
 						'avatar' => $avatar,
 						'profile' => URL::build('/profile/' . $username),
@@ -91,7 +87,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'date_full' => date(DATE_FORMAT, $purchase->created),
 						'date_friendly' => $timeago->inWords($purchase->created, $this->_language),
 						'style' => $style,
-						'product_name' => $product_name,
+						'product_name' => Output::getClean($purchase->name),
 						'username' => $username,
 						'user_id' => $user_id
 					];
