@@ -50,7 +50,6 @@ class LatestStorePurchasesWidget extends WidgetBase {
 			$latest_purchases = [];
 			$product_id = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
 			$abc = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-			$product_name = json_encode($abc, JSON_UNESCAPED_UNICODE);
 			
 			if (count($latest_purchases_query)) {
 				$timeago = new TimeAgo(TIMEZONE);
@@ -88,7 +87,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'date_full' => date(DATE_FORMAT, $purchase->created),
 						'date_friendly' => $timeago->inWords($purchase->created, $this->_language),
 						'style' => $style,
-						'product_name' => $product_name,
+						'product_name' => $abc,
 						'username' => $username,
 						'user_id' => $user_id
 					];
