@@ -95,7 +95,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				}
 			}
 
-			$this->_cache->store('latest_purchases', $latest_purchases, 10);
+			$this->_cache->store('latest_purchases', $latest_purchases, 120);
 
 			$latest_purchases_query = null;
 		}
