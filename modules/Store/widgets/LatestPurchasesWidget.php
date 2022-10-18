@@ -57,8 +57,8 @@ class LatestStorePurchasesWidget extends WidgetBase {
                     // Recipient	
 					$product_id = Output::getClean($purchase->product_id);
 					$result = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					$abc = mysqli_fetch_assoc($abc);
-					$product_name = $row["name"];
+					$result = mysqli_fetch_assoc($result);
+					$product_name = $result["name"];
 
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
