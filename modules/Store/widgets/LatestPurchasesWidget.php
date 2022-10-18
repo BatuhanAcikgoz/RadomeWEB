@@ -55,6 +55,9 @@ class LatestStorePurchasesWidget extends WidgetBase {
 
 				foreach ($latest_purchases_query as $purchase) {
                     // Recipient	
+					$product_id = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
+					$abc = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
+					$product_name = json_encode($abc, JSON_UNESCAPED_UNICODE);
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
                     } else {
@@ -75,10 +78,6 @@ class LatestStorePurchasesWidget extends WidgetBase {
                         $identifier = Output::getClean($recipient->getIdentifier());
                         $user_id = null;
                     }
-
-					$product_id = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
-					$abc = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					$product_name = json_encode($abc, JSON_UNESCAPED_UNICODE);
 
 					$latest_purchases[] = [
 						'avatar' => $avatar,
