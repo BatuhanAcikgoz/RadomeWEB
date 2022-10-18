@@ -46,7 +46,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$purchase_limit = 10;
 			}
 
-            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, username, order_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
+            $latest_purchases_query = DB::getInstance()->query('SELECT rw_store_payments.*, identifier, product_id, username, rw_store_orders_products.product_id, rw_store_orders.user_id, to_customer_id FROM rw_store_payments LEFT JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products ON rw_store_orders_products.product_id=rw_store_orders_products.product_id LEFT JOIN rw_store_customers ON to_customer_id=rw_store_customers.id ORDER BY created DESC LIMIT ' . $purchase_limit)->results();
 			$latest_purchases = [];
 
 			
@@ -55,9 +55,11 @@ class LatestStorePurchasesWidget extends WidgetBase {
 
 				foreach ($latest_purchases_query as $purchase) {
                     // Recipient	
-					$product_id = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
-					$abc = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					$product_name = json_encode($abc, JSON_UNESCAPED_UNICODE);
+					$product_id = Output::getClean($purchase->product_id),
+					$result = DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
+					$abc = mysqli_fetch_assoc($abc)
+					$product_name = $row["name"];
+
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
                     } else {
