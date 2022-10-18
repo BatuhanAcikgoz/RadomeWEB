@@ -90,7 +90,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 						'date_full' => date(DATE_FORMAT, $purchase->created),
 						'date_friendly' => $timeago->inWords($purchase->created, $this->_language),
 						'style' => $style,
-						'product_name' => Output::getClean($product_name),
+						'product_name' => $product_name,
 						'username' => $username,
 						'user_id' => $user_id
 					];
