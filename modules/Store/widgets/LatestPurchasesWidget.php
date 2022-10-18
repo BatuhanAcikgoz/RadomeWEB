@@ -54,7 +54,10 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				$timeago = new TimeAgo(TIMEZONE);
 
 				foreach ($latest_purchases_query as $purchase) {
-                    // Recipient
+                    // Recipient	
+					$product_id  = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
+					$abc= DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
+					$product_name= json_encode($abc, JSON_UNESCAPED_UNICODE);
                     if ($purchase->to_customer_id) {
                         $recipient = new Customer(null, $purchase->to_customer_id, 'id');
                     } else {
@@ -76,10 +79,6 @@ class LatestStorePurchasesWidget extends WidgetBase {
                         $user_id = null;
                     }
 
-					$product_id  = DB::getInstance()->query("SELECT product_id FROM rw_store_orders_products ")->results();
-					$abc= DB::getInstance()->query("SELECT name FROM rw_store_products WHERE id ='".$product_id."' ")->results();
-					$product_name= json_encode($abc, JSON_UNESCAPED_UNICODE);
-
 					$latest_purchases[] = [
 						'avatar' => $avatar,
 						'profile' => URL::build('/profile/' . $username),
@@ -98,7 +97,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 				}
 			}
 
-			$this->_cache->store('latest_purchases', $latest_purchases, 120);
+			$this->_cache->store('latest_purchases', $latest_purchases, 10);
 
 			$latest_purchases_query = null;
 		}
