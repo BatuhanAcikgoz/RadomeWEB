@@ -44,6 +44,7 @@
         
         <form class="col-md-12" action="" method="post" id="forms">
           <h3>{$SHOPPING_CART}</h3>
+          <br>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -67,7 +68,7 @@
             </tbody>
           </table>
         
-          <h4>{$TOTAL_PRICE} {$TOTAL_PRICE_VALUE} {$CURRENCY}<h4>
+          <h4>{$TOTAL_PRICE} {$TOTAL_PRICE_VALUE} {$CURRENCY}</h4>
           <br>
           
           <h3>{$PAYMENT_METHOD}</h3>
