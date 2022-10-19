@@ -17,9 +17,10 @@
       <div class="card">
 
         <h2 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2>
+        <br>
         {include file='store/navbar.tpl'}
         
-        <hr />
+        <br style="margin-bottom: 35px;">
         
         {if isset($SUCCESS)}
           <div class="btn btn-success btn-lg">
