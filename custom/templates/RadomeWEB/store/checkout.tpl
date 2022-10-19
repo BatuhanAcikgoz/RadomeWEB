@@ -67,6 +67,7 @@
           </table>
         
           <h4>{$TOTAL_PRICE} {$TOTAL_PRICE_VALUE} {$CURRENCY}<h4>
+          <br>
           
           <h3>{$PAYMENT_METHOD}</h3>
           <hr />
@@ -78,7 +79,7 @@
               </div>
             </div>
           {/foreach}
-        
+          <br>        
         
           <h3>{$PURCHASE}</h3>
           <hr />
