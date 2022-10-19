@@ -41,7 +41,7 @@
           </div>
         {/if}
         
-        <form class="" action="" method="post" id="forms">
+        <form class="col-md-12" action="" method="post" id="forms">
           <h3>{$SHOPPING_CART}</h3>
           <table class="table table-striped">
             <thead>
@@ -85,7 +85,7 @@
           <div class="field">
             <div class="form-group custom-control custom-switchx" style="display:inline;">
               <input type="hidden" name="token" value="{$TOKEN}">
-              <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE} <span class="right floated"><input type="submit" class="ui green button right floated" value="{$PURCHASE} &raquo;"></span></label>
+              <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE} <span class="left floated"><input type="submit" class="btn btn-theme" value="{$PURCHASE} &raquo;"></span></label>
             </div>
           </div>
           </br>
