@@ -17,7 +17,7 @@
       <div class="card">
 
         <h2 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2>
-        <br>
+        <br style="margin-bottom: 10px;">
         {include file='store/navbar.tpl'}
         
         <br style="margin-bottom: 35px;">
