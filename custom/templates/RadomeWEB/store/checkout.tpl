@@ -60,7 +60,7 @@
                   <td>{if count($item.fields)} {foreach from=$item.fields item=field name=fields}<strong>{$field.description}</strong>: {$field.value}{if not $smarty.foreach.fields.last}</br>{/if}{/foreach} {/if}</td>
                   <td>{$item.quantity}</td>
                   <td>{$CURRENCY_SYMBOL}{$item.price} {$CURRENCY}</td>
-                  <td><a href="{$item.remove_link}" class="btn btn-secondary"><i class="fas fa-times"></i></a></td>
+                  <td><a href="{$item.remove_link}" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
                 </tr>
               {/foreach}
             </tbody>
