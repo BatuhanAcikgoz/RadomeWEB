@@ -29,6 +29,7 @@
              {$SUCCESS}
             </div>
           </div>
+          <br>
         {/if}
                     
         {if isset($ERRORS)}
@@ -40,6 +41,7 @@
               {/foreach}
             </div>
           </div>
+          <br>
         {/if}
         
         <form class="col-md-12" action="" method="post" id="forms">
