@@ -200,7 +200,7 @@
     "general\/price": "Fiyat",
     "general\/product": "Ürün",
     "general\/products": "Ürünler",
-    "general\/purchase": "Satın Alma",
+    "general\/purchase": "Satın Al",
     "general\/quantity": "Miktar",
     "general\/refunded_payment_text": "{{user}} adlı kullanıcıya iade edilen ödeme",
     "general\/reversed_payment_text": "Reversed payment from {{user}}",
