@@ -46,7 +46,7 @@
                             {$SALE}
                           </span>
                         {/if}
-                        <img class="server" src="{$product.image}" style="height: 225px" alt="{$product.name}">
+                        <img src="{$product.image}" style="height: 225px" class="server" alt="{$product.name}">
                       </div>
                     {/if}
                     <div class="btn btn-theme" onClick="$('#modal{$product.id}').modal('show');">
