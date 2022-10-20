@@ -28,8 +28,8 @@
             <div class="col-md-9 alert alert-danger ">
              {$SUCCESS}
             </div>
+            <br>
           </div>
-          <br>
         {/if}
                     
         {if isset($ERRORS)}
@@ -40,8 +40,8 @@
                 {$error}<br />
               {/foreach}
             </div>
+            <br>
           </div>
-          <br>
         {/if}
         
         <form class="col-md-12" action="" method="post" id="forms">
