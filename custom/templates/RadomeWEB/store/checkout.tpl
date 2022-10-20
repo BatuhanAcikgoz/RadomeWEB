@@ -71,7 +71,7 @@
           </table>
         
           <h4>{$TOTAL_PRICE} {$TOTAL_PRICE_VALUE} {$CURRENCY}</h4>
-          <br>
+          <br style="margin-bottom: 15px;">
           
           <h3>{$PAYMENT_METHOD}</h3>
           <hr />
@@ -94,7 +94,7 @@
               <span class="left floated"><input type="submit" class="btn btn-theme" value="{$PURCHASE} &raquo;"></span>
             </div>
           </div>
-          </br>
+          </br style="margin-bottom: 15px;">
         </form>
         
       </div>
