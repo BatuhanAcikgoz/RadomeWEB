@@ -25,15 +25,15 @@
         {if isset($SUCCESS)}
           <div class="btn btn-success btn-lg">
             <i class="fas fa-check"></i>
-            <div class="content">
+            <div class="col-md-9 alert alert-danger ">
              {$SUCCESS}
             </div>
           </div>
         {/if}
                     
         {if isset($ERRORS)}
-          <div class="ui negative icon message">
-            <div class="content">
+          <div class="col-md-12 rounded justify-content-center">
+            <div class="col-md-9 alert alert-danger ">
             <i class="fas fa-times"></i>
               {foreach from=$ERRORS item=error}
                 {$error}<br />
