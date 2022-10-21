@@ -43,7 +43,7 @@ $smarty->assign([
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
-	'MURAT' => Output::getClean($votes),
+	'MURAT' => $votes,
 ]);
 
 // Load modules + template
