@@ -37,10 +37,8 @@
         <thead>
             <tr>
                 {foreach from=$MURAT item=site}
-                    <div class="col-md-4 mb-2">
-                        <a class="btn btn-block btn-theme" href="{$MURAT.nickname}" target="_blank" role="button"
-                            rel="noopener nofollow">{$MURAT.votes}</a>
-                    </div>
+                        <th>{$MURAT.nickname}</th>
+                        <th>{$MURAT.votes}</th>
                 {/foreach}
                 <th>{$AMOUNT}</th>
                 <th>{$DATE}</th>

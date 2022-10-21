@@ -32,8 +32,8 @@ $votes = $vote_minecraftmp->voters;
 $voters_array = [];
 foreach ($votes as $vote) {
 	$voters_array[] = [
-		'nickname' => Output::getClean($vote->nickname)
-		'votes' => Output::getClean($vote->votes)
+		'nickname' => Output::getClean($vote->nickname),
+		'votes' => Output::getClean($vote->votes),
 	]
 }
 
