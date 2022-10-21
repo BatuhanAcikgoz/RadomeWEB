@@ -30,8 +30,6 @@
             </div>
         </div>
 
-        <div class="row">
-        <div class="col-md-6">
         <div class="card">
         <h3 class="card-header header-theme">{$TOP_VOTERS}</h3>
         <table class="ui fixed single line selectable unstackable small padded res table">
@@ -48,8 +46,6 @@
             {/foreach}
     </tbody>
 </table>
-</div>
-</div>
 </div>
         {if count($WIDGETS_RIGHT)}
             <div class="col-md-3">
