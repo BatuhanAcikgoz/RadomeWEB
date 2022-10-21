@@ -37,7 +37,7 @@
                                 <th>{$USERNAME}</th>
                                 <th>{$VOTES}</th>
                         <tbody>
-                            {foreach from=$VOTERS item=top_voters}
+                            {foreach from=$TOP_VOTERS item=top_voters}
                                 <tr>
                                     <td>{$top_voters.nickname}</td>
                                     <td>{$top_voters.votes}</td>

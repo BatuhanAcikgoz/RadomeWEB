@@ -31,10 +31,10 @@ $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
 
 
 $top_voters_array = [];
-foreach ($top_vote as $top_voters) {
+foreach ($top_vote as $top_vote1) {
 	$top_voters_array[] = [
-		'nickname' => Output::getClean($top_voters->nickname),
-		'votes' => Output::getClean($top_voters->votes),
+		'nickname' => Output::getClean($top_vote1->nickname),
+		'votes' => Output::getClean($top_vote1->votes),
 	];
 }
 
