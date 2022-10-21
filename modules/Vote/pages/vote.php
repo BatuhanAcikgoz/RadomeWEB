@@ -27,7 +27,7 @@ $vote_minecraftmp = json_decode(file_get_contents($minecraftmp));
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-$votes = $vote_minecraftmp['voters'];
+$votes = $vote_minecraftmp->voters;
 
 $sites_array = [];
 foreach ($sites as $site) {
