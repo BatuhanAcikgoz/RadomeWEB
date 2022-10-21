@@ -36,18 +36,15 @@
         <table class="ui fixed single line selectable unstackable small padded res table">
         <thead>
             <tr>
-                {foreach from=$MURAT item=murat}
-                        <th>{$murat.nickname}</th>
-                        <th>{$murat.votes}</th>
-                {/foreach}
-            </tr>
-        </thead>
-        <tbody>
+                <th>{$USERNAME}</th>
+                <th>{$VOTES}</th>
+    <tbody>
+            {foreach from=$VOTERS item=voters}
             <tr>
-                <td>{$transaction.transaction}</td>
-                <td>{$transaction.currency_symbol}{$transaction.amount} {$transaction.currency}</td>
-                <td><span data-toggle="tooltip" data-content="{$transaction.date_full}">{$transaction.date_friendly}</span></td>
+                <td>{$voters.nickname}</td>
+                <td>{$voters.votes}</td>
             </tr>
+            {/foreach}
     </tbody>
 </table>
 </div>
