@@ -49,10 +49,12 @@ foreach ($sites as $site) {
 // Assign Smarty variables
 $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
+	'USERNAME' => $language->get('user', 'username'),
+	'VOTES' => $language->get('vote', 'votes'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
-	'MURAT' => $voters_array,
+	'VOTERS' => $voters_array,
 ]);
 
 // Load modules + template
