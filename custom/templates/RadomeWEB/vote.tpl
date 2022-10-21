@@ -36,7 +36,12 @@
         <table class="ui fixed single line selectable unstackable small padded res table">
         <thead>
             <tr>
-                <th>{$MURAT}</th>
+                {foreach from=$MURAT item=site}
+                    <div class="col-md-4 mb-2">
+                        <a class="btn btn-block btn-theme" href="{$MURAT.nickname}" target="_blank" role="button"
+                            rel="noopener nofollow">{$MURAT.votes}</a>
+                    </div>
+                {/foreach}
                 <th>{$AMOUNT}</th>
                 <th>{$DATE}</th>
             </tr>

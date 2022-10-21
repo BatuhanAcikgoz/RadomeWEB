@@ -29,6 +29,14 @@ $vote_minecraftmp = json_decode(file_get_contents($minecraftmp));
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
 $votes = $vote_minecraftmp->voters;
 
+$voters_array = [];
+foreach ($votes as $vote) {
+	$voters_array[] = [
+		'nickname' => Output::getClean($vote->nickname)
+		'votes' => Output::getClean($vote->votes)
+	]
+}
+
 $sites_array = [];
 foreach ($sites as $site) {
     $sites_array[] = [
@@ -42,7 +50,7 @@ $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
-	'SITES' => $sites_array,
+	'SITES' => $voters_array,
 	'MURAT' => $votes,
 ]);
 
