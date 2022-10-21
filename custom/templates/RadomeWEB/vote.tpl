@@ -46,8 +46,6 @@
             </tbody>
         </table>
         </div>
-                                
-            </div>
         </div>
         {if count($WIDGETS_RIGHT)}
             <div class="col-md-3">
