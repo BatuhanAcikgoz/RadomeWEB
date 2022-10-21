@@ -30,7 +30,7 @@
   
 
                 <div class="card">
-                <h3 class="card-header header-theme">{$TOP_VOTERS}</h3>
+                <div class="card-header header-theme">{$TOP_VOTERS}</div>
                 <table class="ui fixed single line selectable unstackable small padded res table">
                 <thead>
                     <tr>
