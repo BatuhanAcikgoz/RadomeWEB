@@ -27,27 +27,27 @@
                         {/foreach}
                     </div>
                 </div>
-            </div>
   
 
-            <div class="card">
-            <h3 class="card-header header-theme">{$TOP_VOTERS}</h3>
-            <table class="ui fixed single line selectable unstackable small padded res table">
-            <thead>
-                <tr>
-                    <th>{$USERNAME}</th>
-                    <th>{$VOTES}</th>
-        <tbody>
-                {foreach from=$VOTERS item=voters}
-                <tr>
-                    <td>{$voters.nickname}</td>
-                    <td>{$voters.votes}</td>
-                </tr>
-                {/foreach}
-        </tbody>
-    </table>
-    </div>
-            
+                <div class="card">
+                <h3 class="card-header header-theme">{$TOP_VOTERS}</h3>
+                <table class="ui fixed single line selectable unstackable small padded res table">
+                <thead>
+                    <tr>
+                        <th>{$USERNAME}</th>
+                        <th>{$VOTES}</th>
+            <tbody>
+                    {foreach from=$VOTERS item=voters}
+                    <tr>
+                        <td>{$voters.nickname}</td>
+                        <td>{$voters.votes}</td>
+                    </tr>
+                    {/foreach}
+            </tbody>
+        </table>
+        </div>
+                                
+            </div>
         </div>
         {if count($WIDGETS_RIGHT)}
             <div class="col-md-3">
