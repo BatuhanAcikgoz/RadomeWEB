@@ -36,7 +36,7 @@
         <table class="ui fixed single line selectable unstackable small padded res table">
         <thead>
             <tr>
-                {foreach from=$MURAT item=site}
+                {foreach from=$MURAT item=MURAT}
                         <th>{$MURAT.nickname}</th>
                         <th>{$MURAT.votes}</th>
                 {/foreach}
