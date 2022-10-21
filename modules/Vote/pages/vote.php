@@ -51,6 +51,7 @@ $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'USERNAME' => $language->get('user', 'username'),
 	'VOTES' => $vote_language->get('vote', 'votes'),
+	'TOP_VOTERS' => $vote_language->get('vote', 'top_voters_header'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,

@@ -13,6 +13,7 @@
     "vote\/new_version_x": "New module version: {{new_version}}",
     "vote\/no_vote_sites": "No vote sites defined",
     "vote\/votes": "Oy Sayısı",
+    "vote\/top_voters_header": "En Çok Oy Verenler",
     "vote\/site_created_successfully": "Site created successfully.",
     "vote\/site_deleted_successfully": "Site deleted successfully.",
     "vote\/site_name_maximum": "The site name must be a maximum of 64 characters.",
