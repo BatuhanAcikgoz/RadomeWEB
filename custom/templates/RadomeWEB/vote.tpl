@@ -30,6 +30,18 @@
             </div>
         </div>
 
+        <div class="card">
+        <h3 class="card-header header-theme">{$MY_TRANSACTIONS}</h3>
+        <table class="ui fixed single line selectable unstackable small padded res table">
+        <thead>
+            <tr>
+                <th>{$TRANSACTION}</th>
+                <th>{$AMOUNT}</th>
+                <th>{$DATE}</th>
+            </tr>
+        </thead>
+    </table>
+        </div>
         {if count($WIDGETS_RIGHT)}
             <div class="col-md-3">
                 {foreach from=$WIDGETS_RIGHT item=widget}
