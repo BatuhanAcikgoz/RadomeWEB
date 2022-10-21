@@ -40,8 +40,6 @@
                         <th>{$murat.nickname}</th>
                         <th>{$murat.votes}</th>
                 {/foreach}
-                <th>{$AMOUNT}</th>
-                <th>{$DATE}</th>
             </tr>
         </thead>
         <tbody>

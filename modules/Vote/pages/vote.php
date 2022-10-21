@@ -23,11 +23,12 @@ if (!empty($vote_message)) {
 }
 $minecraftmp ="https://minecraft-mp.com/api/?object=servers&element=voters&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&month=current&format=json&limit=5";
 $vote_minecraftmp = json_decode(file_get_contents($minecraftmp));
+$votes = $vote_minecraftmp->voters;
 
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-$votes = $vote_minecraftmp->voters;
+
 
 $voters_array = [];
 foreach ($votes as $vote) {
