@@ -27,7 +27,7 @@ $vote_minecraftmp = file_get_contents($minecraftmp);
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-$votes = $vote_minecraftmp
+$votes = json_decode($vote_minecraftmp);
 
 $sites_array = [];
 foreach ($sites as $site) {
@@ -43,7 +43,7 @@ $smarty->assign([
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
-	'MURAT' => $votes,
+	'MURAT' => $votes['voters'],
 ]);
 
 // Load modules + template
