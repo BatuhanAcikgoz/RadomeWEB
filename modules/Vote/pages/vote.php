@@ -22,12 +22,12 @@ if (!empty($vote_message)) {
 	$message_enabled = true;
 }
 $minecraftmp ="https://minecraft-mp.com/api/?object=servers&element=voters&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&month=current&format=json&limit=5";
-$vote_minecraftmp = file_get_contents($minecraftmp);
+$vote_minecraftmp = json_decode(file_get_contents($minecraftmp));
 
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-$votes = json_decode($vote_minecraftmp);
+$votes = $vote_minecraftmp['voters'];
 
 $sites_array = [];
 foreach ($sites as $site) {
@@ -43,7 +43,7 @@ $smarty->assign([
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
-	'MURAT' => Output::getClean($votes['voters']),
+	'MURAT' => Output::getClean($votes),
 ]);
 
 // Load modules + template
