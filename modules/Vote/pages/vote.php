@@ -50,7 +50,7 @@ foreach ($sites as $site) {
 $smarty->assign([
 	'VOTE_TITLE' => $vote_language->get('vote', 'vote'),
 	'USERNAME' => $language->get('user', 'username'),
-	'VOTES' => $language->get('vote', 'votes'),
+	'VOTES' => $vote_language->get('vote', 'votes'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
