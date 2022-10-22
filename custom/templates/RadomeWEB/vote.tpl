@@ -39,8 +39,8 @@
                         <tbody>
                             {foreach from=$VOTERS item=voters}
                                 <tr>
-                                    <td>{$top_voters.nickname}</td>
-                                    <td>{$top_voters.votes}</td>
+                                    <td>{$voters.nickname}</td>
+                                    <td>{$voters.votes}</td>
                                 </tr>
                             {/foreach}
                         </tbody>

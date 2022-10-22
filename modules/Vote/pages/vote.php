@@ -21,9 +21,9 @@ $vote_message = $vote_message[0]->value;
 if (!empty($vote_message)) {
 	$message_enabled = true;
 }
-$top_voters_mcmp ="https://minecraft-mp.com/api/?object=servers&element=voters&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&month=current&format=json&limit=5";
-$top_vote_minecraftmp = json_decode(file_get_contents($top_voters_mcmp));
-$top_votes = $top_vote_minecraftmp->voters;
+$minecraftmp ="https://minecraft-mp.com/api/?object=servers&element=voters&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&month=current&format=json&limit=5";
+$vote_minecraftmp = json_decode(file_get_contents($minecraftmp));
+$votes = $vote_minecraftmp->voters;
 
 
 // Get sites from database
@@ -31,10 +31,10 @@ $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
 
 
 $voters_array = [];
-foreach ($top_votes as $top_voters) {
+foreach ($votes as $vote) {
 	$voters_array[] = [
-		'nickname' => Output::getClean($top_voters->nickname),
-		'votes' => Output::getClean($top_voters->votes),
+		'nickname' => Output::getClean($vote->nickname),
+		'votes' => Output::getClean($vote->votes),
 	];
 }
 
