@@ -37,7 +37,7 @@
                                 <th>{$USERNAME}</th>
                                 <th>{$VOTES}</th>
                         <tbody>
-                            {foreach from=$MC_TOP_VOTERS item=voters}
+                            {foreach from=$MCMP_TOP_VOTERS item=voters}
                                 <tr>
                                     <td>{$voters.nickname}</td>
                                     <td>{$voters.votes}</td>
