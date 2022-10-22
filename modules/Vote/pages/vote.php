@@ -33,6 +33,18 @@ foreach ($top_voters as $top_voters) {
 	];
 }
 
+$minecraftmp_votes ="https://minecraft-mp.com/api/?object=servers&element=votes&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&format=json";
+$mcmp_vote2 = json_decode(file_get_contents($minecraftmp_top_voters));
+$votes_mcmp = $mcmp_vote1->votes;
+
+$votes_array = [];
+foreach ($votes_mcmp as $mcmp_votes) {
+	$votes_array[] = [
+		'nickname' => Output::getClean($mcmp_votes->nickname),
+		'date_friendly' => $timeago->inWords($mcmp_votes->timestamp, $language),
+	];
+}
+
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
 
@@ -57,6 +69,7 @@ $smarty->assign([
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
 	'MCMP_TOP_VOTERS' => $voters_array,
+	'MCMP_VOTES' => $votes_array,
 ]);
 
 // Load modules + template
