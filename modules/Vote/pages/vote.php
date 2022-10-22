@@ -55,7 +55,7 @@ $smarty->assign([
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
 	'SITES' => $sites_array,
-	'TOP_VOTERS' => $voters_array,
+	'MCMP_TOP_VOTERS' => $voters_array,
 ]);
 
 // Load modules + template
