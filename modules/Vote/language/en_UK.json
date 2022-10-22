@@ -14,6 +14,8 @@
     "vote\/no_vote_sites": "No vote sites defined",
     "vote\/votes": "Votes",
     "vote\/thanks": "Thanks",   
+    "vote\/last_voters": "Last Voters",
+    "vote\/date": "Date",   
     "vote\/top_voters_header": "Top Voters",
     "vote\/site_created_successfully": "Site created successfully.",
     "vote\/site_deleted_successfully": "Site deleted successfully.",

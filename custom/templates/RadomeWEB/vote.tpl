@@ -29,40 +29,46 @@
                         </div>
                     </div>
                 </div>
-                <div class="card col-md-4" style="padding: 0;">
-                    <div class="card-header header-theme">{$TOP_VOTERS}</div>
-                    <table class="ui fixed single line selectable unstackable small padded res table">
-                        <thead>
-                            <tr>
-                                <th>{$USERNAME}</th>
-                                <th>{$VOTES}</th>
-                        <tbody>
-                            {foreach from=$MCMP_TOP_VOTERS item=voters}
+                <div class="row">
+                    <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header header-theme">{$TOP_VOTERS}</div>
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>{$voters.nickname}</td>
-                                    <td>{$voters.votes}</td>
-                                </tr>
-                            {/foreach}
-                        </tbody>
-                    </table>
+                                    <th>{$USERNAME}</th>
+                                    <th>{$VOTES}</th>
+                            <tbody>
+                                {foreach from=$MCMP_TOP_VOTERS item=voters}
+                                    <tr>
+                                        <td>{$voters.nickname}</td>
+                                        <td>{$voters.votes}</td>
+                                    </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header header-theme">{$LAST_VOTERS}</div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{$USERNAME}</th>
+                                    <th>{$DATE}</th>
+                            <tbody>
+                                {foreach from=$MCMP_VOTES item=votes}
+                                    <tr>
+                                        <td>{$votes.nickname}</td>
+                                        <td>{$votes.date_friendly}</td>
+                                    </tr>
+                                {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
                 </div>
-                <div class="card col-md-4" style="padding: 0;">
-                <div class="card-header header-theme">{$TOP_VOTERS}</div>
-                <table class="ui fixed single line selectable unstackable small padded res table">
-                    <thead>
-                        <tr>
-                            <th>{$USERNAME}</th>
-                            <th>{$VOTES}</th>
-                    <tbody>
-                        {foreach from=$MCMP_VOTES item=votes}
-                            <tr>
-                                <td>{$votes.nickname}</td>
-                                <td>{$votes.date_friendly}</td>
-                            </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
-            </div>
             </div>
             {if count($WIDGETS_RIGHT)}
                 <div class="col-md-3">
