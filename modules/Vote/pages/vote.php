@@ -34,7 +34,7 @@ foreach ($top_voters as $top_voters) {
 }
 
 $minecraftmp_votes ="https://minecraft-mp.com/api/?object=servers&element=votes&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&format=json";
-$mcmp_vote2 = json_decode(file_get_contents($minecraftmp_top_voters));
+$mcmp_vote2 = json_decode(file_get_contents($minecraftmp_votes));
 $votes_mcmp = $mcmp_vote1->votes;
 $timeago = new TimeAgo(TIMEZONE);
 $votes_array = [];
