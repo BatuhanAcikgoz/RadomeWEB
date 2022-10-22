@@ -25,11 +25,6 @@ $minecraftmp_top_voters ="https://minecraft-mp.com/api/?object=servers&element=v
 $mcmp_vote1 = json_decode(file_get_contents($minecraftmp_top_voters));
 $top_voters = $mcmp_vote1->voters;
 
-
-// Get sites from database
-$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-
-
 $voters_array = [];
 foreach ($top_voters as $top_voters) {
 	$voters_array[] = [
@@ -37,6 +32,12 @@ foreach ($top_voters as $top_voters) {
 		'votes' => Output::getClean($top_voters->votes),
 	];
 }
+
+// Get sites from database
+$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
+
+
+
 
 $sites_array = [];
 foreach ($sites as $site) {
