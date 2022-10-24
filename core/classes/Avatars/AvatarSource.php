@@ -22,7 +22,7 @@ class AvatarSource {
      *
      * @return string Compiled URL of avatar image.
      */
-    public static function getAvatarFromUUID(string $uuid, int $size = 128): string {
+    public static function getAvatarFromUUID(string $username, int $size = 128): string {
         return self::getActiveSource()->getAvatar($username, self::getDefaultPerspective(), $size);
     }
 
