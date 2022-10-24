@@ -480,7 +480,7 @@ class User {
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
-            $data_obj->username = $integrationUser->data()->identifier;
+            $data_obj->uuid = $integrationUser->data()->username;
         } else {
             $data_obj->uuid = '';
         }
@@ -1052,7 +1052,7 @@ class User {
             return;
         }
 
-        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->username));
+        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->identifier));
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
