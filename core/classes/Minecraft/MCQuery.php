@@ -187,7 +187,7 @@ class MCQuery {
                     $profile = $user->getProfileURL();
                 }
             } else {
-                $avatar = $user->getAvatar();
+                $avatar = $integration_user->getUser()->getAvatar();
                 $profile = $integration_user->getUser()->getProfileURL();
             }
 
