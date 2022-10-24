@@ -184,11 +184,11 @@ class MCQuery {
                     $profile = $user->getProfileURL();
                 } else {
                     $avatar = AvatarSource::getAvatarFromUUID($player['name']);
-                    $profile = '#';
+                    $profile = $integration_user->getUser()->getProfileURL();
                 }
             } else {
                 $avatar = AvatarSource::getAvatarFromUUID($player['name']);
-                $profile = '#';
+                $profile = $integration_user->getUser()->getProfileURL();
             }
 
             $formatted[] = [
