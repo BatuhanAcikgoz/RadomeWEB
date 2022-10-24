@@ -480,7 +480,7 @@ class User {
 
         $integrationUser = $this->getIntegration('Minecraft');
         if ($integrationUser != null) {
-            $data_obj->uuid = $integrationUser->data()->identifier;
+            $data_obj->uuid = $integrationUser->data()->username;
         } else {
             $data_obj->uuid = '';
         }
