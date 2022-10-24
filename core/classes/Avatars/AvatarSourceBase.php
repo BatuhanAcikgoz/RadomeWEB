@@ -81,7 +81,7 @@ abstract class AvatarSourceBase {
 
     /**
      * Get raw URL with placeholders to format.
-     * - `{identifier} = UUID / username`
+     * - `{username} = UUID / username`
      * - `{size} = size in pixels`
      *
      * @param string $perspective Perspective to use in url.

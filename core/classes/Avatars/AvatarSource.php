@@ -71,7 +71,7 @@ class AvatarSource {
         // Attempt to get their MC avatar if Minecraft integration is enabled
         if (defined('MINECRAFT') && MINECRAFT) {
             if ($data->uuid != null && $data->uuid != 'none') {
-                $uuid = $data->uuid;
+                $uuid = $data->username;
             } else {
                 $uuid = $data->username;
                 // Fallback to steve avatar if they have an invalid username

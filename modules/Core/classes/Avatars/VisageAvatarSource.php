@@ -20,6 +20,6 @@ class VisageAvatarSource extends AvatarSourceBase {
     }
 
     public function getUrlToFormat(string $perspective): string {
-        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{size}/{identifier}';
+        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{size}/{username}';
     }
 }

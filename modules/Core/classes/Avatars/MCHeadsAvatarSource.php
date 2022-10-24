@@ -19,6 +19,6 @@ class MCHeadsAvatarSource extends AvatarSourceBase {
     }
 
     public function getUrlToFormat(string $perspective): string {
-        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{identifier}/{size}';
+        return $this->_base_url . $this->getRelativePerspective($perspective) . '/{username}/{size}';
     }
 }

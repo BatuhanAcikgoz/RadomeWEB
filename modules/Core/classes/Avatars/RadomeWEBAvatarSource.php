@@ -19,9 +19,9 @@ class RadomeWEBAvatarSource extends AvatarSourceBase {
 
     public function getUrlToFormat(string $perspective): string {
         if (defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) {
-            return URL::build('/avatar/{identifier}');
+            return URL::build('/avatar/{username}');
         }
 
-        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={identifier}&s={size}';
+        return ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'core/avatar/face.php?u={username}&s={size}';
     }
 }
