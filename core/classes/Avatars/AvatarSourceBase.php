@@ -73,7 +73,7 @@ abstract class AvatarSourceBase {
      */
     public function formatUrl(string $url_to_format, string $uuid, int $size): string {
         return str_replace(
-            ['{identifier}', '{size}'],
+            ['{username}', '{size}'],
             [$uuid, $size],
             $url_to_format
         );
