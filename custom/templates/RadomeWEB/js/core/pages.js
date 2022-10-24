@@ -126,7 +126,7 @@ if (page !== '') {
 								} else if (data.player_list.length > 0) {
                                     html += "<p>";
                                     for (var i = 0; i < data.player_list.length; i++) {
-                                        html += "<a href='" + URLBuild('profile/' + data.player_list[i].name) + "' \><img style=\"margin-bottom:3px;max-width:32px;max-height:32px;\" data-toggle=\"tooltip\" title=\"" + data.player_list[i].name + "\" src=\"" + avatarSource.replace("{username}", data.player_list[i].id).replace("{size}", 64) + "\" class=\"avatar-img\" alt=\"" + data.player_list[i].name + "\"></a> ";
+                                        html += "<a href='" + URLBuild('profile/' + data.player_list[i].name) + "' \><img style=\"margin-bottom:3px;max-width:32px;max-height:32px;\" data-toggle=\"tooltip\" title=\"" + data.player_list[i].name + "\" src=\"" + avatarSource.replace("{username}", data.player_list[i].name).replace("{size}", 64) + "\" class=\"avatar-img\" alt=\"" + data.player_list[i].name + "\"></a> ";
                                     }
                                     html += "</p>";
                                     if (data.player_list.length < data.player_count) {
