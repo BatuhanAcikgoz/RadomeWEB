@@ -193,7 +193,7 @@ class MCQuery {
 
             $formatted[] = [
                 'username' => Output::getClean($player['name']),
-                'uuid' => Output::getClean($player['id']),
+                'uuid' => Output::getClean($player['name']),
                 'avatar' => $avatar,
                 'profile' => $profile
             ];
