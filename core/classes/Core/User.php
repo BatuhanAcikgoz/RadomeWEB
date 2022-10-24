@@ -1052,7 +1052,7 @@ class User {
             return;
         }
 
-        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->identifier));
+        $uuid = hex2bin(str_replace('-', '', $integrationUser->data()->username));
         foreach ($placeholders as $name => $value) {
             Placeholders::getInstance()->registerPlaceholder($server_id, $name);
 
