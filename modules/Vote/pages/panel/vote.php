@@ -37,6 +37,9 @@ if (!isset($_GET['action'])) {
 				],
 				'icon' => [
 					Validate::MAX => 64
+				],
+				'mcmp_key' => [
+					Validate::MAX => 64
 				]
             ])->messages([
                 'message' => [
@@ -73,6 +76,11 @@ if (!isset($_GET['action'])) {
 					DB::getInstance()->update('vote_settings', ['name', '=', 'vote_message'], [
 						'value' => Input::get('message'),
 					]);
+
+					DB::getInstance()->update('vote_settings', ['name', '=', 'mcmp_key'], [
+						'value' => Input::get('mcmp_key'),
+					]);
+
 
                     Session::flash('staff_vote', $language->get('admin', 'settings_updated_successfully'));
                     Redirect::to(URL::build('/panel/vote'));
@@ -112,6 +120,8 @@ if (!isset($_GET['action'])) {
 	// Get vote 
 	$vote_message = DB::getInstance()->get('vote_settings', ['name', '=', "vote_message"])->results();
 	$vote_message = htmlspecialchars($vote_message[0]->value);
+	$mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
+	$mcmp_key = htmlspecialchars($mcmp_key[0]->value);
 
 	$smarty->assign([
 		'NEW_SITE' => $vote_language->get('vote', 'new_site'),
@@ -124,7 +134,9 @@ if (!isset($_GET['action'])) {
 		'LINK_NONE' => $language->get('admin', 'page_link_none'),
 		'ICON' => $vote_language->get('vote', 'icon'),
 		'ICON_EXAMPLE' => htmlspecialchars($vote_language->get('vote', 'icon_example')),
-		'ICON_VALUE' => Output::getClean(htmlspecialchars_decode($icon)),
+		'MCMP_KEY' => $mcmp_key,
+		'MCMP_HEADER' => $vote_language->get('vote', 'mcmp_header'),
+		'MCMP_LABEL' => $vote_language->get('vote', 'mcmp_label'),
 		'SITE_LIST' => $sites_array,
 		'NO_VOTE_SITES' => $vote_language->get('vote', 'no_vote_sites'),
 		'MESSAGE' => $vote_language->get('vote', 'message'),

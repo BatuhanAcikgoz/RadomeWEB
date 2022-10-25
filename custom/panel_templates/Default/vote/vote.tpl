@@ -84,13 +84,16 @@
 								<label for="InputMessage">{$MESSAGE}</label><br />
 								<textarea name="message" rows="3" id="InputMessage" class="form-control">{$MESSAGE_VALUE}</textarea>
 							</div>  
+                            <hr>
+                            <div class="form-group">
+                            <label for="link_location">{$MCMP_HEADER}</label>         
+                            <input type="text" class="form-control" name="mcmp_key" id="inputIcon" placeholder="{$MCMP_LABEL}" value="{$MCMP_KEY}">                   
+                            </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
 						</form>
-                        
-                        <center><p>Vote Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></p></center>
                     </div>
                 </div>
 

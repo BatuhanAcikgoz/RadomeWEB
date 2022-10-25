@@ -278,6 +278,10 @@ class DatabaseInitialiser {
             'name' => 'vote_message',
             'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
         ]);
+        DB::getInstance()->insert('vote_settings', [
+            'name' => 'mcmp_key',
+            'value' => '1234567'
+        ]);
         $this->_db->insert('wiki_settings', [
             'name' => 'home_page',
             'value' => '<div><span style="font-size:20px"><strong>RadomeWEB Wiki Sayfasına Hoşgeldin!</strong></span><br />Bu kısımda istediğin kadar wiki sayfası oluşturabilirsin,<br />Düğme metnini, başlığı, simgeyi, urlyi ve daha bir çok şeyi düzenleyebilirsin.<br /><br /><strong>Admin panelinden istediğin değişikliği yapabilirsin.</strong><br /><br /><strong>Not:</strong>&nbsp;Ayrıca bu kısımı&nbsp;<strong><u><a href="/panel/wiki">Admin Paneli -&gt; Wiki</a></u></strong>.<br /><br />Bağlantılar:</div><ul><li>Desteği bu  <strong><a rel="nofollow noopener" target="_blank" href="https://discord.verira.com">Discord</a></strong> sunucusundan alabilirsiniz.</li></ul>'

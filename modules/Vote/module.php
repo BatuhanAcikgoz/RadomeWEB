@@ -142,7 +142,6 @@ class Vote_Module extends Module {
                     $update_check = $cache->retrieve('update_check');
                 } else {
 					require_once(ROOT_PATH . '/modules/Vote/classes/Vote.php');
-                    $update_check = Vote::updateCheck();
                     $cache->store('update_check', $update_check, 3600);
                 }
 

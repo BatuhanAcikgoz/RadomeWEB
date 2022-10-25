@@ -28,6 +28,8 @@
     "vote\/site_url_required": "A site url is required.",
     "vote\/view_resource": "View Resource",
     "vote\/vote": "Vote",
+    "vote\/mcmp_header": "Minecraft-MP Server API Key",
+    "vote\/mcmp_label": "Bu kısma https://minecraft-mp.com/ adresindeb aldığınız Server API Key'i gireceksiniz.",
     "vote\/vote_name": "Vote Site Name",
     "vote\/vote_sites": "Vote Sites",
     "vote\/vote_url": "Vote Site URL <em>(With preceding http:\/\/)<\/em>"
