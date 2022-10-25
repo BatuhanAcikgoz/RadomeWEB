@@ -30,16 +30,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-header header-theme">Vote Sorgu</div>
-                            <form action='{if $PAGE_RESULT == 1}{if $WP_TYPE}{else}wiki/{/if}../{else}{/if}'
-                                method='GET'>
+                            <form action='' method='GET'>
                                 <div class="input-group mb-2">
                                     <input class="form-control input-sm" type="text" name="search" id="search"
-                                        value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}">
+                                        value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}" style="margin: 20px;">
                                     <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-theme">
+                                        <button type="submit" class="btn btn-theme" style="margin: 20px;margin-left: 0px;">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </span>
