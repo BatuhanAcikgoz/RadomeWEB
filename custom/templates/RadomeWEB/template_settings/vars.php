@@ -53,7 +53,7 @@ $radomeweb_settings_array = array(
     array('wb_2l', '/register', 'THEME_WB_2L'),
     array('font', 'Montserrat', 'THEME_FONT'),
     array('p_color', '#203C5C', ''),
-    array('s_color', '#326903', ''),   
+    array('s_color', '#18243c', ''),   
     array('logo_size', '200px', ''),
     array('logo_size_m', '180px', ''),
     array('coverlay', 'yes', 'THEME_C_OVERLAY'),
