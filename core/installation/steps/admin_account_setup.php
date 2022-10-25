@@ -67,7 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     } else {
         $user = new User();
-        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
+		function generateSalt($length) {
+			$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$randomString = '';
+			for ($i = 0; $i < $length; $i++) {
+				$randomString .= $characters[rand(0, strlen($characters) - 1)];
+			}
+			return $randomString;
+		}
+		function createSHA256($password){
+			$salt = generateSalt(16);
+			$hash = '$SHA$'.$salt.'$'.hash('sha256', hash('sha256', $password).$salt);
+			return $hash;
+		}
+	    $password = createSHA256(Input::get('password'));
 
         try {
             $default_language = DB::getInstance()->get('languages', ['is_default', true])->results();
