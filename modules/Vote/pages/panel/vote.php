@@ -134,6 +134,7 @@ if (!isset($_GET['action'])) {
 		'LINK_NONE' => $language->get('admin', 'page_link_none'),
 		'ICON' => $vote_language->get('vote', 'icon'),
 		'ICON_EXAMPLE' => htmlspecialchars($vote_language->get('vote', 'icon_example')),
+		'ICON_VALUE' => Output::getClean(htmlspecialchars_decode($icon)),
 		'MCMP_KEY' => $mcmp_key,
 		'MCMP_HEADER' => $vote_language->get('vote', 'mcmp_header'),
 		'MCMP_LABEL' => $vote_language->get('vote', 'mcmp_label'),
