@@ -165,10 +165,24 @@ $username = getEnvVar('RADOME_ADMIN_USERNAME', 'admin');
 $password = getEnvVar('RADOME_ADMIN_PASSWORD', 'password');
 $email = getEnvVar('RADOME_ADMIN_EMAIL');
 
+function generateSalt($length) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+}
+function createSHA256($password){
+    $salt = generateSalt(16);
+    $hash = '$SHA$'.$salt.'$'.hash('sha256', hash('sha256', $password).$salt);
+    return $hash;
+}
+
 $user = new User();
 $user->create([
     'username' => $username,
-    'password' => password_hash($password, PASSWORD_BCRYPT, ['cost' => 13]),
+    'password' => createSHA256($password),
     'pass_method' => 'default',
     'joined' => date('U'),
     'email' => $email,
