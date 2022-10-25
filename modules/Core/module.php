@@ -500,13 +500,11 @@ class Core_Module extends Module {
         CaptchaBase::setActiveProvider($activeCaptcha);
 
         // Avatar Sources
-        AvatarSource::registerSource(new CrafatarAvatarSource());
         AvatarSource::registerSource(new CraftheadAvatarSource());
         AvatarSource::registerSource(new CravatarAvatarSource());
         AvatarSource::registerSource(new MCHeadsAvatarSource());
         AvatarSource::registerSource(new MinotarAvatarSource());
         AvatarSource::registerSource(new RadomeWEBAvatarSource($language));
-        AvatarSource::registerSource(new VisageAvatarSource());
         AvatarSource::setActiveSource(DEFAULT_AVATAR_SOURCE);
 
         // Autoload API Endpoints
