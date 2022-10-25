@@ -47,10 +47,10 @@ foreach ($votes_mcmp as $mcmp_votes) {
 	];
 }
 
+
+
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
-
-
 
 
 $sites_array = [];
