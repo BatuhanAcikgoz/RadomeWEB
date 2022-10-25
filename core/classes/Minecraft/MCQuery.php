@@ -194,7 +194,7 @@ class MCQuery {
             $formatted[] = [
                 'username' => Output::getClean($player['name']),
                 'uuid' => Output::getClean($player['name']),
-                'avatar' => (AvatarSource::getActiveSource() . DEFAULT_AVATAR_PERSPECTIVE .Output::getClean($player['name']) .'/128.png'),
+                'avatar' => (DEFAULT_AVATAR_SOURCE . DEFAULT_AVATAR_PERSPECTIVE .Output::getClean($player['name']) .'/128.png'),
                 'profile' => URL::build('/profile/' . Output::getClean($player['name']))
             ];
         }
