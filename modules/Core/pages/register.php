@@ -249,7 +249,20 @@ if (Input::exists()) {
                         define('MCASSOC', true);
 
                         // Hash password first
-                        $password = password_hash($_POST['password'], PASSWORD_BCRYPT, ['cost' => 13]);
+                        function generateSalt($length) {
+                            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                            $randomString = '';
+                            for ($i = 0; $i < $length; $i++) {
+                                $randomString .= $characters[rand(0, strlen($characters) - 1)];
+                            }
+                            return $randomString;
+                        }
+                        function createSHA256($password){
+                            $salt = generateSalt(16);
+                            $hash = '$SHA$'.$salt.'$'.hash('sha256', hash('sha256', $password).$salt);
+                            return $hash;
+                        }
+                        $password = createSHA256(Input::get('password'));
                         $_SESSION['password'] = $password;
                         unset($_POST['password']);
 

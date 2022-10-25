@@ -354,8 +354,13 @@ class User {
         if ($user) {
             switch ($this->data()->pass_method) {
                 case 'sha256':
-                    [$salt, $pass] = explode('$', $this->data()->password);
+                    $exploded = explode('$', $this->data()->password);
+
+                    $salt = $exploded[2];
+                    $pass = $exploded[3];
+
                     return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    break;
 
                 case 'pbkdf2':
                     [$iterations, $salt, $pass] = explode('$', $this->data()->password);
@@ -367,8 +372,14 @@ class User {
                     return (sha1($password) == $this->data()->password);
 
                 default:
-                    // Default to bcrypt
-                    return (password_verify($password, $this->data()->password));
+                    // Default to sha256
+                    $exploded = explode('$', $this->data()->password);
+
+                    $salt = $exploded[2];
+                    $pass = $exploded[3];
+
+                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
+                    break;
             }
         }
 
