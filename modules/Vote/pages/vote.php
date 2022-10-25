@@ -21,7 +21,7 @@ $vote_message = $vote_message[0]->value;
 if (!empty($vote_message)) {
 	$message_enabled = true;
 }
-$minecraftmp_top_voters =('https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5');
+$minecraftmp_top_voters ='https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
 $mcmp_vote1 = json_decode(file_get_contents($minecraftmp_top_voters));
 $top_voters = $mcmp_vote1->voters;
 
