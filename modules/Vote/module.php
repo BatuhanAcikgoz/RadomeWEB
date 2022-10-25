@@ -192,6 +192,10 @@ class Vote_Module extends Module {
                     'name' => 'vote_message',
                     'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
                 ]);
+				DB::getInstance()->insert('vote_settings', [
+					'name' => 'mcmp_key',
+					'value' => '1234567'
+				]);
             }
         } catch (Exception $e) {
             // Error
