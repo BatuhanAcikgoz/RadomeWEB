@@ -194,7 +194,7 @@ class MCQuery {
             $formatted[] = [
                 'username' => Output::getClean($player['name']),
                 'uuid' => Output::getClean($player['name']),
-                'avatar' => getRawSkin(Output::getClean($player['name'])),
+                'avatar' => AvatarSource::getAvatarFromUserData($player['name'], 128),
                 'profile' => URL::build('/profile/' . Output::getClean($player['name']))
             ];
         }
