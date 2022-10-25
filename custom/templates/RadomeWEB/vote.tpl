@@ -30,43 +30,62 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header header-theme">Vote Sorgu</div>
+                            <form action='{if $PAGE_RESULT == 1}{if $WP_TYPE}{else}wiki/{/if}../{else}{/if}'
+                                method='GET'>
+                                <div class="input-group mb-2">
+                                    <input class="form-control input-sm" type="text" name="search" id="search"
+                                        value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-theme">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header header-theme">{$TOP_VOTERS}</div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>{$USERNAME}</th>
-                                    <th>{$VOTES}</th>
-                            <tbody>
-                                {foreach from=$MCMP_TOP_VOTERS item=voters}
+                        <div class="card">
+                            <div class="card-header header-theme">{$TOP_VOTERS}</div>
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{$voters.nickname}</td>
-                                        <td>{$voters.votes}</td>
-                                    </tr>
-                                {/foreach}
-                            </tbody>
-                        </table>
-                    </div>
+                                        <th>{$USERNAME}</th>
+                                        <th>{$VOTES}</th>
+                                <tbody>
+                                    {foreach from=$MCMP_TOP_VOTERS item=voters}
+                                        <tr>
+                                            <td>{$voters.nickname}</td>
+                                            <td>{$voters.votes}</td>
+                                        </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header header-theme">{$LAST_VOTERS}</div>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>{$USERNAME}</th>
-                                    <th>{$DATE}</th>
-                            <tbody>
-                                {foreach from=$MCMP_VOTES item=votes}
+                        <div class="card">
+                            <div class="card-header header-theme">{$LAST_VOTERS}</div>
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{$votes.nickname}</td>
-                                        <td>{$votes.date_friendly}</td>
-                                    </tr>
-                                {/foreach}
-                            </tbody>
-                        </table>
-                    </div>
+                                        <th>{$USERNAME}</th>
+                                        <th>{$DATE}</th>
+                                <tbody>
+                                    {foreach from=$MCMP_VOTES item=votes}
+                                        <tr>
+                                            <td>{$votes.nickname}</td>
+                                            <td>{$votes.date_friendly}</td>
+                                        </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
