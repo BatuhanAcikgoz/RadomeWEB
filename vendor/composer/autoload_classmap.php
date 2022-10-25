@@ -89,7 +89,6 @@ return array(
     'MinotarAvatarSource' => $baseDir . '/modules/Core/classes/Avatars/MinotarAvatarSource.php',
     'Module' => $baseDir . '/core/classes/Core/Module.php',
     'Radome2API' => $baseDir . '/modules/Core/classes/Misc/Radome2API.php',
-    'RadomeWEBAvatarSource' => $baseDir . '/modules/Core/classes/Avatars/RadomeWEBAvatarSource.php',
     'RadomeWEBGroupSyncInjector' => $baseDir . '/modules/Core/classes/Group_Sync/RadomeWEBGroupSyncInjector.php',
     'RadomeOAuth' => $baseDir . '/core/classes/Misc/RadomeOAuth.php',
     'Navigation' => $baseDir . '/core/classes/Core/Navigation.php',
