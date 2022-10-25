@@ -87,7 +87,7 @@
                             <hr>
                             <div class="form-group">
                             <label for="link_location">{$MCMP_HEADER}</label>         
-                            <input type="text" class="form-control" name="mcmp_key" id="inputIcon" placeholder="{$MCMP_LABEL}" value="{$MCMP_KEY}">                   
+                            <input type="text" class="form-control" name="mcmp_key" id="inputMCMP" placeholder="{$MCMP_LABEL}" value="{$MCMP_KEY}">                   
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
