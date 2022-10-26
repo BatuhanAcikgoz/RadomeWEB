@@ -331,13 +331,13 @@ a,
 }
 
 .dark .swal2-title, .dark .swal2-html-container {
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .dark body {
     background-image: url(/custom/templates/RadomeWEB/uploads/bg.png);
     background-color: #18243c;
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
     
 }
 
@@ -409,19 +409,19 @@ a,
 .dark .ui-menu-item:hover,
 .dark .ui-menu-item-wrapper:hover {
     background-color: #202020;
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .dark .token {
     background-color: #202020 !important;
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .dark .dropdown-item,
 .dark #chatbox .float-right a,
 .dark table,
 .dark .token .close {
-    color: rgb(234, 234, 234) !important;
+    color: rgb(210, 210, 210) !important;
 }
 
 .dark .dropdown-item:hover,
@@ -450,7 +450,7 @@ a,
 .dark .tokenfield,
 .dark .form-control {
     background-color: #303030 !important;
-    color: rgb(234, 234, 234) !important;
+    color: rgb(210, 210, 210) !important;
 }
 
 .dark .btn-secondary,
@@ -470,7 +470,7 @@ a,
 
 .dark .pagination .page-item .page-link {
     background-color: #303030;
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .dark .panel-body,
@@ -551,7 +551,7 @@ a,
 .dark .message-people a,
 .dark .message-people a:focus,
 .dark .message-people a:hover {
-    color: rgb(234, 234, 234) !important;
+    color: rgb(210, 210, 210) !important;
 }
 
 .dark textarea,
@@ -588,7 +588,7 @@ a,
 .dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
 .dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
     background-color: #444444;
-    color: rgb(234, 234, 234)
+    color: rgb(210, 210, 210)
 }
 
 .dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
@@ -602,7 +602,7 @@ a,
 
 .dark .coldfire-navbar-menu {
     background-color: #000000;
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .dark .coldfire-navbar-menu .nav-link-active,
@@ -1417,7 +1417,7 @@ button:focus {
 .footer-instagram,
 
 .footer-link {
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
 }
 
 .footer-copy {
@@ -1710,7 +1710,7 @@ ul.thumbnails.image_picker_selector li .thumbnail {
 }
 
 .coldfire-navbar-menu .nav-header .nav-header-close:hover {
-    color: rgb(234, 234, 234);
+    color: rgb(210, 210, 210);
     cursor: pointer
 }
 
