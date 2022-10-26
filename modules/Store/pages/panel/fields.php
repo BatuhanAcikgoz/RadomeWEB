@@ -44,8 +44,8 @@ if (!isset($_GET['action'])) {
                 'description' => Output::getClean($field->description),
                 'type' => $field_types[$field->type]['name'],
                 'required' => Output::getClean($field->required),
-                'edit_link' => URL::build('/panel/store/fields/', 'action=edit&id='.$field->id),
-                'delete_link' => URL::build('/panel/store/fields/', 'action=delete&amp;id=' . $field->id)
+                'edit_link' => URL::build('/panel/magaza/alanlar/', 'action=edit&id='.$field->id),
+                'delete_link' => URL::build('/panel/magaza/alanlar/', 'action=delete&amp;id=' . $field->id)
             ];
         }
     }
@@ -58,7 +58,7 @@ if (!isset($_GET['action'])) {
         'REQUIRED' => $language->get('admin', 'required'),
         'ACTIONS' => $language->get('general', 'actions'),
         'NEW_FIELD' => $store_language->get('admin', 'new_field'),
-        'NEW_FIELD_LINK' => URL::build('/panel/store/fields/', 'action=new'),
+        'NEW_FIELD_LINK' => URL::build('/panel/magaza/alanlar/', 'action=new'),
         'FIELDS_LIST' => $fields_array,
         'NONE_FIELDS_DEFINED' => $store_language->get('admin', 'none_fields_defined'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
@@ -132,7 +132,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('fields_success', $store_language->get('admin', 'field_created_successfully'));
-                            Redirect::to(URL::build('/panel/store/fields/'));
+                            Redirect::to(URL::build('/panel/magaza/alanlar/'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -148,7 +148,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'FIELD_TITLE' => $store_language->get('admin', 'creating_field'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/fields/'),
+                'BACK_LINK' => URL::build('/panel/magaza/alanlar/'),
                 'IDENTIFIER' => $store_language->get('admin', 'identifier'),
                 'IDENTIFIER_VALUE' => ((isset($_POST['identifier']) && $_POST['identifier']) ? Output::getClean(Input::get('identifier')) : ''),
                 'DESCRIPTION' => $store_language->get('admin', 'description'),
@@ -177,11 +177,11 @@ if (!isset($_GET['action'])) {
         break;
         case 'edit';
             if (!is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/store/fields/'));
+                Redirect::to(URL::build('/panel/magaza/alanlar/'));
             } else {
                 $field = DB::getInstance()->get('store_fields', ['id', '=', $_GET['id']])->results();
                 if (!count($field)) {
-                    Redirect::to(URL::build('/panel/store/fields/'));
+                    Redirect::to(URL::build('/panel/magaza/alanlar/'));
                 }
             }
             $field = $field[0];
@@ -247,7 +247,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('fields_success', $store_language->get('admin', 'field_updated_successfully'));
-                            Redirect::to(URL::build('/panel/store/fields/'));
+                            Redirect::to(URL::build('/panel/magaza/alanlar/'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -270,7 +270,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'FIELD_TITLE' => $store_language->get('admin', 'editing_field_x', ['field' => Output::getClean($field->identifier)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/fields/'),
+                'BACK_LINK' => URL::build('/panel/magaza/alanlar/'),
                 'IDENTIFIER' => $store_language->get('admin', 'identifier'),
                 'IDENTIFIER_VALUE' => Output::getClean($field->identifier),
                 'DESCRIPTION' => $store_language->get('admin', 'description'),
@@ -300,17 +300,17 @@ if (!isset($_GET['action'])) {
         case 'delete';
             // Delete Field
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/store/fields/'));
+                Redirect::to(URL::build('/panel/magaza/alanlar/'));
             }
             DB::getInstance()->update('store_fields', $_GET['id'], [
                 'deleted' => date('U')
             ]);
 
             Session::flash('fields_success', $store_language->get('admin', 'field_deleted_successfully'));
-            Redirect::to(URL::build('/panel/store/fields/'));
+            Redirect::to(URL::build('/panel/magaza/alanlar/'));
         break;
         default:
-            Redirect::to(URL::build('/panel/store/fields'));
+            Redirect::to(URL::build('/panel/magaza/alanlar'));
         break;
     }
 }

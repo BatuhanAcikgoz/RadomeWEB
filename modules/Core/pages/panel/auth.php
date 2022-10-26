@@ -20,7 +20,7 @@ if ($user->isLoggedIn()) {
     }
 } else {
     // Not logged in
-    Redirect::to(URL::build('/login'));
+    Redirect::to(URL::build('/giris'));
 }
 
 const PAGE = 'panel';

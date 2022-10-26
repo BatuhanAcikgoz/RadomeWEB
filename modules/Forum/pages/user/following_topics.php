@@ -44,7 +44,7 @@ $paginator = new Paginator(
     $template_pagination_right ?? null
 );
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
-$pagination = $paginator->generate(7, URL::build('/user/following_topics/'));
+$pagination = $paginator->generate(7, URL::build('/forum/takip_edilen_konular/'));
 
 if (count($topics)) {
     $smarty->assign('PAGINATION', $pagination);
@@ -76,18 +76,18 @@ foreach ($results->data as $nValue) {
         'topic_author_username' => $authors[$topic->topic_creator]->getDisplayname(true),
         'topic_author_avatar' => $authors[$topic->topic_creator]->getAvatar(),
         'topic_author_style' => $authors[$topic->topic_creator]->getGroupStyle(),
-        'topic_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
+        'topic_author_link' => URL::build('/profil/' . Output::getClean($authors[$topic->topic_creator]->getDisplayname(true))),
         'reply_author_id' => Output::getClean($authors[$topic->topic_last_user]->data()->id),
         'reply_author_username' => $authors[$topic->topic_last_user]->getDisplayname(true),
         'reply_author_avatar' => $authors[$topic->topic_last_user]->getAvatar(),
         'reply_author_style' => $authors[$topic->topic_last_user]->getGroupStyle(),
-        'reply_author_link' => URL::build('/profile/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
+        'reply_author_link' => URL::build('/profil/' . Output::getClean($authors[$topic->topic_last_user]->getDisplayname(true))),
         'reply_date' => $timeago->inWords($topic->topic_reply_date, $language),
         'reply_date_full' => date(DATE_FORMAT, $topic->topic_reply_date),
-        'topic_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
-        'last_post_link' => URL::build('/forum/topic/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
+        'topic_link' => URL::build('/forum/konu/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title)),
+        'last_post_link' => URL::build('/forum/konu/' . $topic->id . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post->id),
         'unread' => $topic->existing_alerts == 1,
-        'unfollow_link' => URL::build('/forum/topic/' . $topic->id, 'action=unfollow&return=list')
+        'unfollow_link' => URL::build('/forum/konu/' . $topic->id, 'action=unfollow&return=list')
     ];
 }
 

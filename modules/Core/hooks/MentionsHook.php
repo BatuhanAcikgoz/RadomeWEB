@@ -30,7 +30,7 @@ class MentionsHook extends HookBase {
             $params['content'] = MentionsParser::parse(
                 $params['user']->data()->id,
                 $params['content'],
-                URL::build('/forum/topic/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id']))
+                URL::build('/forum/konu/' . urlencode($params['topic_id']), 'pid=' . urlencode($params['post_id']))
             );
         }
 
@@ -58,7 +58,7 @@ class MentionsHook extends HookBase {
                         MentionsHook::$_cache[$match[1]] = [$userId, $userStyle, $userProfileUrl];
                     }
 
-                    return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/queries/user/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . '</a>';
+                    return '<a href="' . $userProfileUrl . '" data-poload="' . URL::build('/sorgu/kullanici/', 'id=' . $userId) . '" class="user-mention" style="' . $userStyle . '">@' . '</a>';
                 },
                 $params['content']
             );

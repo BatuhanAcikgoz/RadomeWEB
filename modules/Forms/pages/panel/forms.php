@@ -33,7 +33,7 @@ if (!isset($_GET['action'])) {
             $forms_array[] = [
                 'name' => Output::getClean($form->title),
                 'edit_link' => URL::build('/panel/form/', 'form=' . Output::getClean($form->id)),
-                'delete_link' => URL::build('/panel/forms/', 'action=delete&form=' . Output::getClean($form->id))
+                'delete_link' => URL::build('/panel/formlar/', 'action=delete&form=' . Output::getClean($form->id))
             ];
         }
     }
@@ -47,8 +47,8 @@ if (!isset($_GET['action'])) {
                 'id' => $status->id,
                 'html' => Output::getPurified($status->html),
                 'open' => $status->open,
-                'edit_link' => URL::build('/panel/forms/statuses', 'action=edit&status=' . Output::getClean($status->id)),
-                'delete_link' => URL::build('/panel/forms/statuses', 'action=delete&status=' . Output::getClean($status->id))
+                'edit_link' => URL::build('/panel/formlar/durumlar', 'action=edit&status=' . Output::getClean($status->id)),
+                'delete_link' => URL::build('/panel/formlar/durumlar', 'action=delete&status=' . Output::getClean($status->id))
             ];
         }
     }
@@ -56,10 +56,10 @@ if (!isset($_GET['action'])) {
     $smarty->assign([
         'FORM' => $forms_language->get('forms', 'form'),
         'NEW_FORM' => $forms_language->get('forms', 'new_form'),
-        'NEW_FORM_LINK' => URL::build('/panel/forms/', 'action=new'),
+        'NEW_FORM_LINK' => URL::build('/panel/formlar/', 'action=new'),
         'FORMS_LIST' => $forms_array,
         'NEW_STATUS' => $forms_language->get('forms', 'new_status'),
-        'NEW_STATUS_LINK' => URL::build('/panel/forms/statuses/', 'action=new'),
+        'NEW_STATUS_LINK' => URL::build('/panel/formlar/durumlar/', 'action=new'),
         'STATUS' => $forms_language->get('forms', 'status'),
         'STATUSES' => $forms_language->get('forms', 'statuses'),
         'MARKED_AS_OPEN' => $forms_language->get('forms', 'marked_as_open'),
@@ -146,7 +146,7 @@ if (!isset($_GET['action'])) {
                                     'content' => Input::get('content')
                                 ]);
                                 Session::flash('staff_forms', $forms_language->get('forms', 'form_created_successfully'));
-                                Redirect::to(URL::build('/panel/forms'));
+                                Redirect::to(URL::build('/panel/formlar'));
                             } else {
                                 $errors[] = $forms_language->get('forms', 'form_url_slash');
                             }
@@ -166,7 +166,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CREATING_NEW_FORM' => $forms_language->get('forms', 'creating_new_form'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/forms'),
+                'BACK_LINK' => URL::build('/panel/formlar'),
                 'FORM_NAME' => $forms_language->get('forms', 'form_name'),
                 'FORM_NAME_VALUE' => (isset($_POST['form_name']) ? Output::getClean(Input::get('form_name')) : ''),
                 'FORM_ICON' => $forms_language->get('forms', 'form_icon'),
@@ -196,7 +196,7 @@ if (!isset($_GET['action'])) {
         case 'delete':
             // Delete Form
             if (!isset($_GET['form']) || !is_numeric($_GET['form'])) {
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
 
             $form = new Form($_GET['form']);
@@ -205,10 +205,10 @@ if (!isset($_GET['action'])) {
                 Session::flash('staff_forms', $forms_language->get('forms', 'form_deleted_successfully'));
             }
 
-            Redirect::to(URL::build('/panel/forms'));
+            Redirect::to(URL::build('/panel/formlar'));
         break;
         default:
-            Redirect::to(URL::build('/panel/forms'));
+            Redirect::to(URL::build('/panel/formlar'));
         break;
     }
 }

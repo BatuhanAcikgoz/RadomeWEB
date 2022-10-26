@@ -122,11 +122,11 @@ class LatestPostsWidget extends WidgetBase {
                     'last_reply_style' => $last_reply_user->getGroupStyle(),
                     'last_reply_user_id' => Output::getClean($discussion->topic_last_user),
                     'label' => $label,
-                    'link' => URL::build('/forum/topic/' . urlencode($discussion->id) . '-' . $forum->titleToURL($discussion->topic_title)),
+                    'link' => URL::build('/forum/konu/' . urlencode($discussion->id) . '-' . $forum->titleToURL($discussion->topic_title)),
                     'forum_link' => URL::build('/forum/forum/' . $discussion->forum_id),
                     'author_link' => $topic_creator->getProfileURL(),
                     'last_reply_profile_link' => $last_reply_user->getProfileURL(),
-                    'last_reply_link' => URL::build('/forum/topic/' . $discussion->id . '-' . $forum->titleToURL($discussion->topic_title), 'pid=' . $discussion->last_post_id)
+                    'last_reply_link' => URL::build('/forum/konu/' . $discussion->id . '-' . $forum->titleToURL($discussion->topic_title), 'pid=' . $discussion->last_post_id)
                 ];
 
                 $n++;

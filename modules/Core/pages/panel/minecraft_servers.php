@@ -164,7 +164,7 @@ if (isset($_GET['action'])) {
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_created'));
-                            Redirect::to(URL::build('/panel/minecraft/servers'));
+                            Redirect::to(URL::build('/panel/minecraft/sunucular'));
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -192,7 +192,7 @@ if (isset($_GET['action'])) {
             $smarty->assign([
                 'ADDING_SERVER' => $language->get('admin', 'adding_server'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
+                'CANCEL_LINK' => URL::build('/panel/minecraft/sunucular'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -236,12 +236,12 @@ if (isset($_GET['action'])) {
         case 'edit':
             // Get server
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/minecraft/servers'));
+                Redirect::to(URL::build('/panel/minecraft/sunucular'));
             }
 
             $server_editing = DB::getInstance()->get('mc_servers', ['id', $_GET['id']])->results();
             if (!count($server_editing)) {
-                Redirect::to(URL::build('/panel/minecraft/servers'));
+                Redirect::to(URL::build('/panel/minecraft/sunucular'));
             }
             $server_editing = $server_editing[0];
 
@@ -375,7 +375,7 @@ if (isset($_GET['action'])) {
                             ]);
 
                             Session::flash('admin_mc_servers_success', $language->get('admin', 'server_updated'));
-                            Redirect::to(URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server_editing->id)));
+                            Redirect::to(URL::build('/panel/minecraft/sunucular/', 'action=edit&id=' . urlencode($server_editing->id)));
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -404,7 +404,7 @@ if (isset($_GET['action'])) {
                 'EDITING_SERVER' => $language->get('admin', 'editing_server'),
                 'SERVER_ID' => $server_editing->id,
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/minecraft/servers'),
+                'CANCEL_LINK' => URL::build('/panel/minecraft/sunucular'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -464,7 +464,7 @@ if (isset($_GET['action'])) {
                 Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/minecraft/servers'));
+            Redirect::to(URL::build('/panel/minecraft/sunucular'));
         case 'order':
             // Get servers
             if (isset($_POST['servers']) && Token::check($_POST['token'])) {
@@ -481,7 +481,7 @@ if (isset($_GET['action'])) {
             die('Complete');
 
         default:
-            Redirect::to(URL::build('/panel/minecraft/servers'));
+            Redirect::to(URL::build('/panel/minecraft/sunucular'));
     }
 
 } else {
@@ -592,8 +592,8 @@ if (isset($_GET['action'])) {
                 'name' => Output::getClean($server->name),
                 'id' => Output::getClean($server->id),
                 'server_id' => $language->get('admin', 'server_id_x', ['serverId' => Output::getClean($server->id)]),
-                'edit_link' => URL::build('/panel/minecraft/servers/', 'action=edit&id=' . urlencode($server->id)),
-                'delete_link' => URL::build('/panel/minecraft/servers/', 'action=delete&id=' . urlencode($server->id)),
+                'edit_link' => URL::build('/panel/minecraft/sunucular/', 'action=edit&id=' . urlencode($server->id)),
+                'delete_link' => URL::build('/panel/minecraft/sunucular/', 'action=delete&id=' . urlencode($server->id)),
                 'is_default' => $server->is_default
             ];
         }
@@ -633,7 +633,7 @@ if (isset($_GET['action'])) {
 
     $smarty->assign([
         'NEW_SERVER' => $language->get('admin', 'add_server'),
-        'NEW_SERVER_LINK' => URL::build('/panel/minecraft/servers/', 'action=new'),
+        'NEW_SERVER_LINK' => URL::build('/panel/minecraft/sunucular/', 'action=new'),
         'CONFIRM_DELETE_SERVER' => $language->get('admin', 'confirm_delete_server'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
@@ -655,7 +655,7 @@ if (isset($_GET['action'])) {
         'EXTERNAL_QUERY_VALUE' => ($external_query == 1),
         'STATUS_PAGE' => $language->get('admin', 'status_page'),
         'STATUS_PAGE_VALUE' => ($status_page == '1'),
-        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/servers', 'action=order'),
+        'REORDER_DRAG_URL' => URL::build('/panel/minecraft/sunucular', 'action=order'),
         'SERVERS' => $template_array
     ]);
 

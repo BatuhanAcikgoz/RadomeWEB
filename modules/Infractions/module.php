@@ -24,8 +24,8 @@ class Infractions_Module extends Module {
 		parent::__construct($this, $name, $author, $module_version, $radome_version);
 
 		// Define URLs which belong to this module
-		$pages->add('Infractions', '/panel/infractions', 'pages/panel/index.php');
-		$pages->add('Infractions', '/infractions', 'pages/infractions.php');
+		$pages->add('Infractions', '/panel/cezalar', 'pages/panel/index.php');
+		$pages->add('Infractions', '/cezalar', 'pages/infractions.php');
 	}
 	
 	public function onInstall(){
@@ -119,15 +119,15 @@ class Infractions_Module extends Module {
 				switch($link_location){
 					case 1:
 						// Navbar
-						$navs[0]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/infractions'), 'top', null, $order, $icon);
+						$navs[0]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/cezalar'), 'top', null, $order, $icon);
 					break;
 					case 2:
 						// "More" dropdown
-						$navs[0]->addItemToDropdown('more_dropdown', 'infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/infractions'), 'top', null, $icon, $order);
+						$navs[0]->addItemToDropdown('more_dropdown', 'infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/cezalar'), 'top', null, $icon, $order);
 					break;
 					case 3:
 						// Footer
-						$navs[0]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/infractions'), 'footer', null, $order, $icon);
+						$navs[0]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/cezalar'), 'footer', null, $order, $icon);
 					break;
 				}
 			}
@@ -147,7 +147,7 @@ class Infractions_Module extends Module {
 					$icon = $cache->retrieve('infractions_icon');
 				}
 				$navs[2]->add('infractions_divider', mb_strtoupper($this->_infractions_language->get('infractions', 'infractions'), 'UTF-8'), 'divider', 'top', null, $order, '');
-				$navs[2]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/panel/infractions'), 'top', null, $order + 0.1, $icon);
+				$navs[2]->add('infractions', $this->_infractions_language->get('infractions', 'infractions'), URL::build('/panel/cezalar'), 'top', null, $order + 0.1, $icon);
 			}
 		}
 			

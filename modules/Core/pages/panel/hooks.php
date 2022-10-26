@@ -125,7 +125,7 @@ if (!isset($_GET['action'])) {
             // Edit hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the hook ID is valid
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
 
             // Does the hook exist?

@@ -55,10 +55,10 @@ try {
     $method = Session::get('oauth_method');
     switch($method) {
         case 'register':
-            Redirect::to(URL::build('/register'));
+            Redirect::to(URL::build('/kayit'));
 
         case 'login':
-            Redirect::to(URL::build('/login'));
+            Redirect::to(URL::build('/giris'));
 
         case 'link':
             Redirect::to(URL::build('/user/oauth/'));
@@ -72,7 +72,7 @@ $provider_id = $oauth_user[RadomeOAuth::getInstance()->getUserIdName($provider_n
 if (Session::get('oauth_method') === 'register') {
     if (RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
-        Redirect::to(URL::build('/register'));
+        Redirect::to(URL::build('/kayit'));
     }
 
     Session::put('oauth_register_data', json_encode([
@@ -82,14 +82,14 @@ if (Session::get('oauth_method') === 'register') {
         'data' => $oauth_user
     ]));
 
-    Redirect::to(URL::build('/register'));
+    Redirect::to(URL::build('/kayit'));
 }
 
 // login
 if (Session::get('oauth_method') === 'login') {
     if (!RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'no_user_found_with_provider', ['provider' => ucfirst($provider_name)]));
-        Redirect::to(URL::build('/login'));
+        Redirect::to(URL::build('/giris'));
     }
 
     $user_id = RadomeOAuth::getInstance()->getUserIdFromProviderId($provider_name, $provider_id);

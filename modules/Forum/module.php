@@ -26,34 +26,34 @@ class Forum_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Define URLs which belong to this module
-        $pages->add('Forum', '/panel/forums', 'pages/panel/forums.php');
-        $pages->add('Forum', '/panel/forums/labels', 'pages/panel/labels.php');
-        $pages->add('Forum', '/panel/forums/settings', 'pages/panel/settings.php');
+        $pages->add('Forum', '/panel/forumlar', 'pages/panel/forumlar.php');
+        $pages->add('Forum', '/panel/forumlar/etiketler', 'pages/panel/labels.php');
+        $pages->add('Forum', '/panel/forumlar/ayarlar', 'pages/panel/settings.php');
 
-        $pages->add('Forum', '/forum', 'pages/forum/view_forum.php', 'forum', true);
-        $pages->add('Forum', '/forum/error', 'pages/forum/error.php');
-        $pages->add('Forum', '/forum/view', 'pages/forum/view_forum.php');
-        $pages->add('Forum', '/forum/topic', 'pages/forum/view_topic.php');
-        $pages->add('Forum', '/forum/new', 'pages/forum/new_topic.php');
+        $pages->add('Forum', '/forum', 'pages/forum/bakis_forum.php', 'forum', true);
+        $pages->add('Forum', '/forum/hata', 'pages/forum/hata.php');
+        $pages->add('Forum', '/forum/bakis', 'pages/forum/forumu_goruntule.php');
+        $pages->add('Forum', '/forum/konu', 'pages/forum/konuyu_goruntule.php');
+        $pages->add('Forum', '/forum/yeni', 'pages/forum/new_topic.php');
         $pages->add('Forum', '/forum/spam', 'pages/forum/spam.php');
-        $pages->add('Forum', '/forum/report', 'pages/forum/report.php');
+        $pages->add('Forum', '/forum/raporla', 'pages/forum/report.php');
         $pages->add('Forum', '/forum/get_quotes', 'pages/forum/get_quotes.php');
-        $pages->add('Forum', '/forum/delete_post', 'pages/forum/delete_post.php');
-        $pages->add('Forum', '/forum/delete', 'pages/forum/delete.php');
-        $pages->add('Forum', '/forum/move', 'pages/forum/move.php');
-        $pages->add('Forum', '/forum/merge', 'pages/forum/merge.php');
-        $pages->add('Forum', '/forum/edit', 'pages/forum/edit.php');
-        $pages->add('Forum', '/forum/lock', 'pages/forum/lock.php');
-        $pages->add('Forum', '/forum/stick', 'pages/forum/stick.php');
-        $pages->add('Forum', '/forum/reactions', 'pages/forum/reactions.php');
-        $pages->add('Forum', '/forum/search', 'pages/forum/search.php');
+        $pages->add('Forum', '/forum/konuyu_sil', 'pages/forum/delete_post.php');
+        $pages->add('Forum', '/forum/kaldir', 'pages/forum/delete.php');
+        $pages->add('Forum', '/forum/tasi', 'pages/forum/move.php');
+        $pages->add('Forum', '/forum/birlestir', 'pages/forum/merge.php');
+        $pages->add('Forum', '/forum/duzenle', 'pages/forum/edit.php');
+        $pages->add('Forum', '/forum/kitle', 'pages/forum/lock.php');
+        $pages->add('Forum', '/forum/sabitle', 'pages/forum/stick.php');
+        $pages->add('Forum', '/forum/tepkiler', 'pages/forum/reactions.php');
+        $pages->add('Forum', '/forum/arama', 'pages/forum/search.php');
 
         // UserCP
-        $pages->add('Forum', '/user/following_topics', 'pages/user/following_topics.php');
+        $pages->add('Forum', '/forum/takip_edilen_konular', 'pages/forum/following_topics.php');
 
         // Redirects
-        $pages->add('Forum', '/forum/view_topic', 'pages/forum/redirect.php');
-        $pages->add('Forum', '/forum/view_forum', 'pages/forum/redirect.php');
+        $pages->add('Forum', '/forum/konuyu_goruntule', 'pages/forum/redirect.php');
+        $pages->add('Forum', '/forum/forumu_goruntule', 'pages/forum/redirect.php');
 
         // Hooks
         EventHandler::registerEvent('newTopic',
@@ -291,7 +291,7 @@ class Forum_Module extends Module {
                     }
 
                     $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                    $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forums/settings'), 'top', null, $order + 0.1, $icon);
+                    $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forumlar/ayarlar'), 'top', null, $order + 0.1, $icon);
 
                     if (!$cache->isCached('forum_label_icon')) {
                         $icon = '<i class="nav-icon fas fa-tags"></i>';
@@ -300,7 +300,7 @@ class Forum_Module extends Module {
                         $icon = $cache->retrieve('forum_label_icon');
                     }
 
-                    $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forums/labels'), 'top', null, $order + 0.3, $icon);
+                    $navs[2]->add('forum_labels', $this->_forum_language->get('forum', 'labels'), URL::build('/panel/forumlar/etiketler'), 'top', null, $order + 0.3, $icon);
                 }
 
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
@@ -317,7 +317,7 @@ class Forum_Module extends Module {
                     } else {
                         $output = [];
 
-                        $output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
+                        $output['datasets']['topics']['label'] = 'forum_language/forum/konus_title'; // for $forum_language->get('forum', 'topics_title');
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';

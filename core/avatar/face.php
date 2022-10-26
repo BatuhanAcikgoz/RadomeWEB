@@ -50,7 +50,7 @@ function get_skin($user, $cache) {
     $output = base64_decode($output);
     if ($user != '') {
 
-        $json = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $user)->json();
+        $json = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profil/' . $user)->json();
 
         if (isset($json->properties[0]->value)) {
             $texture = base64_decode($json->properties[0]->value);

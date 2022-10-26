@@ -79,7 +79,7 @@ if (Input::exists()) {
                     // Redirect to submission view if user have view access, if not redirect back 
                     if ($user->isLoggedIn() && $forms->canViewOwnSubmission($group_ids, $form->data()->id)) {
                         Session::flash('submission_success', $forms_language->get('forms', 'form_submitted'));
-                        Redirect::to(URL::build('/user/submissions/', 'view=' . Output::getClean($submission->data()->id)));
+                        Redirect::to(URL::build('/user/talepler/', 'view=' . Output::getClean($submission->data()->id)));
 
                     } else {
                         Session::flash('submission_success', $forms_language->get('forms', 'form_submitted'));

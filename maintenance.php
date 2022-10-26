@@ -19,7 +19,7 @@ if (!$user->isLoggedIn()) {
     $smarty->assign(
         [
             'LOGIN' => $language->get('general', 'sign_in'),
-            'LOGIN_LINK' => URL::build('/login')
+            'LOGIN_LINK' => URL::build('/giris')
         ]
     );
 }

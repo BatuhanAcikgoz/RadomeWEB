@@ -386,7 +386,7 @@ if (Input::exists()) {
                                 'user' => Input::get('username'),
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
-                            'url' => URL::getSelfURL() . ltrim(URL::build('/profile/' . urlencode(Input::get('username'))), '/'),
+                            'url' => URL::getSelfURL() . ltrim(URL::build('/profil/' . urlencode(Input::get('username'))), '/'),
                             'language' => $default_language,
                         ]);
 
@@ -397,7 +397,7 @@ if (Input::exists()) {
                             Session::flash('home', $language->get('user', 'registration_check_email'));
                         } else {
                             // Redirect straight to verification link
-                            Redirect::to(URL::build('/validate/', 'c=' . urlencode($code)));
+                            Redirect::to(URL::build('/dogrulama/', 'c=' . urlencode($code)));
                         }
 
                         Redirect::to(URL::build('/'));
@@ -478,12 +478,12 @@ $smarty->assign([
     'FIELDS' => $fields->getAll(),
     'I_AGREE' => $language->get('user', 'i_agree'),
     'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
-        'linkStart' => '<a href="' . URL::build('/terms') . '">',
+        'linkStart' => '<a href="' . URL::build('/sartlar') . '">',
         'linkEnd' => '</a>',
     ]),
     'REGISTER' => $language->get('general', 'register'),
     'LOG_IN' => $language->get('general', 'sign_in'),
-    'LOGIN_URL' => URL::build('/login'),
+    'LOGIN_URL' => URL::build('/giris'),
     'TOKEN' => Token::get(),
     'CREATE_AN_ACCOUNT' => $language->get('user', 'create_an_account'),
     'ALREADY_REGISTERED' => $language->get('general', 'already_registered'),

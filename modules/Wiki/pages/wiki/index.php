@@ -109,7 +109,7 @@ $smarty->assign(array(
     'WP_404_MESSAGE' => $wiki_language->get('wiki', 'wiki_404_message'),
     'WP_EDIT_MESSAGE' => $wiki_language->get('wiki', 'edit_wiki'),
     'NO_LIKES_MESSAGE' => $wiki_language->get('wiki', 'no_like_yet'),
-    'AJAX_ACTION_URL', URL::build('/queries/like')
+    'AJAX_ACTION_URL', URL::build('/sorgu/begen')
 
     //'WIKI_HOME_LINK' => URL::build('/vote/', 'order=all')
 ));

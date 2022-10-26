@@ -17,7 +17,7 @@ if($user->isLoggedIn()){
 	}
 	if(!$user->isAdmLoggedIn()){
 		// Needs to authenticate
-		Redirect::to(URL::build('/panel/auth'));
+		Redirect::to(URL::build('/panel/giris'));
 	} else {
 		if(!$user->hasPermission('admincp.infractions.settings')){
 			require_once(ROOT_PATH . '/403.php');
@@ -26,7 +26,7 @@ if($user->isLoggedIn()){
 	}
 } else {
 	// Not logged in
-	Redirect::to(URL::build('/login'));
+	Redirect::to(URL::build('/giris'));
 }
 
 define('PAGE', 'panel');
@@ -116,7 +116,7 @@ if(Input::exists()){
 		if(!count($errors)){
 			// Redirect to refresh config values
 			Session::flash('infractions_success', $infractions_language->get('infractions', 'infractions_settings_updated_successfully'));
-			Redirect::to(URL::build('/panel/infractions'));
+			Redirect::to(URL::build('/panel/cezalar'));
 		}
 	} else {
 		// Invalid token

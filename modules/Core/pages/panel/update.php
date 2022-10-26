@@ -20,7 +20,7 @@ if (isset($_GET['recheck'])) {
         $cache->erase('update_check');
     }
 
-    Redirect::to(URL::build('/panel/update'));
+    Redirect::to(URL::build('/panel/guncelleme'));
 }
 
 const PAGE = 'panel';
@@ -69,7 +69,7 @@ if (!is_string($update_check)) {
             ]),
             'INSTRUCTIONS' => $language->get('admin', 'instructions'),
             'INSTRUCTIONS_VALUE' => Output::getDecoded($update_check->instructions()),
-            'UPGRADE_LINK' => URL::build('/panel/upgrade'),
+            'UPGRADE_LINK' => URL::build('/panel/yukseltme'),
             'DOWNLOAD_LINK' => $update_check->upgradeZipLink(),
             'DOWNLOAD' => $language->get('admin', 'download'),
             'INSTALL_CONFIRM' => $language->get('admin', 'install_confirm')
@@ -99,7 +99,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'UP_TO_DATE' => $language->get('admin', 'up_to_date'),
     'CHECK_AGAIN' => $language->get('admin', 'check_again'),
-    'CHECK_AGAIN_LINK' => URL::build('/panel/update/', 'recheck=true'),
+    'CHECK_AGAIN_LINK' => URL::build('/panel/guncelleme/', 'recheck=true'),
     'WARNING' => $language->get('general', 'warning'),
     'CANCEL' => $language->get('general', 'cancel'),
 ]);

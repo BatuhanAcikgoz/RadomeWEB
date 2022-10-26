@@ -60,7 +60,7 @@ if (Input::exists()) {
                 Session::flash('users_store_success', $store_language->get('admin', 'successfully_removed_credits', ['amount' => $credits]));
             }
 
-            Redirect::to(URL::build('/panel/users/store/', 'user=' . $view_user->data()->id));
+            Redirect::to(URL::build('/panel/kullanicilar/magaza/', 'user=' . $view_user->data()->id));
         } else {
             $errors = $validation->errors();
         }

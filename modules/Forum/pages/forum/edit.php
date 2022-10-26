@@ -26,7 +26,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
     $post_id = $_GET['pid'];
     $topic_id = $_GET['tid'];
 } else {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 /*
@@ -37,7 +37,7 @@ $post_editing = DB::getInstance()->query('SELECT * FROM rw_posts WHERE topic_id 
 
 // Check topic exists
 if (!count($post_editing)) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 if ($post_editing[0]->id == $post_id) {
@@ -60,7 +60,7 @@ $post_editing = DB::getInstance()->get('posts', ['id', $post_id])->results();
 
 // Check post exists
 if (!count($post_editing)) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 $forum_id = $post_editing[0]->forum_id;
@@ -70,11 +70,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->data()->id == $post_editing[0]->post_creator && !$forum->canEditTopic($forum_id, $user_groups) && !$forum->canModerateForum($forum_id, $user_groups)) {
-    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
+    Redirect::to(URL::build('/forum/konu/' . urlencode($post_id)));
 }
 
 if ($user->data()->id != $post_editing[0]->post_creator && !($forum->canModerateForum($forum_id, $user_groups))) {
-    Redirect::to(URL::build('/forum/topic/' . urlencode($post_id)));
+    Redirect::to(URL::build('/forum/konu/' . urlencode($post_id)));
 }
 
 // Deal with input
@@ -163,7 +163,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $forum_language->get('forum', 'post_edited_successfully'));
-            Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
+            Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id), 'pid=' . ($post_id)));
         }
 
         // Error handling
@@ -242,7 +242,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
+    'CANCEL_LINK' => URL::build('/forum/konu/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CONTENT_LABEL' => $language->get('general', 'content'),
     'TOPIC_TITLE' => $forum_language->get('forum', 'topic_title')

@@ -24,7 +24,7 @@ if ($cache->isCached('news')) {
 
         $news[] = [
             'id' => $item['topic_id'],
-            'url' => URL::build('/forum/topic/' . urlencode($item['topic_id']) . '-' . $forum->titleToURL($item['topic_title'])),
+            'url' => URL::build('/forum/konu/' . urlencode($item['topic_id']) . '-' . $forum->titleToURL($item['topic_title'])),
             'date' => date(DATE_FORMAT, strtotime($item['topic_date'])),
             'time_ago' => $item['topic_date'],
             'title' => Output::getClean($item['topic_title']),

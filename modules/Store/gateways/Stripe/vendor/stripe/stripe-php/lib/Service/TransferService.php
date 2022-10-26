@@ -54,7 +54,7 @@ class TransferService extends \Stripe\Service\AbstractService
      */
     public function cancel($id, $params = null, $opts = null)
     {
-        return $this->request('post', $this->buildPath('/v1/transfers/%s/cancel', $id), $params, $opts);
+        return $this->request('post', $this->buildPath('/v1/transfers/%s/iptal', $id), $params, $opts);
     }
 
     /**

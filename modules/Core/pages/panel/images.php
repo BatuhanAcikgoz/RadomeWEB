@@ -27,7 +27,7 @@ if (isset($_GET['action'])) {
         $cache->store('banner_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'template_banner_reset_successfully'));
-        Redirect::to(URL::build('/panel/core/images'));
+        Redirect::to(URL::build('/panel/core/gorseller'));
     }
 
     if ($_GET['action'] == 'reset_logo') {
@@ -35,7 +35,7 @@ if (isset($_GET['action'])) {
         $cache->store('logo_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'logo_reset_successfully'));
-        Redirect::to(URL::build('/panel/core/images'));
+        Redirect::to(URL::build('/panel/core/gorseller'));
     }
 
     if ($_GET['action'] == 'reset_favicon') {
@@ -43,7 +43,7 @@ if (isset($_GET['action'])) {
         $cache->store('favicon_image', '');
 
         Session::flash('panel_images_success', $language->get('admin', 'favicon_reset_successfully'));
-        Redirect::to(URL::build('/panel/core/images'));
+        Redirect::to(URL::build('/panel/core/gorseller'));
     }
 }
 
@@ -75,7 +75,7 @@ if (Input::exists()) {
             }
         }
 
-        Redirect::to(URL::build('/panel/core/images'));
+        Redirect::to(URL::build('/panel/core/gorseller'));
     }
 
     // Invalid token
@@ -235,13 +235,13 @@ $smarty->assign([
     'UPLOAD_PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/core/includes/image_upload.php',
     'CLOSE' => $language->get('general', 'close'),
     'RESET' => $language->get('admin', 'reset_background'),
-    'RESET_LINK' => URL::build('/panel/core/images/', 'action=reset_bg'),
+    'RESET_LINK' => URL::build('/panel/core/gorseller/', 'action=reset_bg'),
     'RESET_BANNER' => $language->get('admin', 'reset_banner'),
-    'RESET_BANNER_LINK' => URL::build('/panel/core/images/', 'action=reset_banner'),
+    'RESET_BANNER_LINK' => URL::build('/panel/core/gorseller/', 'action=reset_banner'),
     'RESET_LOGO' => $language->get('admin', 'reset_logo'),
-    'RESET_LOGO_LINK' => URL::build('/panel/core/images/', 'action=reset_logo'),
+    'RESET_LOGO_LINK' => URL::build('/panel/core/gorseller/', 'action=reset_logo'),
     'RESET_FAVICON' => $language->get('admin', 'reset_favicon'),
-    'RESET_FAVICON_LINK' => URL::build('/panel/core/images/', 'action=reset_favicon'),
+    'RESET_FAVICON_LINK' => URL::build('/panel/core/gorseller/', 'action=reset_favicon'),
     'BANNER_IMAGES_ARRAY' => $template_banner_images,
     'BANNER_IMAGE' => $language->get('admin', 'banner_image_x', [
         'imageName' => Text::bold($banner_img)

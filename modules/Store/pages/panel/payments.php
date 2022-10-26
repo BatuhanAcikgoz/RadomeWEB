@@ -46,13 +46,13 @@ if (isset($_GET['customer'])) {
             $avatar = $recipient_user->getAvatar();
             $style = $recipient_user->getGroupStyle();
             $identifier = Output::getClean($recipient->getIdentifier());
-            $link = URL::build('/panel/users/store/', 'user=' . $recipient_user->data()->id);
+            $link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
         } else {
             $username = $recipient->getUsername();
             $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
             $style = '';
             $identifier = Output::getClean($recipient->getIdentifier());
-            $link = URL::build('/panel/store/payments/', 'customer=' . $username);
+            $link = URL::build('/panel/magaza/odemeler/', 'customer=' . $username);
         }
 
         $template_payments = [];
@@ -71,7 +71,7 @@ if (isset($_GET['customer'])) {
                 'currency' => Output::getClean($paymentQuery->currency),
                 'amount' => Output::getClean($paymentQuery->amount),
                 'date' => date(DATE_FORMAT, $paymentQuery->created),
-                'link' => URL::build('/panel/store/payments', 'payment=' . Output::getClean($paymentQuery->id))
+                'link' => URL::build('/panel/magaza/odemeler', 'payment=' . Output::getClean($paymentQuery->id))
             ];
         }
 
@@ -113,7 +113,7 @@ if (isset($_GET['customer'])) {
     $smarty->assign([
         'VIEWING_PAYMENTS_FOR_USER' => $store_language->get('admin', 'viewing_payments_for_user_x', ['user' => Output::getClean($_GET['customer'])]),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/store/payments')
+        'BACK_LINK' => URL::build('/panel/magaza/odemeler')
     ]);
 
     $template_file = 'store/payments_user.tpl';
@@ -122,7 +122,7 @@ if (isset($_GET['customer'])) {
     // View payment
     $payment = new Payment($_GET['payment']);
     if (!$payment->exists()) {
-        Redirect::to(URL::build('/panel/store/payments'));
+        Redirect::to(URL::build('/panel/magaza/odemeler'));
     }
 
     // Handle input
@@ -136,7 +136,7 @@ if (isset($_GET['customer'])) {
                     $payment->delete();
 
                     Session::flash('store_payment_success', $store_language->get('admin', 'payment_deleted_successfully'));
-                    Redirect::to(URL::build('/panel/store/payments'));
+                    Redirect::to(URL::build('/panel/magaza/odemeler'));
                 }
             } else if (Input::get('action') == 'delete_command') {
                 // Delete pending command
@@ -157,13 +157,13 @@ if (isset($_GET['customer'])) {
         $avatar = $recipient_user->getAvatar();
         $style = $recipient_user->getGroupStyle();
         $uuid = Output::getClean($recipient->getIdentifier());
-        $link = URL::build('/panel/users/store/', 'user=' . $recipient_user->data()->id);
+        $link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
     } else {
         $username = $recipient->getUsername();
         $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
         $style = '';
         $uuid = Output::getClean($recipient->getIdentifier());
-        $link = URL::build('/panel/store/payments/', 'customer=' . $username);
+        $link = URL::build('/panel/magaza/odemeler/', 'customer=' . $username);
     }
 
     // Get Products
@@ -215,7 +215,7 @@ if (isset($_GET['customer'])) {
     $smarty->assign([
         'VIEWING_PAYMENT' => $store_language->get('admin', 'viewing_payment', ['payment' => Output::getClean($payment->data()->transaction)]),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/store/payments'),
+        'BACK_LINK' => URL::build('/panel/magaza/odemeler'),
         'IGN' => $store_language->get('admin', 'ign'),
         'IGN_VALUE' => $username,
         'USER_LINK' => $link,
@@ -304,7 +304,7 @@ if (isset($_GET['customer'])) {
                         ]);
 
                         Session::flash('store_payment_success', $store_language->get('admin', 'payment_created_successfully'));
-                        Redirect::to(URL::build('/panel/store/payments/', 'payment=' . $payment->data()->id));
+                        Redirect::to(URL::build('/panel/magaza/odemeler/', 'payment=' . $payment->data()->id));
                     }
                 } else {
                     $errors = $validation->errors();
@@ -318,7 +318,7 @@ if (isset($_GET['customer'])) {
         $smarty->assign([
             'CREATE_PAYMENT' => $store_language->get('admin', 'create_payment'),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/store/payments')
+            'BACK_LINK' => URL::build('/panel/magaza/odemeler')
         ]);
 
         // Products to choose
@@ -366,13 +366,13 @@ if (isset($_GET['customer'])) {
                 $avatar = $recipient_user->getAvatar();
                 $style = $recipient_user->getGroupStyle();
                 $identifier = Output::getClean($recipient->getIdentifier());
-                $link = URL::build('/panel/users/store/', 'user=' . $recipient_user->data()->id);
+                $link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
             } else {
                 $username = $recipient->getUsername();
                 $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
                 $style = '';
                 $identifier = Output::getClean($recipient->getIdentifier());
-                $link = URL::build('/panel/store/payments/', 'customer=' . $username);
+                $link = URL::build('/panel/magaza/odemeler/', 'customer=' . $username);
             }
 
             $template_payments[] = [
@@ -387,7 +387,7 @@ if (isset($_GET['customer'])) {
                 'amount' => Output::getClean($paymentQuery->amount),
                 'date' => date(DATE_FORMAT, $paymentQuery->created),
                 'date_unix' => Output::getClean($paymentQuery->created),
-                'link' => URL::build('/panel/store/payments/', 'payment=' . Output::getClean($paymentQuery->id))
+                'link' => URL::build('/panel/magaza/odemeler/', 'payment=' . Output::getClean($paymentQuery->id))
             ];
         }
 
@@ -428,7 +428,7 @@ if (isset($_GET['customer'])) {
 
     $smarty->assign([
         'CREATE_PAYMENT' => $store_language->get('admin', 'create_payment'),
-        'CREATE_PAYMENT_LINK' => URL::build('/panel/store/payments/', 'action=create')
+        'CREATE_PAYMENT_LINK' => URL::build('/panel/magaza/odemeler/', 'action=create')
     ]);
 
     $template_file = 'store/payments.tpl';

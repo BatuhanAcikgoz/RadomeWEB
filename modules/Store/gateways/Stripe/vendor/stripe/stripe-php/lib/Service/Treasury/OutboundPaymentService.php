@@ -34,7 +34,7 @@ class OutboundPaymentService extends \Stripe\Service\AbstractService
      */
     public function cancel($id, $params = null, $opts = null)
     {
-        return $this->request('post', $this->buildPath('/v1/treasury/outbound_payments/%s/cancel', $id), $params, $opts);
+        return $this->request('post', $this->buildPath('/v1/treasury/outbound_payments/%s/iptal', $id), $params, $opts);
     }
 
     /**

@@ -33,7 +33,7 @@ if (!isset($_GET['c'])) {
                     $code = SecureRandom::alphanumeric();
 
                     // Send an email
-                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/forgot_password/', 'c=' . urlencode($code));
+                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/sifremi_unuttum/', 'c=' . urlencode($code));
 
                     $sent = Email::send(
                         ['email' => $target_user->data()->email, 'name' => $target_user->getDisplayname()],
@@ -102,7 +102,7 @@ if (!isset($_GET['c'])) {
     // Check code exists
     $target_user = new User($_GET['c'], 'reset_code');
     if (!$target_user->exists()) {
-        Redirect::to('/forgot_password');
+        Redirect::to('/sifremi_unuttum');
     }
 
     if (Input::exists()) {
@@ -150,7 +150,7 @@ if (!isset($_GET['c'])) {
                         ]);
 
                         Session::flash('login_success', $language->get('user', 'forgot_password_change_successful'));
-                        Redirect::to(URL::build('/login'));
+                        Redirect::to(URL::build('/giris'));
                     } catch (Exception $e) {
                         $errors = [$e->getMessage()];
                     }

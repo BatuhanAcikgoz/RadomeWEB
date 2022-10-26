@@ -22,7 +22,7 @@ if (!$user->isLoggedIn()) {
 $forum = new Forum();
 
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 $fid = (int)$_GET['fid'];
@@ -33,13 +33,13 @@ $user_groups = $user->getAllGroupIds();
 // Does the forum exist, and can the user view it?
 $list = $forum->forumExist($fid, $user_groups);
 if (!$list) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 // Can the user post a topic in this forum?
 $can_reply = $forum->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
-    Redirect::to(URL::build('/forum/view/' . urlencode($fid)));
+    Redirect::to(URL::build('/forum/bakis/' . urlencode($fid)));
 }
 
 $current_forum = DB::getInstance()->query('SELECT * FROM rw_forums WHERE id = ?', [$fid])->first();
@@ -182,7 +182,7 @@ if (Input::exists()) {
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
                     'alert_short' => ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
+                    'alert_url' => URL::build('/forum/konu/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
                     'user' => $user,
                 ])['content'];
@@ -213,13 +213,13 @@ if (Input::exists()) {
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
-                    'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
                     'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
 
-                Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }

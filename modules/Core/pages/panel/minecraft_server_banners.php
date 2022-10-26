@@ -34,8 +34,8 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
         foreach ($servers as $server) {
             $template_array[] = [
                 'name' => Output::getClean($server->name),
-                'edit_link' => URL::build('/panel/minecraft/banners/', 'edit=' . urlencode($server->id)),
-                'view_link' => URL::build('/panel/minecraft/banners/', 'server=' . urlencode($server->id))
+                'edit_link' => URL::build('/panel/minecraft/bannerlar/', 'edit=' . urlencode($server->id)),
+                'view_link' => URL::build('/panel/minecraft/bannerlar/', 'server=' . urlencode($server->id))
             ];
         }
 
@@ -57,13 +57,13 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
         // Get server
         $server = DB::getInstance()->get('mc_servers', ['id', $_GET['server']])->results();
         if (!count($server)) {
-            Redirect::to(URL::build('/panel/minecraft/banners'));
+            Redirect::to(URL::build('/panel/minecraft/bannerlar'));
         }
         $server = $server[0];
 
         $smarty->assign([
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
+            'BACK_LINK' => URL::build('/panel/minecraft/bannerlar'),
             'SERVER_NAME' => Output::getClean($server->name),
             'BANNER_URL' => URL::getSelfURL() . ltrim(rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/'), '/'),
             'BANNER_PATH' => rtrim(URL::build('/banner/' . urlencode($server->name) . '.png'), '/')
@@ -76,7 +76,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
         // Get server
         $server = DB::getInstance()->get('mc_servers', ['id', $_GET['edit']])->results();
         if (!count($server)) {
-            Redirect::to(URL::build('/panel/minecraft/banners'));
+            Redirect::to(URL::build('/panel/minecraft/bannerlar'));
         }
 
         if (Input::exists()) {
@@ -131,7 +131,7 @@ if (!isset($_GET['server']) && !isset($_GET['edit'])) {
 
         $smarty->assign([
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/banners'),
+            'BACK_LINK' => URL::build('/panel/minecraft/bannerlar'),
             'SERVER_NAME' => Output::getClean($server->name),
             'BANNER_BACKGROUND' => $language->get('admin', 'banner_background'),
             'BANNER_BACKGROUND_VALUE' => Output::getClean($server->banner_background),

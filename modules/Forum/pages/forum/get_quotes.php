@@ -37,7 +37,7 @@ foreach ($_POST['posts'] as $item) {
         $posts[] = [
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
-            'link' => URL::build('/forum/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
+            'link' => URL::build('/forum/konu/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
         ];
     }
 }

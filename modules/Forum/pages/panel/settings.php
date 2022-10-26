@@ -50,7 +50,7 @@ if (Input::exists()) {
         // Invalid token
         Session::flash('admin_forums_settings', $language->get('general', 'invalid_token'));
     }
-    Redirect::to(URL::build('/panel/forums/settings'));
+    Redirect::to(URL::build('/panel/forumlar/ayarlar'));
 }
 
 // Retrieve Link Location from cache

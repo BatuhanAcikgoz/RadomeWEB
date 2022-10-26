@@ -40,7 +40,7 @@ if (!isset($_GET['action'])) {
                 'id' => Output::getClean($connection->id),
                 'name' => Output::getClean($connection->name),
                 'service' => Output::getClean($service->getName()),
-                'edit_link' => URL::build('/panel/store/connections/', 'action=edit&id=' . Output::getClean($connection->id)),
+                'edit_link' => URL::build('/panel/magaza/baglantilar/', 'action=edit&id=' . Output::getClean($connection->id)),
                 'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false
             ];
         }
@@ -52,12 +52,12 @@ if (!isset($_GET['action'])) {
         'CONNECTIONS_INFO' => $store_language->get('admin', 'connections_info'),
         'NO_CONNECTIONS' => $store_language->get('admin', 'no_connections'),
         'NEW_CONNECTION' => $store_language->get('admin', 'new_connection'),
-        'NEW_CONNECTION_LINK' => URL::build('/panel/store/connections', 'action=new'),
+        'NEW_CONNECTION_LINK' => URL::build('/panel/magaza/baglantilar', 'action=new'),
         'CONNECTION_ID' => $store_language->get('admin', 'connection_id'),
         'NAME' => $language->get('admin', 'name'),
         'TYPE' => $language->get('admin', 'type'),
         'ACTIONS' => $language->get('general', 'actions'),
-        'DELETE_LINK' => URL::build('/panel/store/connections', 'action=delete'),
+        'DELETE_LINK' => URL::build('/panel/magaza/baglantilar', 'action=delete'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_CONNECTION' => $store_language->get('admin', 'confirm_delete_connection'),
         'TOKEN' => Token::get(),
@@ -83,26 +83,26 @@ if (!isset($_GET['action'])) {
                         'id' => Output::getClean($service->getId()),
                         'name' => Output::getClean($service->getName()),
                         'description' => Output::getClean($service->getDescription()),
-                        'select_link' => URL::build('/panel/store/connections', 'action=new&service=' . $service->getId())
+                        'select_link' => URL::build('/panel/magaza/baglantilar', 'action=new&service=' . $service->getId())
                     ];
                 }
 
                 $smarty->assign([
                     'CONNECTIONS_TITLE' => 'Select Connection Type',
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/store/connections/'),
+                    'BACK_LINK' => URL::build('/panel/magaza/baglantilar/'),
                     'SERVICES_LIST' => $services_list
                 ]);
 
                 $template_file = 'store/connections_type.tpl';
             } else {
                 if (!is_numeric($_GET['service'])) {
-                    URL::build('/panel/store/connections', 'action=new');
+                    URL::build('/panel/magaza/baglantilar', 'action=new');
                 }
 
                 $service = $services->get($_GET['service']);
                 if ($service == null) {
-                    URL::build('/panel/store/connections', 'action=new');
+                    URL::build('/panel/magaza/baglantilar', 'action=new');
                 }
 
                 $fields = new Fields();
@@ -115,7 +115,7 @@ if (!isset($_GET['action'])) {
                 $smarty->assign([
                     'CONNECTIONS_TITLE' => $store_language->get('admin', 'creating_new_connection'),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/store/connections/'),
+                    'BACK_LINK' => URL::build('/panel/magaza/baglantilar/'),
                     'FIELDS' => $fields->getAll()
                 ]);
                 
@@ -125,18 +125,18 @@ if (!isset($_GET['action'])) {
         case 'edit';
             // Edit connections
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/store/connections/'));
+                Redirect::to(URL::build('/panel/magaza/baglantilar/'));
             }
 
             $connection = DB::getInstance()->query('SELECT * FROM rw_store_connections WHERE id = ?', [$_GET['id']]);
             if (!$connection->count()) {
-                Redirect::to(URL::build('/panel/store/connections/'));
+                Redirect::to(URL::build('/panel/magaza/baglantilar/'));
             }
             $connection = $connection->first();
 
             $service = $services->get($connection->service_id);
             if ($service == null) {
-                URL::build('/panel/store/connections', 'action=new');
+                URL::build('/panel/magaza/baglantilar', 'action=new');
             }
 
             $fields = new Fields();
@@ -148,7 +148,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CONNECTIONS_TITLE' => $store_language->get('admin', 'editing_connection_x', ['connection' => Output::getClean($connection->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/connections/'),
+                'BACK_LINK' => URL::build('/panel/magaza/baglantilar/'),
                 'FIELDS' => $fields->getAll()
             ]);
             
@@ -171,7 +171,7 @@ if (!isset($_GET['action'])) {
             die();
         break;
         default:
-            Redirect::to(URL::build('/panel/store/connections'));
+            Redirect::to(URL::build('/panel/magaza/baglantilar'));
         break;
     }
 }

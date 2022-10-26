@@ -78,7 +78,7 @@ $smarty->assign([
     'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),
     'YES' => $language->get('general', 'yes'),
     'NO' => $language->get('general', 'no'),
-    'DELETE_LINK' => URL::build('/panel/users/oauth/', 'action=delete'),
+    'DELETE_LINK' => URL::build('/panel/kullanicilar/oauth/', 'action=delete'),
     'OAUTH_PROVIDERS' => $oauth_providers,
     'NO_OAUTH_PROVIDERS' => $language->get('user', 'no_providers'),
     'USER_OAUTH_PROVIDERS' => $user_providers_template,

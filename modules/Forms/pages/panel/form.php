@@ -23,12 +23,12 @@ $page_title = $forms_language->get('forms', 'forms');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!is_numeric($_GET['form'])) {
-    Redirect::to(URL::build('/panel/forms'));
+    Redirect::to(URL::build('/panel/formlar'));
 }
 
 $form = new Form($_GET['form']);
 if (!$form->exists()) {
-    Redirect::to(URL::build('/panel/forms'));
+    Redirect::to(URL::build('/panel/formlar'));
 }
 
 $field_types = [];
@@ -141,7 +141,7 @@ if (!isset($_GET['action'])) {
     $smarty->assign([
         'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/forms'),
+        'BACK_LINK' => URL::build('/panel/formlar'),
         'FORM_NAME' => $forms_language->get('forms', 'form_name'),
         'FORM_NAME_VALUE' => Output::getClean(htmlspecialchars_decode($form->data()->title)),
         'FORM_ICON' => $forms_language->get('forms', 'form_icon'),
@@ -261,11 +261,11 @@ if (!isset($_GET['action'])) {
         break;
         case 'edit':
             if (!is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             } else {
                 $field = DB::getInstance()->get('forms_fields', ['id', '=', $_GET['id']])->results();
                 if (!count($field)) {
-                    Redirect::to(URL::build('/panel/forms'));
+                    Redirect::to(URL::build('/panel/formlar'));
                 }
             }
             $field = $field[0];
@@ -368,7 +368,7 @@ if (!isset($_GET['action'])) {
         case 'delete':
             // Delete Field
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
             DB::getInstance()->update('forms_fields', $_GET['id'], [
                 'deleted' => 1
@@ -394,7 +394,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/forms'),
+                'BACK_LINK' => URL::build('/panel/formlar'),
                 'FIELD_NAME' => $language->get('admin', 'field_name'),
                 'ORDER' => $forms_language->get('forms', 'field_order'),
                 'TYPE' => $language->get('admin', 'type'),
@@ -530,7 +530,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/forms'),
+                'BACK_LINK' => URL::build('/panel/formlar'),
                 'USER' => $language->get('admin', 'user'),
                 'STAFFCP' => $language->get('moderator', 'staff_cp'),
                 'GROUP' => $language->get('admin', 'group'),
@@ -616,7 +616,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/forms'),
+                'BACK_LINK' => URL::build('/panel/formlar'),
                 'SELECT_STATUSES' => $forms_language->get('forms', 'select_statuses_to_form'),
                 'ALL_STATUSES' => $status_array,
                 'CHANGE_STATUS_ON_COMMENT' => $forms_language->get('forms', 'change_status_on_comment'),
@@ -627,7 +627,7 @@ if (!isset($_GET['action'])) {
             $template_file = 'forms/form_statuses.tpl';
         break;
         default:
-        Redirect::to(URL::build('/panel/forms'));
+        Redirect::to(URL::build('/panel/formlar'));
     break;
     }
 }

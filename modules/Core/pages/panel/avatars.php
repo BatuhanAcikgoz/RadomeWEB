@@ -54,7 +54,7 @@ if (Input::exists()) {
         //Log::getInstance()->log(Log::Action('admin/core/avatar'));
 
         Session::flash('avatar_success', $language->get('admin', 'avatar_settings_updated_successfully'));
-        Redirect::to(URL::build('/panel/core/avatars'));
+        Redirect::to(URL::build('/panel/core/avatarlar'));
 
     } else {
         $errors = [$language->get('general', 'invalid_token')];

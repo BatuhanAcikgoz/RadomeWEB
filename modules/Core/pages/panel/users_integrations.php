@@ -36,8 +36,8 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         $integrations_list[$integration->getName()] = [
             'name' => Output::getClean($integration->getName()),
             'icon' => Output::getClean($integration->getIcon()),
-            'link' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=link&integration=' . $integration->getName()),
-            'edit' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName())
+            'link' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=link&integration=' . $integration->getName()),
+            'edit' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName())
         ];
     }
 
@@ -70,7 +70,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'NO' => $language->get('general', 'no'),
         'UNLINK' => $language->get('admin', 'unlink'),
         'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
-        'UNLINK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
+        'UNLINK_LINK' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
         'USERNAME' => $language->get('user', 'username'),
         'IDENTIFIER' => $language->get('admin', 'identifier'),
         'VERIFIED' => $language->get('admin', 'verified')
@@ -83,12 +83,12 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             // Manual linking to integration (Integration User might already exist due of pending completion)
             $integration = Integrations::getInstance()->getIntegration($_GET['integration']);
             if ($integration === null) {
-                Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+                Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
             }
 
             $integrationUser = $view_user->getIntegration($_GET['integration']);
             if ($integrationUser != null && $integrationUser->data()->username != null && $integrationUser->data()->identifier != null) {
-                Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+                Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
             }
 
             if (Input::exists()) {
@@ -119,7 +119,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             'user' => $view_user->getDisplayname(true),
                             'integration' => Output::getClean($integrationUser->getIntegration()->getName()),
                         ]));
-                        Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+                        Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
                     } else {
                         $errors = $integration->getErrors();
                     }
@@ -137,7 +137,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'IDENTIFIER_VALUE' => ((isset($_POST['identifier']) && $_POST['identifier']) ? Output::getClean(Input::get('identifier')) : ''),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => ((isset($_POST['verified']) && $_POST['verified']) ? Output::getClean(Input::get('verified')) : 0),
-                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
+                'BACK_LINK' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id),
                 'USERNAME' => $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
                 'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),
             ]);
@@ -150,7 +150,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
             // Edit integration user details
             $integrationUser = $view_user->getIntegration($_GET['integration']);
             if ($integrationUser === null) {
-                Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+                Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
             }
 
             $integration = $integrationUser->getIntegration();
@@ -168,7 +168,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             ]);
 
                             Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
-                            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
+                            Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
                         } else {
                             $errors = $integration->getErrors();
                         }
@@ -177,7 +177,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         // Sync integration user
                         if ($integration->syncIntegrationUser($integrationUser)) {
                             Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
-                            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
+                            Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=edit&integration=' . $integration->getName()));
                         } else {
                             $errors = $integration->getErrors();
                         }
@@ -196,7 +196,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
                 'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
-                'BACK_LINK' => URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id),
+                'BACK_LINK' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id),
                 'USERNAME' =>  $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
                 'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),
                 'SYNC_INTEGRATION' => $language->get('admin', 'sync_integration'),
@@ -217,17 +217,17 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                         Session::flash('integrations_success', $language->get('admin', 'unlink_account_success', [
                             'provider' => Output::getClean($integrationUser->getIntegration()->getName()),
                         ]));
-                        Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+                        Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
                     }
                 } else {
                     Session::flash('integrations_errors', $language->get('general', 'invalid_token'));
                 }
             }
 
-            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+            Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
 
         default:
-            Redirect::to(URL::build('/panel/users/integrations/', 'id=' . $view_user->data()->id));
+            Redirect::to(URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id));
     }
 }
 

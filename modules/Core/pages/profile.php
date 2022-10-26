@@ -19,7 +19,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profile'])->results();
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profil'])->results();
     if (count($page_metadata)) {
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [Output::getClean(SITE_NAME), Output::getClean($md_profile)], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -51,7 +51,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $profile_user = new User($profile, 'username');
     if (!$profile_user->exists()) {
-        Redirect::to(URL::build('/profile/&error=not_exist'));
+        Redirect::to(URL::build('/profil/&error=not_exist'));
     }
     $query = $profile_user->data();
 
@@ -127,7 +127,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname()
                                     ],
-                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId()))
+                                    URL::build('/profil/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode(DB::getInstance()->lastId()))
                                 );
                             }
 
@@ -196,7 +196,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                         'replace' => '{{author}}',
                                         'replace_with' => $user->getDisplayname(),
                                     ],
-                                    URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                    URL::build('/profil/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
                                 );
                             } else {
                                 if ($post[0]->author_id != $user->data()->id) {
@@ -219,7 +219,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                                 'replace' => '{{author}}',
                                                 'replace_with' => $user->getDisplayname()
                                             ],
-                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                            URL::build('/profil/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
                                         );
                                     } else {
                                         Alert::create(
@@ -239,7 +239,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                                 'replace' => ['{{author}}', '{{user}}'],
                                                 'replace_with' => [$user->getDisplayname(), $profile_user->getDisplayname()]
                                             ],
-                                            URL::build('/profile/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
+                                            URL::build('/profil/' . urlencode($profile_user->getDisplayname(true)) . '/#post-' . urlencode($_POST['post']))
                                         );
                                     }
                                 }
@@ -519,7 +519,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $smarty->assign([
                 'SELF' => true,
-                'SETTINGS_LINK' => URL::build('/user/settings'),
+                'SETTINGS_LINK' => URL::build('/user/ayarlar'),
                 'CHANGE_BANNER' => $language->get('user', 'change_banner'),
                 'BANNERS' => $banners,
                 'CAN_VIEW' => true,
@@ -536,7 +536,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
         } else {
             $smarty->assign([
-                'MESSAGE_LINK' => URL::build('/user/messaging/', 'action=new&amp;uid=' . urlencode($query->id)),
+                'MESSAGE_LINK' => URL::build('/user/mesajlasma/', 'action=new&amp;uid=' . urlencode($query->id)),
                 'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . urlencode($query->id)),
                 'CONFIRM' => $language->get('general', 'confirm'),
                 'MOD_OR_ADMIN' => $profile_user->canViewStaffCP()
@@ -558,7 +558,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             if ($user->hasPermission('modcp.profile_banner_reset')) {
                 $smarty->assign([
                     'RESET_PROFILE_BANNER' => $language->get('moderator', 'reset_profile_banner'),
-                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profile/' . urlencode($query->username) . '/', 'action=reset_banner')
+                    'RESET_PROFILE_BANNER_LINK' => URL::build('/profil/' . urlencode($query->username) . '/', 'action=reset_banner')
                 ]);
             }
         }
@@ -603,7 +603,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($wall_posts_query, 10, $p, count($wall_posts_query));
-        $pagination = $paginator->generate(7, URL::build('/profile/' . urlencode($query->username) . '/'));
+        $pagination = $paginator->generate(7, URL::build('/profil/' . urlencode($query->username) . '/'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -696,7 +696,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'reactions' => $reactions,
                 'replies' => $replies,
                 'self' => $user->isLoggedIn() && $user->data()->id == $nValue->author_id,
-                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profile/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
+                'reactions_link' => ($user->isLoggedIn() && ($post_user[0]->id != $user->data()->id) ? URL::build('/profil/' . urlencode($query->username) . '/', 'action=react&amp;post=' . urlencode($nValue->id)) : '#')
             ];
         }
     } else {

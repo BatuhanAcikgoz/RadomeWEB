@@ -13,7 +13,7 @@ if($user->isLoggedIn()){
 	}
 	if(!$user->isAdmLoggedIn()){
 		// Needs to authenticate
-		Redirect::to(URL::build('/panel/auth'));
+		Redirect::to(URL::build('/panel/giris'));
 		die();
 	} else {
 		if(!$user->hasPermission('admincp.wiki')){
@@ -23,7 +23,7 @@ if($user->isLoggedIn()){
 	}
 } else {
 	// Not logged in
-	Redirect::to(URL::build('/login'));
+	Redirect::to(URL::build('/giris'));
 	die();
 }
 

@@ -195,7 +195,7 @@ class MCQuery {
                 'username' => Output::getClean($player['name']),
                 'uuid' => Output::getClean($player['name']),
                 'avatar' => AvatarSource::getAvatarFromUUID(Output::getClean($player['name']), 32),
-                'profile' => URL::build('/profile/' . Output::getClean($player['name']))
+                'profile' => URL::build('/profil/' . Output::getClean($player['name']))
             ];
         }
 

@@ -36,11 +36,11 @@ if (!isset($_GET['view'])) {
         // Get page
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
-                Redirect::to(URL::build('/user/submissions/'));
+                Redirect::to(URL::build('/user/talepler/'));
             } else {
                 if ($_GET['p'] == 1) {
                     // Avoid bug in pagination class
-                    Redirect::to(URL::build('/user/submissions/'));
+                    Redirect::to(URL::build('/user/talepler/'));
                 }
                 $p = $_GET['p'];
             }
@@ -54,7 +54,7 @@ if (!isset($_GET['view'])) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($submissions_query, 10, $p, count($submissions_query));
-        $pagination = $paginator->generate(7, URL::build('/user/submissions/'));
+        $pagination = $paginator->generate(7, URL::build('/user/talepler/'));
 
         // Get all submissions
         foreach ($results->data as $submission) {
@@ -89,7 +89,7 @@ if (!isset($_GET['view'])) {
                 'updated_by_style' => $updated_by_style,
                 'updated_by_avatar' => $updated_by_avatar,
                 'updated_at' => $timeago->inWords($submission->updated, $language),
-                'link' => URL::build('/user/submissions/', 'view=' . $submission->id),
+                'link' => URL::build('/user/talepler/', 'view=' . $submission->id),
             ];
         }
 
@@ -111,7 +111,7 @@ if (!isset($_GET['view'])) {
     // Get submission by id
     $submission = DB::getInstance()->query('SELECT * FROM rw_forms_replies WHERE id = ? AND user_id = ? AND form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$_GET['view'], $user->data()->id]);
     if (!$submission->count()) {
-        Redirect::to(URL::build('/user/submissions'));
+        Redirect::to(URL::build('/user/talepler'));
     }
     $submission = new Submission(null, null, $submission->first());
 
@@ -173,14 +173,14 @@ if (!isset($_GET['view'])) {
                         'content_full' => Input::get('content'),
                         'avatar_url' => $user->getAvatar(128, true),
                         'title' => $form->data()->title,
-                        'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/forms/submissions/', 'view=' . $submission->data()->id),
+                        'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
                         'color' => $status_color
                     ]);
 
                     $success = $language->get('moderator', 'comment_created');
 
                     Session::flash('submission_success', $forms_language->get('forms', 'submission_updated'));
-                    Redirect::to(URL::build('/user/submissions/', 'view=' . Output::getClean($submission->data()->id)));
+                    Redirect::to(URL::build('/user/talepler/', 'view=' . Output::getClean($submission->data()->id)));
                 } else {
                     // Validation errors
                     $errors = $validation->errors();

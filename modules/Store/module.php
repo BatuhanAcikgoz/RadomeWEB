@@ -37,24 +37,24 @@ class Store_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Store', $this->_store_url, 'pages/store/index.php', 'store', true);
-        $pages->add('Store', $this->_store_url . '/category', 'pages/store/category.php', 'product', true);
+        $pages->add('Store', $this->_store_url . '/kategori', 'pages/store/kategori.php', 'product', true);
         $pages->add('Store', $this->_store_url . '/checkout', 'pages/store/checkout.php');
-        $pages->add('Store', $this->_store_url . '/check', 'pages/store/check.php');
-        $pages->add('Store', $this->_store_url . '/cancel', 'pages/store/cancel.php');
-        $pages->add('Store', $this->_store_url . '/view', 'pages/store/view.php');
-        $pages->add('Store', '/store/process', 'pages/backend/process.php');
-        $pages->add('Store', '/store/listener', 'pages/backend/listener.php');
-        $pages->add('Store', '/panel/store/general_settings', 'pages/panel/general_settings.php');
-        $pages->add('Store', '/panel/store/gateways', 'pages/panel/gateways.php');
-        $pages->add('Store', '/panel/store/products', 'pages/panel/products.php');
-        $pages->add('Store', '/panel/store/product', 'pages/panel/product.php');
-        $pages->add('Store', '/panel/store/categories', 'pages/panel/categories.php');
-        $pages->add('Store', '/panel/store/payments', 'pages/panel/payments.php');
-        $pages->add('Store', '/panel/store/connections', 'pages/panel/connections.php');
-        $pages->add('Store', '/panel/store/fields', 'pages/panel/fields.php');
-        $pages->add('Store', '/panel/users/store', 'pages/panel/users_store.php');
+        $pages->add('Store', $this->_store_url . '/kontrol', 'pages/store/check.php');
+        $pages->add('Store', $this->_store_url . '/iptal', 'pages/store/cancel.php');
+        $pages->add('Store', $this->_store_url . '/goruntule', 'pages/store/view.php');
+        $pages->add('Store', '/magaza/islem', 'pages/backend/process.php');
+        $pages->add('Store', '/magaza/listener', 'pages/backend/listener.php');
+        $pages->add('Store', '/panel/magaza/genel_ayarlar', 'pages/panel/general_settings.php');
+        $pages->add('Store', '/panel/magaza/gateways', 'pages/panel/gateways.php');
+        $pages->add('Store', '/panel/magaza/urunler', 'pages/panel/products.php');
+        $pages->add('Store', '/panel/magaza/urun', 'pages/panel/product.php');
+        $pages->add('Store', '/panel/magaza/kategoriler', 'pages/panel/categories.php');
+        $pages->add('Store', '/panel/magaza/odemeler', 'pages/panel/payments.php');
+        $pages->add('Store', '/panel/magaza/baglantilar', 'pages/panel/connections.php');
+        $pages->add('Store', '/panel/magaza/alanlar', 'pages/panel/fields.php');
+        $pages->add('Store', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
 
-        $pages->add('Store', '/user/store', 'pages/user/store.php');
+        $pages->add('Store', '/kullanici/magaza', 'pages/user/store.php');
 
         EventHandler::registerEvent('paymentPending',  $store_language->get('admin', 'payment_pending'));
         EventHandler::registerEvent('paymentCompleted', $store_language->get('admin', 'payment_completed'));
@@ -130,7 +130,7 @@ class Store_Module extends Module {
             break;
         }
 
-        $navs[1]->add('cc_store', $this->_store_language->get('general', 'store'), URL::build('/user/store'), 'top', null, 10);
+        $navs[1]->add('cc_store', $this->_store_language->get('general', 'store'), URL::build('/kullanici/magaza'), 'top', null, 10);
 
 		// Widgets
 		// Latest purchases
@@ -175,7 +175,7 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_settings_icon');
 
-                    $navs[2]->addItemToDropdown('store_configuration', 'general_settings', $this->_language->get('admin', 'general_settings'), URL::build('/panel/store/general_settings'), 'top', null, $icon, $order + 0.2);
+                    $navs[2]->addItemToDropdown('store_configuration', 'general_settings', $this->_language->get('admin', 'general_settings'), URL::build('/panel/magaza/genel_ayarlar'), 'top', null, $icon, $order + 0.2);
                 }
 
                 if ($user->hasPermission('staffcp.store.gateways')) {
@@ -185,7 +185,7 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_gateways_icon');
 
-                    $navs[2]->addItemToDropdown('store_configuration', 'store_gateways', $this->_store_language->get('admin', 'gateways'), URL::build('/panel/store/gateways'), 'top', null, $icon, $order + 0.3);
+                    $navs[2]->addItemToDropdown('store_configuration', 'store_gateways', $this->_store_language->get('admin', 'gateways'), URL::build('/panel/magaza/gateways'), 'top', null, $icon, $order + 0.3);
                 }
 
                 if ($user->hasPermission('staffcp.store.connections')) {
@@ -195,7 +195,7 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_connections_icon');
 
-                    $navs[2]->addItemToDropdown('store_configuration', 'store_connections', $this->_store_language->get('admin', 'service_connections'), URL::build('/panel/store/connections'), 'top', null, $icon, $order + 0.4);
+                    $navs[2]->addItemToDropdown('store_configuration', 'store_connections', $this->_store_language->get('admin', 'service_connections'), URL::build('/panel/magaza/baglantilar'), 'top', null, $icon, $order + 0.4);
                 }
 
                 if ($user->hasPermission('staffcp.store.fields')) {
@@ -205,7 +205,7 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_fields_icon');
 
-                    $navs[2]->addItemToDropdown('store_configuration', 'store_fields', $this->_store_language->get('admin', 'fields'), URL::build('/panel/store/fields'), 'top', null, $icon, $order + 0.5);
+                    $navs[2]->addItemToDropdown('store_configuration', 'store_fields', $this->_store_language->get('admin', 'fields'), URL::build('/panel/magaza/alanlar'), 'top', null, $icon, $order + 0.5);
                 }
 
                 if ($user->hasPermission('staffcp.store.products')) {
@@ -215,7 +215,7 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_products_icon');
 
-                    $navs[2]->add('store_products', $this->_store_language->get('general', 'products'), URL::build('/panel/store/products'), 'top', null, ($order + 0.6), $icon);
+                    $navs[2]->add('store_products', $this->_store_language->get('general', 'products'), URL::build('/panel/magaza/urunler'), 'top', null, ($order + 0.6), $icon);
                 }
 
                 if ($user->hasPermission('staffcp.store.payments')) {
@@ -225,12 +225,12 @@ class Store_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_payments_icon');
 
-                    $navs[2]->add('store_payments', $this->_store_language->get('admin', 'payments'), URL::build('/panel/store/payments'), 'top', null, ($order + 0.7), $icon);
+                    $navs[2]->add('store_payments', $this->_store_language->get('admin', 'payments'), URL::build('/panel/magaza/odemeler'), 'top', null, ($order + 0.7), $icon);
                 }
             }
 
             if ($user->hasPermission('staffcp.store.payments'))
-                Core_Module::addUserAction($this->_store_language->get('general', 'store'), URL::build('/panel/users/store/', 'user={id}'));
+                Core_Module::addUserAction($this->_store_language->get('general', 'store'), URL::build('/panel/kullanicilar/magaza/', 'user={id}'));
 
             if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                 // Dashboard graph

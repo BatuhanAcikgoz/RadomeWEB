@@ -419,7 +419,7 @@ class User {
      * @return string Compiled profile URL.
      */
     public function getProfileURL(): string {
-        return URL::build('/profile/' . urlencode($this->data()->username));
+        return URL::build('/profil/' . urlencode($this->data()->username));
     }
 
     /**
@@ -912,7 +912,7 @@ class User {
         }
 
         if (!$this->isLoggedIn()) {
-            Redirect::to(URL::build('/login'));
+            Redirect::to(URL::build('/giris'));
         }
 
         if (!$this->canViewStaffCP()) {
@@ -920,7 +920,7 @@ class User {
         }
 
         if (!$this->isAdmLoggedIn()) {
-            Redirect::to(URL::build('/panel/auth'));
+            Redirect::to(URL::build('/panel/giris'));
         }
 
         return !($permission != null && !$this->hasPermission($permission));

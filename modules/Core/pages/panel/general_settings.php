@@ -54,7 +54,7 @@ if (isset($_GET['do'])) {
         }
     }
 
-    Redirect::to(URL::build('/panel/core/general_settings'));
+    Redirect::to(URL::build('/panel/core/genel_ayarlar'));
 }
 
 // Deal with input
@@ -169,9 +169,9 @@ if (Input::exists()) {
             // Redirect in case URL type has changed
             if (!isset($errors)) {
                 if ($friendly === true) {
-                    $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
+                    $redirect = URL::build('/panel/core/genel_ayarlar', '', 'friendly');
                 } else {
-                    $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
+                    $redirect = URL::build('/panel/core/genel_ayarlar', '', 'non-friendly');
                 }
                 Redirect::to($redirect);
             }
@@ -248,9 +248,9 @@ $smarty->assign([
         'docLinkEnd' => '</a>'
     ]),
     'DEFAULT_LANGUAGE_VALUES' => $languages,
-    'INSTALL_LANGUAGE_LINK' => URL::build('/panel/core/general_settings/', 'do=installLanguage'),
+    'INSTALL_LANGUAGE_LINK' => URL::build('/panel/core/genel_ayarlar/', 'do=installLanguage'),
     'INSTALL_LANGUAGE' => $language->get('admin', 'install_language'),
-    'UPDATE_USER_LANGUAGES_LINK' => URL::build('/panel/core/general_settings/', 'do=updateLanguages'),
+    'UPDATE_USER_LANGUAGES_LINK' => URL::build('/panel/core/genel_ayarlar/', 'do=updateLanguages'),
     'UPDATE_USER_LANGUAGES' => $language->get('admin', 'update_user_languages'),
     'UPDATE_USER_LANGUAGES_INFO' => $language->get('admin', 'update_user_languages_warning'),
     'YES' => $language->get('general', 'yes'),

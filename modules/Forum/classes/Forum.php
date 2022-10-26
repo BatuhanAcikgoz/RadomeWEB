@@ -61,7 +61,7 @@ class Forum {
                                 $return[$forum->id]['subforums'][$item->id]->forum_title = Output::getClean($item->forum_title);
                                 $return[$forum->id]['subforums'][$item->id]->forum_description = Output::getClean($item->forum_description);
                                 $return[$forum->id]['subforums'][$item->id]->icon = Output::getPurified($item->icon);
-                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/view/' . urlencode($item->id) . '-' . $this->titleToURL($item->forum_title));
+                                $return[$forum->id]['subforums'][$item->id]->link = URL::build('/forum/bakis/' . urlencode($item->id) . '-' . $this->titleToURL($item->forum_title));
                                 $return[$forum->id]['subforums'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get topic/post count
@@ -105,7 +105,7 @@ class Forum {
 
                                     $return[$forum->id]['subforums'][$item->id]->last_post = $last_reply[$n];
                                     $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+                                    $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/konu/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
                                 }
 
                                 // Get list of subforums (names + links)
@@ -118,7 +118,7 @@ class Forum {
                                             }
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id] = new stdClass();
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->title = Output::getClean($subforum->forum_title);
-                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/view/' . urlencode($subforum->id) . '-' . $this->titleToURL($subforum->forum_title));
+                                            $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->link = URL::build('/forum/bakis/' . urlencode($subforum->id) . '-' . $this->titleToURL($subforum->forum_title));
                                             $return[$forum->id]['subforums'][$item->id]->subforums[$subforum->id]->icon = Output::getPurified($subforum->icon);
                                         }
                                     }

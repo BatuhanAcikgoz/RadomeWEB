@@ -25,7 +25,7 @@ require_once(ROOT_PATH . '/modules/Forms/classes/Forms.php');
 
 if (!isset($_GET['action'])) {
     // incase if i want to split statuses later
-    Redirect::to(URL::build('/panel/forms'));
+    Redirect::to(URL::build('/panel/formlar'));
 } else {
     switch ($_GET['action']) {
         case 'new':
@@ -84,7 +84,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('staff_forms', $forms_language->get('forms', 'status_creation_success'));
-                            Redirect::to(URL::build('/panel/forms'));
+                            Redirect::to(URL::build('/panel/formlar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -129,7 +129,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CREATING_STATUS' => $forms_language->get('forms', 'creating_status'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forms'),
+                'CANCEL_LINK' => URL::build('/panel/formlar'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -150,13 +150,13 @@ if (!isset($_GET['action'])) {
             // Editing a status
             if (!isset($_GET['status']) || !is_numeric($_GET['status'])) {
                 // Check the status ID is valid
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
 
             $status = new Status($_GET['status']);
             if (!$status->exists()) {
                 // No, it doesn't exist
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
 
             // Deal with input
@@ -214,7 +214,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('staff_forms', $forms_language->get('forms', 'status_edit_success'));
-                            Redirect::to(URL::build('/panel/forms'));
+                            Redirect::to(URL::build('/panel/formlar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -267,7 +267,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'EDITING_STATUS' => $forms_language->get('forms', 'editing_status'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forms'),
+                'CANCEL_LINK' => URL::build('/panel/formlar'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -290,7 +290,7 @@ if (!isset($_GET['action'])) {
             // status deletion
             if (!isset($_GET['status']) || !is_numeric($_GET['status'])) {
                 // Check the status ID is valid
-                Redirect::to(URL::build('/panel/forms'));
+                Redirect::to(URL::build('/panel/formlar'));
             }
 
             $status = new Status($_GET['status']);
@@ -299,10 +299,10 @@ if (!isset($_GET['action'])) {
                 Session::flash('staff_forms', $forms_language->get('forms', 'status_deleted_successfully'));
             }
 
-            Redirect::to(URL::build('/panel/forms'));
+            Redirect::to(URL::build('/panel/formlar'));
         break;
         default:
-            Redirect::to(URL::build('/panel/forms'));
+            Redirect::to(URL::build('/panel/formlar'));
         break;
     }
 }

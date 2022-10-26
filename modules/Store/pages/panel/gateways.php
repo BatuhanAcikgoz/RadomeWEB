@@ -47,7 +47,7 @@ if (!isset($_GET['gateway'])) {
             $gateways_list[] = [
                 'name' => Output::getClean($gateway->getName()),
                 'enabled' => $gateway->isEnabled(),
-                'edit_link' => URL::build('/panel/store/gateways/', 'gateway=' . Output::getClean($gateway->getName())),
+                'edit_link' => URL::build('/panel/magaza/gateways/', 'gateway=' . Output::getClean($gateway->getName())),
             ];
         }
 
@@ -76,7 +76,7 @@ if (!isset($_GET['gateway'])) {
         }
     } else if (!is_writable(ROOT_PATH . '/modules/Store')) {
         // File don't exist
-        Redirect::to(URL::build('/panel/store/gateways'));
+        Redirect::to(URL::build('/panel/magaza/gateways'));
     }
 
     require_once($gateway->getSettings());
@@ -84,7 +84,7 @@ if (!isset($_GET['gateway'])) {
     $smarty->assign([
         'EDITING_GATEWAY' => $store_language->get('admin', 'editing_gateway_x', ['gateway' => Output::getClean($gateway->getName())]),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/store/gateways')
+        'BACK_LINK' => URL::build('/panel/magaza/gateways')
     ]);
 
     $template_file = 'store/gateway_settings.tpl';

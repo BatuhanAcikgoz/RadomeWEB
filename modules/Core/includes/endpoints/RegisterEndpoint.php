@@ -171,7 +171,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
             );
 
             if ($return) {
-                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/complete_signup/', 'c=' . urlencode($code))]);
+                $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/kaydi_tamamla/', 'c=' . urlencode($code))]);
             }
 
             return ['user_id' => $user_id];
@@ -200,7 +200,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
         $user_id = $user_id['user_id'];
 
         // Get link + template
-        $link = URL::getSelfURL() . ltrim(URL::build('/complete_signup/', 'c=' . urlencode($code)), '/');
+        $link = URL::getSelfURL() . ltrim(URL::build('/kaydi_tamamla/', 'c=' . urlencode($code)), '/');
 
         $sent = Email::send(
             ['email' => $email, 'name' => $username],

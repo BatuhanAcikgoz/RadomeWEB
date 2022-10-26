@@ -68,4 +68,4 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('store/user/store.tpl', $smarty);
+$template->displayTemplate('store/kullanici/magaza.tpl', $smarty);

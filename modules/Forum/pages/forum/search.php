@@ -36,7 +36,7 @@ if (!isset($_GET['s'])) {
                 $search = str_replace(' ', '+', Output::getClean(Input::get('forum_search')));
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-                Redirect::to(URL::build('/forum/search/', 's=' . urlencode($search) . '&p=1'));
+                Redirect::to(URL::build('/forum/arama/', 's=' . urlencode($search) . '&p=1'));
             }
 
             $error = $forum_language->get('forum', 'invalid_search_query', ['min' => 3, 'max' => 128]);
@@ -56,7 +56,7 @@ if (!isset($_GET['s'])) {
 
     if (isset($_SESSION['last_forum_search']) && $_SESSION['last_forum_search_query'] != $_GET['s'] && $_SESSION['last_forum_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', $forum_language->get('forum', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_forum_search']))]));
-        Redirect::to(URL::build('/forum/search'));
+        Redirect::to(URL::build('/forum/arama'));
     }
 
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
@@ -158,7 +158,7 @@ if (isset($_GET['s'])) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($results, 10, $p, count($results));
-        $pagination = $paginator->generate(7, URL::build('/forum/search/', 's=' . urlencode($search) . '&'));
+        $pagination = $paginator->generate(7, URL::build('/forum/arama/', 's=' . urlencode($search) . '&'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -181,7 +181,7 @@ if (isset($_GET['s'])) {
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/forum/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
+                'post_url' => URL::build('/forum/konu/' . urlencode($results->data[$n]['topic_id']) . '-' . $forum->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
             ];
             $n++;
         }
@@ -199,7 +199,7 @@ if (isset($_GET['s'])) {
     $smarty->assign([
         'SEARCH_RESULTS' => $forum_language->get('forum', 'search_results'),
         'NEW_SEARCH' => $forum_language->get('forum', 'new_search'),
-        'NEW_SEARCH_URL' => URL::build('/forum/search'),
+        'NEW_SEARCH_URL' => URL::build('/forum/arama'),
         'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
     ]);
 
@@ -225,7 +225,7 @@ if (isset($_GET['s'])) {
 
     $smarty->assign([
         'FORUM_SEARCH' => $forum_language->get('forum', 'forum_search'),
-        'FORM_ACTION' => URL::build('/forum/search'),
+        'FORM_ACTION' => URL::build('/forum/arama'),
         'SEARCH' => $language->get('general', 'search'),
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),

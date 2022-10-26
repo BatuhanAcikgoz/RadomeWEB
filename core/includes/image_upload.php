@@ -80,7 +80,7 @@ switch ($_POST['type']) {
 
     case 'profile_banner':
         if (!$user->hasPermission('usercp.profile_banner')) {
-            Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+            Redirect::to(URL::build('/profil/' . urlencode($user->data()->username)));
         }
         $image->setName($user->data()->id . '-custom_banner');
 
@@ -89,7 +89,7 @@ switch ($_POST['type']) {
             && !mkdir(join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'uploads', 'profile_images', $user->data()->id]))
         ) {
             Session::flash('profile_banner_error', $language->get('admin', 'x_directory_not_writable', ['directory' => 'uploads/profile_images']));
-            Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+            Redirect::to(URL::build('/profil/' . urlencode($user->data()->username)));
         }
 
         $folder = implode(DIRECTORY_SEPARATOR, ['profile_images', $user->data()->id]);
@@ -113,7 +113,7 @@ if ($image['file']) {
         if (!$image->upload()) {
             if (Input::get('type') === 'profile_banner') {
                 Session::flash('profile_banner_error', $image->getError() ?: $language->get('api', 'unknown_error'));
-                Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+                Redirect::to(URL::build('/profil/' . urlencode($user->data()->username)));
             }
 
             http_response_code(500);
@@ -139,7 +139,7 @@ if ($image['file']) {
             ]);
 
             Session::flash('settings_success', $language->get('user', 'avatar_set_successfully'));
-            Redirect::to(URL::build('/user/settings'));
+            Redirect::to(URL::build('/user/ayarlar'));
         }
 
         if (Input::get('type') === 'profile_banner') {
@@ -147,7 +147,7 @@ if ($image['file']) {
                 'banner' => Output::getClean($user->data()->id . '/' . $image->getName() . '.' . $image->getMime())
             ]);
 
-            Redirect::to(URL::build('/profile/' . urlencode($user->data()->username)));
+            Redirect::to(URL::build('/profil/' . urlencode($user->data()->username)));
         }
 
         die('OK');
@@ -159,7 +159,7 @@ if ($image['file']) {
     }
 } else {
     if (Input::get('type') === 'avatar') {
-        Redirect::to(URL::build('/user/settings'));
+        Redirect::to(URL::build('/user/ayarlar'));
     }
 
     die('No image selected');

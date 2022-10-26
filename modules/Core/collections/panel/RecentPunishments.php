@@ -85,7 +85,7 @@ class RecentPunishmentsItem extends CollectionItemBase {
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/punishments/', 'user=' . urlencode($punished_user->data()->id)),
+                        'url' => URL::build('/panel/kullanicilar/cezalar/', 'user=' . urlencode($punished_user->data()->id)),
                         'punished_username' => $punished_user->getDisplayname(true),
                         'punished_style' => $punished_user->getGroupStyle(),
                         'punished_avatar' => $punished_user->getAvatar(),

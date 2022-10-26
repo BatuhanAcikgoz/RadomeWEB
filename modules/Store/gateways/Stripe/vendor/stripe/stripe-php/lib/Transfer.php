@@ -61,7 +61,7 @@ class Transfer extends ApiResource
      */
     public function cancel($params = null, $opts = null)
     {
-        $url = $this->instanceUrl() . '/cancel';
+        $url = $this->instanceUrl() . '/iptal';
         list($response, $opts) = $this->_request('post', $url, $params, $opts);
         $this->refreshFrom($response, $opts);
 

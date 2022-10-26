@@ -17,7 +17,7 @@ if ($user->isLoggedIn()) {
         Redirect::to(URL::build('/'));
     }
     if (!$user->isAdmLoggedIn()) {
-        Redirect::to(URL::build('/panel/auth'));
+        Redirect::to(URL::build('/panel/giris'));
     } else {
         if (!$user->hasPermission('admincp.iframe')) {
             require_once(ROOT_PATH . '/403.php');
@@ -25,7 +25,7 @@ if ($user->isLoggedIn()) {
     }
 } else {
     // Not logged in
-    Redirect::to(URL::build('/login'));
+    Redirect::to(URL::build('/giris'));
 }
 
 const PAGE = 'panel';
@@ -42,7 +42,7 @@ if (count($iframes_pages)) {
         $pages_list[] = [
             'edit_link' => URL::build('/panel/iframe', 'action=edit&id=' . Output::getClean($page->id)),
             'delete_link' => URL::build('/panel/iframe', 'action=delete&id=' . Output::getClean($page->id)),
-            'setting_link' => URL::build('/panel/iframe/setting', 'action=setting&id=' . Output::getClean($page->id)),
+            'setting_link' => URL::build('/panel/iframe/ayarlar', 'action=setting&id=' . Output::getClean($page->id)),
             'id' => $page->id,
             'name' => $page->name,
             'url' => $page->url

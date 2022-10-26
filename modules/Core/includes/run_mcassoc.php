@@ -82,7 +82,7 @@ if (!isset($_GET['step'])) {
             if (!$data || $username != $data->username) {
                 // Does not match MCAssoc
                 $smarty->assign('ERROR', $language->get('user', 'verification_failed'));
-                $smarty->assign('RETRY_LINK', URL::build('/register'));
+                $smarty->assign('RETRY_LINK', URL::build('/kayit'));
                 $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
 
                 unset($_SESSION['mcassoc']);
@@ -120,14 +120,14 @@ if (!isset($_GET['step'])) {
 
                 $smarty->assign('SUCCESS_TITLE', $language->get('general', 'success'));
                 $smarty->assign('SUCCESS', $language->get('user', 'verification_success'));
-                $smarty->assign('LOGIN_LINK', URL::build('/login'));
+                $smarty->assign('LOGIN_LINK', URL::build('/giris'));
                 $smarty->assign('LOGIN_TEXT', $language->get('general', 'sign_in'));
 
             }
         } catch (Exception $e) {
             $smarty->assign('ERROR_TITLE', $language->get('general', 'error'));
             $smarty->assign('ERROR', $language->get('user', 'verification_failed') . ' - ' . $e->getMessage());
-            $smarty->assign('RETRY_LINK', URL::build('/register'));
+            $smarty->assign('RETRY_LINK', URL::build('/kayit'));
             $smarty->assign('RETRY_TEXT', $language->get('general', 'register'));
 
             unset($_SESSION['mcassoc']);

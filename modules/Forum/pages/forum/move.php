@@ -16,13 +16,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $forum = new Forum();
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 $topic_id = $_GET['tid'];
 $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 if (!count($topic)) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 $forum_id = $topic[0]->forum_id;
 $topic = $topic[0];
@@ -61,7 +61,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                 $forum->updateForumLatestPosts();
                 $forum->updateTopicLatestPosts();
 
-                Redirect::to(URL::build('/forum/topic/' . $topic_id));
+                Redirect::to(URL::build('/forum/konu/' . $topic_id));
 
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/forum') . '">Forum index</a>';
@@ -130,7 +130,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/forum/topic/' . urlencode($topic->id)),
+    'CANCEL_LINK' => URL::build('/forum/konu/' . urlencode($topic->id)),
     'FORUMS' => $template_forums
 ]);
 

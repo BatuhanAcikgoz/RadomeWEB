@@ -51,8 +51,8 @@ if (!isset($_GET['action'])) {
 
             $template_array[] = [
                 'name' => str_replace('{x}', Output::getClean($topic_label->name), Output::getPurified($label_type->html)),
-                'edit_link' => URL::build('/panel/forums/labels/', 'action=edit&lid=' . Output::getClean($topic_label->id)),
-                'delete_link' => URL::build('/panel/forums/labels/', 'action=delete&lid=' . Output::getClean($topic_label->id)),
+                'edit_link' => URL::build('/panel/forumlar/etiketler/', 'action=edit&lid=' . Output::getClean($topic_label->id)),
+                'delete_link' => URL::build('/panel/forumlar/etiketler/', 'action=delete&lid=' . Output::getClean($topic_label->id)),
                 'enabled_forums' => $forums_string
             ];
         }
@@ -60,9 +60,9 @@ if (!isset($_GET['action'])) {
 
     $smarty->assign([
         'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
-        'LABEL_TYPES_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
+        'LABEL_TYPES_LINK' => URL::build('/panel/forumlar/etiketler/', 'action=types'),
         'NEW_LABEL' => $forum_language->get('forum', 'new_label'),
-        'NEW_LABEL_LINK' => URL::build('/panel/forums/labels/', 'action=new'),
+        'NEW_LABEL_LINK' => URL::build('/panel/forumlar/etiketler/', 'action=new'),
         'ALL_LABELS' => $template_array,
         'EDIT' => $language->get('general', 'edit'),
         'DELETE' => $language->get('general', 'delete'),
@@ -125,7 +125,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels'));
+                            Redirect::to(URL::build('/panel/forumlar/etiketler'));
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -180,7 +180,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CREATING_LABEL' => $forum_language->get('forum', 'creating_label'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels'),
+                'CANCEL_LINK' => URL::build('/panel/forumlar/etiketler'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -203,14 +203,14 @@ if (!isset($_GET['action'])) {
             // Editing a label
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
-                Redirect::to(URL::build('/panel/forums/labels'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler'));
             }
 
             // Does the label exist?
             $label = DB::getInstance()->get('forums_topic_labels', ['id', $_GET['lid']])->results();
             if (!count($label)) {
                 // No, it doesn't exist
-                Redirect::to(URL::build('/panel/forums/labels'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler'));
             }
 
             $label = $label[0];
@@ -262,7 +262,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels', 'action=edit&lid=' . Output::getClean($label->id)));
+                            Redirect::to(URL::build('/panel/forumlar/etiketler', 'action=edit&lid=' . Output::getClean($label->id)));
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -326,7 +326,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'EDITING_LABEL' => $forum_language->get('forum', 'editing_label'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels'),
+                'CANCEL_LINK' => URL::build('/panel/forumlar/etiketler'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -349,7 +349,7 @@ if (!isset($_GET['action'])) {
             // Label deletion
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
-                Redirect::to(URL::build('/panel/forums/labels'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler'));
             }
 
             if (Token::check($_POST['token'])) {
@@ -361,7 +361,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/forums/labels'));
+            Redirect::to(URL::build('/panel/forumlar/etiketler'));
 
         case 'types':
             // List label types
@@ -375,8 +375,8 @@ if (!isset($_GET['action'])) {
                 foreach ($labels as $label) {
                     $template_array[] = [
                         'name' => str_replace('{x}', Output::getClean($label->name), Output::getPurified($label->html)),
-                        'edit_link' => URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)),
-                        'delete_link' => URL::build('/panel/forums/labels/', 'action=delete_type&lid=' . Output::getClean($label->id)),
+                        'edit_link' => URL::build('/panel/forumlar/etiketler/', 'action=edit_type&lid=' . Output::getClean($label->id)),
+                        'delete_link' => URL::build('/panel/forumlar/etiketler/', 'action=delete_type&lid=' . Output::getClean($label->id)),
                         'usages' => (int) $label->count,
                     ];
                 }
@@ -384,9 +384,9 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'LABEL_TYPES' => $forum_language->get('forum', 'label_types'),
-                'LABELS_LINK' => URL::build('/panel/forums/labels'),
+                'LABELS_LINK' => URL::build('/panel/forumlar/etiketler'),
                 'NEW_LABEL_TYPE' => $forum_language->get('forum', 'new_label_type'),
-                'NEW_LABEL_TYPE_LINK' => URL::build('/panel/forums/labels/', 'action=new_type'),
+                'NEW_LABEL_TYPE_LINK' => URL::build('/panel/forumlar/etiketler/', 'action=new_type'),
                 'ALL_LABEL_TYPES' => $template_array,
                 'EDIT' => $language->get('general', 'edit'),
                 'DELETE' => $language->get('general', 'delete'),
@@ -430,7 +430,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_creation_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+                            Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=types'));
 
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
@@ -453,7 +453,7 @@ if (!isset($_GET['action'])) {
                 'CREATING_LABEL_TYPE' => $forum_language->get('forum', 'creating_label_type'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
+                'CANCEL_LINK' => URL::build('/panel/forumlar/etiketler/', 'action=types'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
@@ -472,14 +472,14 @@ if (!isset($_GET['action'])) {
         case 'edit_type':
             // Editing a label type
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
-                Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=types'));
             }
 
             // Does the label exist?
             $label = DB::getInstance()->get('forums_labels', ['id', $_GET['lid']])->results();
             if (!count($label)) {
                 // No, it doesn't exist
-                Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=types'));
             }
 
             $label = $label[0];
@@ -511,7 +511,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('forum_labels', $forum_language->get('forum', 'label_type_edit_success'));
-                            Redirect::to(URL::build('/panel/forums/labels/', 'action=edit_type&lid=' . Output::getClean($label->id)));
+                            Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=edit_type&lid=' . Output::getClean($label->id)));
                         } catch (Exception $e) {
                             $errors = [$e->getMessage()];
                         }
@@ -532,7 +532,7 @@ if (!isset($_GET['action'])) {
                 'EDITING_LABEL_TYPE' => $forum_language->get('forum', 'editing_label_type'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums/labels/', 'action=types'),
+                'CANCEL_LINK' => URL::build('/panel/forumlar/etiketler/', 'action=types'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
@@ -552,7 +552,7 @@ if (!isset($_GET['action'])) {
             // Label deletion
             if (!isset($_GET['lid']) || !is_numeric($_GET['lid'])) {
                 // Check the label ID is valid
-                Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+                Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=types'));
             }
 
             if (Token::check($_POST['token'])) {
@@ -571,10 +571,10 @@ if (!isset($_GET['action'])) {
                 Session::flash('forum_labels_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/forums/labels/', 'action=types'));
+            Redirect::to(URL::build('/panel/forumlar/etiketler/', 'action=types'));
 
         default:
-            Redirect::to(URL::build('/panel/forums/labels'));
+            Redirect::to(URL::build('/panel/forumlar/etiketler'));
     }
 
 }

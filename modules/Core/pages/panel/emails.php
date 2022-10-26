@@ -189,19 +189,19 @@ if (isset($_GET['action'])) {
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
             'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-            'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
+            'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/toplu_mesaj'),
         ]);
     }
 
     $smarty->assign([
         'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/mass_message'),
+        'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/toplu_mesaj'),
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
         'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
         'SEND_TEST_EMAIL_LINK' => URL::build('/panel/core/emails/', 'action=test'),
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
-        'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/errors'),
+        'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/hatalar'),
         'ENABLE_MAILER' => $language->get('admin', 'use_external_mail_server'),
         'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
         'INFO' => $language->get('general', 'info'),

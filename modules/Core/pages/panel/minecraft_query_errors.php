@@ -30,7 +30,7 @@ if (!isset($_GET['id'])) {
             Session::flash('panel_query_errors_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/minecraft/query_errors'));
+        Redirect::to(URL::build('/panel/minecraft/sorgu_hatalari'));
     }
 
     $query_errors = DB::getInstance()->orderWhere('query_errors', 'id <> 0', 'DATE', 'DESC')->results();
@@ -38,7 +38,7 @@ if (!isset($_GET['id'])) {
         // Get page
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
-                Redirect::to(URL::build('/panel/minecraft/query_errors'));
+                Redirect::to(URL::build('/panel/minecraft/sorgu_hatalari'));
             }
 
             $p = $_GET['p'];
@@ -50,7 +50,7 @@ if (!isset($_GET['id'])) {
         // Pagination
         $paginator = new Paginator();
         $results = $paginator->getLimited($query_errors, 10, $p, count($query_errors));
-        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/query_errors/'));
+        $pagination = $paginator->generate(7, URL::build('/panel/minecraft/sorgu_hatalari/'));
 
         $template_array = [];
 
@@ -59,8 +59,8 @@ if (!isset($_GET['id'])) {
                 'ip' => Output::getClean($result->ip),
                 'port' => Output::getClean($result->port),
                 'date' => date(DATE_FORMAT, $result->date),
-                'view_link' => URL::build('/panel/minecraft/query_errors/', 'id=' . urlencode($result->id)),
-                'delete_link' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . urlencode($result->id))
+                'view_link' => URL::build('/panel/minecraft/sorgu_hatalari/', 'id=' . urlencode($result->id)),
+                'delete_link' => URL::build('/panel/minecraft/sorgu_hatalari/', 'action=delete&id=' . urlencode($result->id))
             ];
         }
 
@@ -79,31 +79,31 @@ if (!isset($_GET['id'])) {
 } else {
     // View an error
     if (!is_numeric($_GET['id'])) {
-        Redirect::to(URL::build('/panel/minecraft/query_errors'));
+        Redirect::to(URL::build('/panel/minecraft/sorgu_hatalari'));
     }
 
     $query_error = DB::getInstance()->get('query_errors', ['id', $_GET['id']])->results();
     if (!count($query_error)) {
-        Redirect::to(URL::build('/panel/minecraft/query_errors'));
+        Redirect::to(URL::build('/panel/minecraft/sorgu_hatalari'));
     }
     $query_error = $query_error[0];
 
     if ($_GET['action'] == 'delete') {
         DB::getInstance()->delete('query_errors', ['id', $_GET['id']]);
         Session::flash('panel_query_errors_success', $language->get('admin', 'query_error_deleted_successfully'));
-        Redirect::to(URL::build('/panel/minecraft/query_errors'));
+        Redirect::to(URL::build('/panel/minecraft/sorgu_hatalari'));
     }
 
     $smarty->assign([
         'VIEWING_ERROR' => $language->get('admin', 'viewing_query_error'),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/minecraft/query_errors'),
+        'BACK_LINK' => URL::build('/panel/minecraft/sorgu_hatalari'),
         'DELETE' => $language->get('general', 'delete'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_query_error_deletion'),
-        'DELETE_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=delete&id=' . urlencode($query_error->id)),
+        'DELETE_LINK' => URL::build('/panel/minecraft/sorgu_hatalari/', 'action=delete&id=' . urlencode($query_error->id)),
         'SERVER_ADDRESS' => $language->get('admin', 'server_address'),
         'SERVER_PORT' => $language->get('admin', 'server_port'),
         'DATE' => $language->get('general', 'date'),
@@ -159,7 +159,7 @@ $smarty->assign([
     'NO' => $language->get('general', 'no'),
     'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_query_error_deletion'),
     'PURGE_QUERY_ERRORS' => $language->get('admin', 'purge_errors'),
-    'PURGE_QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/query_errors/', 'action=purge'),
+    'PURGE_QUERY_ERRORS_LINK' => URL::build('/panel/minecraft/sorgu_hatalari/', 'action=purge'),
     'CONFIRM_PURGE_ERRORS' => $language->get('admin', 'confirm_purge_errors'),
     'NO_QUERY_ERRORS' => $language->get('admin', 'no_query_errors')
 ]);

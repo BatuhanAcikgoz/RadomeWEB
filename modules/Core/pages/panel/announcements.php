@@ -41,12 +41,12 @@ if (!isset($_GET['action'])) {
         'NONE' => $language->get('general', 'none'),
         'NO_ANNOUNCEMENTS' => $language->get('admin', 'no_announcements'),
         'ANNOUCEMENTS_INFO' => $language->get('admin', 'announcement_info'),
-        'NEW_LINK' => URL::build('/panel/core/announcements', 'action=new'),
+        'NEW_LINK' => URL::build('/panel/core/duyurular', 'action=new'),
         'NEW' => $language->get('admin', 'new_announcement'),
         'ACTIONS' => $language->get('general', 'actions'),
-        'EDIT_LINK' => URL::build('/panel/core/announcements', 'action=edit&id='),
-        'DELETE_LINK' => URL::build('/panel/core/announcements', 'action=delete'),
-        'REORDER_DRAG_URL' => URL::build('/panel/core/announcements')
+        'EDIT_LINK' => URL::build('/panel/core/duyurular', 'action=edit&id='),
+        'DELETE_LINK' => URL::build('/panel/core/duyurular', 'action=delete'),
+        'REORDER_DRAG_URL' => URL::build('/panel/core/duyurular')
     ]);
 
     $template_file = 'core/announcements.tpl';
@@ -101,7 +101,7 @@ if (!isset($_GET['action'])) {
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'creating_announcement_success'));
                         }
-                        Redirect::to(URL::build('/panel/core/announcements'));
+                        Redirect::to(URL::build('/panel/core/duyurular'));
                     }
 
                     $errors = $validation->errors();
@@ -140,14 +140,14 @@ if (!isset($_GET['action'])) {
             // Edit hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
                 // Check the announcement ID is valid
-                Redirect::to(URL::build('/panel/core/announcements'));
+                Redirect::to(URL::build('/panel/core/duyurular'));
             }
 
             // Does the announcement exist?
             $announcement = Announcement::find($_GET['id']);
             if (!$announcement) {
                 // No, it doesn't exist
-                Redirect::to(URL::build('/panel/core/announcements'));
+                Redirect::to(URL::build('/panel/core/duyurular'));
             }
 
             if (Input::exists()) {
@@ -197,7 +197,7 @@ if (!isset($_GET['action'])) {
                         } else {
                             Session::flash('announcement_success', $language->get('admin', 'editing_announcement_success'));
                         }
-                        Redirect::to(URL::build('/panel/core/announcements'));
+                        Redirect::to(URL::build('/panel/core/duyurular'));
                     }
 
                     $errors = $validation->errors();
@@ -273,7 +273,7 @@ if (!isset($_GET['action'])) {
             die('Complete');
 
         default:
-            Redirect::to(URL::build('/panel/core/announcements'));
+            Redirect::to(URL::build('/panel/core/duyurular'));
     }
 }
 
@@ -319,7 +319,7 @@ $smarty->assign([
     'MESSAGE' => $language->get('admin', 'message'),
     'GROUPS' => $language->get('admin', 'groups'),
     'BACK' => $language->get('general', 'back'),
-    'BACK_LINK' => URL::build('/panel/core/announcements'),
+    'BACK_LINK' => URL::build('/panel/core/duyurular'),
     'PAGES' => $language->get('admin', 'pages'),
     'TEXT_COLOUR' => $language->get('admin', 'text_colour'),
     'BACKGROUND_COLOUR' => $language->get('admin', 'background_colour'),

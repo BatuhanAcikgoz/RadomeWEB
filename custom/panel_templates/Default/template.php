@@ -332,7 +332,7 @@ if (!class_exists('Default_Panel_Template')) {
                                     responsive: true,
                                     processing: true,
                                     serverSide: true,
-                                    ajax: "' . URL::build('/queries/admin_users') . '",
+                                    ajax: "' . URL::build('/sorgu/yoneticiler') . '",
                                     columns: [
                                         { data: "id", hidden: true },
                                         { data: "username" },

@@ -83,7 +83,7 @@ if (Input::exists()) {
                     $lastId = DB::getInstance()->lastId();
 
                     Session::flash('products_success', $store_language->get('admin', 'action_created_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                    Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                 } else {
                     // Update existing action
                     $action->update([
@@ -94,7 +94,7 @@ if (Input::exists()) {
                     ]);
 
                     Session::flash('products_success', $store_language->get('admin', 'action_updated_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                    Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                 }
             }
         } else {

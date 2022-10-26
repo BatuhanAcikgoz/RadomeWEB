@@ -81,7 +81,7 @@ if (isset($_GET['action'])) {
                             'editable' => $editable
                         ]);
 
-                        //Log::getInstance()->log(Log::Action('admin/core/profile/new'), Output::getClean(Input::get('name')));
+                        //Log::getInstance()->log(Log::Action('admin/core/profil/new'), Output::getClean(Input::get('name')));
 
                         // Redirect
                         Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
@@ -129,7 +129,7 @@ if (isset($_GET['action'])) {
     } else {
         if ($_GET['action'] == 'edit') {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
             $id = (int)$_GET['id'];
 
@@ -195,7 +195,7 @@ if (isset($_GET['action'])) {
                                     'editable' => $editable
                                 ]);
 
-                                //Log::getInstance()->log(Log::Action('admin/core/profile/update'), Output::getClean(Input::get('name')));
+                                //Log::getInstance()->log(Log::Action('admin/core/profil/update'), Output::getClean(Input::get('name')));
 
                                 // Redirect
                                 Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));

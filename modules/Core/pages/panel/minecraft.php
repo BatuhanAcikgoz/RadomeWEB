@@ -76,21 +76,21 @@ if ($minecraft_enabled == 1) {
     if ($user->hasPermission('admincp.minecraft.servers')) {
         $smarty->assign([
             'SERVERS' => $language->get('admin', 'minecraft_servers'),
-            'SERVERS_LINK' => URL::build('/panel/minecraft/servers')
+            'SERVERS_LINK' => URL::build('/panel/minecraft/sunucular')
         ]);
     }
 
     if ($user->hasPermission('admincp.minecraft.banners') && function_exists('exif_imagetype')) {
         $smarty->assign([
             'BANNERS' => $language->get('admin', 'server_banners'),
-            'BANNERS_LINK' => URL::build('/panel/minecraft/banners')
+            'BANNERS_LINK' => URL::build('/panel/minecraft/bannerlar')
         ]);
     }
 
     if ($user->hasPermission('admincp.core.placeholders')) {
         $smarty->assign([
             'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
-            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholders')
+            'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholderlar')
         ]);
     }
 }

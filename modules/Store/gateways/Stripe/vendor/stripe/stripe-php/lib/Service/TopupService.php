@@ -34,7 +34,7 @@ class TopupService extends \Stripe\Service\AbstractService
      */
     public function cancel($id, $params = null, $opts = null)
     {
-        return $this->request('post', $this->buildPath('/v1/topups/%s/cancel', $id), $params, $opts);
+        return $this->request('post', $this->buildPath('/v1/topups/%s/iptal', $id), $params, $opts);
     }
 
     /**

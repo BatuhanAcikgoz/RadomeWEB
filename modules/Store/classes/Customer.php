@@ -191,7 +191,7 @@ class Customer {
                     'currency' => Output::getPurified($paymentQuery->currency),
                     'amount' => Output::getClean($paymentQuery->amount),
                     'date' => date('d M Y, H:i', $paymentQuery->created),
-                    'link' => URL::build('/panel/store/payments', 'payment=' . Output::getClean($paymentQuery->id))
+                    'link' => URL::build('/panel/magaza/odemeler', 'payment=' . Output::getClean($paymentQuery->id))
                 ];
             }
         }

@@ -27,7 +27,7 @@ class Iframe extends Module
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         $pages->add('Iframe', '/panel/iframe', 'pages/panel/iframe.php');
-        $pages->add('Iframe', '/panel/iframe/setting', 'pages/panel/setting.php');
+        $pages->add('Iframe', '/panel/iframe/ayarlar', 'pages/panel/setting.php');
 
         if (DB::getInstance()->showTables('iframe_pages') || DB::getInstance()->showTables('iframe_data')) {
 

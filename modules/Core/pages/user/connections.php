@@ -25,7 +25,7 @@ if (Input::exists()) {
         // Get Integration
         $integration = Integrations::getInstance()->getIntegration(Input::get('integration'));
         if ($integration === null) {
-            Redirect::to(URL::build('/user/connections'));
+            Redirect::to(URL::build('/user/baglantilar'));
         }
 
         if (Input::get('action') === 'link') {
@@ -46,7 +46,7 @@ if (Input::exists()) {
 
         // Reload page if there is no errors, Else show errors
         if (!$integration->getErrors()) {
-            Redirect::to(URL::build('/user/connections'));
+            Redirect::to(URL::build('/user/baglantilar'));
         } else {
             $errors = $integration->getErrors();
         }

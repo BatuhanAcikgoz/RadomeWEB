@@ -10,7 +10,7 @@
  */
 
 if($user->isLoggedIn()){
-	Log::getInstance()->log(Log::Action('user/logout'));
+	Log::getInstance()->log(Log::Action('user/cikis'));
 	$user->admLogout();
 	$user->logout();
 	

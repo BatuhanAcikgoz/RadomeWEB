@@ -11,7 +11,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 if (!is_numeric($_GET['id'])) {
     // Username
     $username = Output::getClean($_GET['id']);
-    $profile = URL::build('/profile/' . $username);
+    $profile = URL::build('/profil/' . $username);
     $avatar = (isset($_GET['uuid']) ? AvatarSource::getAvatarFromUUID(Output::getClean($_GET['uuid'])) : AvatarSource::getAvatarFromUUID($username));
     $style = '';
     $groups = [];

@@ -37,7 +37,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 // Get page
 if(isset($_GET['p'])){
     if(!is_numeric($_GET['p'])){
-        Redirect::to(URL::build('/infractions'));
+        Redirect::to(URL::build('/cezalar'));
     } else $p = $_GET['p'];
 } else $p = 1;
 
@@ -82,7 +82,7 @@ if(!isset($_GET['view']) && !isset($_GET['id'])){
         // Pagination
         $paginator = new Paginator((isset($template_pagination) ? $template_pagination : array()));
         $paginator->getLimited($infractions_list, 10, $p, $total);
-        $pagination = $paginator->generate(7, URL::build('/infractions', true));
+        $pagination = $paginator->generate(7, URL::build('/cezalar', true));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -95,7 +95,7 @@ if(!isset($_GET['view']) && !isset($_GET['id'])){
                 $query_user = new User($result->name, 'username');
                 if($query_user->exists()){
                     $users_array[$result->name] = array(
-                        'profile' => URL::build('/profile/' . Output::getClean($result->name)),
+                        'profile' => URL::build('/profil/' . Output::getClean($result->name)),
                         'style' => $query_user->getGroupStyle(),
                         'avatar' => $query_user->getAvatar()
                     );
@@ -111,7 +111,7 @@ if(!isset($_GET['view']) && !isset($_GET['id'])){
                 $query_user = new User($result->banned_by_name, 'username');
                 if($query_user->exists()){
                     $users_array[$result->banned_by_name] = array(
-                        'profile' => URL::build('/profile/' . Output::getClean($result->banned_by_name)),
+                        'profile' => URL::build('/profil/' . Output::getClean($result->banned_by_name)),
                         'style' => $query_user->getGroupStyle(),
                         'avatar' => $query_user->getAvatar()
                     );
@@ -127,7 +127,7 @@ if(!isset($_GET['view']) && !isset($_GET['id'])){
                 $query_user = new User($result->removed_by_name, 'username');
                 if($query_user->exists()){
                     $users_array[$result->removed_by_name] = array(
-                        'profile' => URL::build('/profile/' . Output::getClean($result->removed_by_name)),
+                        'profile' => URL::build('/profil/' . Output::getClean($result->removed_by_name)),
                         'style' => $query_user->getGroupStyle(),
                         'avatar' => $query_user->getAvatar()
                     );

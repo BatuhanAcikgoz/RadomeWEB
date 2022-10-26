@@ -136,7 +136,7 @@ class Submission {
                 'content_full' => '',
                 'avatar_url' => ($user != null && $user->exists() ? $user->getAvatar(128, true) : null),
                 'title' => $form->data()->title,
-                'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/forms/submissions/', 'view=' . $this->data()->id),
+                'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $this->data()->id),
                 'color' => $status_color
             ]);
 

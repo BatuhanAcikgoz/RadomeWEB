@@ -19,7 +19,7 @@ if ($user->isLoggedIn()) {
     }
     if (!$user->isAdmLoggedIn()) {
 
-        Redirect::to(URL::build('/panel/auth'));
+        Redirect::to(URL::build('/panel/giris'));
     } else {
         if (!$user->hasPermission('admincp.iframe')) {
             require_once(ROOT_PATH . '/403.php');
@@ -27,7 +27,7 @@ if ($user->isLoggedIn()) {
     }
 } else {
     // Not logged in
-    Redirect::to(URL::build('/login'));
+    Redirect::to(URL::build('/giris'));
 }
 
 const PAGE = 'panel';
@@ -41,8 +41,8 @@ $iframes_list = [];
 if (count($iframes)) {
     foreach ($iframes as $iframe) {
         $iframes_list[] = [
-            'edit_link' => URL::build('/panel/iframe/setting', 'action=frame_edit&name=' . Output::getClean($iframe->id)),
-            'delete_link' => URL::build('/panel/iframe/setting', 'action=delete&name=' . Output::getClean($iframe->id)),
+            'edit_link' => URL::build('/panel/iframe/ayarlar', 'action=frame_edit&name=' . Output::getClean($iframe->id)),
+            'delete_link' => URL::build('/panel/iframe/ayarlar', 'action=delete&name=' . Output::getClean($iframe->id)),
             'id' => $iframe->id,
             'name' => $iframe->name,
             'src' => $iframe->src,
@@ -113,7 +113,7 @@ if (isset($_POST['add'])) {
                         ]);
 
                         Session::flash('staff', $language->get('admin', 'page_created_successfully'));
-                        Redirect::to(URL::build('/panel/iframe/setting', 'action=edit&id=' . $_GET['id']));
+                        Redirect::to(URL::build('/panel/iframe/ayarlar', 'action=edit&id=' . $_GET['id']));
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -144,7 +144,7 @@ if (isset($_POST['add'])) {
                 }
 
                 Session::flash('staff', $language->get('admin', 'page_deleted_successfully'));
-                Redirect::to(URL::build('/panel/iframe/setting', 'action=edit&id=' . $page_id));
+                Redirect::to(URL::build('/panel/iframe/ayarlar', 'action=edit&id=' . $page_id));
             }
             break;
 
@@ -190,7 +190,7 @@ if (isset($_POST['add'])) {
 
 
                                 Session::flash('staff', $language->get('admin', 'page_updated_successfully'));
-                                Redirect::to(URL::build('/panel/iframe/setting', 'action=edit&id=' . $page_id));
+                                Redirect::to(URL::build('/panel/iframe/ayarlar', 'action=edit&id=' . $page_id));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -211,7 +211,7 @@ if (isset($_POST['add'])) {
                 'SIZE' => (int) $edit_iframe->iframe_size,
                 'CONTENT' => $edit_iframe->description,
                 'FOOTER_CONTENT' => $edit_iframe->footer_description,
-                'BACK_LINK' => URL::build('/panel/iframe/setting', 'action=edit&id=' . $page_id)
+                'BACK_LINK' => URL::build('/panel/iframe/ayarlar', 'action=edit&id=' . $page_id)
             ]);
 
 

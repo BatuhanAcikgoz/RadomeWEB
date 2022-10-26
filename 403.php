@@ -32,7 +32,7 @@ $smarty->assign(
         'BACK' => $language->get('errors', '403_back'),
         'HOME' => $language->get('errors', '403_home'),
         'LOGIN' => $language->get('general', 'sign_in'),
-        'LOGIN_LINK' => URL::build('/login'),
+        'LOGIN_LINK' => URL::build('/giris'),
         'PATH' => (defined('CONFIG_PATH') ? CONFIG_PATH : '')
     ]
 );

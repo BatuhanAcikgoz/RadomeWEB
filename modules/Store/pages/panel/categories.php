@@ -92,7 +92,7 @@ if (!isset($_GET['action'])) {
                         ]);
 
                         Session::flash('products_success', $store_language->get('admin', 'category_created_successfully'));
-                        Redirect::to(URL::build('/panel/store/products'));
+                        Redirect::to(URL::build('/panel/magaza/urunler'));
                     } else {
                         $errors = $validation->errors();
                     }
@@ -114,7 +114,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CATEGORY_TITLE' => $store_language->get('admin', 'new_category'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/products'),
+                'BACK_LINK' => URL::build('/panel/magaza/urunler'),
                 'CATEGORY_NAME' => $store_language->get('admin', 'category_name'),
                 'CATEGORY_NAME_VALUE' => ((isset($_POST['name']) && $_POST['name']) ? Output::getClean(Input::get('name')) : ''),
                 'CATEGORY_DESCRIPTION' => $store_language->get('admin', 'category_description'),
@@ -144,12 +144,12 @@ if (!isset($_GET['action'])) {
         case 'edit';
             // Edit category
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
 
             $category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE id = ?', [$_GET['id']])->results();
             if (!count($category)) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
             $category = $category[0];
 
@@ -195,7 +195,7 @@ if (!isset($_GET['action'])) {
                         ]);
 
                         Session::flash('products_success', $store_language->get('admin', 'category_updated_successfully'));
-                        Redirect::to(URL::build('/panel/store/products'));
+                        Redirect::to(URL::build('/panel/magaza/urunler'));
                     } else {
                         $errors[] = $store_language->get('admin', 'description_max_100000');
                     }
@@ -217,7 +217,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'CATEGORY_TITLE' => $store_language->get('admin', 'editing_category_x', ['category' => Output::getClean($category->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/products'),
+                'BACK_LINK' => URL::build('/panel/magaza/urunler'),
                 'CATEGORY_NAME' => $store_language->get('admin', 'category_name'),
                 'CATEGORY_NAME_VALUE' => Output::getClean($category->name),
                 'CATEGORY_DESCRIPTION' => $store_language->get('admin', 'category_description'),
@@ -247,12 +247,12 @@ if (!isset($_GET['action'])) {
         case 'delete';
             // Delete category
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
 
             $category = DB::getInstance()->query('SELECT * FROM `rw_store_categories` WHERE id = ?', [$_GET['id']])->results();
             if (!count($category)) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
             $category = $category[0];
 
@@ -270,7 +270,7 @@ if (!isset($_GET['action'])) {
             ]);
 
             Session::flash('products_success', $store_language->get('admin', 'category_deleted_successfully'));
-            Redirect::to(URL::build('/panel/store/products'));
+            Redirect::to(URL::build('/panel/magaza/urunler'));
         break;
         default:
             Redirect::to(URL::build('/panel/core/products'));

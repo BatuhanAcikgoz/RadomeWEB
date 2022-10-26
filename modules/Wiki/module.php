@@ -19,9 +19,9 @@ class Wiki_Module extends Module {
 		parent::__construct($this, $name, $author, $module_version, $radome_version);
 
 		$pages->add('Wiki', '/wiki', 'pages/wiki/index.php');
-		$pages->add('Wiki', '/wiki/page', 'pages/wiki/page.php');
+		$pages->add('Wiki', '/wiki/sayfa', 'pages/wiki/page.php');
 		$pages->add('Wiki', '/panel/wiki', 'pages/panel/index.php');
-		$pages->add('Wiki', '/queries/like', 'queries/like.php');
+		$pages->add('Wiki', '/sorgu/begen', 'queries/like.php');
 
 		$this->_db = DB::getInstance();
 		$this->_wiki_language = $wiki_language;

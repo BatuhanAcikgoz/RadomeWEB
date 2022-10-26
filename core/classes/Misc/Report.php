@@ -48,7 +48,7 @@ class Report {
 
             if (count($moderators)) {
                 foreach ($moderators as $moderator) {
-                    Alert::create($moderator->id, 'report', ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], URL::build('/panel/users/reports/', 'id=' . $id));
+                    Alert::create($moderator->id, 'report', ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], ['path' => 'core', 'file' => 'moderator', 'term' => 'report_alert'], URL::build('/panel/kullanicilar/raporlar/', 'id=' . $id));
                 }
             }
         }
@@ -59,7 +59,7 @@ class Report {
             'content_full' => $data['report_reason'],
             'avatar_url' => $data['reported_id'] == 0 ? null : ($data['reported_uuid'] !== null ? AvatarSource::getAvatarFromUUID($data['reported_uuid']) : $reported_user->getAvatar()),
             'title' => $language->get('general', 'view_report'),
-            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/users/reports/', 'id=' . $id)
+            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/kullanicilar/raporlar/', 'id=' . $id)
         ]);
     }
 }

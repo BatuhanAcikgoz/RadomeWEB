@@ -27,35 +27,35 @@ if (!isset($_GET['view'])) {
 
     if ($user->hasPermission('admincp.security.acp_logins')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=acp_logins'),
+            'link' => URL::build('/panel/guvenlik/', 'view=acp_logins'),
             'title' => $language->get('admin', 'acp_logins')
         ];
     }
 
     if ($user->hasPermission('admincp.security.emails')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=emails'),
+            'link' => URL::build('/panel/guvenlik/', 'view=emails'),
             'title' => $language->get('admin', 'email_logs')
         ];
     }
 
     if ($user->hasPermission('admincp.security.group_sync')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=group_sync'),
+            'link' => URL::build('/panel/guvenlik/', 'view=group_sync'),
             'title' => $language->get('admin', 'group_sync_logs')
         ];
     }
 
     if ($user->hasPermission('admincp.security.template')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=template_changes'),
+            'link' => URL::build('/panel/guvenlik/', 'view=template_changes'),
             'title' => $language->get('admin', 'template_changes')
         ];
     }
 
     if ($user->hasPermission('admincp.security.all')) {
         $links[] = [
-            'link' => URL::build('/panel/security/', 'view=all'),
+            'link' => URL::build('/panel/guvenlik/', 'view=all'),
             'title' => $language->get('admin', 'all_logs')
         ];
     }
@@ -70,7 +70,7 @@ if (!isset($_GET['view'])) {
     switch ($_GET['view']) {
         case 'acp_logins':
             if (!$user->hasPermission('admincp.security.acp_logins')) {
-                Redirect::to(URL::build('/panel/security'));
+                Redirect::to(URL::build('/panel/guvenlik'));
             }
 
             $log_title = $language->get('admin', 'acp_logins');
@@ -94,7 +94,7 @@ if (!isset($_GET['view'])) {
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
-                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+                        'content' => '<a href="' . URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . Output::getClean($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
                         'content' => date(DATE_FORMAT, $log->time),
@@ -107,7 +107,7 @@ if (!isset($_GET['view'])) {
 
         case 'template_changes':
             if (!$user->hasPermission('admincp.security.template')) {
-                Redirect::to(URL::build('/panel/security'));
+                Redirect::to(URL::build('/panel/guvenlik'));
             }
 
             $log_title = $language->get('admin', 'template_changes');
@@ -132,7 +132,7 @@ if (!isset($_GET['view'])) {
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
-                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+                        'content' => '<a href="' . URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
                         'content' => date(DATE_FORMAT, $log->time),
@@ -148,7 +148,7 @@ if (!isset($_GET['view'])) {
 
         case 'emails':
             if (!$user->hasPermission('admincp.security.emails')) {
-                Redirect::to(URL::build('/panel/security'));
+                Redirect::to(URL::build('/panel/guvenlik'));
             }
 
             $log_title = $language->get('admin', 'email_logs');
@@ -172,7 +172,7 @@ if (!isset($_GET['view'])) {
                             : $language->get('general', 'deleted_user')
                     ],
                     1 => [
-                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+                        'content' => '<a href="' . URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
                         'content' => date(DATE_FORMAT, $log->time),
@@ -184,7 +184,7 @@ if (!isset($_GET['view'])) {
 
         case 'group_sync':
             if (!$user->hasPermission('admincp.security.group_sync')) {
-                Redirect::to(URL::build('/panel/security'));
+                Redirect::to(URL::build('/panel/guvenlik'));
             }
 
             $log_title = $language->get('admin', 'group_sync_logs');
@@ -242,7 +242,7 @@ if (!isset($_GET['view'])) {
 
         case 'all':
             if (!$user->hasPermission('admincp.security.all')) {
-                Redirect::to(URL::build('/panel/security'));
+                Redirect::to(URL::build('/panel/guvenlik'));
             }
 
             $log_title = $language->get('admin', 'all_logs');
@@ -271,7 +271,7 @@ if (!isset($_GET['view'])) {
                             : $language->get('general', 'deleted_user'))
                     ],
                     1 => [
-                        'content' => '<a href="' . URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
+                        'content' => '<a href="' . URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . urlencode($log->ip)) . '">' . Output::getClean($log->ip) . '</a>'
                     ],
                     2 => [
                         'content' => date(DATE_FORMAT, $log->time),
@@ -289,12 +289,12 @@ if (!isset($_GET['view'])) {
             break;
 
         default:
-            Redirect::to(URL::build('/panel/security'));
+            Redirect::to(URL::build('/panel/guvenlik'));
     }
 
     $smarty->assign([
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/security'),
+        'BACK_LINK' => URL::build('/panel/guvenlik'),
         'LOG_TITLE' => $log_title,
         'COLS' => $cols,
         'COL_TITLES' => $col_titles,

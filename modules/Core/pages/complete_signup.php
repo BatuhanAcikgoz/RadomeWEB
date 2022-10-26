@@ -124,7 +124,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'I_AGREE' => $language->get('user', 'i_agree'),
     'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
-        'linkStart' => '<a href="' . URL::build('/terms') . '">',
+        'linkStart' => '<a href="' . URL::build('/sartlar') . '">',
         'linkEnd' => '</a>',
     ]),
     'TOKEN' => Token::get()

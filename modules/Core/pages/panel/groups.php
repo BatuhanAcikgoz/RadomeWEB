@@ -108,7 +108,7 @@ if (isset($_GET['action'])) {
                             $cache->store('enabled', Input::get('tfa'));
 
                             Session::flash('admin_groups', $language->get('admin', 'group_created_successfully'));
-                            Redirect::to(URL::build('/panel/core/groups'));
+                            Redirect::to(URL::build('/panel/core/gruplar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -127,7 +127,7 @@ if (isset($_GET['action'])) {
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/groups'),
+                'CANCEL_LINK' => URL::build('/panel/core/gruplar'),
                 'NAME' => $language->get('admin', 'name'),
                 'GROUP_HTML' => $language->get('admin', 'group_html'),
                 'GROUP_USERNAME_COLOUR' => $language->get('admin', 'group_username_colour'),
@@ -145,12 +145,12 @@ if (isset($_GET['action'])) {
 
         case 'edit':
             if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             $group = Group::find($_GET['group']);
             if (!$group) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
@@ -161,7 +161,7 @@ if (isset($_GET['action'])) {
             } else {
                 $smarty->assign([
                     'PERMISSIONS' => $language->get('admin', 'permissions'),
-                    'PERMISSIONS_LINK' => URL::build('/panel/core/groups/', 'action=permissions&group=' . urlencode($group->id)),
+                    'PERMISSIONS_LINK' => URL::build('/panel/core/gruplar/', 'action=permissions&group=' . urlencode($group->id)),
                     'DELETE' => $language->get('general', 'delete'),
                     'DELETE_GROUP' => $language->get('admin', 'delete_group'),
                     'CONFIRM_DELETE' => $language->get('admin', 'confirm_group_deletion', ['group' => Output::getClean($group->name)]),
@@ -234,7 +234,7 @@ if (isset($_GET['action'])) {
                                 $cache->store('enabled', Input::get('tfa'));
 
                                 Session::flash('admin_groups', $language->get('admin', 'group_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($_GET['group'])));
+                                Redirect::to(URL::build('/panel/core/gruplar/', 'action=edit&group=' . urlencode($_GET['group'])));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -257,7 +257,7 @@ if (isset($_GET['action'])) {
                                     }
                                 }
 
-                                Redirect::to(URL::build('/panel/core/groups'));
+                                Redirect::to(URL::build('/panel/core/gruplar'));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -289,7 +289,7 @@ if (isset($_GET['action'])) {
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/groups'),
+                'CANCEL_LINK' => URL::build('/panel/core/gruplar'),
                 'GROUP_NAME' => Output::getClean($group->name),
                 'GROUP_ORDER' => $language->get('admin', 'group_order'),
                 'GROUP_ORDER_VALUE' => $group->order,
@@ -303,12 +303,12 @@ if (isset($_GET['action'])) {
 
         case 'clone':
             if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             $group = Group::find($_GET['group']);
             if (!$group) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             if (Input::exists()) {
@@ -382,7 +382,7 @@ if (isset($_GET['action'])) {
                                 $cache->store('enabled', Input::get('tfa'));
 
                                 Session::flash('admin_groups', $language->get('admin', 'group_cloned_successfully'));
-                                Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group_id)));
+                                Redirect::to(URL::build('/panel/core/gruplar/', 'action=edit&group=' . urlencode($group_id)));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -418,7 +418,7 @@ if (isset($_GET['action'])) {
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/groups'),
+                'CANCEL_LINK' => URL::build('/panel/core/gruplar'),
                 'GROUP_NAME' => Output::getClean($group->name),
                 'GROUP_ORDER' => $language->get('admin', 'group_order'),
                 'GROUP_ORDER_VALUE' => $group->order,
@@ -432,16 +432,16 @@ if (isset($_GET['action'])) {
 
         case 'permissions':
             if (!isset($_GET['group']) || !is_numeric($_GET['group'])) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             $group = Group::find($_GET['group']);
             if (!$group) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             if ($group->id == 2 || ((in_array($group->id, $user->getAllGroupIds())) && !$user->hasPermission('admincp.groups.self'))) {
-                Redirect::to(URL::build('/panel/core/groups'));
+                Redirect::to(URL::build('/panel/core/gruplar'));
             }
 
             if (Input::exists()) {
@@ -462,7 +462,7 @@ if (isset($_GET['action'])) {
                         DB::getInstance()->update('groups', $group->id, ['permissions' => $perms_json]);
 
                         Session::flash('admin_groups', $language->get('admin', 'permissions_updated_successfully'));
-                        Redirect::to(URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)));
+                        Redirect::to(URL::build('/panel/core/gruplar/', 'action=edit&group=' . urlencode($group->id)));
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -474,7 +474,7 @@ if (isset($_GET['action'])) {
             $smarty->assign([
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
+                'BACK_LINK' => URL::build('/panel/core/gruplar/', 'action=edit&group=' . urlencode($group->id)),
                 'PERMISSIONS_VALUES' => json_decode($group->permissions, true),
                 'ALL_PERMISSIONS' => PermissionHandler::getPermissions(),
                 'SELECT_ALL' => $language->get('admin', 'select_all'),
@@ -500,7 +500,7 @@ if (isset($_GET['action'])) {
             }
             die('Complete');
         default:
-            Redirect::to(URL::build('/panel/core/groups'));
+            Redirect::to(URL::build('/panel/core/gruplar'));
     }
 } else {
     $groups_template = [];
@@ -509,8 +509,8 @@ if (isset($_GET['action'])) {
             'id' => Output::getClean($group->id),
             'order' => $group->order,
             'name' => Output::getClean($group->name),
-            'edit_link' => URL::build('/panel/core/groups/', 'action=edit&group=' . urlencode($group->id)),
-            'clone_link' => URL::build('/panel/core/groups/', 'action=clone&group=' . urlencode($group->id)),
+            'edit_link' => URL::build('/panel/core/gruplar/', 'action=edit&group=' . urlencode($group->id)),
+            'clone_link' => URL::build('/panel/core/gruplar/', 'action=clone&group=' . urlencode($group->id)),
             'users' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM rw_users_groups WHERE group_id = ?', [$group->id])->first()->c,
             'staff' => $group->staff
         ];
@@ -521,14 +521,14 @@ if (isset($_GET['action'])) {
         'NAME' => $language->get('admin', 'name'),
         'USERS' => $language->get('admin', 'users'),
         'NEW_GROUP' => $language->get('admin', 'new_group'),
-        'NEW_GROUP_LINK' => URL::build('/panel/core/groups/', 'action=new'),
+        'NEW_GROUP_LINK' => URL::build('/panel/core/gruplar/', 'action=new'),
         'GROUP_LIST' => $groups_template,
         'ORDER' => $language->get('admin', 'group_order'),
         'STAFF' => $language->get('moderator', 'staff'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'EDIT' => $language->get('general', 'edit'),
-        'REORDER_DRAG_URL' => URL::build('/panel/core/groups', 'action=order')
+        'REORDER_DRAG_URL' => URL::build('/panel/core/gruplar', 'action=order')
     ]);
 
     $template_file = 'core/groups.tpl';

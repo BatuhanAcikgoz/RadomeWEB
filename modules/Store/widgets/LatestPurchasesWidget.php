@@ -79,7 +79,7 @@ class LatestStorePurchasesWidget extends WidgetBase {
 					
 					$latest_purchases[] = [
 						'avatar' => $avatar,
-						'profile' => URL::build('/profile/' . $username),
+						'profile' => URL::build('/profil/' . $username),
 						'price' => Output::getClean($purchase->amount),
 						'currency' => Output::getClean($purchase->currency),
 						'currency_symbol' => Output::getClean(Store::getCurrencySymbol()),

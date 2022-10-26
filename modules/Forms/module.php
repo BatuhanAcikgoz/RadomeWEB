@@ -30,10 +30,10 @@ class Forms_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Forms', '/panel/form', 'pages/panel/form.php');
-        $pages->add('Forms', '/panel/forms', 'pages/panel/forms.php');
-        $pages->add('Forms', '/panel/forms/statuses', 'pages/panel/statuses.php');
-        $pages->add('Forms', '/panel/forms/submissions', 'pages/panel/submissions.php');
-        $pages->add('Forms', '/user/submissions', 'pages/user/submissions.php');
+        $pages->add('Forms', '/panel/formlar', 'pages/panel/formlar.php');
+        $pages->add('Forms', '/panel/formlar/durumlar', 'pages/panel/statuses.php');
+        $pages->add('Forms', '/panel/formlar/talepler', 'pages/panel/submissions.php');
+        $pages->add('Forms', '/user/talepler', 'pages/user/talepler.php');
 
         // Check if module version changed
 
@@ -159,7 +159,7 @@ class Forms_Module extends Module {
             'forms.anonymous' => $this->_language->get('moderator', 'staff_cp')  . ' &raquo; ' .  $this->_forms_language->get('forms', 'forms')  . ' &raquo; ' . $this->_forms_language->get('forms', 'submit_as_anonymous')
         ));
 
-        $navs[1]->add('cc_submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/user/submissions'));
+        $navs[1]->add('cc_submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/user/talepler'));
 
         if (defined('BACK_END')) {
             if ($user->hasPermission('forms.manage') || $user->hasPermission('forms.view-submissions')) {
@@ -179,7 +179,7 @@ class Forms_Module extends Module {
                     } else {
                         $icon = $cache->retrieve('forms_icon');
                     }
-                    $navs[2]->add('forms', $this->_forms_language->get('forms', 'forms'), URL::build('/panel/forms'), 'top', null, $order + 0.1, $icon);
+                    $navs[2]->add('forms', $this->_forms_language->get('forms', 'forms'), URL::build('/panel/formlar'), 'top', null, $order + 0.1, $icon);
                 }
 
                 if ($user->hasPermission('forms.view-submissions')) {
@@ -189,7 +189,7 @@ class Forms_Module extends Module {
                     } else {
                         $icon = $cache->retrieve('forms_submissions_icon');
                     }
-                    $navs[2]->add('submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/panel/forms/submissions'), 'top', null, $order + 0.2, $icon);
+                    $navs[2]->add('submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/panel/formlar/talepler'), 'top', null, $order + 0.2, $icon);
                 }
             }
         }

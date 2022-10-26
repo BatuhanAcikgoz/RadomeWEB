@@ -42,8 +42,8 @@ if (!isset($_GET['action'])) {
             $new_category = [
                 'name' => Output::getClean(Output::getDecoded($category->name)),
                 'products' => [],
-                'edit_link' => URL::build('/panel/store/categories/', 'action=edit&id=' . Output::getClean($category->id)),
-                'delete_link' => URL::build('/panel/store/categories/', 'action=delete&id=' . Output::getClean($category->id))
+                'edit_link' => URL::build('/panel/magaza/kategoriler/', 'action=edit&id=' . Output::getClean($category->id)),
+                'delete_link' => URL::build('/panel/magaza/kategoriler/', 'action=delete&id=' . Output::getClean($category->id))
             ];
 
             $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE category_id = ? AND deleted = 0 ORDER BY `order` ASC', [Output::getClean($category->id)]);
@@ -57,8 +57,8 @@ if (!isset($_GET['action'])) {
                         'id_x' => $store_language->get('admin', 'id_x', ['id' => Output::getClean($product->id)]),
                         'name' => Output::getClean($product->name),
                         'price' => Output::getClean($product->price),
-                        'edit_link' => URL::build('/panel/store/product/', 'product=' . Output::getClean($product->id)),
-                        'delete_link' => URL::build('/panel/store/product/', 'product=' . Output::getClean($product->id) . '&action=delete')
+                        'edit_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id)),
+                        'delete_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id) . '&action=delete')
                     ];
 
                     $new_category['products'][] = $new_product;
@@ -77,9 +77,9 @@ if (!isset($_GET['action'])) {
         'CURRENCY' => $currency,
         'CURRENCY_SYMBOL' => $currency_symbol,
         'NEW_CATEGORY' => $store_language->get('admin', 'new_category'),
-        'NEW_CATEGORY_LINK' => URL::build('/panel/store/categories/', 'action=new'),
+        'NEW_CATEGORY_LINK' => URL::build('/panel/magaza/kategoriler/', 'action=new'),
         'NEW_PRODUCT' => $store_language->get('admin', 'new_product'),
-        'NEW_PRODUCT_LINK' => URL::build('/panel/store/products/', 'action=new'),
+        'NEW_PRODUCT_LINK' => URL::build('/panel/magaza/urunler/', 'action=new'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_CATEGORY' => $store_language->get('admin', 'category_confirm_delete'),
         'CONFIRM_DELETE_PRODUCT' => $store_language->get('admin', 'product_confirm_delete'),
@@ -177,7 +177,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             Session::flash('products_success', $store_language->get('admin', 'product_created_successfully'));
-                            Redirect::to(URL::build('/panel/store/product/', 'product=' . $lastId));
+                            Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $lastId));
                         }
                     } else {
                         $errors = $validation->errors();
@@ -213,7 +213,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'PRODUCT_TITLE' => $store_language->get('admin', 'new_product'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/products/'),
+                'BACK_LINK' => URL::build('/panel/magaza/urunler/'),
                 'PRODUCT_NAME' => $store_language->get('admin', 'product_name'),
                 'PRODUCT_NAME_VALUE' => ((isset($_POST['name']) && $_POST['name']) ? Output::getClean(Input::get('name')) : ''),
                 'PRODUCT_DESCRIPTION' => $store_language->get('admin', 'product_description'),
@@ -229,7 +229,7 @@ if (!isset($_GET['action'])) {
                 'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
                 'BROWSE' => $language->get('general', 'browse'),
                 'REMOVE' => $language->get('general', 'remove'),
-                'REMOVE_IMAGE_LINK' => URL::build('/panel/store/product/' , 'action=remove_image&product=' . $product->data()->id),
+                'REMOVE_IMAGE_LINK' => URL::build('/panel/magaza/urun/' , 'action=remove_image&product=' . $product->data()->id),
                 'FIELDS' => $store_language->get('admin', 'fields'),
                 'FIELDS_LIST' => $fields_array,
                 'CURRENCY' => Output::getClean($configuration->get('currency')),
@@ -248,7 +248,7 @@ if (!isset($_GET['action'])) {
             $template_file = 'store/product_new.tpl';
         break;
         default:
-            Redirect::to(URL::build('/panel/store/products'));
+            Redirect::to(URL::build('/panel/magaza/urunler'));
         break;
     }
 }

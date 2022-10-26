@@ -57,9 +57,9 @@ if (!Config::exists()) {
 }
 
 // If we're accessing the upgrade script don't initialise further
-if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/upgrade') {
+if (isset($_GET['route']) && rtrim($_GET['route'], '/') == '/panel/yukseltme') {
     $pages = new Pages();
-    $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
+    $pages->add('Core', '/panel/yukseltme', 'pages/panel/yukseltme.php');
     return;
 }
 
@@ -324,7 +324,7 @@ if ($page != 'install') {
         'OG_IMAGE' => Output::getClean(rtrim(URL::getSelfURL(), '/') . '/core/assets/img/site_image.png'),
         'SITE_NAME' => Output::getClean(SITE_NAME),
         'SITE_HOME' => URL::build('/'),
-        'USER_INFO_URL' => URL::build('/queries/user/', 'id='),
+        'USER_INFO_URL' => URL::build('/sorgu/kullanici/', 'id='),
         'GUEST' => $language->get('user', 'guest')
     ]);
 
@@ -370,15 +370,15 @@ if ($page != 'install') {
 
     // Add links to cc_nav
     $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
-    $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/alerts'));
-    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/messaging'));
-    $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/connections'));
-    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/settings'));
+    $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/uyarilar'));
+    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/mesajlasma'));
+    $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/baglantilar'));
+    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/ayarlar'));
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
 
     // Placeholders enabled?
     if (Util::getSetting('placeholders') === '1') {
-        $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholders'));
+        $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholderlar'));
     }
 
     // Add homepage to navbar
@@ -451,8 +451,8 @@ if ($page != 'install') {
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
             // Maintenance mode
             if (isset($_GET['route']) && (
-                    rtrim($_GET['route'], '/') === '/login'
-                    || rtrim($_GET['route'], '/') === '/forgot_password'
+                    rtrim($_GET['route'], '/') === '/giris'
+                    || rtrim($_GET['route'], '/') === '/sifremi_unuttum'
                     || str_contains($_GET['route'], '/api/')
                     || str_contains($_GET['route'], 'queries')
                     || str_contains($_GET['route'], 'oauth/')
@@ -582,10 +582,10 @@ if ($page != 'install') {
 
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
-            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/logout') {
+            if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/cikis') {
                 if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
-                    Redirect::to(URL::build('/user/settings', 'do=enable_tfa'));
+                    Redirect::to(URL::build('/user/ayarlar', 'do=enable_tfa'));
                 }
             }
         }

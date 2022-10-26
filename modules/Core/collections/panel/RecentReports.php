@@ -72,7 +72,7 @@ class RecentReportsItem extends CollectionItemBase {
                     }
 
                     $data[] = [
-                        'url' => URL::build('/panel/users/reports/', 'id=' . urlencode($item->id)),
+                        'url' => URL::build('/panel/kullanicilar/raporlar/', 'id=' . urlencode($item->id)),
                         'reporter_username' => $reporter_user->getDisplayname(true),
                         'reporter_style' => $reporter_user->getGroupStyle(),
                         'reporter_avatar' => $reporter_user->getAvatar(),

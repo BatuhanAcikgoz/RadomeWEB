@@ -60,7 +60,7 @@ if ($_GET['action'] == 'new_action') {
                     }
 
                     Session::flash('products_success', $store_language->get('admin', 'action_created_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                    Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                 }
             } else {
                 $errors = $validation->errors();
@@ -155,7 +155,7 @@ if ($_GET['action'] == 'new_action') {
                     }
 
                     Session::flash('products_success', $store_language->get('admin', 'action_updated_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                    Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                 }
             } else {
                 $errors = $validation->errors();

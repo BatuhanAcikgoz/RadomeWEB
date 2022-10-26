@@ -21,22 +21,22 @@ if (isset($_GET['tid'])) {
     if (is_numeric($_GET['tid'])) {
         $topic_id = $_GET['tid'];
     } else {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+        Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
     }
 } else {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 // Check topic exists and get forum ID
 $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
 if (!count($topic)) {
-    Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
 }
 
 if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+    Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id)));
 }
 
 $forum_id = $topic[0]->forum_id;
@@ -60,4 +60,4 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
     Session::flash('success_post', $status);
 }
 
-Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id)));
+Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id)));

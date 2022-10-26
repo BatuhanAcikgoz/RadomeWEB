@@ -60,7 +60,7 @@ if ($user->isLoggedIn()) {
     ];
 
     $user_area_left['account']['items']['logout'] = [
-        'link' => URL::build('/logout'),
+        'link' => URL::build('/cikis'),
         'target' => '',
         'title' => $language->get('general', 'log_out')
     ];
@@ -73,7 +73,7 @@ if ($user->isLoggedIn()) {
         'pms' => [
             'title' => $language->get('user', 'messages'),
             'icon' => '<i class="fas fa-envelope icon"></i>',
-            'link' => URL::build('/user/messaging'),
+            'link' => URL::build('/user/mesajlasma'),
             'meta' => $language->get('user', 'view_messages'),
             'target' => '',
             'items' => [
@@ -87,7 +87,7 @@ if ($user->isLoggedIn()) {
         'alerts' => [
             'title' => $language->get('user', 'alerts'),
             'icon' => '<i class="fas fa-flag icon"></i>',
-            'link' => URL::build('/user/alerts'),
+            'link' => URL::build('/user/uyarilar'),
             'meta' => $language->get('user', 'view_alerts'),
             'target' => '',
             'items' => [
@@ -132,7 +132,7 @@ if ($user->isLoggedIn()) {
             ],
             'logout' => [
                 'title' => $language->get('general', 'log_out'),
-                'link' => URL::build('/logout'),
+                'link' => URL::build('/cikis'),
                 'target' => '',
                 'action' => 'logout',
             ],
@@ -145,12 +145,12 @@ if ($user->isLoggedIn()) {
         'title' => $language->get('user', 'guest'),
         'items' => [
             'login' => [
-                'link' => URL::build('/login'),
+                'link' => URL::build('/giris'),
                 'target' => '',
                 'title' => $language->get('general', 'sign_in')
             ],
             'register' => [
-                'link' => URL::build('/register'),
+                'link' => URL::build('/kayit'),
                 'target' => '',
                 'title' => $language->get('general', 'register')
             ]
@@ -161,14 +161,14 @@ if ($user->isLoggedIn()) {
         'login' => [
             'title' => $language->get('general', 'sign_in'),
             'icon' => '<i class="fas fa-key icon"></i>',
-            'link' => URL::build('/login'),
+            'link' => URL::build('/giris'),
             'meta' => '',
             'target' => '',
         ],
         'register' => [
             'title' => $language->get('general', 'register'),
             'icon' => '<i class="fas fa-clipboard icon"></i>',
-            'link' => URL::build('/register'),
+            'link' => URL::build('/kayit'),
             'meta' => '',
             'target' => '',
         ]
@@ -195,9 +195,9 @@ $smarty->assign([
 if ($user->isLoggedIn()) {
     // Get unread alerts and messages
     $smarty->assign([
-        'ALERTS_LINK' => URL::build('/user/alerts'),
+        'ALERTS_LINK' => URL::build('/user/uyarilar'),
         'VIEW_ALERTS' => $language->get('user', 'view_alerts'),
-        'MESSAGING_LINK' => URL::build('/user/messaging'),
+        'MESSAGING_LINK' => URL::build('/user/mesajlasma'),
         'VIEW_MESSAGES' => $language->get('user', 'view_messages'),
         'LOADING' => $language->get('general', 'loading'),
         'MESSAGING' => $language->get('user', 'messaging'),

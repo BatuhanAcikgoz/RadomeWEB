@@ -16,12 +16,12 @@ if (!$user->handlePanelPageLoad('staffcp.store.products')) {
 }
 
 if (!isset($_GET['product']) || !is_numeric($_GET['product'])) {
-    Redirect::to(URL::build('/panel/store/products'));
+    Redirect::to(URL::build('/panel/magaza/urunler'));
 }
 
 $product = new Product($_GET['product']);
 if (!$product->exists()) {
-    Redirect::to(URL::build('/panel/store/products'));
+    Redirect::to(URL::build('/panel/magaza/urunler'));
 }
 
 define('PAGE', 'panel');
@@ -130,7 +130,7 @@ if (!isset($_GET['action'])) {
                     }
 
                     Session::flash('products_success', $store_language->get('admin', 'product_updated_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                    Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                 }
             } else {
                 $errors = $validation->errors();
@@ -162,7 +162,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('products_success', $store_language->get('admin', 'image_updated_successfully'));
-                            Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+                            Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
                         } else {
                             $errors[] = $store_language->get('admin', 'unable_to_upload_image', ['error' => Output::getClean($image->getError())]);
                         }
@@ -223,8 +223,8 @@ if (!isset($_GET['action'])) {
             'type' => $type,
             'service' => $action->getService()->getName(),
             'requirePlayer' => ($action->data()->require_online ? 'Yes' : 'No'),
-            'edit_link' => URL::build('/panel/store/product', 'action=edit_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
-            'delete_link' => URL::build('/panel/store/product', 'action=delete_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
+            'edit_link' => URL::build('/panel/magaza/urun', 'action=edit_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
+            'delete_link' => URL::build('/panel/magaza/urun', 'action=delete_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
         ];
     }
 
@@ -233,7 +233,7 @@ if (!isset($_GET['action'])) {
         'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
         'ID' => Output::getClean($product->data()->id),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/store/products/'),
+        'BACK_LINK' => URL::build('/panel/magaza/urunler/'),
         'PRODUCT_NAME' => $store_language->get('admin', 'product_name'),
         'PRODUCT_NAME_VALUE' => Output::getClean($product->data()->name),
         'PRODUCT_DESCRIPTION' => $store_language->get('admin', 'product_description'),
@@ -248,7 +248,7 @@ if (!isset($_GET['action'])) {
         'FIELDS' => $store_language->get('admin', 'fields'),
         'FIELDS_LIST' => $fields_array,
         'NEW_ACTION' => $store_language->get('admin', 'new_action'),
-        'NEW_ACTION_LINK' => URL::build('/panel/store/product/' , 'action=new_action&product=' . $product->data()->id),
+        'NEW_ACTION_LINK' => URL::build('/panel/magaza/urun/' , 'action=new_action&product=' . $product->data()->id),
         'ACTION_LIST' => $actions_array,
         'CURRENCY' => Output::getClean($configuration->get('currency')),
         'HIDE_PRODUCT' => $store_language->get('admin', 'hide_product_from_store'),
@@ -260,7 +260,7 @@ if (!isset($_GET['action'])) {
         'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
         'BROWSE' => $language->get('general', 'browse'),
         'REMOVE' => $language->get('general', 'remove'),
-        'REMOVE_IMAGE_LINK' => URL::build('/panel/store/product/' , 'action=remove_image&product=' . $product->data()->id),
+        'REMOVE_IMAGE_LINK' => URL::build('/panel/magaza/urun/' , 'action=remove_image&product=' . $product->data()->id),
     ]);
 
     $template->assets()->include([
@@ -277,7 +277,7 @@ if (!isset($_GET['action'])) {
             $product->delete();
             Session::flash('products_success', $store_language->get('admin', 'product_deleted_successfully'));
 
-            Redirect::to(URL::build('/panel/store/products'));
+            Redirect::to(URL::build('/panel/magaza/urunler'));
         break;
         case 'new_action';
             // New action for product
@@ -289,26 +289,26 @@ if (!isset($_GET['action'])) {
                         'id' => Output::getClean($service->getId()),
                         'name' => Output::getClean($service->getName()),
                         'description' => Output::getClean($service->getDescription()),
-                        'select_link' => URL::build('/panel/store/product/' , 'action=new_action&product=' . $product->data()->id . '&service=' . $service->getId()),
+                        'select_link' => URL::build('/panel/magaza/urun/' , 'action=new_action&product=' . $product->data()->id . '&service=' . $service->getId()),
                     ];
                 }
                 
                 $smarty->assign([
                     'ACTION_TITLE' => $store_language->get('admin', 'new_action_for_x', ['product' => Output::getClean($product->data()->name)]),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+                    'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
                     'SERVICES_LIST' => $services_list
                 ]);
                 
                 $template_file = 'store/products_action_type.tpl';
             } else {
                 if (!is_numeric($_GET['service'])) {
-                    Redirect::to(URL::build('/panel/store/products'));
+                    Redirect::to(URL::build('/panel/magaza/urunler'));
                 }
 
                 $service = $services->get($_GET['service']);
                 if ($service == null) {
-                    Redirect::to(URL::build('/panel/store/products'));
+                    Redirect::to(URL::build('/panel/magaza/urunler'));
                 }
 
                 $action = new Action($service);
@@ -324,7 +324,7 @@ if (!isset($_GET['action'])) {
                 $smarty->assign([
                     'ACTION_TITLE' => $store_language->get('admin', 'new_action_for_x', ['product' => Output::getClean($product->data()->name)]),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+                    'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
                     'FIELDS' => $fields->getAll()
                 ]);
                 
@@ -334,12 +334,12 @@ if (!isset($_GET['action'])) {
         case 'edit_action';
             // Editing action for product
             if (!isset($_GET['aid']) || !is_numeric($_GET['aid'])) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
 
             $action = $product->getAction($_GET['aid']);
             if ($action == null) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
             $service = $action->getService();
 
@@ -354,7 +354,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'ACTION_TITLE' => $store_language->get('admin', 'editing_action_for_x', ['product' => Output::getClean($product->data()->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+                'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
                 'FIELDS' => $fields->getAll()
             ]);
 
@@ -363,7 +363,7 @@ if (!isset($_GET['action'])) {
         case 'delete_action';
             // Delete product
             if (!isset($_GET['aid']) || !is_numeric($_GET['aid'])) {
-                Redirect::to(URL::build('/panel/store/products'));
+                Redirect::to(URL::build('/panel/magaza/urunler'));
             }
 
             $action = $product->getAction($_GET['aid']);
@@ -372,7 +372,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('products_success', $store_language->get('admin', 'action_deleted_successfully'));
             }
 
-            Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+            Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
         break;
         case 'actions';
             // Get product actions
@@ -397,16 +397,16 @@ if (!isset($_GET['action'])) {
                     'type' => $type,
                     'service' => $action->getService()->getName(),
                     'requirePlayer' => ($action->data()->require_online ? 'Yes' : 'No'),
-                    'edit_link' => URL::build('/panel/store/product', 'action=edit_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
-                    'delete_link' => URL::build('/panel/store/product', 'action=delete_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
+                    'edit_link' => URL::build('/panel/magaza/urun', 'action=edit_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
+                    'delete_link' => URL::build('/panel/magaza/urun', 'action=delete_action&product=' . $product->data()->id . '&aid=' . $action->data()->id),
                 ];
             }
             $smarty->assign([
                 'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+                'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
                 'NEW_ACTION' => $store_language->get('admin', 'new_action'),
-                'NEW_ACTION_LINK' => URL::build('/panel/store/product/' , 'action=new_action&product=' . $product->data()->id),
+                'NEW_ACTION_LINK' => URL::build('/panel/magaza/urun/' , 'action=new_action&product=' . $product->data()->id),
                 'ACTION_LIST' => $actions_array,
             ]);
             
@@ -443,7 +443,7 @@ if (!isset($_GET['action'])) {
                     ]);
 
                     Session::flash('products_success', $store_language->get('admin', 'product_updated_successfully'));
-                    Redirect::to(URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=limits_requirements'));
+                    Redirect::to(URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements'));
                 } else {
                     // Invalid token
                     $errors[] = $language->get('general', 'invalid_token');
@@ -499,7 +499,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+                'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
                 'GLOBAL_LIMIT_VALUE' => $global_limit,
                 'USER_LIMIT_VALUE' => $user_limit,
                 'PRODUCTS_LIST' => $products_list,
@@ -514,10 +514,10 @@ if (!isset($_GET['action'])) {
             $product->update([
                 'image' => null
             ]);
-            Redirect::to(URL::build('/panel/store/product/', 'product=' . $product->data()->id));
+            Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $product->data()->id));
         break;
         default:
-            Redirect::to(URL::build('/panel/store/products'));
+            Redirect::to(URL::build('/panel/magaza/urunler'));
         break;
     }
 }
@@ -549,11 +549,11 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'PRODUCTS' => $store_language->get('general', 'products'),
     'GENERAL_SETTINGS' => $language->get('admin', 'general_settings'),
-    'GENERAL_SETTINGS_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+    'GENERAL_SETTINGS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
     'ACTIONS' => $store_language->get('admin', 'actions'),
-    'ACTIONS_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=actions'),
+    'ACTIONS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=actions'),
     'LIMITS_AND_REQUIREMENTS' => $store_language->get('admin', 'limits_and_requirements'),
-    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=limits_requirements')
+    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements')
 ]);
 
 $template->onPageLoad();

@@ -30,12 +30,12 @@ if (!isset($_GET['id'])) {
         // Get open reports
         if (!isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM rw_reports WHERE status = 0 ORDER BY date_updated DESC')->results();
-            $url = URL::build('/panel/users/reports/');
-            $change_view_link = URL::build('/panel/users/reports/', 'view=closed');
+            $url = URL::build('/panel/kullanicilar/raporlar/');
+            $change_view_link = URL::build('/panel/kullanicilar/raporlar/', 'view=closed');
         } else {
             $report_query = DB::getInstance()->query('SELECT * FROM rw_reports WHERE status = 0 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
+            $url = URL::build('/panel/kullanicilar/raporlar/', 'uid=' . urlencode((int) $_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/kullanicilar/raporlar/', 'view=closed&uid=' . urlencode((int) $_GET['uid']));
         }
 
         $smarty->assign([
@@ -46,12 +46,12 @@ if (!isset($_GET['id'])) {
         // Get closed reports
         if (!isset($_GET['uid'])) {
             $report_query = DB::getInstance()->query('SELECT * FROM rw_reports WHERE status = 1 ORDER BY date_updated DESC')->results();
-            $url = URL::build('/panel/users/reports/', 'view=closed&');
-            $change_view_link = URL::build('/panel/users/reports');
+            $url = URL::build('/panel/kullanicilar/raporlar/', 'view=closed&');
+            $change_view_link = URL::build('/panel/kullanicilar/raporlar');
         } else {
             $report_query = DB::getInstance()->query('SELECT * FROM rw_reports WHERE status = 1 AND reported_id = ? ORDER BY date_updated DESC', [(int)$_GET['uid']])->results();
-            $url = URL::build('/panel/users/reports/', 'view=closed&uid=' . urlencode((int) $_GET['uid']) . '&');
-            $change_view_link = URL::build('/panel/users/reports/', 'uid=' . urlencode((int) $_GET['uid']));
+            $url = URL::build('/panel/kullanicilar/raporlar/', 'view=closed&uid=' . urlencode((int) $_GET['uid']) . '&');
+            $change_view_link = URL::build('/panel/kullanicilar/raporlar/', 'uid=' . urlencode((int) $_GET['uid']));
         }
 
         $smarty->assign([
@@ -121,7 +121,7 @@ if (!isset($_GET['id'])) {
                 'user_reported_avatar' => $user_avatar,
                 'reported_at' => ($report->reported ? $timeago->inWords($report->reported, $language) : $timeago->inWords($report->date_reported, $language)),
                 'reported_at_full' => ($report->reported ? date(DATE_FORMAT, $report->reported) : date(DATE_FORMAT, strtotime($report->date_reported))),
-                'link' => URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)),
+                'link' => URL::build('/panel/kullanicilar/raporlar/', 'id=' . urlencode($report->id)),
                 'updated_by' => $updated_by_user->getDisplayname(),
                 'updated_by_profile' => URL::build('/panel/user/' . urlencode($report->updated_by . '-' . $updated_by_user->data()->username)),
                 'updated_by_style' => $updated_by_user->getGroupStyle(),
@@ -160,7 +160,7 @@ if (!isset($_GET['id'])) {
     if (!isset($_GET['action'])) {
         $report = DB::getInstance()->get('reports', ['id', $_GET['id']])->results();
         if (!count($report)) {
-            Redirect::to(URL::build('/panel/users/reports'));
+            Redirect::to(URL::build('/panel/kullanicilar/raporlar'));
         }
         $report = $report[0];
 
@@ -257,7 +257,7 @@ if (!isset($_GET['id'])) {
 
         // Smarty variables
         $smarty->assign([
-            'REPORTS_LINK' => URL::build('/panel/users/reports'),
+            'REPORTS_LINK' => URL::build('/panel/kullanicilar/raporlar'),
             'VIEWING_REPORT' => $language->get('moderator', 'viewing_report'),
             'BACK' => $language->get('general', 'back'),
             'REPORTED_USER' => $reported_user_name,
@@ -286,12 +286,12 @@ if (!isset($_GET['id'])) {
         // Close/reopen link
         if ($report->status == 0) {
             $smarty->assign([
-                'CLOSE_LINK' => URL::build('/panel/users/reports/', 'action=close&id=' . urlencode($report->id)),
+                'CLOSE_LINK' => URL::build('/panel/kullanicilar/raporlar/', 'action=close&id=' . urlencode($report->id)),
                 'CLOSE_REPORT' => $language->get('moderator', 'close_report')
             ]);
         } else {
             $smarty->assign([
-                'REOPEN_LINK' => URL::build('/panel/users/reports/', 'action=open&id=' . urlencode($report->id)),
+                'REOPEN_LINK' => URL::build('/panel/kullanicilar/raporlar/', 'action=open&id=' . urlencode($report->id)),
                 'REOPEN_REPORT' => $language->get('moderator', 'reopen_report')
             ]);
         }
@@ -328,10 +328,10 @@ if (!isset($_GET['id'])) {
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_closed'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
+                Redirect::to(URL::build('/panel/kullanicilar/raporlar/', 'id=' . urlencode($report->id)));
             }
 
-            Redirect::to(URL::build('/panel/users/reports'));
+            Redirect::to(URL::build('/panel/kullanicilar/raporlar'));
         }
 
         if ($_GET['action'] == 'open') {
@@ -364,13 +364,13 @@ if (!isset($_GET['id'])) {
                 }
 
                 Session::flash('report_success', $language->get('moderator', 'report_reopened'));
-                Redirect::to(URL::build('/panel/users/reports/', 'id=' . urlencode($report->id)));
+                Redirect::to(URL::build('/panel/kullanicilar/raporlar/', 'id=' . urlencode($report->id)));
             }
 
-            Redirect::to(URL::build('/panel/users/reports'));
+            Redirect::to(URL::build('/panel/kullanicilar/raporlar'));
         }
 
-        Redirect::to(URL::build('/panel/users/reports'));
+        Redirect::to(URL::build('/panel/kullanicilar/raporlar'));
     }
 }
 

@@ -105,7 +105,7 @@ class Store {
                         $sub_active = Output::getClean($active) == Output::getClean($subcategory->name);
 
                         $subcategories[] = [
-                            'url' => URL::build($store_url . '/category/' . Output::getClean($subcategory->id)),
+                            'url' => URL::build($store_url . '/kategori/' . Output::getClean($subcategory->id)),
                             'title' => Output::getClean($subcategory->name),
                             'active' => $sub_active
                         ];
@@ -113,7 +113,7 @@ class Store {
                 }
 
                 $categories[$item->id] = [
-                    'url' => URL::build($store_url . '/category/' . Output::getClean($item->id)),
+                    'url' => URL::build($store_url . '/kategori/' . Output::getClean($item->id)),
                     'title' => Output::getClean($item->name),
                     'subcategories' => $subcategories,
                     'active' => !$sub_active && Output::getClean($active) == Output::getClean($item->name),

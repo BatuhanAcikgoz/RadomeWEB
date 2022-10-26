@@ -41,7 +41,7 @@ if (isset($_GET['uid'])) {
         foreach ($user_ips as $account) {
             $accounts[] = [
                 'ip' => Output::getClean($account->ip),
-                'link' => URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode($account->ip))
+                'link' => URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . urlencode($account->ip))
             ];
         }
 
@@ -60,7 +60,7 @@ if (isset($_GET['uid'])) {
             'ACCOUNTS' => $accounts,
             'COUNT_ACCOUNTS' => $count_accounts,
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/users/ip_lookup')
+            'BACK_LINK' => URL::build('/panel/kullanicilar/ip_sorgu')
         ]);
 
         $template_file = 'core/users_ip_lookup_results.tpl';
@@ -89,7 +89,7 @@ if (isset($_GET['uid'])) {
                     $accounts[] = [
                         'username' => Output::getClean($username[0]->username),
                         'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
-                        'account_ips' => URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($account->user_id)),
+                        'account_ips' => URL::build('/panel/kullanicilar/ip_sorgu/', 'uid=' . urlencode($account->user_id)),
                         'style' => $user->getGroupStyle()
                     ];
                 }
@@ -106,7 +106,7 @@ if (isset($_GET['uid'])) {
                 'ACCOUNTS' => $accounts,
                 'COUNT_ACCOUNTS' => $count_accounts,
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/users/ip_lookup')
+                'BACK_LINK' => URL::build('/panel/kullanicilar/ip_sorgu')
             ]);
 
             $template_file = 'core/users_ip_lookup_results.tpl';
@@ -119,14 +119,14 @@ if (isset($_GET['uid'])) {
                 $query = DB::getInstance()->get('users', ['username', Output::getClean(Input::get('search'))])->results();
 
                 if (count($query)) {
-                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'uid=' . urlencode($query[0]->id)));
+                    Redirect::to(URL::build('/panel/kullanicilar/ip_sorgu/', 'uid=' . urlencode($query[0]->id)));
                 }
 
                 // Try searching IPs
                 $query = DB::getInstance()->get('users_ips', ['ip', Output::getClean(Input::get('search'))])->results();
 
                 if (count($query)) {
-                    Redirect::to(URL::build('/panel/users/ip_lookup/', 'ip=' . urlencode(Input::get('search'))));
+                    Redirect::to(URL::build('/panel/kullanicilar/ip_sorgu/', 'ip=' . urlencode(Input::get('search'))));
                 }
 
                 $errors = [$language->get('moderator', 'no_users_or_ips_found')];

@@ -28,90 +28,90 @@ class Core_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Core', '/', 'pages/index.php');
-        $pages->add('Core', '/api/v2', 'pages/api/v2/index.php');
-        $pages->add('Core', '/home', 'pages/home.php', 'index', true);
+        $pages->add('Core', '/api', 'pages/api/v2/index.php');
+        $pages->add('Core', '/anasayfa', 'pages/home.php', 'index', true);
 
-        $pages->add('Core', '/login', 'pages/login.php');
-        $pages->add('Core', '/logout', 'pages/logout.php');
-        $pages->add('Core', '/profile', 'pages/profile.php', 'profile', true);
-        $pages->add('Core', '/register', 'pages/register.php');
-        $pages->add('Core', '/register/oauth', 'pages/register.php');
-        $pages->add('Core', '/validate', 'pages/validate.php');
-        $pages->add('Core', '/queries/admin_users', 'queries/admin_users.php');
-        $pages->add('Core', '/queries/mention_users', 'queries/mention_users.php');
-        $pages->add('Core', '/queries/alerts', 'queries/alerts.php');
-        $pages->add('Core', '/queries/dark_light_mode', 'queries/dark_light_mode.php');
-        $pages->add('Core', '/queries/pms', 'queries/pms.php');
-        $pages->add('Core', '/queries/servers', 'queries/servers.php');
-        $pages->add('Core', '/queries/server', 'queries/server.php');
-        $pages->add('Core', '/queries/user', 'queries/user.php');
-        $pages->add('Core', '/queries/users', 'queries/users.php');
-        $pages->add('Core', '/queries/debug_link', 'queries/debug_link.php');
-        $pages->add('Core', '/queries/tinymce_image_upload', 'queries/tinymce_image_upload.php');
+        $pages->add('Core', '/giris', 'pages/login.php');
+        $pages->add('Core', '/cikis', 'pages/logout.php');
+        $pages->add('Core', '/profil', 'pages/profile.php', 'profile', true);
+        $pages->add('Core', '/kayit', 'pages/register.php');
+        $pages->add('Core', '/kayit/oauth', 'pages/register.php');
+        $pages->add('Core', '/dogrulama', 'pages/validate.php');
+        $pages->add('Core', '/sorgu/yoneticiler', 'queries/admin_users.php');
+        $pages->add('Core', '/sorgu/bahsedilenler', 'queries/mention_users.php');
+        $pages->add('Core', '/sorgu/uyarilar', 'queries/alerts.php');
+        $pages->add('Core', '/sorgu/aydinlik_karanlik_mod', 'queries/dark_light_mode.php');
+        $pages->add('Core', '/sorgu/pms', 'queries/pms.php');
+        $pages->add('Core', '/sorgu/sunucular', 'queries/servers.php');
+        $pages->add('Core', '/sorgu/sunucu', 'queries/server.php');
+        $pages->add('Core', '/sorgu/kullanici', 'queries/user.php');
+        $pages->add('Core', '/sorgu/kullanicilar', 'queries/users.php');
+        $pages->add('Core', '/sorgu/debug_link', 'queries/debug_link.php');
+        $pages->add('Core', '/sorgu/tinymce_image_upload', 'queries/tinymce_image_upload.php');
         $pages->add('Core', '/banner', 'pages/minecraft/banner.php');
-        $pages->add('Core', '/terms', 'pages/terms.php');
-        $pages->add('Core', '/privacy', 'pages/privacy.php');
-        $pages->add('Core', '/forgot_password', 'pages/forgot_password.php');
-        $pages->add('Core', '/complete_signup', 'pages/complete_signup.php');
+        $pages->add('Core', '/sartlar', 'pages/terms.php');
+        $pages->add('Core', '/gizlilik', 'pages/privacy.php');
+        $pages->add('Core', '/sifremi_unuttum', 'pages/forgot_password.php');
+        $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
         $pages->add('Core', '/status', 'pages/status.php', 'status');
-        $pages->add('Core', '/leaderboards', 'pages/leaderboards.php', 'leaderboards');
+        $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/user', 'pages/user/index.php');
-        $pages->add('Core', '/user/settings', 'pages/user/settings.php');
-        $pages->add('Core', '/user/messaging', 'pages/user/messaging.php');
-        $pages->add('Core', '/user/alerts', 'pages/user/alerts.php');
+        $pages->add('Core', '/user/ayarlar', 'pages/user/ayarlar.php');
+        $pages->add('Core', '/user/mesajlasma', 'pages/user/mesajlasma.php');
+        $pages->add('Core', '/user/uyarilar', 'pages/user/uyarilar.php');
         $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
-        $pages->add('Core', '/user/placeholders', 'pages/user/placeholders.php');
-        $pages->add('Core', '/user/acknowledge', 'pages/user/acknowledge.php');
-        $pages->add('Core', '/user/connections', 'pages/user/connections.php');
+        $pages->add('Core', '/user/placeholderlar', 'pages/user/placeholderlar.php');
+        $pages->add('Core', '/user/bilgilendirme', 'pages/user/bilgilendirme.php');
+        $pages->add('Core', '/user/baglantilar', 'pages/user/baglantilar.php');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
-        $pages->add('Core', '/panel/auth', 'pages/panel/auth.php');
-        $pages->add('Core', '/panel/core/general_settings', 'pages/panel/general_settings.php');
+        $pages->add('Core', '/panel/giris', 'pages/panel/giris.php');
+        $pages->add('Core', '/panel/core/genel_ayarlar', 'pages/panel/general_settings.php');
         $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
         $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
-        $pages->add('Core', '/panel/core/avatars', 'pages/panel/avatars.php');
-        $pages->add('Core', '/panel/core/debugging_and_maintenance', 'pages/panel/debugging_and_maintenance.php');
-        $pages->add('Core', '/panel/core/errors', 'pages/panel/errors.php');
+        $pages->add('Core', '/panel/core/avatarlar', 'pages/panel/avatars.php');
+        $pages->add('Core', '/panel/core/bakim_sorun_giderme', 'pages/panel/debugging_and_maintenance.php');
+        $pages->add('Core', '/panel/core/hatalar', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
-        $pages->add('Core', '/panel/core/emails/errors', 'pages/panel/emails_errors.php');
-        $pages->add('Core', '/panel/core/emails/mass_message', 'pages/panel/emails_mass_message.php');
+        $pages->add('Core', '/panel/core/emails/hatalar', 'pages/panel/emails_errors.php');
+        $pages->add('Core', '/panel/core/emails/toplu_mesaj', 'pages/panel/emails_mass_message.php');
         $pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
-        $pages->add('Core', '/panel/core/privacy_and_terms', 'pages/panel/privacy_and_terms.php');
-        $pages->add('Core', '/panel/core/registration', 'pages/panel/registration.php');
-        $pages->add('Core', '/panel/core/social_media', 'pages/panel/social_media.php');
-        $pages->add('Core', '/panel/core/groups', 'pages/panel/groups.php');
-        $pages->add('Core', '/panel/core/images', 'pages/panel/images.php');
-        $pages->add('Core', '/panel/core/templates', 'pages/panel/templates.php');
-        $pages->add('Core', '/panel/core/announcements', 'pages/panel/announcements.php');
+        $pages->add('Core', '/panel/core/gizlilik_and_sartlar', 'pages/panel/privacy_and_terms.php');
+        $pages->add('Core', '/panel/core/kayit', 'pages/panel/registration.php');
+        $pages->add('Core', '/panel/core/sosyal_medya', 'pages/panel/social_media.php');
+        $pages->add('Core', '/panel/core/gruplar', 'pages/panel/groups.php');
+        $pages->add('Core', '/panel/core/gorseller', 'pages/panel/images.php');
+        $pages->add('Core', '/panel/core/temalar', 'pages/panel/templates.php');
+        $pages->add('Core', '/panel/core/duyurular', 'pages/panel/announcements.php');
         $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
-        $pages->add('Core', '/panel/core/pages', 'pages/panel/pages.php');
+        $pages->add('Core', '/panel/core/sayfalar', 'pages/panel/pages.php');
         $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
-        $pages->add('Core', '/panel/core/integrations', 'pages/panel/integrations.php');
-        $pages->add('Core', '/panel/minecraft/placeholders', 'pages/panel/placeholders.php');
+        $pages->add('Core', '/panel/core/entegrasyonlar', 'pages/panel/integrations.php');
+        $pages->add('Core', '/panel/minecraft/placeholderlar', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
-        $pages->add('Core', '/panel/minecraft/servers', 'pages/panel/minecraft_servers.php');
-        $pages->add('Core', '/panel/minecraft/query_errors', 'pages/panel/minecraft_query_errors.php');
-        $pages->add('Core', '/panel/minecraft/banners', 'pages/panel/minecraft_server_banners.php');
-        $pages->add('Core', '/panel/security', 'pages/panel/security.php');
-        $pages->add('Core', '/panel/update', 'pages/panel/update.php');
-        $pages->add('Core', '/panel/upgrade', 'pages/panel/upgrade.php');
+        $pages->add('Core', '/panel/minecraft/sunucular', 'pages/panel/minecraft_servers.php');
+        $pages->add('Core', '/panel/minecraft/sorgu_hatalari', 'pages/panel/minecraft_query_errors.php');
+        $pages->add('Core', '/panel/minecraft/bannerlar', 'pages/panel/minecraft_server_banners.php');
+        $pages->add('Core', '/panel/guvenlik', 'pages/panel/security.php');
+        $pages->add('Core', '/panel/guncelleme', 'pages/panel/update.php');
+        $pages->add('Core', '/panel/yukseltme', 'pages/panel/upgrade.php');
         $pages->add('Core', '/panel/users', 'pages/panel/users.php');
         $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
-        $pages->add('Core', '/panel/users/integrations', 'pages/panel/users_integrations.php');
-        $pages->add('Core', '/panel/users/oauth', 'pages/panel/users_oauth.php');
-        $pages->add('Core', '/panel/users/ip_lookup', 'pages/panel/users_ip_lookup.php');
-        $pages->add('Core', '/panel/users/punishments', 'pages/panel/users_punishments.php');
-        $pages->add('Core', '/panel/users/reports', 'pages/panel/users_reports.php');
+        $pages->add('Core', '/panel/kullanicilar/entegrasyonlar', 'pages/panel/users_integrations.php');
+        $pages->add('Core', '/panel/kullanicilar/oauth', 'pages/panel/users_oauth.php');
+        $pages->add('Core', '/panel/kullanicilar/ip_sorgu', 'pages/panel/users_ip_lookup.php');
+        $pages->add('Core', '/panel/kullanicilar/cezalar', 'pages/panel/users_punishments.php');
+        $pages->add('Core', '/panel/kullanicilar/raporlar', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
         $pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
 
         // Ajax GET requests
-        $pages->addAjaxScript(URL::build('/queries/servers'));
+        $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
 
         // "More" dropdown
         $cache->setCache('navbar_icons');
@@ -803,7 +803,7 @@ class Core_Module extends Module {
                             'version' => Output::getClean($update_check->version())
                         ]),
                         'RADOME_UPDATE' => $language->get('admin', 'update'),
-                        'RADOME_UPDATE_LINK' => URL::build('/panel/update')
+                        'RADOME_UPDATE_LINK' => URL::build('/panel/guncelleme')
                     ]);
                 }
             }
@@ -861,7 +861,7 @@ class Core_Module extends Module {
                 $leaderboards_icon = $cache->retrieve('leaderboards_icon');
             }
 
-            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/leaderboards'), 'top', null, $leaderboards_order, $leaderboards_icon);
+            $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/siralama'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
         // Check page type (frontend or backend)
@@ -1048,7 +1048,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('general_settings_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/general_settings'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/genel_ayarlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.api')) {
@@ -1081,7 +1081,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('avatars_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatars'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatarlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.debugging')) {
@@ -1092,7 +1092,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('debugging_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/debugging_and_maintenance'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/bakim_sorun_giderme'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.emails')) {
@@ -1125,7 +1125,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('privacy_and_terms_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/privacy_and_terms'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/gizlilik_and_sartlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
@@ -1136,7 +1136,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('registration_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/registration'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/kayit'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.social_media')) {
@@ -1147,7 +1147,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('social_media_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/social_media'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/sosyal_medya'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.hooks')) {
@@ -1177,7 +1177,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('announcements_icon');
                 }
 
-                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $order, $icon);
+                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/duyurular'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.integrations')) {
@@ -1206,7 +1206,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('user_integrations_icon');
                 }
 
-                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/integrations'), 'top', null, $icon, 1);
+                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/entegrasyonlar'), 'top', null, $icon, 1);
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
@@ -1245,7 +1245,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('images_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/images'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/gorseller'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.styles')) {
@@ -1256,7 +1256,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('templates_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/templates/?action=settings&template=1'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/temalar/?action=settings&template=1'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
@@ -1286,7 +1286,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('pages_icon');
                 }
 
-                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/pages'), 'top', null, $order, $icon);
+                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/sayfalar'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.groups')) {
@@ -1304,7 +1304,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('group_icon');
                 }
 
-                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/groups'), 'top', null, $order, $icon);
+                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/gruplar'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.users')) {
@@ -1341,7 +1341,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('ip_lookup_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('users', 'ip_lookup', $language->get('moderator', 'ip_lookup'), URL::build('/panel/kullanicilar/ip_sorgu'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('modcp.punishments')) {
@@ -1352,7 +1352,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('punishments_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/users/punishments'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('users', 'punishments', $language->get('moderator', 'punishments'), URL::build('/panel/kullanicilar/cezalar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('modcp.reports')) {
@@ -1363,7 +1363,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('reports_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/users/reports'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('users', 'reports', $language->get('moderator', 'reports'), URL::build('/panel/kullanicilar/raporlar'), 'top', null, $icon, $order);
                 }
             }
 
@@ -1382,7 +1382,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('security_icon');
                 }
 
-                $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/security'), 'top', null, $order, $icon);
+                $navs[2]->add('security', $language->get('admin', 'security'), URL::build('/panel/guvenlik'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.update')) {
@@ -1400,7 +1400,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('update_icon');
                 }
 
-                $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/update'), 'top', null, $order, $icon);
+                $navs[2]->add('update', $language->get('admin', 'update'), URL::build('/panel/guncelleme'), 'top', null, $order, $icon);
             }
 
             // Notices
@@ -1416,7 +1416,7 @@ class Core_Module extends Module {
                 }
 
                 if (count($email_errors)) {
-                    self::addNotice(URL::build('/panel/core/emails/errors'), $language->get('admin', 'email_errors_logged'));
+                    self::addNotice(URL::build('/panel/core/emails/hatalar'), $language->get('admin', 'email_errors_logged'));
                 }
             }
 
@@ -1500,25 +1500,25 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/users/integrations/', 'id={id}'));
+                self::addUserAction($language->get('admin', 'integrations'), URL::build('/panel/kullanicilar/entegrasyonlar/', 'id={id}'));
             }
 
             if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/users/oauth/', 'id={id}'));
+                self::addUserAction($language->get('admin', 'oauth'), URL::build('/panel/kullanicilar/oauth/', 'id={id}'));
             }
 
             if ($user->hasPermission('modcp.ip_lookup')) {
-                self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/users/ip_lookup/', 'uid={id}'));
+                self::addUserAction($language->get('moderator', 'ip_lookup'), URL::build('/panel/kullanicilar/ip_sorgu/', 'uid={id}'));
             }
 
             if ($user->hasPermission('modcp.punishments')) {
-                self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/users/punishments/', 'user={id}'));
+                self::addUserAction($language->get('moderator', 'punish'), URL::build('/panel/kullanicilar/cezalar/', 'user={id}'));
             }
 
-            self::addUserAction($language->get('user', 'profile'), URL::build('/profile/{username}'));
+            self::addUserAction($language->get('user', 'profile'), URL::build('/profil/{username}'));
 
             if ($user->hasPermission('modcp.reports')) {
-                self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/users/reports/', 'uid={id}'));
+                self::addUserAction($language->get('moderator', 'reports'), URL::build('/panel/kullanicilar/raporlar/', 'uid={id}'));
             }
         }
 

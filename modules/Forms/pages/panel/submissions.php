@@ -62,7 +62,7 @@ if (!isset($_GET['view'])) {
                 }
             }
 
-            Redirect::to(URL::build('/panel/forms/submissions/', implode('&', $url_parameters)));
+            Redirect::to(URL::build('/panel/formlar/talepler/', implode('&', $url_parameters)));
         } else {
             // Invalid token
             $errors[] = $language->get('general', 'invalid_token');
@@ -106,11 +106,11 @@ if (!isset($_GET['view'])) {
         // Get page
         if (isset($_GET['p'])) {
             if (!is_numeric($_GET['p'])) {
-                Redirect::to(URL::build('/panel/forms/submissions/', implode('&', $url_parameters)));
+                Redirect::to(URL::build('/panel/formlar/talepler/', implode('&', $url_parameters)));
             } else {
                 if ($_GET['p'] == 1) {
                     // Avoid bug in pagination class
-                    Redirect::to(URL::build('/panel/forms/submissions/', implode('&', $url_parameters)));
+                    Redirect::to(URL::build('/panel/formlar/talepler/', implode('&', $url_parameters)));
                 }
                 $p = $_GET['p'];
             }
@@ -124,7 +124,7 @@ if (!isset($_GET['view'])) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($submissions_query, 10, $p, count($submissions_query));
-        $pagination = $paginator->generate(7, URL::build('/panel/forms/submissions/', implode('&', $url_parameters)));
+        $pagination = $paginator->generate(7, URL::build('/panel/formlar/talepler/', implode('&', $url_parameters)));
 
         // Get all submissions
         foreach ($results->data as $submission) {
@@ -185,7 +185,7 @@ if (!isset($_GET['view'])) {
                 'updated_by_style' => $updated_by_style,
                 'updated_by_avatar' => $updated_by_avatar,
                 'updated_at' => $timeago->inWords($submission->updated, $language),
-                'link' => URL::build('/panel/forms/submissions/', 'view=' . $submission->id),
+                'link' => URL::build('/panel/formlar/talepler/', 'view=' . $submission->id),
             ];
         }
 
@@ -249,14 +249,14 @@ if (!isset($_GET['view'])) {
         // Get submission by id
         $submission = new Submission($_GET['view']);
         if (!$submission->exists()) {
-            Redirect::to(URL::build('/panel/forms/submissions'));
+            Redirect::to(URL::build('/panel/formlar/talepler'));
         }
         $form = new Form($submission->data()->form_id);
         $status = new Status($submission->data()->status_id);
 
         // Does user have permission to view this submission
         if (!$forms->canViewSubmission($group_ids, $submission->data()->form_id)) {
-            Redirect::to(URL::build('/panel/forms/submissions'));
+            Redirect::to(URL::build('/panel/formlar/talepler'));
         }
 
         // Does user have permission to delete submissions or comments
@@ -354,7 +354,7 @@ if (!isset($_GET['view'])) {
                             'content_full' => $content,
                             'avatar_url' => $user->getAvatar(128, true),
                             'title' => '[#' . $submission->data()->id . '] ' . $form->data()->title,
-                            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/forms/submissions/', 'view=' . $submission->data()->id),
+                            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
                             'color' => $status_color
                         ]);
 
@@ -368,12 +368,12 @@ if (!isset($_GET['view'])) {
                                     'submission_update',
                                     ['path' => ROOT_PATH . '/modules/Forms/language', 'file' => 'forms', 'term' => 'your_submission_updated', 'replace' => ['{x}'], 'replace_with' => [Output::getClean($form->data()->title)]],
                                     ['path' => ROOT_PATH . '/modules/Forms/language', 'file' => 'forms', 'term' => 'your_submission_updated', 'replace' => ['{x}'], 'replace_with' => [Output::getClean($form->data()->title)]],
-                                    URL::build('/user/submissions/', 'view=' . Output::getClean($submission->data()->id))
+                                    URL::build('/user/talepler/', 'view=' . Output::getClean($submission->data()->id))
                                 );
 
                                 // Send email to user of new changes to submission
                                 if ($sendEmail == 1) {
-                                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/user/submissions/', 'view=' . $submission->data()->id);
+                                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/user/talepler/', 'view=' . $submission->data()->id);
                                     $comment = (!empty(Input::get('content')) ? Input::get('content') : $forms_language->get('forms', 'no_comment'));
 
                                     $message = str_replace(
@@ -426,7 +426,7 @@ if (!isset($_GET['view'])) {
                         }
 
                         Session::flash('submission_success', $forms_language->get('forms', 'submission_updated'));
-                        Redirect::to(URL::build('/panel/forms/submissions/', 'view=' . Output::getClean($submission->data()->id)));
+                        Redirect::to(URL::build('/panel/formlar/talepler/', 'view=' . Output::getClean($submission->data()->id)));
                     }
                 } else {
                     // Validation errors
@@ -464,7 +464,7 @@ if (!isset($_GET['view'])) {
                 'content' => Output::getPurified(Output::getDecoded($comment->content)),
                 'date' => date(DATE_FORMAT, $comment->created),
                 'date_friendly' => $timeago->inWords($comment->created, $language),
-                'delete_link' => ($can_delete ? URL::build('/panel/forms/submissions/', 'view='.Output::getClean($submission->data()->id).'&action=delete_comment&comment=' . Output::getClean($comment->id)) : null)
+                'delete_link' => ($can_delete ? URL::build('/panel/formlar/talepler/', 'view='.Output::getClean($submission->data()->id).'&action=delete_comment&comment=' . Output::getClean($comment->id)) : null)
             ];
         }
 
@@ -538,7 +538,7 @@ if (!isset($_GET['view'])) {
             'NEW_COMMENT' => $language->get('moderator', 'new_comment'),
             'NO_COMMENTS' => $language->get('moderator', 'no_comments'),
             'ANSWERS' => $submission->getFieldsAnswers(),
-            'DELETE_LINK' => ($can_delete ? URL::build('/panel/forms/submissions/', 'view='.Output::getClean($submission->data()->id).'&action=delete_submission&submission=' . Output::getClean($submission->data()->id)) : null),
+            'DELETE_LINK' => ($can_delete ? URL::build('/panel/formlar/talepler/', 'view='.Output::getClean($submission->data()->id).'&action=delete_submission&submission=' . Output::getClean($submission->data()->id)) : null),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_DELETE_SUBMISSION' => $forms_language->get('forms', 'confirm_delete_submisssion'),
             'CONFIRM_DELETE_COMMENT' => $forms_language->get('forms', 'confirm_delete_comment'),
@@ -560,7 +560,7 @@ if (!isset($_GET['view'])) {
             case 'delete_submission':
                 // Delete Submission
                 if (!isset($_GET['submission']) || !is_numeric($_GET['submission'])) {
-                    Redirect::to(URL::build('/panel/forms/submissions'));
+                    Redirect::to(URL::build('/panel/formlar/talepler'));
                 }
 
                 $submission = new Submission($_GET['submission']);
@@ -568,12 +568,12 @@ if (!isset($_GET['view'])) {
                     $submission->delete();
                 }
 
-                Redirect::to(URL::build('/panel/forms/submissions'));
+                Redirect::to(URL::build('/panel/formlar/talepler'));
             break;
             case 'delete_comment':
                 // Delete comment
                 if (!isset($_GET['comment']) || !is_numeric($_GET['comment'])) {
-                    Redirect::to(URL::build('/panel/forms/submissions'));
+                    Redirect::to(URL::build('/panel/formlar/talepler'));
                 }
 
                 $comment = DB::getInstance()->query('SELECT id, form_id as submission_id FROM rw_forms_comments WHERE id = ?', [$_GET['comment']])->first();
@@ -586,10 +586,10 @@ if (!isset($_GET['view'])) {
                     }
                 }
 
-                Redirect::to(URL::build('/panel/forms/submissions/', 'view=' . Output::getClean($_GET['view'])));
+                Redirect::to(URL::build('/panel/formlar/talepler/', 'view=' . Output::getClean($_GET['view'])));
             break;
             default:
-                Redirect::to(URL::build('/panel/forms/submissions'));
+                Redirect::to(URL::build('/panel/formlar/talepler'));
             break;
         }
     }

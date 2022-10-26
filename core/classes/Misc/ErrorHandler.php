@@ -146,7 +146,7 @@ class ErrorHandler {
             'CAN_GENERATE_DEBUG' => Debugging::canGenerateDebugLink(),
             'DEBUG_LINK' => $language->get('admin', 'debug_link'),
             'DEBUG_LINK_INFO' => $language->get('admin', 'debug_link_info'),
-            'DEBUG_LINK_URL' => URL::build('/queries/debug_link'),
+            'DEBUG_LINK_URL' => URL::build('/sorgu/debug_link'),
             // TODO: should we skip the 2 frames that are from the "new User()" above?
             'ERROR_SQL_STACK' => QueryRecorder::getInstance()->getSqlStack(),
             'CURRENT_URL' => HttpUtils::getProtocol() . '://' . HttpUtils::getHeader('Host') . $_SERVER['REQUEST_URI'],

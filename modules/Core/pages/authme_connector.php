@@ -23,7 +23,7 @@ if (Input::exists()) {
         if (isset($_GET['step']) && $_GET['step'] == 2) {
             // Step 2
             if (!isset($_SESSION['authme'])) {
-                Redirect::to(URL::build('/register'));
+                Redirect::to(URL::build('/kayit'));
             }
 
             // Are custom usernames enabled?
@@ -278,7 +278,7 @@ if (Input::exists()) {
                                 if ($valid === true) {
                                     // Passwords match
                                     // Continue to step 2
-                                    Redirect::to(URL::build('/register', 'step=2'));
+                                    Redirect::to(URL::build('/kayit', 'step=2'));
                                 }
 
                                 // Passwords don't match
@@ -325,7 +325,7 @@ if (!isset($_GET['step'])) {
         'SUBMIT' => $language->get('general', 'submit'),
         'I_AGREE' => $language->get('user', 'i_agree'),
         'AGREE_TO_TERMS' => $language->get('user', 'agree_t_and_c', [
-            'linkStart' => '<a href="' . URL::build('/terms') . '">',
+            'linkStart' => '<a href="' . URL::build('/sartlar') . '">',
             'linkEnd' => '</a>',
         ])
     ]);

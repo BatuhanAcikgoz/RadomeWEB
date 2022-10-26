@@ -45,7 +45,7 @@ if ($category->disabled == 1) {
 
 $store_url = $store->getStoreURL();
 
-$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '=', $store_url . '/view'])->results();
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '=', $store_url . '/goruntule'])->results();
 if (count($page_metadata)) {
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{category_title}', '{description}'], [SITE_NAME, Output::getClean($category->name), Output::getClean(strip_tags(Output::getDecoded($category->description)))], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -73,7 +73,7 @@ if (Input::exists()) {
                     $errors[] = $language->get('user', 'invalid_mcname');
                 }
 
-                Redirect::to(URL::build($store_url . '/category/' . $category->id));
+                Redirect::to(URL::build($store_url . '/kategori/' . $category->id));
             } else {
                 $errors[] = 'Unable to find a player with that username';
             }
@@ -134,7 +134,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
 ]);
 
-$template_file = 'store/category.tpl';
+$template_file = 'store/kategori.tpl';
 
 $template->assets()->include([
     DARK_MODE

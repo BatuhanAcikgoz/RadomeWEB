@@ -53,14 +53,14 @@ if (isset($_GET['p'])) {
 
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
-        Redirect::to(URL::build('/forum/view/' . urlencode($fid) . '-' . $forum->titleToURL($forum_query->forum_title)));
+        Redirect::to(URL::build('/forum/bakis/' . urlencode($fid) . '-' . $forum->titleToURL($forum_query->forum_title)));
     }
     $p = $_GET['p'];
 } else {
     $p = 1;
 }
 
-$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/view'])->results();
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/bakis'])->results();
 if (count($page_metadata)) {
 
     define('PAGE_DESCRIPTION', str_replace(
@@ -122,7 +122,7 @@ if ($forum_query->redirect_forum == 1) {
 
     // Search bar
     $smarty->assign([
-        'SEARCH_URL' => URL::build('/forum/search'),
+        'SEARCH_URL' => URL::build('/forum/arama'),
         'SEARCH' => $language->get('general', 'search'),
         'TOKEN' => Token::get()
     ]);
@@ -133,14 +133,14 @@ if ($forum_query->redirect_forum == 1) {
         'id' => $forum_query->id,
         'forum_title' => Output::getClean($forum_query->forum_title),
         'active' => 1,
-        'link' => URL::build('/forum/view/' . urlencode($forum_query->id) . '-' . $forum->titleToURL($forum_query->forum_title))
+        'link' => URL::build('/forum/bakis/' . urlencode($forum_query->id) . '-' . $forum->titleToURL($forum_query->forum_title))
     ]];
     if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         // Category
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'forum_title' => Output::getClean($parent_category[0]->forum_title),
-            'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+            'link' => URL::build('/forum/bakis/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
         ];
     } else {
         if (!empty($parent_category)) {
@@ -148,7 +148,7 @@ if ($forum_query->redirect_forum == 1) {
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'forum_title' => Output::getClean($parent_category[0]->forum_title),
-                'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+                'link' => URL::build('/forum/bakis/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
             ];
             $parent = false;
             while ($parent == false) {
@@ -156,7 +156,7 @@ if ($forum_query->redirect_forum == 1) {
                 $breadcrumbs[] = [
                     'id' => $parent_category[0]->id,
                     'forum_title' => Output::getClean($parent_category[0]->forum_title),
-                    'link' => URL::build('/forum/view/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
+                    'link' => URL::build('/forum/bakis/' . urlencode($parent_category[0]->id) . '-' . $forum->titleToURL($parent_category[0]->forum_title))
                 ];
                 if ($parent_category[0]->parent == 0) {
                     $parent = true;
@@ -205,7 +205,7 @@ if ($forum_query->redirect_forum == 1) {
                     }
 
                     $latest_post_user = new User($latest_post->topic_last_user);
-                    $latest_post_link = URL::build('/forum/topic/' . urlencode($latest_post->id) . '-' . $forum->titleToURL($latest_post->topic_title));
+                    $latest_post_link = URL::build('/forum/konu/' . urlencode($latest_post->id) . '-' . $forum->titleToURL($latest_post->topic_title));
                     $latest_post_avatar = $latest_post_user->getAvatar();
                     $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
@@ -235,7 +235,7 @@ if ($forum_query->redirect_forum == 1) {
                     'title' => Output::getPurified($subforum->forum_title),
                     'description' => Output::getPurified($subforum->forum_description),
                     'topics' => $subforum_topics,
-                    'link' => URL::build('/forum/view/' . urlencode($subforum->id) . '-' . $forum->titleToURL($subforum->forum_title)),
+                    'link' => URL::build('/forum/bakis/' . urlencode($subforum->id) . '-' . $forum->titleToURL($subforum->forum_title)),
                     'latest_post' => $latest_post,
                     'icon' => Output::getPurified($subforum->icon),
                     'redirect' => $subforum->redirect_forum
@@ -266,7 +266,7 @@ if ($forum_query->redirect_forum == 1) {
 
     // Can the user post here?
     if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
-        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
+        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/yeni/', 'fid=' . urlencode($fid)));
     } else {
         $smarty->assign('NEW_TOPIC_BUTTON', false);
     }
@@ -279,7 +279,7 @@ if ($forum_query->redirect_forum == 1) {
         $smarty->assign('NO_TOPICS_FULL', $forum_language->get('forum', 'no_topics'));
 
         if ($user->isLoggedIn() && $forum->canPostTopic($fid, $user_groups)) {
-            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/new/', 'fid=' . urlencode($fid)));
+            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/forum/yeni/', 'fid=' . urlencode($fid)));
         } else {
             $smarty->assign('NEW_TOPIC_BUTTON', false);
         }
@@ -374,7 +374,7 @@ if ($forum_query->redirect_forum == 1) {
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/forum/topic/' . urlencode($sticky->id) . '-' . $forum->titleToURL($sticky->topic_title)),
+                'link' => URL::build('/forum/konu/' . urlencode($sticky->id) . '-' . $forum->titleToURL($sticky->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL()
             ];
         }
@@ -390,7 +390,7 @@ if ($forum_query->redirect_forum == 1) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
-        $pagination = $paginator->generate(7, URL::build('/forum/view/' . urlencode($fid) . '-' . $forum->titleToURL($forum_query->forum_title)));
+        $pagination = $paginator->generate(7, URL::build('/forum/bakis/' . urlencode($fid) . '-' . $forum->titleToURL($forum_query->forum_title)));
 
         if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);
@@ -482,7 +482,7 @@ if ($forum_query->redirect_forum == 1) {
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/forum/topic/' . urlencode($nValue->id) . '-' . $forum->titleToURL($nValue->topic_title)),
+                'link' => URL::build('/forum/konu/' . urlencode($nValue->id) . '-' . $forum->titleToURL($nValue->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL(),
                 'last_reply_user_id' => Output::getClean($nValue->topic_last_user)
             ];

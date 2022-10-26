@@ -84,7 +84,7 @@ if (!count($latest_posts)) {
         }
 
         $posts[] = [
-            'link' => URL::build('/forum/topic/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
+            'link' => URL::build('/forum/konu/' . $latest_post->topic_id . '-' . $forum->titleToURL($topic_title), 'pid=' . $latest_post->id),
             'title' => $topic_title,
             'content' => EventHandler::executeEvent('renderPost', ['content' => $latest_post->post_content])['content'],
             'date_friendly' => $date_friendly,

@@ -126,7 +126,7 @@ if (!isset($_GET['action'])) {
         'FIND_MODULES' => $language->get('admin', 'find_modules'),
         'WEBSITE_MODULES' => $all_modules,
         'VIEW_ALL_MODULES' => $language->get('admin', 'view_all_modules'),
-        'VIEW_ALL_MODULES_LINK' => 'https://radome.web.tr/resources/category/1-radomeweb-modules/',
+        'VIEW_ALL_MODULES_LINK' => 'https://radome.web.tr/resources/kategori/1-radomeweb-modules/',
         'UNABLE_TO_RETRIEVE_MODULES' => $language->get('admin', 'unable_to_retrieve_modules'),
         'VIEW' => $language->get('general', 'view'),
         'MODULE' => $language->get('admin', 'module'),

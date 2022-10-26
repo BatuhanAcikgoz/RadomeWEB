@@ -253,7 +253,7 @@ class RadomeWEB_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (strpos($route, '/forum/topic/') !== false || PAGE == 'profile') {
+        if (strpos($route, '/forum/konu/') !== false || PAGE == 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);

@@ -49,10 +49,10 @@ if (isset($_GET['do'])) {
             if ($integrationUser == null || $integrationUser->data()->username == null || $integrationUser->data()->identifier == null) {
                 Session::flash('store_error', $store_language->get('general', 'product_requires_integration', [
                     'integration' => Output::getClean($integration->getName()),
-                    'linkStart' => '<a href="' . URL::build('/user/connections') . '">',
+                    'linkStart' => '<a href="' . URL::build('/user/baglantilar') . '">',
                     'linkEnd' => '</a>'
                 ]));
-                Redirect::to(URL::build($store_url . '/category/' . $product->data()->category_id));
+                Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
             }
         }
     }
@@ -89,7 +89,7 @@ if (isset($_GET['do'])) {
                 $quantity = Input::get($field->id);
                 if (!is_numeric($quantity) || $quantity < 1) {
                     Session::flash('store_error', $store_language->get('general', 'invalid_quantity'));
-                    Redirect::to(URL::build($store_url . '/category/' . $product->data()->category_id));
+                    Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
                 }
             }
         }
@@ -163,7 +163,7 @@ if (isset($_GET['do'])) {
                             $quantity = Input::get($field->id);
                             if (!is_numeric($quantity) || $quantity < 1) {
                                 Session::flash('store_error', $store_language->get('general', 'invalid_quantity'));
-                                Redirect::to(URL::build($store_url . '/category/' . $product->data()->category_id));
+                                Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
                             }
                         }
                     }
@@ -369,7 +369,7 @@ if (isset($_GET['do'])) {
         'PAYMENT_METHOD' => $store_language->get('general', 'payment_method'),
         'PURCHASE' => $store_language->get('general', 'purchase'),
         'AGREE_T_AND_C_PURCHASE' => $store_language->get('general', 'agree_t_and_c_purchase', [
-            'termsLinkStart' => '<a href="'.URL::build('/terms').'" target="_blank">',
+            'termsLinkStart' => '<a href="'.URL::build('/sartlar').'" target="_blank">',
             'termsLinkEnd' => '</a>',
         ]),
         'PAYMENT_METHODS' => $payment_methods,

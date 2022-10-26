@@ -15,15 +15,15 @@ class Core_Sitemap {
 
         // Core pages
         $sitemap->addItem(URL::build('/'), 1.0);
-        $sitemap->addItem(URL::build('/privacy'));
-        $sitemap->addItem(URL::build('/terms'));
-        $sitemap->addItem(URL::build('/login'), 0.8);
-        $sitemap->addItem(URL::build('/register'));
+        $sitemap->addItem(URL::build('/gizlilik'));
+        $sitemap->addItem(URL::build('/sartlar'));
+        $sitemap->addItem(URL::build('/giris'), 0.8);
+        $sitemap->addItem(URL::build('/kayit'));
 
         $home_type = Util::getSetting('home_type');
 
         if ($home_type === 'portal') {
-            $sitemap->addItem(URL::build('/home'), 0.9);
+            $sitemap->addItem(URL::build('/anasayfa'), 0.9);
         }
 
         $db = DB::getInstance();
@@ -31,7 +31,7 @@ class Core_Sitemap {
         $users = $db->query('SELECT username FROM rw_users')->results();
 
         foreach ($users as $user) {
-            $sitemap->addItem(URL::build('/profile/' . urlencode($user->username)));
+            $sitemap->addItem(URL::build('/profil/' . urlencode($user->username)));
         }
 
         $users = null;

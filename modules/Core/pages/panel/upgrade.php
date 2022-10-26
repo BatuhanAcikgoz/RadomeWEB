@@ -13,7 +13,7 @@
 $update_needed = DB::getInstance()->query('SELECT `value` FROM rw_settings WHERE `name` = \'version_update\'')->first();
 
 if (!$update_needed || ($update_needed->value !== 'true' && $update_needed->value !== 'urgent')) {
-    Redirect::to(URL::build('/panel/update'));
+    Redirect::to(URL::build('/panel/guncelleme'));
 }
 
 $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
@@ -33,4 +33,4 @@ if ($version) {
     }
 }
 
-Redirect::to(URL::build('/panel/update'));
+Redirect::to(URL::build('/panel/guncelleme'));

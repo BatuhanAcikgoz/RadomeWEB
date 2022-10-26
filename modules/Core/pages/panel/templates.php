@@ -62,13 +62,13 @@ if (!isset($_GET['action'])) {
             ]) : false,
             'enabled' => $item->enabled,
             'default_warning' => (Output::getClean($item->name) == 'Default') ? $language->get('admin', 'template_not_supported') : null,
-            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/templates/', 'action=activate&template=' . urlencode($item->id))),
-            'delete_link' => ((!$user->hasPermission('admincp.styles.templates.edit') || $item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/templates/', 'action=delete&template=' . urlencode($item->id))),
+            'activate_link' => (($item->enabled) ? null : URL::build('/panel/core/temalar/', 'action=activate&template=' . urlencode($item->id))),
+            'delete_link' => ((!$user->hasPermission('admincp.styles.templates.edit') || $item->id == 1 || $item->enabled) ? null : URL::build('/panel/core/temalar/', 'action=delete&template=' . urlencode($item->id))),
             'default' => $item->is_default,
-            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=deactivate&template=' . urlencode($item->id)) : null),
-            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/templates/', 'action=make_default&template=' . urlencode($item->id)) : null),
-            'edit_link' => ($user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($item->id)) : null),
-            'settings_link' => ($template->getSettings() && $user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/templates/', 'action=settings&template=' . urlencode($item->id)) : null)
+            'deactivate_link' => (($item->enabled && count($active_templates) > 1 && !$item->is_default) ? URL::build('/panel/core/temalar/', 'action=deactivate&template=' . urlencode($item->id)) : null),
+            'default_link' => (($item->enabled && !$item->is_default) ? URL::build('/panel/core/temalar/', 'action=make_default&template=' . urlencode($item->id)) : null),
+            'edit_link' => ($user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($item->id)) : null),
+            'settings_link' => ($template->getSettings() && $user->hasPermission('admincp.styles.templates.edit') ? URL::build('/panel/core/temalar/', 'action=settings&template=' . urlencode($item->id)) : null)
         ];
     }
 
@@ -90,7 +90,7 @@ if (!isset($_GET['action'])) {
         'SETTINGS' => $language->get('admin', 'settings'),
         'TEMPLATE_LIST' => $templates_template,
         'INSTALL_TEMPLATE' => $language->get('admin', 'install'),
-        'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/templates/', 'action=install'),
+        'INSTALL_TEMPLATE_LINK' => URL::build('/panel/core/temalar/', 'action=install'),
         'FIND_TEMPLATES' => $language->get('admin', 'find_templates'),
         'WEBSITE_TEMPLATES' => $all_templates,
         'VIEW_ALL_TEMPLATES' => $language->get('admin', 'view_all_templates'),
@@ -133,7 +133,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/templates'));
+            Redirect::to(URL::build('/panel/core/temalar'));
 
         case 'activate':
             if (Token::check()) {
@@ -142,7 +142,7 @@ if (!isset($_GET['action'])) {
                 $template = DB::getInstance()->get('templates', ['id', $_GET['template']])->results();
                 if (!count($template)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/templates/'));
+                    Redirect::to(URL::build('/panel/core/temalar/'));
                 }
                 $name = str_replace(['../', '/', '..'], '', $template[0]->name);
 
@@ -169,7 +169,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/templates/'));
+            Redirect::to(URL::build('/panel/core/temalar/'));
 
         case 'deactivate':
             if (Token::check()) {
@@ -178,7 +178,7 @@ if (!isset($_GET['action'])) {
                 $template = DB::getInstance()->get('templates', ['id', $_GET['template']])->results();
                 if (!count($template)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/templates/'));
+                    Redirect::to(URL::build('/panel/core/temalar/'));
                 }
 
                 $template = $template[0]->id;
@@ -194,11 +194,11 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/templates'));
+            Redirect::to(URL::build('/panel/core/temalar'));
 
         case 'delete':
             if (!isset($_GET['template'])) {
-                Redirect::to('/panel/core/templates');
+                Redirect::to('/panel/core/temalar');
             }
 
             if (Token::check()) {
@@ -210,12 +210,12 @@ if (!isset($_GET['action'])) {
                     if (count($template)) {
                         $template = $template[0];
                         if ($template->name == 'RadomeWEB' || $template->id == 1 || $template->enabled == 1 || $template->is_default == 1) {
-                            Redirect::to(URL::build('/panel/core/templates'));
+                            Redirect::to(URL::build('/panel/core/temalar'));
                         }
 
                         $item = $template->name;
                     } else {
-                        Redirect::to(URL::build('/panel/core/templates'));
+                        Redirect::to(URL::build('/panel/core/temalar'));
                     }
 
                     if (!Util::recursiveRemoveDirectory(ROOT_PATH . '/custom/templates/' . $item)) {
@@ -233,7 +233,7 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/templates'));
+            Redirect::to(URL::build('/panel/core/temalar'));
 
         case 'make_default':
             if (Token::check()) {
@@ -242,7 +242,7 @@ if (!isset($_GET['action'])) {
                 $new_default = DB::getInstance()->get('templates', ['id', $_GET['template']])->results();
                 if (!count($new_default)) {
                     // Doesn't exist
-                    Redirect::to(URL::build('/panel/core/templates/'));
+                    Redirect::to(URL::build('/panel/core/temalar/'));
                 }
 
                 $new_default_template = $new_default[0]->name;
@@ -273,12 +273,12 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_templates_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/templates/'));
+            Redirect::to(URL::build('/panel/core/temalar/'));
 
         case 'settings':
             // Editing template settings
             if (!$user->hasPermission('admincp.styles.templates.edit')) {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             $current_template = $template;
@@ -288,7 +288,7 @@ if (!isset($_GET['action'])) {
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             require_once(ROOT_PATH . DIRECTORY_SEPARATOR . 'custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . str_replace(['../', '/', '..'], '', $template_query->name) . DIRECTORY_SEPARATOR . 'template.php');
@@ -302,17 +302,17 @@ if (!isset($_GET['action'])) {
                             'template' => Text::bold(Output::getClean($template_query->name))
                         ]),
                         'BACK' => $language->get('general', 'back'),
-                        'BACK_LINK' => URL::build('/panel/core/templates'),
+                        'BACK_LINK' => URL::build('/panel/core/temalar'),
                         'PERMISSIONS' => $language->get('admin', 'permissions'),
-                        'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/templates/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
+                        'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/temalar/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
                     ]);
 
                     $template_file = 'core/template_settings.tpl';
                 } else {
-                    Redirect::to(URL::build('/panel/core/templates'));
+                    Redirect::to(URL::build('/panel/core/temalar'));
                 }
             } else {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             $template = $current_template;
@@ -322,7 +322,7 @@ if (!isset($_GET['action'])) {
         case 'permissions':
             // Template permissions
             if (!$user->hasPermission('admincp.groups')) {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             // Get the template
@@ -330,7 +330,7 @@ if (!isset($_GET['action'])) {
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             // Handle input
@@ -426,7 +426,7 @@ if (!isset($_GET['action'])) {
                     'template' => Text::bold(Output::getClean($template_query->name))
                 ]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/templates'),
+                'BACK_LINK' => URL::build('/panel/core/temalar'),
                 'PERMISSIONS' => $language->get('admin', 'permissions'),
                 'GUESTS' => $language->get('user', 'guests'),
                 'GUEST_PERMISSIONS' => (count($guest_query) ? $guest_query[0] : []),
@@ -444,14 +444,14 @@ if (!isset($_GET['action'])) {
         case 'edit':
             // Editing template
             if (!$user->hasPermission('admincp.styles.templates.edit')) {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
             // Get the template
             $template_query = DB::getInstance()->get('templates', ['id', $_GET['template']])->results();
             if (count($template_query)) {
                 $template_query = $template_query[0];
             } else {
-                Redirect::to(URL::build('/panel/core/templates'));
+                Redirect::to(URL::build('/panel/core/temalar'));
             }
 
             if ($_GET['template'] == 1) {
@@ -471,12 +471,12 @@ if (!isset($_GET['action'])) {
                     if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                         if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                             $template_files[] = [
-                                'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&file=' . urlencode($file)),
+                                'link' => URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id) . '&file=' . urlencode($file)),
                                 'name' => Output::getClean($file)
                             ];
                         } else {
                             $template_dirs[] = [
-                                'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($file)),
+                                'link' => URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($file)),
                                 'name' => Output::getClean($file)
                             ];
                         }
@@ -485,13 +485,13 @@ if (!isset($_GET['action'])) {
 
                 $smarty->assign([
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/templates/'),
+                    'BACK_LINK' => URL::build('/panel/core/temalar/'),
                     'TEMPLATE_FILES' => $template_files,
                     'TEMPLATE_DIRS' => $template_dirs,
                     'VIEW' => $language->get('general', 'view'),
                     'EDIT' => $language->get('general', 'edit'),
                     'PERMISSIONS' => $language->get('admin', 'permissions'),
-                    'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/templates/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
+                    'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? URL::build('/panel/core/temalar/', 'template=' . urlencode($template_query->id) . '&action=permissions') : null,
                 ]);
 
                 $template_file = 'core/templates_list_files.tpl';
@@ -502,7 +502,7 @@ if (!isset($_GET['action'])) {
                     $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
 
                     if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($template_query->name), $dir]))) {
-                        Redirect::to(URL::build('/panel/core/templates'));
+                        Redirect::to(URL::build('/panel/core/temalar'));
                     }
 
                     $template_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($template_query->name), $dir]);
@@ -515,12 +515,12 @@ if (!isset($_GET['action'])) {
                         if ($file != '.' && $file != '..' && (is_dir($template_path . DIRECTORY_SEPARATOR . $file) || pathinfo($file, PATHINFO_EXTENSION) == 'tpl' || pathinfo($file, PATHINFO_EXTENSION) == 'css' || pathinfo($file, PATHINFO_EXTENSION) == 'js' || pathinfo($file, PATHINFO_EXTENSION) == 'conf')) {
                             if (!is_dir($template_path . DIRECTORY_SEPARATOR . $file)) {
                                 $template_files[] = [
-                                    'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($dir) . '&file=' . urlencode($file)),
+                                    'link' => URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($dir) . '&file=' . urlencode($file)),
                                     'name' => Output::getClean($file)
                                 ];
                             } else {
                                 $template_dirs[] = [
-                                    'link' => URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($dir) . DIRECTORY_SEPARATOR . urlencode($file)),
+                                    'link' => URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($dir) . DIRECTORY_SEPARATOR . urlencode($file)),
                                     'name' => Output::getClean($file)
                                 ];
                             }
@@ -532,9 +532,9 @@ if (!isset($_GET['action'])) {
                     if (count($dirs) > 1) {
                         unset($dirs[count($dirs) - 1]);
                         $new_dir = implode('/', $dirs);
-                        $back_link = URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($new_dir));
+                        $back_link = URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id) . '&dir=' . urlencode($new_dir));
                     } else {
-                        $back_link = URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($template_query->id));
+                        $back_link = URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($template_query->id));
                     }
 
                     $smarty->assign([
@@ -545,7 +545,7 @@ if (!isset($_GET['action'])) {
                         'VIEW' => $language->get('general', 'view'),
                         'EDIT' => $language->get('general', 'edit'),
                         'PERMISSIONS' => $language->get('admin', 'permissions'),
-                        'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? '/panel/core/templates/?template=' . Output::getClean($template_query->id) . '&action=permissions' : null,
+                        'PERMISSIONS_LINK' => $user->hasPermission('admincp.groups') ? '/panel/core/temalar/?template=' . Output::getClean($template_query->id) . '&action=permissions' : null,
                     ]);
 
                     $template_file = 'core/templates_list_files.tpl';
@@ -558,7 +558,7 @@ if (!isset($_GET['action'])) {
                             $dir = ltrim(explode('custom' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $template_query->name, $realdir)[1], '/');
 
                             if (!is_dir(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($template_query->name), $dir]))) {
-                                Redirect::to(URL::build('/panel/core/templates'));
+                                Redirect::to(URL::build('/panel/core/temalar'));
                             }
 
                             $file_path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', Output::getClean($template_query->name), $dir, $file]);
@@ -581,7 +581,7 @@ if (!isset($_GET['action'])) {
                         }
 
                         if ($file_type === null) {
-                            Redirect::to(URL::build('/panel/core/templates'));
+                            Redirect::to(URL::build('/panel/core/temalar'));
                         }
 
                         // Deal with input
@@ -602,9 +602,9 @@ if (!isset($_GET['action'])) {
 
                                     // Redirect to refresh page
                                     if (isset($_GET['dir'])) {
-                                        Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&dir=' . urlencode($_GET['dir']) . '&file=' . urlencode($_GET['file'])));
+                                        Redirect::to(URL::build('/panel/core/temalar/', 'action=edit&template=' . $_GET['template'] . '&dir=' . urlencode($_GET['dir']) . '&file=' . urlencode($_GET['file'])));
                                     } else {
-                                        Redirect::to(URL::build('/panel/core/templates/', 'action=edit&template=' . $_GET['template'] . '&file=' . urlencode($_GET['file'])));
+                                        Redirect::to(URL::build('/panel/core/temalar/', 'action=edit&template=' . $_GET['template'] . '&file=' . urlencode($_GET['file'])));
                                     }
                                 }
 
@@ -617,9 +617,9 @@ if (!isset($_GET['action'])) {
                         }
 
                         if (isset($_GET['dir'])) {
-                            $cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($_GET['template']) . '&dir=' . urlencode($_GET['dir']));
+                            $cancel_link = URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($_GET['template']) . '&dir=' . urlencode($_GET['dir']));
                         } else {
-                            $cancel_link = URL::build('/panel/core/templates/', 'action=edit&template=' . urlencode($_GET['template']));
+                            $cancel_link = URL::build('/panel/core/temalar/', 'action=edit&template=' . urlencode($_GET['template']));
                         }
 
                         if (isset($_GET['dir'])) {
@@ -657,7 +657,7 @@ if (!isset($_GET['action'])) {
             break;
 
         default:
-            Redirect::to(URL::build('/panel/core/templates'));
+            Redirect::to(URL::build('/panel/core/temalar'));
     }
 }
 

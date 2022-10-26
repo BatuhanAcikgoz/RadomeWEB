@@ -129,4 +129,4 @@ $template->onPageLoad();
 require(ROOT_PATH . '/core/templates/panel_navbar.php');
 
 // Display template
-$template->displayTemplate('core/privacy_and_terms.tpl', $smarty);
+$template->displayTemplate('core/gizlilik_and_terms.tpl', $smarty);

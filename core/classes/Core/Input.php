@@ -83,7 +83,7 @@ class Input {
                                 columns: 1,
                                 fetch: function (pattern) {
                                     return new tinymce.util.Promise(function (resolve) {
-                                        fetch('" . URL::build('/queries/mention_users', 'username') . "=' + pattern)
+                                        fetch('" . URL::build('/sorgu/bahsedilenler', 'username') . "=' + pattern)
                                             .then((resp) => resp.json())
                                             .then(function (data) {
                                                 const results = [];
@@ -147,7 +147,7 @@ class Input {
 
                   xhr = new XMLHttpRequest();
                   xhr.withCredentials = false;
-                  xhr.open('POST', '" . URL::build('/queries/tinymce_image_upload') . "');
+                  xhr.open('POST', '" . URL::build('/sorgu/tinymce_image_upload') . "');
 
                   xhr.upload.onprogress = function (e) {
                     progress(e.loaded / e.total * 100);

@@ -54,7 +54,7 @@ if (isset($_GET['leaderboard'])) {
                     ]);
 
                     Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                    Redirect::to(URL::build('/panel/minecraft/placeholders'));
+                    Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                     $errors[] = 'Enabled - ' . $enabled;
@@ -79,7 +79,7 @@ if (isset($_GET['leaderboard'])) {
             'ENABLED_INFO' => $language->get('admin', 'placeholder_leaderboard_enable_info'),
             'SUBMIT' => $language->get('general', 'submit'),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/minecraft/placeholders'),
+            'BACK_LINK' => URL::build('/panel/minecraft/placeholderlar'),
             'PLACEHOLDERS' => $language->get('admin', 'placeholders'),
             'PLACEHOLDER_LEADERBOARD_SETTINGS' => $language->get('admin', 'placeholder_leaderboard_settings'),
             'PLACEHOLDER_LEADERBOARD_INFO' => $language->get('admin', 'placeholder_leaderboard_info'),
@@ -93,7 +93,7 @@ if (isset($_GET['leaderboard'])) {
         ]);
 
     } else {
-        Redirect::to(URL::build('/panel/minecraft/placeholders'));
+        Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
     }
 
 } else {
@@ -130,7 +130,7 @@ if (isset($_GET['leaderboard'])) {
             }
 
             Session::flash('placeholders_success', $language->get('admin', 'updated_placeholder_settings'));
-            Redirect::to(URL::build('/panel/minecraft/placeholders'));
+            Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }

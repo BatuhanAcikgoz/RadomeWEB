@@ -39,7 +39,7 @@ if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
             $integrationUser = $user->getIntegration($integration->getName());
             if ($integrationUser === null || !$integrationUser->isVerified()) {
                 Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
-                Redirect::to(URL::build('/user/connections'));
+                Redirect::to(URL::build('/user/baglantilar'));
             }
         }
     }
@@ -73,7 +73,7 @@ if ($user->isLoggedIn()) {
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
                     'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/acknowledge/' . urlencode($warning->id))
+                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/bilgilendirme/' . urlencode($warning->id))
                 ]);
                 break;
             }
@@ -152,6 +152,6 @@ $smarty->assign([
     'AUTO_LANGUAGE_TEXT' => $language->get('general', 'auto_language'),
     'ENABLED' => $language->get('user', 'enabled'),
     'DISABLED' => $language->get('user', 'disabled'),
-    'DARK_LIGHT_MODE_ACTION' => URL::build('/queries/dark_light_mode'),
+    'DARK_LIGHT_MODE_ACTION' => URL::build('/sorgu/aydinlik_karanlik_mod'),
     'DARK_LIGHT_MODE_TOKEN' => $user->isLoggedIn() ? Token::get() : null
 ]);
