@@ -114,8 +114,10 @@
 {if isset($THEME_DS_BOX) && $THEME_DS_BOX|count_characters > 2} {if isset($MINECRAFT)}
 <div class="box box1">
     {if isset($CLICK_TO_COPY_TOOLTIP)}
-        <div class="col-lg-12 discordheader d-none d-lg-block" style="color: #93bf85;">
-        <i class="mdi mdi-minecraft" style="margin-right: 10px;"></i>
+        <div class="col-lg-12 discordheader d-none d-lg-block">
+        <svg class="creeper" viewBox="0 0 24 24">
+            <path fill="#FFFFFF" d="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2M6,6V10H10V12H8V18H10V16H14V18H16V12H14V10H18V6H14V10H10V6H6Z" />
+        </svg>
         <div class="discord-text-right" style="text-align: left;">
         <span style="margin-bottom: 10px;" class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small style="color: #93bf85;">{$CONNECT_WITH}</small></span>
         {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}

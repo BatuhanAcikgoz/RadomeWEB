@@ -1194,10 +1194,6 @@ button:focus {
     text-transform: uppercase;
 }
 
-.creeper {
-    width: 20px;
-}
-
 .discord-txt {
     cursor: default !important;
 }
@@ -1510,6 +1506,13 @@ button:focus {
 	height: 70px;
 	line-height: 70px;
 	font-size: 70px;
+}
+
+.creeper {
+	height: 70px;
+	line-height: 70px;
+	font-size: 70px;
+    color: #93bf85;
 }
 
 .discordheader .discord-text-right span {
