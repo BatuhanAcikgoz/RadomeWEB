@@ -1502,12 +1502,7 @@ button:focus {
 .discordheader {
 	color: #7F9DFF;
 	text-align: right;
-	margin-left: auto;
 	font-weight: 700;
-	position: absolute;
-	right: 0;
-	z-index: 2;
-	top: 35px;
 }
 
 .discordheader .discord-text-right {
