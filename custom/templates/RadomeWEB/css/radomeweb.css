@@ -1415,7 +1415,11 @@ button:focus {
 }
 .footer-youtube,
 .footer-instagram,
-.footer-link,
+
+.footer-link {
+    color: rgb(234, 234, 234);
+}
+
 .footer-copy {
     text-align: center;
 }
