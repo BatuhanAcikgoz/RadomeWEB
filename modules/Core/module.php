@@ -68,7 +68,7 @@ class Core_Module extends Module {
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
-        $pages->add('Core', '/panel/giris', 'pages/panel/login.php');
+        $pages->add('Core', '/panel/giris', 'pages/panel/auth.php');
         $pages->add('Core', '/panel/core/genel_ayarlar', 'pages/panel/general_settings.php');
         $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
         $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
