@@ -135,7 +135,7 @@
                         <div class="discord-text-right">
                             <span class="online-discord"><small">{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>
                         </div>
-                        <i class="mdi mdi-discord"></i>
+                        <i class="fab fa-discord"></i>
                     </a>
                 </div>
 </div>

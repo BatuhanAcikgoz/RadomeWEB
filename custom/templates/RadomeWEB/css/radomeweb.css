@@ -1573,7 +1573,7 @@ button:focus {
 .discordheader .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
-	margin-right: 10px;
+	margin-right: 20px;
 	position: relative;
 	bottom: 2px;
 }
