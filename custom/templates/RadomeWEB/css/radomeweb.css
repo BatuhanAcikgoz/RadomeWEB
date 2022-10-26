@@ -1505,6 +1505,12 @@ button:focus {
 	font-weight: 700;
 }
 
+.discordheader i {
+	height: 48px;
+	line-height: 48px;
+	font-size: 48px;
+}
+
 .discordheader .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
