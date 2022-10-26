@@ -36,12 +36,12 @@ if (isset($_GET['action']) && $_GET['action'] === 'delete') {
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->exists()) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 $user_query = $view_user->data();
 

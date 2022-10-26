@@ -15,12 +15,12 @@ if (!$user->handlePanelPageLoad('admincp.users.edit')) {
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->exists()) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 $user_query = $view_user->data();
 
@@ -64,7 +64,7 @@ if (isset($_GET['action'])) {
         throw new InvalidArgumentException('Invalid action: ' . $_GET['action']);
     }
 
-    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
+    Redirect::to(URL::build('/panel/kullanicilar/duzenle/', 'id=' . urlencode($user_query->id)));
 }
 
 if (Input::exists()) {
@@ -183,7 +183,7 @@ if (Input::exists()) {
                     }
 
                     Session::flash('edit_user_success', $language->get('admin', 'user_updated_successfully'));
-                    Redirect::to(URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id)));
+                    Redirect::to(URL::build('/panel/kullanicilar/duzenle/', 'id=' . urlencode($user_query->id)));
                 } catch (Exception $e) {
                     $errors[] = $e->getMessage();
                 }
@@ -205,7 +205,7 @@ if (Input::exists()) {
                     Session::flash('users_session', $language->get('admin', 'user_deleted'));
                 }
 
-                Redirect::to(URL::build('/panel/users'));
+                Redirect::to(URL::build('/panel/kullanicilar'));
             }
         }
     } else {
@@ -249,9 +249,9 @@ if (isset($warnings) && count($warnings)) {
 if ($user_query->active == 0) {
     $smarty->assign([
         'VALIDATE_USER' => $language->get('admin', 'validate_user'),
-        'VALIDATE_USER_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=validate'),
+        'VALIDATE_USER_LINK' => URL::build('/panel/kullanicilar/duzenle/', 'id=' . urlencode($user_query->id) . '&action=validate'),
         'RESEND_ACTIVATION_EMAIL' => $language->get('admin', 'resend_activation_email'),
-        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/users/edit/', 'id=' . urlencode($user_query->id) . '&action=resend_email')
+        'RESEND_ACTIVATION_EMAIL_LINK' => URL::build('/panel/kullanicilar/duzenle/', 'id=' . urlencode($user_query->id) . '&action=resend_email')
     ]);
 }
 

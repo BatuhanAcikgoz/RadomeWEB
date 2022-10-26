@@ -28,7 +28,7 @@ if (isset($_GET['uid'])) {
 
     $user_query = DB::getInstance()->get('users', ['id', $user_id])->results();
     if (!count($user_query)) {
-        Redirect::to(URL::build('/panel/users'));
+        Redirect::to(URL::build('/panel/kullanicilar'));
     }
     $user_query = $user_query[0];
 

@@ -139,7 +139,7 @@ if ($image['file']) {
             ]);
 
             Session::flash('settings_success', $language->get('user', 'avatar_set_successfully'));
-            Redirect::to(URL::build('/user/ayarlar'));
+            Redirect::to(URL::build('/kullanici/ayarlar'));
         }
 
         if (Input::get('type') === 'profile_banner') {
@@ -159,7 +159,7 @@ if ($image['file']) {
     }
 } else {
     if (Input::get('type') === 'avatar') {
-        Redirect::to(URL::build('/user/ayarlar'));
+        Redirect::to(URL::build('/kullanici/ayarlar'));
     }
 
     die('No image selected');

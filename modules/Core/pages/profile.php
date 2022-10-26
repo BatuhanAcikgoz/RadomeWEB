@@ -519,7 +519,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
             $smarty->assign([
                 'SELF' => true,
-                'SETTINGS_LINK' => URL::build('/user/ayarlar'),
+                'SETTINGS_LINK' => URL::build('/kullanici/ayarlar'),
                 'CHANGE_BANNER' => $language->get('user', 'change_banner'),
                 'BANNERS' => $banners,
                 'CAN_VIEW' => true,
@@ -536,8 +536,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             }
         } else {
             $smarty->assign([
-                'MESSAGE_LINK' => URL::build('/user/mesajlasma/', 'action=new&amp;uid=' . urlencode($query->id)),
-                'FOLLOW_LINK' => URL::build('/user/follow/', 'user=' . urlencode($query->id)),
+                'MESSAGE_LINK' => URL::build('/kullanici/mesajlasma/', 'action=new&amp;uid=' . urlencode($query->id)),
+                'FOLLOW_LINK' => URL::build('/kullanici/follow/', 'user=' . urlencode($query->id)),
                 'CONFIRM' => $language->get('general', 'confirm'),
                 'MOD_OR_ADMIN' => $profile_user->canViewStaffCP()
             ]);

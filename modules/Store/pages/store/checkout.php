@@ -49,7 +49,7 @@ if (isset($_GET['do'])) {
             if ($integrationUser == null || $integrationUser->data()->username == null || $integrationUser->data()->identifier == null) {
                 Session::flash('store_error', $store_language->get('general', 'product_requires_integration', [
                     'integration' => Output::getClean($integration->getName()),
-                    'linkStart' => '<a href="' . URL::build('/user/baglantilar') . '">',
+                    'linkStart' => '<a href="' . URL::build('/kullanici/baglantilar') . '">',
                     'linkEnd' => '</a>'
                 ]));
                 Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));

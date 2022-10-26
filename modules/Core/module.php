@@ -57,14 +57,14 @@ class Core_Module extends Module {
         $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
-        $pages->add('Core', '/user', 'pages/user/index.php');
-        $pages->add('Core', '/user/ayarlar', 'pages/user/ayarlar.php');
-        $pages->add('Core', '/user/mesajlasma', 'pages/user/mesajlasma.php');
-        $pages->add('Core', '/user/uyarilar', 'pages/user/uyarilar.php');
-        $pages->add('Core', '/user/oauth', 'pages/user/oauth.php');
-        $pages->add('Core', '/user/placeholderlar', 'pages/user/placeholderlar.php');
-        $pages->add('Core', '/user/bilgilendirme', 'pages/user/bilgilendirme.php');
-        $pages->add('Core', '/user/baglantilar', 'pages/user/baglantilar.php');
+        $pages->add('Core', '/kullanici', 'pages/user/index.php');
+        $pages->add('Core', '/kullanici/ayarlar', 'pages/user/ayarlar.php');
+        $pages->add('Core', '/kullanici/mesajlasma', 'pages/user/mesajlasma.php');
+        $pages->add('Core', '/kullanici/uyarilar', 'pages/user/uyarilar.php');
+        $pages->add('Core', '/kullanici/oauth', 'pages/user/oauth.php');
+        $pages->add('Core', '/kullanici/placeholderlar', 'pages/user/placeholderlar.php');
+        $pages->add('Core', '/kullanici/bilgilendirme', 'pages/user/bilgilendirme.php');
+        $pages->add('Core', '/kullanici/baglantilar', 'pages/user/baglantilar.php');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
@@ -99,13 +99,13 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/guvenlik', 'pages/panel/security.php');
         $pages->add('Core', '/panel/guncelleme', 'pages/panel/update.php');
         $pages->add('Core', '/panel/yukseltme', 'pages/panel/upgrade.php');
-        $pages->add('Core', '/panel/users', 'pages/panel/users.php');
-        $pages->add('Core', '/panel/users/edit', 'pages/panel/users_edit.php');
-        $pages->add('Core', '/panel/kullanicilar/entegrasyonlar', 'pages/panel/users_integrations.php');
-        $pages->add('Core', '/panel/kullanicilar/oauth', 'pages/panel/users_oauth.php');
-        $pages->add('Core', '/panel/kullanicilar/ip_sorgu', 'pages/panel/users_ip_lookup.php');
-        $pages->add('Core', '/panel/kullanicilar/cezalar', 'pages/panel/users_punishments.php');
-        $pages->add('Core', '/panel/kullanicilar/raporlar', 'pages/panel/users_reports.php');
+        $pages->add('Core', '/panel/kullanicilar', 'pages/panel/kullanicilar.php');
+        $pages->add('Core', '/panel/kullanicilar/duzenle', 'pages/panel/kullanicilar_edit.php');
+        $pages->add('Core', '/panel/kullanicilar/entegrasyonlar', 'pages/panel/kullanicilar_integrations.php');
+        $pages->add('Core', '/panel/kullanicilar/oauth', 'pages/panel/kullanicilar_oauth.php');
+        $pages->add('Core', '/panel/kullanicilar/ip_sorgu', 'pages/panel/kullanicilar_ip_lookup.php');
+        $pages->add('Core', '/panel/kullanicilar/cezalar', 'pages/panel/kullanicilar_punishments.php');
+        $pages->add('Core', '/panel/kullanicilar/raporlar', 'pages/panel/kullanicilar_reports.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
         $pages->add('Core', '/admin/update_execute', 'pages/admin/update_execute.php');
@@ -1331,7 +1331,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('user_icon');
                 }
 
-                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/users'), 'top', null, $icon, $order);
+                $navs[2]->addItemToDropdown('users', 'users', $language->get('admin', 'users'), URL::build('/panel/kullanicilar'), 'top', null, $icon, $order);
 
                 if ($user->hasPermission('modcp.ip_lookup')) {
                     if (!$cache->isCached('ip_lookup_icon')) {
@@ -1496,7 +1496,7 @@ class Core_Module extends Module {
             }
 
             if ($user->hasPermission('admincp.users.edit')) {
-                self::addUserAction($language->get('general', 'edit'), URL::build('/panel/users/edit/', 'id={id}'));
+                self::addUserAction($language->get('general', 'edit'), URL::build('/panel/kullanicilar/duzenle/', 'id={id}'));
             }
 
             if ($user->hasPermission('admincp.users.edit')) {

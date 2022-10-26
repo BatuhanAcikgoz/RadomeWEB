@@ -19,7 +19,7 @@ if ($user->isLoggedIn()) {
      */
     $user_area['usercp'] = [
         'target' => '',
-        'link' => URL::build('/user'),
+        'link' => URL::build('/kullanici'),
         'title' => $language->get('user', 'user_cp')
     ];
     if (defined('PAGE') && PAGE == 'usercp') {
@@ -40,7 +40,7 @@ if ($user->isLoggedIn()) {
                 'separator' => true
             ],
             'user' => [
-                'link' => URL::build('/user'),
+                'link' => URL::build('/kullanici'),
                 'target' => '',
                 'title' => $language->get('user', 'user_cp')
             ]
@@ -73,7 +73,7 @@ if ($user->isLoggedIn()) {
         'pms' => [
             'title' => $language->get('user', 'messages'),
             'icon' => '<i class="fas fa-envelope icon"></i>',
-            'link' => URL::build('/user/mesajlasma'),
+            'link' => URL::build('/kullanici/mesajlasma'),
             'meta' => $language->get('user', 'view_messages'),
             'target' => '',
             'items' => [
@@ -87,7 +87,7 @@ if ($user->isLoggedIn()) {
         'alerts' => [
             'title' => $language->get('user', 'alerts'),
             'icon' => '<i class="fas fa-flag icon"></i>',
-            'link' => URL::build('/user/uyarilar'),
+            'link' => URL::build('/kullanici/uyarilar'),
             'meta' => $language->get('user', 'view_alerts'),
             'target' => '',
             'items' => [
@@ -124,7 +124,7 @@ if ($user->isLoggedIn()) {
             ],
             'user' => [
                 'title' => $language->get('user', 'user_cp'),
-                'link' => URL::build('/user'),
+                'link' => URL::build('/kullanici'),
                 'target' => '',
             ],
             'separator_1' => [
@@ -195,9 +195,9 @@ $smarty->assign([
 if ($user->isLoggedIn()) {
     // Get unread alerts and messages
     $smarty->assign([
-        'ALERTS_LINK' => URL::build('/user/uyarilar'),
+        'ALERTS_LINK' => URL::build('/kullanici/uyarilar'),
         'VIEW_ALERTS' => $language->get('user', 'view_alerts'),
-        'MESSAGING_LINK' => URL::build('/user/mesajlasma'),
+        'MESSAGING_LINK' => URL::build('/kullanici/mesajlasma'),
         'VIEW_MESSAGES' => $language->get('user', 'view_messages'),
         'LOADING' => $language->get('general', 'loading'),
         'MESSAGING' => $language->get('user', 'messaging'),

@@ -61,7 +61,7 @@ class Discord extends AbstractProvider
      */
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return $this->apiDomain.'/users/@me';
+        return $this->apiDomain.'/kullanicis/@me';
     }
 
     /**

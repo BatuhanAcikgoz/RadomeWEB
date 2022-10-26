@@ -33,7 +33,7 @@ class Forms_Module extends Module {
         $pages->add('Forms', '/panel/formlar', 'pages/panel/formlar.php');
         $pages->add('Forms', '/panel/formlar/durumlar', 'pages/panel/statuses.php');
         $pages->add('Forms', '/panel/formlar/talepler', 'pages/panel/submissions.php');
-        $pages->add('Forms', '/user/talepler', 'pages/user/talepler.php');
+        $pages->add('Forms', '/kullanici/talepler', 'pages/user/talepler.php');
 
         // Check if module version changed
 
@@ -159,7 +159,7 @@ class Forms_Module extends Module {
             'forms.anonymous' => $this->_language->get('moderator', 'staff_cp')  . ' &raquo; ' .  $this->_forms_language->get('forms', 'forms')  . ' &raquo; ' . $this->_forms_language->get('forms', 'submit_as_anonymous')
         ));
 
-        $navs[1]->add('cc_submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/user/talepler'));
+        $navs[1]->add('cc_submissions', $this->_forms_language->get('forms', 'submissions'), URL::build('/kullanici/talepler'));
 
         if (defined('BACK_END')) {
             if ($user->hasPermission('forms.manage') || $user->hasPermission('forms.view-submissions')) {

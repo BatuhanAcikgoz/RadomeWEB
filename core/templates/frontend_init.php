@@ -39,7 +39,7 @@ if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
             $integrationUser = $user->getIntegration($integration->getName());
             if ($integrationUser === null || !$integrationUser->isVerified()) {
                 Session::flash('connections_error', $language->get('user', 'integration_required_to_continue'));
-                Redirect::to(URL::build('/user/baglantilar'));
+                Redirect::to(URL::build('/kullanici/baglantilar'));
             }
         }
     }
@@ -73,7 +73,7 @@ if ($user->isLoggedIn()) {
                     'GLOBAL_WARNING_TITLE' => $language->get('user', 'you_have_received_a_warning'),
                     'GLOBAL_WARNING_REASON' => Output::getClean($warning->reason),
                     'GLOBAL_WARNING_ACKNOWLEDGE' => $language->get('user', 'acknowledge'),
-                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/user/bilgilendirme/' . urlencode($warning->id))
+                    'GLOBAL_WARNING_ACKNOWLEDGE_LINK' => URL::build('/kullanici/bilgilendirme/' . urlencode($warning->id))
                 ]);
                 break;
             }

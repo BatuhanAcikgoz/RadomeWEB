@@ -28,7 +28,7 @@ if (isset($_GET['do'])) {
 
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
-            Redirect::to(URL::build('/user/ayarlar'));
+            Redirect::to(URL::build('/kullanici/ayarlar'));
         }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
@@ -53,9 +53,9 @@ if (isset($_GET['do'])) {
                 'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
                 'TFA_CODE' => chunk_split($secret, 4, ' '),
                 'NEXT' => $language->get('general', 'next'),
-                'LINK' => URL::build('/user/ayarlar/', 'do=enable_tfa&amp;s=2'),
+                'LINK' => URL::build('/kullanici/ayarlar/', 'do=enable_tfa&amp;s=2'),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/user/ayarlar/', 'do=disable_tfa'),
+                'CANCEL_LINK' => URL::build('/kullanici/ayarlar/', 'do=disable_tfa'),
                 'ERROR_TITLE' => $language->get('general', 'error')
             ]);
 
@@ -86,7 +86,7 @@ if (isset($_GET['do'])) {
 
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
-                            Redirect::to(URL::build('/user/ayarlar'));
+                            Redirect::to(URL::build('/kullanici/ayarlar'));
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
@@ -108,7 +108,7 @@ if (isset($_GET['do'])) {
                 'SUBMIT' => $language->get('general', 'submit'),
                 'TOKEN' => Token::get(),
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/user/ayarlar/', 'do=disable_tfa'),
+                'CANCEL_LINK' => URL::build('/kullanici/ayarlar/', 'do=disable_tfa'),
                 'ERROR_TITLE' => $language->get('general', 'error')
             ]);
 
@@ -138,7 +138,7 @@ if (isset($_GET['do'])) {
                     ]);
 
                     Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
-                    Redirect::to(URL::build('/user/ayarlar'));
+                    Redirect::to(URL::build('/kullanici/ayarlar'));
                 }
 
                 echo $language->get('general', 'invalid_token') . '<hr />';
@@ -310,7 +310,7 @@ if (isset($_GET['do'])) {
                         }
 
                         Session::flash('settings_success', $language->get('user', 'settings_updated_successfully'));
-                        Redirect::to(URL::build('/user/ayarlar'));
+                        Redirect::to(URL::build('/kullanici/ayarlar'));
 
                     } catch (Exception $e) {
                         Session::flash('settings_error', $e->getMessage());
@@ -427,7 +427,7 @@ if (isset($_GET['do'])) {
                                     ]);
 
                                     Session::flash('settings_success', $language->get('user', 'email_changed_successfully'));
-                                    Redirect::to(URL::build('/user/ayarlar'));
+                                    Redirect::to(URL::build('/kullanici/ayarlar'));
                                 }
 
                                 // Invalid password
@@ -609,12 +609,12 @@ if (isset($_GET['do'])) {
         if (isset($forced) && $forced) {
             $smarty->assign('FORCED', true);
         } else {
-            $smarty->assign('DISABLE_LINK', URL::build('/user/ayarlar/', 'do=disable_tfa'));
+            $smarty->assign('DISABLE_LINK', URL::build('/kullanici/ayarlar/', 'do=disable_tfa'));
         }
     } else {
         // Enable
         $smarty->assign('ENABLE', $language->get('user', 'enable'));
-        $smarty->assign('ENABLE_LINK', URL::build('/user/ayarlar/', 'do=enable_tfa'));
+        $smarty->assign('ENABLE_LINK', URL::build('/kullanici/ayarlar/', 'do=enable_tfa'));
     }
 
     // Load modules + template

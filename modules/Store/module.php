@@ -52,7 +52,7 @@ class Store_Module extends Module {
         $pages->add('Store', '/panel/magaza/odemeler', 'pages/panel/payments.php');
         $pages->add('Store', '/panel/magaza/baglantilar', 'pages/panel/connections.php');
         $pages->add('Store', '/panel/magaza/alanlar', 'pages/panel/fields.php');
-        $pages->add('Store', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
+        $pages->add('Store', '/panel/kullanicilar/magaza', 'pages/panel/kullanicilar_store.php');
 
         $pages->add('Store', '/kullanici/magaza', 'pages/user/store.php');
 

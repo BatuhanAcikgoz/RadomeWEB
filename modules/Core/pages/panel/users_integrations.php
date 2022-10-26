@@ -22,12 +22,12 @@ $page_title = $language->get('admin', 'users');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 
 $view_user = new User($_GET['id']);
 if (!$view_user->exists()) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 
 if (!isset($_GET['action']) || !isset($_GET['integration'])) {

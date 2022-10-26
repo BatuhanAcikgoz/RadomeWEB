@@ -368,12 +368,12 @@ if (!isset($_GET['view'])) {
                                     'submission_update',
                                     ['path' => ROOT_PATH . '/modules/Forms/language', 'file' => 'forms', 'term' => 'your_submission_updated', 'replace' => ['{x}'], 'replace_with' => [Output::getClean($form->data()->title)]],
                                     ['path' => ROOT_PATH . '/modules/Forms/language', 'file' => 'forms', 'term' => 'your_submission_updated', 'replace' => ['{x}'], 'replace_with' => [Output::getClean($form->data()->title)]],
-                                    URL::build('/user/talepler/', 'view=' . Output::getClean($submission->data()->id))
+                                    URL::build('/kullanici/talepler/', 'view=' . Output::getClean($submission->data()->id))
                                 );
 
                                 // Send email to user of new changes to submission
                                 if ($sendEmail == 1) {
-                                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/user/talepler/', 'view=' . $submission->data()->id);
+                                    $link = rtrim(URL::getSelfURL(), '/') . URL::build('/kullanici/talepler/', 'view=' . $submission->data()->id);
                                     $comment = (!empty(Input::get('content')) ? Input::get('content') : $forms_language->get('forms', 'no_comment'));
 
                                     $message = str_replace(

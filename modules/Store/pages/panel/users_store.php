@@ -15,12 +15,12 @@ if (!$user->handlePanelPageLoad('staffcp.store.payments')) {
 }
 
 if (!isset($_GET['user']) || !is_numeric($_GET['user'])) {
-    Redirect::to(URL::build('/panel/users'));
+    Redirect::to(URL::build('/panel/kullanicilar'));
 }
 
 $view_user = new User($_GET['user']);
 if (!$view_user->exists()) {
-    Redirect::to('/panel/users');
+    Redirect::to('/panel/kullanicilar');
 }
 $customer = new Customer($view_user);
 

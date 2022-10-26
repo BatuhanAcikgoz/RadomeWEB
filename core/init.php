@@ -369,16 +369,16 @@ if ($page != 'install') {
     $staffcp_nav = new Navigation(true); // $staffcp_nav = panel nav
 
     // Add links to cc_nav
-    $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/user'));
-    $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/user/uyarilar'));
-    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/user/mesajlasma'));
-    $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/user/baglantilar'));
-    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/user/ayarlar'));
-    $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/user/oauth'));
+    $cc_nav->add('cc_overview', $language->get('user', 'overview'), URL::build('/kullanici'));
+    $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/kullanici/uyarilar'));
+    $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/kullanici/mesajlasma'));
+    $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/kullanici/baglantilar'));
+    $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/kullanici/ayarlar'));
+    $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/kullanici/oauth'));
 
     // Placeholders enabled?
     if (Util::getSetting('placeholders') === '1') {
-        $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/user/placeholderlar'));
+        $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/kullanici/placeholderlar'));
     }
 
     // Add homepage to navbar
@@ -585,7 +585,7 @@ if ($page != 'install') {
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/cikis') {
                 if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
-                    Redirect::to(URL::build('/user/ayarlar', 'do=enable_tfa'));
+                    Redirect::to(URL::build('/kullanici/ayarlar', 'do=enable_tfa'));
                 }
             }
         }

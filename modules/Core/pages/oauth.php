@@ -61,7 +61,7 @@ try {
             Redirect::to(URL::build('/giris'));
 
         case 'link':
-            Redirect::to(URL::build('/user/oauth/'));
+            Redirect::to(URL::build('/kullanici/oauth/'));
     }
 }
 
@@ -127,7 +127,7 @@ if (Session::get('oauth_method') === 'login') {
 if (Session::get('oauth_method') === 'link') {
     if (RadomeOAuth::getInstance()->userExistsByProviderId($provider_name, $provider_id)) {
         Session::flash('oauth_error', $language->get('user', 'oauth_already_linked', ['provider' => ucfirst($provider_name)]));
-        Redirect::to(URL::build('/user/oauth'));
+        Redirect::to(URL::build('/kullanici/oauth'));
     }
 
     RadomeOAuth::getInstance()->saveUserProvider(
@@ -139,5 +139,5 @@ if (Session::get('oauth_method') === 'link') {
     Session::flash('oauth_success', $language->get('user', 'oauth_link_success', ['provider' => ucfirst($provider_name)]));
     Session::delete('oauth_method');
 
-    Redirect::to(URL::build('/user/oauth'));
+    Redirect::to(URL::build('/kullanici/oauth'));
 }

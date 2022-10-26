@@ -29,7 +29,7 @@ class CreateSubmissionEndpoint extends KeyAuthEndpoint {
 
         $api->returnArray([
             'submission_id' => $submission->data()->id,
-            'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/user/talepler/', 'view=' . Output::getClean($submission->data()->id))
+            'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/kullanici/talepler/', 'view=' . Output::getClean($submission->data()->id))
         ]);
     }
 

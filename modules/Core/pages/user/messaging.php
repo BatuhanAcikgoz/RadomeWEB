@@ -30,15 +30,15 @@ $smarty->assign(
 // Get page
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
-        Redirect::to(URL::build('/user/mesajlasma'));
+        Redirect::to(URL::build('/kullanici/mesajlasma'));
     }
 
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
         if (isset($_GET['message'])) {
-            Redirect::to(URL::build('/user/mesajlasma/', 'action=view&message=' . urlencode($_GET['message'])));
+            Redirect::to(URL::build('/kullanici/mesajlasma/', 'action=view&message=' . urlencode($_GET['message'])));
         } else {
-            Redirect::to(URL::build('/user/mesajlasma'));
+            Redirect::to(URL::build('/kullanici/mesajlasma'));
         }
     }
     $p = $_GET['p'];
@@ -57,7 +57,7 @@ if (!isset($_GET['action'])) {
         $template_pagination_right ?? null
     );
     $results = $paginator->getLimited($messages, 10, $p, count($messages));
-    $pagination = $paginator->generate(7, URL::build('/user/mesajlasma/'));
+    $pagination = $paginator->generate(7, URL::build('/kullanici/mesajlasma/'));
 
     $smarty->assign('PAGINATION', $pagination);
 
@@ -79,7 +79,7 @@ if (!isset($_GET['action'])) {
             'id' => $nValue['id'],
             'title' => Output::getClean($nValue['title']),
             'participants' => $participants,
-            'link' => URL::build('/user/mesajlasma/', 'action=view&amp;message=' . urlencode($nValue['id'])),
+            'link' => URL::build('/kullanici/mesajlasma/', 'action=view&amp;message=' . urlencode($nValue['id'])),
             'last_message_user_id' => Output::getClean($nValue['user_updated']),
             'last_message_user' => $target_user->getDisplayname(),
             'last_message_user_profile' => $target_user->getProfileURL(),
@@ -108,7 +108,7 @@ if (!isset($_GET['action'])) {
         $smarty->assign(
             [
                 'NEW_MESSAGE' => $language->get('user', 'new_message'),
-                'NEW_MESSAGE_LINK' => URL::build('/user/mesajlasma/', 'action=new')
+                'NEW_MESSAGE_LINK' => URL::build('/kullanici/mesajlasma/', 'action=new')
             ]
         );
     }
@@ -129,7 +129,7 @@ if (!isset($_GET['action'])) {
 } else {
     if ($_GET['action'] == 'new') {
         if (!$user->hasPermission('usercp.messaging')) {
-            Redirect::to(URL::build('/user/mesajlasma'));
+            Redirect::to(URL::build('/kullanici/mesajlasma'));
         }
         // New PM
         if (Input::exists()) {
@@ -264,7 +264,7 @@ if (!isset($_GET['action'])) {
 
                                 // Sent successfully
                                 Session::flash('user_messaging_success', $language->get('user', 'message_sent_successfully'));
-                                Redirect::to(URL::build('/user/mesajlasma'));
+                                Redirect::to(URL::build('/kullanici/mesajlasma'));
                             }
 
                             // Over 10 users added
@@ -305,7 +305,7 @@ if (!isset($_GET['action'])) {
                 'NEW_MESSAGE' => $language->get('user', 'new_message'),
                 'CANCEL' => $language->get('general', 'cancel'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-                'CANCEL_LINK' => URL::build('/user/mesajlasma'),
+                'CANCEL_LINK' => URL::build('/kullanici/mesajlasma'),
                 'SUBMIT' => $language->get('general', 'submit'),
                 'TOKEN' => Token::get(),
                 'MESSAGE_TITLE' => $language->get('user', 'message_title'),
@@ -338,14 +338,14 @@ if (!isset($_GET['action'])) {
     } else if ($_GET['action'] == 'view') {
         // Ensure message is specified
         if (!isset($_GET['message']) || !is_numeric($_GET['message'])) {
-            Redirect::to(URL::build('/user/mesajlasma'));
+            Redirect::to(URL::build('/kullanici/mesajlasma'));
         }
 
         // Ensure message exists
         $pm = $user->getPM($_GET['message'], $user->data()->id); // Get the PM - this also handles setting it as "read"
 
         if (!$pm) { // Either PM doesn't exist, or the user doesn't have permission to view it
-            Redirect::to(URL::build('/user/mesajlasma'));
+            Redirect::to(URL::build('/kullanici/mesajlasma'));
         }
 
         // Deal with input
@@ -433,7 +433,7 @@ if (!isset($_GET['action'])) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($pm_replies, 10, $p, count($pm_replies));
-        $pagination = $paginator->generate(7, URL::build('/user/mesajlasma/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
+        $pagination = $paginator->generate(7, URL::build('/kullanici/mesajlasma/', 'action=view&amp;message=' . urlencode($pm[0]->id) . '&amp;'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -470,10 +470,10 @@ if (!isset($_GET['action'])) {
         $smarty->assign([
             'MESSAGE_TITLE' => Output::getClean($pm[0]->title),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/user/mesajlasma'),
+            'BACK_LINK' => URL::build('/kullanici/mesajlasma'),
             'LEAVE_CONVERSATION' => $language->get('user', 'leave_conversation'),
             'CONFIRM_LEAVE' => $language->get('user', 'confirm_leave'),
-            'LEAVE_CONVERSATION_LINK' => URL::build('/user/mesajlasma/', 'action=leave&amp;message=' . urlencode($pm[0]->id)),
+            'LEAVE_CONVERSATION_LINK' => URL::build('/kullanici/mesajlasma/', 'action=leave&amp;message=' . urlencode($pm[0]->id)),
             'PAGINATION' => $pagination,
             'PARTICIPANTS_TEXT' => $language->get('user', 'participants'),
             'PARTICIPANTS' => $participants,
@@ -509,7 +509,7 @@ if (!isset($_GET['action'])) {
     } else if ($_GET['action'] == 'leave') {
         // Try to remove the user from the conversation
         if (!isset($_GET['message']) || !is_numeric($_GET['message']) || !Token::check($_POST['token'])) {
-            Redirect::to(URL::build('/user/mesajlasma'));
+            Redirect::to(URL::build('/kullanici/mesajlasma'));
         }
 
         $message = DB::getInstance()->get('private_messages_users', ['pm_id', $_GET['message']])->results();
@@ -524,6 +524,6 @@ if (!isset($_GET['action'])) {
         }
 
         // Done, redirect
-        Redirect::to(URL::build('/user/mesajlasma'));
+        Redirect::to(URL::build('/kullanici/mesajlasma'));
     }
 }
