@@ -1511,6 +1511,10 @@ button:focus {
 	font-size: 48px;
 }
 
+.discord .discord-text-right span {
+	display: block;
+}
+
 .discordheader .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
