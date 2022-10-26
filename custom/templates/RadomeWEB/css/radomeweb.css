@@ -1486,6 +1486,11 @@ button:focus {
 .card {
     margin-bottom: 10px;
     margin-bottom: .625rem;
+    border-radius: 0.5rem;
+}
+
+.card-header:first-child {
+	border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .card-header .btn {
