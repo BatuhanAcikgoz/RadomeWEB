@@ -120,10 +120,17 @@
         {$SERVER_BOX_TITLE}
     </h1>
     {if isset($CLICK_TO_COPY_TOOLTIP)}
-    <span class="btn" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><i class="fas fa-sign-in-alt"></i> {$CONNECT_WITH}</span>
-    <br /> {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
-    <span><i class="fas fa-users"></i> {$SERVER_QUERY.x_players_online}</span> {else}
-    <span><i class="fas fa-users"></i> {$SERVER_OFFLINE}</span> {/if}{/if}
+        <div class="col-lg-12 discordheader d-none d-lg-block">
+        <i class="mdi mdi-minecraft"></i>
+        <div class="discord-text-right">
+        <span class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"> {$CONNECT_WITH}</span>
+        {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
+        <span class="join-discord" {$SERVER_QUERY.x_players_online}</span> {else}
+        <span class="join-discord" {$SERVER_OFFLINE}</span> {/if}
+            </div>
+        </a>
+    </div>
+{/if}
 </div>
 {/if}
 <div class="box box2">
