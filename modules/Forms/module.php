@@ -30,10 +30,10 @@ class Forms_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Forms', '/panel/form', 'pages/panel/form.php');
-        $pages->add('Forms', '/panel/formlar', 'pages/panel/formlar.php');
+        $pages->add('Forms', '/panel/formlar', 'pages/panel/forms.php');
         $pages->add('Forms', '/panel/formlar/durumlar', 'pages/panel/statuses.php');
         $pages->add('Forms', '/panel/formlar/talepler', 'pages/panel/submissions.php');
-        $pages->add('Forms', '/kullanici/talepler', 'pages/user/talepler.php');
+        $pages->add('Forms', '/kullanici/talepler', 'pages/user/submissions.php');
 
         // Check if module version changed
 
