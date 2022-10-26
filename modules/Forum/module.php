@@ -26,14 +26,14 @@ class Forum_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Define URLs which belong to this module
-        $pages->add('Forum', '/panel/forumlar', 'pages/panel/forumlar.php');
+        $pages->add('Forum', '/panel/forumlar', 'pages/panel/forums.php');
         $pages->add('Forum', '/panel/forumlar/etiketler', 'pages/panel/labels.php');
         $pages->add('Forum', '/panel/forumlar/ayarlar', 'pages/panel/settings.php');
 
-        $pages->add('Forum', '/forum', 'pages/forum/bakis_forum.php', 'forum', true);
-        $pages->add('Forum', '/forum/hata', 'pages/forum/hata.php');
-        $pages->add('Forum', '/forum/bakis', 'pages/forum/forumu_goruntule.php');
-        $pages->add('Forum', '/forum/konu', 'pages/forum/konuyu_goruntule.php');
+        $pages->add('Forum', '/forum', 'pages/forum/view_forum.php', 'forum', true);
+        $pages->add('Forum', '/forum/hata', 'pages/forum/error.php');
+        $pages->add('Forum', '/forum/bakis', 'pages/forum/view_forums.php');
+        $pages->add('Forum', '/forum/konu', 'pages/forum/view_topic.php');
         $pages->add('Forum', '/forum/yeni', 'pages/forum/new_topic.php');
         $pages->add('Forum', '/forum/spam', 'pages/forum/spam.php');
         $pages->add('Forum', '/forum/raporla', 'pages/forum/report.php');
