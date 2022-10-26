@@ -114,10 +114,10 @@
 {if isset($THEME_DS_BOX) && $THEME_DS_BOX|count_characters > 2} {if isset($MINECRAFT)}
 <div class="box box1">
     {if isset($CLICK_TO_COPY_TOOLTIP)}
-        <div class="col-lg-12 discordheader d-none d-lg-block">
+        <div class="col-lg-12 discordheader d-none d-lg-block" style="color: #93bf85;">
         <i class="mdi mdi-minecraft" style="margin-right: 10PX;"></i>
         <div class="discord-text-right" style="text-align: left;">
-        <span style="margin-bottom: 10px;" class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small>{$CONNECT_WITH}</small></span>
+        <span style="margin-bottom: 10px;" class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small style="color: #93bf85;">{$CONNECT_WITH}</small></span>
         {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
         <span class="join-discord"> {$SERVER_QUERY.x_players_online}</span> {else}
         <span class="join-discord"> {$SERVER_OFFLINE}</span> {/if}
