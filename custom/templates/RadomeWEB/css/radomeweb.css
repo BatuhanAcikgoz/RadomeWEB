@@ -1503,6 +1503,7 @@ button:focus {
 	color: #7F9DFF;
 	text-align: right;
 	font-weight: 700;
+    text-transform: uppercase;
 }
 
 .discordheader i {
