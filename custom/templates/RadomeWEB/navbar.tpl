@@ -131,8 +131,8 @@
                     <a class="discord-href" href="https://{$THEME_DISCORD_SERVER}" target="_blank">
                         <div class="discord-text-right">
                             <span class="online-discord"><small>{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>
-                        <i class="mdi mdi-discord"></i>
                         </div>
+                        <i class="mdi mdi-discord"></i>
                     </a>
                 </div>
 </div>
