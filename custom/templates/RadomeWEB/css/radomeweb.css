@@ -1491,7 +1491,7 @@ button:focus {
 
 .discordheader2 {
 	color: #93bf85;
-	text-align: right;
+	text-align: left;
 	font-weight: 700;
     text-transform: uppercase;
 }
@@ -1518,13 +1518,13 @@ button:focus {
 
 .discordheader2 .discord-text-right span small {
 	font-weight: 700;
-	color: #B4C6FF;
+	color: #93bf85;
 	font-size: 15px;
 }
 
 .discordheader2 .discord-text-right .online-discord {
 	font-weight: 700;
-	font-size: 12px;
+	font-size: 15px;
 	line-height: 16px;
 	align-items: flex-end;
 	display: flex;
@@ -1594,7 +1594,7 @@ button:focus {
 
 .discordheader .discord-text-right .online-discord {
 	font-weight: 700;
-	font-size: 12px;
+	font-size: 15px;
 	line-height: 16px;
 	align-items: flex-end;
 	display: flex;
