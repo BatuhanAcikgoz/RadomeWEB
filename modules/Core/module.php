@@ -58,17 +58,17 @@ class Core_Module extends Module {
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/kullanici', 'pages/user/index.php');
-        $pages->add('Core', '/kullanici/ayarlar', 'pages/user/ayarlar.php');
-        $pages->add('Core', '/kullanici/mesajlasma', 'pages/user/mesajlasma.php');
-        $pages->add('Core', '/kullanici/uyarilar', 'pages/user/uyarilar.php');
+        $pages->add('Core', '/kullanici/ayarlar', 'pages/user/settings.php');
+        $pages->add('Core', '/kullanici/mesajlasma', 'pages/user/messaging.php');
+        $pages->add('Core', '/kullanici/uyarilar', 'pages/user/alerts.php');
         $pages->add('Core', '/kullanici/oauth', 'pages/user/oauth.php');
-        $pages->add('Core', '/kullanici/placeholderlar', 'pages/user/placeholderlar.php');
-        $pages->add('Core', '/kullanici/bilgilendirme', 'pages/user/bilgilendirme.php');
-        $pages->add('Core', '/kullanici/baglantilar', 'pages/user/baglantilar.php');
+        $pages->add('Core', '/kullanici/placeholderlar', 'pages/user/placeholders.php');
+        $pages->add('Core', '/kullanici/bilgilendirme', 'pages/user/acknowledge.php');
+        $pages->add('Core', '/kullanici/baglantilar', 'pages/user/connections.php');
 
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
-        $pages->add('Core', '/panel/giris', 'pages/panel/giris.php');
+        $pages->add('Core', '/panel/giris', 'pages/panel/login.php');
         $pages->add('Core', '/panel/core/genel_ayarlar', 'pages/panel/general_settings.php');
         $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
         $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
