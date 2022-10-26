@@ -118,7 +118,7 @@
         <svg class="creeper" viewBox="0 0 24 24">
             <path fill="#93bf85" d="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2M6,6V10H10V12H8V18H10V16H14V18H16V12H14V10H18V6H14V10H10V6H6Z" />
         </svg>
-        <div class="discord-text-right" style="text-align: left;">
+        <div class="discord-text-right">
         <span style="margin-bottom: 10px;" class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small style="color: #93bf85;">{$CONNECT_WITH}</small></span>
         {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
         <span class="join-discord"> {$SERVER_QUERY.x_players_online}</span> {else}

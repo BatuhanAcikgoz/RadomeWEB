@@ -1513,6 +1513,7 @@ button:focus {
 	line-height: 70px;
 	font-size: 70px;
     margin-bottom: 35px;
+    margin-right: 10px;
 }
 
 .discordheader .discord-text-right span {
