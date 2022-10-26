@@ -1499,6 +1499,17 @@ button:focus {
 	color: inherit !important;
 }
 
+.discord {
+	color: var(--discord-color);
+	text-align: right;
+	margin-left: auto;
+	font-weight: 700;
+	position: absolute;
+	right: 0;
+	z-index: 2;
+	top: 35px;
+}
+
 .discord .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
