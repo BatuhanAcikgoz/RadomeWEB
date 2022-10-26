@@ -117,7 +117,7 @@
         <div class="col-lg-12 discordheader d-none d-lg-block">
         <i class="mdi mdi-minecraft"></i>
         <div class="discord-text-right">
-        <span class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"> {$CONNECT_WITH} </span>
+        <span class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small>{$CONNECT_WITH}</small></span>
         {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
         <span class="join-discord"> {$SERVER_QUERY.x_players_online}</span> {else}
         <span class="join-discord"> {$SERVER_OFFLINE}</span> {/if}
