@@ -1497,6 +1497,10 @@ button:focus {
 	border-radius: 0.5rem 0.5rem 0 0;
 }
 
+.card-footer:last-child {
+	border-radius: 0 0 calc(.5rem - 1px) calc(.5rem - 1px);
+}
+
 .card-header .btn {
     text-transform: none;
 }
