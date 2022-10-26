@@ -1502,6 +1502,13 @@ button:focus {
     text-transform: uppercase;
 }
 
+.discordheader2 {
+	color: #93bf85;
+	text-align: left;
+	font-weight: 700;
+    text-transform: uppercase;
+}
+
 .discordheader i {
 	height: 70px;
 	line-height: 70px;
