@@ -113,7 +113,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$this->addCSSStyle('.swal2-confirm:hover, .spoiler .spoiler-toggle:hover, .spoiler .spoiler-title:hover, .btn-older-news:hover, .btn-theme:hover {background-color: '. Output::getClean($p_color) .' !important; filter: brightness(0.85)}');
 		$this->addCSSStyle('.panel-theme, .page-item.active .page-link {border-color: '. Output::getClean($p_color) .';}');
 		if((null !== Output::getClean($card_rounded)) && Output::getClean($card_rounded) == "yes"){
-			$this->addCSSStyle('.card{border-radius:.15rem;} .card-header:first-child{border-radius:.15rem .15rem 0 0} .alert{border-radius:.15rem;} .btn-older-news{border-radius: .15rem !important;} .avatar-img{border-radius:.15rem;}');
+			$this->addCSSStyle('.card{border-radius:.5rem;} .card-header:first-child{border-radius:.5rem .5rem 0 0} .alert{border-radius:.5rem;} .btn-older-news{border-radius: .5rem !important;} .avatar-img{border-radius:.15rem;}');
 		} else {
 			$this->addCSSStyle('.card{border-radius:0;} .card-header:first-child{border-radius:0;} .alert{border-radius:0;} .btn-older-news{border-radius: 0 !important;}');
 		}
