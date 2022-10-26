@@ -1578,14 +1578,6 @@ button:focus {
 	bottom: 2px;
 }
 
-.discordheader .discord-text-right {
-	display: inline-block;
-	transition: all 0.3s ease;
-	margin-right: 10px;
-	position: relative;
-	bottom: 2px;
-}
-
 .discordheader .discord-text-right span small {
 	font-weight: 700;
 	color: #B4C6FF;
