@@ -1489,10 +1489,62 @@ button:focus {
     border-radius: 0.5rem;
 }
 
-.discord-href {
+.discordheader2 {
+	color: #93bf85;
+	text-align: right;
+	font-weight: 700;
+    text-transform: uppercase;
+}
+
+.discordheader2 .discord-text-right span {
+	display: block;
+}
+
+.discordheader2 .discord-text-right {
+	display: inline-block;
 	transition: all 0.3s ease;
-	text-decoration: none;
-	color: inherit !important;
+	margin-right: 10px;
+	position: relative;
+	bottom: 2px;
+}
+
+.discordheader2 .discord-text-right {
+	display: inline-block;
+	transition: all 0.3s ease;
+	margin-right: 10px;
+	position: relative;
+	bottom: 2px;
+}
+
+.discordheader2 .discord-text-right span small {
+	font-weight: 700;
+	color: #B4C6FF;
+	font-size: 15px;
+}
+
+.discordheader2 .discord-text-right .online-discord {
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 16px;
+	align-items: flex-end;
+	display: flex;
+    margin-bottom: 10px;
+}
+
+.discordheader2 .discord-text-right .join-discord {
+	font-size: 20px;
+	line-height: 28px;
+	letter-spacing: 1px;
+	font-weight: 700;
+    color: #E3E3E3;
+}
+
+.creeper {
+	height: 70px;
+	line-height: 70px;
+	font-size: 70px;
+    margin-bottom: 35px;
+    margin-right: 10px;
 }
 
 .discordheader {
@@ -1502,25 +1554,16 @@ button:focus {
     text-transform: uppercase;
 }
 
-.discordheader2 {
-	color: #93bf85;
-	text-align: left;
-	font-weight: 700;
-    text-transform: uppercase;
+.discord-href {
+	transition: all 0.3s ease;
+	text-decoration: none;
+	color: inherit !important;
 }
 
 .discordheader i {
 	height: 70px;
 	line-height: 70px;
 	font-size: 70px;
-}
-
-.creeper {
-	height: 70px;
-	line-height: 70px;
-	font-size: 70px;
-    margin-bottom: 35px;
-    margin-right: 10px;
 }
 
 .discordheader .discord-text-right span {
