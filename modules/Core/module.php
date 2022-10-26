@@ -972,7 +972,7 @@ class Core_Module extends Module {
 
                 if (!is_null($default) && isset($default->ip)) {
                     $smarty->assign('CONNECT_WITH', $language->get('general', 'connect_with_ip_x', [
-                        'address' => Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')),
+                        'address' => '<rdm id="ip">' . Output::getClean($default->ip . ($default->port && $default->port != 25565 ? ':' . $default->port : '')) . '</rdm>',
                     ]));
                     $smarty->assign('DEFAULT_IP', Output::getClean($default->ip . ($default->port != 25565 ? ':' . $default->port : '')));
                     $smarty->assign('CLICK_TO_COPY_TOOLTIP', $language->get('general', 'click_to_copy_tooltip'));
