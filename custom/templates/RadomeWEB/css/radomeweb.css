@@ -1493,6 +1493,50 @@ button:focus {
     border-radius: 0.5rem;
 }
 
+.discord-href {
+	transition: all 0.3s ease;
+	text-decoration: none;
+	color: inherit !important;
+}
+
+.discord .discord-text-right {
+	display: inline-block;
+	transition: all 0.3s ease;
+	margin-right: 10px;
+	position: relative;
+	bottom: 2px;
+}
+
+.discord .discord-text-right {
+	display: inline-block;
+	transition: all 0.3s ease;
+	margin-right: 10px;
+	position: relative;
+	bottom: 2px;
+}
+
+.discord .discord-text-right span small {
+	font-weight: 700;
+	color: var(--discord-online-text-color);
+	font-size: 13px;
+}
+
+.discord .discord-text-right .online-discord {
+	font-weight: 700;
+	font-size: 12px;
+	line-height: 16px;
+	align-items: flex-end;
+	display: flex;
+	justify-content: end;
+}
+
+.discord .discord-text-right .join-discord {
+	font-size: 17px;
+	line-height: 28px;
+	letter-spacing: 1px;
+	font-weight: 700;
+}
+
 .card-header:first-child {
 	border-radius: 0.5rem 0.5rem 0 0;
 }

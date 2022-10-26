@@ -127,10 +127,14 @@
 </div>
 {/if}
 <div class="box box2">
-    <h1><i class="fab fa-discord"></i> {$DISCORD_BOX_TITLE}</h1>
-    <span class="btn discord-txt"><i class="fas fa-sign-in-alt"></i>&nbsp;{$DISCORD_BOX_COPY} <a href="http://{$THEME_DISCORD_SERVER}" class="discord-link" target="_blank" rel="nofollow noopener">{$THEME_DISCORD_SERVER}</a></span>
-    <br />
-    <span><i class="fas fa-users"></i> {$DISCORD_BOX_STATUS_1} <b>{$DISCORD_API_COUNT}</b> {$DISCORD_BOX_STATUS_2}</span>
+<div class="col-lg-4 discord d-none d-lg-block">
+                    <a class="discord-href" href="https://{$THEME_DISCORD_SERVER}" target="_blank">
+                        <div class="discord-text-right">
+                            <span class="online-discord"><small>{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>
+                        <i class="mdi mdi-discord"></i>
+                        </div>
+                    </a>
+                </div>
 </div>
 {/if}
 {if isset($THEME_NAVBAR) && $THEME_NAVBAR eq 'bottom'}
