@@ -53,7 +53,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/gizlilik', 'pages/privacy.php');
         $pages->add('Core', '/sifremi_unuttum', 'pages/forgot_password.php');
         $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
-        $pages->add('Core', '/status', 'pages/status.php', 'status');
+        $pages->add('Core', '/durum', 'pages/status.php', 'status');
         $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
@@ -838,7 +838,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('status_icon');
                 }
 
-                $navs[0]->add('status', $language->get('general', 'status'), URL::build('/status'), 'top', null, $status_order, $icon);
+                $navs[0]->add('status', $language->get('general', 'status'), URL::build('/durum'), 'top', null, $status_order, $icon);
             }
         }
 

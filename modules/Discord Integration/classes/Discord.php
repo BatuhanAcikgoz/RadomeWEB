@@ -165,7 +165,7 @@ class Discord {
      * @param string|null $body Body of the request
      * @return false|string Response from the Discord bot or false if the request failed
      */
-    private static function discordBotRequest(string $url = '/status', ?string $body = null) {
+    private static function discordBotRequest(string $url = '/durum', ?string $body = null) {
         $client = HttpClient::post(BOT_URL . $url, $body);
 
         if ($client->hasError()) {
