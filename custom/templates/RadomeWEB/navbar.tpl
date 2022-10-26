@@ -119,7 +119,7 @@
             <path fill="#93bf85" d="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2M6,6V10H10V12H8V18H10V16H14V18H16V12H14V10H18V6H14V10H10V6H6Z" />
         </svg>
         <div class="discord-text-right">
-        <span style="margin-bottom: 10px;" class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small style="color: #93bf85;">{$CONNECT_WITH}</small></span>
+        <span class="online-discord" onclick="copyToClipboard('#ip')" data-toggle="tooltip" title="{$CLICK_TO_COPY_TOOLTIP}"><small>{$CONNECT_WITH}</small></span>
         {/if} {if isset($SERVER_QUERY)} {if isset($SERVER_QUERY.status_value) && $SERVER_QUERY.status_value == 1}
         <span class="join-discord"> {$SERVER_QUERY.x_players_online}</span> {else}
         <span class="join-discord"> {$SERVER_OFFLINE}</span> {/if}
@@ -133,7 +133,7 @@
 <div class="col-lg-12 discordheader d-none d-lg-block">
                     <a class="discord-href" href="https://{$THEME_DISCORD_SERVER}" target="_blank">
                         <div class="discord-text-right">
-                            <span class="online-discord"><small style="padding-bottom: 10px;">{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>
+                            <span class="online-discord"><small">{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>
                         </div>
                         <i class="mdi mdi-discord"></i>
                     </a>

@@ -1555,6 +1555,7 @@ button:focus {
 	line-height: 16px;
 	align-items: flex-end;
 	display: flex;
+    margin-bottom: 10px;
 }
 
 .discordheader .discord-text-right .join-discord {
