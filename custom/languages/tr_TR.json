@@ -547,7 +547,7 @@
     "general/confirm_cancel": "İptal etmek istediğinizden emin misiniz?",
     "general/confirm_delete": "Silmeyi onayla",
     "general/confirm_deletion": "Bunu silmek istediğinizden emin misiniz?",
-    "general/connect_with_ip_x": "IP {{address}} IP'sini kullanarak şimdi bağlanın",
+    "general/connect_with_ip_x": "{{address}} IP'sini kullanarak şimdi bağlanın",
     "general/content": "İçerik",
     "general/cookie_notice": "Bu web sitesi, tarama deneyiminizi geliştirmek için çerezleri kullanır. Web sitemize kayıt olarak veya bu bildirimi kapatarak kullanımlarını kabul etmiş olursunuz..",
     "general/copied": "Kopyalandı!",
