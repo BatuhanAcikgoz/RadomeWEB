@@ -127,7 +127,7 @@
 </div>
 {/if}
 <div class="box box2">
-<div class="col-lg-4 discord d-none d-lg-block">
+<div class="col-lg-4 discordheader d-none d-lg-block">
                     <a class="discord-href" href="https://{$THEME_DISCORD_SERVER}" target="_blank">
                         <div class="discord-text-right">
                             <span class="online-discord"><small>{$DISCORD_API_COUNT} {$DISCORD_BOX_STATUS_1}</small></span><span class="join-discord">{$DISCORD_BOX_STATUS_2}</span>

@@ -1499,8 +1499,8 @@ button:focus {
 	color: inherit !important;
 }
 
-.discord {
-	color: var(--discord-color);
+.discordheader {
+	color: #7F9DFF;
 	text-align: right;
 	margin-left: auto;
 	font-weight: 700;
@@ -1510,7 +1510,7 @@ button:focus {
 	top: 35px;
 }
 
-.discord .discord-text-right {
+.discordheader .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
 	margin-right: 10px;
@@ -1518,7 +1518,7 @@ button:focus {
 	bottom: 2px;
 }
 
-.discord .discord-text-right {
+.discordheader .discord-text-right {
 	display: inline-block;
 	transition: all 0.3s ease;
 	margin-right: 10px;
@@ -1526,13 +1526,13 @@ button:focus {
 	bottom: 2px;
 }
 
-.discord .discord-text-right span small {
+.discordheader .discord-text-right span small {
 	font-weight: 700;
-	color: var(--discord-online-text-color);
+	color: #B4C6FF;
 	font-size: 13px;
 }
 
-.discord .discord-text-right .online-discord {
+.discordheader .discord-text-right .online-discord {
 	font-weight: 700;
 	font-size: 12px;
 	line-height: 16px;
@@ -1541,7 +1541,7 @@ button:focus {
 	justify-content: end;
 }
 
-.discord .discord-text-right .join-discord {
+.disdiscordheadercord .discord-text-right .join-discord {
 	font-size: 17px;
 	line-height: 28px;
 	letter-spacing: 1px;
