@@ -542,7 +542,7 @@ a,
 }
 
 .dark .white-link:hover {
-    color: #D0D0D0 !important;
+    color: #E3E3E3 !important;
 }
 
 .dark .grey-link,
@@ -616,7 +616,7 @@ a,
 
 .dark .coldfire-navbar-menu .nav-link,
 .dark .coldfire-navbar-menu .nav-link:focus {
-    color: #D0D0D0;
+    color: #E3E3E3;
 }
 
 
@@ -965,12 +965,12 @@ span.twitter-typeahead .tt-suggestion:focus, .dropdown-item:hover, span.twitter-
 }
 
 .news-title-text:hover {
-    color: #D0D0D0 !important;
+    color: #E3E3E3 !important;
 }
 
 .news-info {
     font-size: 0.9rem;
-    color: #D0D0D0
+    color: #E3E3E3
 }
 
 .btn-news-theme {
@@ -1219,7 +1219,7 @@ button:focus {
 .spoiler .spoiler-toggle,
 .spoiler .spoiler-title {
     display: inline-block;
-    background-color: #D0D0D0;
+    background-color: #E3E3E3;
     padding: 5px 20px;
     border-radius: 5px;
     font-size: 0.95rem;
@@ -1408,7 +1408,7 @@ button:focus {
 }
 
 .footer-link:hover {
-    color: #D0D0D0 !important;
+    color: #E3E3E3 !important;
 }
 .footer-discord{
     text-align: right;
@@ -1430,7 +1430,7 @@ button:focus {
 }
 
 .social:hover {
-    color: #D0D0D0 !important;
+    color: #E3E3E3 !important;
 }
 
 .cf-footer {
