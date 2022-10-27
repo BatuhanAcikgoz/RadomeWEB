@@ -11,7 +11,7 @@ if (loggedIn == 1) {
 					Notification.requestPermission();
 			}
 
-			$.getJSON(URLBuild('queries/pms'), function (data) {
+			$.getJSON(URLBuild('sorgu/pms'), function (data) {
 				var pm_dropdown = $(".pm_dropdown");
 
 				if (data.value > 0) {
@@ -31,7 +31,7 @@ if (loggedIn == 1) {
 					pm_dropdown.addClass('noclick');
 				}
 			});
-			$.getJSON(URLBuild('queries/alerts'), function (data) {
+			$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
 				var alert_dropdown = $(".alert_dropdown");
 
 				if (data.value > 0) {
@@ -42,7 +42,7 @@ if (loggedIn == 1) {
 						var new_alert_dropdown = '';
 
 						for (i in data.alerts) {
-							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
+							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('kullanici/uyarilar?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
 						}
 
 						alert_dropdown.html(new_alert_dropdown);
@@ -56,7 +56,7 @@ if (loggedIn == 1) {
 			});
 
 			window.setInterval(function () {
-				$.getJSON(URLBuild('queries/pms'), function (data) {
+				$.getJSON(URLBuild('sorgu/pms'), function (data) {
 					if (data.value > 0 && $('.pms').is(':empty')) {
 						$(".pms").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
 
@@ -97,7 +97,7 @@ if (loggedIn == 1) {
 					}
 				});
 
-				$.getJSON(URLBuild('queries/alerts'), function (data) {
+				$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
 					if (data.value > 0 && $('.alerts').is(':empty')) {
 						$(".alerts").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
 
@@ -110,7 +110,7 @@ if (loggedIn == 1) {
 						var new_alert_dropdown = '';
 
 						for (i in data.alerts) {
-							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
+							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('kullanici/uyarilar?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
 						}
 
 						alert_dropdown.html(new_alert_dropdown);
@@ -131,7 +131,7 @@ if (loggedIn == 1) {
 							}
 
 							notification.onclick = function () {
-								window.open(URLBuild('user/alerts', true));
+								window.open(URLBuild('kullanici/uyarilar', true));
 							};
 
 						}

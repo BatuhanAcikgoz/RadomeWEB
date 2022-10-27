@@ -106,7 +106,7 @@ if (page !== '') {
                 let serverBedrock = $(this).data("bedrock");
                 let serverPlayerList = $(this).data("players");
                 const paramChar = URLBuild('').includes('?') ? '&' : '?';
-                $.getJSON(URLBuild('queries/server/' + paramChar + 'id=' + serverId), function(data) {
+                $.getJSON(URLBuild('sorgu/sunucu/' + paramChar + 'id=' + serverId), function(data) {
                     var html = "";
                     if (data.status_value == 1) {
                         html = "<p>" + online + "</p><p>" + data.player_count + "/" + data.player_count_max + "</p>";
