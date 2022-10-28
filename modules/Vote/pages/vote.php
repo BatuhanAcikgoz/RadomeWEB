@@ -48,7 +48,7 @@ foreach ($votes_mcmp as $mcmp_votes) {
 }
 
 $search_value = $_GET["vote_search"];
-$sResults2 = ('https://minecraft-mp.com/api/?object=votes&element=claim&key=rWYd7YHBqFyu6ZRfFrAMvoJBGLeIBIHBGhS&username=Reeignn');
+$sResults2 = ('https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value);
 $sResults = json_decode(file_get_contents($sResults2));
 $sResults = $sResults[0]->value;
 
