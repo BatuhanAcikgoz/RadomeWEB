@@ -31,7 +31,13 @@
                 </div>
                 <div class="row">
                 {if isset($sResults)}
-                    {$SEARCH_RESULTS}
+                {if $sResults eq '1'}
+                    {$USERNAME}
+                {elseif $name eq '0'}
+                    {$VOTE_TITLE}
+                    {else}    
+                      NULL  
+                 {/if}
                 {/if}
                     <div class="col-md-12">
                         <div class="card">
