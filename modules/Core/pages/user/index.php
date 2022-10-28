@@ -123,15 +123,6 @@ if ($forum_enabled) {
                         data: ' . $user_data . '
                     },
                     {
-                        label: "' . $forum_language->get('forum', 'average_posts') . '",
-                        fill: false,
-                        borderColor: "#0004FF",
-                        pointBorderColor: "#0004FF",
-                        pointBackgroundColor: "#fff",
-                        tension: 0.1,
-                        data: ' . $average_data . '
-                    },
-                    {
                         label: "' . $forum_language->get('forum', 'total_posts') . '",
                         fill: false,
                         borderColor: "#00931D",
