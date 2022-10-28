@@ -13,7 +13,7 @@ class Forum_Module extends Module {
 
     private Language $_language;
     private Language $_forum_language;
-    private Language $_forms_language;
+    
 
     public function __construct(Language $language, Language $forum_language, Pages $pages) {
         $this->_language = $language;
@@ -394,7 +394,7 @@ class Forum_Module extends Module {
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
                     require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forms_language, $cache, count($latest_submissions)));
+                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $language, $cache, count($latest_submissions)));
 
                 }
             }
