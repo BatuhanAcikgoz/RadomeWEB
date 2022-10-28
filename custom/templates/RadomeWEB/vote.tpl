@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="row">
-                {$SEARCH_RESULT}
+                {$SEARCH_RESULTS}
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header header-theme">Vote Sorgu</div>
