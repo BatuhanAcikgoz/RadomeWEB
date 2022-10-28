@@ -30,10 +30,10 @@
                     </div>
                 </div>
                 <div class="row">
-                {if isset($sResults)}
-                    {if $sResults eq '1'}
+                {if isset($SEARCH_RESULTS)}
+                    {if $SEARCH_RESULTS eq '1'}
                         {$VOTE_SORGU1}
-                    {elseif $sResults eq '0'}
+                    {elseif $SEARCH_RESULTS eq '0'}
                         {$VOTE_SORGU0}
                     {else}    
                           NULL  
