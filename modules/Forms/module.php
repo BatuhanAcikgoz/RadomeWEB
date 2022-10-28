@@ -69,17 +69,17 @@ class Forms_Module extends Module {
                     $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
             
                     $cache->setCache('dashboard_graph');
-                    if ($cache->isCached('forum_data')) {
-                        $output = $cache->retrieve('forum_data');
+                    if ($cache->isCached('forms_data')) {
+                        $output = $cache->retrieve('forms_data');
 
                     } else {
                         $output = [];
 
-                        $output['datasets']['forms_replies']['label'] = 'form_language/forms/submissions'; // for $forum_language->get('forum', 'forms_replies_title');
-                        $output['datasets']['forms_replies']['colour'] = '#00931A';
+                        $output['datasets']['forms_replies']['label'] = 'form_language/forum/forms_replies_title'; // for $forum_language->get('forum', 'forms_replies_title');
+                        $output['datasets']['forms_replies']['colour'] = '#00931D';
 
-                        foreach ($latest_submissions as $submission) {
-                            $date = date('d M Y', $submission->created);
+                        foreach ($latest_submissions as $topic) {
+                            $date = date('d M Y', $topic->topic_date);
                             $date = '_' . strtotime($date);
 
                             if (isset($output[$date]['forms_replies'])) {
@@ -105,12 +105,15 @@ class Forms_Module extends Module {
                         // Sort by date
                         ksort($output);
 
-                        $cache->store('forum_data', $output, 120);
+                        $cache->store('forms_data', $output, 120);
 
                     }
 
                     Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
 
+                    // Dashboard stats
+                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/Recentforms_replies.php');
+                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($latest_submissions)));
                 }                    
 
                     // Add link location to navigation if user have permission
