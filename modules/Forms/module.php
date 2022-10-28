@@ -62,6 +62,57 @@ class Forms_Module extends Module {
                         }
                     }
 
+                if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
+                    // Dashboard graph
+
+                    // Get data for forms_replies and posts
+                    $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
+            
+                    $cache->setCache('dashboard_graph');
+                    if ($cache->isCached('forum_data')) {
+                        $output = $cache->retrieve('forum_data');
+
+                    } else {
+                        $output = [];
+
+                        $output['datasets']['forms_replies']['label'] = 'form_language/forms/submissions'; // for $forum_language->get('forum', 'forms_replies_title');
+                        $output['datasets']['forms_replies']['colour'] = '#00931D';
+
+                        foreach ($latest_submissions as $submission) {
+                            $date = date('d M Y', $submission->created);
+                            $date = '_' . strtotime($date);
+
+                            if (isset($output[$date]['forms_replies'])) {
+                                $output[$date]['forms_replies'] += 1;
+                            } else {
+                                $output[$date]['forms_replies'] = 1;
+                            }
+                        }
+
+                        // Fill in missing dates, set forms_replies/posts to 0
+                        $start = strtotime('-1 week');
+                        $start = date('d M Y', $start);
+                        $start = strtotime($start);
+                        $end = strtotime(date('d M Y'));
+                        while ($start <= $end) {
+                            if (!isset($output['_' . $start]['forms_replies'])) {
+                                $output['_' . $start]['forms_replies'] = 0;
+                            }
+
+                            $start = strtotime('+1 day', $start);
+                        }
+
+                        // Sort by date
+                        ksort($output);
+
+                        $cache->store('forum_data', $output, 120);
+
+                    }
+
+                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
+
+                }                    
+
                     // Add link location to navigation if user have permission
                     if ($perm) {
                         switch ($form->link_location) {
@@ -93,7 +144,7 @@ class Forms_Module extends Module {
         } catch (Exception $e) {
             // Database tables don't exist yet
         }
-
+        
         // Hooks
         EventHandler::registerEvent('newFormSubmission', $forms_language->get('forms', 'new_form_submission'));
         EventHandler::registerEvent('updatedFormSubmission', $forms_language->get('forms', 'updated_form_submission'));
