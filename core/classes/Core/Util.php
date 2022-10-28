@@ -227,10 +227,7 @@ class Util {
 
         $update_check_response = HttpClient::get('https://radome.web.tr/api/v2/updateCheck&uid=' . $uid .
             '&version=' . RADOME_VERSION .
-            '&php_version=' . urlencode(PHP_VERSION) .
-            '&language=' . LANGUAGE .
-            '&docker=' . (getenv('RADOMEWEB_METRICS_DOCKER') === false ? 'false' : 'true') .
-            '&mysql_server=' . DB::getInstance()->getPDO()->getAttribute(PDO::ATTR_SERVER_VERSION)
+            '&php_version=' . urlencode(PHP_VERSION)
         );
 
         if ($update_check_response->hasError()) {
@@ -260,7 +257,7 @@ class Util {
      * @return string RadomeWEB news in JSON.
      */
     public static function getLatestNews(): string {
-        $news = HttpClient::get('https://radome.web.tr/news');
+        $news = HttpClient::get('https://radome.web.tr/news.json');
 
         if ($news->hasError()) {
             return json_encode([
