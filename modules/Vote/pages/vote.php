@@ -48,7 +48,15 @@ foreach ($votes_mcmp as $mcmp_votes) {
 }
 
 $search_value = $_GET["vote_search"];
-$sResults = ('https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value);
+if(isset($search_value)){
+$sResults2 = ('https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value);
+$sResults =  htmlspecialchars($_POST[$sResults2]);
+if(!empty($sResults)){
+
+} else {
+	// no results
+}
+} 
 
 
 // Get sites from database
