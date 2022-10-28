@@ -30,6 +30,14 @@
                     </div>
                 </div>
                 <div class="row">
+                {if isset($sResults)}
+                {if $sResults eq '1'}
+                    {$USERNAME}
+                {elseif $name eq '0'}
+                    {$VOTE_TITLE}
+                    {else}    
+                      NULL  
+                 {/if}
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header header-theme">Vote Sorgu</div>

@@ -47,7 +47,12 @@ foreach ($votes_mcmp as $mcmp_votes) {
 	];
 }
 
+$search_value = $_GET["search"];
 
+if(isset($search_value)){
+    $sResults2 = 'https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value;
+	$sResults = json_decode(file_get_contents($sResults2));
+    $sResults = $sResults->results();
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
@@ -68,6 +73,8 @@ $smarty->assign([
 	'VOTES' => $vote_language->get('vote', 'votes'),
 	'TOP_VOTERS' => $vote_language->get('vote', 'top_voters_header'),
 	'LAST_VOTERS' => $vote_language->get('vote', 'last_voters'),
+	'SEARCH_RESULT' => $search_value,
+    'SEARCH_RESULTS' => $sResults,
 	'DATE' => $vote_language->get('vote', 'date'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
