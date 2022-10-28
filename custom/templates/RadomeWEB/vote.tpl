@@ -35,9 +35,11 @@
                     {$USERNAME}
                 {elseif $sResults eq '0'}
                     {$VOTE_TITLE}
-                    {else}    
+                {else}    
                       NULL  
                  {/if}
+                 {else}    
+                    NULL   
                 {/if}
                     <div class="col-md-12">
                         <div class="card">
