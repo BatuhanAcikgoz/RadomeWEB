@@ -33,7 +33,7 @@
                 {if isset($sResults)}
                 {if $sResults eq '1'}
                     {$USERNAME}
-                {elseif $name eq '0'}
+                {elseif $sResults eq '0'}
                     {$VOTE_TITLE}
                     {else}    
                       NULL  
