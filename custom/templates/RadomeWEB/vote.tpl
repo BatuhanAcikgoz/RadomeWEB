@@ -44,7 +44,7 @@
                             <div class="card-header header-theme">Vote Sorgu</div>
                             <form action='' method='GET'>
                                 <div class="input-group mb-2">
-                                    <input class="form-control input-sm" type="text" name="search" id="search"
+                                    <input class="form-control input-sm" type="text" name="vote_search" id="vote_search"
                                         value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}" style="margin: 20px;">
                                     <span class="input-group-btn">
                                         <button type="submit" class="btn btn-theme" style="margin: 20px;margin-left: 0px;">
