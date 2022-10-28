@@ -183,8 +183,8 @@ class DatabaseInitialiser {
             'gids' => '2,3'
         ));
         $this->_db->insert('store_gateways', [
-            'name' => 'Bakiye',
-            'displayname' => 'Bakiye',
+            'name' => 'Kredi',
+            'displayname' => 'Kredi',
             'enabled' => 1
         ]);
         $this->_db->insert('store_fields', [
@@ -197,11 +197,11 @@ class DatabaseInitialiser {
             'default_value' => '1',
             'order' => '0'
         ]);
-        $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Bakiye']);
+        $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Kredi']);
         if (!$gateway_exists->count()) {
             $this->_db->insert('store_gateways', [
-                'name' => 'Bakiye',
-                'displayname' => 'Bakiye',
+                'name' => 'Kredi',
+                'displayname' => 'Kredi',
                 'enabled' => 1
             ]);
         }
@@ -240,8 +240,8 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('store_gateways', [
-            'name' => 'Bakiye',
-            'displayname' => 'Bakiye',
+            'name' => 'Kredi',
+            'displayname' => 'Kredi',
             'enabled' => 1
         ]);
         DB::getInstance()->insert('vote_sites', [

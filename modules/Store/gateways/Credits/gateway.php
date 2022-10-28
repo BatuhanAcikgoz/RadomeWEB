@@ -10,7 +10,7 @@
 class Credits_Gateway extends GatewayBase {
 
     public function __construct() {
-        $name = 'Bakiye';
+        $name = 'Kredi';
         $settings = ROOT_PATH . '/modules/Store/gateways/Credits/gateway_settings/settings.php';
 
         parent::__construct($name, $settings);
@@ -52,7 +52,7 @@ class Credits_Gateway extends GatewayBase {
             $shopping_cart->clear();
             Redirect::to(URL::build(Store::getStorePath() . '/checkout/', 'do=complete'));
         } else {
-            $this->addError('Bu siparişi tamamlamak için yeterli bakiyeniz yok!');
+            $this->addError('Bu siparişi tamamlamak için yeterli Krediniz yok!');
         }
     }
 

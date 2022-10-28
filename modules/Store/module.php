@@ -526,8 +526,8 @@ class Store_Module extends Module {
             ]);
 
             $this->_db->insert('store_gateways', [
-                'name' => 'Bakiye',
-                'displayname' => 'Bakiye',
+                'name' => 'Kredi',
+                'displayname' => 'Kredi',
                 'enabled' => 1
             ]);
         }
