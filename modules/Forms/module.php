@@ -112,7 +112,7 @@ class Forms_Module extends Module {
                     Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
 
                     // Dashboard stats
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/Recentforms_replies.php');
+                    require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($latest_submissions)));
                 }                    
 
