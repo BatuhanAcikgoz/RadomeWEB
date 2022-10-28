@@ -37,7 +37,7 @@
                             {if isset($PHP_WARNING)}
                                 <div class="alert bg-danger text-white">{$PHP_WARNING}</div>
                             {/if}
-                                    <div class="alert {if $NEW_UPDATE_URGENT eq true}bg-danger{else}bg-primary{/if} text-white">
+                                    <div class="alert bg-primary text-white">
                                         {$CURRENT_VERSION}
                                     </div>
                                     <hr />
