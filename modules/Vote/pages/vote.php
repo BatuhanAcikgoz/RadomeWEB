@@ -78,6 +78,8 @@ $smarty->assign([
 	'VOTES' => $vote_language->get('vote', 'votes'),
 	'TOP_VOTERS' => $vote_language->get('vote', 'top_voters_header'),
 	'LAST_VOTERS' => $vote_language->get('vote', 'last_voters'),
+	'VOTE_SORGU1' => $vote_language->get('vote', 'vote_sorgu1'),
+	'VOTE_SORGU0' => $vote_language->get('vote', 'vote_sorgu0'),
 	'SEARCH_RESULT' => $search_value,
     'SEARCH_RESULTS' => $sResults,
 	'DATE' => $vote_language->get('vote', 'date'),

@@ -30,7 +30,15 @@
                     </div>
                 </div>
                 <div class="row">
-                {$SEARCH_RESULTS}
+                {if isset($sResults)}
+                    {if $sResults eq '1'}
+                        {$VOTE_SORGU1}
+                    {elseif $sResults eq '0'}
+                        {$VOTE_SORGU0}
+                    {else}    
+                          NULL  
+                     {/if}
+                    {/if}
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header header-theme">Vote Sorgu</div>

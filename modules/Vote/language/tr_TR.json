@@ -31,6 +31,8 @@
     "vote\/vote_name": "Vote Site Name",
     "vote\/mcmp_header": "Minecraft-MP Server API Key",
     "vote\/mcmp_label": "Bu kısma https://minecraft-mp.com/ adresindeb aldığınız Server API Key'i gireceksiniz.",
+    "vote\/vote_sorgu1": "Sorguladığınız kullanıcı son 24 saat içerisinde oy kullanmış.",
+    "vote\/vote_sorgu0": "Sorguladığınız kullanıcı son 24 saat içerisinde oy kullanmamış, yukarıdaki linkleri kullanarak oy verebilirsiniz.",
     "vote\/vote_sites": "Vote Sites",
     "vote\/vote_url": "Vote Site URL <em>(With preceding http:\/\/)<\/em>"
 }
