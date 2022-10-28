@@ -309,6 +309,7 @@ class Forum_Module extends Module {
                     // Get data for topics and posts
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
                     $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
+                    $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
@@ -321,6 +322,8 @@ class Forum_Module extends Module {
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';
+                        $output['datasets']['submissions']['label'] = 'forum_language/forms/submissions'; // for $forum_language->get('forum', 'posts_title');
+                        $output['datasets']['submissions']['colour'] = '#ffdeSS';
 
                         foreach ($latest_topics as $topic) {
                             $date = date('d M Y', $topic->topic_date);
@@ -330,6 +333,17 @@ class Forum_Module extends Module {
                                 $output[$date]['topics'] += 1;
                             } else {
                                 $output[$date]['topics'] = 1;
+                            }
+                        }
+
+                        foreach ($latest_submissions as $submissions) {
+                            $date = date('d M Y', $submissions->created);
+                            $date = '_' . strtotime($date);
+
+                            if (isset($output[$date]['submissions'])) {
+                                $output[$date]['submissions'] += 1;
+                            } else {
+                                $output[$date]['submissions'] = 1;
                             }
                         }
 
@@ -356,6 +370,10 @@ class Forum_Module extends Module {
 
                             if (!isset($output['_' . $start]['posts'])) {
                                 $output['_' . $start]['posts'] = 0;
+                            }
+
+                            if (!isset($output['_' . $start]['submissions'])) {
+                                $output['_' . $start]['submissions'] = 0;
                             }
 
                             $start = strtotime('+1 day', $start);
