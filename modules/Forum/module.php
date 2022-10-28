@@ -393,7 +393,7 @@ class Forum_Module extends Module {
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
                     require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($latest_submissions)));
+                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forms_language, $cache, count($latest_submissions)));
 
                 }
             }
