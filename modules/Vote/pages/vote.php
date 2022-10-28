@@ -53,6 +53,7 @@ if(isset($search_value)){
     $sResults2 = 'https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value;
 	$sResults = json_decode(file_get_contents($sResults2));
     $sResults = $sResults->results();
+}
 
 // Get sites from database
 $sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
