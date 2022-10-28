@@ -61,6 +61,7 @@
     "forum\/guests": "Guests",
     "forum\/has_no_parent": "No parent",
     "forum\/in": "in",
+    "forms\/submissions": "Talepler",
     "forum\/include_in_hook": "Include events from this forum in webhooks?",
     "forum\/input_forum_description": "Please input a forum description.",
     "forum\/input_forum_title": "Please input a forum title.",
