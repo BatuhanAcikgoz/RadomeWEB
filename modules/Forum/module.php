@@ -322,8 +322,8 @@ class Forum_Module extends Module {
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';
-                        $output['datasets']['submissions']['label'] = 'forum_language/forms/submissions'; // for $forum_language->get('forum', 'posts_title');
-                        $output['datasets']['submissions']['colour'] = '#ffdeSS';
+                        $output['datasets']['submissions']['label'] = 'forms_language/forms/submissions'; // for $forum_language->get('forum', 'posts_title');
+                        $output['datasets']['submissions']['colour'] = '#ff7f00';
 
                         foreach ($latest_topics as $topic) {
                             $date = date('d M Y', $topic->topic_date);
