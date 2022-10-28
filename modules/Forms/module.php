@@ -37,61 +37,6 @@ class Forms_Module extends Module {
 
         // Check if module version changed
 
-        if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
-            // Dashboard graph
-
-            // Get data for forms_replies and posts
-            $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
-    
-            $cache->setCache('dashboard_graph'); 
-            if ($cache->isCached('forms_data')) {
-                $output = $cache->retrieve('forms_data');
-
-            } else {
-                $output = [];
-
-                $output['datasets']['forms_replies']['label'] = 'form_language/forum/forms_replies_title'; // for $forum_language->get('forum', 'forms_replies_title');
-                $output['datasets']['forms_replies']['colour'] = '#00931S';
-
-                foreach ($latest_submissions as $topic) {
-                    $date = date('d M Y', $topic->topic_date);
-                    $date = '_' . strtotime($date);
-
-                    if (isset($output[$date]['forms_replies'])) {
-                        $output[$date]['forms_replies'] += 1;
-                    } else {
-                        $output[$date]['forms_replies'] = 1;
-                    }
-                }
-
-                // Fill in missing dates, set forms_replies/posts to 0
-                $start = strtotime('-1 week');
-                $start = date('d M Y', $start);
-                $start = strtotime($start);
-                $end = strtotime(date('d M Y'));
-                while ($start <= $end) {
-                    if (!isset($output['_' . $start]['forms_replies'])) {
-                        $output['_' . $start]['forms_replies'] = 0;
-                    }
-
-                    $start = strtotime('+1 day', $start);
-                }
-
-                // Sort by date
-                ksort($output);
-
-                $cache->store('forms_data', $output, 120);
-
-            }
-            
-
-            Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
-
-            // Dashboard stats
-            require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
-            CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($latest_submissions)));
-        }   
-
         try {
             $forms = $this->_db->query('SELECT id, link_location, url, icon, title, guest FROM rw_forms')->results();
             if (count($forms)) {
