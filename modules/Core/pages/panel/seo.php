@@ -102,7 +102,7 @@ if (!isset($_GET['metadata'])) {
 } else {
     $page = $pages->getPageById($_GET['metadata']);
     if (is_null($page)) {
-        Redirect::to(URL::build('/panel/core/seo'));
+        Redirect::to(URL::build('/panel/seo'));
     }
 
     $page_metadata = DB::getInstance()->get('page_descriptions', ['page', $page['key']])->results();
@@ -157,7 +157,7 @@ if (!isset($_GET['metadata'])) {
 
     $smarty->assign([
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/core/seo'),
+        'BACK_LINK' => URL::build('/panel/seo'),
         'EDITING_PAGE' => $language->get('admin', 'editing_page_x', [
             'page' => Text::bold(Output::getClean($page['key']))
         ]),
@@ -195,7 +195,7 @@ $smarty->assign([
     'GOOGLE_ANALYTICS_VALUE' => Util::getSetting('ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
     'PAGE_LIST' => $pages->returnPages(),
-    'EDIT_LINK' => URL::build('/panel/core/seo/', 'metadata={x}'),
+    'EDIT_LINK' => URL::build('/panel/seo/', 'metadata={x}'),
     'GOOGLE_ANALYTICS' => $language->get('admin', 'google_analytics'),
     'GOOGLE_ANALYTICS_HELP' => $language->get('admin', 'google_analytics_help'),
     'SUBMIT' => $language->get('general', 'submit'),

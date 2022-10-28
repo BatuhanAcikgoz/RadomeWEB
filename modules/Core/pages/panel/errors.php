@@ -24,7 +24,7 @@ if (isset($_GET['log'], $_GET['do']) && $_GET['do'] == 'purge') {
     if (Token::check()) {
         file_put_contents(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'cache', 'logs', $_GET['log'] . '-log.log']), '');
         Session::flash('error_log_success', $language->get('admin', 'log_purged_successfully'));
-        Redirect::to(URL::build('/panel/core/hatalar'));
+        Redirect::to(URL::build('/panel/hatalar'));
     } else {
         Session::flash('error_log_error', $language->get('general', 'invalid_token'));
     }
@@ -81,7 +81,7 @@ if (isset($_GET['log'])) {
     }
 
     $smarty->assign([
-        'BACK_LINK' => URL::build('/panel/core/hatalar'),
+        'BACK_LINK' => URL::build('/panel/hatalar'),
         'LOG_NAME' => $title,
         'ACTIONS' => $language->get('general', 'actions'),
         'PURGE_LOG' => $language->get('admin', 'purge_errors'),
@@ -89,19 +89,19 @@ if (isset($_GET['log'])) {
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'PURGE_LOG_LINK' => URL::build('/panel/core/hatalar/', 'log=' . urlencode($type) . '&do=purge')
+        'PURGE_LOG_LINK' => URL::build('/panel/hatalar/', 'log=' . urlencode($type) . '&do=purge')
     ]);
 } else {
     $smarty->assign([
-        'BACK_LINK' => URL::build('/panel/core/bakim_sorun_giderme'),
+        'BACK_LINK' => URL::build('/panel/bakim_sorun_giderme'),
         'FATAL_LOG' => $language->get('admin', 'fatal_log'),
-        'FATAL_LOG_LINK' => URL::build('/panel/core/hatalar/', 'log=fatal'),
+        'FATAL_LOG_LINK' => URL::build('/panel/hatalar/', 'log=fatal'),
         'NOTICE_LOG' => $language->get('admin', 'notice_log'),
-        'NOTICE_LOG_LINK' => URL::build('/panel/core/hatalar/', 'log=notice'),
+        'NOTICE_LOG_LINK' => URL::build('/panel/hatalar/', 'log=notice'),
         'WARNING_LOG' => $language->get('admin', 'warning_log'),
-        'WARNING_LOG_LINK' => URL::build('/panel/core/hatalar/', 'log=warning'),
+        'WARNING_LOG_LINK' => URL::build('/panel/hatalar/', 'log=warning'),
         'OTHER_LOG' => $language->get('admin', 'other_log'),
-        'OTHER_LOG_LINK' => URL::build('/panel/core/hatalar/', 'log=other'),
+        'OTHER_LOG_LINK' => URL::build('/panel/hatalar/', 'log=other'),
     ]);
 }
 

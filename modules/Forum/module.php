@@ -20,8 +20,8 @@ class Forum_Module extends Module {
 
         $name = 'Forum';
         $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
-        $module_version = '2.0.2';
-        $radome_version = '2.0.2';
+        $module_version = '1.0';
+        $radome_version = '1.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
@@ -317,7 +317,7 @@ class Forum_Module extends Module {
                     } else {
                         $output = [];
 
-                        $output['datasets']['topics']['label'] = 'forum_language/forum/konus_title'; // for $forum_language->get('forum', 'topics_title');
+                        $output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';

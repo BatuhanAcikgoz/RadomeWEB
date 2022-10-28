@@ -49,7 +49,7 @@ if (Input::exists()) {
 
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/bakim_sorun_giderme'));
+            Redirect::to(URL::build('/panel/bakim_sorun_giderme'));
         }
 
         $errors = $validation->errors();
@@ -79,7 +79,7 @@ if (isset($errors) && count($errors)) {
 if ($user->hasPermission('admincp.errors')) {
     $smarty->assign([
         'ERROR_LOGS' => $language->get('admin', 'error_logs'),
-        'ERROR_LOGS_LINK' => URL::build('/panel/core/hatalar')
+        'ERROR_LOGS_LINK' => URL::build('/panel/hatalar')
     ]);
 }
 

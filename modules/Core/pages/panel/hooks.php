@@ -30,8 +30,8 @@ if (!isset($_GET['action'])) {
             $hooks_array[] = [
                 'name' => Output::getClean($hook->name),
                 'url' => Output::getClean($hook->url),
-                'edit_link' => URL::build('/panel/core/hooks/', 'action=edit&id=' . urlencode($hook->id)),
-                'delete_link' => URL::build('/panel/core/hooks/', 'action=delete&id=' . urlencode($hook->id))
+                'edit_link' => URL::build('/panel/hooks/', 'action=edit&id=' . urlencode($hook->id)),
+                'delete_link' => URL::build('/panel/hooks/', 'action=delete&id=' . urlencode($hook->id))
             ];
         }
     }
@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
     $smarty->assign([
         'HOOKS_INFO' => $language->get('admin', 'hooks_info'),
         'NEW_HOOK' => $language->get('admin', 'new_hook'),
-        'NEW_HOOK_LINK' => URL::build('/panel/core/hooks/', 'action=new'),
+        'NEW_HOOK_LINK' => URL::build('/panel/hooks/', 'action=new'),
         'HOOKS_LIST' => $hooks_array,
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_HOOK' => $language->get('admin', 'delete_hook'),
@@ -93,7 +93,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             Session::flash('admin_hooks', $language->get('admin', 'hook_created'));
-                            Redirect::to(URL::build('/panel/core/hooks'));
+                            Redirect::to(URL::build('/panel/hooks'));
                         }
 
                         $errors[] = $language->get('admin', 'invalid_hook_events');
@@ -113,7 +113,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_TYPE' => $language->get('admin', 'hook_type'),
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/hooks'),
+                'BACK_LINK' => URL::build('/panel/hooks'),
                 'NORMAL' => $language->get('general', 'normal'),
                 'ALL_EVENTS' => EventHandler::getEvents()
             ]);
@@ -132,7 +132,7 @@ if (!isset($_GET['action'])) {
             $hook = DB::getInstance()->get('hooks', ['id', $_GET['id']])->results();
             if (!count($hook)) {
                 // No, it doesn't exist
-                Redirect::to(URL::build('/panel/core/hooks'));
+                Redirect::to(URL::build('/panel/hooks'));
             }
             $hook = $hook[0];
 
@@ -176,7 +176,7 @@ if (!isset($_GET['action'])) {
                                 $cache->erase('hooks');
                             }
                             Session::flash('admin_hooks', $language->get('admin', 'hook_edited'));
-                            Redirect::to(URL::build('/panel/core/hooks'));
+                            Redirect::to(URL::build('/panel/hooks'));
                         }
 
                         $errors[] = $language->get('admin', 'invalid_hook_events');
@@ -199,7 +199,7 @@ if (!isset($_GET['action'])) {
                 'HOOK_TYPE_VALUE' => Output::getClean($hook->action),
                 'HOOK_EVENTS' => $language->get('admin', 'hook_events'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/hooks'),
+                'BACK_LINK' => URL::build('/panel/hooks'),
                 'NORMAL' => $language->get('general', 'normal'),
                 'ALL_EVENTS' => EventHandler::getEvents(),
                 'ENABLED_HOOKS' => json_decode($hook->events, true)
@@ -211,7 +211,7 @@ if (!isset($_GET['action'])) {
         case 'delete':
             // Delete hook
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/hooks'));
+                Redirect::to(URL::build('/panel/hooks'));
             }
 
             if (Token::check()) {
@@ -227,10 +227,10 @@ if (!isset($_GET['action'])) {
                 Session::flash('admin_hooks_error', $language->get('general', 'invalid_token'));
             }
 
-            Redirect::to(URL::build('/panel/core/hooks'));
+            Redirect::to(URL::build('/panel/hooks'));
 
         default:
-            Redirect::to(URL::build('/panel/core/hooks'));
+            Redirect::to(URL::build('/panel/hooks'));
     }
 }
 

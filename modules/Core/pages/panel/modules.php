@@ -58,8 +58,8 @@ if (!isset($_GET['action'])) {
                 'intendedVersion' => Text::bold(Output::getClean($module->getRadomeVersion())),
                 'actualVersion' => Text::bold(RADOME_VERSION)
             ]) : false,
-            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/core/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
-            'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/core/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
+            'disable_link' => (($module->getName() != 'Core' && $item->enabled) ? URL::build('/panel/modules/', 'action=disable&m=' . urlencode($item->id)) : null),
+            'enable_link' => (($module->getName() != 'Core' && !$item->enabled) ? URL::build('/panel/modules/', 'action=enable&m=' . urlencode($item->id)) : null),
             'enabled' => $item->enabled
         ];
     }
@@ -118,7 +118,7 @@ if (!isset($_GET['action'])) {
 
     $smarty->assign([
         'INSTALL_MODULE' => $language->get('admin', 'install'),
-        'INSTALL_MODULE_LINK' => URL::build('/panel/core/modules/', 'action=install'),
+        'INSTALL_MODULE_LINK' => URL::build('/panel/modules/', 'action=install'),
         'AUTHOR' => $language->get('admin', 'author'),
         'ENABLE' => $language->get('admin', 'enable'),
         'DISABLE' => $language->get('admin', 'disable'),
@@ -195,7 +195,7 @@ if (!isset($_GET['action'])) {
                     foreach ($module->getLoadAfter() as $item) {
                         if (!in_array($item, $enabled_modules)) {
                             Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module_dependencies', ['module' =>  Output::getClean($item)]));
-                            Redirect::to(URL::build('/panel/core/modules'));
+                            Redirect::to(URL::build('/panel/modules'));
                         }
                     }
                     Session::flash('admin_modules_error', $language->get('admin', 'unable_to_enable_module'));
@@ -209,7 +209,7 @@ if (!isset($_GET['action'])) {
             Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/core/modules'));
+        Redirect::to(URL::build('/panel/modules'));
     }
 
     if ($_GET['action'] == 'disable') {
@@ -227,7 +227,7 @@ if (!isset($_GET['action'])) {
                 if (in_array($name, $item->getLoadAfter())) {
                     // Unable to disable module
                     Session::flash('admin_modules_error', $language->get('admin', 'unable_to_disable_module', ['module' => Output::getClean($item->getName())]));
-                    Redirect::to(URL::build('/panel/core/modules'));
+                    Redirect::to(URL::build('/panel/modules'));
                 }
             }
 
@@ -264,7 +264,7 @@ if (!isset($_GET['action'])) {
             Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/core/modules'));
+        Redirect::to(URL::build('/panel/modules'));
     }
 
     if ($_GET['action'] == 'install') {
@@ -301,7 +301,7 @@ if (!isset($_GET['action'])) {
             Session::flash('admin_modules_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/core/modules'));
+        Redirect::to(URL::build('/panel/modules'));
     }
 }
 

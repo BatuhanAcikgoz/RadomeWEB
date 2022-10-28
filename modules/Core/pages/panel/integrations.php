@@ -30,7 +30,7 @@ if (!isset($_GET['integration'])) {
         $integrations_list[] = [
             'name' => Output::getClean($integration->getName()),
             'icon' => Output::getClean($integration->getIcon()),
-            'edit_link' => URL::build('/panel/core/entegrasyonlar/', 'integration=' . $integration->getName()),
+            'edit_link' => URL::build('/panel/entegrasyonlar/', 'integration=' . $integration->getName()),
             'enabled' => $integration->isEnabled(),
             'can_unlink' => $integration->data()->can_unlink,
             'required' => $integration->data()->required,
@@ -49,7 +49,7 @@ if (!isset($_GET['integration'])) {
     // View integration settings
     $integration = $integrations->getIntegration($_GET['integration']);
     if ($integration === null) {
-        Redirect::to(URL::build('/panel/core/entegrasyonlar'));
+        Redirect::to(URL::build('/panel/entegrasyonlar'));
     }
 
     if (Input::exists()) {
@@ -63,7 +63,7 @@ if (!isset($_GET['integration'])) {
             ]);
 
             Session::flash('integrations_success', $language->get('admin', 'integration_updated_successfully'));
-            Redirect::to(URL::build('/panel/core/entegrasyonlar/', 'integration=' . $integration->getName()));
+            Redirect::to(URL::build('/panel/entegrasyonlar/', 'integration=' . $integration->getName()));
         } else {
             $errors[] = $language->get('general', 'invalid_token');
         }
@@ -72,7 +72,7 @@ if (!isset($_GET['integration'])) {
     $smarty->assign([
         'EDITING_INTEGRATION' => $language->get('admin', 'editing_integration_x', ['integration' => $integration->getName()]),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/core/entegrasyonlar'),
+        'BACK_LINK' => URL::build('/panel/entegrasyonlar'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'ENABLED_VALUE' => $integration->isEnabled(),
         'CAN_UNLINK_INTEGRATION' => $language->get('admin', 'can_unlink_integration'),

@@ -83,7 +83,7 @@ $smarty->assign([
     'REPLACEMENT_INFO' => $language->get('admin', 'emails_mass_message_replacements'),
     'LOADING' => $language->get('admin', 'emails_mass_message_loading'),
     'BACK' => $language->get('general', 'back'),
-    'BACK_LINK' => URL::build('/panel/core/emails')
+    'BACK_LINK' => URL::build('/panel/email')
 ]);
 
 $template_file = 'core/emails_mass_message.tpl';

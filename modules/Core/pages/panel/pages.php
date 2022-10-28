@@ -31,7 +31,7 @@ if (!isset($_GET['action'])) {
         foreach ($custom_pages as $custom_page) {
             $template_array[] = [
                 'id' => Output::getClean($custom_page->id),
-                'edit_link' => URL::build('/panel/core/sayfalar/', 'action=edit&id=' . urlencode($custom_page->id)),
+                'edit_link' => URL::build('/panel/sayfalar/', 'action=edit&id=' . urlencode($custom_page->id)),
                 'title' => Output::getClean($custom_page->title)
             ];
         }
@@ -39,7 +39,7 @@ if (!isset($_GET['action'])) {
 
     $smarty->assign([
         'NEW_PAGE' => $language->get('admin', 'new_page'),
-        'NEW_PAGE_LINK' => URL::build('/panel/core/sayfalar/', 'action=new'),
+        'NEW_PAGE_LINK' => URL::build('/panel/sayfalar/', 'action=new'),
         'EDIT' => $language->get('general', 'edit'),
         'DELETE' => $language->get('general', 'delete'),
         'NO_CUSTOM_PAGES' => $language->get('admin', 'no_custom_pages'),
@@ -48,7 +48,7 @@ if (!isset($_GET['action'])) {
         'CONFIRM_DELETE_PAGE' => $language->get('admin', 'confirm_delete_page'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'DELETE_LINK' => URL::build('/panel/core/sayfalar', 'action=delete'),
+        'DELETE_LINK' => URL::build('/panel/sayfalar', 'action=delete'),
     ]);
 
     $template_file = 'core/pages.tpl';
@@ -170,7 +170,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             Session::flash('admin_pages', $language->get('admin', 'page_created_successfully'));
-                            Redirect::to(URL::build('/panel/core/sayfalar'));
+                            Redirect::to(URL::build('/panel/sayfalar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -200,7 +200,7 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/core/sayfalar'),
+                'CANCEL_LINK' => URL::build('/panel/sayfalar'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -244,11 +244,11 @@ if (!isset($_GET['action'])) {
         case 'edit':
             // Get page
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/sayfalar'));
+                Redirect::to(URL::build('/panel/sayfalar'));
             }
             $page = DB::getInstance()->get('custom_pages', ['id', $_GET['id']])->results();
             if (!count($page)) {
-                Redirect::to(URL::build('/panel/core/sayfalar'));
+                Redirect::to(URL::build('/panel/sayfalar'));
             }
             $page = $page[0];
 
@@ -460,7 +460,7 @@ if (!isset($_GET['action'])) {
                             }
 
                             Session::flash('admin_pages', $language->get('admin', 'page_updated_successfully'));
-                            Redirect::to(URL::build('/panel/core/sayfalar'));
+                            Redirect::to(URL::build('/panel/sayfalar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -496,7 +496,7 @@ if (!isset($_GET['action'])) {
 
             $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/core/sayfalar'),
+                'CANCEL_LINK' => URL::build('/panel/sayfalar'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                 'YES' => $language->get('general', 'yes'),
@@ -563,7 +563,7 @@ if (!isset($_GET['action'])) {
             die();
 
         default:
-            Redirect::to(URL::build('/panel/core/sayfalar'));
+            Redirect::to(URL::build('/panel/sayfalar'));
     }
 }
 

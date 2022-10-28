@@ -47,9 +47,9 @@ if (!isset($_GET['action'])) {
             'module' => $language->get('admin', 'module_x', ['module' => Output::getClean($widget->getModule())]),
             'description' => Output::getClean($widget->getDescription()),
             'enabled' => $widgets->isEnabled($widget),
-            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . urlencode($widget_query)) : null),
-            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . urlencode($widget_query)) : null),
-            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget_query)) : null)
+            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=disable&w=' . urlencode($widget_query)) : null),
+            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=enable&w=' . urlencode($widget_query)) : null),
+            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=edit&w=' . urlencode($widget_query)) : null)
         ];
     }
 
@@ -93,7 +93,7 @@ if (!isset($_GET['action'])) {
             Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/core/widgets'));
+        Redirect::to(URL::build('/panel/widgets'));
     }
 
     if ($_GET['action'] == 'disable') {
@@ -124,18 +124,18 @@ if (!isset($_GET['action'])) {
             Session::flash('admin_widgets_error', $language->get('general', 'invalid_token'));
         }
 
-        Redirect::to(URL::build('/panel/core/widgets'));
+        Redirect::to(URL::build('/panel/widgets'));
     }
 
     if ($_GET['action'] == 'edit') {
         // Ensure widget exists
         if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
-            Redirect::to(URL::build('/panel/core/widgets'));
+            Redirect::to(URL::build('/panel/widgets'));
         }
 
         $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
         if (!count($widget)) {
-            Redirect::to(URL::build('/panel/core/widgets'));
+            Redirect::to(URL::build('/panel/widgets'));
         }
         $widget = $widget[0];
 
@@ -164,7 +164,7 @@ if (!isset($_GET['action'])) {
                     DB::getInstance()->update('widgets', $widget->id, ['pages' => $active_pages_string, 'order' => $order, 'location' => $location]);
 
                     Session::flash('admin_widgets', $language->get('admin', 'widget_updated'));
-                    Redirect::to(URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)));
+                    Redirect::to(URL::build('/panel/widgets/', 'action=edit&w=' . urlencode($widget->id)));
                 } catch (Exception $e) {
                     $errors = [$e->getMessage()];
                 }
@@ -181,7 +181,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign(
                 [
                     'SETTINGS' => $language->get('admin', 'settings'),
-                    'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . urlencode($widget->id))
+                    'SETTINGS_LINK' => URL::build('/panel/widgets/', 'action=settings&w=' . urlencode($widget->id))
                 ]
             );
         }
@@ -202,7 +202,7 @@ if (!isset($_GET['action'])) {
                     'widget' => Text::bold(Output::getClean($widget->name))
                 ]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/widgets'),
+                'BACK_LINK' => URL::build('/panel/widgets'),
                 'ORDER' => $order,
                 'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
                 'LOCATION' => $location,
@@ -221,12 +221,12 @@ if (!isset($_GET['action'])) {
         if ($_GET['action'] == 'settings') {
             // Ensure widget exists
             if (!isset($_GET['w']) || !is_numeric($_GET['w'])) {
-                Redirect::to(URL::build('/panel/core/widgets'));
+                Redirect::to(URL::build('/panel/widgets'));
             }
 
             $widget = DB::getInstance()->get('widgets', ['id', $_GET['w']])->results();
             if (!count($widget)) {
-                Redirect::to(URL::build('/panel/core/widgets'));
+                Redirect::to(URL::build('/panel/widgets'));
             }
             $widget = $widget[0];
 
@@ -245,13 +245,13 @@ if (!isset($_GET['action'])) {
                         'widget' => Text::bold(Output::getClean($widget->name))
                     ]),
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id))
+                    'BACK_LINK' => URL::build('/panel/widgets/', 'action=edit&w=' . urlencode($widget->id))
                 ]
             );
 
             $template_file = 'core/widget_settings.tpl';
         } else {
-            Redirect::to('/panel/core/widgets');
+            Redirect::to('/panel/widgets');
         }
     }
 }

@@ -57,7 +57,7 @@ if (Input::exists()) {
 
         // Reload to update info
         Session::flash('navigation_success', $language->get('admin', 'navigation_settings_updated_successfully'));
-        Redirect::to(URL::build('/panel/core/navigation'));
+        Redirect::to(URL::build('/panel/navigation'));
     }
 
     // Invalid token

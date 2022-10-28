@@ -6,7 +6,7 @@
  * @author Samerton
  * @author Partydragen
  * @author Aberdeener
- * @version 2.0.2
+ * @version 1.0
  * @license MIT
  */
 class User {

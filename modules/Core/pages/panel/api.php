@@ -47,7 +47,7 @@ if (!isset($_GET['view'])) {
 
                 // Redirect
                 Session::flash('api_success', $language->get('admin', 'api_key_regenerated'));
-                Redirect::to(URL::build('/panel/core/api'));
+                Redirect::to(URL::build('/panel/api'));
             }
 
             $plugin_id = DB::getInstance()->get('settings', ['name', 'use_api'])->results();
@@ -218,7 +218,7 @@ if (!isset($_GET['view'])) {
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
             'API_KEY_VALUE' => Util::getSetting('mc_api_key'),
-            'API_KEY_REGEN_URL' => URL::build('/panel/core/api/', 'action=api_regen'),
+            'API_KEY_REGEN_URL' => URL::build('/panel/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
             'YES' => $language->get('general', 'yes'),
@@ -235,9 +235,9 @@ if (!isset($_GET['view'])) {
             'SUBMIT' => $language->get('general', 'submit'),
             'COPIED' => $language->get('general', 'copied'),
             'GROUP_SYNC' => $language->get('admin', 'group_sync'),
-            'GROUP_SYNC_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+            'GROUP_SYNC_LINK' => URL::build('/panel/api/', 'view=group_sync'),
             'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
-            'API_ENDPOINTS_LINK' => URL::build('/panel/core/api/', 'view=api_endpoints')
+            'API_ENDPOINTS_LINK' => URL::build('/panel/api/', 'view=api_endpoints')
         ]
     );
 
@@ -265,7 +265,7 @@ if (!isset($_GET['view'])) {
                 'INFO' => $language->get('general', 'info'),
                 'GROUP_SYNC_INFO' => $language->get('admin', 'group_sync_info'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/api'),
+                'BACK_LINK' => URL::build('/panel/api'),
                 'TOKEN' => Token::get(),
                 'SUBMIT' => $language->get('general', 'submit'),
                 'GROUP_SYNC_VALUES' => $group_sync_values,
@@ -276,7 +276,7 @@ if (!isset($_GET['view'])) {
                 'DELETE' => $language->get('general', 'delete'),
                 'NEW_RULE' => $language->get('admin', 'new_rule'),
                 'EXISTING_RULES' => $language->get('admin', 'existing_rules'),
-                'DELETE_LINK' => URL::build('/panel/core/api/', 'view=group_sync'),
+                'DELETE_LINK' => URL::build('/panel/api/', 'view=group_sync'),
                 'NONE' => $language->get('general', 'none'),
                 'DISABLED' => $language->get('admin', 'disabled')
             ]
@@ -306,7 +306,7 @@ if (!isset($_GET['view'])) {
                     'API_ENDPOINTS' => $language->get('admin', 'api_endpoints'),
                     'PAGE' => PANEL_PAGE,
                     'BACK' => $language->get('general', 'back'),
-                    'BACK_LINK' => URL::build('/panel/core/api'),
+                    'BACK_LINK' => URL::build('/panel/api'),
                     'ROUTE' => $language->get('admin', 'route'),
                     'DESCRIPTION' => $language->get('admin', 'description'),
                     'MODULE' => $language->get('admin', 'module'),

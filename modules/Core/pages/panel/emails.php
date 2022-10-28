@@ -40,7 +40,7 @@ if (isset($_GET['action'])) {
         $smarty->assign([
             'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/emails')
+            'BACK_LINK' => URL::build('/panel/email')
         ]);
 
         if (isset($_GET['do']) && $_GET['do'] == 'send') {
@@ -77,7 +77,7 @@ if (isset($_GET['action'])) {
                 ]),
                 'INFO' => $language->get('general', 'info'),
                 'SEND' => $language->get('admin', 'send'),
-                'SEND_LINK' => URL::build('/panel/core/emails/', 'action=test&do=send')
+                'SEND_LINK' => URL::build('/panel/email/', 'action=test&do=send')
             ]);
         }
 
@@ -98,7 +98,7 @@ if (isset($_GET['action'])) {
 
             $smarty->assign([
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/emails'),
+                'BACK_LINK' => URL::build('/panel/email'),
                 'EMAILS_MESSAGES' => $language->get('admin', 'edit_email_messages'),
                 'EDITING_MESSAGES' => $language->get('admin', 'editing_messages'),
                 'OPTIONS' => $language->get('admin', 'email_message_options'),
@@ -154,7 +154,7 @@ if (isset($_GET['action'])) {
                     $editing_lang->set('emails', $email[0] . '_message', Output::getClean(Input::get($email[0] . '_message')));
                 }
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                Redirect::to(URL::build('/panel/core/emails', 'action=edit_messages'));
+                Redirect::to(URL::build('/panel/email', 'action=edit_messages'));
             } else {
                 Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
 
@@ -178,7 +178,7 @@ if (isset($_GET['action'])) {
 
                     // Redirect to refresh config values
                     Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
-                    Redirect::to(URL::build('/panel/core/emails'));
+                    Redirect::to(URL::build('/panel/email'));
                 }
             }
         } else {
@@ -189,19 +189,19 @@ if (isset($_GET['action'])) {
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign([
             'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-            'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/toplu_mesaj'),
+            'MASS_MESSAGE_LINK' => URL::build('/panel/email/toplu_mesaj'),
         ]);
     }
 
     $smarty->assign([
         'MASS_MESSAGE' => $language->get('admin', 'emails_mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/emails/toplu_mesaj'),
+        'MASS_MESSAGE_LINK' => URL::build('/panel/email/toplu_mesaj'),
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
-        'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/core/emails/', 'action=edit_messages'),
+        'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/email/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
-        'SEND_TEST_EMAIL_LINK' => URL::build('/panel/core/emails/', 'action=test'),
+        'SEND_TEST_EMAIL_LINK' => URL::build('/panel/email/', 'action=test'),
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
-        'EMAIL_ERRORS_LINK' => URL::build('/panel/core/emails/hatalar'),
+        'EMAIL_ERRORS_LINK' => URL::build('/panel/email/hatalar'),
         'ENABLE_MAILER' => $language->get('admin', 'use_external_mail_server'),
         'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
         'INFO' => $language->get('general', 'info'),

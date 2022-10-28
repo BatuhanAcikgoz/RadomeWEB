@@ -129,7 +129,7 @@ if (isset($_GET['action'])) {
     } else {
         if ($_GET['action'] == 'edit') {
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/core/gruplar'));
+                Redirect::to(URL::build('/panel/gruplar'));
             }
             $id = (int)$_GET['id'];
 

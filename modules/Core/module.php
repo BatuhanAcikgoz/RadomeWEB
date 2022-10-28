@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
-        $module_version = '2.0.2';
-        $radome_version = '2.0.2';
+        $module_version = '1.0';
+        $radome_version = '1.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
@@ -69,28 +69,28 @@ class Core_Module extends Module {
         // Panel
         $pages->add('Core', '/panel', 'pages/panel/index.php');
         $pages->add('Core', '/panel/giris', 'pages/panel/auth.php');
-        $pages->add('Core', '/panel/core/genel_ayarlar', 'pages/panel/general_settings.php');
-        $pages->add('Core', '/panel/core/api', 'pages/panel/api.php');
-        $pages->add('Core', '/panel/core/seo', 'pages/panel/seo.php');
-        $pages->add('Core', '/panel/core/avatarlar', 'pages/panel/avatars.php');
-        $pages->add('Core', '/panel/core/bakim_sorun_giderme', 'pages/panel/debugging_and_maintenance.php');
-        $pages->add('Core', '/panel/core/hatalar', 'pages/panel/errors.php');
-        $pages->add('Core', '/panel/core/emails', 'pages/panel/emails.php');
-        $pages->add('Core', '/panel/core/emails/hatalar', 'pages/panel/emails_errors.php');
-        $pages->add('Core', '/panel/core/emails/toplu_mesaj', 'pages/panel/emails_mass_message.php');
-        $pages->add('Core', '/panel/core/navigation', 'pages/panel/navigation.php');
-        $pages->add('Core', '/panel/core/gizlilik_and_sartlar', 'pages/panel/privacy_and_terms.php');
-        $pages->add('Core', '/panel/core/kayit', 'pages/panel/registration.php');
-        $pages->add('Core', '/panel/core/sosyal_medya', 'pages/panel/social_media.php');
-        $pages->add('Core', '/panel/core/gruplar', 'pages/panel/groups.php');
-        $pages->add('Core', '/panel/core/gorseller', 'pages/panel/images.php');
-        $pages->add('Core', '/panel/core/temalar', 'pages/panel/templates.php');
-        $pages->add('Core', '/panel/core/duyurular', 'pages/panel/announcements.php');
-        $pages->add('Core', '/panel/core/widgets', 'pages/panel/widgets.php');
-        $pages->add('Core', '/panel/core/modules', 'pages/panel/modules.php');
-        $pages->add('Core', '/panel/core/sayfalar', 'pages/panel/pages.php');
-        $pages->add('Core', '/panel/core/hooks', 'pages/panel/hooks.php');
-        $pages->add('Core', '/panel/core/entegrasyonlar', 'pages/panel/integrations.php');
+        $pages->add('Core', '/panel/genel_ayarlar', 'pages/panel/general_settings.php');
+        $pages->add('Core', '/panel/api', 'pages/panel/api.php');
+        $pages->add('Core', '/panel/seo', 'pages/panel/seo.php');
+        $pages->add('Core', '/panel/avatarlar', 'pages/panel/avatars.php');
+        $pages->add('Core', '/panel/bakim_sorun_giderme', 'pages/panel/debugging_and_maintenance.php');
+        $pages->add('Core', '/panel/hatalar', 'pages/panel/errors.php');
+        $pages->add('Core', '/panel/email', 'pages/panel/emails.php');
+        $pages->add('Core', '/panel/email/hatalar', 'pages/panel/emails_errors.php');
+        $pages->add('Core', '/panel/email/toplu_mesaj', 'pages/panel/emails_mass_message.php');
+        $pages->add('Core', '/panel/navigation', 'pages/panel/navigation.php');
+        $pages->add('Core', '/panel/gizlilik_ve_sartlar', 'pages/panel/privacy_and_terms.php');
+        $pages->add('Core', '/panel/kayit', 'pages/panel/registration.php');
+        $pages->add('Core', '/panel/sosyal_medya', 'pages/panel/social_media.php');
+        $pages->add('Core', '/panel/gruplar', 'pages/panel/groups.php');
+        $pages->add('Core', '/panel/gorseller', 'pages/panel/images.php');
+        $pages->add('Core', '/panel/temalar', 'pages/panel/templates.php');
+        $pages->add('Core', '/panel/duyurular', 'pages/panel/announcements.php');
+        $pages->add('Core', '/panel/widgets', 'pages/panel/widgets.php');
+        $pages->add('Core', '/panel/modules', 'pages/panel/modules.php');
+        $pages->add('Core', '/panel/sayfalar', 'pages/panel/pages.php');
+        $pages->add('Core', '/panel/hooks', 'pages/panel/hooks.php');
+        $pages->add('Core', '/panel/entegrasyonlar', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholderlar', 'pages/panel/placeholders.php');
         $pages->add('Core', '/panel/minecraft', 'pages/panel/minecraft.php');
         $pages->add('Core', '/panel/minecraft/sunucular', 'pages/panel/minecraft_servers.php');
@@ -1048,7 +1048,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('general_settings_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/core/genel_ayarlar'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'general_settings', $language->get('admin', 'general_settings'), URL::build('/panel/genel_ayarlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.api')) {
@@ -1059,7 +1059,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('api_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/core/api'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'api', $language->get('admin', 'api'), URL::build('/panel/api'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.seo')) {
@@ -1070,7 +1070,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('seo_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/core/seo'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'seo', $language->get('admin', 'seo'), URL::build('/panel/seo'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.avatars')) {
@@ -1081,7 +1081,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('avatars_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/core/avatarlar'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'avatars', $language->get('admin', 'avatars'), URL::build('/panel/avatarlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.debugging')) {
@@ -1092,7 +1092,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('debugging_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/core/bakim_sorun_giderme'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'debugging_and_maintenance', $language->get('admin', 'maintenance'), URL::build('/panel/bakim_sorun_giderme'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.emails')) {
@@ -1103,7 +1103,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('email_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/core/emails'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'emails', $language->get('admin', 'emails'), URL::build('/panel/email'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.navigation')) {
@@ -1114,7 +1114,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('navigation_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/core/navigation'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'navigation', $language->get('admin', 'navigation'), URL::build('/panel/navigation'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.terms')) {
@@ -1125,7 +1125,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('privacy_and_terms_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/core/gizlilik_and_sartlar'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/gizlilik_ve_sartlar'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
@@ -1136,7 +1136,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('registration_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/core/kayit'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'registration', $language->get('admin', 'registration'), URL::build('/panel/kayit'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.social_media')) {
@@ -1147,7 +1147,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('social_media_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/core/sosyal_medya'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'social_media', $language->get('admin', 'social_media'), URL::build('/panel/sosyal_medya'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.hooks')) {
@@ -1158,7 +1158,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('hooks_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/core/hooks'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'hooks', $language->get('admin', 'hooks'), URL::build('/panel/hooks'), 'top', null, $icon, $order);
                 }
             }
 
@@ -1177,7 +1177,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('announcements_icon');
                 }
 
-                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/duyurular'), 'top', null, $order, $icon);
+                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/duyurular'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.integrations')) {
@@ -1206,7 +1206,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('user_integrations_icon');
                 }
 
-                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/core/entegrasyonlar'), 'top', null, $icon, 1);
+                $navs[2]->addItemToDropdown('integrations', 'integrations', $language->get('admin', 'general_settings'), URL::build('/panel/entegrasyonlar'), 'top', null, $icon, 1);
             }
 
             if ($user->hasPermission('admincp.minecraft')) {
@@ -1245,7 +1245,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('images_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/core/gorseller'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'images', $language->get('admin', 'images'), URL::build('/panel/gorseller'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.styles')) {
@@ -1256,7 +1256,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('templates_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/core/temalar/?action=settings&template=1'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'template', $language->get('admin', 'templates'), URL::build('/panel/temalar/?action=settings&template=1'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.widgets')) {
@@ -1267,7 +1267,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('widgets_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/core/widgets'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('layout', 'widgets', $language->get('admin', 'widgets'), URL::build('/panel/widgets'), 'top', null, $icon, $order);
                 }
             }
 
@@ -1286,7 +1286,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('pages_icon');
                 }
 
-                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/core/sayfalar'), 'top', null, $order, $icon);
+                $navs[2]->add('custom_pages', $language->get('admin', 'custom_pages'), URL::build('/panel/sayfalar'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.groups')) {
@@ -1304,7 +1304,7 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('group_icon');
                 }
 
-                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/core/gruplar'), 'top', null, $order, $icon);
+                $navs[2]->add('groups', $language->get('admin', 'groups'), URL::build('/panel/gruplar'), 'top', null, $order, $icon);
             }
 
             if ($user->hasPermission('admincp.users')) {
@@ -1416,7 +1416,7 @@ class Core_Module extends Module {
                 }
 
                 if (count($email_errors)) {
-                    self::addNotice(URL::build('/panel/core/emails/hatalar'), $language->get('admin', 'email_errors_logged'));
+                    self::addNotice(URL::build('/panel/email/hatalar'), $language->get('admin', 'email_errors_logged'));
                 }
             }
 

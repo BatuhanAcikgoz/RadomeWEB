@@ -13,7 +13,7 @@ $INFO_MODULE = [
     'name' => 'Iframe',
     'author' => '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>',
     'module_ver' => '1.3.0',
-    'nml_ver' => '2.0.2',
+    'nml_ver' => '1.0',
 ];
 
 $IframeLanguage = new Language(ROOT_PATH . '/modules/' . $INFO_MODULE['name'] . '/language', LANGUAGE);

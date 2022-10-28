@@ -29,7 +29,7 @@ if (isset($_GET['do'])) {
                 DB::getInstance()->delete('email_errors', ['id', '<>', 0]);
 
                 Session::flash('emails_errors_success', $language->get('admin', 'email_errors_purged_successfully'));
-                Redirect::to(URL::build('/panel/core/emails/hatalar'));
+                Redirect::to(URL::build('/panel/email/hatalar'));
             }
 
             if ($_GET['do'] == 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -37,11 +37,11 @@ if (isset($_GET['do'])) {
                 DB::getInstance()->delete('email_errors', ['id', $_GET['id']]);
 
                 Session::flash('emails_errors_success', $language->get('admin', 'error_deleted_successfully'));
-                Redirect::to(URL::build('/panel/core/emails/hatalar'));
+                Redirect::to(URL::build('/panel/email/hatalar'));
             }
         } else {
             Session::flash('emails_errors_error', $language->get('general', 'invalid_token'));
-            Redirect::to(URL::build('/panel/core/emails/hatalar'));
+            Redirect::to(URL::build('/panel/email/hatalar'));
         }
     }
 
@@ -49,7 +49,7 @@ if (isset($_GET['do'])) {
         // Check the error exists
         $error = DB::getInstance()->get('email_errors', ['id', $_GET['id']])->results();
         if (!count($error)) {
-            Redirect::to(URL::build('/panel/core/emails/hatalar'));
+            Redirect::to(URL::build('/panel/email/hatalar'));
         }
         $error = $error[0];
 
@@ -75,7 +75,7 @@ if (isset($_GET['do'])) {
         }
 
         $smarty->assign([
-            'BACK_LINK' => URL::build('/panel/core/emails/hatalar'),
+            'BACK_LINK' => URL::build('/panel/email/hatalar'),
             'VIEWING_ERROR' => $language->get('admin', 'viewing_email_error'),
             'USERNAME' => $language->get('user', 'username'),
             'USERNAME_VALUE' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
@@ -88,7 +88,7 @@ if (isset($_GET['do'])) {
             'CONTENT_VALUE' => Output::getPurified($error->content),
             'ACTIONS' => $language->get('general', 'actions'),
             'DELETE_ERROR' => $language->get('admin', 'delete_email_error'),
-            'DELETE_ERROR_LINK' => URL::build('/panel/core/emails/hatalar/', 'do=delete&amp;id=' . $error->id),
+            'DELETE_ERROR_LINK' => URL::build('/panel/email/hatalar/', 'do=delete&amp;id=' . $error->id),
             'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'YES' => $language->get('general', 'yes'),
@@ -123,7 +123,7 @@ if (isset($_GET['do'])) {
 
         $template_file = 'core/emails_errors_view.tpl';
     } else {
-        Redirect::to(URL::build('/panel/core/emails/hatalar'));
+        Redirect::to(URL::build('/panel/email/hatalar'));
     }
 } else {
     // Display all errors
@@ -132,12 +132,12 @@ if (isset($_GET['do'])) {
     // Get page
     if (isset($_GET['p'])) {
         if (!is_numeric($_GET['p'])) {
-            Redirect::to(URL::build('/panel/core/emails/hatalar'));
+            Redirect::to(URL::build('/panel/email/hatalar'));
         }
 
         if ($_GET['p'] == 1) {
             // Avoid bug in pagination class
-            Redirect::to(URL::build('/panel/core/emails/hatalar'));
+            Redirect::to(URL::build('/panel/email/hatalar'));
         }
         $p = $_GET['p'];
     } else {
@@ -148,10 +148,10 @@ if (isset($_GET['do'])) {
     $paginator = new Paginator();
 
     $results = $paginator->getLimited($email_errors, 10, $p, count($email_errors));
-    $pagination = $paginator->generate(7, URL::build('/panel/core/emails/hatalar'));
+    $pagination = $paginator->generate(7, URL::build('/panel/email/hatalar'));
 
     $smarty->assign([
-        'BACK_LINK' => URL::build('/panel/core/emails'),
+        'BACK_LINK' => URL::build('/panel/email'),
         'TYPE' => $language->get('admin', 'type'),
         'DATE' => $language->get('general', 'date'),
         'USERNAME' => $language->get('user', 'username'),
@@ -187,18 +187,18 @@ if (isset($_GET['do'])) {
                 'type' => $type,
                 'date' => date(DATE_FORMAT, $error->at),
                 'user' => $error->user_id ? Output::getClean($user->idToName($error->user_id)) : $language->get('general', 'deleted_user'),
-                'view_link' => URL::build('/panel/core/emails/hatalar/', 'do=view&id=' . $error->id),
+                'view_link' => URL::build('/panel/email/hatalar/', 'do=view&id=' . $error->id),
                 'id' => $error->id
             ];
         }
 
         $smarty->assign([
             'EMAIL_ERRORS_ARRAY' => $template_errors,
-            'DELETE_LINK' => URL::build('/panel/core/emails/hatalar/', 'do=delete&id={x}'),
+            'DELETE_LINK' => URL::build('/panel/email/hatalar/', 'do=delete&id={x}'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'PURGE_BUTTON' => $language->get('admin', 'purge_errors'),
             'CONFIRM_PURGE_ERRORS' => $language->get('admin', 'confirm_purge_errors'),
-            'PURGE_LINK' => URL::build('/panel/core/emails/hatalar/', 'do=purge'),
+            'PURGE_LINK' => URL::build('/panel/email/hatalar/', 'do=purge'),
             'CONFIRM_DELETE_ERROR' => $language->get('admin', 'confirm_email_error_deletion'),
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
@@ -239,7 +239,7 @@ $smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'CONFIGURATION' => $language->get('admin', 'configuration'),
     'EMAILS' => $language->get('admin', 'emails'),
-    'EMAILS_LINK' => URL::build('/panel/core/emails'),
+    'EMAILS_LINK' => URL::build('/panel/email'),
     'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
     'PAGE' => PANEL_PAGE,
     'BACK' => $language->get('general', 'back'),
