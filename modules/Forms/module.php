@@ -76,7 +76,7 @@ class Forms_Module extends Module {
                         $output = [];
 
                         $output['datasets']['forms_replies']['label'] = 'form_language/forms/submissions'; // for $forum_language->get('forum', 'forms_replies_title');
-                        $output['datasets']['forms_replies']['colour'] = '#00931D';
+                        $output['datasets']['forms_replies']['colour'] = '#00931A';
 
                         foreach ($latest_submissions as $submission) {
                             $date = date('d M Y', $submission->created);
