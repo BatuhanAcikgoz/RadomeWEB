@@ -32,12 +32,16 @@
                 <div class="row">
                 {if isset($SEARCH_RESULTS)}
                     {if $SEARCH_RESULTS eq '1'}
+                    <div class="col-md-12">
                     <div class="alert alert-danger" role="alert">
                         {$VOTE_SORGU1}
                     </div> 
+                    </div>
                     {elseif $SEARCH_RESULTS eq '0'}
-                    <div class="alert alert-success" role="alert">
+                    <div class="col-md-12">
+                        <div class="alert alert-success" role="alert">
                         {$VOTE_SORGU0}
+                    </div>
                     </div>
                     {else}    
                           NULL  
