@@ -302,27 +302,6 @@ class Core_Module extends Module {
             ]
         );
 
-        EventHandler::registerEvent('validateUser',
-            $language->get('admin', 'validate_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username')
-            ]
-        );
-
-        EventHandler::registerEvent('deleteUser',
-            $language->get('admin', 'delete_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'email_address' => $language->get('user', 'email_address')
-            ]
-        );
-
-        EventHandler::registerEvent('createReport',
-            $language->get('admin', 'report_hook_info')
-        );
-
         EventHandler::registerEvent('createAnnouncement',
             $language->get('admin', 'announcement_hook_info'),
             [
@@ -332,24 +311,6 @@ class Core_Module extends Module {
                 'message' => $language->get('admin', 'message'),
                 'avatar_url' => $language->get('user', 'avatar'),
             ]
-        );
-
-        EventHandler::registerEvent('renderPrivateMessage',
-            $language->get('admin', 'render_private_message'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPrivateMessageEdit',
-            $language->get('admin', 'render_private_message_edit'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
         );
 
         EventHandler::registerEvent('userBanned',
@@ -368,80 +329,6 @@ class Core_Module extends Module {
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
                 'reason' => $language->get('admin', 'reason'),
-            ]
-        );
-
-        EventHandler::registerEvent('preCustomPageCreate',
-            $language->get('admin', 'pre_custom_page_create_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preCustomPageEdit',
-            $language->get('admin', 'pre_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content'),
-                'user' => $language->get('general', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPage',
-            $language->get('admin', 'render_custom_page_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderCustomPageEdit',
-            $language->get('admin', 'render_custom_page_edit_hook_info'),
-            [
-                'content' => $language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('linkIntegrationUser',
-            $language->get('admin', 'user_link_integration_hook_info'),
-            [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('verifyIntegrationUser',
-            $language->get('admin', 'user_verify_integration_hook_info'),
-            [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
-
-        EventHandler::registerEvent('unlinkIntegrationUser',
-            $language->get('admin', 'user_unlink_integration_hook_info'),
-            [
-                'integration' => $language->get('admin', 'integration'),
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
             ]
         );
 

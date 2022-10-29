@@ -71,42 +71,6 @@ class Forum_Module extends Module {
             ]
         );
 
-        EventHandler::registerEvent('prePostCreate',
-            $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('prePostEdit',
-            $this->_forum_language->get('forum', 'pre_post_edit_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('preTopicCreate',
-            $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
-            [
-                'content' => $this->_language->get('general', 'content'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'user' => $this->_forum_language->get('forum', 'user_object')
-            ],
-            true,
-            true
-        );
-
         EventHandler::registerEvent('preTopicEdit',
             $this->_forum_language->get('forum', 'pre_topic_edit_hook_info'),
             [
@@ -118,41 +82,6 @@ class Forum_Module extends Module {
             ],
             true,
             true
-        );
-
-        EventHandler::registerEvent('renderPost',
-            $this->_forum_language->get('forum', 'render_post'),
-            [
-                'content' => $this->_language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('renderPostEdit',
-            $this->_forum_language->get('forum', 'render_post_edit'),
-            [
-                'content' => $this->_language->get('general', 'content')
-            ],
-            true,
-            true
-        );
-
-        EventHandler::registerEvent('topicReply',
-            $this->_forum_language->get('forum', 'topic_reply'),
-            [
-                'user_id' => $this->_language->get('admin', 'user_id'),
-                'username' => $this->_language->get('user', 'username'),
-                'content' => $this->_language->get('general', 'content'),
-                'content_full' => $this->_language->get('general', 'full_content'),
-                'avatar_url' => $this->_language->get('user', 'avatar'),
-                'title' => $this->_forum_language->get('forum', 'topic_title'),
-                'url' => $this->_language->get('general', 'url'),
-                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
-                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
-                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-                'post_id' => $this->_forum_language->get('forum', 'post_id'),
-            ]
         );
 
         EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
