@@ -129,7 +129,7 @@ if (isset($_GET['user'])) {
                         $type = 2;
                         break;
                 }
-        
+
                 // Check reason
                 if (isset($_POST['reason']) && strlen($_POST['reason']) >= 5 && strlen($_POST['reason']) <= 5000) {
                     try {
