@@ -166,7 +166,6 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-                    'footer' => $default_language->get('general', 'radomeweb'),
                     'language' => $api->getLanguage(),
                 ]
             );
