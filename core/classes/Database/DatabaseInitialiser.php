@@ -229,6 +229,12 @@ class DatabaseInitialiser {
             'name' => 'player_login',
             'value' => 0
         ]);
+
+        $this->_db->insert('store_settings', [
+            'name' => 'store_path',
+            'value' => '/magaza'
+        ]);
+
         $this->_db->insert('store_gateways', [
             'name' => 'PayPal',
             'displayname' => 'PayPal'
