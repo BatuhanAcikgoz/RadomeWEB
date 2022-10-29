@@ -189,7 +189,11 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
+<<<<<<< HEAD
                                             'footer' => $default_language->get('general', 'radomeweb'),
+=======
+                                            'footer' => $language->get('general', 'radomeweb'),
+>>>>>>> parent of a5a44f8 (Update users_punishments.php)
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;
