@@ -5,7 +5,7 @@
     {$COOKIE_NOTICE_HEADER}
 </h2>
 
-<div class="container card" id="cookies">
+<div class="container card card-body" id="cookies">
     {$COOKIE_NOTICE}
 
     <div class="ui divider"></div>
