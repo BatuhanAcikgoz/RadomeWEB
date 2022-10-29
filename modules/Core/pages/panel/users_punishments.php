@@ -189,8 +189,8 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
-                                            'footer' => $language->get('general', 'radomeweb'),
                                             'reason' => $_POST['reason'],
+                                            'footer' => $language->get('general', 'radomeweb'),
                                         ]);
                                         break;
                                     case 4:
