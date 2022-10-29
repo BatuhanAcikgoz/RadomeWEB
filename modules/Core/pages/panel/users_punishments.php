@@ -189,7 +189,7 @@ if (isset($_GET['user'])) {
                                             'punished_id' => $query->username,
                                             'punished_name' => $query->username,
                                             'punisher_id' => $user->data()->id,
-                                            'avatar_url' => $this->getAvatar(128, true),
+                                            'avatar_url' => $user->data()->getAvatar(128, true),
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;
