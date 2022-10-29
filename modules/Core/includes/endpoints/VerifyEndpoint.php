@@ -30,6 +30,7 @@ class VerifyEndpoint extends KeyAuthEndpoint {
             'active' => true,
             'reset_code' => ''
         ]);
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('validateUser', [
             'user_id' => $user->data()->id,
             'username' => $user->data()->username,

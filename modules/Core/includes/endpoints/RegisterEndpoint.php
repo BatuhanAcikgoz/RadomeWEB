@@ -157,6 +157,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                 }
             }
+            $default_language = new Language('core', DEFAULT_LANGUAGE);
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
