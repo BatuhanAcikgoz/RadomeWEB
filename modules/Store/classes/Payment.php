@@ -109,7 +109,6 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'COMPLETED':
@@ -151,7 +150,6 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'refunded_payment_text', ['user' => $username]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'REVERSED':
@@ -172,7 +170,6 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'reversed_payment_text', ['user' => $username]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'DENIED':
@@ -190,7 +187,6 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'denied_payment_text', ['user' => $username]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 default:
@@ -218,7 +214,6 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'COMPLETED':

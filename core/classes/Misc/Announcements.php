@@ -189,7 +189,6 @@ class Announcements {
             'username' => $user->data()->username,
             'header' => $header,
             'message' => $message,
-            'footer' => $default_language->get('general', 'radomeweb'),
             'avatar_url' => $user->getAvatar(128, true),
             'language' => $default_language,
         ]);

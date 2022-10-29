@@ -345,7 +345,6 @@ if (!isset($_GET['view'])) {
                             // No comment, just status change
                             $content = $forms_language->get('forms', 'updated_submission_status', ['status' => strip_tags($status->data()->html), 'new_status' => strip_tags($new_status->data()->html)]);
                         }
-                        $default_language = new Language('core', DEFAULT_LANGUAGE);
                         EventHandler::executeEvent('updatedFormSubmissionStaff', [
                             'event' => 'updatedFormSubmissionStaff',
                             'user_id' => $user->data()->id,
@@ -355,7 +354,6 @@ if (!isset($_GET['view'])) {
                             'avatar_url' => $user->getAvatar(128, true),
                             'title' => '[#' . $submission->data()->id . '] ' . $form->data()->title,
                             'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
-                            'footer' => $language->get('general', 'radomeweb'),
                             'color' => $status_color
                         ]);
 

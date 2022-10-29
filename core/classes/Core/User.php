@@ -728,7 +728,6 @@ class User {
             'group_id' => $group_id,
             'group_name' => $this->_groups[$group_id]->name,
             'avatar_url' => $this->getAvatar(128, true),
-            'footer' => $default_language->get('general', 'radomeweb'),
             'language' => $default_language,
         ]);
 
