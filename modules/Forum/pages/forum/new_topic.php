@@ -215,6 +215,7 @@ if (Input::exists()) {
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
                     'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
+                    'footer' => $default_language->get('general', 'radomeweb'),
                     'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
