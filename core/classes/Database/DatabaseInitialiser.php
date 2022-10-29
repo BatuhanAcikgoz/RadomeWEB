@@ -102,7 +102,7 @@ class DatabaseInitialiser {
         $this->_db->insert('forms', array(
             'url' => '/destek',
             'title' => 'Destek',
-            'guest' => 0,
+            'guest' => 1,
             'link_location' => 1,
             'icon' => '<i class="fas fa-ticket-alt"></i>'                    
         ));
