@@ -232,7 +232,7 @@ class Payment {
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
-                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription(), 'product_image' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/'). 'uploads/store/' . $this->getOrder()->getImage()]),
+                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription(), 'product_image' => URL::build('/uploads/store/'.$this->getOrder()->getImage())]),
                     ]);
                 break;
             }
