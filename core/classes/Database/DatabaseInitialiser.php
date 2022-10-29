@@ -636,24 +636,28 @@ class DatabaseInitialiser {
         $this->_db->insert('widgets', [
             'name' => 'Server Status',
             'enabled' => true,
+            'order' => 1,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
+            'order' => 3,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Latest Purchases',
             'enabled' => true,
+            'order' => 5,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Discord',
             'enabled' => true,
+            'order' => 7,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
@@ -773,6 +777,17 @@ class DatabaseInitialiser {
                 ]);
             }
         }
+
+        $this->_db->insert('forums_permissions', [
+            'group_id' => 2,
+            'forum_id' => 2,
+            'view' => true,
+            'create_topic' => 1,
+            'edit_topic' => 1,
+            'create_post' => 1,
+            'view_other_topics' => true,
+            'moderate' => 1
+        ]);
 
         // Forum Labels
         $this->_db->query("DELETE FROM rw_forums WHERE `rw_forums`.`id` = 1");
