@@ -14,12 +14,14 @@
     {/if}
     
        <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
-      <div class="ui segment">
+      <div class="card">
     
-        <h1 style="display:inline">{$STORE}</h1>
+        <h3 class="card-header header-theme" style="display:inline">{$STORE}</h3>
         {include file='store/navbar.tpl'}
         
+        <div class="card-body">
         {$CHECKOUT_COMPLETE_CONTENT}
+        </div>
       </div>
     </div>
     
