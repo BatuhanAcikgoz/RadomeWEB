@@ -144,7 +144,6 @@ class IntegrationUser {
         $this->_integration->onSuccessfulVerification($this);
 
         $user = $this->getUser();
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('verifyIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,
@@ -175,7 +174,6 @@ class IntegrationUser {
         );
 
         $user = $this->getUser();
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('unlinkIntegrationUser', [
             'integration' => $this->_integration->getName(),
             'user_id' => $user->data()->id,

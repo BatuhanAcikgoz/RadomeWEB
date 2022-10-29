@@ -185,7 +185,6 @@ class User {
             $this->_groups[$group_id] = new Group($group_data);
         }
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('userGroupAdded', [
             'username' => $this->data()->username,
             'user_id' => $this->data()->id,
