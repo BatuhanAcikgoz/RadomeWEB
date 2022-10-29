@@ -134,7 +134,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
 ]);
 
-$template_file = 'store/kategori.tpl';
+$template_file = 'store/category.tpl';
 
 $template->assets()->include([
     DARK_MODE
