@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">{$CONTENT}</div>
                 <div class="card-body">
-                <div class="row">              
+                <div class="row justify-content-center">              
                 {foreach from=$CATEGORIES item=category}
                 <div class="col-md-3">
                 <div class="img-card-wrapper">
