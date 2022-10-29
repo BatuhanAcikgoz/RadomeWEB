@@ -8,6 +8,7 @@
 <div class="container card" id="cookies">
     {$COOKIE_NOTICE}
 
+    <div class="ui divider"></div>
     <br>
     <div class="btn-btn-theme" onclick="configureCookies()">{$UPDATE_SETTINGS}</div>
 </div>
