@@ -31,13 +31,13 @@ $group_ids = implode(',', $group_ids);
 
 // Forum require user to be logged in
 if ($form->data()->source == 'forum' && !$user->isLoggedIn()) {
-    Redirect::to(URL::build('/login/'));
+    Redirect::to(URL::build('/giris/'));
 }
 
 // Can guests view?
 if (!$forms->canPostSubmission($group_ids, $form->data()->id)) {
     if (!$user->isLoggedIn()) {
-        Redirect::to(URL::build('/login/'));
+        Redirect::to(URL::build('/giris/'));
     } else {
         require(ROOT_PATH . '/403.php');
         die();
