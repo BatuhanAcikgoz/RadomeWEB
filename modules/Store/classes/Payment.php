@@ -127,6 +127,7 @@ class Payment {
                         'username' => $username,
                         'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
                         'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
+                        'footer' => $store_language->get('general', 'radomeweb'),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                     ]);
