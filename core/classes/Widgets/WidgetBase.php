@@ -63,7 +63,7 @@ abstract class WidgetBase {
                 return $this->_smarty->fetch('widgets/cookie_notice.tpl');
             }
 
-            return 'This widget requires cookies';
+            return 'Bu widget için cookieleri kabul etmeniz gerekiyor.';
         }
         return $this->_content;
     }
