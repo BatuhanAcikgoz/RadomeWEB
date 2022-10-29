@@ -203,7 +203,6 @@ if (Input::exists()) {
                 $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
                 $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
                 $available_hooks = json_decode($available_hooks[0]->hooks);
-                $default_language = new Language('core', DEFAULT_LANGUAGE);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
                     'username' => $user->getDisplayname(true),

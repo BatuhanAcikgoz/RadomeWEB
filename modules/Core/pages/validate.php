@@ -25,7 +25,6 @@ if (isset($_GET['c'])) {
             'active' => true,
         ]);
 
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('validateUser', [
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),

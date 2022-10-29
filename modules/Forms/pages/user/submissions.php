@@ -162,7 +162,6 @@ if (!isset($_GET['view'])) {
 
                     $status = new Status($status_id);
                     $status_color = $status->data()->color;
-                    $default_language = new Language('core', DEFAULT_LANGUAGE);
                     EventHandler::executeEvent('updatedFormSubmission', [
                         'event' => 'updatedFormSubmission',
                         'username' => $form->data()->title,
