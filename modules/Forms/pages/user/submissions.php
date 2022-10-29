@@ -162,7 +162,7 @@ if (!isset($_GET['view'])) {
 
                     $status = new Status($status_id);
                     $status_color = $status->data()->color;
-            
+                    $default_language = new Language('core', DEFAULT_LANGUAGE);
                     EventHandler::executeEvent('updatedFormSubmission', [
                         'event' => 'updatedFormSubmission',
                         'username' => $form->data()->title,
@@ -174,6 +174,7 @@ if (!isset($_GET['view'])) {
                         'avatar_url' => $user->getAvatar(128, true),
                         'title' => $form->data()->title,
                         'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
+                        'footer' => $language->get('general', 'radomeweb'),
                         'color' => $status_color
                     ]);
 

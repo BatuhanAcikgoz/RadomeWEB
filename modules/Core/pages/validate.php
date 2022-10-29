@@ -30,6 +30,7 @@ if (isset($_GET['c'])) {
             'user_id' => $user->data()->id,
             'username' => $user->getDisplayname(),
             'content' => $default_language->get('user', 'user_x_has_validated', ['user' => $user->getDisplayname()]),
+            'footer' => $default_language->get('general', 'radomeweb'),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
             'language' => $default_language

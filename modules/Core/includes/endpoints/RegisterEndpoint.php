@@ -157,7 +157,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     $integrationUser->linkIntegration($user, $item['identifier'], $item['username'], true);
                 }
             }
-
+            $default_language = new Language('core', DEFAULT_LANGUAGE);
             EventHandler::executeEvent('registerUser', [
                     'user_id' => $user_id,
                     'username' => $user->getDisplayname(),
@@ -166,6 +166,7 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                     ]),
                     'avatar_url' => $user->getAvatar(128, true),
                     'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+                    'footer' => $default_language->get('general', 'radomeweb'),
                     'language' => $api->getLanguage(),
                 ]
             );

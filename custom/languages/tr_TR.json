@@ -1035,6 +1035,7 @@
     "user/user_x_has_validated": "{{user}} hesabını doğruladı!",
     "admin/oauth": "OAuth",
     "admin/delete_hook": "Bu webhooku silmek istediğinizden emin misiniz?",
+    "general\/radomeweb": "RadomeWEB tarafından yapılmıştır",
     "admin/deleted_announcement_success": "Duyuru başarıyla silindi.",
     "admin/email_message_options": "Seçenekler",
     "admin/youtube_url": "Youtube URL",

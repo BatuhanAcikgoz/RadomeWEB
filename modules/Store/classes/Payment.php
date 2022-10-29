@@ -88,7 +88,7 @@ class Payment {
      */
     public function handlePaymentEvent(string $event, array $extra_data = []) {
         $store_language = new Language(ROOT_PATH . '/modules/Store/language', LANGUAGE);
-
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         if ($this->exists()) {
             // Payment exist, Continue with event handling
 
@@ -109,6 +109,7 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'COMPLETED':
@@ -127,7 +128,7 @@ class Payment {
                         'username' => $username,
                         'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
                         'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
-                        'footer' => $store_language->get('general', 'radomeweb'),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                     ]);
@@ -150,6 +151,7 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'refunded_payment_text', ['user' => $username]),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'REVERSED':
@@ -170,6 +172,7 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'reversed_payment_text', ['user' => $username]),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'DENIED':
@@ -187,6 +190,7 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'denied_payment_text', ['user' => $username]),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 default:
@@ -214,6 +218,7 @@ class Payment {
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
                 case 'COMPLETED':
@@ -236,7 +241,7 @@ class Payment {
                         'username' => $username,
                         'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
                         'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
-                        'footer' => $store_language->get('general', 'radomeweb'),
+                        'footer' => $default_language->get('general', 'radomeweb'),
                     ]);
                 break;
             }
@@ -266,26 +271,26 @@ class Payment {
     }
 
     public function getStatusHtml() {
-        $status = '<span class="badge badge-danger">Unknown</span>';
+        $status = '<span class="badge badge-danger">Bilinmiyor</span>';
 
         switch ($this->data()->status_id) {
             case 0;
-                $status = '<span class="badge badge-warning">Pending</span>';
+                $status = '<span class="badge badge-warning">Bekleniyor</span>';
             break;
             case 1;
-                $status = '<span class="badge badge-success">Complete</span>';
+                $status = '<span class="badge badge-success">Tamamlandı</span>';
             break;
             case 2;
-                $status = '<span class="badge badge-primary">Refunded</span>';
+                $status = '<span class="badge badge-primary">İade Edildi</span>';
             break;
             case 3;
                 $status = '<span class="badge badge-info">Changeback</span>';
             break;
             case 4;
-                $status = '<span class="badge badge-danger">Denied</span>';
+                $status = '<span class="badge badge-danger">Reddedildi</span>';
             break;
             default:
-                $status = '<span class="badge badge-danger">Unknown</span>';
+                $status = '<span class="badge badge-danger">Bilinmiyor</span>';
             break;
         }
 
