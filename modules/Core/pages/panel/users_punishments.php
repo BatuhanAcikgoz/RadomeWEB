@@ -175,12 +175,12 @@ if (isset($_GET['user'])) {
                                         }
 
                                         // Fire userBanned event
-                                        $default_language = new Language('core', DEFAULT_LANGUAGE);
+                                        
                                         EventHandler::executeEvent('userBanned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
-                                            'footer' => $default_language->get('general', 'radomeweb'),
+                                            'footer' => $language->get('general', 'radomeweb'),
                                             'ip_ban' => $type == 3,
                                         ]);
                                         break;
@@ -189,7 +189,7 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
-                                            'footer' => $default_language->get('general', 'radomeweb'),
+                                            'footer' => $language->get('general', 'radomeweb'),
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;
