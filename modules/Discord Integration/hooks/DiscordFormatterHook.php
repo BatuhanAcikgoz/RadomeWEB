@@ -57,7 +57,7 @@ class DiscordFormatterHook extends HookBase {
 
             $params['format'] = $format;
         } else if ($data['event'] == 'userWarned') {
-            $format['punished_name'] = $data['userbane'] . ' | ' . SITE_NAME;
+            $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_warning_hook'),
