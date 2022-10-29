@@ -180,7 +180,6 @@ if (isset($_GET['user'])) {
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
-                                            'footer' => $default_language->get('general', 'radomeweb'),
                                             'ip_ban' => $type == 3,
                                         ]);
                                         break;
@@ -189,7 +188,6 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
-                                            'footer' => $default_language->get('general', 'radomeweb'),
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;
