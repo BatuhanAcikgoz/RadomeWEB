@@ -17,7 +17,6 @@ class DiscordHook {
             $return = [];
 
             $content = html_entity_decode(str_replace(['&nbsp;', '&bull;'], [' ', ''], $params['content_full']));
-            $image = ["url" => $params["image"]];
             if (mb_strlen($content) > 512) {
                 $content = mb_substr($content, 0, 512) . '...';
             }
@@ -27,9 +26,8 @@ class DiscordHook {
             $return['embeds'] = [[
                 'title' => $params['title'],
                 'description' => $content,
-                'image' => $image,
                 'url' => $params['url'],
-                'footer' => ['text' => $params['footer']]
+                'footer' => ['text' => $params['content']]
             ]];
 
             if (isset($params['color'])) {
