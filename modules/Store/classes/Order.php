@@ -201,4 +201,14 @@ class Order {
 
         return $product_names;
     }
+
+    public function getImage(): string {
+        $product_image = '';
+        foreach ($this->getProducts() as $product) {
+            $product_image .= $product->data()->image . ', ';
+        }
+        $product_image = rtrim($product_image, ', ');
+
+        return $product_image;
+    }
 }
