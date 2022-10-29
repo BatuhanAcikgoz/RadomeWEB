@@ -129,7 +129,7 @@ if (isset($_GET['user'])) {
                         $type = 2;
                         break;
                 }
-                $default_language = new Language('core', DEFAULT_LANGUAGE);
+        
                 // Check reason
                 if (isset($_POST['reason']) && strlen($_POST['reason']) >= 5 && strlen($_POST['reason']) <= 5000) {
                     try {
