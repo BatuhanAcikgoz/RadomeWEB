@@ -29,7 +29,7 @@ class DiscordHook {
                 'description' => $content,
                 'image' => $image,
                 'url' => $params['url'],
-                'footer' => ['text' => $params['footer']]
+                'footer' => ['text' => $params['content']]
             ]];
 
             if (isset($params['color'])) {
