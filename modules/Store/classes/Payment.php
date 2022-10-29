@@ -125,11 +125,7 @@ class Payment {
                     EventHandler::executeEvent('paymentCompleted', [
                         'event' => 'paymentCompleted',
                         'username' => $username,
-<<<<<<< HEAD
-                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription(), 'product_image' => 'https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()]),
-=======
                         'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription(), 'product_image' => (defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/' . 'uploads/store/' . $this->getOrder()->getImage())]),
->>>>>>> parent of 663a72d (Update Payment.php)
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                     ]);
