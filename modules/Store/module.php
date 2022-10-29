@@ -37,7 +37,7 @@ class Store_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Store', $this->_store_url, 'pages/store/index.php', 'store', true);
-        $pages->add('Store', $this->_store_url . '/kategori', 'pages/store/kategori.php', 'product', true);
+        $pages->add('Store', $this->_store_url . '/kategori', 'pages/store/category.php', 'product', true);
         $pages->add('Store', $this->_store_url . '/checkout', 'pages/store/checkout.php');
         $pages->add('Store', $this->_store_url . '/kontrol', 'pages/store/check.php');
         $pages->add('Store', $this->_store_url . '/iptal', 'pages/store/cancel.php');
