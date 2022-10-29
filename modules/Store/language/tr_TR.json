@@ -215,7 +215,7 @@
     "general\/successfully_sent_credits": "{{user}} adresine başarıyla {{amount}} kredileri gönderildi",
     "general\/received_x_credits_from_x": "You have received {{amount}} credits from {{user}}",
     "general\/total_price": "Toplam Fiyat:",
-    "general\/radomeweb": "RadomeWEB tarafından yapılmıştır:",
+    "general\/radomeweb": "RadomeWEB tarafından yapılmıştır",
     "general\/my_transactions": "İşlemlerim",
     "general\/no_transactions": "Herhangi bir işleminiz yok.",
     "general\/widget_cached": "En son satın alma widget'ı 2 dakika önbelleğe alınmıştır, değişiklikleriniz hemen yürürlüğe girmeyebilir.",
