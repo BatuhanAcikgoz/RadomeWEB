@@ -17,7 +17,7 @@ if (Input::exists()) {
 		if (isset($_POST['limit']) && $_POST['limit'] > 0)
 			$cache->store('purchase_limit', (int)$_POST['limit']);
 		else
-			$cache->store('purchase_limit', 10);
+			$cache->store('purchase_limit', 5);
 
 	} else {
 		$errors = [$language->get('general', 'invalid_token')];
@@ -27,7 +27,7 @@ if (Input::exists()) {
 if ($cache->isCached('purchase_limit'))
 	$purchase_limit = (int)$cache->retrieve('purchase_limit');
 else
-	$purchase_limit = 10;
+	$purchase_limit = 5;
 
 $smarty->assign([
 	'LATEST_PURCHASES_LIMIT' => $store_language->get('general', 'latest_purchases_limit'),
