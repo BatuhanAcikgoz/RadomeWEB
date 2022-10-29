@@ -63,7 +63,7 @@
                   <div class="modal-content">
                     {if $product.image}
                       <div class="ui small image">
-                        <img class="server" src="{$product.image}" alt="{$product.name}">
+                        <img class="server" src="{$product.image}" alt="{$product.name}" style="width: 500px;">
                       </div>
                     {/if}
                     <div class="modal-body">
