@@ -144,7 +144,7 @@ if (isset($_GET['user'])) {
                                 DB::getInstance()->insert('infractions', [
                                     'type' => $type,
                                     'punished' => $query->id,
-                                    'staff' => $view_user->data()->id,
+                                    'staff' => $user->data()->id,
                                     'reason' => $_POST['reason'],
                                     'infraction_date' => date('Y-m-d H:i:s'),
                                     'created' => date('U'),
@@ -177,7 +177,7 @@ if (isset($_GET['user'])) {
                                         // Fire userBanned event
                                         EventHandler::executeEvent('userBanned', [
                                             'punished_id' => $query->id,
-                                            'punisher_id' => $view_user->data()->id,
+                                            'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
                                             'ip_ban' => $type == 3,
                                         ]);
@@ -186,7 +186,7 @@ if (isset($_GET['user'])) {
                                         // Fire userWarned event
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
-                                            'punisher_id' => $view_user->data()->id,
+                                            'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;
