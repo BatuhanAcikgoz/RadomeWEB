@@ -126,12 +126,6 @@ if (Input::exists()) {
 
             if ($validation->passed() && $passed) {
                 try {
-                    $private_profile_active = Util::getSetting('private_profile');
-                    $private_profile = 0;
-
-                    if ($private_profile_active) {
-                        $private_profile = Input::get('privateProfile');
-                    }
 
                     // Template
                     $new_template = DB::getInstance()->get('templates', ['id', Input::get('template')])->results();
@@ -149,7 +143,6 @@ if (Input::exists()) {
                         'username' => Output::getClean($username),
                         'user_title' => Output::getClean(Input::get('title')),
                         'signature' => $signature,
-                        'private_profile' => $private_profile,
                         'theme_id' => $new_template
                     ]);
 
