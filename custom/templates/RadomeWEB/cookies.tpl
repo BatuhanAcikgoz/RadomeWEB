@@ -9,8 +9,8 @@
     {$COOKIE_NOTICE}
 
     <div class="ui divider"></div>
-    <br>
-    <div class="btn-btn-theme" onclick="configureCookies()">{$UPDATE_SETTINGS}</div>
+    <hr>
+    <div class="btn btn-theme" onclick="configureCookies()">{$UPDATE_SETTINGS}</div>
 </div>
 
 {include file='footer.tpl'}
