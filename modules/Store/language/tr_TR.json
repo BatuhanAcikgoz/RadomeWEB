@@ -180,7 +180,7 @@
     "general\/accept_terms": "Şartlar ve koşulları kabul etmelisiniz",
     "general\/buy": "Satın al",
     "general\/checkout": "Ödeme",
-    "general\/completed_payment_text": "Aşağıdaki ürünleri satın alan {{user}} kişisinden yeni ödeme {{products}}",
+    "general\/completed_payment_text": "**{{user}}** adlı kullanıcı mağazamızdan **{{products}}** ürününü satın aldı!",
     "general\/continue": "Devam et",
     "general\/credits": "Kredi",
     "general\/choose_payment_method": "Lütfen istediğiniz ödeme seçeneğini seçin.",

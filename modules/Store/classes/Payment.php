@@ -125,7 +125,7 @@ class Payment {
                     EventHandler::executeEvent('paymentCompleted', [
                         'event' => 'paymentCompleted',
                         'username' => $username,
-                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => '**'.$username.'**', 'products' => '**'.$this->getOrder()->getDescription().'**']),
+                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                     ]);
