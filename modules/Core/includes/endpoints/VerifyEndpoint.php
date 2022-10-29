@@ -34,6 +34,7 @@ class VerifyEndpoint extends KeyAuthEndpoint {
         EventHandler::executeEvent('validateUser', [
             'user_id' => $user->data()->id,
             'username' => $user->data()->username,
+            'footer' => $default_language->get('general', 'radomeweb'),
             'language' => $api->getLanguage()
         ]);
 

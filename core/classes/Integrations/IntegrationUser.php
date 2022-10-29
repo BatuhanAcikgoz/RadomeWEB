@@ -124,6 +124,7 @@ class IntegrationUser {
             ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'footer' => $default_language->get('general', 'radomeweb'),
             'integration_user' => [
                 'identifier' => $identifier,
                 'username' => $username,
@@ -155,6 +156,7 @@ class IntegrationUser {
             ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'footer' => $default_language->get('general', 'radomeweb'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
@@ -186,6 +188,7 @@ class IntegrationUser {
             ]),
             'avatar_url' => $user->getAvatar(128, true),
             'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'footer' => $default_language->get('general', 'radomeweb'),
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,

@@ -138,6 +138,7 @@ class Submission {
                 'avatar_url' => ($user != null && $user->exists() ? $user->getAvatar(128, true) : null),
                 'title' => $form->data()->title,
                 'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $this->data()->id),
+                'footer' => $default_language->get('general', 'radomeweb'),
                 'color' => $status_color
             ]);
 

@@ -387,6 +387,7 @@ if (Input::exists()) {
                             ]),
                             'avatar_url' => $user->getAvatar(128, true),
                             'url' => URL::getSelfURL() . ltrim(URL::build('/profil/' . urlencode(Input::get('username'))), '/'),
+                            'footer' => $default_language->get('general', 'radomeweb'),
                             'language' => $default_language,
                         ]);
 

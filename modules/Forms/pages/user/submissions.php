@@ -174,6 +174,7 @@ if (!isset($_GET['view'])) {
                         'avatar_url' => $user->getAvatar(128, true),
                         'title' => $form->data()->title,
                         'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
+                        'footer' => $language->get('general', 'radomeweb'),
                         'color' => $status_color
                     ]);
 
