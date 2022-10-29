@@ -318,16 +318,18 @@ class Core_Module extends Module {
             [
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
+                'username' => $language->get('user', 'username'),            
                 'reason' => $language->get('admin', 'reason'),
                 'ip_ban' => $language->get('admin', 'ip_ban'),
             ]
         );
 
         EventHandler::registerEvent('userWarned',
-            $language->get('admin', 'warning_hook_info'),
+            $language->get('user', 'warning_hook_info'),
             [
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
+                'username' => $language->get('user', 'username'),
                 'reason' => $language->get('admin', 'reason'),
             ]
         );
