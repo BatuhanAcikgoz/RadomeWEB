@@ -1224,5 +1224,9 @@
     "admin/require_integration": "Kullanıcıların entegrasyonu bağlamasını ve doğrulamasını zorunlu kılın",
     "admin/placeholders_info": "Yer tutucular, RadomeWEB Spigot eklentisinin, profillerinde ve forum gönderilerinde gösterebilmeleri için web sitenize her oyuncu hakkında istatistik göndermesine izin verir.",
     "admin/custom_content": "Özel içerik",
-    "admin/warning_hook_info": "Kullanıcı uyarıldı"
+    "admin/warning_hook_info": "Kullanıcı uyarıldı",
+    "user/group_has_been_added": "{{user}} adlı kullanıcıya {{group}} grubu eklendi",
+    "user/group_has_been_removed": "{{user}} adlı kullanıcıdan {{group}} grubu alındı",
+    "user/user_warning_hook": "**{{user}}**, {{reason}} sebebinden uyarıldı",
+    "user/user_banned_hook": "**{{user}}**, {{reason}} sebebinden banlandı"
 }

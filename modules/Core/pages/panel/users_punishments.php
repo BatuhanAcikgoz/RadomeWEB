@@ -177,6 +177,7 @@ if (isset($_GET['user'])) {
                                         // Fire userBanned event
                                         EventHandler::executeEvent('userBanned', [
                                             'punished_id' => $query->id,
+                                            'punished_name' => $query->username,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
                                             'ip_ban' => $type == 3,
@@ -186,6 +187,7 @@ if (isset($_GET['user'])) {
                                         // Fire userWarned event
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
+                                            'punished_name' => $query->username,
                                             'punisher_id' => $user->data()->id,
                                             'reason' => $_POST['reason'],
                                         ]);
