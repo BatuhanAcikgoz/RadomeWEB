@@ -52,6 +52,7 @@ class Report {
                 }
             }
         }
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
         EventHandler::executeEvent('createReport', [
             'username' => $data['reported_mcname'],
             'content' => $language->get('general', 'reported_by', ['author' => $user_reporting->data()->username]),

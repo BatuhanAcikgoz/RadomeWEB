@@ -80,6 +80,7 @@ if (!$user->isLoggedIn()) {
                         'active' => true,
                     ]);
 
+                    $default_language = new Language('core', DEFAULT_LANGUAGE);
                     EventHandler::executeEvent('validateUser', [
                         'user_id' => $target_user->data()->id,
                         'username' => $target_user->getDisplayname(),

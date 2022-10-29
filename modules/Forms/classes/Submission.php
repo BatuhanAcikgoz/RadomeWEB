@@ -126,7 +126,7 @@ class Submission {
 
             $status = new Status(1);
             $status_color = $status->data()->color;
-
+            $default_language = new Language('core', DEFAULT_LANGUAGE);
             EventHandler::executeEvent('newFormSubmission', [
                 'event' => 'newFormSubmission',
                 'username' => $form->data()->title,
