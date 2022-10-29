@@ -1412,7 +1412,6 @@ class Core_Module extends Module {
             }
         }
 
-        EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
     }
 
     public static function addNotice($url, $text): void {
