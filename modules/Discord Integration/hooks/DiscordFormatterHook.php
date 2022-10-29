@@ -60,7 +60,7 @@ class DiscordFormatterHook extends HookBase {
             $format['punished_name'] = $data['punished_name'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
-                'description' => $data['language']->get('user', 'user_warning_hook', ['reason' => $data['reason'], 'user' => $data['punished_name']]),
+                'description' => $data['language']->get('user', 'user_warning_hook', ['reason' => $data['reason']]),
             ]];
 
             $params['format'] = $format;
