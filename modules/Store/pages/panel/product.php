@@ -412,103 +412,6 @@ if (!isset($_GET['action'])) {
             
             $template_file = 'store/product_actions.tpl';
         break;
-        case 'limits_requirements';
-            // Limits and requirements
-            if (Input::exists()) {
-                $errors = [];
-
-                if (Token::check(Input::get('token'))) {
-                    $global_limit = [
-                        'limit' => $_POST['global_limit'] ?? 0,
-                        'interval' => $_POST['global_limit_interval'] ?? 1,
-                        'period' => $_POST['global_limit_period'] ?? 'no_period'
-                    ];
-
-                    $user_limit = [
-                        'limit' => $_POST['user_limit'] ?? 0,
-                        'interval' => $_POST['user_limit_interval'] ?? 1,
-                        'period' => $_POST['user_limit_period'] ?? 'no_period'
-                    ];
-
-                    $required_products = $_POST['required_products'];
-                    $required_groups = $_POST['required_groups'];
-                    $required_integrations = $_POST['required_integrations'];
-
-                    $product->update([
-                        'global_limit' => json_encode($global_limit),
-                        'user_limit' => json_encode($user_limit),
-                        'required_products' => json_encode(isset($required_products) && is_array($required_products) ? $required_products : []),
-                        'required_groups' => json_encode(isset($required_groups) && is_array($required_groups) ? $required_groups : []),
-                        'required_integrations' =>  json_encode(isset($required_integrations) && is_array($required_integrations) ? $required_integrations : [])
-                    ]);
-
-                    Session::flash('products_success', $store_language->get('admin', 'product_updated_successfully'));
-                    Redirect::to(URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements'));
-                } else {
-                    // Invalid token
-                    $errors[] = $language->get('general', 'invalid_token');
-                }
-            }
-
-            $global_limit_json = json_decode($product->data()->global_limit, true) ?? [];
-            $global_limit = [
-                'limit' => $global_limit_json['limit'] ?? 0,
-                'interval' => $global_limit_json['interval'] ?? 1,
-                'period' => $global_limit_json['period'] ?? 'no_period'
-            ];
-
-            $user_limit_json = json_decode($product->data()->user_limit, true) ?? [];
-            $user_limit = [
-                'limit' => $user_limit_json['limit'] ?? 0,
-                'interval' => $user_limit_json['interval'] ?? 1,
-                'period' => $user_limit_json['period'] ?? 'no_period'
-            ];
-
-            $products_list = [];
-            $selected_products = json_decode($product->data()->required_products, true) ?? [];
-            $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE id <> ? AND deleted = 0', [$product->data()->id])->results();
-            foreach ($products as $item) {
-                $products_list[] = [
-                    'id' => $item->id,
-                    'name' => Output::getClean($item->name),
-                    'selected' => in_array($item->id, $selected_products)
-                ];
-            }
-
-            $groups_list = [];
-            $selected_groups = json_decode($product->data()->required_groups, true) ?? [];
-            $groups = DB::getInstance()->query('SELECT * FROM rw_groups')->results();
-            foreach ($groups as $item) {
-                $groups_list[] = [
-                    'id' => $item->id,
-                    'name' => Output::getClean($item->name),
-                    'selected' => in_array($item->id, $selected_groups)
-                ];
-            }
-
-            $integrations_list = [];
-            $selected_integrations = json_decode($product->data()->required_integrations, true) ?? [];
-            foreach (Integrations::getInstance()->getEnabledIntegrations() as $item) {
-                $integrations_list[] = [
-                    'id' => $item->data()->id,
-                    'name' => Output::getClean($item->getName()),
-                    'selected' => in_array($item->data()->id, $selected_integrations)
-                ];
-            }
-
-            $smarty->assign([
-                'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id),
-                'GLOBAL_LIMIT_VALUE' => $global_limit,
-                'USER_LIMIT_VALUE' => $user_limit,
-                'PRODUCTS_LIST' => $products_list,
-                'GROUPS_LIST' => $groups_list,
-                'INTEGRATIONS_LIST' => $integrations_list,
-            ]);
-            
-            $template_file = 'store/product_limits_requirements.tpl';
-        break;
         case 'remove_image';
             // Remove image from product
             $product->update([
@@ -553,7 +456,7 @@ $smarty->assign([
     'ACTIONS' => $store_language->get('admin', 'actions'),
     'ACTIONS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=actions'),
     'LIMITS_AND_REQUIREMENTS' => $store_language->get('admin', 'limits_and_requirements'),
-    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements')
+    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id)
 ]);
 
 $template->onPageLoad();
