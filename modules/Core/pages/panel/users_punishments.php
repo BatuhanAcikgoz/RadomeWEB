@@ -175,6 +175,7 @@ if (isset($_GET['user'])) {
                                         }
 
                                         // Fire userBanned event
+                                        $default_language = new Language('core', DEFAULT_LANGUAGE);
                                         EventHandler::executeEvent('userBanned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
