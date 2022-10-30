@@ -459,6 +459,32 @@ class Core_Module extends Module {
         }
 
         // TODO: Use [class, 'method'] callable syntax
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
+
+        EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
+
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
+
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
