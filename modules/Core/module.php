@@ -21,8 +21,8 @@ class Core_Module extends Module {
 
         $name = 'Core';
         $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
-        $module_version = '1.0';
-        $radome_version = '1.0';
+        $module_version = '2.0';
+        $radome_version = '2.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
