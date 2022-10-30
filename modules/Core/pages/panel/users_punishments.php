@@ -183,13 +183,15 @@ if (isset($_GET['user'])) {
                                         ]);
                                         break;
                                     case 2:
-                                        // Fire userWarned event
+                                        // Fire userWarned event,
+                                        $default_language = new Language('core', DEFAULT_LANGUAGE);
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'punished_user' => $query->user_title,
                                             'avatar_url' => $user->getAvatar(128, true),
                                             'reason' => $_POST['reason'],
+                                            'language' => $default_language,
                                         ]);
                                         break;
                                     case 4:
