@@ -7,9 +7,11 @@
  *  Discord formatter hook
  */
 
-class DiscordFormatterHook extends HookBase {
+class DiscordFormatterHook extends HookBase
+{
 
-    public static function format(array $params = []): array {
+    public static function format(array $params = []): array
+    {
         $data = $params['data'];
         $format = $params['format'];
 
@@ -45,6 +47,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'group_has_been_added', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
+                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
             $params['format'] = $format;
@@ -53,12 +56,13 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'group_has_been_removed', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
+                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
             $params['format'] = $format;
         } else if ($data['event'] == 'userWarned') {
             $format['username'] = $data['punished_user'] . ' | ' . SITE_NAME;
-            $format['avatar_url'] = ('https://cravatar.eu/helmavatar/'.$data['punished_user'].'/128.png');
+            $format['avatar_url'] = ('https://cravatar.eu/helmavatar/' . $data['punished_user'] . '/128.png');
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_warning_hook', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
                 'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
@@ -67,14 +71,29 @@ class DiscordFormatterHook extends HookBase {
             $params['format'] = $format;
         } else if ($data['event'] == 'userBanned') {
             $format['username'] = $data['punished_user'] . ' | ' . SITE_NAME;
-            $format['avatar_url'] = ('https://cravatar.eu/helmavatar/'.$data['punished_user'].'/128.png');
+            $format['avatar_url'] = ('https://cravatar.eu/helmavatar/' . $data['punished_user'] . '/128.png');
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_banned_hook', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
+                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
+            ]];
+
+            $params['format'] = $format;
+        } else if ($data['event'] == 'newTopic') {
+            $format['username'] = $data['username'] . ' | ' . SITE_NAME;
+            $format['avatar_url'] = $data['avatar_url'];
+            $format['embeds'] = [[
+                'author' => [
+                    'name' => Output::getClean($data['title']),
+                    'url' => $data['url'],
+                    'icon_url' => $data['avatar_url']
+                ],
+                'description' => $data['content_full'],
+                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
             $params['format'] = $format;
         }
-        
+
 
         return $params;
     }
