@@ -39,6 +39,7 @@ class DiscordFormatterHook extends HookBase
             $format['embeds'] = [[
                 'title' => $data['language']->get('admin', 'new_announcement') . ': ' . $data['header'],
                 'description' => $content,
+                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
             $params['format'] = $format;
