@@ -61,7 +61,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = ('https://cravatar.eu/helmavatar/'.$data['punished_user'].'/128.png');
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_warning_hook', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
-                'footer' => 'deneme',
+                'footer' => $data['language']->get('general', 'radomeweb')
             ]];
 
             $params['format'] = $format;
