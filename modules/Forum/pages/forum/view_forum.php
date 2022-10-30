@@ -48,7 +48,7 @@ $forum_query = $forum_query[0];
 // Get page
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
-        Redirect::to(URL::build('/));
+        Redirect::to(URL::build('/'));
     }
 
     if ($_GET['p'] == 1) {

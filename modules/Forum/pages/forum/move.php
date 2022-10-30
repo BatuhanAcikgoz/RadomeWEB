@@ -39,7 +39,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
             // Ensure forum we're moving to exists
             $forum_moving_to = DB::getInstance()->get('forums', ['id', Input::get('forum')])->results();
             if (!count($forum_moving_to)) {
-                Redirect::to(URL::build('/));
+                Redirect::to(URL::build('/'));
             }
 
             $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
@@ -70,7 +70,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         }
     }
 } else {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 // Generate navbar and footer

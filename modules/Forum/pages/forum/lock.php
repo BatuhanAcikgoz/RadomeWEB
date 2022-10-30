@@ -49,8 +49,8 @@ if ($user->isLoggedIn()) {
         Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id)));
 
     } else {
-        Redirect::to(URL::build('/));
+        Redirect::to(URL::build('/'));
     }
 } else {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }

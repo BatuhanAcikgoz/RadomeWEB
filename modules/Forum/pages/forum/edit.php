@@ -16,7 +16,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 // Initialise

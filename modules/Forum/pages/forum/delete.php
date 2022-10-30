@@ -10,7 +10,7 @@
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 // Always define page name
@@ -20,7 +20,7 @@ $forum = new Forum();
 
 // Check params are set
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 $topic_id = $_GET['tid'];
@@ -29,7 +29,7 @@ $topic_id = $_GET['tid'];
 $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
 if (!count($topic)) {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
@@ -61,4 +61,4 @@ if ($forum->canModerateForum($topic->forum_id, $user->getAllGroupIds())) {
     $forum->updateForumLatestPosts();
 
 }
-Redirect::to(URL::build('/));
+Redirect::to(URL::build('/'));

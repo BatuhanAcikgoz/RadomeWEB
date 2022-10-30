@@ -10,7 +10,7 @@
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/));
+    Redirect::to(URL::build('/'));
 }
 
 // Always define page name
