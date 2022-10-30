@@ -1,11 +1,10 @@
 <form action="" method="post">
     <div class="card shadow border-left-primary">
         <div class="card-body">
-            <h5><i class="icon fa fa-info-circle"></i> How you can give your users store credits</h5>
-            - You can manage users credits from StaffCP -> User Management -> Users -> Find your User -> Store.</br>
-            - You can reward users with credits when they buy something from your store.</br>
-            - You can use the <a href="https://www.spigotmc.org/resources/radome-plugin-for-v2.59032/" target="_blank">RadomeWEB Plugin</a> on your server to get commands to manage users credits, example reward your users by completing games, achievements, voting, etc</br>
-            - Other RadomeWEB modules might have ability to reward users with credits.
+            <h5><i class="icon fa fa-info-circle"></i> Kullanıcılara nasıl kredi verebilirim?</h5>
+            - Admin Paneli > Kullanıcılar > Kullanıcı İsmi > Magaza > Kredi Ekle/Çıkar kısmından.</br>
+            - Kullanıcıların kredi miktarlarını belirleyebilirsiniz.</br>
+            - <a href="https://radome.web.tr/eklenti" target="_blank">RadomeWEB Plugin</a> ile kullanıcıların vote verdikleride, görev ya da başka şeylere bağlı olarak oyunculara kredi vermelerini sağlabilirsiniz.
         </div>
     </div>
 
