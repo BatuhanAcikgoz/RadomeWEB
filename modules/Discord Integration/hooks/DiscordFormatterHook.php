@@ -87,7 +87,7 @@ class DiscordFormatterHook extends HookBase
                     'url' => $data['url'],
                     'icon_url' => $data['avatar_url']
                 ],
-                'description' => $data['content_full'],
+                'description' => '> ' .$data['content_full'],
                 'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
