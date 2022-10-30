@@ -12,7 +12,7 @@
 
     <div class="form-group custom-control custom-switch">
         <input id="inputEnabled" name="enable" type="checkbox" class="custom-control-input"{if $ENABLE_VALUE eq 1} checked{/if} />
-        <label class="custom-control-label" for="inputEnabled">Enable Payment Method</label>
+        <label class="custom-control-label" for="inputEnabled">Ödeme Yöntemini Etkinleştir</label>
     </div>
 
     <div class="form-group">
