@@ -270,7 +270,7 @@ class Wiki_Module extends Module {
 
 		$cache->setCache('navbar_icons');
 		if(!$cache->isCached('wiki_icon')) {
-			$icon = '';
+			$icon = '<i class="fas fa-book"></i>';
 			$cache->store('wiki_order', $icon);
 		} else {
 			$icon = $cache->retrieve('wiki_icon');
