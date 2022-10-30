@@ -2,8 +2,8 @@
 class MinecraftServerService extends ServiceBase {
     public function __construct() {
         $id = 2;
-        $name = 'Minecraft Server';
-        $description = 'Connect your Minecraft servers with Service Connections and make actions execute commands on they';
+        $name = 'Minecraft Sunucusu';
+        $description = 'Minecraft sunucularınızı servis bağlantılarıyla bağlayın ve komutlarınızı yürütün';
         $connection_settings = ROOT_PATH . '/modules/Store/services/MinecraftServer/settings/connection_settings.php';
         $action_settings = ROOT_PATH . '/modules/Store/services/MinecraftServer/settings/action_settings.php';
 

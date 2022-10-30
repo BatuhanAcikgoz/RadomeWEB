@@ -63,7 +63,7 @@
                                             <div class="card-header"><strong>{$service.name}</strong></div>
                                             <div class="card-body d-flex flex-column">
                                                 {$service.description}
-                                                <a href="{$service.select_link}" class="btn btn-primary btn-sm btn-block mt-auto">Select</a>
+                                                <a href="{$service.select_link}" class="btn btn-primary btn-sm btn-block mt-auto">Seç</a>
                                             </div>
                                         </div>
                                     </div>

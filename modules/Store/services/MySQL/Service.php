@@ -3,7 +3,7 @@ class MySQLService extends ServiceBase {
     public function __construct() {
         $id = 3;
         $name = 'MySQL';
-        $description = 'Connect to a MySQL database to execute MySQL commands actions';
+        $description = 'MySQL komutları eylemlerini yürütmek için bir MySQL veritabanına bağlan ( Gelişmiş, ileri seviye kullanıcılar için )';
         $connection_settings = ROOT_PATH . '/modules/Store/services/MySQL/settings/connection_settings.php';
         $action_settings = ROOT_PATH . '/modules/Store/services/MySQL/settings/action_settings.php';
 

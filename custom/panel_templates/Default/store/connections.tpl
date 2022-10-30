@@ -88,10 +88,10 @@
                     
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <p style="margin-top: 7px; margin-bottom: 7px;">Downloads</p>
+                            <p style="margin-top: 7px; margin-bottom: 7px;">İndirmeler</p>
                             <hr>
                             
-                            Minecraft Plugin - <a href="https://www.spigotmc.org/resources/radome-plugin-for-v2.59032/" target="_blank" class="btn btn-primary btn-sm">Go to Spigot</a>
+                            RadomeWEB Bağlantı Eklentisi - <a href="https://radome.web.tr/eklenti" target="_blank" class="btn btn-primary btn-sm">Site üzerinden indirin</a>
                             
                             
                         </div>

@@ -41,7 +41,7 @@ if (!isset($_GET['action'])) {
                 'name' => Output::getClean($connection->name),
                 'service' => Output::getClean($service->getName()),
                 'edit_link' => URL::build('/panel/magaza/baglantilar/', 'action=edit&id=' . Output::getClean($connection->id)),
-                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false
+                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'Son bir saat içinde API getirilmedi, RadomeWEB eklentisi yüklendi ve modules.yml da mağaza modülü entegrasyonu etkin mi?' : false
             ];
         }
 
@@ -88,7 +88,7 @@ if (!isset($_GET['action'])) {
                 }
 
                 $smarty->assign([
-                    'CONNECTIONS_TITLE' => 'Select Connection Type',
+                    'CONNECTIONS_TITLE' => 'Bağlantı Türünü Seç',
                     'BACK' => $language->get('general', 'back'),
                     'BACK_LINK' => URL::build('/panel/magaza/baglantilar/'),
                     'SERVICES_LIST' => $services_list
