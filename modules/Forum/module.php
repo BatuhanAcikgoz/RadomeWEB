@@ -71,6 +71,18 @@ class Forum_Module extends Module {
             ]
         );
 
+        EventHandler::registerEvent('preTopicCreate',
+        $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
+        [
+            'content' => $this->_language->get('general', 'content'),
+            'post_id' => $this->_forum_language->get('forum', 'post_id'),
+            'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+            'user' => $this->_forum_language->get('forum', 'user_object')
+        ],
+        true,
+        true
+        );
+
         EventHandler::registerEvent('preTopicEdit',
             $this->_forum_language->get('forum', 'pre_topic_edit_hook_info'),
             [
