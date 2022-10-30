@@ -324,7 +324,7 @@ class Core_Module extends Module {
         );
 
         EventHandler::registerEvent('userWarned',
-            $language->get('user', 'warning_hook_info'),
+            $language->get('admin', 'warning_hook_info'),
             [
                 'punished_id' => $language->get('admin', 'punished_id'),
                 'punisher_id' => $language->get('admin', 'punisher_id'),
