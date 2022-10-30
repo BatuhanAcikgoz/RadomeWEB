@@ -189,7 +189,6 @@ if (isset($_GET['user'])) {
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
                                             'punished_user' => $query->username,
-                                            'avatar_url' => $query->has_avatar,
                                             'reason' => $_POST['reason'],
                                             'language' => $default_language,
                                         ]);
