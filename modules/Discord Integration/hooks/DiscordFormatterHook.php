@@ -45,6 +45,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'group_has_been_added', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
+                'footer' => $data['language']->get('general', 'radomeweb'),
             ]];
 
             $params['format'] = $format;
@@ -53,6 +54,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'group_has_been_removed', ['group' => "`" . $data['group_name'] . "`", 'user' => Output::getClean($data['username'])]),
+                'footer' => $data['language']->get('general', 'radomeweb'),
             ]];
 
             $params['format'] = $format;
@@ -61,6 +63,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = ('https://cravatar.eu/helmavatar/'.$data['punished_user'].'/128.png');
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_warning_hook', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
+                'footer' => $data['language']->get('general', 'radomeweb'),
             ]];
 
             $params['format'] = $format;
@@ -69,6 +72,7 @@ class DiscordFormatterHook extends HookBase {
             $format['avatar_url'] = ('https://cravatar.eu/helmavatar/'.$data['punished_user'].'/128.png');
             $format['embeds'] = [[
                 'description' => $data['language']->get('user', 'user_banned_hook', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
+                'footer' => $data['language']->get('general', 'radomeweb'),
             ]];
 
             $params['format'] = $format;
