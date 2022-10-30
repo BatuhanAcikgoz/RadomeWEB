@@ -961,7 +961,7 @@
     "admin/administrator_permission_info": "Bu izne sahip olan kullanıcılar tüm izinlere sahip olacaktır. Bu, tehlikeli bir izindir.",
     "admin/announcement_hook_info": "Duyuru oluşturma",
     "admin/announcement_info": "Web sitenizin belirli sayfalarında belirli gruplara mesaj göstermek için duyurular oluşturun.",
-    "admin/announcement_order": "Sipariş",
+    "admin/announcement_order": "Öncelik",
     "admin/announcements": "Duyurular",
     "admin/api_endpoints": "API uç noktası",
     "admin/hooks": "Webhooklar",

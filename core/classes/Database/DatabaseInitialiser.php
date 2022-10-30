@@ -715,9 +715,6 @@ class DatabaseInitialiser {
                 <li>🙋 Haberler</li>
                 <li>🧭 Destek sistemi</li>
                 <li>🔨 AdvancedBan, LiteBans banlarını sitede g&ouml;r&uuml;nt&uuml;leme</li>
-                <li>🗳️ Verilen oyları ve en &ccedil;ok oy verenleri sitede g&ouml;r&uuml;nt&uuml;leme ( minecraft-mp API )</li>
-                <li>📧 Şifre sıfırlama, hesap onaylama ve php mail sistemi</li>
-                <li>📚 Wiki sistemi ile sitenizi ve sunucunuzu oyunculara kolayca tanıtın</li>
                 <li>🛒 Mağaza sistemi ile &uuml;r&uuml;nler ekleme &uuml;r&uuml;nleri kategorize etme ve VeriraAPI, PayTR ile &ouml;deme alma imkanı</li>
                 <li>📃 IFrame destekli &ouml;zel sayfalar ile sitenizde kendi sayfalarınızı oluşturabilirsiniz</li>
                 <li>👥 OAuth desteği ile siteye discord veya google hesabı kullanarak kayıt olabilirsiniz</li>

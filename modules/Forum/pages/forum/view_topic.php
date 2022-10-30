@@ -72,7 +72,7 @@ if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->for
 // Get page
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
-        Redirect::to(URL::build('/forum'));
+        Redirect::to(URL::build('/));
     }
 
     if ($_GET['p'] <= 1) {
@@ -241,7 +241,7 @@ if ($user->isLoggedIn()) {
 // Quick reply
 if (Input::exists()) {
     if (!$user->isLoggedIn() || !$can_reply) {
-        Redirect::to(URL::build('/forum'));
+        Redirect::to(URL::build('/));
     }
     if (Token::check()) {
         $validate = Validate::check($_POST, [

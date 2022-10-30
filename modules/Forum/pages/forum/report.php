@@ -10,7 +10,7 @@
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/));
 }
 
 // Always define page name
@@ -21,13 +21,13 @@ $forum = new Forum();
 
 // Get the post
 if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/));
 }
 
 $post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/));
 }
 $post = $post[0];
 

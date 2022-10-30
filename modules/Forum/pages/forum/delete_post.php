@@ -10,7 +10,7 @@
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/));
 }
 
 // Always define page name
@@ -20,13 +20,13 @@ $forum = new Forum();
 
 // Check params are set
 if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/'));
 }
 
 // Get post and forum ID
 $post = DB::getInstance()->get('posts', ['id', $_GET['pid']])->results();
 if (!count($post)) {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/'));
 }
 $post = $post[0];
 
@@ -46,7 +46,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
                     $opening_post = 1;
 
-                    $redirect = URL::build('/forum'); // Create a redirect string
+                    $redirect = URL::build('/'); // Create a redirect string
                 } else {
                     $redirect = URL::build('/forum/konu/' . urlencode(Input::get('tid')));
                 }
@@ -84,6 +84,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         echo 'No post selected';
     }
 } else {
-    Redirect::to(URL::build('/forum'));
+    Redirect::to(URL::build('/'));
 }
 die();
