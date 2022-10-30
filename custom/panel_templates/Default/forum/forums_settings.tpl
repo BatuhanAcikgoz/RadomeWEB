@@ -53,14 +53,6 @@
                                         </option>
                                     </select>
                                 </div>
-
-                                <div class="form-group custom-control custom-switch">
-                                    <input id="InputUseReactions" name="use_reactions" type="checkbox"
-                                        class="custom-control-input" {if $USE_REACTIONS_VALUE} checked{/if} />
-                                    <label for="InputUseReactions" class="custom-control-label">
-                                        {$USE_REACTIONS}
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
                                     <input type="submit" class="btn btn-primary" value="{$SUBMIT}" />
