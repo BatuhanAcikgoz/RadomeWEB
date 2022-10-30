@@ -187,6 +187,8 @@ if (isset($_GET['user'])) {
                                         EventHandler::executeEvent('userWarned', [
                                             'punished_id' => $query->id,
                                             'punisher_id' => $user->data()->id,
+                                            'punished_user' => $query->user_title,
+                                            'avatar_url' => $user->getAvatar(128, true),
                                             'reason' => $_POST['reason'],
                                         ]);
                                         break;

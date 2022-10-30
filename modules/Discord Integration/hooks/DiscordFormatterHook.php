@@ -56,6 +56,14 @@ class DiscordFormatterHook extends HookBase {
             ]];
 
             $params['format'] = $format;
+        } else if ($data['event'] == 'userWarned') {
+            $format['username'] = $data['punished_user'] . ' | ' . SITE_NAME;
+            $format['avatar_url'] = $data['avatar_url'];
+            $format['embeds'] = [[
+                'description' => $data['language']->get('user', 'group_has_been_removed', ['reason' => $data['reason'], 'user' => Output::getClean($data['punished_user'])]),
+            ]];
+
+            $params['format'] = $format;
         }
         
 
