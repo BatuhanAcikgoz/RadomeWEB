@@ -83,7 +83,6 @@ class DiscordFormatterHook extends HookBase
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
                 'description' => $data['content_full'],
-                'footer' => ['text' => $data['language']->get('general', 'radomeweb')]
             ]];
 
             $params['format'] = $format;
