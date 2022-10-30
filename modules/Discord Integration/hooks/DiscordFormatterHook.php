@@ -82,7 +82,7 @@ class DiscordFormatterHook extends HookBase
             $format['username'] = $data['username'] . ' | ' . SITE_NAME;
             $format['avatar_url'] = $data['avatar_url'];
             $format['embeds'] = [[
-                'description' => $data['content_full'],
+                'description' => $data['title'],
             ]];
 
             $params['format'] = $format;
