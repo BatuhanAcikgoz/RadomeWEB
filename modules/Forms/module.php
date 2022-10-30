@@ -103,9 +103,6 @@ class Forms_Module extends Module {
         require_once ROOT_PATH . '/modules/Forms/hooks/CloneGroupFormsHook.php';
         EventHandler::registerListener('cloneGroup', 'CloneGroupFormsHook::execute');
 
-        require_once ROOT_PATH . '/modules/Forms/hooks/DeleteUserFormsHook.php';
-        EventHandler::registerListener('deleteUser', 'DeleteUserFormsHook::execute');
-
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Forms/includes/endpoints');
 
         Endpoints::registerTransformer('form', 'Forms', static function (Radome2API $api, string $value) {
