@@ -200,7 +200,6 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
-                $default_language = new Language('core', DEFAULT_LANGUAGE);
                 $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
                 $available_hooks = DB::getInstance()->get('forums', ['id', $fid])->results();
                 $available_hooks = json_decode($available_hooks[0]->hooks);
@@ -215,7 +214,6 @@ if (Input::exists()) {
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
                     'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
-                    'language' => $default_language,
                     'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
