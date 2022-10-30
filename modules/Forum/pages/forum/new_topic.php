@@ -216,7 +216,6 @@ if (Input::exists()) {
                     'title' => Input::get('title'),
                     'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic_id) . '-' . $forum->titleToURL(Input::get('title'))), '/'),
                     'language' => $default_language,
-                    'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $forum_language->get('forum', 'post_successful'));
