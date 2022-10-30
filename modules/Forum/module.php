@@ -71,18 +71,6 @@ class Forum_Module extends Module {
             ]
         );
 
-        EventHandler::registerEvent('preTopicCreate',
-        $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
-        [
-            'content' => $this->_language->get('general', 'content'),
-            'post_id' => $this->_forum_language->get('forum', 'post_id'),
-            'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
-            'user' => $this->_forum_language->get('forum', 'user_object')
-        ],
-        true,
-        true
-        );
-
         EventHandler::registerEvent('preTopicEdit',
             $this->_forum_language->get('forum', 'pre_topic_edit_hook_info'),
             [
@@ -96,7 +84,26 @@ class Forum_Module extends Module {
             true
         );
 
+        EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
+
+        EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
+
+        EventHandler::registerListener('renderPost', 'ContentHook::purify');
+        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
+
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('cloneGroup', 'CloneGroupForumHook::execute');
     }
 
     public function onInstall() {
