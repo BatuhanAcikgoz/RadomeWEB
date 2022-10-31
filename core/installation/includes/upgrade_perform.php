@@ -562,20 +562,7 @@ try {
 
 // Profile wall likes
 try {
-    $old = $conn->get('nl1_user_profile_wall_posts_likes', ['id', '<>', 0]);
-    if ($old->count()) {
-        $old = $old->results();
-
-        foreach ($old as $item) {
-            DB::getInstance()->insert('user_profile_wall_posts_reactions', [
-                'id' => $item->id,
-                'user_id' => $item->user_id,
-                'post_id' => $item->post_id,
-                'reaction_id' => 1,
-                'time' => 0
-            ]);
-        }
-    }
+    
 } catch (Exception $e) {
     $errors[] = 'Unable to convert user profile wall likes: ' . $e->getMessage();
 }

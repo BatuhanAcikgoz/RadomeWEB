@@ -102,8 +102,7 @@
                                                 </div>
                                             </div>
                                             <div class="panel-footer">
-                                                <a href="{if $post.reactions_link ne " # "}{$post.reactions_link}{else}#{/if}" class="grey-link" data-content='{if isset($post.reactions.reactions)} {foreach from=$post.reactions.reactions item=reaction name=reactions}<a href="{$reaction.profile}" style="{$reaction.style}"><img class="avatar-img" src="{$reaction.avatar}" alt="{$reaction.username}" style="max-height:30px; max-width:30px;" /> {$reaction.username}</a>{if !$smarty.foreach.reactions.last}<br />{/if}{/foreach} {else}{$post.reactions.count}{/if}'>
-                                                    <i class="fa fa-thumbs-up"></i> {$post.reactions.count} </a> | <a class="grey-link" href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
+                                            | <a class="grey-link" href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
                                                 <span class="float-right">
                                                     {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
                                                         <form action="" method="post" id="delete{$post.id}" style="display:none">
@@ -141,21 +140,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/if} {if $post.reactions_link ne "#"}
-                                            <!-- Reaction modal -->
-                                            <div class="modal fade" id="reactModal{$post.id}" tabindex="-1" role="dialog" aria-labelledby="reactModal{$post.id}Label" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <span class="modal-title" id="reactModal{$post.id}Label">{$REACTIONS_TITLE}</span>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CLOSE}</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {/if}
+                                            {/if}
                                         <!-- Replies modal -->
                                         <div class="modal fade" id="replyModal{$post.id}" tabindex="-1" role="dialog" aria-labelledby="replyModal{$post.id}Label" aria-hidden="true">
                                             <div class="modal-dialog" role="document">

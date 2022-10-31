@@ -5,7 +5,6 @@ class UserProfilePostSeeder extends Seeder {
     public array $tables = [
         'rw_user_profile_wall_posts',
         'rw_user_profile_wall_posts_replies',
-        'rw_user_profile_wall_posts_reactions',
     ];
 
     protected function run(DB $db, \Faker\Generator $faker): void {
@@ -36,18 +35,6 @@ class UserProfilePostSeeder extends Seeder {
                 'author_id' => $author_id,
                 'time' => $this->since($post->time, $faker)->format('U'),
                 'content' => $faker->text,
-            ]);
-        });
-
-        $this->times(500, function () use ($db, $faker, $profile_posts) {
-            $post = $faker->randomElement($profile_posts);
-            $user_id = $faker->randomElement($profile_posts)->user_id;
-
-            $db->insert('user_profile_wall_posts_reactions', [
-                'user_id' => $user_id,
-                'post_id' => $post->time,
-                'reaction_id' => 1,
-                'time' => $this->since($post->time, $faker)->format('U'),
             ]);
         });
     }

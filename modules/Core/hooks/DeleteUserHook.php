@@ -65,7 +65,6 @@ class DeleteUserHook {
             // Profile wall posts
             $db->delete('user_profile_wall_posts', ['user_id', $params['user_id']]);
             $db->delete('user_profile_wall_posts', ['author_id', $params['user_id']]);
-            $db->delete('user_profile_wall_posts_reactions', ['user_id', $params['user_id']]);
             $db->delete('user_profile_wall_posts_replies', ['author_id', $params['user_id']]);
 
             // Oauth
