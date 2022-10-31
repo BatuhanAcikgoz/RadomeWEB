@@ -92,9 +92,7 @@ if (page !== '') {
         $(function() {
             var postId = window.location.hash.replace('#post-', '');
             var postElem = '#post-id-' + postId;
-            setTimeout(function() {
-                $('html, body').animate({ scrollTop: $(postElem).offset().top - 15 }, 800);
-            }, 100);
+            setTimeout(function() {}, 100);
         });
 
     } else if (page === 'status') {
