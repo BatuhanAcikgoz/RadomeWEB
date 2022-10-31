@@ -82,7 +82,7 @@ if(!isset($_GET['action'])){
 								
 					$message_id = DB::getInstance()->get('wiki_settings', ['name', '=', 'home_page'])->results();
 					$message_id = $message_id[0]->id;
-					$queries->update('wiki_settings', $message_id, [
+					DB::getInstance()->update('wiki_settings', $message_id, [
 						'value' => Input::get('message'),
 					]);
 
@@ -132,7 +132,7 @@ if(!isset($_GET['action'])){
 					}
 					if($validation->passed()){
 						try {
-							$queries->create('wiki_pages', [
+							DB::getInstance()->insert('wiki_pages', [
 								'title' => htmlspecialchars(Input::get('wiki_page_title')),
 								'parent' => $_POST['InputWikiParent'],
 								'nameid' => strtolower(Input::get('wiki_page_id')),
@@ -260,7 +260,7 @@ if(!isset($_GET['action'])){
 					}
 					if($validation->passed()){	
 						try {
-							$queries->update('wiki_pages', $page->id, [
+							DB::getInstance()->update('wiki_pages', $page->id, [
 								'title' => htmlspecialchars(Input::get('wiki_page_title')),
 								'parent' => strtolower($_parent),
 								'nameid' => strtolower(Input::get('wiki_page_id')),
@@ -337,7 +337,7 @@ if(!isset($_GET['action'])){
 		case 'delete':
 			if(isset($_GET['id']) && is_numeric($_GET['id'])){
 				try {
-					$queries->delete('wiki_pages', ['id', '=', $_GET['id']]);
+					DB::getInstance()->delete('wiki_pages', ['id', '=', $_GET['id']]);
 				} catch(Exception $e){
 					die($e->getMessage());
 				}
