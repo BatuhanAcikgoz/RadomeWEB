@@ -69,6 +69,7 @@ $smarty->assign([
     'AMOUNT' => $store_language->get('admin', 'amount'),
     'DATE' => $store_language->get('admin', 'date'),
     'TRANSACTIONS_LIST' => $transactions_list,
+    'PURCHASES_LIST' => $purchase_list,
     'CURRENCY' => $currency,
     'CURRENCY_SYMBOL' => $currency_symbol
 ]);

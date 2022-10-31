@@ -69,9 +69,9 @@
                 {/nocache}
             </div>
             <div class="card">
-            <h3 class="card-header header-theme">{$MY_TRANSACTIONS}</h3>
+            <h3 class="card-header header-theme">Ürünler</h3>
             {nocache}
-                {if count($TRANSACTIONS_LIST)}
+                {if count($PURCHASES_LIST)}
                     <table class="ui fixed single line selectable unstackable small padded res table">
                         <thead>
                             <tr>
@@ -82,12 +82,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {foreach from=$TRANSACTIONS_LIST item=transaction}
+                            {foreach from=$PURCHASES_LIST item=purchase}
                                 <tr>
-                                    <td>{$transaction.transaction}</td>
-                                    <td>{$transaction.name}</td>
-                                    <td>{$transaction.currency_symbol}{$transaction.amount} {$transaction.currency}</td>
-                                    <td><span data-toggle="tooltip" data-content="{$transaction.date_full}">{$transaction.date_friendly}</span></td>
+                                    <td>{$purchase.transaction}</td>
+                                    <td>{$purchase.name}</td>
+                                    <td>{$purchase.currency_symbol}{$purchase.amount} {$purchase.currency}</td>
+                                    <td><span data-toggle="tooltip" data-content="{$purchase.date_full}">{$purchase.date_friendly}</span></td>
                                 </tr>
                             {/foreach}
                         </tbody>
