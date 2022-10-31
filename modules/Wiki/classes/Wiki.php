@@ -41,7 +41,7 @@ class Wiki {
         $col = $this->_db->_prefix . $col;
         $sql = "SHOW COLUMNS FROM".$this->_db->_prefix."wiki_pages WHERE Field = '{$col}'";
 
-        if (!$this->query($sql)->error()) {
+        if (!DB::getInstance()->query($sql)->error()) {
             return $this->_query->rowCount();
         }
 

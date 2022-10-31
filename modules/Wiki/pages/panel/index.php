@@ -80,7 +80,7 @@ if(!isset($_GET['action'])){
 					$cache->setCache('navbar_icons');
 					$cache->store('wiki_icon', Input::get('icon'));
 								
-					$message_id = $queries->getWhere('wiki_settings', ['name', '=', 'home_page']);
+					$message_id = DB::getInstance()->get('wiki_settings', ['name', '=', 'home_page'])->results();
 					$message_id = $message_id[0]->id;
 					$queries->update('wiki_settings', $message_id, [
 						'value' => Input::get('message'),
@@ -206,7 +206,7 @@ if(!isset($_GET['action'])){
 				Redirect::to(URL::build('/panel/wiki'));
 				die();
 			}
-			$page = $queries->getWhere('wiki_pages', ['id', '=', $_GET['id']]);
+			$page = DB::getInstance()->get('wiki_pages', ['id', '=', $_GET['id']])->results();
 			if(!count($page)){
 				Redirect::to(URL::build('/panel/wiki'));
 				die();
