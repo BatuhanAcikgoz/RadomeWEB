@@ -15,12 +15,12 @@ class Wiki {
     }
 
     public function getSettings(){
-        $this->settings = DB::getInstance()->get('wiki_settings', array('name', '=', 'home_page'));
+        $this->settings = DB::getInstance()->get('wiki_settings', array('name', '=', 'home_page'))->results();
         return $this->settings[0]->value;
     }
 
     public function getPages() {
-        $this->wikipages = DB::getInstance()->get("wiki_pages", array("id", "<>", 0));
+        $this->wikipages = DB::getInstance()->get("wiki_pages", array("id", "<>", 0))->results();
         return $this->wikipages;
     }
 
@@ -86,7 +86,7 @@ class Wiki {
 
     public function getLikesByPage($page){
         try{
-            $data = DB::getInstance()->get('wiki_likes', array('pageid', '=', $page));
+            $data = DB::getInstance()->get('wiki_likes', array('pageid', '=', $page))->results();
             return $data;
         } catch(Throwable $e){ return null; }
     }
@@ -94,7 +94,7 @@ class Wiki {
     public function isPageLikedByUser($username, $nameid){
         $status = false;
         try{
-            $data = DB::getInstance()->get('wiki_likes', array('username', '=', $username));
+            $data = DB::getInstance()->get('wiki_likes', array('username', '=', $username))->results();
             foreach($data as $liked)
             {
                 if ($liked->pageid == $nameid)
@@ -109,7 +109,7 @@ class Wiki {
 
     public function isPageLikedByUserAsString($username, $nameid){
         try{
-            $data = DB::getInstance()->get('wiki_likes', array('username', '=', $username));
+            $data = DB::getInstance()->get('wiki_likes', array('username', '=', $username))->results();
             foreach($data as $liked)
             {
                 if ($liked->pageid == $nameid)
