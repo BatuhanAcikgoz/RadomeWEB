@@ -17,7 +17,10 @@
                         </span>
 			<hr />
                     {/foreach}
-		    <a href="{$DELETE_ALL_LINK}" class="btn btn-secondary">{$DELETE_ALL}</a>
+                    <form action="{$DELETE_ALL_LINK}" method="post" style="display:inline">
+                    <input type="hidden" name="token" value="{$TOKEN}">
+                    <button type="submit" class="btn btn-secondry">{$DELETE_ALL}</button>
+                </form>
                     {else} {$NO_ALERTS} {/if} {/nocache}
                 </div>
             </div>
