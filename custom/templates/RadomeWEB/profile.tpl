@@ -39,9 +39,12 @@
                                         <!--<a href="{$FOLLOW_LINK}" class="btn btn-primary btn-lg"><i class="fa fa-users fa-fw"></i> {$FOLLOW}</a>-->
                                         {if $MOD_OR_ADMIN ne true}<a href="#" data-toggle="modal" data-target="#blockModal" class="btn btn-danger btn-lg"><i class="fa fa-ban fa-fw"></i></a>{/if}
                                         {if isset($RESET_PROFILE_BANNER)}
-                                            <a href="{$RESET_PROFILE_BANNER_LINK}" class="btn btn-danger btn-lg" rel="tooltip" data-title="{$RESET_PROFILE_BANNER}">
+                                            <form action="{$RESET_PROFILE_BANNER_LINK}" method="post" style="display: inline">
+                                            <input type="hidden" name="token" value="{$TOKEN}" />
+                                            <button class="btn btn-danger btn-lg" data-toggle="tooltip" data-content="{$RESET_PROFILE_BANNER}">
                                                 <i class="far fa-image"></i>
-                                            </a>
+                                            </button>
+                                        </form>
                                         {/if}
                                     </div>
                                 {else}
