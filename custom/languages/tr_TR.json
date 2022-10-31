@@ -473,6 +473,7 @@
     "admin/user_management": "Kullanıcıları Yönet",
     "admin/user_updated_successfully": "Kullanıcı başarıyla güncellendi!",
     "admin/user_validated_successfully": "Kullanıcı başarıyla doğrulandı!",
+    "admin/user_password_changed_successfully": "Kullanıcının şifresi başarıyla değiştirildi!",
     "admin/users": "Kullanıcılar",
     "admin/uuid": "UUID",
     "admin/uuid_max_32": "UUID en fazla 32 karakter olmalıdır.",
