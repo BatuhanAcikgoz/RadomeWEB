@@ -52,7 +52,7 @@
                                 {foreach from=$TRANSACTIONS_LIST item=transaction}
                                     <tr>
                                         <td>{$transaction.transaction}</td>
-                                        <td>{$transaction.urun}</td>
+                                        <td>{$transaction.name}</td>
                                         <td>{$transaction.currency_symbol}{$transaction.amount} {$transaction.currency}</td>
                                         <td><span data-toggle="tooltip" data-content="{$transaction.date_full}">{$transaction.date_friendly}</span></td>
                                     </tr>
