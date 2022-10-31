@@ -42,7 +42,7 @@ if (loggedIn == 1) {
 						var new_alert_dropdown = '';
 
 						for (i in data.alerts) {
-							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
+							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('kullanici/uyarilar?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
 						}
 
 						alert_dropdown.html(new_alert_dropdown);
