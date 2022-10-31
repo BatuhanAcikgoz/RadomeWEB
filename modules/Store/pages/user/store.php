@@ -43,7 +43,7 @@ if ($transactions->count()) {
     }
 }
 $purchase_list = [];
-$purchases = DB::getInstance()->query('SELECT rw_store_payments.* FROM rw_store_payments INNER JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products on rw_store_orders.id=rw_store_orders_products.order_id LEFT JOIN rw_store_products on rw_store_orders_products.product_id=rw_store_products.id WHERE from_customer_id = ?  ORDER BY rw_store_payments.created DESC', [$customer->data()->id]);if ($transactions->count()) {
+$purchases = DB::getInstance()->query('SELECT rw_store_payments.*, rw_store_products.name FROM rw_store_payments INNER JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products on rw_store_orders.id=rw_store_orders_products.order_id LEFT JOIN rw_store_products on rw_store_orders_products.product_id=rw_store_products.id WHERE from_customer_id = ?  ORDER BY rw_store_payments.created DESC', [$customer->data()->id]);if ($transactions->count()) {
     foreach ($purchases->results() as $purchase) {
         $purchase_list[] = [
             'gateway' => Output::getClean($purchase->gateway_id),
