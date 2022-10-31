@@ -20,7 +20,7 @@ if (loggedIn == 1) {
 
 						var new_pm_dropdown = '';
 						for (i in data.pms) {
-							new_pm_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/messaging?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
+							new_pm_dropdown += '<a class="dropdown-item" href="' + URLBuild('kullanici/mesajlasma?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
 						}
 						pm_dropdown.html(new_pm_dropdown);
 						pm_dropdown.removeClass('dropdown-item');
@@ -33,13 +33,10 @@ if (loggedIn == 1) {
 			});
 			$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
 				if (data.value > 0 && $('.alerts').is(':empty')) {
-					$(".alerts").html('<div class="alert-msg-icon"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></div>'); if (data.value !== 1) { var x_alerts = newAlertsX; }
-					var alert_dropdown = $(".alerts_dropdown"); var new_alert_dropdown = ''; for (i in data.alerts) { new_alert_dropdown += '<a class="dropdown-item alert-msg-list" href="' + URLBuild('user/alerts?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>'; }
+					$(".alerts").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>'); if (data.value !== 1) { var x_alerts = newAlertsX; }
+					var alert_dropdown = $(".alerts_dropdown"); var new_alert_dropdown = ''; for (i in data.alerts) { new_alert_dropdown += '<a class="dropdown-item alert-msg-list" href="' + URLBuild('kullanici/uyarilar?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>'; }
 					alert_dropdown.html(new_alert_dropdown); alert_dropdown.removeClass('dropdown-item'); if (Notification.permission !== "granted")
-						Notification.requestPermission(); else {
-							if (data.value == 1) { var notification = new Notification(siteName, { body: newAlert1, }); } else { var notification = new Notification(siteName, { body: x_alerts.replace("{x}", data.value), }); }
-						notification.onclick = function () { window.open(URLBuild('kullanici/uyarilar', true)); };
-					}
+						Notification.requestPermission();
 				}
 			});
 
