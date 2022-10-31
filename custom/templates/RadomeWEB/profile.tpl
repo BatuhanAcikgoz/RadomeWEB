@@ -102,7 +102,7 @@
                                                 </div>
                                             </div>
                                             <div class="panel-footer">
-                                            | <a class="grey-link" href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
+                                            <a class="grey-link" href="#" data-toggle="modal" data-target="#replyModal{$post.id}"><i class="fa fa-comments"></i> {$post.replies.count}</a>
                                                 <span class="float-right">
                                                     {if (isset($CAN_MODERATE) && $CAN_MODERATE eq 1) || $post.self eq 1}
                                                         <form action="" method="post" id="delete{$post.id}" style="display:none">
