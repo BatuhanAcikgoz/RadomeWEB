@@ -75,7 +75,7 @@
                     <table class="ui fixed single line selectable unstackable small padded res table">
                         <thead>
                             <tr>
-                                <th>{$TRANSACTION}</th>
+                                <th>Ürün ismi</th>
                                 <th>{$URUN}</th>
                                 <th>{$AMOUNT}</th>
                                 <th>{$DATE}</th>
@@ -84,7 +84,7 @@
                         <tbody>
                             {foreach from=$PURCHASES_LIST item=purchase}
                                 <tr>
-                                    <td>{$purchase.transaction}</td>
+                                    <td>{$purchase.name}</td>
                                     <td>{$purchase.name}</td>
                                     <td>{$purchase.currency_symbol}{$purchase.amount} {$purchase.currency}</td>
                                     <td><span data-toggle="tooltip" data-content="{$purchase.date_full}">{$purchase.date_friendly}</span></td>
