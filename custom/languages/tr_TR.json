@@ -867,7 +867,7 @@
     "user/new_message": "Yeni Özel Mesaj",
     "user/new_password": "Yeni Şifre",
     "user/new_reply": "Yeni Cevap",
-    "user/new_wall_post": "{{author}} profilinize gönderildi.",
+    "user/new_wall_post": "{{author}} profilinize mesaj gönderdi.",
     "user/new_wall_post_reply": "{{author}}, {{user}} profilindeki yayınınızı yanıtladı.",
     "user/new_wall_post_reply_your_profile": "{{author}} profilinizdeki yayınınıza cevap verdi.",
     "user/nickname": "Kullanıcı Adı",
