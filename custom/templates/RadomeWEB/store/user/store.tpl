@@ -68,6 +68,39 @@
                     {/if}
                 {/nocache}
             </div>
+            <div class="card">
+            <h3 class="card-header header-theme">{$MY_TRANSACTIONS}</h3>
+            {nocache}
+                {if count($TRANSACTIONS_LIST)}
+                    <table class="ui fixed single line selectable unstackable small padded res table">
+                        <thead>
+                            <tr>
+                                <th>{$TRANSACTION}</th>
+                                <th>{$URUN}</th>
+                                <th>{$AMOUNT}</th>
+                                <th>{$DATE}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach from=$TRANSACTIONS_LIST item=transaction}
+                                <tr>
+                                    <td>{$transaction.transaction}</td>
+                                    <td>{$transaction.name}</td>
+                                    <td>{$transaction.currency_symbol}{$transaction.amount} {$transaction.currency}</td>
+                                    <td><span data-toggle="tooltip" data-content="{$transaction.date_full}">{$transaction.date_friendly}</span></td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                {else}
+                    <div class="ui info message">
+                        <div class="card-body">
+                            {$NO_TRANSACTIONS}
+                        </div>
+                    </div>
+                {/if}
+            {/nocache}
+        </div>
         </div>
     </div>
 </div>
