@@ -19,7 +19,7 @@
                     {/foreach}
                     <form action="{$DELETE_ALL_LINK}" method="post" style="display:inline">
                     <input type="hidden" name="token" value="{$TOKEN}">
-                    <button type="submit" class="btn btn-secondry">{$DELETE_ALL}</button>
+                    <button type="submit" class="btn btn-theme">{$DELETE_ALL}</button>
                 </form>
                     {else} {$NO_ALERTS} {/if} {/nocache}
                 </div>
