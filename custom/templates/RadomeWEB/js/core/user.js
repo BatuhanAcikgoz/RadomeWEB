@@ -11,27 +11,6 @@ if (loggedIn == 1) {
 					Notification.requestPermission();
 			}
 
-			$.getJSON(URLBuild('sorgu/pms'), function (data) {
-				var pm_dropdown = $(".pm_dropdown");
-
-				if (data.value > 0) {
-					$(".pms").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
-					if (pm_dropdown.html() == loading) {
-
-						var new_pm_dropdown = '';
-						for (i in data.pms) {
-							new_pm_dropdown += '<a class="dropdown-item" href="' + URLBuild('user/messaging?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
-						}
-						pm_dropdown.html(new_pm_dropdown);
-						pm_dropdown.removeClass('dropdown-item');
-					}
-
-				} else {
-					pm_dropdown.html('<span>' + noMessages + '</span>');
-					pm_dropdown.addClass('noclick');
-				}
-			});
-
 			window.setInterval(function () {
 				$.getJSON(URLBuild('sorgu/pms'), function (data) {
 					if (data.value > 0 && $('.pms').is(':empty')) {
