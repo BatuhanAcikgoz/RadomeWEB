@@ -33,18 +33,26 @@
                 {if isset($SEARCH_RESULTS)}
                     {if $SEARCH_RESULTS eq '1'}
                     <div class="col-md-12">
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-success" role="alert">
                         {$VOTE_SORGU1}
                     </div> 
                     </div>
                     {elseif $SEARCH_RESULTS eq '0'}
                     <div class="col-md-12">
-                        <div class="alert alert-success" role="alert">
+                        <div class="alert alert-warning" role="alert">
                         {$VOTE_SORGU0}
                     </div>
                     </div>
+                    {elseif $SEARCH_RESULTS eq '2'}
+                        <div class="col-md-12">
+                            <div class="alert alert-success" role="alert">
+                            {$VOTE_SORGU1}
+                        </div>
                     {else}    
-                          NULL  
+                        <div class="col-md-12">
+                            <div class="alert alert-secondary" role="alert">
+                            {$VOTE_SORGU_NULL}
+                        </div>
                      {/if}
                     {/if}
                     <div class="col-md-12">
