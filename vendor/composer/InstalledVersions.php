@@ -450,14 +450,6 @@ class InstalledVersions
       ),
       'reference' => '191afdcb5804db960d26d8566b7e9a2843cab3a0',
     ),
-    'matomo/device-detector' => 
-    array (
-      'pretty_version' => 'v6.0.4',
-      'version' => '6.0.4.0',
-      'aliases' => 
-      array (
-      ),
-    ),
     'symfony/string' => 
     array (
       'pretty_version' => 'v5.4.11',

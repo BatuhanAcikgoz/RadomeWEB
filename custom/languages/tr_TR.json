@@ -1229,11 +1229,5 @@
     "user/group_has_been_added": "{{user}} adlı kullanıcıya {{group}} grubu eklendi",
     "user/group_has_been_removed": "{{user}} adlı kullanıcıdan {{group}} grubu alındı",
     "user/user_warning_hook": "**{{user}}**, {{reason}} sebebinden uyarıldı",
-    "admin/last_seen": "Last Seen",
-    "general/device": "Device",
-    "general/session": "Session",
-    "general/sessions": "Sessions",
-    "general/logout_session_successfully": "Session successfully logged out.",
-    "admin/viewing_sessions_for_x": "Viewing login sessions for {{user}}",
     "user/user_banned_hook": "**{{user}}**, {{reason}} sebebinden banlandı"
 }

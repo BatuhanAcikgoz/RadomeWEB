@@ -76,14 +76,12 @@ class User {
                 $hash = Session::get($this->_sessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isLoggedIn = true;
-                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
             if (Session::exists($this->_admSessionName)) {
                 $hash = Session::get($this->_admSessionName);
                 if ($this->find($hash, 'hash')) {
                     $this->_isAdmLoggedIn = true;
-                    $this->_db->update('users_session', ['hash', $hash], ['last_seen' => date('U')]);
                 }
             }
         } else {
@@ -306,27 +304,12 @@ class User {
             // Valid credentials
             $hash = SecureRandom::alphanumeric();
 
-            // Detect device
-            $userAgent = $_SERVER['HTTP_USER_AGENT'];
-            $clientHints = DeviceDetector\ClientHints::factory($_SERVER);
-            $dd = new \DeviceDetector\DeviceDetector($userAgent, $clientHints);
-            $dd->skipBotDetection();
-            $dd->parse();
-
-            $osName = $dd->getOs('name');
-            $osVersion = $dd->getOs('version');
-            $browserName = $dd->getClient('name');
-            $browserVersion = $dd->getClient('version');
-            $deviceString = $osName . ' ' . $osVersion . ' - ' . $browserName . ' ' . $browserVersion;
-
             $this->_db->insert('users_session', [
                 'user_id' => $this->data()->id,
                 'hash' => $hash,
                 'remember_me' => $remember,
                 'active' => 1,
-                'login_method' => $is_admin ? 'admin' : $method,
-                'device_name' => $deviceString,
-                'ip' => HttpUtils::getRemoteAddress()
+                'login_method' => $is_admin ? 'admin' : $method
             ]);
 
             Session::put($sessionName, $hash);
