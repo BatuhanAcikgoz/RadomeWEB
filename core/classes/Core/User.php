@@ -308,7 +308,7 @@ class User {
 
             // Detect device
             $userAgent = $_SERVER['HTTP_USER_AGENT'];
-            $clientHints = \DeviceDetector\ClientHints::factory($_SERVER);
+            $clientHints = DeviceDetector\ClientHints::factory($_SERVER);
             $dd = new \DeviceDetector\DeviceDetector($userAgent, $clientHints);
             $dd->skipBotDetection();
             $dd->parse();
