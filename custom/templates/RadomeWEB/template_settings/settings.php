@@ -18,10 +18,6 @@ if (Input::exists()) {
             }
         }
 
-        if (!empty($_FILES['radomeweb-update']['name'])) {
-            updateRadomeWEB();
-        }
-
         Session::flash('admin_templates', $language->get('admin', 'successfully_updated'));
     } else {
         $errors = array($language->get('general', 'invalid_token'));
@@ -163,7 +159,6 @@ $smarty->assign(array(
     'RADOMEWEB' => $radomeweb_language->get('language', 'radomeweb_title'),
     'YES' => $radomeweb_language->get('language', 'yes'),
     'NO' => $radomeweb_language->get('language', 'no'),
-    'EXT_UPDATE_INFO' => $radomeweb_language->get('language', 'ext_update_info'),
     'NAVBAR_SIZE_1' => $radomeweb_language->get('language', 'navbar_size_1'),
     'SMALL' => $radomeweb_language->get('language', 'small'),
     'MEDIUM' => $radomeweb_language->get('language', 'medium'),
@@ -174,124 +169,8 @@ $smarty->assign(array(
 
 // External Updater
 
-if ($ext_update == "yes") {
-    if (!$cache->isCached('version')) {
-        $radomeweb_api = file_get_contents('https://cdn.radome.web.tr/radomeweb/updater.json');
-        $radomeweb_api_decode = json_decode($radomeweb_api, true);
-        $radomeweb_version = $radomeweb_api_decode["radomeweb_version"];
-        $cache->store('version', $radomeweb_version, 1800);
-    } else {
-        $radomeweb_version = $cache->retrieve('version');
-    }
-
-    $smarty->assign('RADOMEWEB_VERSION', $radomeweb_version);
-}
-
 // RadomeWEB Easy Updater
 // Made by Skyrowl for RadomeWEB Theme
-function updateRadomeWEB()
-{
-    $radomeweb_language = new Language(ROOT_PATH . '/custom/templates/RadomeWEB/template_settings/language', LANGUAGE);
-
-    $currentDirectory2 = getcwd();
-    $sfpath = $currentDirectory2.'/custom/templates/RadomeWEB';
-    chmod_r($sfpath);
-
-    $currentDirectory = getcwd();
-    $uploadDirectory = $currentDirectory . '/uploads/';
-    $radomewebDir = $currentDirectory.'/custom/templates/RadomeWEB';
-    $radomewebTempDir = $uploadDirectory . 'radomeweb';
-
-    $errors = array();
-
-    $fileExtensionsAllowed = ['zip'];
-
-    $fileName = $_FILES['radomeweb-update']['name'];
-    $fileSize = $_FILES['radomeweb-update']['size'];
-    $fileTmpName = $_FILES['radomeweb-update']['tmp_name'];
-    $fileExtension = strtolower(end(explode('.', $fileName)));
-    $uploadPath = $uploadDirectory . basename($fileName);
-
-    $responseTemplate = '<style>
-                          .hidden {
-                              visibility: hidden;
-                              opacity: 0;
-                              transition: visibility 0s 1s, opacity 1s linear;
-                            }
-                          </style>
-                          <div class="position-fixed w-100 h-100" style="top:0;left:0;z-index:50000;" id="updateBackground">
-                            <div class="d-flex flex-column h-100 text-center">
-                              <div class="mx-auto my-auto d-flex flex-column" style="color:#f0f0f0">
-                                <div class="d-flex flex-column mx-auto my-auto" id="updateResponse"></div>
-                                <btn class="btn btn-secondary mt-5 mx-auto" onclick="dismiss(); window.location.reload();" style="width:max-content;">' . $radomeweb_language->get('language', 'ez_msg_3') . '</btn>
-                              </div>
-                            </div>
-                          </div>
-                          <script>
-                            var container = document.getElementById("updateResponse");
-                            responseIcon.style.fontSize = "6rem";
-                            container.appendChild(responseIcon);
-                            var responseMessageNode = document.createElement("h3");
-                            container.appendChild(responseMessageNode.appendChild(responseMessage));
-                            var background = document.getElementById("updateBackground");
-                            background.style.background = backgroundColor;
-                            function dismiss() {
-                              background.classList.add("hidden");
-                            }
-                            if ( window.history.replaceState ) {
-                                window.history.replaceState( null, null, window.location.href );
-                            }
-                          </script>';
-
-    if (!in_array($fileExtension, $fileExtensionsAllowed)) {
-        array_push($errors, $radomeweb_language->get('language', 'ez_msg_1'));
-    }
-    if ($fileSize > 15000000) {
-        array_push($errors, $radomeweb_language->get('language', 'ez_msg_2'));
-    }
-    if (empty($errors)) {
-        if (move_uploaded_file($fileTmpName, $uploadPath)) {
-            $zip = new ZipArchive;
-            if ($zip->open($uploadPath)) {
-                deleteDirectory($radomewebDir);
-                mkdir($radomewebTempDir);
-                $zip->extractTo($radomewebTempDir);
-                $zip->close();
-                rename($radomewebTempDir.'/upload/custom/templates/RadomeWEB', $radomewebDir);
-                deleteDirectory($radomewebTempDir);
-                echo '<script>
-                        var responseIcon = document.createElement("i");
-                        responseIcon.classList.add("fas", "fa-check-circle")
-                        var responseMessage = document.createTextNode("' . $radomeweb_language->get('language', 'ez_msg_4') . '");
-                        var backgroundColor = "rgba(40, 167, 69, 0.8)";
-                      </script>';
-            } else {
-                echo '<script>
-                      var responseIcon = document.createElement("i");
-                      responseIcon.classList.add("fas", "fa-times-circle");
-                      var responseMessage = document.createTextNode("' . $radomeweb_language->get('language', 'ez_msg_5') . '");
-                      var backgroundColor = "rgba(220, 53, 69, 0.8)";
-                    </script>';
-            }
-            unlink($uploadPath);
-        } else {
-            echo '<script>
-                  var responseIcon = document.createElement("i");
-                  responseIcon.classList.add("fas", "fa-times-circle");
-                  var responseMessage = document.createTextNode("' . $radomeweb_language->get('language', 'ez_msg_6') . '");
-                  var backgroundColor = "rgba(220, 53, 69, 0.8)";
-                </script>';
-        }
-    } else {
-        echo '<script>
-              var responseIcon = document.createElement("i");
-              responseIcon.classList.add("fas", "fa-times-circle");
-              var backgroundColor = "rgba(220, 53, 69, 0.8)";
-              var responseMessage = document.createTextNode("' . $radomeweb_language->get('language', 'ez_msg_7') . '");
-            </script>';
-    }
-    echo $responseTemplate;
-}
 
 function chmod_r($path) {
     $dir = new DirectoryIterator($path);

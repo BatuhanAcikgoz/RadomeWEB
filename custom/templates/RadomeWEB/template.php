@@ -124,15 +124,6 @@ class RadomeWEB_Template extends TemplateBase {
 			$this->addCSSStyle('body {font-family: "Verdana", sans-serif}');
 		}
 
-		if((null !== Output::getClean($pbg)) && Output::getClean($pbg) !== ""){
-            if (Output::getClean($pbg_webp) !== "") {
-                $this->addCSSStyle('.webp body { background-image: url(\'' . Output::getClean($pbg_webp) . '\'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;}');
-                $this->addCSSStyle('.no-webp body { background-image: url(\'' . Output::getClean($pbg) . '\'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;}');
-            } else {
-				$this->addCSSStyle('body { background-image: url(\'' . Output::getClean($pbg) . '\'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;}');
-			}
-		}
-
 		if((null !== Output::getClean($links)) && Output::getClean($links) == "wgh"){
 			$this->addCSSStyle('.nav-link:hover {color: #D0D0D0 !important;} .nav-link, .nav-link:focus {color: #FFF;}');
 		} else {
@@ -181,25 +172,9 @@ class RadomeWEB_Template extends TemplateBase {
 		$smarty->assign('DISCORD_BOX_STATUS_2', $radomeweb_language->get('language', 'discord_box_status_2'));
 		$smarty->assign('DISCORD_BOX_TITLE', $radomeweb_language->get('language', 'discord_box_title'));
 		$smarty->assign('FOOTER_CREDIT_2', $radomeweb_language->get('language', 'footer_credit_2'));
-		$smarty->assign('UPDATE_BTN', $radomeweb_language->get('language', 'update_btn'));
 		$smarty->assign('FOOTER_LINKS', $radomeweb_language->get('language', 'links_footer'));
 
 		// External Updater
-
-		if($ext_update == "yes"){
-			$cache->setCache('radomeweb_template');
-
-			if(!$cache->isCached('version')){
-  				$radomeweb_api = file_get_contents('https://cdn.radomewebdzn.com/radomeweb/updater.json');
-  				$radomeweb_api_decode = json_decode($radomeweb_api, true);
-  				$radomeweb_version = $radomeweb_api_decode["radomeweb_version"];
-  				$cache->store('version', $radomeweb_version, 1800);
-			} else {
-  				$radomeweb_version = $cache->retrieve('version');
-			}
-
-			$smarty->assign('RADOMEWEB_VERSION', $radomeweb_version);
-		}
 
 		$smarty->assign('TEMPLATE', $template);
 

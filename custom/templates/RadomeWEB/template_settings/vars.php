@@ -14,13 +14,11 @@ $radomeweb_settings_array = array(
 
     array('logo_webp', '/uploads/logos/logo.webp', 'THEME_LOGO_WEBP'),
     array('header_bg_webp', '/custom/templates/RadomeWEB/img/bg.webp', ''),
-    array('pbg_webp', '', ''),
     array('ebg_webp', '/custom/templates/RadomeWEB/img/errorbg.webp', 'THEME_E_BG_WEBP'),
     array('lbg_webp', '/custom/templates/RadomeWEB/img/loginbg.webp', 'THEME_L_BG_WEBP'),
     array('rbg_webp', '/custom/templates/RadomeWEB/img/registerbg.webp', 'THEME_R_BG_WEBP'),
     array('navbar_size', 'medium', ''),
     array('particles', 'yes', ''),
-    array('ext_update', 'yes', 'THEME_EXT_UPDATE'),
     array('custom_css', '', ''),
     array('header_bg', '/custom/templates/RadomeWEB/img/bg.jpg', ''),
     array('pbg', '', ''),

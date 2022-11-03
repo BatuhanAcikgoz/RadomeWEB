@@ -43,9 +43,6 @@
                         <li class="nav-item">
                             <a class="nav-link" id="pills-footer-tab" data-toggle="pill" href="#pills-footer" role="tab" aria-controls="pills-footer" aria-selected="false"><i class="fas fa-arrow-circle-down"></i> {$FOOTER}</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-portal-tab" data-toggle="pill" href="#pills-portal" role="tab" aria-controls="pills-portal" aria-selected="false"><i class="fas fa-door-open"></i> {$PORTAL}</a>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -61,32 +58,9 @@
                             <span>{$HOME_2} <a href="{$SUPPORT_URL}" target="_blank">{$SUPPORT_URL}</a></span><br /><br />
                             <span>{$HOME_3} <a href="{$SUPPORT_URL}" target="_blank">{$SUPPORT_URL}</a></span><br /><br />
                         </div>
-                        <div class="tab-pane fade" id="pills-update" role="tabpanel" aria-labelledby="pills-update-tab">
-                            <h1><b>{$UPDATE}</b></h1>
-                            <hr />
-                            {if $EXT_UPDATE_VALUE eq 'yes'}
-                                <span>{$UPDATE_2} <b>v{$LOCAL_VERSION}</b></span><br /><br />
-                                <span>{$UPDATE_3} <b>v{$RADOMEWEB_VERSION}</b></span><br /><br />
-                            {/if}
-                            <h1><b>{$UPDATE_1}</b></h1>
-                            <hr />
-                            <span>{$UPDATE_4} <a href="https://verira.com" target="_blank">{$UPDATE_5}</a></span><br />
-
-                            <div class="d-flex flex-row align-items-center" style="margin-top: 15px;">
-                                <input type="file" accept=".zip" name="radomeweb-update" id="radomeweb-update" class="position-absolute" style="margin-left:-500rem" onchange="switchToSubmit()">
-                                <label for="radomeweb-update" class="btn btn-primary mb-0" style="min-width: 110px" id="radomeweb-update-label">{$UPDATE_9}</label>
-                                <button type="submit" class="btn btn-success d-none" id="radomeweb-submit">{$UPDATE}</button>
-                                <span class="ml-3">{$UPDATE_6}</span>
-                            </div>
-                            <br />
-                            <span><b>{$UPDATE_7}</b> {$UPDATE_8}</span>
-                        </div>
                         <div class="tab-pane fade" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
                             <h1><b>{$GENERAL}</b></h1>
                             <hr />
-                            <input type="hidden" name="ext_update" value="no">
-                            <input type="checkbox" name="ext_update" class="js-switch js-check-change" id="ext_update" value="yes" {if $EXT_UPDATE_VALUE eq 'yes' }checked{/if}>
-                            <label>{$EXT_UPDATE}</label><span class="float-right">{$EXT_UPDATE_INFO}</span>
                             <br /><br />
                             <input type="hidden" name="al" value="no">
                             <input type="checkbox" name="al" class="js-switch js-check-change" id="al" value="yes" {if $AL_VALUE eq 'yes' }checked{/if}>
@@ -186,9 +160,6 @@
                                     <br />
                                     <label>{$HEADER_BG_WEBP}</label><span class="float-right">{$BLANK}</span>
                                     <input type='text' name='header_bg_webp' value='{$HEADER_BG_WEBP_VALUE}' class='form-control'>
-                                    <br />
-                                    <label>{$PBG_WEBP}</label><span class="float-right">{$BLANK}</span>
-                                    <input type='text' name='pbg_webp' value='{$PBG_WEBP_VALUE}' class='form-control'>
                                 </div>
                                 <div class="tab-pane fade" id="pills-o-elr" role="tabpanel" aria-labelledby="pills-o-elr-tab">
                                     <p>{$OPTIMIZE_INFO} <a href="https://cloudconvert.com/webp-converter" target="_blank" rel="nofollow noopener">CloudConvert</a></p>
@@ -326,20 +297,6 @@
                                     <input type='text' name='wb_s6' value='{$WB_S6_VALUE}' class='form-control'>
                                 </div>
                             </div>
-                            <input type='hidden' name='view' value='update'>
-                            <hr>
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <button type='submit' class='btn btn-primary'>{$SUBMIT}</button>
-                        </div>
-                        <div class="tab-pane fade" id="pills-news" role="tabpanel" aria-labelledby="pills-news-tab">
-                            <h1><b>{$NEWS}</b></h1>
-                            <hr />
-                            <input type="hidden" name="news_btn" value="no">
-                            <input type="checkbox" name="news_btn" class="js-switch js-check-change" id="news_btn" value="yes" {if $NEWS_BTN_VALUE eq 'yes' }checked{/if}>
-                            <label>{$NEWS_BTN}</label>
-                            <br /><br />
-                            <label>{$NEWS_LINK}</label><span class="float-right">{$NEWS_LINK_1}</span>
-                            <input type='text' name='news_link' value='{$NEWS_LINK_VALUE}' class='form-control'>
                             <input type='hidden' name='view' value='update'>
                             <hr>
                             <input type="hidden" name="token" value="{$TOKEN}">
@@ -521,64 +478,6 @@
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <button type='submit' class='btn btn-primary'>{$SUBMIT}</button>
                         </div>
-                        <div class="tab-pane fade" id="pills-portal" role="tabpanel" aria-labelledby="pills-portal-tab">
-                            <h1><b>{$PORTAL}</b></h1>
-                            <hr />
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-gp-tab" data-toggle="pill" href="#pills-gp" role="tab" aria-controls="pills-gp" aria-selected="true">{$GENERAL}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-image1p-tab" data-toggle="pill" href="#pills-image1p" role="tab" aria-controls="pills-image1p" aria-selected="false">{$IMAGE1_TAB}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-image2p-tab" data-toggle="pill" href="#pills-image2p" role="tab" aria-controls="pills-image2p" aria-selected="false">{$IMAGE2_TAB}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-image3p-tab" data-toggle="pill" href="#pills-image3p" role="tab" aria-controls="pills-image3p" aria-selected="false">{$IMAGE3_TAB}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-logop-tab" data-toggle="pill" href="#pills-logop" role="tab" aria-controls="pills-logop" aria-selected="false">{$LOGO_TAB}</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active" id="pills-gp" role="tabpanel" aria-labelledby="pills-gp-tab">
-                                    <label>{$PORTAL_BG}</label>
-                                    <input type='text' name='portal_bg' value='{$PORTAL_BG_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL_IM}</label>
-                                    <input type='text' name='portal_im' value='{$PORTAL_IM_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL_IMM}</label>
-                                    <input type='text' name='portal_imm' value='{$PORTAL_IMM_VALUE}' class='form-control'>
-                                </div>
-                                <div class="tab-pane fade" id="pills-image1p" role="tabpanel" aria-labelledby="pills-image1p-tab">
-                                    <label>{$PORTAL1_ICON}</label>
-                                    <input type='text' name='portal1_icon' value='{$PORTAL1_ICON_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL1_LINK}</label>
-                                    <input type='text' name='portal1_link' value='{$PORTAL1_LINK_VALUE}' class='form-control'>
-                                </div>
-                                <div class="tab-pane fade" id="pills-image2p" role="tabpanel" aria-labelledby="pills-image2p-tab">
-                                    <label>{$PORTAL2_ICON}</label>
-                                    <input type='text' name='portal2_icon' value='{$PORTAL2_ICON_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL2_LINK}</label>
-                                    <input type='text' name='portal2_link' value='{$PORTAL2_LINK_VALUE}' class='form-control'>
-                                </div>
-                                <div class="tab-pane fade" id="pills-image3p" role="tabpanel" aria-labelledby="pills-image3p-tab">
-                                    <label>{$PORTAL3_ICON}</label>
-                                    <input type='text' name='portal3_icon' value='{$PORTAL3_ICON_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL3_LINK}</label>
-                                    <input type='text' name='portal3_link' value='{$PORTAL3_LINK_VALUE}' class='form-control'>
-                                </div>
-                                <div class="tab-pane fade" id="pills-logop" role="tabpanel" aria-labelledby="pills-logop-tab">
-                                    <label>{$PORTAL_LOGO}</label>
-                                    <input type='text' name='portal_logo' value='{$PORTAL_LOGO_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL_LOGO_M}</label>
-                                    <input type='text' name='portal_logo_m' value='{$PORTAL_LOGO_M_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL_LM}</label>
-                                    <input type='text' name='portal_lm' value='{$PORTAL_LM_VALUE}' class='form-control'><br />
-                                    <label>{$PORTAL_LMM}</label>
-                                    <input type='text' name='portal_lmm' value='{$PORTAL_LMM_VALUE}' class='form-control'>
-                                </div>
-                            </div>
                             <input type='hidden' name='view' value='update'>
                             <hr>
                             <input type="hidden" name="token" value="{$TOKEN}">
