@@ -157,16 +157,10 @@ class Forum_Module extends Module {
 
         switch ($link_location) {
             case 1:
-                // Navbar
-                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
                 break;
             case 2:
-                // "More" dropdown
-                $navs[0]->addItemToDropdown('more_dropdown', 'forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $icon, $forum_order);
                 break;
             case 3:
-                // Footer
-                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'footer', null, $forum_order, $icon);
                 break;
         }
 
