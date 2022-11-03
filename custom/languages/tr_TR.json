@@ -630,7 +630,7 @@
     "installer/converter": "Dönüştürücü",
     "installer/creating_admin_account": "Yönetici Hesabı Oluşturma",
     "installer/credits": "Hakkında",
-    "installer/credits_message": "2014'ten bu yana tüm {{contribLinkStart}}RadomeWEB katılımcılarına{{contribLinkEnd}} çok teşekkür ederiz.",
+    "installer/credits_message": "Bu projenin geliştirilmesinde katkısı olan RadomeWEB & Verira firmalarına teşekkür ederiz.",
     "installer/database_address": "Veritaban Adresi",
     "installer/database_configuration": "Veritaban Ayarları",
     "installer/database_error": "Lütfen tüm alanların doldurulduğundan emin olun.",
