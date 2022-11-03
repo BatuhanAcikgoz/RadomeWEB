@@ -40,6 +40,11 @@
                                 <div class="col-md-9">
                                     <h5 style="margin-top: 7px; margin-bottom: 7px;">{$EDITING_TEMPLATE}</h5>
                                 </div>
+                                <div class="col-md-3">
+                                    <span class="float-md-right">
+                                        <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
+                                    </span>
+                                </div>
                             </div>
                             <hr />
 

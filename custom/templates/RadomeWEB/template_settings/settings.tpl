@@ -478,11 +478,6 @@
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <button type='submit' class='btn btn-primary'>{$SUBMIT}</button>
                         </div>
-                            <input type='hidden' name='view' value='update'>
-                            <hr>
-                            <input type="hidden" name="token" value="{$TOKEN}">
-                            <button type='submit' class='btn btn-primary'>{$SUBMIT}</button>
-                        </div>
                     </div>
                 </div>
             </div>
