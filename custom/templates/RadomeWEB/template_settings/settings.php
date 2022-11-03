@@ -135,7 +135,6 @@ $smarty->assign(array(
     'BUTTONS_TAB' => $radomeweb_language->get('language', 'buttons_tab'),
     'SKINS_TAB' => $radomeweb_language->get('language', 'skins_tab'),
     'WB_T_1' => $radomeweb_language->get('language', 'wb_t_1'),
-    'NEWS_LINK_1' => $radomeweb_language->get('language', 'news_link_1'),
     'SLIDER1' => $radomeweb_language->get('language', 'slider1'),
     'SLIDER2' => $radomeweb_language->get('language', 'slider2'),
     'SLIDER3' => $radomeweb_language->get('language', 'slider3'),
