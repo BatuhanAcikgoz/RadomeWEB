@@ -5,9 +5,9 @@
             <div class="ui centered grid">
                 <div class="ten wide column">
                     <div class="ui warning message">
-                        It appears Radome has already been installed. If you
-                        want to re-install Radome, you should remove the
-                        database tables and the configuration file located at:
+                    Görünüşe göre RadomeWEB zaten kurulmuş. Eğer sen
+                    RadomeWEB'i yeniden kurmak istiyorsanız, şu adreste bulunan veritabanı 
+                    tablolarını ve yapılandırma dosyasını kaldırmalısınız:   
                         <span class="ui basic label">/core/config.php</span>
                     </div>
                     <a href="index.php?route=/" class="ui yellow fluid button">Home</a>
