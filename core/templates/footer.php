@@ -69,11 +69,23 @@ if ($social_media != null) {
     ];
 }
 
+$youtube_url = Util::getSetting('youtube_url');
+$twitter_url = Util::getSetting('twitter_url');
+$instagram_url = Util::getSetting('instagram_url');
+$discord_url = Util::getSetting('discord_url');
+$twitter_style = Util::getSetting('twitter_style');
+$fb_url = Util::getSetting('fb_url');
+
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
     'SOCIAL_MEDIA_ICONS' => $social_media_icons,
     'PAGE_LOAD_TIME' => Util::getSetting('page_loading'),
+    'FACEBOOK_URL_VALUE' => Output::getClean($fb_url),
+    'INSTAGRAM_URL_VALUE' => Output::getClean($instagram_url),
+    'DISCORD_URL_VALUE' => Output::getClean($discord_url),
+    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url),
+    'TWITTER_URL_VALUE' => Output::getClean($twitter_url),
     'FOOTER_NAVIGATION' => $navigation->returnNav('footer')
 ]);
 
