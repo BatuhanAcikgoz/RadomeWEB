@@ -447,7 +447,7 @@ if (!isset($_GET['action'])) {
             break;
 
         default:
-            Redirect::to(URL::build('/panel/temalar'));
+            Redirect::to(URL::build('/panel'));
     }
 }
 
