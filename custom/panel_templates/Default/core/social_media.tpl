@@ -50,18 +50,20 @@
                                     <input type="text" name="twitterurl" class="form-control" id="InputTwitter"
                                         placeholder="{$TWITTER_URL}" value="{$TWITTER_URL_VALUE}">
                                 </div>
-                                <div class="form-group custom-control custom-switch">
-                                    <input id="InputTwitterStyle" type="checkbox" name="twitter_dark_theme"
-                                        class="custom-control-input" value="1" {if $TWITTER_STYLE_VALUE eq 'dark' }
-                                        checked{/if}>
-                                    <label for="InputTwitterStyle" class="custom-control-label">
-                                        {$TWITTER_STYLE}
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <label for="InputFacebook">{$FACEBOOK_URL}</label>
                                     <input type="text" name="fburl" class="form-control" id="InputFacebook"
                                         placeholder="{$FACEBOOK_URL}" value="{$FACEBOOK_URL_VALUE}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputFacebook">{$DISCORD_URL}</label>
+                                    <input type="text" name="fburl" class="form-control" id="InputFacebook"
+                                        placeholder="{$DISCORD_URL}" value="{$DISCORD_URL_VALUE}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputFacebook">{$INSTAGRAM_URL}</label>
+                                    <input type="text" name="fburl" class="form-control" id="InputFacebook"
+                                        placeholder="{$INSTAGRAM_URL}" value="{$INSTAGRAM_URL_VALUE}">
                                 </div>
                                 <input type="hidden" name="token" value="{$TOKEN}">
                                 <input type="submit" class="btn btn-primary" value="{$SUBMIT}">

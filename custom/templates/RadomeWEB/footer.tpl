@@ -58,19 +58,19 @@
     <div class="container">
       <div class="altortala">
         <div class="social-medias">
-          <a class="social-media-div facebook" target="_blank" href="//www.facebook.com/verira">
+          <a class="social-media-div facebook" target="_blank" href="{$FACEBOOK_URL_VALUE}">
             <i class="fab fa-facebook"></i>
           </a>
-          <a class="social-media-div twitter" target="_blank" href="//twitter.com/verira">
+          <a class="social-media-div twitter" target="_blank" href="{$TWITTER_URL_VALUE}">
             <i class="fab fa-twitter"></i>
           </a>
-          <a class="social-media-div instagram" target="_blank" href="//www.instagram.com/verira">
+          <a class="social-media-div instagram" target="_blank" href="{$INSTAGRAM_URL_VALUE}">
             <i class="fab fa-instagram"></i>
           </a>
-          <a class="social-media-div youtube" target="_blank" href="https://www.youtube.com/channel/">
+          <a class="social-media-div youtube" target="_blank" href="{$YOUTUBE_URL_VALUE}">
             <i class="fab fa-youtube"></i>
           </a>
-          <a class="social-media-div discord" target="_blank" href="//discord.gg/verira">
+          <a class="social-media-div discord" target="_blank" href="{$DISCORD_URL_VALUE}">
             <i class="fab fa-discord"></i>
           </a>
           <a class="social-media-div email" target="_blank" href="mailto:info@verira.com">

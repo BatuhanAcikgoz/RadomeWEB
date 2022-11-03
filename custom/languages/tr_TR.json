@@ -1041,6 +1041,8 @@
     "admin/email_message_options": "Seçenekler",
     "admin/youtube_url": "Youtube URL",
     "admin/facebook_url": "Facebook URL",
+    "admin/discord_url": "Discord URL",
+    "admin/instagram_url": "Instagram URL",
     "general/orange": "Turuncu",
     "general/yellow": "Sarı",
     "user/agree_t_and_c": "{{linkStart}}Şartlar ve Koşulları{{linkEnd}} okudum ve kabul ediyorum.",

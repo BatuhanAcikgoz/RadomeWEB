@@ -689,6 +689,8 @@
     "admin/widgets": "Widgets",
     "admin/x_directory_not_writable": "The {{directory}} directory is not writable!",
     "admin/youtube_url": "Youtube URL",
+    "admin/discord_url": "Discord URL",
+    "admin/instagram_url": "Instagram URL",
     "admin/api_disabled": "API is disabled",
     "admin/trusted_proxies_configured": "Trusted proxies",
     "admin/trusted_proxies_not_configured": "{{linkStart}}Trusted proxies{{linkEnd}} are not configured, IP bans may not work properly.",

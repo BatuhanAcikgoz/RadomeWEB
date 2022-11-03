@@ -28,6 +28,8 @@ if (Input::exists()) {
         // Update database values
         // Youtube URL
         Util::setSetting('youtube_url', Input::get('youtubeurl'));
+        Util::setSetting('discord_url', Input::get('discordurl'));
+        Util::setSetting('instagram_url', Input::get('instagramurl'));
 
         // Twitter URL
         Util::setSetting('twitter_url', Input::get('twitterurl'));
@@ -71,6 +73,8 @@ if (isset($errors) && count($errors)) {
 // Get values from database
 $youtube_url = Util::getSetting('youtube_url');
 $twitter_url = Util::getSetting('twitter_url');
+$twitter_url = Util::getSetting('instagram_url');
+$twitter_url = Util::getSetting('discord_url');
 $twitter_style = Util::getSetting('twitter_style');
 $fb_url = Util::getSetting('fb_url');
 
@@ -82,10 +86,14 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'YOUTUBE_URL' => $language->get('admin', 'youtube_url'),
-    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url),
     'TWITTER_URL' => $language->get('admin', 'twitter_url'),
     'TWITTER_URL_VALUE' => Output::getClean($twitter_url),
+    'YOUTUBE_URL' => $language->get('admin', 'youtube_url'),
+    'YOUTUBE_URL_VALUE' => Output::getClean($youtube_url),
+    'DISCORD_URL' => $language->get('admin', 'discord_url'),
+    'DISCORD_URL_VALUE' => Output::getClean($discord_url),
+    'INSTAGRAM_URL' => $language->get('admin', 'instagram_url'),
+    'INSTAGRAM_URL_VALUE' => Output::getClean($instagram_url),
     'TWITTER_STYLE' => $language->get('admin', 'twitter_dark_theme'),
     'TWITTER_STYLE_VALUE' => $twitter_style,
     'FACEBOOK_URL' => $language->get('admin', 'facebook_url'),

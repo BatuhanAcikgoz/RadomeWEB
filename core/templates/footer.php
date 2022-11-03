@@ -46,6 +46,29 @@ if ($social_media != null) {
     ];
 }
 
+// Discord
+$social_media = Util::getSetting('discord_url');
+if ($social_media != null) {
+    $social_media_icons[] = [
+        'short' => 'dc',
+        'long' => 'discord',
+        'link' => Output::getClean($social_media),
+        'text' => 'Discord'
+    ];
+}
+
+
+//Instagram
+$social_media = Util::getSetting('instagram_url');
+if ($social_media != null) {
+    $social_media_icons[] = [
+        'short' => 'insta',
+        'long' => 'instagram',
+        'link' => Output::getClean($social_media),
+        'text' => 'Instagram'
+    ];
+}
+
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
