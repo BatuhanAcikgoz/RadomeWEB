@@ -134,8 +134,8 @@ class Forum_Module extends Module {
         // Add link to navbar
         $cache->setCache('nav_location');
         if (!$cache->isCached('forum_location')) {
-            $link_location = 1;
-            $cache->store('forum_location', 1);
+            $link_location = 0;
+            $cache->store('forum_location', 0);
         } else {
             $link_location = $cache->retrieve('forum_location');
         }
