@@ -674,7 +674,7 @@
     "installer/site_name": "Site İsmi",
     "installer/support_message": "Herhangi bir desteğe ihtiyacınız varsa, web sitemizi {{websiteLinkStart}}buradan{{websiteLinkEnd}} inceleyin veya {{discordLinkStart}}Discord sunucusu{{discordLinkEnd}} veya {{githubLinkStart}}GitHub depomuz{{githubLinkEnd}}.",
     "installer/template_cache_writable": "Şablon Önbelleği Yazılabilir",
-    "installer/terms_and_conditions": "By continuing you agree to the terms and conditions.",
+    "installer/terms_and_conditions": "Devam ederek şartlar ve koşulları kabul etmiş olursunuz.",
     "installer/unable_to_create_account": "Hesap oluşturulamıyor",
     "installer/unable_to_load_converter": "Dönüştürücü yüklenemedi!",
     "installer/unable_to_login": "Giriş yapılamıyor.",
