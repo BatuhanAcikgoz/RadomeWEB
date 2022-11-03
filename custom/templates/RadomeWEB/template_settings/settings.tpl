@@ -55,7 +55,6 @@
                         <div class="tab-pane fade" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
                             <h1><b>{$GENERAL}</b></h1>
                             <hr />
-                            <br /><br />
                             <input type="hidden" name="al" value="no">
                             <input type="checkbox" name="al" class="js-switch js-check-change" id="al" value="yes" {if $AL_VALUE eq 'yes' }checked{/if}>
                             <label>{$AL}</label>
