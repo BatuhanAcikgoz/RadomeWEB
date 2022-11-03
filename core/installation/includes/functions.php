@@ -3,7 +3,7 @@ $radome_terms = 'Bu yazılım Verira için ' .
     'RadomeWEB tarafından yapılmıştır. ' .
     'RadomeWEB üzerinde gerçekleşebilecek  ' .
     'saldırı ve veri kaybından geliştiriciler sorumlu değildir. ' .
-    'Tüm bu şartları kabul ettikten sonra kuruluma başlamanızı öneririz.' .
+    'Tüm bu şartları kabul ettikten sonra kuruluma başlamanızı öneririz. ' .
     'İyi kullanımlar dileriz.';
 
 function create_step($name, $icon, $child_steps = []) {
