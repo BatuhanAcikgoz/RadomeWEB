@@ -442,7 +442,7 @@ if (!isset($_GET['action'])) {
             break;
 
         case 'edit':
-                Redirect::to(URL::build('/panel/temalar'));
+                Redirect::to(URL::build('/panel'));
 
             break;
 
