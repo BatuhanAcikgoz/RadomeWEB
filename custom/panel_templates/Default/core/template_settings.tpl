@@ -40,13 +40,6 @@
                                 <div class="col-md-9">
                                     <h5 style="margin-top: 7px; margin-bottom: 7px;">{$EDITING_TEMPLATE}</h5>
                                 </div>
-                                <div class="col-md-3">
-                                    <span class="float-md-right">
-                                        {if $PERMISSIONS_LINK}<a class="btn btn-info"
-                                            href="{$PERMISSIONS_LINK}">{$PERMISSIONS}</a>{/if}
-                                        <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
-                                    </span>
-                                </div>
                             </div>
                             <hr />
 
