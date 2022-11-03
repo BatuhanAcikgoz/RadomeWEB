@@ -14,9 +14,6 @@
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="fas fa-home"></i> {$HOME}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-update-tab" data-toggle="pill" href="#pills-update" role="tab" aria-controls="pills-update" aria-selected="false"><i class="fas fa-cloud-upload-alt"></i> {$UPDATE}</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false"><i class="fas fa-cogs"></i> {$GENERAL}</a>
                         </li>
                         <li class="nav-item">
@@ -30,9 +27,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-welcome-tab" data-toggle="pill" href="#pills-welcome" role="tab" aria-controls="pills-welcome" aria-selected="false"><i class="fas fa-smile"></i> {$WB}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-news-tab" data-toggle="pill" href="#pills-news" role="tab" aria-controls="pills-news" aria-selected="false"><i class="fas fa-newspaper"></i> {$NEWS}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-slider-tab" data-toggle="pill" href="#pills-slider" role="tab" aria-controls="pills-slider" aria-selected="false"><i class="fas fa-sliders-h"></i> {$SLIDER}</a>
