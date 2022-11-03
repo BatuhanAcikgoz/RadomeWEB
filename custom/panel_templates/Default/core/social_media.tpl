@@ -57,12 +57,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="InputFacebook">{$DISCORD_URL}</label>
-                                    <input type="text" name="discordurl" class="form-control" id="InputFacebook"
+                                    <input type="text" name="discordurl" class="form-control" id="InputDiscord"
                                         placeholder="{$DISCORD_URL}" value="{$DISCORD_URL_VALUE}">
                                 </div>
                                 <div class="form-group">
                                     <label for="InputFacebook">{$INSTAGRAM_URL}</label>
-                                    <input type="text" name="instagramurl" class="form-control" id="InputFacebook"
+                                    <input type="text" name="instagramurl" class="form-control" id="InputInstagram"
                                         placeholder="{$INSTAGRAM_URL}" value="{$INSTAGRAM_URL_VALUE}">
                                 </div>
                                 <input type="hidden" name="token" value="{$TOKEN}">
