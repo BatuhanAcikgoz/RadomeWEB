@@ -1,10 +1,10 @@
 <?php
-$radome_terms = 'This website uses "Radome" website software. The ' .
-    '"Radome" software creators will not be held responsible for any content ' .
-    'that may be experienced whilst browsing this site, nor are they responsible ' .
-    'for any loss of data which may come about, for example a hacking attempt. ' .
-    'The website is run independently from the software creators, and any content' .
-    ' is the responsibility of the website administration.';
+$radome_terms = 'Bu yazılım Verira için ' .
+    'RadomeWEB tarafından yapılmıştır. ' .
+    'RadomeWEB üzerinde gerçekleşebilecek  ' .
+    'saldırı ve veri kaybından geliştiriciler sorumlu değildir. ' .
+    'Tüm bu şartları kabul ettikten sonra kuruluma başlamanızı öneririz.' .
+    'İyi kullanımlar dileriz.';
 
 function create_step($name, $icon, $child_steps = []) {
 
