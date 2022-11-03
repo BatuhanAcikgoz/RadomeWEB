@@ -5,7 +5,7 @@
             <div class="ui centered grid">
                 <div class="ten wide column">
                     <div class="ui warning message">
-                    Görünüşe göre RadomeWEB zaten kurulmuş. Eğer sen
+                    Görünüşe göre RadomeWEB zaten kurulmuş. Eğer
                     RadomeWEB'i yeniden kurmak istiyorsanız, şu adreste bulunan veritabanı 
                     tablolarını ve yapılandırma dosyasını kaldırmalısınız:   
                         <span class="ui basic label">/core/config.php</span>
