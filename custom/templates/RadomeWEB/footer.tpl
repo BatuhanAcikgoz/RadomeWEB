@@ -33,8 +33,7 @@
                 <span class="footer-text-header">{$FOOTER_LINKS}</span><br />
                 <a class="footer-link" href="{$TERMS_LINK}">{$TERMS_TEXT}</a><br />
                 <a class="footer-link" href="{$PRIVACY_LINK}">{$PRIVACY_TEXT}</a><br />
-                <a class="footer-link" href="/kurallar">Kurallar</a><br /> 
-                <a class="footer-link" href="map.avenor.xyz:3306">Harita</a><br /> {foreach from=$FOOTER_NAVIGATION key=name item=item} {if isset($item.items)}
+                {foreach from=$FOOTER_NAVIGATION key=name item=item} {if isset($item.items)}
                 <a class="dropdown-toggle footer-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{$item.icon} {$item.title}</a>
                 <div class="dropdown-menu">
                     {foreach from=$item.items item=dropdown}
