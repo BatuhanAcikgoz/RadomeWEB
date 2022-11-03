@@ -1,6 +1,5 @@
 <?php
 /*
- *	Made by Coldfire - https://coldfiredzn.com
  *
  *  RadomeWEB Template
  */
@@ -28,7 +27,7 @@ class RadomeWEB_Template extends TemplateBase {
 			'name' => 'RadomeWEB',
 			'version' => Output::getClean($radomeweb_local_version),
 			'nl_version' => '2.0.0-pr12',
-			'author' => '<a href="' . Output::getClean($coldfire_url) . '" target="_blank" rel="nofollow noopener">Verira.com</a>',
+			'author' => '<a href="' . Output::getClean($radomeweb_url) . '" target="_blank" rel="nofollow noopener">Verira.com</a>',
 		];
 		
 		$template['path'] = (defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/custom/templates/' . $template['name'] . '/';
@@ -106,7 +105,7 @@ class RadomeWEB_Template extends TemplateBase {
 			$this->addCSSStyle('.header {background: url(\'' . Output::getClean($header_bg) . '\') no-repeat center top;}');
 		}
 
-		$this->addCSSStyle('.swal2-confirm, .color-overlay, .nav-tabs, .button-checkbox>.active, .navbar-theme, .blockquote>a:first-child, .modal-header, .spoiler .spoiler-toggle, .spoiler .spoiler-title, .page-item.active .page-link, .panel-theme .panel-heading, .footer-theme, .footer-text-bar, .header-theme, .footer-card-theme, .card-footer-theme, .btn-theme, .profile-theme .nav-link, .user-theme .nav-link, .card-inverse .header-theme, .badge-theme, #toast-container, .coldfire-navbar-menu .nav-header, .progress-bar, .popover-header {background-color: '. Output::getClean($p_color) .' !important;}');
+		$this->addCSSStyle('.swal2-confirm, .color-overlay, .nav-tabs, .button-checkbox>.active, .navbar-theme, .blockquote>a:first-child, .modal-header, .spoiler .spoiler-toggle, .spoiler .spoiler-title, .page-item.active .page-link, .panel-theme .panel-heading, .footer-theme, .footer-text-bar, .header-theme, .footer-card-theme, .card-footer-theme, .btn-theme, .profile-theme .nav-link, .user-theme .nav-link, .card-inverse .header-theme, .badge-theme, #toast-container, .radomeweb-navbar-menu .nav-header, .progress-bar, .popover-header {background-color: '. Output::getClean($p_color) .' !important;}');
 		$this->addCSSStyle('.dark ::-webkit-scrollbar-track, .dark ::-webkit-scrollbar-corner, .dark body  {background-color: '. Output::getClean($s_color) .';}');
 		$this->addCSSStyle('.header {height: '. Output::getClean($bg_height) .';}');
 		$this->addCSSStyle('@media only screen and (max-width: 768px) {.header {height: '. Output::getClean($bg_height_m) .';}}');
@@ -164,7 +163,7 @@ class RadomeWEB_Template extends TemplateBase {
 
 
 		
-		$smarty->assign('THEME_COLDFIRE_URL', Output::getClean($coldfire_url));
+		$smarty->assign('THEME_radomeweb_URL', Output::getClean($radomeweb_url));
 		$smarty->assign('THEME_LOCAL_VERSION', Output::getClean($radomeweb_local_version));
 		$smarty->assign('THEME_TS_PATH', $template['path'] . 'js/core/ts.js?v=3');
 		$smarty->assign('THEME_MOD_PATH', $template['path'] . 'js/core/mod.min.js');
@@ -191,7 +190,7 @@ class RadomeWEB_Template extends TemplateBase {
 			$cache->setCache('radomeweb_template');
 
 			if(!$cache->isCached('version')){
-  				$radomeweb_api = file_get_contents('https://cdn.coldfiredzn.com/radomeweb/updater.json');
+  				$radomeweb_api = file_get_contents('https://cdn.radomewebdzn.com/radomeweb/updater.json');
   				$radomeweb_api_decode = json_decode($radomeweb_api, true);
   				$radomeweb_version = $radomeweb_api_decode["radomeweb_version"];
   				$cache->store('version', $radomeweb_version, 1800);

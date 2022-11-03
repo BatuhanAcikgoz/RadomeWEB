@@ -276,7 +276,7 @@
     </div>
 </nav>
 {/if}
-<div class="coldfire-navbar-menu">
+<div class="radomeweb-navbar-menu">
     <div class="nav-header">
         <div class="nav-header-text">{$smarty.const.SITE_NAME}
             <div id="nav-header-close" class="nav-header-close">x</div>

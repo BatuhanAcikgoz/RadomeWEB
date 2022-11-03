@@ -14,11 +14,11 @@ $(document).ready(function () {
 });
 
 $('.navbar-toggler').click(function () {
-    $('.coldfire-navbar-menu').addClass("active");
+    $('.radomeweb-navbar-menu').addClass("active");
     $('.overlay').addClass("active");
 });
 $('#nav-header-close').click(function () {
-    $('.coldfire-navbar-menu').removeClass("active");
+    $('.radomeweb-navbar-menu').removeClass("active");
     $('.overlay').removeClass("active");
 });
 

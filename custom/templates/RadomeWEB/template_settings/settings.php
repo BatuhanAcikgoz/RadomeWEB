@@ -1,6 +1,5 @@
 <?php
 /*
- *	Made by Coldfire - https://coldfiredzn.com
  *
  *  RadomeWEB Template Settings
  */
@@ -177,7 +176,7 @@ $smarty->assign(array(
 
 if ($ext_update == "yes") {
     if (!$cache->isCached('version')) {
-        $radomeweb_api = file_get_contents('https://cdn.coldfiredzn.com/radomeweb/updater.json');
+        $radomeweb_api = file_get_contents('https://cdn.radome.web.tr/radomeweb/updater.json');
         $radomeweb_api_decode = json_decode($radomeweb_api, true);
         $radomeweb_version = $radomeweb_api_decode["radomeweb_version"];
         $cache->store('version', $radomeweb_version, 1800);

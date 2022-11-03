@@ -1,12 +1,11 @@
 <?php
 /*
- *	Made by Coldfire - https://coldfiredzn.com
  *
  *  RadomeWEB Template Variables
  */
 
 $radomeweb_local_version = "1.0";
-$coldfire_url = "https://verira.com";
+$radomeweb_url = "https://verira.com";
 $support_url = "https://discord.verira.com/";
 
 $radomeweb_settings_array = array(

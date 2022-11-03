@@ -1,7 +1,5 @@
 <?php
 /*
- *  Made by Coldfire
- *  https://coldfiredzn.com
  *
  *  For RadomeWEB
  *  https://github.com/RadomeWEB/Radome/
@@ -26,7 +24,7 @@ if (!class_exists('Default_Panel_Template')) {
                 'Default',  // Template name
                 '1.0',  // Template version
                 '1.0',  // Radome version template is made for
-                '<a href="https://coldfiredzn.com" target="_blank">Coldfire</a>'  // Author, you can use HTML here
+                '<a href="https://radome.web.tr" target="_blank">RadomeWEB</a>'  // Author, you can use HTML here
             );
 
             $this->assets()->include([
