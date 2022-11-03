@@ -73,8 +73,8 @@ if (isset($errors) && count($errors)) {
 // Get values from database
 $youtube_url = Util::getSetting('youtube_url');
 $twitter_url = Util::getSetting('twitter_url');
-$twitter_url = Util::getSetting('instagram_url');
-$twitter_url = Util::getSetting('discord_url');
+$instagram_url = Util::getSetting('instagram_url');
+$discord_url = Util::getSetting('discord_url');
 $twitter_style = Util::getSetting('twitter_style');
 $fb_url = Util::getSetting('fb_url');
 
