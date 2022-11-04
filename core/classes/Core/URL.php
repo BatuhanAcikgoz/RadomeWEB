@@ -23,7 +23,7 @@ class URL {
         }
 
         if ($force === 'non-friendly') {
-            return self::buildFriendly($url, $params);
+            return self::buildNonFriendly($url, $params);
         }
 
         // Use non-friendly URLs if RadomeWEB is not installed yet
