@@ -29,100 +29,104 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                {if isset($SEARCH_RESULTS)}
-                    {if $SEARCH_RESULTS eq '1'}
-                    <div class="col-md-12">
-                    <div class="alert alert-success" role="alert">
-                        {$VOTE_SORGU1}
-                    </div> 
-                    </div>
-                    {elseif $SEARCH_RESULTS eq '0'}
-                    <div class="col-md-12">
-                    <div class="alert alert-warning" role="alert">
-                        {$VOTE_SORGU0}
-                    </div>
-                    </div>
-                    {elseif $SEARCH_RESULTS eq '2'}
-                    <div class="col-md-12">
-                    <div class="alert alert-success" role="alert">
-                        {$VOTE_SORGU1}
-                    </div>
-                    </div>
-                    {else}    
-                    <div class="col-md-12">
-                    <div class="alert alert-secondary" role="alert">
-                         {$VOTE_SORGU_NULL}
-                    </div>
-                    </div>
-                     {/if}
-                    {/if}
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header header-theme">Vote Sorgu</div>
-                            <form action='' method='GET'>
-                                <div class="input-group mb-2">
-                                    <input class="form-control input-sm" type="text" name="vote_search" id="vote_search"
-                                        value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}" style="margin: 20px;">
-                                    <span class="input-group-btn">
-                                        <button type="submit" class="btn btn-theme" style="margin: 20px;margin-left: 0px;">
-                                            <i class="fa fa-search"></i>
-                                        </button>
-                                    </span>
+                {if isset($mcmp_key) }
+                    <div class="row">
+                        {if isset($SEARCH_RESULTS)}
+                            {if $SEARCH_RESULTS eq '1'}
+                                <div class="col-md-12">
+                                    <div class="alert alert-success" role="alert">
+                                        {$VOTE_SORGU1}
+                                    </div>
                                 </div>
-                            </form>
+                            {elseif $SEARCH_RESULTS eq '0'}
+                                <div class="col-md-12">
+                                    <div class="alert alert-warning" role="alert">
+                                        {$VOTE_SORGU0}
+                                    </div>
+                                </div>
+                            {elseif $SEARCH_RESULTS eq '2'}
+                                <div class="col-md-12">
+                                    <div class="alert alert-success" role="alert">
+                                        {$VOTE_SORGU1}
+                                    </div>
+                                </div>
+                            {else}
+                                <div class="col-md-12">
+                                    <div class="alert alert-secondary" role="alert">
+                                        {$VOTE_SORGU_NULL}
+                                    </div>
+                                </div>
+                            {/if}
+                        {/if}
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header header-theme">Vote Sorgu</div>
+                                <form action='' method='GET'>
+                                    <div class="input-group mb-2">
+                                        <input class="form-control input-sm" type="text" name="vote_search" id="vote_search"
+                                            value="{$SEARCH_RESULT}" placeholder="{$SEARCH_PLACEHOLDER}"
+                                            style="margin: 20px;">
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-theme"
+                                                style="margin: 20px;margin-left: 0px;">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header header-theme">{$TOP_VOTERS}</div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>{$USERNAME}</th>
-                                        <th>{$VOTES}</th>
-                                <tbody>
-                                    {foreach from=$MCMP_TOP_VOTERS item=voters}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header header-theme">{$TOP_VOTERS}</div>
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td>{$voters.nickname}</td>
-                                            <td>{$voters.votes}</td>
-                                        </tr>
-                                    {/foreach}
-                                </tbody>
-                            </table>
+                                            <th>{$USERNAME}</th>
+                                            <th>{$VOTES}</th>
+                                    <tbody>
+                                        {foreach from=$MCMP_TOP_VOTERS item=voters}
+                                            <tr>
+                                                <td>{$voters.nickname}</td>
+                                                <td>{$voters.votes}</td>
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header header-theme">{$LAST_VOTERS}</div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>{$USERNAME}</th>
-                                        <th>{$DATE}</th>
-                                <tbody>
-                                    {foreach from=$MCMP_VOTES item=votes}
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header header-theme">{$LAST_VOTERS}</div>
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td>{$votes.nickname}</td>
-                                            <td>{$votes.date_friendly}</td>
-                                        </tr>
-                                    {/foreach}
-                                </tbody>
-                            </table>
+                                            <th>{$USERNAME}</th>
+                                            <th>{$DATE}</th>
+                                    <tbody>
+                                        {foreach from=$MCMP_VOTES item=votes}
+                                            <tr>
+                                                <td>{$votes.nickname}</td>
+                                                <td>{$votes.date_friendly}</td>
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                {/if}
                 </div>
-            </div>
-            {if count($WIDGETS_RIGHT)}
-                <div class="col-md-3">
-                    {foreach from=$WIDGETS_RIGHT item=widget}
-                        {$widget}
-                    {/foreach}
-                </div>
-            {/if}
+                {if count($WIDGETS_RIGHT)}
+                    <div class="col-md-3">
+                        {foreach from=$WIDGETS_RIGHT item=widget}
+                            {$widget}
+                        {/foreach}
+                    </div>
+                {/if}
 
+            </div>
         </div>
-    </div>
-{include file='footer.tpl'}
+    {include file='footer.tpl'}
