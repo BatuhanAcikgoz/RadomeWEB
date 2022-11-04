@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-                {if isset($mcmp_key) }
+                {if isset($MCMP_KEY) }
                     <div class="row">
                         {if isset($SEARCH_RESULTS)}
                             {if $SEARCH_RESULTS eq '1'}
