@@ -113,45 +113,20 @@ if (Input::exists()) {
             }
 
             // Portal
-            if ($_POST['homepage'] === 'portal') {
-                $home_type = 'portal';
-            } else if ($_POST['homepage'] === 'news') {
-                $home_type = 'news';
-            } else if ($_POST['homepage'] === 'custom') {
-                $home_type = 'custom';
-            }
+            $home_type = 'news';
 
             Util::setSetting('home_type', $home_type);
 
             // Private profile
-            Util::setSetting('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
             Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
-            // Friendly URLs
-            $friendly = Input::get('friendlyURL') == 'true';
-
-            // Force HTTPS?
-            if (Input::get('forceHTTPS') == 'true') {
-                $https = true;
-            } else {
-                $https = false;
-            }
-
-            // Force WWW?
-            if (Input::get('forceWWW') == 'true') {
-                $www = true;
-            } else {
-                $www = false;
-            }
-
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 Config::setMultiple([
-                    'core.friendly' => $friendly,
-                    'core.force_https' => $https,
-                    'core.force_www' => $www
+                    'core.friendly' => true,
+                    'core.force_https' => true,
                 ]);
             } else {
                 $errors = [$language->get('admin', 'config_not_writable')];
@@ -168,12 +143,7 @@ if (Input::exists()) {
 
             // Redirect in case URL type has changed
             if (!isset($errors)) {
-                if ($friendly === true) {
-                    $redirect = URL::build('/panel/genel_ayarlar', '', 'friendly');
-                } else {
-                    $redirect = URL::build('/panel/genel_ayarlar', '', 'non-friendly');
-                }
-                Redirect::to($redirect);
+                Redirect::to('/panel/genel_ayarlar');
             }
         } else {
             $errors = $validation->errors();
@@ -259,26 +229,9 @@ $smarty->assign([
     'DEFAULT_TIMEZONE' => $language->get('admin', 'default_timezone'),
     'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
-    'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
-    'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
-    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
-    'HOMEPAGE_VALUE' => Util::getSetting('home_type'),
-    'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
-    'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
-    'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
-        'docLinkStart' => "<a href='https://docs.radome.web.tr/friendly-urls' target='_blank'>",
-        'docLinkEnd' => '</a>'
-    ]),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),
-    'PRIVATE_PROFILES' => $language->get('admin', 'private_profiles'),
-    'PRIVATE_PROFILES_VALUE' => $private_profile,
-    'FORCE_HTTPS' => $language->get('admin', 'force_https'),
-    'FORCE_HTTPS_VALUE' => (defined('FORCE_SSL')),
-    'FORCE_HTTPS_HELP' => $language->get('admin', 'force_https_help'),
-    'FORCE_WWW' => $language->get('admin', 'force_www'),
-    'FORCE_WWW_VALUE' => (defined('FORCE_WWW')),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),

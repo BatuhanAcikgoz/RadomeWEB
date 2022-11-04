@@ -286,7 +286,7 @@ class DatabaseInitialiser {
         ]);
         DB::getInstance()->insert('vote_settings', [
             'name' => 'mcmp_key',
-            'value' => '1234567'
+            'value' => ''
         ]);
         $this->_db->insert('wiki_settings', [
             'name' => 'home_page',
@@ -709,11 +709,14 @@ class DatabaseInitialiser {
             'forum_id' => 2,
             'topic_id' => 1,
             'post_creator' => 1,
-            'post_content' => Output::getClean(
+            'post_content' =>
                 '<p>RadomeWEB Gelişmiş Minecraft WebScripti</p>
                 <ul>
                 <li>🙋 Haberler</li>
                 <li>🧭 Destek sistemi</li>
+                <li>🗳️ Verilen oyları ve en &ccedil;ok oy verenleri sitede g&ouml;r&uuml;nt&uuml;leme ( minecraft-mp API )</li>
+                <li>📧 Şifre sıfırlama, hesap onaylama ve php mail sistemi</li>
+                <li>📚 Wiki sistemi ile sitenizi ve sunucunuzu oyunculara kolayca tanıtın</li>
                 <li>🔨 AdvancedBan, LiteBans banlarını sitede g&ouml;r&uuml;nt&uuml;leme</li>
                 <li>🛒 Mağaza sistemi ile &uuml;r&uuml;nler ekleme &uuml;r&uuml;nleri kategorize etme ve VeriraAPI, PayTR ile &ouml;deme alma imkanı</li>
                 <li>📃 IFrame destekli &ouml;zel sayfalar ile sitenizde kendi sayfalarınızı oluşturabilirsiniz</li>
@@ -753,7 +756,7 @@ class DatabaseInitialiser {
                 <h4>&nbsp;</h4>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>'
-            ),
+            ,
             'post_date' => date('Y-m-d H:i:s'),
             'created' => date('U')
         ]);
