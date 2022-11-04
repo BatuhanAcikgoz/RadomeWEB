@@ -23,11 +23,6 @@ if (!empty($vote_message)) {
 }
 $mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
 $mcmp_key = $mcmp_key[0]->value;
-if(!empty($mcmp_key)){
-
-} else {
-	// no results
-}
 $minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
 $mcmp_vote1 = json_decode(file_get_contents($minecraftmp_top_voters));
 $top_voters = $mcmp_vote1->voters;
@@ -88,7 +83,6 @@ $smarty->assign([
 	'VOTE_SORGU_NULL' => $vote_language->get('vote', 'vote_sorgu_null'),
 	'SEARCH_RESULT' => $search_value,
     'SEARCH_RESULTS' => $sResults,
-	'MCMP_KEY' => $mcmp_key,
 	'DATE' => $vote_language->get('vote', 'date'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
