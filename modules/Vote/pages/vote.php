@@ -83,7 +83,7 @@ $smarty->assign([
 	'VOTE_SORGU_NULL' => $vote_language->get('vote', 'vote_sorgu_null'),
 	'SEARCH_RESULT' => $search_value,
     'SEARCH_RESULTS' => $sResults,
-	'MCMP_KEY' => Output::urlEncodeAllowSlashes($mcmp_key),
+	'MCMP_KEY' => $mcmp_key,
 	'DATE' => $vote_language->get('vote', 'date'),
 	'MESSAGE_ENABLED' => $message_enabled,
 	'MESSAGE' => Output::getClean($vote_message),
