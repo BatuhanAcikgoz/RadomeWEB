@@ -244,6 +244,8 @@ if (isset($_GET['do'])) {
             ];
 
             // Valid, continue with validation
+            $validation = Validate::check($_POST, $to_validation); // Execute validation
+            if ($validation->passed()) {
 
                 // Load Store config
                 if (isset($store_conf) && is_array($store_conf)) {
