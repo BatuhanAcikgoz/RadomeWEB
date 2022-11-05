@@ -67,7 +67,7 @@ class Language {
      * @throws RuntimeException If the language file cannot be found.
      */
     public function __construct(string $module = 'core', string $active_language = null) {
-        $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'en_UK';
+        $this->_activeLanguage = $active_language ?? LANGUAGE ?? 'tr_TR';
 
         // Require file
         if ($module === 'core') {
@@ -91,7 +91,7 @@ class Language {
         $this->_i18n = new i18next(
             $this->_activeLanguage,
             $path,
-            'en_UK'
+            'tr_TR'
         );
     }
 
