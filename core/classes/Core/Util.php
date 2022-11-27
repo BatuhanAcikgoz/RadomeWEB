@@ -225,7 +225,7 @@ class Util {
     public static function updateCheck() {
         $uid = self::getSetting('unique_id');
 
-        $update_check_response = HttpClient::get('https://radome.web.tr/api/v2/updateCheck&uid=' . $uid .
+        $update_check_response = HttpClient::get('https://radome.web.tr/api/updateCheck&uid=' . $uid .
             '&version=' . RADOME_VERSION .
             '&php_version=' . urlencode(PHP_VERSION)
         );

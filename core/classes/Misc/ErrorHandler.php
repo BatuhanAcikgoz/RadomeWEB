@@ -166,7 +166,7 @@ class ErrorHandler {
      */
     private static function shouldUsePlainText(): bool {
         $route = $_REQUEST['route'] ?? '';
-        return str_contains($route, '/api/v2/') || str_contains($route, '/queries/');
+        return str_contains($route, '/api/') || str_contains($route, '/queries/');
     }
 
     /**
