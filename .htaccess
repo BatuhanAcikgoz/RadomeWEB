@@ -22,7 +22,7 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  RewriteRule ^(.*)$ %{ENV:BASE}  [NC,L,QSA]
+  RewriteRule ^(.*)$ %{ENV:BASE}/  [NC,L,QSA]
 
   # Prevent access to template files
   <files "*.tpl">
