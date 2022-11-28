@@ -453,7 +453,7 @@ if ($page != 'install') {
             if (isset($_GET['route']) && (
                     rtrim($_GET['route'], '/') === '/giris'
                     || rtrim($_GET['route'], '/') === '/sifremi_unuttum'
-                    || str_contains($_GET['route'], '/api')
+                    || str_contains($_GET['route'], '/api/')
                     || str_contains($_GET['route'], 'queries')
                     || str_contains($_GET['route'], 'oauth/')
                 )) {
