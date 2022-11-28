@@ -24,7 +24,7 @@ class Forms_Module extends Module {
         $name = 'Forms';
         $author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a>';
         $module_version = '1.9.2';
-        $radome_version = '2.1.0';
+        $radome_version = '2.0.2';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
