@@ -54,7 +54,7 @@ try {
             ]); ?></p>
         </div>
         <div class="ui secondary right aligned segment">
-            <a href="index.php?route=/panel" class="ui small primary button">
+            <a href="/panel" class="ui small primary button">
                 <?php echo $language->get('installer', 'finish'); ?>
             </a>
         </div>

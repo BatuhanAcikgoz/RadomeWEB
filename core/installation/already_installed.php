@@ -10,7 +10,7 @@
                     tablolarını ve yapılandırma dosyasını kaldırmalısınız:   
                         <span class="ui basic label">/core/config.php</span>
                     </div>
-                    <a href="index.php?route=/" class="ui yellow fluid button">Ana Sayfa</a>
+                    <a href="/" class="ui yellow fluid button">Ana Sayfa</a>
                 </div>
             </div>
         </div>
