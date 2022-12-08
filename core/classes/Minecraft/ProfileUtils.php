@@ -28,7 +28,7 @@ class ProfileUtils {
             $uuid = $identifier;
         }
 
-        $client = HttpClient::get('https://sessionserver.mojang.com/session/minecraft/profile/' . $uuid);
+        $client = $uuid;
 
         if (!$client->hasError()) {
             $data = $client->json(true);
@@ -49,18 +49,7 @@ class ProfileUtils {
             return ['username' => '', 'uuid' => ''];
         }
 
-        $result = HttpClient::get('https://api.mojang.com/users/profiles/minecraft/' . urlencode($username));
-
-        // Verification, API will return 204 status code if username is invalid
-        if (!$result->hasError() && $result->getStatus() === 200) {
-            $ress = json_decode($result->contents(), true);
-            if ($ress['name'] != null && $ress['id'] != null) {
-                return [
-                    'username' => $ress['name'],
-                    'uuid' => $ress['id']
-                ];
-            }
-        }
+        $result = $username;
 
         return null;
     }
@@ -72,29 +61,10 @@ class ProfileUtils {
      * @return array
      */
     public static function getOfflineModeUuid(string $username): array {
-        $data = hex2bin(md5("OfflinePlayer:" . $username));
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x30);
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
         return [
-            'uuid' => bin2hex($data),
+            'uuid' => $username,
             'username' => $username
         ];
     }
 
-    /**
-    * Add dashes to UUID
-    *
-    * @param string $uuid string UUID to format
-    * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
-    */
-    public static function formatUUID(string $uuid): string {
-        $uid = "";
-        $uid .= substr($uuid, 0, 8)."-";
-        $uid .= substr($uuid, 8, 4)."-";
-        $uid .= substr($uuid, 12, 4)."-";
-        $uid .= substr($uuid, 16, 4)."-";
-        $uid .= substr($uuid, 20);
-        return $uid;
-    }
 }

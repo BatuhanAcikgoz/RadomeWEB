@@ -11,7 +11,7 @@ final class CreateUsersPlaceholdersTable extends AbstractMigration
 
         $table
             ->addColumn('server_id', 'integer', ['length' => 11])
-            ->addColumn('uuid', 'varbinary', ['length' => 16])
+            ->addColumn('uuid', 'string', ['length' => 32])
             ->addColumn('name', 'string', ['length' => 186])
             ->addColumn('value', 'text')
             ->addColumn('last_updated', 'integer', ['length' => 11]);

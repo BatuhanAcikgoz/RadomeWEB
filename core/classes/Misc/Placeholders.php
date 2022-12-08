@@ -72,7 +72,7 @@ class Placeholders extends Instanceable {
      * @return array Their placeholders.
      */
     public function loadUserPlaceholders(string $uuid): array {
-        $binUuid = hex2bin(str_replace('-', '', $uuid));
+        $binUuid = $uuid;
 
         $placeholder_query = $this->_db->query('SELECT * FROM rw_users_placeholders up JOIN rw_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
 

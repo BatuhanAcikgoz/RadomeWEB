@@ -761,13 +761,13 @@ $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
 if (count($version)) {
     DB::getInstance()->update('settings', $version[0]->id, [
         'name' => 'radome_version',
-        'value' => '2.1.0'
+        'value' => '2.0.2'
     ]);
     DB::getInstance()->delete('settings', ['name', 'version']);
 } else {
     DB::getInstance()->insert('settings', [
         'name' => 'radome_version',
-        'value' => '2.1.0'
+        'value' => '2.0.2'
     ]);
 }
 
