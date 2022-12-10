@@ -45,11 +45,16 @@ class Placeholders extends Instanceable {
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
             case 'delete':
+                if (Token::check($_POST['token'])) {
+                    if (isset($placeholder->name)) {
                         DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
                         DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
         
                         Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                        Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
                     }
+            }
+        }
         }
 
         $this->_all_placeholders = $placeholders;
