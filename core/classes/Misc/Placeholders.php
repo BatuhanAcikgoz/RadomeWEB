@@ -56,6 +56,7 @@ class Placeholders extends Instanceable {
                         Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
                     }
         }
+        die();
         }
 
         $this->_all_placeholders = $placeholders;
