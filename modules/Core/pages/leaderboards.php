@@ -78,6 +78,8 @@ $template->addJSScript('
 
     function showTable(name, server_id, first = false) {
 
+        document.getElementById("pills-" + name + "-server-" + server_id + "-tab").click();
+        
         if (name === null) {
             name = $(".leaderboard_tab").first().attr("name");
             server_id = $(".leaderboard_tab").first().attr("server_id");
