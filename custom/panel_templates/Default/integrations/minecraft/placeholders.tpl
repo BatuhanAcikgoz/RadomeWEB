@@ -196,8 +196,6 @@
 
     {include file='scripts.tpl'}
 
-    {include file='scripts.tpl'}
-
     <script type="text/javascript">
         function showDeleteModal(id) {
             $('#deleteForm').attr('action', id);
