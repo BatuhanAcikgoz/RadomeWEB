@@ -131,10 +131,15 @@
                                                         {/if}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-secondary text-white" href="{$placeholder->leaderboard_settings_url}">
-                                                            <i class="fas fa-cog"></i>
+                                                        <a class="btn btn-secondary text-white" href="{$placeholder->delete_placeholder_url}">
+                                                            <i class="fas fa-trash-alt"></i>
                                                         </a>
                                                     </td>
+                                                    <td class="text-center">
+                                                    <a class="btn btn-danger text-white" href="{$DELETE_PLACEHOLDER}">
+                                                        <i class="fas fa-cog"></i>
+                                                    </a>
+                                                </td>
                                                 </tr>
                                             {/foreach}
                                         </tbody>

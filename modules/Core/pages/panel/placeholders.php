@@ -25,6 +25,27 @@ $all_placeholders = Placeholders::getInstance()->getAllPlaceholders();
 
 $template_file = 'integrations/minecraft/placeholders.tpl';
 
+$smarty->assign([
+    'DELETE_PLACEHOLDER' => URL::build('/panel/minecraft/placeholderlar', 'action=delete&id=' . urlencode($placeholder->name))
+]);
+
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+    case 'delete':
+        if (Token::check($_POST['token'])) {
+            if (isset($placeholder->name)) {
+                DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
+                DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
+
+                Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
+            }
+    }
+    
+    default:
+    Redirect::to(URL::build('/panel/minecraft/placeholders'));
+}
+}
+
 if (isset($_GET['leaderboard'])) {
 
     $server_id = $_GET['server_id'];

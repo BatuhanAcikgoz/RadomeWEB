@@ -38,6 +38,7 @@ class Placeholders extends Instanceable {
             $data->leaderboard_title = $placeholder->leaderboard_title ?? $data->friendly_name;
             $data->leaderboard_sort = $sort;
             $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholderlar', 'leaderboard=' . urlencode($data->safe_name) . '&server_id=' . urlencode($data->server_id));
+            $data->delete_placeholder_url = URL::build('/panel/minecraft/placeholderlar', 'action=delete&id=' . urlencode($data->name));
             $placeholders[] = $data;
         }
 
@@ -62,6 +63,11 @@ class Placeholders extends Instanceable {
      */
     public function registerPlaceholder(int $server_id, string $name): void {
         $this->_db->query('INSERT IGNORE INTO rw_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
+    }
+
+    public function deletePlaceholder(string $name) {
+        $this->_db->query("DELETE FROM rw_users_placeholders WHERE name='$name';");
+        $this->_db->query("DELETE FROM rw_placeholders_settings WHERE name='$name';");
     }
 
     /**
