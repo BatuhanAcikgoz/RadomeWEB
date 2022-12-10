@@ -42,7 +42,6 @@ class Placeholders extends Instanceable {
             $placeholders[] = $data;
         }
         $language = new Language('core', DEFAULT_LANGUAGE);
-        
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
             case 'delete':
@@ -54,16 +53,6 @@ class Placeholders extends Instanceable {
                         Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
                     }
             }
-            
-            default:
-            if (Token::check($_POST['token'])) {
-                if (isset($placeholder->name)) {
-                    DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
-                    DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
-    
-                    Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                }
-        }
         }
         }
 
