@@ -52,6 +52,9 @@ class Placeholders extends Instanceable {
                         Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
                         Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
                     }
+                    else {
+                        Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
+                    }
         }
         }
 
