@@ -166,26 +166,6 @@ if (isset($_GET['leaderboard'])) {
     ]);
 }
 
-$smarty->assign([
-    'DELETE_PLACEHOLDER' => URL::build('/panel/minecraft/placeholderlar', 'action=delete&id=' . urlencode($placeholder->name))
-]);
-
-if (isset($_GET['action'])) {
-    switch ($_GET['action']) {
-    case 'delete':
-        DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
-        DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
-
-        Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
-    
-    default:
-            DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
-            DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
-
-            Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
-        }
-}
-
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
