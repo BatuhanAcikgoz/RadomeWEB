@@ -15,10 +15,6 @@
                     {$placeholder->leaderboard_title}
                 </a>
                 {/foreach}
-                <script>
-                // Get the element with id="defaultOpen" and click on it
-                document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}").click();
-                </script>
             </div>
         </div>
         <div class="col-md-9">
@@ -61,6 +57,10 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                // Get the element with id="defaultOpen" and click on it
+                document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}").click();
+                </script>
                 {/foreach}
             </div>
         </div>
