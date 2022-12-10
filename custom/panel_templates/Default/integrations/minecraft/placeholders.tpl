@@ -168,6 +168,29 @@
             <!-- End Content Wrapper -->
         </div>
 
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {$CONFIRM_DELETE_HOOK}
+                    </div>
+                    <div class="modal-footer">
+                        <form action="" id="deleteForm" method="post">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                            <input type="hidden" name="token" value="{$TOKEN}">
+                            <button type="submit" class="btn btn-primary">{$YES}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>        
+
         <!-- End Wrapper -->
     </div>
 
