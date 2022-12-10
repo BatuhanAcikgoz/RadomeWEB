@@ -131,7 +131,7 @@
                                                         {/if}
                                                     </td>
                                                     <td class="text-center">
-                                                        <a class="btn btn-secondary text-white" href="{$placeholder->delete_placeholder_url}">
+                                                        <a class="btn btn-secondary text-white" href="{$placeholder->leaderboard_settings_url}">
                                                             <i class="fas fa-cog"></i>
                                                         </a>
                                                     </td>
