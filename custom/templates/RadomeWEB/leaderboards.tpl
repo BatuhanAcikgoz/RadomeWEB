@@ -62,7 +62,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
+<script>
 document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
 </script>
 
