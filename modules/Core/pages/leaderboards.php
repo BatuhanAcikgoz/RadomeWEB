@@ -44,7 +44,7 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     foreach ($data as $row) {
         $row_data = new stdClass();
 
-        $uuid = bin2hex($row->uuid);
+        $uuid = ($row->uuid);
         if (!array_key_exists($uuid, $leaderboard_users)) {
             $integration_user = new IntegrationUser($integration, $uuid, 'identifier');
             if (!$integration_user->exists()) {
