@@ -73,39 +73,7 @@ $smarty->assign([
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
 ]);
 
-$template->addJSScript('
-    window.onLoad = showTable(null, null, true);
-
-    function showTable(name, server_id, first = false) {
-
-        document.getElementById("pills-" + name + "-server-" + server_id + "-tab").click();
-        
-        if (name === null) {
-            name = $(".leaderboard_tab").first().attr("name");
-            server_id = $(".leaderboard_tab").first().attr("server_id");
-        }
-
-        if (!first) {
-            disableTabs();
-            hideTables();
-        }
-
-        $("#tab-" + name + "-server-" + server_id).addClass("active");
-        $("#table-" + name + "-server-" + server_id).show();
-    }
-
-    function disableTabs() {
-        $(".leaderboard_tab").each(function(i, e) {
-            $(e).removeClass("active");
-        });
-    }
-
-    function hideTables() {
-        $(".leaderboard_table").each(function(i, e) {
-            $(e).hide();
-        });
-    }
-');
+$template->addJSScript('document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();');
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
