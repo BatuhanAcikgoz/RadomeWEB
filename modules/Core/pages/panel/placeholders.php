@@ -173,14 +173,10 @@ $smarty->assign([
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
     case 'delete':
-        if (Token::check($_POST['token'])) {
-            if (isset($placeholder->name)) {
-                DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
-                DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
+        DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
+        DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
 
-                Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
-            }
-    }
+        Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
     
     default:
             DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
