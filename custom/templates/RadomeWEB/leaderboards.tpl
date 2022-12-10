@@ -14,9 +14,6 @@
                     aria-selected="{if $i == 0}true{else}false{/if}">
                     {$placeholder->leaderboard_title}
                 </a>
-                <script>
-                document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
-                </script>
                 {/foreach}
             </div>
         </div>
