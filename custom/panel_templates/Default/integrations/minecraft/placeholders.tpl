@@ -178,7 +178,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {$CONFIRM_DELETE_HOOK}
+                        {$CONFIRM_DELETE_PLACEHOLDER}
                     </div>
                     <div class="modal-footer">
                         <form action="" id="deleteForm" method="post">
