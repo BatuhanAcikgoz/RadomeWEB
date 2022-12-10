@@ -40,24 +40,7 @@ class Placeholders extends Instanceable {
             $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholderlar', 'leaderboard=' . urlencode($data->safe_name) . '&server_id=' . urlencode($data->server_id));
             $data->delete_placeholder_url = URL::build('/panel/minecraft/placeholderlar', 'action=delete&id=' . urlencode($data->name));
             $placeholders[] = $data;
-
-            $language = new Language('core', DEFAULT_LANGUAGE);
-            switch ($_GET['action']) {
-            case 'delete':
-                if (Token::check()) {
-                        DB::getInstance()->delete('users_placeholders', ['name', $data->name]);
-                        DB::getInstance()->delete('placeholders_settings', ['name', $data->name]);
-        
-                        Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                        Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
-                }
-                    else {
-                        Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
-                    }
         }
-
-        }
-
 
 
         $this->_all_placeholders = $placeholders;
@@ -86,8 +69,24 @@ class Placeholders extends Instanceable {
     }
 
     public function deletePlaceholder(string $name) {
-        $this->_db->query("DELETE FROM rw_users_placeholders WHERE name='$name';");
-        $this->_db->query("DELETE FROM rw_placeholders_settings WHERE name='$name';");
+        $language = new Language('core', DEFAULT_LANGUAGE);
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+            case 'delete':
+                if (Token::check()) {
+                    if (isset($name)) {
+                        DB::getInstance()->delete('users_placeholders', ['name', $name]);
+                        DB::getInstance()->delete('placeholders_settings', ['name', $name]);
+        
+                        Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                        Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
+                    }
+                }
+                    else {
+                        Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
+                    }
+        }
+        }
     }
 
     /**
