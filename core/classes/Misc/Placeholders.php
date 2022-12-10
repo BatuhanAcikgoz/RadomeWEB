@@ -45,6 +45,7 @@ class Placeholders extends Instanceable {
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
             case 'delete':
+                if (Token::check()) {
                     if (isset($placeholder->name)) {
                         DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
                         DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
@@ -52,6 +53,7 @@ class Placeholders extends Instanceable {
                         Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
                         Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
                     }
+                }
                     else {
                         Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
                     }
