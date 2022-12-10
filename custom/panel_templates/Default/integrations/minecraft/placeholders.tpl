@@ -93,6 +93,7 @@
                                                 </th>
                                                 <th class="text-center">{$LEADERBOARD_ENABLED}</th>
                                                 <th class="text-center">{$LEADERBOARD_SETTINGS}</th>
+                                                <th class="text-center">{$PLACEHOLDER_DELETE}</th>
                                             </tr>
                                         </thead>
                                         <tbody>

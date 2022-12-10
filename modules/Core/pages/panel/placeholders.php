@@ -163,6 +163,7 @@ if (isset($_GET['leaderboard'])) {
         'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
         'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
         'CONFIRM_DELETE_PLACEHOLDER' => $language->get('admin', 'delete_placeholder'),
+        'PLACEHOLDER_DELETE' => $language->get('admin', 'delete'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
