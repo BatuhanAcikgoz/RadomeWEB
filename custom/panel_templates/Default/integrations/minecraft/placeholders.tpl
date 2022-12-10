@@ -136,10 +136,10 @@
                                                         </a>
                                                     </td>
                                                     <td class="text-center">
-                                                    <a class="btn btn-danger text-white" href="{$placeholder->delete_placeholder_url}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                    </a>
-                                                </td>
+                                                        <div class="float-md-right">
+                                                            <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$placeholder->delete_placeholder_url}')"><i class="fas fa-trash fa-fw"></i></button>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             {/foreach}
                                         </tbody>
@@ -172,6 +172,15 @@
     </div>
 
     {include file='scripts.tpl'}
+
+    {include file='scripts.tpl'}
+
+    <script type="text/javascript">
+        function showDeleteModal(id) {
+            $('#deleteForm').attr('action', id);
+            $('#deleteModal').modal().show();
+        }
+    </script>
 
 </body>
 
