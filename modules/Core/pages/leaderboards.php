@@ -92,6 +92,17 @@ $template->addJSScript('
         $("#table-" + name + "-server-" + server_id).show();
     }
 
+    function disableTabs() {
+        $(".leaderboard_tab").each(function(i, e) {
+            $(e).removeClass("active");
+        });
+    }
+
+    function hideTables() {
+        $(".leaderboard_table").each(function(i, e) {
+            $(e).hide();
+        });
+    }
 ');
 
 // Load modules + template
