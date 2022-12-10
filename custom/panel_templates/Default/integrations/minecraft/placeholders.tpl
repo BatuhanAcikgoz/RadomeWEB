@@ -136,7 +136,7 @@
                                                         </a>
                                                     </td>
                                                     <td class="text-center">
-                                                    <a class="btn btn-danger text-white" href="{$DELETE_PLACEHOLDER}">
+                                                    <a class="btn btn-danger text-white" href="{$placeholder->delete_placeholder_url}">
                                                     <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </td>
