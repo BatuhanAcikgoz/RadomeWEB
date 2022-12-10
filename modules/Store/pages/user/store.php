@@ -65,6 +65,7 @@ $smarty->assign([
     'CREDITS_VALUE' => $customer->getCredits(),
     'MY_TRANSACTIONS' => $store_language->get('general', 'my_transactions'),
     'URUN' => $store_language->get('admin', 'product_name'),
+    'URUNLER' => $store_language->get('admin', 'products'),
     'NO_TRANSACTIONS' => $store_language->get('general', 'no_transactions'),
     'TRANSACTION' => $store_language->get('admin', 'transaction'),
     'AMOUNT' => $store_language->get('admin', 'amount'),
