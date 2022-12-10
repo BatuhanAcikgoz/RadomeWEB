@@ -183,7 +183,12 @@ if (isset($_GET['action'])) {
     }
     
     default:
-    Redirect::to(URL::build('/panel/minecraft/placeholders'));
+    if (Token::check($_POST['token'])) {
+        if (isset($placeholder->name)) {
+            DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
+            DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
+
+            Session::flash('admin_mc_servers_success', $language->get('admin', 'server_deleted'));
 }
 }
 
