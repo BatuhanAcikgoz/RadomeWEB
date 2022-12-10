@@ -42,8 +42,23 @@ class Placeholders extends Instanceable {
             $placeholders[] = $data;
         }
 
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+            case 'delete':
+                DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
+                DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
+            
+            default:
+                    DB::getInstance()->delete('users_placeholders', ['name', $placeholder->name]);
+                    DB::getInstance()->delete('placeholders_settings', ['name', $placeholder->name]);
+        
+                }
+        }
+
         $this->_all_placeholders = $placeholders;
     }
+
+    
 
     /**
      * Get all registered placeholders.
