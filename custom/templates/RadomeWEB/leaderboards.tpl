@@ -14,11 +14,11 @@
                     aria-selected="{if $i == 0}true{else}false{/if}">
                     {$placeholder->leaderboard_title}
                 </a>
+                {/foreach}
                 <script>
                 // Get the element with id="defaultOpen" and click on it
                 document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
                 </script>
-                {/foreach}
             </div>
         </div>
         <div class="col-md-9">
