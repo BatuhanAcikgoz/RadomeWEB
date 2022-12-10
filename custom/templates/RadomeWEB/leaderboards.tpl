@@ -62,5 +62,8 @@
         </div>
     </div>
 </div>
+<script>
+document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
+</script>
 
 {include file='footer.tpl'}
