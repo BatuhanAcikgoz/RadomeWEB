@@ -15,27 +15,7 @@
                     {$placeholder->leaderboard_title}
                 </a>
                 <script>
-function openPage(pageName, instance, colorName) {
-    let tabLink = document.getElementsByClassName("tablink");
-    for (let i = 0; i < tabLink.length; i++) {
-        tabLink[i].style.color = "";
-    }
-
-    instance.style.color = colorName;
-    // Hide all elements with class="tabcontent" by default */
-    var i, tabcontent;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Show the specific tab content
-    document.getElementById(pageName).style.display = "block";
-    document.getElementsByClassName("active");
-}
-
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
+                document.getElementById("pills-{$placeholder->safe_name}-server-{$placeholder->server_id}-tab").click();
                 </script>
                 {/foreach}
             </div>
