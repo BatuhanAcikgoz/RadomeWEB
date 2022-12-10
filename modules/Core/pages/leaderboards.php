@@ -79,8 +79,8 @@ $template->addJSScript('
     function showTable(name, server_id, first = false) {
 
         if (name === null) {
-            name = $(".btn mb-1 btn-theme btn-lg btn-block leaderboard_tab").first().attr("name");
-            server_id = $(".btn mb-1 btn-theme btn-lg btn-block leaderboard_tab").first().attr("server_id");
+            name = $(".leaderboard_tab").first().attr("name");
+            server_id = $(".leaderboard_tab").first().attr("server_id");
         }
 
         if (!first) {
@@ -93,13 +93,13 @@ $template->addJSScript('
     }
 
     function disableTabs() {
-        $(".btn mb-1 btn-theme btn-lg btn-block leaderboard_tab").each(function(i, e) {
+        $(".leaderboard_tab").each(function(i, e) {
             $(e).removeClass("active");
         });
     }
 
     function hideTables() {
-        $(".tab-pane fade leaderboard_table").each(function(i, e) {
+        $(".leaderboard_table").each(function(i, e) {
             $(e).hide();
         });
     }

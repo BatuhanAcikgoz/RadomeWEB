@@ -7,10 +7,10 @@
         <div class="col-md-3">
             <div class="nav flex-column nav-pills" id="pills-tab" role="tablist" aria-orientation="vertical">
                 {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-                <a class="btn mb-1 btn-theme btn-lg btn-block leaderboard_tab" name="{$placeholder->safe_name}" server_id="{$placeholder->server_id}"
-                id="tab-{$placeholder->safe_name}-server-{$placeholder->server_id}"
-                onclick="showTable('{$placeholder->safe_name}', '{$placeholder->server_id}');">
-                {$placeholder->leaderboard_title}
+                    <a class="item leaderboard_tab" name="{$placeholder->safe_name}" server_id="{$placeholder->server_id}"
+                    id="tab-{$placeholder->safe_name}-server-{$placeholder->server_id}"
+                    onclick="showTable('{$placeholder->safe_name}', '{$placeholder->server_id}');">
+                    {$placeholder->leaderboard_title}
                 </a>
                 {/foreach}
             </div>
@@ -18,7 +18,8 @@
         <div class="col-md-9">
             <div class="tab-content" id="pills-tabContent">
                 {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-                <div class="tab-pane fade leaderboard_table" id="table-{$placeholder->safe_name}-server-{$placeholder->server_id}" style="display: none;">
+                    <div class="leaderboard_table" id="table-{$placeholder->safe_name}-server-{$placeholder->server_id}"
+                    style="display: none;">
                     <div class="card">
                         <div class="card-header header-theme">{$placeholder->leaderboard_title}</div>
                         <div class="card-body" style="overflow-x: auto">
