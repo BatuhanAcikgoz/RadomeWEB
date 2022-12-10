@@ -39,6 +39,24 @@ class Placeholders extends Instanceable {
             $data->leaderboard_sort = $sort;
             $data->leaderboard_settings_url = URL::build('/panel/minecraft/placeholderlar', 'leaderboard=' . urlencode($data->safe_name) . '&server_id=' . urlencode($data->server_id));
             $data->delete_placeholder_url = URL::build('/panel/minecraft/placeholderlar', 'action=delete&id=' . urlencode($data->name));
+            $language = new Language('core', DEFAULT_LANGUAGE);
+            if (isset($_GET['action'])) {
+                switch ($_GET['action']) {
+                case 'delete':
+                    if (Token::check()) {
+                        if (isset($data->name)) {
+                            DB::getInstance()->delete('users_placeholders', ['name', $data->name]);
+                            DB::getInstance()->delete('placeholders_settings', ['name', $data->name]);
+            
+                            Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                            Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
+                        }
+                    }
+                        else {
+                            Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
+                        }
+            }
+            }
             $placeholders[] = $data;
         }
 
@@ -68,48 +86,9 @@ class Placeholders extends Instanceable {
         $this->_db->query('INSERT IGNORE INTO rw_placeholders_settings (server_id, name) VALUES (?, ?)', [$server_id, $name]);
     }
 
-    public function deletePlaceholder() {
-        $placeholder_query = $this->_db->query('SELECT * FROM rw_users_placeholders up JOIN rw_placeholders_settings ps ON up.name = ps.name AND up.server_id = ps.server_id WHERE up.uuid = ?', [$binUuid]);
-
-        if (!$placeholder_query->count()) {
-            return [];
-        }
-
-        $user_placeholders = [];
-
-        $placeholders = $placeholder_query->results();
-        foreach ($placeholders as $placeholder) {
-            $data = new stdClass();
-
-            $data->server_id = $placeholder->server_id;
-            $data->name = Output::getClean($placeholder->name);
-            $data->friendly_name = isset($placeholder->friendly_name) ? Output::getClean($placeholder->friendly_name) : Output::getClean($placeholder->name);
-            $data->value = Output::getClean($placeholder->value);
-            $data->last_updated = $placeholder->last_updated;
-            $data->show_on_profile = $placeholder->show_on_profile;
-            $data->show_on_forum = $placeholder->show_on_forum;
-
-            $user_placeholders[$data->name] = $data;
-        }
-
-        $language = new Language('core', DEFAULT_LANGUAGE);
-        if (isset($_GET['action'])) {
-            switch ($_GET['action']) {
-            case 'delete':
-                if (Token::check()) {
-                    if (isset($data->name)) {
-                        DB::getInstance()->delete('users_placeholders', ['name', $data->name]);
-                        DB::getInstance()->delete('placeholders_settings', ['name', $data->name]);
-        
-                        Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                        Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
-                    }
-                }
-                    else {
-                        Session::flash('admin_mc_servers_error', $language->get('general', 'invalid_token'));
-                    }
-        }
-        }
+    public function deletePlaceholder(string $name) {
+        $this->_db->query("DELETE FROM rw_users_placeholders WHERE name='$name';");
+        $this->_db->query("DELETE FROM rw_placeholders_settings WHERE name='$name';");
     }
 
     /**
