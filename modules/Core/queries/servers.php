@@ -73,7 +73,7 @@ if (count($servers)) {
     // Insert into db
     foreach ($results as $id => $result) {
         // Insert into db
-        DB::getInstance()->query('DELETE FROM rw_query_results WHERE queried_at < UNIX_TIMESTAMP(DATE_SUB(NOW(3), INTERVAL  DAY));');
+        DB::getInstance()->query('DELETE FROM rw_query_results WHERE queried_at < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 1 DAY));');
         DB::getInstance()->insert('query_results', [
             'server_id' => $id,
             'queried_at' => date('U'),
