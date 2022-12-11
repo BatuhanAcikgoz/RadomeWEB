@@ -28,6 +28,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         try {
+            DB::getInstance()->query('DELETE FROM rw_query_results WHERE queried_at < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL 1 DAY));');
             $api->getDb()->insert('query_results', [
                 'server_id' => $_POST['server-id'],
                 'queried_at' => date('U'),
