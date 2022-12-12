@@ -587,24 +587,6 @@ try {
     $errors[] = 'Unable to convert user profile wall replies: ' . $e->getMessage();
 }
 
-// UUID cache
-try {
-    $old = $conn->get('nl1_uuid_cache', ['id', '<>', 0]);
-    if ($old->count()) {
-        $old = $old->results();
-
-        foreach ($old as $item) {
-            DB::getInstance()->insert('uuid_cache', [
-                'id' => $item->id,
-                'mcname' => $item->mcname,
-                'uuid' => $item->uuid
-            ]);
-        }
-    }
-} catch (Exception $e) {
-    $errors[] = 'Unable to convert UUID cache: ' . $e->getMessage();
-}
-
 // New settings/initialise cache
 
 // Languages

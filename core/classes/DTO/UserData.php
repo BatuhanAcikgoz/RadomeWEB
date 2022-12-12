@@ -12,7 +12,6 @@ class UserData {
     public int $id;
     public string $username;
     public string $password;
-    public string $pass_method;
     public int $joined;
     public string $email;
     public bool $isbanned;
@@ -44,7 +43,6 @@ class UserData {
         $this->id = $row->id;
         $this->username = $row->username;
         $this->password = $row->password;
-        $this->pass_method = $row->pass_method;
         $this->joined = $row->joined;
         $this->email = $row->email;
         $this->isbanned = $row->isbanned;
