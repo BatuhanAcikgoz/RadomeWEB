@@ -362,6 +362,15 @@ class User {
                     return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
                     break;
 
+                case 'pbkdf2':
+                    [$iterations, $salt, $pass] = explode('$', $this->data()->password);
+                    $hashed = hash_pbkdf2('sha256', $password, $salt, $iterations, 64, true);
+                    return ($hashed == hex2bin($pass));
+
+                case 'modernbb':
+                case 'sha1':
+                    return (sha1($password) == $this->data()->password);
+
                 default:
                     // Default to sha256
                     $exploded = explode('$', $this->data()->password);
