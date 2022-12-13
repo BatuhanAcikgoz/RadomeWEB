@@ -78,8 +78,8 @@
                                 <div class="form-group">
                                     <label for="leaderboard_sort">{$LEADERBOARD_SORT}</label>
                                     <select name="leaderboard_sort" class="form-control">
-                                        <option value="ASC" {if $PLACEHOLDER->leaderboard_sort eq 'ASC'} selected {/if}>Ascending</option>
-                                        <option value="DESC" {if $PLACEHOLDER->leaderboard_sort eq 'DESC'} selected {/if}>Descending</option>
+                                        <option value="ASC" {if $PLACEHOLDER->leaderboard_sort eq 'ASC'} selected {/if}>Artan ( En düşük en başta )</option>
+                                        <option value="DESC" {if $PLACEHOLDER->leaderboard_sort eq 'DESC'} selected {/if}>Azalan ( En yüksek en başta )</option>
                                     </select>
                                 </div>
 
