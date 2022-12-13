@@ -56,6 +56,12 @@ if ($registration_enabled == 0) {
 }
 
 // Check if Minecraft is enabled
+$minecraft = MINECRAFT;
+
+if ($minecraft == '1') {
+    // Check if AuthMe is enabled
+
+}
 
 // Registration page
 
