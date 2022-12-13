@@ -1131,7 +1131,7 @@
     "admin/placeholders_friendly_name_info": "Bu yer tutucuya bir 'takma ad' ayarlamak için bunu kullanın. Ham ad yerine kolay ad kullanılacaktır.",
     "admin/placeholders_show_on_profile": "Profili Görüntüle",
     "admin/placeholders_server_id": "Sunucu ID",
-    "admin/placeholders_show_on_forum": "Forumu Görüntüle",
+    "admin/placeholders_show_on_forum": "Forumda Görüntüle",
     "admin/placeholders_show_on_forum_info": "Bu yer tutucunun her kullanıcının forum gönderilerinde gösterilip gösterilmeyeceği.",
     "admin/register_hook_info": "Kullanıcı kaydı",
     "admin/report_hook_info": "Rapor oluşturma",
