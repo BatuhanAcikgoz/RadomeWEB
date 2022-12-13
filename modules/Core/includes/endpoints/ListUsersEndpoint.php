@@ -94,6 +94,7 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                     'integration' => Output::getClean($integration->name),
                     'identifier' => Output::getClean($integration->identifier),
                     'username' => Output::getClean($integration->username),
+                    'verified' => (bool) $integration->verified,
                     'linked_date' => $integration->date,
                     'show_publicly' => (bool) $integration->show_publicly,
                 ];

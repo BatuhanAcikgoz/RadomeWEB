@@ -123,6 +123,9 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
     }
 
     private function updateGroups(IntegrationUser $integrationUser, array $player): array {
+        if (!$integrationUser->isVerified()) {
+            return [];
+        }
 
         $user = $integrationUser->getUser();
         if (!$user->exists()) {

@@ -76,6 +76,7 @@ class UserInfoEndpoint extends KeyAuthEndpoint {
                 'integration' => Output::getClean($key),
                 'identifier' => Output::getClean($integrationUser->data()->identifier),
                 'username' => Output::getClean($integrationUser->data()->username),
+                'verified' => (bool) $integrationUser->isVerified(),
                 'linked_date' => $integrationUser->data()->date,
                 'show_publicly' => (bool) $integrationUser->data()->show_publicly,
             ];
