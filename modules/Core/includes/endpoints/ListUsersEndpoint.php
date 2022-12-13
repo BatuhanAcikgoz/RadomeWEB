@@ -103,7 +103,6 @@ class ListUsersEndpoint extends KeyAuthEndpoint {
                 'id' => (int)$user->id,
                 'username' => $user->username,
                 'banned' => (bool)$user->banned,
-                'verified' => (bool)$user->active,
                 'integrations' => $integrations
             ];
 
