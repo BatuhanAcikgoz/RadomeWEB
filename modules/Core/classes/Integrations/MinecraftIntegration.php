@@ -105,7 +105,7 @@ class MinecraftIntegration extends IntegrationBase {
         $validation = Validate::check(['identifier' => $identifier], [
             'identifier' => [
                 Validate::REQUIRED => true,
-                Validate::MIN => 32,
+                Validate::MIN => 3,
                 Validate::MAX => 32
             ]
         ])->messages([
@@ -148,18 +148,6 @@ class MinecraftIntegration extends IntegrationBase {
 
         // Validate username
         if (!$this->validateUsername($username)) {
-            return;
-        }
-
-        // Get minecraft UUID
-        $result = $this->getUuidByUsername($username);
-        if (count($this->getErrors())) {
-            return;
-        }
-        $this->_uuid = $result['uuid'];
-
-        // Validate identifier
-        if (!$this->validateIdentifier($this->_uuid)) {
             return;
         }
     }
