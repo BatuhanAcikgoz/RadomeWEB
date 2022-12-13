@@ -209,7 +209,6 @@ if ($profile !== null) {
             'user_id' => 1,
             'identifier' => $uuid,
             'username' => $username,
-            'verified' => true,
             'date' => date('U'),
         ]);
     }

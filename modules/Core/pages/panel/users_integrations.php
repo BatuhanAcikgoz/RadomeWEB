@@ -49,8 +49,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
 
         $user_integrations_list[$key] = [
             'identifier' => Output::getClean($integrationUser->data()->identifier),
-            'username' => Output::getClean($integrationUser->data()->username),
-            'verified' => Output::getClean($integrationUser->isVerified())
+            'username' => Output::getClean($integrationUser->data()->username)
         ];
     }
 
@@ -103,9 +102,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             $integrationUser = new IntegrationUser($integration);
                             $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), (bool) Output::getClean(Input::get('verified')), $code);
 
-                            if (Output::getClean(Input::get('verified'))) {
-                                $integrationUser->verifyIntegration();
-                            }
                         } else {
                             // Update existing integration user
                             $integrationUser->update([
@@ -195,7 +191,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                 'USERNAME_VALUE' => Output::getClean($integrationUser->data()->username),
                 'IDENTIFIER_VALUE' => Output::getClean($integrationUser->data()->identifier),
                 'IS_VERIFIED' => $language->get('admin', 'is_verified'),
-                'VERIFIED_VALUE' => Output::getClean($integrationUser->isVerified()),
                 'BACK_LINK' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id),
                 'USERNAME' =>  $language->get('admin', 'integration_username', ['integration' => Output::getClean($integration->getName())]),
                 'IDENTIFIER' => $language->get('admin', 'integration_identifier', ['integration' => Output::getClean($integration->getName())]),

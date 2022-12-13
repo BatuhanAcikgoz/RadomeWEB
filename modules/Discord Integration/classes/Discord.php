@@ -53,9 +53,6 @@ class Discord {
         }
 
         $integrationUser = $user->getIntegration('Discord');
-        if ($integrationUser === null || !$integrationUser->isVerified()) {
-            return false;
-        }
 
         $changed_arr = array_merge(self::assembleGroupArray($added, 'add'), self::assembleGroupArray($removed, 'remove'));
 
