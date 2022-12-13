@@ -552,7 +552,6 @@ class DatabaseInitialiser {
     private function initialiseSettings(): void {
         Util::setSetting('registration_enabled', '1');
         Util::setSetting('displaynames', '0');
-        Util::setSetting('uuid_linking', '0');
         Util::setSetting('recaptcha', '0');
         Util::setSetting('recaptcha_type', 'Recaptcha3');
         Util::setSetting('recaptcha_login', '0');
