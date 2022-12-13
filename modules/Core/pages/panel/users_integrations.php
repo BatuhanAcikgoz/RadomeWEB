@@ -100,14 +100,13 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             $code = uniqid('', true);
 
                             $integrationUser = new IntegrationUser($integration);
-                            $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), (bool) Output::getClean(Input::get('verified')), $code);
+                            $integrationUser->linkIntegration($view_user, Output::getClean(Input::get('identifier')), Output::getClean(Input::get('username')), $code);
 
                         } else {
                             // Update existing integration user
                             $integrationUser->update([
                                 'username' => Output::getClean(Input::get('username')),
                                 'identifier' => Output::getClean(Input::get('identifier')),
-                                'verified' => Output::getClean(Input::get('verified'))
                             ]);
                         }
 
@@ -160,7 +159,6 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
                             $integrationUser->update([
                                 'username' => Output::getClean(Input::get('username')),
                                 'identifier' => Output::getClean(Input::get('identifier')),
-                                'verified' => Output::getClean(Input::get('verified'))
                             ]);
 
                             Session::flash('integrations_success', $language->get('admin', 'user_integration_updated_successfully'));
