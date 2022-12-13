@@ -214,49 +214,7 @@ class Customer {
     
     public function login($username, $save = true) {
         // Online mode or offline mode?
-        $uuid_linking = $this->_db->get('settings', ['name', '=', 'uuid_linking'])->results();
-        $uuid_linking = $uuid_linking[0]->value;
-
-        if ($uuid_linking == '1') {
-            // Online mode
-            $profile = ProfileUtils::getProfile(str_replace(' ', '%20', $username));
-            $mcname_result = $profile ? $profile->getProfileAsArray() : [];
-            if (isset($mcname_result['username'], $mcname_result['uuid']) && !empty($mcname_result['username']) && !empty($mcname_result['uuid'])) {
-                $username = Output::getClean($mcname_result['username']);
-                $uuid = $this->formatUUID(Output::getClean($mcname_result['uuid']));
-
-                if ($this->find($uuid, 'identifier')) {
-                    // Customer already exist in database
-                    $this->update([
-                        'username' => $username,
-                        'identifier' => $uuid
-                    ]);
-                    $this->_isLoggedIn = true;
-
-                    if ($save)
-                        Session::put('store_customer', $this->data()->id);
-
-                    return true;
-                } else {
-                    // Register new customer
-                    $this->create([
-                        'integration_id' => 1,
-                        'username' => $username,
-                        'identifier' => $uuid
-                    ]);
-                    $this->_isLoggedIn = true;
-
-                    if ($save)
-                        Session::put('store_customer', $this->data()->id);
-
-                    return true;
-                }
-            } else {
-                // Invalid Minecraft name
-                return false;
-            }
-
-        } else {
+    {
             // Offline mode
             if ($this->find($username, 'username')) {
                 // Customer already exist in database

@@ -50,11 +50,7 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        // Online mode or offline mode?
-        $uuid_linking = $api->getDb()->get('settings', ['name', '=', 'uuid_linking'])->results();
-        $uuid_linking = ($uuid_linking[0]->value == '1' ? true : false);
-
-        $api->returnArray(['online_mode' => $uuid_linking, 'customers' => $customers]);
+        $api->returnArray(['online_mode' => 1, 'customers' => $customers]);
     }
     
     /**

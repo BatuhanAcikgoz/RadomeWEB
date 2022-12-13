@@ -56,55 +56,8 @@ if ($registration_enabled == 0) {
 }
 
 // Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
-    // Check if AuthMe is enabled
-    $authme_enabled = DB::getInstance()->get('settings', ['name', 'authme'])->results();
-    $authme_enabled = $authme_enabled[0]->value;
-
-    if ($authme_enabled == '1') {
-        // Authme connector
-        require(implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Core', 'pages', 'authme_connector.php']));
-        die();
-    }
-}
 
 // Registration page
-
-if (isset($_GET['step'], $_SESSION['mcassoc'])) {
-    // Get site details for MCAssoc
-    $mcassoc_site_id = SITE_NAME;
-
-    $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
-    $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
-
-    $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
-    $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
-
-    define('MCASSOC', true);
-
-    // Initialise
-    $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
-    $mcassoc->enableInsecureMode();
-
-    require('../includes/run_mcassoc.php');
-    die();
-}
-
-// Is UUID linking enabled?
-if ($minecraft == '1') {
-    $uuid_linking = DB::getInstance()->get('settings', ['name', 'uuid_linking'])->results();
-    $uuid_linking = $uuid_linking[0]->value;
-
-    if ($uuid_linking == '1') {
-        // Do we want to verify the user owns the account?
-        $account_verification = DB::getInstance()->get('settings', ['name', 'verify_accounts'])->results();
-        $account_verification = $account_verification[0]->value;
-    }
-} else {
-    $uuid_linking = '0';
-}
 
 $captcha = CaptchaBase::isCaptchaEnabled();
 
@@ -235,44 +188,7 @@ if (Input::exists()) {
                 // Check if there was any integrations errors
                 if (!isset($integration_errors)) {
                     // Minecraft user account association
-                    if (isset($account_verification) && $account_verification == '1') {
-                        // MCAssoc enabled
-                        // Get data from database
-                        $mcassoc_site_id = SITE_NAME;
-
-                        $mcassoc_shared_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_key'])->results();
-                        $mcassoc_shared_secret = $mcassoc_shared_secret[0]->value;
-
-                        $mcassoc_instance_secret = DB::getInstance()->get('settings', ['name', 'mcassoc_instance'])->results();
-                        $mcassoc_instance_secret = $mcassoc_instance_secret[0]->value;
-
-                        define('MCASSOC', true);
-
-                        // Hash password first
-                        function generateSalt($length) {
-                            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                            $randomString = '';
-                            for ($i = 0; $i < $length; $i++) {
-                                $randomString .= $characters[rand(0, strlen($characters) - 1)];
-                            }
-                            return $randomString;
-                        }
-                        function createSHA256($password){
-                            $salt = generateSalt(16);
-                            $hash = '$SHA$'.$salt.'$'.hash('sha256', hash('sha256', $password).$salt);
-                            return $hash;
-                        }
-                        $password = createSHA256(Input::get('password'));
-                        $_SESSION['password'] = $password;
-                        unset($_POST['password']);
-
-                        // Initialise
-                        $mcassoc = new MCAssoc($mcassoc_shared_secret, $mcassoc_site_id, $mcassoc_instance_secret);
-                        $mcassoc->enableInsecureMode();
-
-                        require('../includes/run_mcassoc.php');
-
-                    } else {
+                    {
                         // Disabled
                         $user = new User();
 
