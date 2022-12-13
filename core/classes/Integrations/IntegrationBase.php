@@ -122,9 +122,6 @@ abstract class IntegrationBase {
         return true;
     }
 
-    /**
-     * Called when user wants to link their account from user connections page, Does not need to be verified
-     */
     abstract public function onLinkRequest(User $user);
 
     /**
