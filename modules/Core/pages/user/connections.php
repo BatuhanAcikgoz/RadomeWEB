@@ -64,14 +64,12 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
 
     $connected = false;
     $username = null;
-    $verified = null;
 
     // Check if user is linked to this integration
     $integrationUser = $user->getIntegration($integration->getName());
     if ($integrationUser != null) {
         $connected = true;
         $username = Output::getClean($integrationUser->data()->username);
-        $verified = Output::getClean($integrationUser->isVerified());
     }
 
     $integrations_list[] = [
@@ -81,7 +79,6 @@ foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) 
         'can_unlink' => $integration->data()->can_unlink,
         'connected' => $connected,
         'username' => $username,
-        'verified' => $verified
     ];
 }
 

@@ -31,14 +31,6 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_INVALID_CODE);
         }
 
-        // Should never occur, if they are verified there should be no code associated with their integration anymore
-        if ($integrationUser->isVerified()) {
-            $integrationUser->update([
-                'code' => null
-            ]);
-            $api->throwError(CoreApiErrors::ERROR_INTEGRATION_ALREADY_VERIFIED);
-        }
-
         // Validate username and make sure username is unique
         if (!$integration->validateUsername($_POST['username'], $integrationUser->data()->id)) {
             $api->throwError(CoreApiErrors::ERROR_INTEGRATION_USERNAME_ERRORS, $integration->getErrors());
@@ -53,8 +45,6 @@ class VerifyIntegrationEndpoint extends KeyAuthEndpoint {
             'identifier' => $_POST['identifier'],
             'username' => $_POST['username'],
         ]);
-
-        $integrationUser->verifyIntegration();
 
         $api->returnArray(['message' => $api->getLanguage()->get('api', 'account_validated')]);
     }
