@@ -176,7 +176,7 @@ class MCQuery {
         foreach ($player_list as $player) {
             $player = (array)$player;
 
-            $integration_user = new IntegrationUser($integration, str_replace('-', '', $player['id']), 'identifier');
+            $integration_user = new IntegrationUser($integration, 'identifier');
             if ($integration_user->exists()) {
                 $user = $integration_user->getUser();
                 if ($user->exists()) {

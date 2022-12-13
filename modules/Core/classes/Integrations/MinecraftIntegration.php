@@ -150,6 +150,18 @@ class MinecraftIntegration extends IntegrationBase {
         if (!$this->validateUsername($username)) {
             return;
         }
+
+        // Get minecraft UUID
+        $result = $this->getUuidByUsername($username);
+        if (count($this->getErrors())) {
+            return;
+        }
+        $this->_uuid = $result['uuid'];
+
+        // Validate identifier
+        if (!$this->validateIdentifier($this->_uuid)) {
+            return;
+        }
     }
 
     public function successfulRegistration(User $user) {

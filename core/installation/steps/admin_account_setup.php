@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,
-                        'identifier' => $uuid,
+                        'identifier' => Input::get('username'),
                         'username' => Input::get('username'),
                         'verified' => true,
                         'date' => date('U'),

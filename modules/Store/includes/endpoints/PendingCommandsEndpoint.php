@@ -43,7 +43,7 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
                 $customers[] = [
                     'customer_id' => (int) $customer->data()->id,
                     'user_id' => (int) $customer->data()->user_id,
-                    'identifier' => $customer->data()->identifier != null ? $this->formatUUID(str_replace('-', '', $customer->data()->identifier)) : null,
+                    'identifier' => $customer->data()->identifier != null,
                     'username' => $customer->data()->username,
                     'commands' => $commands
                 ];
@@ -57,13 +57,4 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
     * @param $uuid string UUID to format
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
-    public static function formatUUID($uuid) {
-        $uid = "";
-        $uid .= substr($uuid, 0, 8)."-";
-        $uid .= substr($uuid, 8, 4)."-";
-        $uid .= substr($uuid, 12, 4)."-";
-        $uid .= substr($uuid, 16, 4)."-";
-        $uid .= substr($uuid, 20);
-        return $uid;
-    }
 }

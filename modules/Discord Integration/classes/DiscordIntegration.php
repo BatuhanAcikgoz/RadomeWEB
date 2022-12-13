@@ -91,14 +91,12 @@ class DiscordIntegration extends IntegrationBase {
         $validation = Validate::check(['identifier' => $identifier], [
             'identifier' => [
                 Validate::REQUIRED => true,
-                Validate::NUMERIC => true,
-                Validate::MIN => 17,
+                Validate::MIN => 3,
                 Validate::MAX => 20
             ]
         ])->messages([
             'identifier' => [
                 Validate::REQUIRED => $this->_language->get('admin', 'integration_identifier_required', ['integration' => $this->getName()]),
-                Validate::NUMERIC => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
                 Validate::MIN => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
                 Validate::MAX => $this->_language->get('admin', 'integration_identifier_invalid', ['integration' => $this->getName()]),
             ]
