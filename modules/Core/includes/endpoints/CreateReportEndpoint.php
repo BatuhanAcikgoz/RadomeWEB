@@ -40,7 +40,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported']]);
+        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported_username']]);
         if (!$user_reported_id->count()) {
             $user_reported_id = $user_reported_id->id;
         }
