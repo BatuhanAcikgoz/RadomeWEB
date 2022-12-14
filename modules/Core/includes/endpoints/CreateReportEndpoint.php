@@ -22,7 +22,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided
-        if (!$_POST['reported'] && !($_POST['reported_username'] && $_POST['reported_uid'])) {
+        if (!($_POST['reported_username'] && $_POST['reported_uid'])) {
             $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER);
         }
 
