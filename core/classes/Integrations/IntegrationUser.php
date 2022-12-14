@@ -89,7 +89,7 @@ class IntegrationUser {
      */
     public function linkIntegration(User $user, ?string $identifier, ?string $username, string $code = null): void {
         $this->_db->query(
-            'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+            'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, date, code) VALUES (?, ?, ?, ?, ?, ?)', [
                 $user->data()->id,
                 $this->_integration->data()->id,
                 Output::getClean($identifier),
