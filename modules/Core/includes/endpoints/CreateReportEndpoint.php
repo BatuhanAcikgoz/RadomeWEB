@@ -22,6 +22,10 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         $api->validateParams($_POST, ['reporter', 'content']);
 
         // Ensure either reported OR reported_username AND reported_uid are provided
+        if (!$_POST['reported'] && !($_POST['reported_username'] && $_POST['reported_uid'])) {
+            $api->throwError(Radome2API::ERROR_CANNOT_FIND_USER);
+        }
+
         // Ensure content is correct length
         if (strlen($_POST['content']) > 255) {
             $api->throwError(CoreApiErrors::ERROR_REPORT_CONTENT_TOO_LONG);
@@ -36,9 +40,12 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported = $api->getUser('id', $_POST['reported_username']);
-        $user_reported_data = $user_reported->data();
-        $user_reported_id = $user_reported_data->id;
+        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported']]);
+        if (!$user_reported_id->count()) {
+            $user_reported_id = null;
+        } else {
+            $user_reported_id = $user_reported_id->first()->id;
+        }
 
         if ($user_reporting_data->id == $user_reported_id) {
             $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
@@ -69,7 +76,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         Report::create($api->getLanguage(), $user_reporting, $reported_user, [
             'type' => Report::ORIGIN_API,
             'reporter_id' => $user_reporting_data->id,
-            'reported_id' => $user_reported_data->id,
+            'reported_id' => $user_reported_id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
             'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
