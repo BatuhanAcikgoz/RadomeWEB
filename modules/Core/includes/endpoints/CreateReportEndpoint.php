@@ -40,10 +40,9 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported_username']]);
-        if (!$user_reported_id->count()) {
-            $user_reported_id = $user_reported_id->id;
-        }
+        $user_reported = $api->getUser('id', $_POST['reported_username']);
+        $user_reported_data = $user_reported->data();
+        $user_reported_id = $user_reported_data->id;
 
         if ($user_reporting_data->id == $user_reported_id) {
             $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
@@ -74,7 +73,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         Report::create($api->getLanguage(), $user_reporting, $reported_user, [
             'type' => Report::ORIGIN_API,
             'reporter_id' => $user_reporting_data->id,
-            'reported_id' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->id,
+            'reported_id' => $user_reported_data->id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
             'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
