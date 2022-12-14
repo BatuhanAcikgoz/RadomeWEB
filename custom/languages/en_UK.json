@@ -815,6 +815,7 @@
     "general/report": "Report",
     "general/report_origin": "Origin",
     "general/reported_by": "Reported by {{author}}",
+    "moderator/reported_user_header": "Reported User:",
     "general/search": "Search",
     "general/server_offline": "The server is currently offline.",
     "general/server_status": "Server Status",

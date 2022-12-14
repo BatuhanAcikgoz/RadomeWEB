@@ -733,6 +733,7 @@
     "moderator/report_comment_invalid": "Geçersiz yorum içeriği. Lütfen 1 ile 10000 karakter arasında bir yorum girdiğinizden emin olun.",
     "moderator/report_reopened": "Rapor başarıyla yeniden açıldı.",
     "moderator/reported_by": "Raporlayan:",
+    "moderator/reported_user_header": "Raporlanan:",
     "moderator/reports": "Raporlar",
     "moderator/reset_avatar": "Avatarı Sıfırla",
     "moderator/reset_profile_banner": "Profil banner(afiş) sıfırla",

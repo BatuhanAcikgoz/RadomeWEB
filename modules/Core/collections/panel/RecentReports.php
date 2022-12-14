@@ -105,6 +105,7 @@ class RecentReportsItem extends CollectionItemBase {
             'NO_REPORTS' => $this->_language->get('moderator', 'no_open_reports'),
             'CREATED' => $this->_language->get('moderator', 'created'),
             'REPORTED_BY' => $this->_language->get('moderator', 'reported_by'),
+            'REPORTED' => $this->_language->get('moderator', 'reported_user_header'),
             'REASON' => $this->_language->get('moderator', 'reason:'),
             'WEBSITE' => $this->_language->get('moderator', 'website'),
             'INGAME' => $this->_language->get('moderator', 'ingame'),

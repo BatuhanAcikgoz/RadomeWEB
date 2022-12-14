@@ -15,12 +15,13 @@
                                         <span class="badge badge-info">{$WEBSITE}</span>
                                     {else}
                                         <span class="badge badge-info">{$INGAME}</span>
-                                    {/if}
+                                    {/if}s
                                 </button>
                             </h5>
                             <div id="collapseReport{$i}" class="collapse text-center" aria-labelledby="collapseReport{$i}" data-parent="#accordion">
                                 {$CREATED} <span data-toggle="tooltip" data-title="{$report.time_full}">{$report.time}</span><br />
                                 {$REPORTED_BY} <span style="{$report.reporter_style}">{$report.reporter_username}  <img src="{$report.reporter_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reporter_username}" /></span><br />
+                                {$REPORTED_BY} <span style="{$report.reported_style}">{$report.reported_username}  <img src="{$report.reported_avatar}" style="max-width:20px;max-height:20px;" class="rounded" alt="{$report.reported_username}" /></span><br />
                                 {$REASON} {$report.reason}
                                 <hr />
                                 <a class="btn btn-primary btn-block text-white" href="{$report.url}">{$VIEW}</a>
