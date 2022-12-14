@@ -74,7 +74,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         Report::create($api->getLanguage(), $user_reporting, $reported_user, [
             'type' => Report::ORIGIN_API,
             'reporter_id' => $user_reporting_data->id,
-            'reported_id' => $reported_user->id,
+            'reported_id' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->id,
             'report_reason' => $_POST['content'],
             'updated_by' => $user_reporting_data->id,
             'reported_mcname' => $_POST['reported_username'] ? $_POST['reported_username'] : $reported_user->getDisplayname(),
