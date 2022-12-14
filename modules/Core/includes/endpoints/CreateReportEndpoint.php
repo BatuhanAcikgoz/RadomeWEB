@@ -40,12 +40,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         }
 
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported']]);
-        if (!$user_reported_id->count()) {
-            $user_reported_id = null;
-        } else {
-            $user_reported_id = $user_reported_id->first()->id;
-        }
+        $user_reported_id = $api->getUser('id', $_POST['reported_username']);
 
         if ($user_reporting_data->id == $user_reported_id) {
             $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
@@ -65,7 +60,7 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
             }
         }
 
-        $reported_user = new User($user_reported_id);
+        $reported_user = $user_reported_id;
         if ($reported_user->exists()) {
             $integrationUser = $reported_user->getIntegration('Minecraft');
             if ($integrationUser != null) {
