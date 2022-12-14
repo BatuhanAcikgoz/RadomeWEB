@@ -184,9 +184,6 @@
                     </div>
                 </li>
                 {else}
-                <li class="nav-item{if isset($item.active)} active{/if}">
-                    <a class="nav-link" href="{$item.link}" {if isset($item.target) && $item.target|count_characters> 2} target="{$item.target}"{/if}>{$item.title}</a>
-                </li>
                 {/if} {/foreach} {if isset($LOGGED_IN_USER)} {if isset($USER_DROPDOWN)} {foreach from=$USER_DROPDOWN key=name item=item} {if isset($item.items)}
                 <li class="nav-item dropdown user-dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
