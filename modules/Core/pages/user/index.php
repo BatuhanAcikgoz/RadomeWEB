@@ -39,8 +39,8 @@ $forum_enabled = Util::isModuleEnabled('Forum');
 if ($forum_enabled) {
     $forum_query_user = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
     $forum_query_average = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM rw_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
-    $forum_query_total = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
     $submissions_total = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_forms_replies WHERE user_id = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
+    $store_orders = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_store_orders WHERE user_id = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
 
     $output = [];
     foreach ($forum_query_user as $item) {
@@ -58,6 +58,10 @@ if ($forum_enabled) {
     foreach ($submissions_total as $item) {
         $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
         $output[$date]['submissions'] = $item->{'COUNT(*)'};
+    }
+    foreach ($store_orders as $item) {
+        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+        $output[$date]['store_orders'] = $item->{'COUNT(*)'};
     }
     
 
@@ -81,6 +85,9 @@ if ($forum_enabled) {
         if (!isset($output[$graph_start]['submissions'])) {
             $output[$graph_start]['submissions'] = 0;
         }
+        if (!isset($output[$graph_start]['store_orders'])) {
+            $output[$graph_start]['store_orders'] = 0;
+        }
 
         $graph_start += 86400;
     }
@@ -91,20 +98,20 @@ if ($forum_enabled) {
     $labels = '';
     $user_data = '';
     $average_data = '';
-    $total_data = '';
     $submissions = '';
+    $store_orders = '';
     foreach ($output as $date => $item) {
         $labels .= '"' . date('Y-m-d', $date) . '", ';
         $user_data .= $item['user'] . ', ';
         $average_data .= $item['average'] . ', ';
-        $total_data .= $item['total'] . ', ';
         $submissions .= $item['submissions'] . ', ';
+        $store_orders .= $item['store_orders'] . ', ';
     }
     $labels = '[' . rtrim($labels, ', ') . ']';
     $user_data = '[' . rtrim($user_data, ', ') . ']';
     $average_data = '[' . rtrim($average_data, ', ') . ']';
-    $total_data = '[' . rtrim($total_data, ', ') . ']';
     $submissions = '[' . rtrim($submissions, ', ') . ']';
+    $store_orders = '[' . rtrim($store_orders, ', ') . ']';
 
     $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
@@ -128,20 +135,20 @@ if ($forum_enabled) {
                     {
                         label: "' . $forum_language->get('forum', 'your_posts') . '",
                         fill: false,
-                        borderColor: "#0004FF",
-                        pointBorderColor: "#0004FF",
+                        borderColor: "#ffde0a",
+                        pointBorderColor: "#ffde0a",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $user_data . '
                     },
                     {
-                        label: "' . $forum_language->get('forum', 'total_posts') . '",
+                        label: "' . $forum_language->get('forms', 'submissions') . '",
                         fill: false,
-                        borderColor: "#4cf702",
-                        pointBorderColor: "#4cf702",
+                        borderColor: "#ff7f00",
+                        pointBorderColor: "#ff7f00",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
-                        data: ' . $total_data . '
+                        data: ' . $submissions . '
                     },
                     {
                         label: "' . $forum_language->get('forms', 'submissions') . '",
