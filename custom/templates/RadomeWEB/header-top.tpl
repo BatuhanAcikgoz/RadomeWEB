@@ -17,7 +17,7 @@
 
         <meta charset="{if "LANG_CHARSET"|defined}{$smarty.const.LANG_CHARSET}{else}utf-8{/if}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 		<title>{$TITLE} &bull; {$smarty.const.SITE_NAME}</title>
 		<meta property="og:title" content="{$TITLE} &bull; {$smarty.const.SITE_NAME}"/>
 		{if isset($PAGE_DESCRIPTION) && $PAGE_DESCRIPTION|count_characters > 0}
