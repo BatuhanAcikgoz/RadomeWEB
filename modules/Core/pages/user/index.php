@@ -40,6 +40,7 @@ if ($forum_enabled) {
     $forum_query_user = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_posts WHERE post_creator = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
     $forum_query_average = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), (COUNT(*) / COUNT(Distinct post_creator)) FROM rw_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
     $forum_query_total = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_posts WHERE created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [strtotime('-7 days')])->results();
+    $submissions_total = DB::getInstance()->query("SELECT FROM_UNIXTIME(created, '%Y-%m-%d'), COUNT(*) FROM rw_forms_comments WHERE user_id = ? AND created > ? GROUP BY FROM_UNIXTIME(created, '%Y-%m-%d')", [$user->data()->id, strtotime('-7 days')])->results();
 
     $output = [];
     foreach ($forum_query_user as $item) {
@@ -54,6 +55,11 @@ if ($forum_enabled) {
         $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
         $output[$date]['total'] = $item->{'COUNT(*)'};
     }
+    foreach ($submissions_total as $item) {
+        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
+        $output[$date]['submissions'] = $item->{'COUNT(*)'};
+    }
+    
 
     // Fill in missing dates
     $graph_start = strtotime('-7 days');
@@ -72,6 +78,9 @@ if ($forum_enabled) {
         if (!isset($output[$graph_start]['total'])) {
             $output[$graph_start]['total'] = 0;
         }
+        if (!isset($output[$graph_start]['submissions'])) {
+            $output[$graph_start]['submissions'] = 0;
+        }
 
         $graph_start += 86400;
     }
@@ -83,16 +92,19 @@ if ($forum_enabled) {
     $user_data = '';
     $average_data = '';
     $total_data = '';
+    $submissions = '';
     foreach ($output as $date => $item) {
         $labels .= '"' . date('Y-m-d', $date) . '", ';
         $user_data .= $item['user'] . ', ';
         $average_data .= $item['average'] . ', ';
         $total_data .= $item['total'] . ', ';
+        $submissions .= $item['submissions'] . ', ';
     }
     $labels = '[' . rtrim($labels, ', ') . ']';
     $user_data = '[' . rtrim($user_data, ', ') . ']';
     $average_data = '[' . rtrim($average_data, ', ') . ']';
     $total_data = '[' . rtrim($total_data, ', ') . ']';
+    $submissions = '[' . rtrim($submissions, ', ') . ']';
 
     $smarty->assign('FORUM_GRAPH', $forum_language->get('forum', 'last_7_days_posts'));
 }
@@ -130,6 +142,15 @@ if ($forum_enabled) {
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $total_data . '
+                    },
+                    {
+                        label: "' . $forum_language->get('forum', 'submissions') . '",
+                        fill: false,
+                        borderColor: "#00931D",
+                        pointBorderColor: "#00931D",
+                        pointBackgroundColor: "#fff",
+                        tension: 0.1,
+                        data: ' . $submissions . '
                     },
                 ]
             }
