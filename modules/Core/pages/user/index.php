@@ -151,10 +151,10 @@ if ($forum_enabled) {
                         data: ' . $submissions . '
                     },
                     {
-                        label: "' . $forum_language->get('forms', 'submissions') . '",
+                        label: "' . $forum_language->get('store', 'store_orders') . '",
                         fill: false,
-                        borderColor: "#ff7f00",
-                        pointBorderColor: "#ff7f00",
+                        borderColor: "#4cf702",
+                        pointBorderColor: "#4cf702",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $submissions . '
