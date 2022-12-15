@@ -38,9 +38,9 @@ class CreateReportEndpoint extends KeyAuthEndpoint {
         if ($user_reporting_data->isbanned) {
             $api->throwError(CoreApiErrors::ERROR_BANNED_FROM_WEBSITE);
         }
-
+        $user = new User();
         // See if reported user exists
-        $user_reported_id = $api->getDb()->get('users', ['id', (int)$_POST['reported_username']]);
+        $user_reported_id = $user->nameToId($_POST['reported_username']);
 
         if ($user_reporting_data->id == $user_reported_id) {
             $api->throwError(CoreApiErrors::ERROR_CANNOT_REPORT_YOURSELF);
