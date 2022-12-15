@@ -78,7 +78,7 @@
         </div>
         <div class="copyright-site">
           <copyright>
-            <a target="_blank" rel="external">2022 Copyright &copy{$SITE_NAME}. Tüm hakları saklıdır.</a>
+            <p>2022 Copyright &copy{$SITE_NAME}. Tüm hakları saklıdır.</p>
           </copyright>
         </div>
         <div class="copyright-radomeweb">
