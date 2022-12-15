@@ -128,8 +128,8 @@ if ($forum_enabled) {
                     {
                         label: "' . $forum_language->get('forum', 'your_posts') . '",
                         fill: false,
-                        borderColor: "rgba(255,12,0,0.5)",
-                        pointBorderColor: "rgba(255,0,5,0.5)",
+                        borderColor: "#0004FF",
+                        pointBorderColor: "#0004FF",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $user_data . '
@@ -137,17 +137,17 @@ if ($forum_enabled) {
                     {
                         label: "' . $forum_language->get('forum', 'total_posts') . '",
                         fill: false,
-                        borderColor: "#00931D",
-                        pointBorderColor: "#00931D",
+                        borderColor: "#4cf702",
+                        pointBorderColor: "#4cf702",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $total_data . '
                     },
                     {
-                        label: "' . $forum_language->get('forum', 'submissions') . '",
+                        label: "' . $forum_language->get('forms', 'submissions') . '",
                         fill: false,
-                        borderColor: "#00931D",
-                        pointBorderColor: "#00931D",
+                        borderColor: "#ff7f00",
+                        pointBorderColor: "#ff7f00",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
                         data: ' . $submissions . '
