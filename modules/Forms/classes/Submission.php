@@ -113,7 +113,7 @@ class Submission {
 
             $query = 'INSERT INTO rw_forms_replies_fields (submission_id, field_id, value) VALUES ';
             $query .= implode('', $inserts);
-            DB::getInstance()->createQuery(rtrim($query, ','), $insert_values);
+            DB::getInstance()->query(rtrim($query, ','), $insert_values);
         } catch (Exception $e) {
             $this->addError($e->getMessage());
             DB::getInstance()->delete('forms_replies', ['id', '=', $submission_id]);

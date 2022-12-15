@@ -50,7 +50,7 @@ abstract class GatewayBase {
             $this->_displayname = $gateway_query->displayname;
             $this->_enabled = $gateway_query->enabled;
         } else {
-            $gateway_query = $db->createQuery('INSERT INTO `rw_store_gateways` (`name`, `displayname`, `enabled`) VALUES (?, ?, ?)', [$name, $name, 0]);
+            $gateway_query = $db->query('INSERT INTO `rw_store_gateways` (`name`, `displayname`, `enabled`) VALUES (?, ?, ?)', [$name, $name, 0]);
 
             $this->_id = $db->lastId();
             $this->_displayname = $name;

@@ -346,7 +346,7 @@ class Forms_Module extends Module {
             try {
                 $this->_db->createTable("forms_replies_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `submission_id` int(11) NOT NULL, `field_id` int(11) NOT NULL, `value` TEXT NOT NULL, PRIMARY KEY (`id`)");
                 
-                $this->_db->createQuery('ALTER TABLE `rw_forms_replies_fields` ADD INDEX `rw_forms_replies_fields_idx_submission_id` (`submission_id`)');
+                $this->_db->query('ALTER TABLE `rw_forms_replies_fields` ADD INDEX `rw_forms_replies_fields_idx_submission_id` (`submission_id`)');
             } catch (Exception $e) {
                 // Error
             }

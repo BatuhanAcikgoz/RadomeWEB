@@ -120,7 +120,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('INSERT INTO `rw_store_products_connections` (`product_id`, `connection_id`) VALUES (?, ?)',
+        $this->_db->query('INSERT INTO `rw_store_products_connections` (`product_id`, `connection_id`) VALUES (?, ?)',
             [
                 $this->data()->id,
                 $connection_id
@@ -140,7 +140,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('DELETE FROM `rw_store_products_connections` WHERE `product_id` = ? AND `connection_id` = ? AND action_id IS NULL',
+        $this->_db->query('DELETE FROM `rw_store_products_connections` WHERE `product_id` = ? AND `connection_id` = ? AND action_id IS NULL',
             [
                 $this->data()->id,
                 $connection_id
@@ -181,7 +181,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('INSERT INTO `rw_store_products_fields` (`product_id`, `field_id`) VALUES (?, ?)',
+        $this->_db->query('INSERT INTO `rw_store_products_fields` (`product_id`, `field_id`) VALUES (?, ?)',
             [
                 $this->data()->id,
                 $field_id
@@ -201,7 +201,7 @@ class Product {
             return false;
         }
 
-        $this->_db->createQuery('DELETE FROM `rw_store_products_fields` WHERE `product_id` = ? AND `field_id` = ?',
+        $this->_db->query('DELETE FROM `rw_store_products_fields` WHERE `product_id` = ? AND `field_id` = ?',
             [
                 $this->data()->id,
                 $field_id
@@ -304,7 +304,7 @@ class Product {
                 'deleted' => 1
             ]);
             
-            $this->_db->createQuery('DELETE FROM `rw_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);
+            $this->_db->query('DELETE FROM `rw_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);
             
             return true;
         }

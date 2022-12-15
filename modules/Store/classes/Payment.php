@@ -262,7 +262,7 @@ class Payment {
      * Delete any pending actions
      */
     public function deletePendingActions() {
-        $this->_db->createQuery('DELETE FROM rw_store_pending_actions WHERE order_id = ? AND status = 0', [$this->data()->order_id])->results();
+        $this->_db->query('DELETE FROM rw_store_pending_actions WHERE order_id = ? AND status = 0', [$this->data()->order_id])->results();
     }
 
     public function getStatusHtml() {
@@ -294,10 +294,10 @@ class Payment {
 
     public function delete() {
         if ($this->exists()) {
-            $this->_db->createQuery('DELETE FROM `rw_store_payments` WHERE `id` = ?', [$this->data()->id]);
-            $this->_db->createQuery('DELETE FROM `rw_store_orders` WHERE `id` = ?', [$this->data()->order_id]);
-            $this->_db->createQuery('DELETE FROM `rw_store_orders_products` WHERE `order_id` = ?', [$this->data()->order_id]);
-            $this->_db->createQuery('DELETE FROM `rw_store_orders_products_fields` WHERE `order_id` = ?', [$this->data()->order_id]);
+            $this->_db->query('DELETE FROM `rw_store_payments` WHERE `id` = ?', [$this->data()->id]);
+            $this->_db->query('DELETE FROM `rw_store_orders` WHERE `id` = ?', [$this->data()->order_id]);
+            $this->_db->query('DELETE FROM `rw_store_orders_products` WHERE `order_id` = ?', [$this->data()->order_id]);
+            $this->_db->query('DELETE FROM `rw_store_orders_products_fields` WHERE `order_id` = ?', [$this->data()->order_id]);
 
             return true;
         }
