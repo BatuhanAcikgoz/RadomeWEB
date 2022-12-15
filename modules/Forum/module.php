@@ -234,7 +234,7 @@ class Forum_Module extends Module {
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
                     $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
                     $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
-                    $open_submissions = DB::getInstance()->query("SELECT COUNT(*) FROM rw_forms_replies WHERE status_id = 1")->results();
+                    $open_submissions = DB::getInstance()->query("SELECT * FROM rw_forms_replies WHERE status_id = 1")->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
