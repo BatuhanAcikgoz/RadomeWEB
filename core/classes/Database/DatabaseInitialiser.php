@@ -651,6 +651,12 @@ class DatabaseInitialiser {
             'order' => 3,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
+        $this->_db->insert('widgets', [
+            'name' => 'User Query Widget',
+            'enabled' => true,
+            'order' => 4,
+            'pages' => '["index","forum","vote","form-1"]'
+        ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Latest Purchases',
