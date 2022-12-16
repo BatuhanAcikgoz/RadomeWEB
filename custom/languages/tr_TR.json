@@ -1157,6 +1157,7 @@
     "general/internet_explorer_header": "Internet Explorer",
     "admin/text_colour": "Metin Rengi",
     "admin/placeholders_player": "Oyuncu",
+    "general/user_query_title": "Üye Sorgula",
     "admin/placeholders_last_updated_time": "Son güncelleme: {{time}}",
     "admin/not_set": "Ayarlanmadı",
     "admin/oauth_info": "OAuth sağlayıcılarını, kullanıcıların sosyal ağ hesaplarıyla oturum açmasına izin verecek şekilde yapılandırın. {{docLinkStart}}Yardım için belgelerimize göz atın{{docLinkEnd}}.",

@@ -299,6 +299,7 @@ return array(
     'UpgradeScript' => $baseDir . '/core/classes/Misc/UpgradeScript.php',
     'User' => $baseDir . '/core/classes/Core/User.php',
     'UserData' => $baseDir . '/core/classes/DTO/UserData.php',
+    'UserQueryWidget' => $baseDir . '/modules/Core/widgets/UserQueryWidget.php',
     'UserProfileField' => $baseDir . '/core/classes/DTO/UserProfileField.php',
     'Util' => $baseDir . '/core/classes/Core/Util.php',
     'Validate' => $baseDir . '/core/classes/Core/Validate.php',

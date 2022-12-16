@@ -801,6 +801,7 @@
     "general/online_staff": "Online Staff",
     "general/online_users": "Online Users",
     "general/origin_api": "API",
+    "general/user_query_title": "User Query",
     "general/origin_website": "Website",
     "general/or": "OR",
     "general/page_loaded_in": "Page loaded in {{time}}s",

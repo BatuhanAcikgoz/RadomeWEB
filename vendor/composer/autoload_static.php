@@ -546,6 +546,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'UpgradeScript' => __DIR__ . '/../..' . '/core/classes/Misc/UpgradeScript.php',
         'User' => __DIR__ . '/../..' . '/core/classes/Core/User.php',
         'UserData' => __DIR__ . '/../..' . '/core/classes/DTO/UserData.php',
+        'UserQueryWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/UserQueryWidget.php',
         'UserProfileField' => __DIR__ . '/../..' . '/core/classes/DTO/UserProfileField.php',
         'Util' => __DIR__ . '/../..' . '/core/classes/Core/Util.php',
         'Validate' => __DIR__ . '/../..' . '/core/classes/Core/Validate.php',
