@@ -35,8 +35,8 @@ class UserQueryWidget extends WidgetBase {
     public function initialise(): void {
         $search_value = $_GET["user_search"];
         if(isset($search_value)){
-            URL::build("/profil/$search_value");
-        if(!empty($search_value)){
+            $sResults= URL::build("/profil/$search_value");
+        if(!empty($sResults)){
 
         } else {
 	    // no results
