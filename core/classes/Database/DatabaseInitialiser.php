@@ -469,7 +469,7 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('modules', [
-            'name' => 'Store',
+            'name' => 'Magaza',
             'enabled' => true,
         ]);
 
@@ -514,7 +514,7 @@ class DatabaseInitialiser {
                 'priority' => 19
             ],
             [
-                'name' => 'Store',
+                'name' => 'Magaza',
                 'priority' => 22
             ],
             [

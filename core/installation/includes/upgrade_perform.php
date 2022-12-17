@@ -630,7 +630,7 @@ DB::getInstance()->insert('modules', [
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
-    'name' => 'Store',
+    'name' => 'Magaza',
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
@@ -649,7 +649,7 @@ $cache->store('enabled_modules', [
     ['name' => 'Formlar', 'priority' => 10],
     ['name' => 'Iframe', 'priority' => 13],
     ['name' => 'Cezalar', 'priority' => 16],
-    ['name' => 'Store', 'priority' => 19],
+    ['name' => 'Magaza', 'priority' => 19],
     ['name' => 'Vote', 'priority' => 22],
     ['name' => 'Wiki', 'priority' => 25],
 ]);

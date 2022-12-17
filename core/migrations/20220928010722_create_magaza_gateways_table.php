@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateStoreGatewaysTable extends AbstractMigration
+final class CreateMagazaGatewaysTable extends AbstractMigration
 {
     public function change(): void
     {

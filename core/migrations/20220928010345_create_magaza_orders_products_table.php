@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateStoreOrdersProductsTable extends AbstractMigration
+final class CreateMagazaOrdersProductsTable extends AbstractMigration
 {
     public function change(): void
     {
