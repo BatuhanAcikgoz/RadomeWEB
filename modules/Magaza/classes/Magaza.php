@@ -31,7 +31,7 @@ class Magaza {
         if ($this->_cache->isCached('store_url')) {
             $store_url = Output::getClean(rtrim($this->_cache->retrieve('store_url'), '/'));
         } else {
-            $store_url = '/store';
+            $store_url = '/magaza';
         }
 
         return $store_url;
