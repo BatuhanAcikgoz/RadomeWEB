@@ -50,8 +50,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputStorePath">{$STORE_PATH}</label>
-                                    <input type="text" class="form-control" id="inputStorePath" name="store_path" placeholder="{$STORE_PATH}" value="{$STORE_PATH_VALUE}">
+                                    <label for="inputMagazaPath">{$STORE_PATH}</label>
+                                    <input type="text" class="form-control" id="inputMagazaPath" name="store_path" placeholder="{$STORE_PATH}" value="{$STORE_PATH_VALUE}">
                                 </div>
                                 
                                 <div class="form-group">
@@ -79,8 +79,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputStoreContent">{$STORE_INDEX_CONTENT}</label>
-                                    <textarea id="inputStoreContent" name="store_content">{$STORE_INDEX_CONTENT_VALUE}</textarea>
+                                    <label for="inputMagazaContent">{$STORE_INDEX_CONTENT}</label>
+                                    <textarea id="inputMagazaContent" name="store_content">{$STORE_INDEX_CONTENT_VALUE}</textarea>
                                 </div>
                                 
                                 <div class="form-group">
