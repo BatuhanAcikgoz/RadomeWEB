@@ -102,9 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
             if ($profile !== null) {
                 $result = $profile->getProfileAsArray();
-                if (isset($result['uuid']) && !empty($result['uuid'])) {
-                    $uuid = $result['uuid'];
-
                     DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
                         'user_id' => 1,
@@ -112,7 +109,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'username' => Input::get('username'),
                         'date' => date('U'),
                     ]);
-                }
             }
 
             DatabaseInitialiser::runPostUser();

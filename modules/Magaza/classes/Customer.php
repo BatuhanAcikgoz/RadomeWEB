@@ -137,7 +137,7 @@ class Customer {
             } else if ($this->data()->identifier != null) {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 if ($integration != null) {
-                    $integration_user = new IntegrationUser($integration, str_replace('-', '', $this->data()->identifier), 'identifier');
+                    $integration_user = new IntegrationUser($integration, $this->data()->identifier, 'identifier');
                     if ($integration_user->exists()) {
                         return $integration_user->getUser();
                     }
