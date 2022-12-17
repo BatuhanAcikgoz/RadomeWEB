@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateFormsPermissionsTable extends AbstractMigration
+final class CreateFormlarPermissionsTable extends AbstractMigration
 {
     public function change(): void
     {

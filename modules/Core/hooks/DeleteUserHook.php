@@ -40,7 +40,7 @@ class DeleteUserHook {
             // Email errors
             $db->delete('email_errors', ['user_id', $params['user_id']]);
 
-            // Infractions
+            // Cezalar
             $db->delete('infractions', ['punished', $params['user_id']]);
             $db->delete('infractions', ['staff', $params['user_id']]);
 

@@ -1,0 +1,60 @@
+<?php
+class PendingCommandsEndpoint extends KeyAuthEndpoint {
+
+    public function __construct() {
+        $this->_route = 'store/pending-commands';
+        $this->_module = 'Magaza';
+        $this->_description = 'List all pending commands';
+        $this->_method = 'GET';
+    }
+
+    public function execute(Radome2API $api): void {
+        $query = 'SELECT * FROM rw_store_pending_actions';
+        $where = ' WHERE status = 0';
+        $order = ' ORDER BY `order` ASC';
+        $params = [];
+
+        if (isset($_GET['connection_id']) || isset($_GET['server_id'])) {
+            $where .= ' AND connection_id = ?';
+            array_push($params, (isset($_GET['connection_id']) ? $_GET['connection_id'] : $_GET['server_id']));
+
+            $api->getDb()->update('store_connections', isset($_GET['connection_id']) ? $_GET['connection_id'] : $_GET['server_id'], [
+                'last_fetch' => date('U')
+            ]);
+        }
+
+        // Ensure the user exists
+        $commands_query = $api->getDb()->query($query . $where . $order, $params)->results();
+
+        $customers_commands = [];
+        foreach ($commands_query as $command) {
+            $customers_commands[$command->customer_id][] = [
+                'id' => (int)$command->id,
+                'command' => $command->command,
+                'order_id' => (int) $command->order_id,
+                'require_online' => (boolean) $command->require_online
+            ];
+        }
+
+        $customers = [];
+        foreach ($customers_commands as $customer_id => $commands) {
+            $customer = new Customer(null, $customer_id);
+            if ($customer->exists() && $customer->data()->username != null) {
+                $customers[] = [
+                    'customer_id' => (int) $customer->data()->id,
+                    'user_id' => (int) $customer->data()->user_id,
+                    'identifier' => $customer->data()->identifier != null,
+                    'username' => $customer->data()->username,
+                    'commands' => $commands
+                ];
+            }
+        }
+
+        $api->returnArray(['online_mode' => 1, 'customers' => $customers]);
+    }
+    
+    /**
+    * @param $uuid string UUID to format
+    * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
+    */
+}

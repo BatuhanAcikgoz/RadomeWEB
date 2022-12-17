@@ -470,7 +470,7 @@ if ($page != 'install') {
 
     // Webhooks
     $hook_array = [];
-    if (Util::isModuleEnabled('Discord Integration')) {
+    if (Util::isModuleEnabled('Discord Entegrasyonu')) {
         $cache->setCache('hooks');
         if ($cache->isCached('hooks')) {
             $hook_array = $cache->retrieve('hooks');

@@ -1,0 +1,289 @@
+<?php
+/*
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
+ *
+ *  License: MIT
+ *
+ *  Magaza module - panel products page
+ */
+
+// Can the user view the StaffCP?
+if (!$user->handlePanelPageLoad('staffcp.store.products')) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
+
+$product = new Product($_GET['product']);
+
+define('PAGE', 'panel');
+define('PARENT_PAGE', 'store');
+define('PANEL_PAGE', 'store_products');
+$page_title = $store_language->get('general', 'products');
+require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
+
+$store = new Magaza($cache, $store_language);
+$configuration = new Configuration('store');
+
+if (!isset($_GET['action'])) {
+    // Get all products and categories
+    $categories = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE deleted = 0 ORDER BY `order` ASC', []);
+    $all_categories = [];
+
+    if ($categories->count()) {
+        $categories = $categories->results();
+
+        $currency = Output::getClean($configuration->get('currency'));
+        $currency_symbol = Output::getClean($configuration->get('currency_symbol'));
+
+        foreach ($categories as $category) {
+            $new_category = [
+                'name' => Output::getClean(Output::getDecoded($category->name)),
+                'products' => [],
+                'edit_link' => URL::build('/panel/magaza/kategoriler/', 'action=edit&id=' . Output::getClean($category->id)),
+                'delete_link' => URL::build('/panel/magaza/kategoriler/', 'action=delete&id=' . Output::getClean($category->id))
+            ];
+
+            $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE category_id = ? AND deleted = 0 ORDER BY `order` ASC', [Output::getClean($category->id)]);
+
+            if ($products->count()) {
+                $products = $products->results();
+
+                foreach ($products as $product) {
+                    $new_product = [
+                        'id' => Output::getClean($product->id),
+                        'id_x' => $store_language->get('admin', 'id_x', ['id' => Output::getClean($product->id)]),
+                        'name' => Output::getClean($product->name),
+                        'price' => Output::getClean($product->price),
+                        'edit_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id)),
+                        'delete_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id) . '&action=delete')
+                    ];
+
+                    $new_category['products'][] = $new_product;
+                }
+            }
+
+            $all_categories[] = $new_category;
+        }
+        
+    } else {
+        $smarty->assign('NO_PRODUCTS', $store_language->get('general', 'no_products'));
+    }
+
+    $smarty->assign([
+        'ALL_CATEGORIES' => $all_categories,
+        'CURRENCY' => $currency,
+        'CURRENCY_SYMBOL' => $currency_symbol,
+        'NEW_CATEGORY' => $store_language->get('admin', 'new_category'),
+        'NEW_CATEGORY_LINK' => URL::build('/panel/magaza/kategoriler/', 'action=new'),
+        'NEW_PRODUCT' => $store_language->get('admin', 'new_product'),
+        'NEW_PRODUCT_LINK' => URL::build('/panel/magaza/urunler/', 'action=new'),
+        'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
+        'CONFIRM_DELETE_CATEGORY' => $store_language->get('admin', 'category_confirm_delete'),
+        'CONFIRM_DELETE_PRODUCT' => $store_language->get('admin', 'product_confirm_delete'),
+        'YES' => $language->get('general', 'yes'),
+        'NO' => $language->get('general', 'no'),
+    ]);
+
+    $template_file = 'store/products.tpl';
+} else {
+    switch ($_GET['action']) {
+        case 'new';
+            // Create new product
+            if (Input::exists()) {
+                $errors = [];
+
+                if (Token::check(Input::get('token'))) {
+                    $validation = Validate::check($_POST, [
+                        'name' => [
+                            Validate::REQUIRED => true,
+                            Validate::MIN => 1,
+                            Validate::MAX => 128
+                        ],
+                        'description' => [
+                            Validate::MAX => 100000
+                        ]
+                    ])->messages([
+                        'name' => [
+                            Validate::REQUIRED => $store_language->get('admin', 'name_required'),
+                            Validate::MIN => $store_language->get('admin', 'name_minimum_x', ['min' => '1']),
+                            Validate::MAX => $store_language->get('admin', 'name_maximum_x', ['max' => '128'])
+                        ],
+                        'description' => [
+                            Validate::MAX => $store_language->get('admin', 'description_max_100000')
+                        ]
+                    ]);
+
+                    if ($validation->passed()) {
+                        // Validate if category exist
+                        $category = DB::getInstance()->query('SELECT id FROM rw_store_categories WHERE id = ?', [Input::get('category')])->results();
+                        if (!count($category)) {
+                            $errors[] = $store_language->get('admin', 'invalid_category');
+                        }
+
+                        // Get price
+                        if (!isset($_POST['price']) || !is_numeric($_POST['price']) || $_POST['price'] < 0.00 || $_POST['price'] > 1000 || !preg_match('/^\d+(?:\.\d{2})?$/', $_POST['price'])) {
+                            $errors[] = $store_language->get('admin', 'invalid_price');
+                        } else {
+                            $price = number_format($_POST['price'], 2, '.', '');
+                        }
+
+                        // insert into database if there is no errors
+                        if (!count($errors)) {
+                            // Get last order
+                            $last_order = DB::getInstance()->query('SELECT * FROM rw_store_products ORDER BY `order` DESC LIMIT 1')->results();
+                            if (count($last_order)) $last_order = $last_order[0]->order;
+                            else $last_order = 0;
+
+                            // Hide category?
+                            if (isset($_POST['hidden']) && $_POST['hidden'] == 'on') $hidden = 1;
+                            else $hidden = 0;
+
+                            // Disable category?
+                            if (isset($_POST['disabled']) && $_POST['disabled'] == 'on') $disabled = 1;
+                            else $disabled = 0;
+
+                            // Save to database
+                            DB::getInstance()->insert('store_products', [
+                                'name' => Input::get('name'),
+                                'description' => Input::get('description'),
+                                'category_id' => $category[0]->id,
+                                'price' => $price,
+                                'hidden' => $hidden,
+                                'disabled' => $disabled,
+                                'order' => $last_order + 1,
+                            ]);
+                            $lastId = DB::getInstance()->lastId();
+                            $product = new Product($lastId);
+
+                            // Add the selected connections, if isset
+                            if (isset($_POST['connections']) && is_array($_POST['connections'])) {
+                                foreach ($_POST['connections'] as $connection) {
+                                    if (!array_key_exists($connection, $product->getConnections())) {
+                                        $product->addConnection($connection);
+                                    }
+                                }
+                            }
+
+                            // Add the selected fields, if isset
+                            if (isset($_POST['fields']) && is_array($_POST['fields'])) {
+                                foreach ($_POST['fields'] as $field) {
+                                    if (!array_key_exists($field, $product->getFields())) {
+                                        $product->addField($field);
+                                    }
+                                }
+                            }
+
+                            Session::flash('products_success', $store_language->get('admin', 'product_created_successfully'));
+                            Redirect::to(URL::build('/panel/magaza/urun/', 'product=' . $lastId));
+                        }
+                    } else {
+                        $errors = $validation->errors();
+                    }
+                } else {
+                    // Invalid token
+                    $errors[] = $language->get('general', 'invalid_token');
+                }
+            }
+
+            // Connections
+            $connections_array = [];
+            $connections = DB::getInstance()->query('SELECT * FROM rw_store_connections')->results();
+            foreach ($connections as $connection) {
+                $connections_array[] = [
+                    'id' => Output::getClean($connection->id),
+                    'name' => Output::getClean($connection->name),
+                    'selected' => ((isset($_POST['connections']) && is_array($_POST['connections'])) ? in_array($connection->id, $_POST['connections']) : false)
+                ];
+            }
+
+            // Fields
+            $fields_array = [];
+            $fields = DB::getInstance()->query('SELECT * FROM rw_store_fields WHERE deleted = 0')->results();
+            foreach ($fields as $field) {
+                $fields_array[] = [
+                    'id' => Output::getClean($field->id),
+                    'identifier' => Output::getClean($field->identifier),
+                    'selected' => ((isset($_POST['fields']) && is_array($_POST['fields'])) ? in_array($field->id, $_POST['fields']) : false)
+                ];
+            }
+
+            $smarty->assign([
+                'PRODUCT_TITLE' => $store_language->get('admin', 'new_product'),
+                'BACK' => $language->get('general', 'back'),
+                'BACK_LINK' => URL::build('/panel/magaza/urunler/'),
+                'PRODUCT_NAME' => $store_language->get('admin', 'product_name'),
+                'PRODUCT_NAME_VALUE' => ((isset($_POST['name']) && $_POST['name']) ? Output::getClean(Input::get('name')) : ''),
+                'PRODUCT_DESCRIPTION' => $store_language->get('admin', 'product_description'),
+                'PRODUCT_DESCRIPTION_VALUE' => ((isset($_POST['description']) && $_POST['description']) ? Output::getClean(Input::get('description')) : ''),
+                'PRICE' => $store_language->get('admin', 'price'),
+                'PRODUCT_PRICE_VALUE' => ((isset($_POST['price']) && $_POST['price']) ? Output::getClean(Input::get('price')) : ''),
+                'CATEGORY' => $store_language->get('admin', 'category'),
+                'CATEGORY_LIST' => $store->getAllCategories(),
+                'CONNECTIONS' => $store_language->get('admin', 'service_connections'),
+                'CONNECTIONS_LIST' => $connections_array,
+                'PRODUCT_IMAGE' => $store_language->get('admin', 'product_image'),
+                'PRODUCT_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
+                'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
+                'BROWSE' => $language->get('general', 'browse'),
+                'REMOVE' => $language->get('general', 'remove'),
+                'REMOVE_IMAGE_LINK' => URL::build('/panel/magaza/urun/' , 'action=remove_image&product=' . $product->data()->id),
+                'FIELDS' => $store_language->get('admin', 'fields'),
+                'FIELDS_LIST' => $fields_array,
+                'CURRENCY' => Output::getClean($configuration->get('currency')),
+                'HIDE_PRODUCT' => $store_language->get('admin', 'hide_product_from_store'),
+                'HIDE_PRODUCT_VALUE' => ((isset($_POST['hidden'])) ? 1 : 0),
+                'DISABLE_PRODUCT' => $store_language->get('admin', 'disable_product'),
+                'DISABLE_PRODUCT_VALUE' => ((isset($_POST['disabled'])) ? 1 : 0),
+            ]);
+
+            $template->assets()->include([
+                AssetTree::TINYMCE,
+            ]);
+
+            $template->addJSScript(Input::createTinyEditor($language, 'inputDescription'));
+
+            $template_file = 'store/product_new.tpl';
+        break;
+        default:
+            Redirect::to(URL::build('/panel/magaza/urunler'));
+        break;
+    }
+}
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+if (Session::exists('products_success'))
+    $success = Session::flash('products_success');
+
+if (isset($success))
+    $smarty->assign([
+        'SUCCESS' => $success,
+        'SUCCESS_TITLE' => $language->get('general', 'success')
+    ]);
+
+if (isset($errors) && count($errors))
+    $smarty->assign([
+        'ERRORS' => $errors,
+        'ERRORS_TITLE' => $language->get('general', 'error')
+    ]);
+
+$smarty->assign([
+    'PARENT_PAGE' => PARENT_PAGE,
+    'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'STORE' => $store_language->get('general', 'store'),
+    'PAGE' => PANEL_PAGE,
+    'TOKEN' => Token::get(),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'PRODUCTS' => $store_language->get('general', 'products')
+]);
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/panel_navbar.php');
+
+// Display template
+$template->displayTemplate($template_file, $smarty);

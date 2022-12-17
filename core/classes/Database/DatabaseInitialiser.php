@@ -444,7 +444,7 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('modules', [
-            'name' => 'Discord Integration',
+            'name' => 'Discord Entegrasyonu',
             'enabled' => true,
         ]);
 
@@ -454,7 +454,7 @@ class DatabaseInitialiser {
         ]);
         
         $this->_db->insert('modules', [
-            'name' => 'Forms',
+            'name' => 'Formlar',
             'enabled' => true,
         ]);
         
@@ -464,7 +464,7 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('modules', [
-            'name' => 'Infractions',
+            'name' => 'Cezalar',
             'enabled' => true,
         ]);
 
@@ -494,7 +494,7 @@ class DatabaseInitialiser {
                 'priority' => 4
             ],
             [
-                'name' => 'Discord Integration',
+                'name' => 'Discord Entegrasyonu',
                 'priority' => 7
             ],
             [
@@ -502,7 +502,7 @@ class DatabaseInitialiser {
                 'priority' => 10
             ],
             [
-                'name' => 'Forms',
+                'name' => 'Formlar',
                 'priority' => 13
             ],
             [
@@ -510,7 +510,7 @@ class DatabaseInitialiser {
                 'priority' => 16
             ],
             [
-                'name' => 'Infractions',
+                'name' => 'Cezalar',
                 'priority' => 19
             ],
             [

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateFormsStatusesTable extends AbstractMigration
+final class CreateFormlarStatusesTable extends AbstractMigration
 {
     public function change(): void
     {

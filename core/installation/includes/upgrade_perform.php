@@ -180,8 +180,8 @@ try {
     $errors[] = 'Unable to convert groups: ' . $e->getMessage();
 }
 
-// Infractions -> posts
-// Infractions
+// Cezalar -> posts
+// Cezalar
 try {
     $old = $conn->get('nl1_infractions', ['id', '<>', 0]);
     if ($old->count()) {
@@ -610,7 +610,7 @@ DB::getInstance()->insert('modules', [
     'enabled' => true
 ]);
 DB::getInstance()->insert('modules', [
-    'name' => 'Discord Integration',
+    'name' => 'Discord Entegrasyonu',
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
@@ -618,7 +618,7 @@ DB::getInstance()->insert('modules', [
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
-    'name' => 'Forms',
+    'name' => 'Formlar',
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
@@ -626,7 +626,7 @@ DB::getInstance()->insert('modules', [
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
-    'name' => 'Infractions',
+    'name' => 'Cezalar',
     'enabled' => true,
 ]);
 DB::getInstance()->insert('modules', [
@@ -645,10 +645,10 @@ $cache->setCache('modulescache');
 $cache->store('enabled_modules', [
     ['name' => 'Core', 'priority' => 1],
     ['name' => 'Forum', 'priority' => 4],
-    ['name' => 'Discord Integration', 'priority' => 7],
-    ['name' => 'Forms', 'priority' => 10],
+    ['name' => 'Discord Entegrasyonu', 'priority' => 7],
+    ['name' => 'Formlar', 'priority' => 10],
     ['name' => 'Iframe', 'priority' => 13],
-    ['name' => 'Infractions', 'priority' => 16],
+    ['name' => 'Cezalar', 'priority' => 16],
     ['name' => 'Store', 'priority' => 19],
     ['name' => 'Vote', 'priority' => 22],
     ['name' => 'Wiki', 'priority' => 25],

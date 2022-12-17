@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use Phinx\Migration\AbstractMigration;
 
-final class CreateInfractionsTable extends AbstractMigration
+final class CreateCezalarTable extends AbstractMigration
 {
     public function change(): void
     {
