@@ -31,7 +31,7 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/panel/forumlar/etiketler', 'pages/panel/labels.php');
         $pages->add('Forum', '/panel/forumlar/ayarlar', 'pages/panel/settings.php');
 
-        $pages->add('Forum', '/forum', 'pages/forum/view_forum.php', 'forum', true);
+        $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
         $pages->add('Forum', '/forum/hata', 'pages/forum/error.php');
         $pages->add('Forum', '/forum/bakis', 'pages/forum/view_forums.php');
         $pages->add('Forum', '/forum/konu', 'pages/forum/view_topic.php');
