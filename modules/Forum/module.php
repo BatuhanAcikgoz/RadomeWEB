@@ -49,7 +49,7 @@ class Forum_Module extends Module {
         $pages->add('Forum', '/forum/arama', 'pages/forum/search.php');
 
         // UserCP
-        $pages->add('Forum', '/kullanici/takip_edilen_konular', 'pages/forum/following_topics.php');
+        $pages->add('Forum', '/kullanici/takip_edilen_konular', 'pages/user/following_topics.php');
 
         // Redirects
         $pages->add('Forum', '/forum/konuyu_goruntule', 'pages/forum/redirect.php');
