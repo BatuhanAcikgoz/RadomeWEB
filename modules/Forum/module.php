@@ -405,7 +405,7 @@ class Forum_Module extends Module {
                     require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
-                    require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
+                    require_once(ROOT_PATH . '/modules/Formlar/collections/panel/Recentforms_replies.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($open_submissions)));
 
                 }
