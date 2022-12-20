@@ -44,7 +44,7 @@ $paginator = new Paginator(
     $template_pagination_right ?? null
 );
 $results = $paginator->getLimited($topics, 10, $p, count($topics));
-$pagination = $paginator->generate(7, URL::build('/forum/takip_edilen_konular/'));
+$pagination = $paginator->generate(7, URL::build('/kullanici/takip_edilen_konular/'));
 
 if (count($topics)) {
     $smarty->assign('PAGINATION', $pagination);

@@ -127,7 +127,7 @@ if (isset($_GET['action'])) {
                     $delete = DB::getInstance()->query('DELETE FROM rw_topics_following WHERE topic_id = ? AND user_id = ?', [$tid, $user->data()->id]);
                     Session::flash('success_post', $forum_language->get('forum', 'no_longer_following_topic'));
                     if (isset($_GET['return']) && $_GET['return'] == 'list') {
-                        Redirect::to(URL::build('/forum/takip_edilen_konular'));
+                        Redirect::to(URL::build('/kullanici/takip_edilen_konular'));
                     }
                     break;
             }
