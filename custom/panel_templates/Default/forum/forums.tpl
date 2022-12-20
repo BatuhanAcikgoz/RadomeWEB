@@ -1,4 +1,4 @@
-+{include file='header.tpl'}
+{include file='header.tpl'}
 
 <body id="page-top">
 
