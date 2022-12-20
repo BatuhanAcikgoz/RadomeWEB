@@ -321,6 +321,8 @@ class Forum_Module extends Module {
                     // Get data for topics and posts
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
                     $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
+                    $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
+                    $open_submissions = DB::getInstance()->query("SELECT * FROM rw_forms_replies WHERE status_id = 1")->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
@@ -329,10 +331,12 @@ class Forum_Module extends Module {
                     } else {
                         $output = [];
 
-                        $output['datasets']['topics']['label'] = 'forum_language/forum/konus_title'; // for $forum_language->get('forum', 'topics_title');
+                        $output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';
+                        $output['datasets']['submissions']['label'] = 'forms_language/forms/submissions'; // for $forum_language->get('forum', 'posts_title');
+                        $output['datasets']['submissions']['colour'] = '#ff7f00';
 
                         foreach ($latest_topics as $topic) {
                             $date = date('d M Y', $topic->topic_date);
@@ -342,6 +346,17 @@ class Forum_Module extends Module {
                                 $output[$date]['topics'] += 1;
                             } else {
                                 $output[$date]['topics'] = 1;
+                            }
+                        }
+
+                        foreach ($latest_submissions as $submissions) {
+                            $date = date('d M Y', $submissions->created);
+                            $date = '_' . strtotime($date);
+
+                            if (isset($output[$date]['submissions'])) {
+                                $output[$date]['submissions'] += 1;
+                            } else {
+                                $output[$date]['submissions'] = 1;
                             }
                         }
 
@@ -370,6 +385,10 @@ class Forum_Module extends Module {
                                 $output['_' . $start]['posts'] = 0;
                             }
 
+                            if (!isset($output['_' . $start]['submissions'])) {
+                                $output['_' . $start]['submissions'] = 0;
+                            }
+
                             $start = strtotime('+1 day', $start);
                         }
 
@@ -386,8 +405,8 @@ class Forum_Module extends Module {
                     require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
-                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, count($latest_posts)));
+                    require_once(ROOT_PATH . '/modules/Forms/collections/panel/Recentforms_replies.php');
+                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($open_submissions)));
 
                 }
             }
