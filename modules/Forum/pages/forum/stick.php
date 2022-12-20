@@ -13,7 +13,7 @@ $forum = new Forum();
 
 // User must be logged in to proceed
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 // Ensure a topic is set via URL parameters

@@ -48,7 +48,7 @@ $forum_query = $forum_query[0];
 // Get page
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
-        Redirect::to(URL::build('/'));
+        Redirect::to(URL::build('/forum'));
     }
 
     if ($_GET['p'] == 1) {
@@ -177,7 +177,7 @@ if ($forum_query->redirect_forum == 1) {
     $smarty->assign('SERVER_STATUS', '');
 
     // Assignments
-    $smarty->assign('FORUM_INDEX_LINK', URL::build('/'));
+    $smarty->assign('FORUM_INDEX_LINK', URL::build('/forum'));
 
     // Any subforums?
     $subforums = DB::getInstance()->query('SELECT * FROM rw_forums WHERE parent = ? ORDER BY forum_order ASC', [$forum_query->id])->results();

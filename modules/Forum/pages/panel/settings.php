@@ -4,7 +4,7 @@
  *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0-pr12
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Panel forums page
  */
@@ -89,6 +89,8 @@ $smarty->assign([
     'LINK_MORE' => $language->get('admin', 'page_link_more'),
     'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
     'LINK_NONE' => $language->get('admin', 'page_link_none'),
+    'USE_REACTIONS' => $forum_language->get('forum', 'use_reactions'),
+    'USE_REACTIONS_VALUE' => Util::getSetting('forum_reactions') === '1',
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')

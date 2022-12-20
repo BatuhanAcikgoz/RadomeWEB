@@ -60,7 +60,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         }
     }
 } else {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 $token = Token::get();

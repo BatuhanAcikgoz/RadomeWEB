@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr8
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  React to a post
  */
@@ -40,7 +40,7 @@ if (Input::exists()) {
 
     // Check user can actually view the post
     if (!($forum->forumExist($post->forum_id, $user->getAllGroupIds()))) {
-        Redirect::to(URL::build('/forum/error/', 'error=not_exist'));
+        Redirect::to(URL::build('/forum/hata/', 'error=not_exist'));
     }
 
     if (Token::check()) {
@@ -81,7 +81,7 @@ if (Input::exists()) {
 
         // Redirect
     }
-    Redirect::to(URL::build('/forum/topic/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
+    Redirect::to(URL::build('/forum/konu/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
 } else {
     Redirect::to(URL::build('/forum'));
 }

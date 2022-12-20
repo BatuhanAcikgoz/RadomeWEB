@@ -72,7 +72,7 @@ if ($topic->topic_creator != $user_id && !$forum->canViewOtherTopics($topic->for
 // Get page
 if (isset($_GET['p'])) {
     if (!is_numeric($_GET['p'])) {
-        Redirect::to(URL::build('/'));
+        Redirect::to(URL::build('/forum'));
     }
 
     if ($_GET['p'] <= 1) {
@@ -149,7 +149,7 @@ if (count($page_metadata)) {
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{forum_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($forum_parent[0]->forum_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/bakis_topic'])->results();
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/forum/konuyu_goruntule'])->results();
 
     if (count($page_metadata)) {
         $first_post = DB::getInstance()->orderWhere('posts', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
@@ -241,7 +241,7 @@ if ($user->isLoggedIn()) {
 // Quick reply
 if (Input::exists()) {
     if (!$user->isLoggedIn() || !$can_reply) {
-        Redirect::to(URL::build('/'));
+        Redirect::to(URL::build('/forum'));
     }
     if (Token::check()) {
         $validate = Validate::check($_POST, [
@@ -302,6 +302,7 @@ if (Input::exists()) {
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,
                 'username' => $user->data()->username,
+                'nickname' => $user->data()->nickname,
                 'content' => $default_forum_language->get('forum', 'new_reply_in_topic', [
                     'topic' => $topic->topic_title,
                     'author' => $user->getDisplayname(),
@@ -312,6 +313,7 @@ if (Input::exists()) {
                 'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
                 'topic_author_username' => $topic_user->data()->username,
+                'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
                 'available_hooks' => $available_hooks === null ? [] : $available_hooks
@@ -327,8 +329,8 @@ if (Input::exists()) {
                             Alert::create(
                                 $user_following->user_id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/konu/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
@@ -461,7 +463,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
 $breadcrumbs[] = [
     'id' => 'index',
     'forum_title' => $forum_language->get('forum', 'forum_index'),
-    'link' => URL::build('/')
+    'link' => URL::build('/forum')
 ];
 
 $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
@@ -509,6 +511,8 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
     $smarty->assign([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $forum_language->get('forum', 'mod_actions'),
+        'LOCK_URL' => URL::build('/forum/kitle/', 'tid=' . urlencode($tid)),
+        'LOCK' => (($topic->locked == 1) ? $forum_language->get('forum', 'unlock_topic') : $forum_language->get('forum', 'lock_topic')),
         'MERGE_URL' => URL::build('/forum/birlestir/', 'tid=' . urlencode($tid)),
         'MERGE' => $forum_language->get('forum', 'merge_topic'),
         'DELETE_URL' => URL::build('/forum/kaldir/', 'tid=' . urlencode($tid)),
@@ -518,6 +522,8 @@ if ($user->isLoggedIn() && $forum->canModerateForum($forum_parent[0]->id, $user_
         'DELETE' => $forum_language->get('forum', 'delete_topic'),
         'MOVE_URL' => URL::build('/forum/tasi/', 'tid=' . urlencode($tid)),
         'MOVE' => $forum_language->get('forum', 'move_topic'),
+        'STICK_URL' => URL::build('/forum/sabitle/', 'tid=' . urlencode($tid)),
+        'STICK' => (($topic->sticky == 1) ? $forum_language->get('forum', 'unstick_topic') : $forum_language->get('forum', 'stick_topic')),
         'MARK_AS_SPAM' => $language->get('moderator', 'mark_as_spam'),
         'CONFIRM_SPAM_POST' => $language->get('moderator', 'confirm_spam')
     ]);
@@ -679,6 +685,7 @@ foreach ($results->data as $n => $nValue) {
                 $reaction_user = new User($item->user_given);
                 $post_reactions[$item->reaction_id]['users'][] = [
                     'username' => $reaction_user->getDisplayname(true),
+                    'nickname' => $reaction_user->getDisplayname(),
                     'style' => $reaction_user->getGroupStyle(),
                     'avatar' => $reaction_user->getAvatar(),
                     'profile' => $reaction_user->getProfileURL()

@@ -4,7 +4,7 @@
  *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Forum module - front page module
  */
@@ -34,6 +34,7 @@ if ($cache->isCached('news')) {
             'author_url' => $post_user->getProfileURL(),
             'author_style' => $post_user->getGroupStyle(),
             'author_name' => $post_user->getDisplayname(true),
+            'author_nickname' => $post_user->getDisplayname(),
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,

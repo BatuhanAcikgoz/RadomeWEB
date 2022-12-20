@@ -4,13 +4,13 @@
  *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0-pr8
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Delete post page
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 // Always define page name
@@ -20,13 +20,13 @@ $forum = new Forum();
 
 // Check params are set
 if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 // Get post and forum ID
 $post = DB::getInstance()->get('posts', ['id', $_GET['pid']])->results();
 if (!count($post)) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 $post = $post[0];
 
@@ -46,7 +46,7 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
                     Log::getInstance()->log(Log::Action('forums/post/delete'), Input::get('tid'));
                     $opening_post = 1;
 
-                    $redirect = URL::build('/'); // Create a redirect string
+                    $redirect = URL::build('/forum'); // Create a redirect string
                 } else {
                     $redirect = URL::build('/forum/konu/' . urlencode(Input::get('tid')));
                 }
@@ -84,6 +84,6 @@ if ($forum->canModerateForum($forum_id, $user->getAllGroupIds())) {
         echo 'No post selected';
     }
 } else {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 die();

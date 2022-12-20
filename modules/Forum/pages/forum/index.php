@@ -22,7 +22,7 @@ $timeago = new TimeAgo(TIMEZONE);
 $groups = $user->getAllGroupIds();
 
 // Breadcrumbs and search bar - same for latest discussions view + table view
-$smarty->assign('BREADCRUMB_URL', URL::build('/'));
+$smarty->assign('BREADCRUMB_URL', URL::build('/forum'));
 $smarty->assign('BREADCRUMB_TEXT', $forum_language->get('forum', 'forum_index'));
 // Search bar
 $smarty->assign([

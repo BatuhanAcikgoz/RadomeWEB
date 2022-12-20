@@ -1,10 +1,10 @@
-+<?php
+<?php
 /*
- *  Made by Samerton
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.0-pr9
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Panel forums page
  */
@@ -50,10 +50,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             $template_array[] = [
-                'edit_link' => URL::build('/panel/forums/', 'forum=' . Output::getClean($item->id)),
-                'delete_link' => URL::build('/panel/forums/', 'action=delete&fid=' . Output::getClean($item->id)),
-                'up_link' => ($i > 1 ? URL::build('/panel/forums/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
-                'down_link' => ($i < $count ? URL::build('/panel/forums/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
+                'edit_link' => URL::build('/panel/forumlar/', 'forum=' . Output::getClean($item->id)),
+                'delete_link' => URL::build('/panel/forumlar/', 'action=delete&fid=' . Output::getClean($item->id)),
+                'up_link' => ($i > 1 ? URL::build('/panel/forumlar/', 'action=order&dir=up&fid=' . Output::getClean($item->id)) : null),
+                'down_link' => ($i < $count ? URL::build('/panel/forumlar/', 'action=order&dir=down&fid=' . Output::getClean($item->id)) : null),
                 'title' => Output::getClean($item->forum_title),
                 'description' => Output::getPurified($item->forum_description),
                 'id' => Output::getClean($item->id),
@@ -68,10 +68,10 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
     $smarty->assign([
         'NEW_FORUM' => $forum_language->get('forum', 'new_forum'),
-        'NEW_FORUM_LINK' => URL::build('/panel/forums/', 'action=new'),
+        'NEW_FORUM_LINK' => URL::build('/panel/forumlar/', 'action=new'),
         'FORUMS_ARRAY' => $template_array,
         'NO_FORUMS' => $forum_language->get('forum', 'no_forums'),
-        'REORDER_DRAG_URL' => URL::build('/panel/forums')
+        'REORDER_DRAG_URL' => URL::build('/panel/forumlar')
     ]);
 
     $template_file = 'forum/forums.tpl';
@@ -130,7 +130,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                                     $forum_id = DB::getInstance()->lastId();
 
-                                    Redirect::to(URL::build('/panel/forums/', 'action=new&step=2&forum=' . $forum_id));
+                                    Redirect::to(URL::build('/panel/forumlar/', 'action=new&step=2&forum=' . $forum_id));
                                 } catch (Exception $e) {
                                     $errors[] = $e->getMessage();
                                 }
@@ -159,20 +159,20 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 } else {
                     // Parent category, for type forum only
                     if (!isset($_GET['forum']) || !is_numeric($_GET['forum'])) {
-                        Redirect::to(URL::build('/panel/forums'));
+                        Redirect::to(URL::build('/panel/forumlar'));
                     }
 
                     // Get forum from database
                     $forum = DB::getInstance()->get('forums', ['id', $_GET['forum']])->results();
                     if (!count($forum)) {
-                        Redirect::to(URL::build('/panel/forums'));
+                        Redirect::to(URL::build('/panel/forumlar'));
                     }
 
                     $forum = $forum[0];
 
                     // Forums only
                     if ($forum->forum_type == 'category') {
-                        Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
+                        Redirect::to(URL::build('/panel/forumlar/', 'forum=' . $forum->id));
                     }
 
                     // Deal with input
@@ -210,7 +210,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                         'hooks' => $hooks
                                     ]);
 
-                                    Redirect::to(URL::build('/panel/forums/', 'forum=' . $forum->id));
+                                    Redirect::to(URL::build('/panel/forumlar/', 'forum=' . $forum->id));
                                 }
 
                                 $errors[] = $forum_language->get('forum', 'invalid_redirect_url');
@@ -265,7 +265,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 $smarty->assign([
                     'CREATING_FORUM' => $forum_language->get('forum', 'creating_forum'),
                     'CANCEL' => $language->get('general', 'cancel'),
-                    'CANCEL_LINK' => URL::build('/panel/forums'),
+                    'CANCEL_LINK' => URL::build('/panel/forumlar'),
                     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                     'YES' => $language->get('general', 'yes'),
                     'NO' => $language->get('general', 'no'),
@@ -276,18 +276,18 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
             case 'order':
                 if (!isset($_GET['dir'])) {
-                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
+                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forumlar') . '">' . $language->get('general', 'back') . '</a>';
                     die();
                 }
                 if ($_GET['dir'] == 'up' || $_GET['dir'] == 'down') {
                     if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
-                        echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
+                        echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forumlar') . '">' . $language->get('general', 'back') . '</a>';
                         die();
                     }
 
                     if (!Token::check($_POST['token'])) {
                         Session::flash('admin_forums_error', $language->get('general', 'invalid_token'));
-                        Redirect::to('/panel/forums');
+                        Redirect::to('/panel/forumlar');
                     }
 
                     $dir = $_GET['dir'];
@@ -324,7 +324,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $errors = [$e->getMessage()];
                         }
 
-                        Redirect::to(URL::build('/panel/forums'));
+                        Redirect::to(URL::build('/panel/forumlar'));
                     }
 
                     if ($dir == 'down') {
@@ -350,7 +350,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             $errors = [$e->getMessage()];
                         }
 
-                        Redirect::to(URL::build('/panel/forums'));
+                        Redirect::to(URL::build('/panel/forumlar'));
                     }
                 } else {
                     if ($_GET['dir'] == 'drag') {
@@ -371,20 +371,20 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                         die('Complete');
                     }
 
-                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forums') . '">' . $language->get('general', 'back') . '</a>';
+                    echo $forum_language->get('forum', 'invalid_action') . ' - <a href="' . URL::build('/panel/forumlar') . '">' . $language->get('general', 'back') . '</a>';
                     die();
                 }
                 break;
 
             case 'delete':
                 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
-                    Redirect::to(URL::build('/panel/forums'));
+                    Redirect::to(URL::build('/panel/forumlar'));
                 }
 
                 // Ensure forum exists
                 $forum = DB::getInstance()->get('forums', ['id', $_GET['fid']])->results();
                 if (!count($forum)) {
-                    Redirect::to(URL::build('/panel/forums'));
+                    Redirect::to(URL::build('/panel/forumlar'));
                 }
                 $forum = $forum[0];
 
@@ -429,7 +429,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 DB::getInstance()->delete('forums_permissions', ['id', $perm->id]);
                             }
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_deleted_successfully'));
-                            Redirect::to(URL::build('/panel/forums'));
+                            Redirect::to(URL::build('/panel/forumlar'));
                         }
                     } else {
                         $errors = [$language->get('general', 'invalid_token')];
@@ -461,7 +461,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 break;
 
             default:
-                Redirect::to(URL::build('/panel/forums'));
+                Redirect::to(URL::build('/panel/forumlar'));
         }
     } else {
         if (isset($_GET['forum'])) {
@@ -473,7 +473,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             $forum = DB::getInstance()->get('forums', ['id', $_GET['forum']])->results();
 
             if (!count($forum)) {
-                Redirect::to(URL::build('/panel/forums'));
+                Redirect::to(URL::build('/panel/forumlar'));
             }
 
             $available_forums = DB::getInstance()->orderWhere('forums', 'id > 0', 'forum_order', 'ASC')->results(); // Get a list of all forums which can be chosen as a parent
@@ -679,7 +679,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                             }
 
                             Session::flash('admin_forums', $forum_language->get('forum', 'forum_updated_successfully'));
-                            Redirect::to(URL::build('/panel/forums'));
+                            Redirect::to(URL::build('/panel/forumlar'));
                         }
 
                         $errors = $validation->errors();
@@ -718,8 +718,8 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
             }
 
             // Get all forum permissions
-            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_forums_permissions WHERE group_id = 0 AND forum_id = ?', [$forum[0]->id])->results();
-            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$forum[0]->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM rw_forums_permissions WHERE group_id = 0 AND forum_id = ?', [$forum[0]->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_forums_permissions WHERE forum_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$forum[0]->id])->results();
 
             // Get default labels
             $enabled_labels = $forum[0]->default_labels ? explode(',', $forum[0]->default_labels) : [];
@@ -741,7 +741,7 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
             $smarty->assign([
                 'CANCEL' => $language->get('general', 'cancel'),
-                'CANCEL_LINK' => URL::build('/panel/forums'),
+                'CANCEL_LINK' => URL::build('/panel/forumlar'),
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),

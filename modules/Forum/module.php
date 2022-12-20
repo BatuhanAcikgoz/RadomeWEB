@@ -4,7 +4,7 @@
  *  https://github.com/RadomeWEB/Radome/
  *  RadomeWEB version 2.0.0
  *
- *  License: MIT
+ *  License: GPL-3.0
  *
  *  Forum module file
  */
@@ -13,14 +13,13 @@ class Forum_Module extends Module {
 
     private Language $_language;
     private Language $_forum_language;
-    
 
     public function __construct(Language $language, Language $forum_language, Pages $pages) {
         $this->_language = $language;
         $this->_forum_language = $forum_language;
 
         $name = 'Forum';
-        $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
+        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
         $module_version = '2.0.2';
         $radome_version = '2.0.2';
 
@@ -33,7 +32,7 @@ class Forum_Module extends Module {
 
         $pages->add('Forum', '/forum', 'pages/forum/index.php', 'forum', true);
         $pages->add('Forum', '/forum/hata', 'pages/forum/error.php');
-        $pages->add('Forum', '/forum/bakis', 'pages/forum/view_forums.php');
+        $pages->add('Forum', '/forum/bakis', 'pages/forum/view_forum.php');
         $pages->add('Forum', '/forum/konu', 'pages/forum/view_topic.php');
         $pages->add('Forum', '/forum/yeni', 'pages/forum/new_topic.php');
         $pages->add('Forum', '/forum/spam', 'pages/forum/spam.php');
@@ -62,6 +61,7 @@ class Forum_Module extends Module {
             [
                 'user_id' => $this->_language->get('admin', 'user_id'),
                 'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
                 'content' => $this->_language->get('general', 'content'),
                 'content_full' => $this->_language->get('general', 'full_content'),
                 'avatar_url' => $this->_language->get('user', 'avatar'),
@@ -69,6 +69,42 @@ class Forum_Module extends Module {
                 'url' => $this->_language->get('general', 'url'),
                 'available_hooks' => $this->_forum_language->get('forum', 'available_hooks')
             ]
+        );
+
+        EventHandler::registerEvent('prePostCreate',
+            $this->_forum_language->get('forum', 'pre_post_create_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('prePostEdit',
+            $this->_forum_language->get('forum', 'pre_post_edit_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('preTopicCreate',
+            $this->_forum_language->get('forum', 'pre_topic_create_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'user' => $this->_forum_language->get('forum', 'user_object')
+            ],
+            true,
+            true
         );
 
         EventHandler::registerEvent('preTopicEdit',
@@ -82,6 +118,43 @@ class Forum_Module extends Module {
             ],
             true,
             true
+        );
+
+        EventHandler::registerEvent('renderPost',
+            $this->_forum_language->get('forum', 'render_post'),
+            [
+                'content' => $this->_language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('renderPostEdit',
+            $this->_forum_language->get('forum', 'render_post_edit'),
+            [
+                'content' => $this->_language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('topicReply',
+            $this->_forum_language->get('forum', 'topic_reply'),
+            [
+                'user_id' => $this->_language->get('admin', 'user_id'),
+                'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
+                'content' => $this->_language->get('general', 'content'),
+                'content_full' => $this->_language->get('general', 'full_content'),
+                'avatar_url' => $this->_language->get('user', 'avatar'),
+                'title' => $this->_forum_language->get('forum', 'topic_title'),
+                'url' => $this->_language->get('general', 'url'),
+                'topic_author_user_id' => $this->_forum_language->get('forum', 'topic_author_uuid'),
+                'topic_author_username' => $this->_forum_language->get('forum', 'topic_author_username'),
+                'topic_author_nickname' => $this->_forum_language->get('forum', 'topic_author_nickname'),
+                'topic_id' => $this->_forum_language->get('forum', 'topic_id'),
+                'post_id' => $this->_forum_language->get('forum', 'post_id'),
+            ]
         );
 
         EventHandler::registerListener('deleteUser', 'DeleteUserForumHook::execute');
@@ -134,8 +207,8 @@ class Forum_Module extends Module {
         // Add link to navbar
         $cache->setCache('nav_location');
         if (!$cache->isCached('forum_location')) {
-            $link_location = 0;
-            $cache->store('forum_location', 0);
+            $link_location = 1;
+            $cache->store('forum_location', 1);
         } else {
             $link_location = $cache->retrieve('forum_location');
         }
@@ -157,10 +230,16 @@ class Forum_Module extends Module {
 
         switch ($link_location) {
             case 1:
+                // Navbar
+                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $forum_order, $icon);
                 break;
             case 2:
+                // "More" dropdown
+                $navs[0]->addItemToDropdown('more_dropdown', 'forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'top', null, $icon, $forum_order);
                 break;
             case 3:
+                // Footer
+                $navs[0]->add('forum', $this->_forum_language->get('forum', 'forum'), URL::build('/forum'), 'footer', null, $forum_order, $icon);
                 break;
         }
 
@@ -217,6 +296,15 @@ class Forum_Module extends Module {
                     $navs[2]->add('forum_divider', mb_strtoupper($this->_forum_language->get('forum', 'forum'), 'UTF-8'), 'divider', 'top', null, $order, '');
                     $navs[2]->add('forum_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/forumlar/ayarlar'), 'top', null, $order + 0.1, $icon);
 
+                    if (!$cache->isCached('forum_icon')) {
+                        $icon = '<i class="nav-icon fas fa-comments"></i>';
+                        $cache->store('forum_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('forum_icon');
+                    }
+
+                    $navs[2]->add('forums', $this->_forum_language->get('forum', 'forums'), URL::build('/panel/forumlar'), 'top', null, $order + 0.2, $icon);
+
                     if (!$cache->isCached('forum_label_icon')) {
                         $icon = '<i class="nav-icon fas fa-tags"></i>';
                         $cache->store('forum_label_icon', $icon);
@@ -233,8 +321,6 @@ class Forum_Module extends Module {
                     // Get data for topics and posts
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
                     $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
-                    $latest_submissions = DB::getInstance()->orderWhere('forms_replies', 'created > ' . strtotime('-1 week'), 'created', 'ASC')->results();
-                    $open_submissions = DB::getInstance()->query("SELECT * FROM rw_forms_replies WHERE status_id = 1")->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
@@ -243,12 +329,10 @@ class Forum_Module extends Module {
                     } else {
                         $output = [];
 
-                        $output['datasets']['topics']['label'] = 'forum_language/forum/topics_title'; // for $forum_language->get('forum', 'topics_title');
+                        $output['datasets']['topics']['label'] = 'forum_language/forum/konus_title'; // for $forum_language->get('forum', 'topics_title');
                         $output['datasets']['topics']['colour'] = '#00931D';
                         $output['datasets']['posts']['label'] = 'forum_language/forum/posts_title'; // for $forum_language->get('forum', 'posts_title');
                         $output['datasets']['posts']['colour'] = '#ffde0a';
-                        $output['datasets']['submissions']['label'] = 'forms_language/forms/submissions'; // for $forum_language->get('forum', 'posts_title');
-                        $output['datasets']['submissions']['colour'] = '#ff7f00';
 
                         foreach ($latest_topics as $topic) {
                             $date = date('d M Y', $topic->topic_date);
@@ -258,17 +342,6 @@ class Forum_Module extends Module {
                                 $output[$date]['topics'] += 1;
                             } else {
                                 $output[$date]['topics'] = 1;
-                            }
-                        }
-
-                        foreach ($latest_submissions as $submissions) {
-                            $date = date('d M Y', $submissions->created);
-                            $date = '_' . strtotime($date);
-
-                            if (isset($output[$date]['submissions'])) {
-                                $output[$date]['submissions'] += 1;
-                            } else {
-                                $output[$date]['submissions'] = 1;
                             }
                         }
 
@@ -297,10 +370,6 @@ class Forum_Module extends Module {
                                 $output['_' . $start]['posts'] = 0;
                             }
 
-                            if (!isset($output['_' . $start]['submissions'])) {
-                                $output['_' . $start]['submissions'] = 0;
-                            }
-
                             $start = strtotime('+1 day', $start);
                         }
 
@@ -317,8 +386,8 @@ class Forum_Module extends Module {
                     require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentTopics.php');
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, count($latest_topics)));
 
-                    require_once(ROOT_PATH . '/modules/Formlar/collections/panel/Recentforms_replies.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, count($open_submissions)));
+                    require_once(ROOT_PATH . '/modules/Forum/collections/panel/RecentPosts.php');
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_forum_language, $cache, count($latest_posts)));
 
                 }
             }

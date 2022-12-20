@@ -10,7 +10,7 @@
  */
 
 if (!$user->isLoggedIn()) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 // Always define page name
@@ -21,13 +21,13 @@ $forum = new Forum();
 
 // Get the post
 if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 
 $post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
 $post = $post[0];
 
@@ -49,14 +49,10 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
         }
 
         // Delete all posts from the user
-        DB::getInstance()->query('UPDATE rw_posts SET `deleted` = 1 WHERE `post_creator` = ?', [$post->post_creator]);
+        DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
 
         // Delete all topics from the user
-        DB::getInstance()->query(
-            'UPDATE rw_posts SET `deleted` = 1 WHERE `topic_id` IN (SELECT `id` FROM rw_topics WHERE `topic_creator` = ?)',
-            [$post->post_creator]
-        );
-        DB::getInstance()->query('UPDATE rw_topics SET `deleted` = 1 WHERE `topic_creator` = ?', [$post->post_creator]);
+        DB::getInstance()->delete('topics', ['topic_creator', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
@@ -76,12 +72,12 @@ if ($forum->canModerateForum($post->forum_id, $user->getAllGroupIds())) {
 
         // Redirect
         Session::flash('spam_info', $language->get('moderator', 'user_marked_as_spam'));
-        Redirect::to(URL::build('/'));
+        Redirect::to(URL::build('/forum'));
     } else {
         // Invalid token
         Redirect::to(URL::build('/forum/konu/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
     }
 } else {
     // Can't moderate forum
-    Redirect::to(URL::build('/'));
+    Redirect::to(URL::build('/forum'));
 }
