@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html {if "HTML_CLASS"|defined}{$smarty.const.HTML_CLASS} {/if}lang="{if "HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}"{if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq true} dir="rtl"{/if}{if isset($THEME_DARK) && $THEME_DARK|count_characters > 2} class="dark"{/if} id="html">
+<html {if "HTML_CLASS"|defined}{$smarty.const.HTML_CLASS} {/if}lang="{if "HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}" class="dark" id="html">
 	<head>
 	
 		{literal}

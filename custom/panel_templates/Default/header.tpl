@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<html{if "HTML_CLASS"|defined} {$smarty.const.HTML_CLASS}{/if} lang="{if "
-    HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}" {if "HTML_RTL"|defined && $smarty.const.HTML_RTL eq
-    true} dir="rtl" {/if}>
+<!DOCTYPE html>s
+<html{if "HTML_CLASS"|defined} {$smarty.const.HTML_CLASS}{/if} lang="{if "HTML_LANG"|defined}{$smarty.const.HTML_LANG}{else}en{/if}">
 
     <head>
         <!-- Standard Meta -->
