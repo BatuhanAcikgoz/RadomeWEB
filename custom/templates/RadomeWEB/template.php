@@ -182,6 +182,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$this->_language = $language;
 		$this->_user = $user;
 		$this->_pages = $pages;
+		$this->_cache = $cache;
 
 	}
 
