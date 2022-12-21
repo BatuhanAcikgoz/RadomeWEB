@@ -46,7 +46,7 @@ if (loggedIn == 1) {
 							}
 
 							notification.onclick = function () {
-								window.location.replace(URLBuild('user/messaging'));
+								window.location.replace(URLBuild('kullanici/mesajlasma'));
 							};
 
 						}
