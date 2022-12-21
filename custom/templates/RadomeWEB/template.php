@@ -196,7 +196,7 @@ class RadomeWEB_Template extends TemplateBase {
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
-			'siteIcon' => $cache->retrieve('logo_image'),
+			'siteIcon' => $this->_cache->retrieve('logo_image'),
             'siteURL' => URL::build('/'),
             'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
