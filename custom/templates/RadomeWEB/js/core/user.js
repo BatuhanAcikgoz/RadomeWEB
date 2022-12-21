@@ -37,11 +37,11 @@ if (loggedIn == 1) {
 						else {
 							if (data.value == 1) {
 								var notification = new Notification(siteName, {
-									body: newMessage1, icon: siteIcon,
+									body: newMessage1,
 								});
 							} else {
 								var notification = new Notification(siteName, {
-									body: x_messages.replace("{{count}}", data.value), icon: siteIcon,
+									body: x_messages.replace("{{count}}", data.value),
 								});
 							}
 
@@ -78,11 +78,11 @@ if (loggedIn == 1) {
 						else {
 							if (data.value == 1) {
 								var notification = new Notification(siteName, {
-									body: newAlert1, icon: siteIcon,
+									body: newAlert1,
 								});
 							} else {
 								var notification = new Notification(siteName, {
-									body: x_alerts.replace("{{count}}", data.value), icon: siteIcon,
+									body: x_alerts.replace("{{count}}", data.value),
 								});
 							}
 
