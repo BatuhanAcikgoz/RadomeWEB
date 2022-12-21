@@ -51,10 +51,6 @@ if ($forum_enabled) {
         $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
         $output[$date]['average'] = $item->{'(COUNT(*) / COUNT(Distinct post_creator))'};
     }
-    foreach ($forum_query_total as $item) {
-        $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
-        $output[$date]['total'] = $item->{'COUNT(*)'};
-    }
     foreach ($submissions_total as $item) {
         $date = strtotime($item->{'FROM_UNIXTIME(created, \'%Y-%m-%d\')'});
         $output[$date]['submissions'] = $item->{'COUNT(*)'};
@@ -77,10 +73,6 @@ if ($forum_enabled) {
 
         if (!isset($output[$graph_start]['average'])) {
             $output[$graph_start]['average'] = 0;
-        }
-
-        if (!isset($output[$graph_start]['total'])) {
-            $output[$graph_start]['total'] = 0;
         }
         if (!isset($output[$graph_start]['submissions'])) {
             $output[$graph_start]['submissions'] = 0;
@@ -157,7 +149,7 @@ if ($forum_enabled) {
                         pointBorderColor: "#4cf702",
                         pointBackgroundColor: "#fff",
                         tension: 0.1,
-                        data: ' . $submissions . '
+                        data: ' . $store_orders . '
                     },
                 ]
             }
