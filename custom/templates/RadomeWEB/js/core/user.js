@@ -46,7 +46,7 @@ if (loggedIn == 1) {
 							}
 
 							notification.onclick = function () {
-								window.location.href(URLBuild('user/messaging'));
+								window.location.replace(URLBuild('user/messaging'));
 							};
 
 						}
@@ -87,7 +87,7 @@ if (loggedIn == 1) {
 							}
 
 							notification.onclick = function () {
-								window.location.href(URLBuild('kullanici/uyarilar'));
+								window.location.replace(URLBuild('kullanici/uyarilar'));
 							};
 
 						}
