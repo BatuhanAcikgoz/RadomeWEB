@@ -193,5 +193,7 @@
     "forum\/views": "Görüntüleme",
     "forum\/x_posts": "{{count}} Mesaj",
     "forum\/x_topics": "{{count}} Konu",
-    "forum\/your_posts": "Mesaj sayınız"
+    "forum\/your_posts": "Mesaj sayınız",
+    "forms\/submissions": "Açık Talepler",
+    "store\/store_orders": "Ödemeler"
 }
