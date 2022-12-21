@@ -26,7 +26,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$template = [
 			'name' => 'RadomeWEB',
 			'version' => Output::getClean($radomeweb_local_version),
-			'nl_version' => '2.0.0-pr12',
+			'nl_version' => '2.0.2',
 			'author' => '<a href="' . Output::getClean($radomeweb_url) . '" target="_blank" rel="nofollow noopener">Verira.com</a>',
 		];
 		
@@ -194,9 +194,9 @@ class RadomeWEB_Template extends TemplateBase {
         ]);
 
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
-
         $JSVariables = [
             'siteName' => Output::getClean(SITE_NAME),
+			'siteIcon' => $cache->retrieve('logo_image'),
             'siteURL' => URL::build('/'),
             'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
             'page' => PAGE,
