@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{$LANG}" {$RTL}>
+<html lang="{$LANG}">
 
 <head>
 
