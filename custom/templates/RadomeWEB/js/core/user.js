@@ -36,12 +36,12 @@ if (loggedIn == 1) {
 							Notification.requestPermission();
 						else {
 							if (data.value == 1) {
-								var notification = new Notification(siteName, image, {
-									body: newMessage1,
+								var notification = new Notification(siteName, {
+									body: newMessage1, icon,
 								});
 							} else {
-								var notification = new Notification(siteName, image, {
-									body: x_messages.replace("{{count}}", data.value),
+								var notification = new Notification(siteName, {
+									body: x_messages.replace("{{count}}", data.value), icon,
 								});
 							}
 
@@ -77,12 +77,12 @@ if (loggedIn == 1) {
 							Notification.requestPermission();
 						else {
 							if (data.value == 1) {
-								var notification = new Notification(siteName, image, {
-									body: newAlert1,
+								var notification = new Notification(siteName, {
+									body: newAlert1, icon,
 								});
 							} else {
-								var notification = new Notification(siteName, image, {
-									body: x_alerts.replace("{{count}}", data.value),
+								var notification = new Notification(siteName, {
+									body: x_alerts.replace("{{count}}", data.value), icon,
 								});
 							}
 
