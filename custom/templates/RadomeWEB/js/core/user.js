@@ -36,11 +36,11 @@ if (loggedIn == 1) {
 							Notification.requestPermission();
 						else {
 							if (data.value == 1) {
-								var notification = new Notification(siteName, {
+								var notification = new Notification(siteName, image, {
 									body: newMessage1,
 								});
 							} else {
-								var notification = new Notification(siteName, {
+								var notification = new Notification(siteName, image, {
 									body: x_messages.replace("{{count}}", data.value),
 								});
 							}
@@ -77,11 +77,11 @@ if (loggedIn == 1) {
 							Notification.requestPermission();
 						else {
 							if (data.value == 1) {
-								var notification = new Notification(siteName, {
+								var notification = new Notification(siteName, image, {
 									body: newAlert1,
 								});
 							} else {
-								var notification = new Notification(siteName, {
+								var notification = new Notification(siteName, image, {
 									body: x_alerts.replace("{{count}}", data.value),
 								});
 							}
