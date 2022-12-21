@@ -199,7 +199,7 @@ class RadomeWEB_Template extends TemplateBase {
             'siteName' => Output::getClean(SITE_NAME),
 			'siteIcon' => $this->_cache->retrieve('logo_image'),
             'siteURL' => URL::build('/'),
-            'fullSiteUrl' => URL::getSelfURL() . ltrim(URL::build('/'), '/'),
+            'fullSiteUrl' => rtrim(URL::getSelfURL(), '/'),
             'page' => PAGE,
             'avatarSource' => AvatarSource::getUrlToFormat(),
             'copied' => $this->_language->get('general', 'copied'),
