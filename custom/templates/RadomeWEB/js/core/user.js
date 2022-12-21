@@ -41,7 +41,7 @@ if (loggedIn == 1) {
 								});
 							} else {
 								var notification = new Notification(siteName, {
-									body: x_messages.replace("{x}", data.value),
+									body: x_messages.replace("{count}", data.value),
 								});
 							}
 
@@ -82,7 +82,7 @@ if (loggedIn == 1) {
 								});
 							} else {
 								var notification = new Notification(siteName, {
-									body: x_alerts.replace("{x}", data.value),
+									body: x_alerts.replace("{count}", data.value),
 								});
 							}
 
