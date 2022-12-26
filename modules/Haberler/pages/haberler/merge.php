@@ -1,0 +1,92 @@
+<?php
+/*
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
+ *
+ *  License: GPL-3.0
+ *
+ *  Merge two habers together
+ */
+
+const PAGE = 'haberler';
+$page_title = $haberler_language->get('haberler', 'merge_habers');
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+$haberler = new Haberler();
+
+// User must be logged in to proceed
+if (!$user->isLoggedIn()) {
+    Redirect::to('/haberler');
+}
+
+if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+}
+
+$haber_id = $_GET['tid'];
+$haberler_id = DB::getInstance()->query('SELECT haberler_id FROM rw_habers WHERE id = ?', [$haber_id])->first();
+$haberler_id = $haberler_id->haberler_id;
+
+if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
+    if (Input::exists()) {
+        if (Token::check()) {
+            $validation = Validate::check($_POST, [
+                'merge' => [
+                    Validate::REQUIRED => true
+                ]
+            ]);
+
+            $posts_to_move = DB::getInstance()->get('posts', ['haber_id', $haber_id])->results();
+            if ($validation->passed()) {
+
+                foreach ($posts_to_move as $post_to_move) {
+                    DB::getInstance()->update('posts', $post_to_move->id, [
+                        'haber_id' => Input::get('merge')
+                    ]);
+                }
+                DB::getInstance()->delete('habers', ['id', $haber_id]);
+                Log::getInstance()->log(Log::Action('haberlers/merge'));
+                // Update latest posts in categories
+                $haberler->updateHaberlerLatestPosts();
+                $haberler->updateTopicLatestPosts();
+
+                Redirect::to(URL::build('/haberler/konu/' . urlencode(Input::get('merge'))));
+
+            } else {
+                echo 'Error processing that action. <a href="' . URL::build('/haberler') . '">Haberler index</a>';
+            }
+            die();
+        }
+    }
+} else {
+    Redirect::to(URL::build('/haberler'));
+}
+
+$token = Token::get();
+
+// Get habers
+$habers = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$haberler_id, $haber_id])->results();
+
+// Smarty
+$smarty->assign([
+    'MERGE_TOPICS' => $haberler_language->get('haberler', 'merge_habers'),
+    'MERGE_INSTRUCTIONS' => $haberler_language->get('haberler', 'merge_instructions'),
+    'TOKEN' => Token::get(),
+    'SUBMIT' => $language->get('general', 'submit'),
+    'CANCEL' => $language->get('general', 'cancel'),
+    'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
+    'CANCEL_LINK' => URL::build('/haberler/konu/' . urlencode($haber_id)),
+    'TOPICS' => $habers
+]);
+
+// Load modules + template
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+$template->onPageLoad();
+
+require(ROOT_PATH . '/core/templates/navbar.php');
+require(ROOT_PATH . '/core/templates/footer.php');
+
+// Display template
+$template->displayTemplate('haberler/merge.tpl', $smarty);

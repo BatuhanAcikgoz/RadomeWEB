@@ -444,6 +444,11 @@ class DatabaseInitialiser {
         ]);
 
         $this->_db->insert('modules', [
+            'name' => 'Haberler',
+            'enabled' => true,
+        ]);
+
+        $this->_db->insert('modules', [
             'name' => 'Discord Entegrasyonu',
             'enabled' => true,
         ]);
@@ -488,6 +493,10 @@ class DatabaseInitialiser {
             [
                 'name' => 'Core',
                 'priority' => 1
+            ],
+            [
+                'name' => 'Haberler',
+                'priority' => 3
             ],
             [
                 'name' => 'Forum',

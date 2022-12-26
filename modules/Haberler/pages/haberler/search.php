@@ -1,0 +1,245 @@
+<?php
+/*
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
+ *
+ *  License: GPL-3.0
+ *
+ *  Haberler search page
+ */
+
+if (!isset($haberler) || (!$haberler instanceof Haberler)) {
+    $haberler = new Haberler();
+}
+
+const PAGE = 'haberler';
+
+// Initialise
+$timeago = new TimeAgo(TIMEZONE);
+
+// Get user group ID
+$user_groups = $user->getAllGroupIds();
+
+if (!isset($_GET['s'])) {
+    if (Input::exists()) {
+        if (Token::check()) {
+            $validation = Validate::check($_POST, [
+                'haberler_search' => [
+                    Validate::REQUIRED => true,
+                    Validate::MIN => 3,
+                    Validate::MAX => 128
+                ]
+            ]);
+
+            if ($validation->passed()) {
+                $search = str_replace(' ', '+', Output::getClean(Input::get('haberler_search')));
+                $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
+
+                Redirect::to(URL::build('/haberler/arama/', 's=' . urlencode($search) . '&p=1'));
+            }
+
+            $error = $haberler_language->get('haberler', 'invalid_search_query', ['min' => 3, 'max' => 128]);
+        } else {
+            $error = $language->get('general', 'invalid_token');
+        }
+    }
+} else {
+    $search = Output::getClean(str_replace('+', ' ', $_GET['s']));
+    $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
+
+    if (isset($_GET['p']) && is_numeric($_GET['p'])) {
+        $p = $_GET['p'];
+    } else {
+        $p = 1;
+    }
+
+    if (isset($_SESSION['last_haberler_search']) && $_SESSION['last_haberler_search_query'] != $_GET['s'] && $_SESSION['last_haberler_search'] > strtotime('-1 minute')) {
+        Session::flash('search_error', $haberler_language->get('haberler', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_haberler_search']))]));
+        Redirect::to(URL::build('/haberler/arama'));
+    }
+
+    $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
+    if (!$cache->isCached('result')) {
+        // Execute search
+        $search_habers = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haber_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_posts = DB::getInstance()->query('SELECT * FROM rw_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
+
+        $search_results = array_merge($search_habers, $search_posts);
+
+        $results = [];
+        foreach ($search_results as $result) {
+            // Check permissions
+            $perms = DB::getInstance()->get('haberlers_permissions', ['haberler_id', $result->haberler_id])->results();
+            foreach ($perms as $perm) {
+                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_habers == 1) {
+                    if (isset($result->haber_id)) {
+                        // Post
+                        if (!isset($results[$result->id]) && $result->deleted == 0) {
+                            // Get associated haber
+                            $haber = DB::getInstance()->get('habers', ['id', $result->haber_id])->results();
+                            if (count($haber) && $haber[0]->deleted === 0) {
+                                $haber = $haber[0];
+                                $results[$result->id] = [
+                                    'post_id' => $result->id,
+                                    'haber_id' => $haber->id,
+                                    'haber_title' => $haber->haber_title,
+                                    'post_author' => $result->post_creator,
+                                    'post_date' => $result->post_date,
+                                    'post_content' => $result->post_content
+                                ];
+
+                                break;
+                            }
+
+                            break;
+                        } else {
+                            break;
+                        }
+                    } else {
+                        // Topic, get associated post
+                        $post = DB::getInstance()->query('SELECT * FROM rw_posts WHERE haber_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                        if ($post->count()) {
+                            $post = $post->first();
+                            if (!isset($results[$post->id]) && $post->deleted == 0) {
+                                $results[$post->id] = [
+                                    'post_id' => $post->id,
+                                    'haber_id' => $result->id,
+                                    'haber_title' => $result->haber_title,
+                                    'post_author' => $post->post_creator,
+                                    'post_date' => $post->post_date,
+                                    'post_content' => $post->post_content
+                                ];
+
+                                break;
+                            }
+
+                            break;
+                        } else {
+                            break;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        $results = array_values($results);
+        $cache->store('result', $results, 60);
+
+        if (!isset($_SESSION['last_haberler_search_query']) || $_SESSION['last_haberler_search_query'] != $_GET['s']) {
+            $_SESSION['last_haberler_search'] = date('U');
+            $_SESSION['last_haberler_search_query'] = $_GET['s'];
+        }
+    } else {
+        $results = $cache->retrieve('result');
+    }
+
+    $input = true;
+}
+
+if (!isset($_GET['s'])) {
+    $page_title = $haberler_language->get('haberler', 'haberler_search');
+} else {
+    $page_title = $haberler_language->get('haberler', 'haberler_search') . ' - ' . Output::getClean(substr($search, 0, 20)) . ' - ' . $language->get('general', 'page_x', ['page' => $p]);
+}
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+$template->assets()->include([
+    AssetTree::TINYMCE,
+]);
+
+if (isset($_GET['s'])) {
+    // Show results
+    if (count($results)) {
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
+        $results = $paginator->getLimited($results, 10, $p, count($results));
+        $pagination = $paginator->generate(7, URL::build('/haberler/arama/', 's=' . urlencode($search) . '&'));
+
+        $smarty->assign('PAGINATION', $pagination);
+
+        // Posts to display on the page
+        $posts = [];
+        // Display the correct number of posts
+        $n = 0;
+        while (($n < count($results->data)) && isset($results->data[$n])) {
+            // Purify post content
+            $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
+
+            $post_user = new User($results->data[$n]['post_author']);
+            $posts[$n] = [
+                'post_author' => $post_user->getDisplayname(),
+                'post_author_id' => Output::getClean($results->data[$n]['post_author']),
+                'post_author_avatar' => $post_user->getAvatar(25),
+                'post_author_profile' => $post_user->getProfileURL(),
+                'post_author_style' => $post_user->getGroupStyle(),
+                'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
+                'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
+                'content' => $content,
+                'haber_title' => Output::getClean($results->data[$n]['haber_title']),
+                'post_url' => URL::build('/haberler/konu/' . urlencode($results->data[$n]['haber_id']) . '-' . $haberler->titleToURL($results->data[$n]['haber_title']), 'pid=' . $results->data[$n]['post_id'])
+            ];
+            $n++;
+        }
+
+        $results = null;
+
+        $smarty->assign([
+            'RESULTS' => $posts,
+            'READ_FULL_POST' => $haberler_language->get('haberler', 'read_full_post')
+        ]);
+    } else {
+        $smarty->assign('NO_RESULTS', $haberler_language->get('haberler', 'no_results_found'));
+    }
+
+    $smarty->assign([
+        'SEARCH_RESULTS' => $haberler_language->get('haberler', 'search_results'),
+        'NEW_SEARCH' => $haberler_language->get('haberler', 'new_search'),
+        'NEW_SEARCH_URL' => URL::build('/haberler/arama'),
+        'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
+    ]);
+
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+    $template->onPageLoad();
+
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
+
+    // Display template
+    $template->displayTemplate('haberler/search_results.tpl', $smarty);
+} else {
+    // Search bar
+    if (isset($error)) {
+        $smarty->assign('ERROR', $error);
+    } else {
+        if (Session::exists('search_error')) {
+            $smarty->assign('ERROR', Session::flash('search_error'));
+        }
+    }
+
+    $smarty->assign([
+        'FORUM_SEARCH' => $haberler_language->get('haberler', 'haberler_search'),
+        'FORM_ACTION' => URL::build('/haberler/arama'),
+        'SEARCH' => $language->get('general', 'search'),
+        'TOKEN' => Token::get(),
+        'SUBMIT' => $language->get('general', 'submit'),
+        'ERROR_TITLE' => $language->get('general', 'error')
+    ]);
+
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+    $template->onPageLoad();
+
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
+
+    // Display template
+    $template->displayTemplate('haberler/search.tpl', $smarty);
+}

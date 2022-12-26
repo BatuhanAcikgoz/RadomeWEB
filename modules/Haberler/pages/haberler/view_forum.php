@@ -1,0 +1,513 @@
+<?php
+/*
+ *  Made by Reeignn
+ *  https://github.com/Verira/RadomeWEB
+ *  RadomeWEB v2.1
+ *
+ *  License: GPL-3.0
+ *
+ *  View haberler page
+ */
+
+// Always define page name
+const PAGE = 'haberler';
+
+$haberler = new Haberler();
+$timeago = new TimeAgo(TIMEZONE);
+
+// Get haberler ID
+$fid = explode('/', $route);
+$fid = $fid[count($fid) - 1];
+
+if (!strlen($fid)) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+
+$fid = explode('-', $fid);
+if (!is_numeric($fid[0])) {
+    require_once(ROOT_PATH . '/404.php');
+    die();
+}
+$fid = Output::getClean($fid[0]);
+
+// Get user group ID
+$user_groups = $user->getAllGroupIds();
+
+// Does the haberler exist, and can the user view it?
+$list = $haberler->canViewHaberler($fid, $user_groups);
+if (!$list) {
+    require_once(ROOT_PATH . '/403.php');
+    die();
+}
+
+// Get data from the database
+$haberler_query = DB::getInstance()->get('haberlers', ['id', $fid])->results();
+$haberler_query = $haberler_query[0];
+
+// Get page
+if (isset($_GET['p'])) {
+    if (!is_numeric($_GET['p'])) {
+        Redirect::to(URL::build('/haberler'));
+    }
+
+    if ($_GET['p'] == 1) {
+        // Avoid bug in pagination class
+        Redirect::to(URL::build('/haberler/bakis/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+    }
+    $p = $_GET['p'];
+} else {
+    $p = 1;
+}
+
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/bakis'])->results();
+if (count($page_metadata)) {
+
+    define('PAGE_DESCRIPTION', str_replace(
+        ['{site}', '{haberler_title}', '{page}', '{description}'],
+        [Output::getClean(SITE_NAME), Output::getClean($haberler_query->haberler_title), Output::getClean($p), Output::getClean($haberler_query->haberler_description)],
+        $page_metadata[0]->description
+    ));
+
+    define('PAGE_KEYWORDS', $page_metadata[0]->tags);
+}
+
+$page_title = $haberler_language->get('haberler', 'haberler');
+$page_title .= ' - ' . $language->get('general', 'page_x', ['page' => $p]);
+require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+
+// Redirect haberler?
+if ($haberler_query->redirect_haberler == 1) {
+    if (!URL::isExternalURL($haberler_query->redirect_url)) {
+        Redirect::to(Output::getClean($haberler_query->redirect_url));
+    }
+
+    $smarty->assign([
+        'CONFIRM_REDIRECT' => $haberler_language->get('haberler', 'haberler_redirect_warning', ['url' => Output::getClean($haberler_query->redirect_url)]),
+        'YES' => $language->get('general', 'yes'),
+        'NO' => $language->get('general', 'no'),
+        'REDIRECT_URL' => Output::getClean($haberler_query->redirect_url),
+        'FORUM_INDEX' => URL::build('/haberler')
+    ]);
+
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+    $template->onPageLoad();
+
+    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
+
+    // Display template
+    $template->displayTemplate('haberler/view_haberler_confirm_redirect.tpl', $smarty);
+} else {
+    // Get all habers
+    if ($user->isLoggedIn()) {
+        $user_id = $user->data()->id;
+    } else {
+        $user_id = 0;
+    }
+
+    if ($haberler->canViewOtherTopics($fid, $user_groups)) {
+        $habers = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 ORDER BY haber_reply_date DESC', [$fid])->results();
+    } else {
+        $habers = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 AND haber_creator = ? ORDER BY haber_reply_date DESC', [$fid, $user_id])->results();
+    }
+
+    // Get sticky habers
+    $stickies = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND sticky = 1 AND deleted = 0 ORDER BY haber_reply_date DESC', [$fid])->results();
+
+    // Search bar
+    $smarty->assign([
+        'SEARCH_URL' => URL::build('/haberler/arama'),
+        'SEARCH' => $language->get('general', 'search'),
+        'TOKEN' => Token::get()
+    ]);
+
+    // Breadcrumbs and search bar - same for latest discussions view + table view
+    $parent_category = DB::getInstance()->get('haberlers', ['id', $haberler_query->parent])->results();
+    $breadcrumbs = [0 => [
+        'id' => $haberler_query->id,
+        'haberler_title' => Output::getClean($haberler_query->haberler_title),
+        'active' => 1,
+        'link' => URL::build('/haberler/bakis/' . urlencode($haberler_query->id) . '-' . $haberler->titleToURL($haberler_query->haberler_title))
+    ]];
+    if (!empty($parent_category) && $parent_category[0]->parent == 0) {
+        // Category
+        $breadcrumbs[] = [
+            'id' => $parent_category[0]->id,
+            'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
+            'link' => URL::build('/haberler/bakis/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+        ];
+    } else {
+        if (!empty($parent_category)) {
+            // Parent haberler, get its category
+            $breadcrumbs[] = [
+                'id' => $parent_category[0]->id,
+                'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
+                'link' => URL::build('/haberler/bakis/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+            ];
+            $parent = false;
+            while ($parent == false) {
+                $parent_category = DB::getInstance()->get('haberlers', ['id', $parent_category[0]->parent])->results();
+                $breadcrumbs[] = [
+                    'id' => $parent_category[0]->id,
+                    'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
+                    'link' => URL::build('/haberler/bakis/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                ];
+                if ($parent_category[0]->parent == 0) {
+                    $parent = true;
+                }
+            }
+        }
+    }
+
+    $breadcrumbs[] = [
+        'id' => 'index',
+        'haberler_title' => $haberler_language->get('haberler', 'haberler_index'),
+        'link' => URL::build('/haberler')
+    ];
+
+    $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
+
+    // Server status module
+    $smarty->assign('SERVER_STATUS', '');
+
+    // Assignments
+    $smarty->assign('FORUM_INDEX_LINK', URL::build('/haberler'));
+
+    // Any subhaberlers?
+    $subhaberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_query->id])->results();
+
+    $subhaberler_array = [];
+
+    if (count($subhaberlers)) {
+        // append subhaberlers to string
+        foreach ($subhaberlers as $subhaberler) {
+            // Get number of habers
+            if ($haberler->haberlerExist($subhaberler->id, $user_groups)) {
+                if ($haberler->canViewOtherTopics($subhaberler->id, $user_groups)) {
+                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND deleted = 0 ORDER BY haber_reply_date DESC', [$subhaberler->id])->results();
+                } else {
+                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haberler_id = ? AND deleted = 0 AND haber_creator = ? ORDER BY haber_reply_date DESC', [$subhaberler->id, $user_id])->results();
+                }
+
+                $subhaberler_habers = count($latest_post);
+                if (count($latest_post)) {
+                    foreach ($latest_post as $item) {
+                        if ($item->deleted == 0) {
+                            $latest_post = $item;
+                            break;
+                        }
+                    }
+
+                    $latest_post_user = new User($latest_post->haber_last_user);
+                    $latest_post_link = URL::build('/haberler/konu/' . urlencode($latest_post->id) . '-' . $haberler->titleToURL($latest_post->haber_title));
+                    $latest_post_avatar = $latest_post_user->getAvatar();
+                    $latest_post_title = Output::getClean($latest_post->haber_title);
+                    $latest_post_user_displayname = $latest_post_user->getDisplayname();
+                    $latest_post_user_link = $latest_post_user->getProfileURL();
+                    $latest_post_style = $latest_post_user->getGroupStyle();
+                    $latest_post_date_timeago = $timeago->inWords($latest_post->haber_reply_date, $language);
+                    $latest_post_time = date(DATE_FORMAT, $latest_post->haber_reply_date);
+                    $latest_post_user_id = Output::getClean($latest_post->haber_last_user);
+
+                    $latest_post = [
+                        'link' => $latest_post_link,
+                        'title' => $latest_post_title,
+                        'last_user_avatar' => $latest_post_avatar,
+                        'last_user' => $latest_post_user_displayname,
+                        'last_user_style' => $latest_post_style,
+                        'last_user_link' => $latest_post_user_link,
+                        'timeago' => $latest_post_date_timeago,
+                        'time' => $latest_post_time,
+                        'last_user_id' => $latest_post_user_id
+                    ];
+                } else {
+                    $latest_post = [];
+                }
+
+                $subhaberler_array[] = [
+                    'id' => $subhaberler->id,
+                    'title' => Output::getPurified($subhaberler->haberler_title),
+                    'description' => Output::getPurified($subhaberler->haberler_description),
+                    'habers' => $subhaberler_habers,
+                    'link' => URL::build('/haberler/bakis/' . urlencode($subhaberler->id) . '-' . $haberler->titleToURL($subhaberler->haberler_title)),
+                    'latest_post' => $latest_post,
+                    'icon' => Output::getPurified($subhaberler->icon),
+                    'redirect' => $subhaberler->redirect_haberler
+                ];
+            }
+        }
+    }
+
+    // Assign language variables
+    $smarty->assign('FORUMS', $haberler_language->get('haberler', 'haberlers'));
+    $smarty->assign('DISCUSSION', $haberler_language->get('haberler', 'discussion'));
+    $smarty->assign('TOPIC', $haberler_language->get('haberler', 'haber'));
+    $smarty->assign('STATS', $haberler_language->get('haberler', 'stats'));
+    $smarty->assign('LAST_REPLY', $haberler_language->get('haberler', 'last_reply'));
+    $smarty->assign('BY', $haberler_language->get('haberler', 'by'));
+    $smarty->assign('VIEWS', $haberler_language->get('haberler', 'views'));
+    $smarty->assign('POSTS', $haberler_language->get('haberler', 'posts'));
+    $smarty->assign('STATISTICS', $haberler_language->get('haberler', 'stats'));
+    $smarty->assign('OVERVIEW', $haberler_language->get('haberler', 'overview'));
+    $smarty->assign('LATEST_DISCUSSIONS_TITLE', $haberler_language->get('haberler', 'latest_discussions'));
+    $smarty->assign('TOPICS', $haberler_language->get('haberler', 'habers'));
+    $smarty->assign('NO_TOPICS', $haberler_language->get('haberler', 'no_habers_short'));
+    $smarty->assign('SUBFORUMS', $subhaberler_array);
+    $smarty->assign('SUBFORUM_LANGUAGE', $haberler_language->get('haberler', 'subhaberlers'));
+    $smarty->assign('FORUM_TITLE', Output::getPurified($haberler_query->haberler_title));
+    $smarty->assign('FORUM_ICON', Output::getPurified($haberler_query->icon));
+    $smarty->assign('STICKY_TOPICS', $haberler_language->get('haberler', 'sticky_habers'));
+
+    // Can the user post here?
+    if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
+        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
+    } else {
+        $smarty->assign('NEW_TOPIC_BUTTON', false);
+    }
+
+    $smarty->assign('NEW_TOPIC', $haberler_language->get('haberler', 'new_haber'));
+
+    // Topics
+    if (!count($stickies) && !count($habers)) {
+        // No habers yet
+        $smarty->assign('NO_TOPICS_FULL', $haberler_language->get('haberler', 'no_habers'));
+
+        if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
+            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
+        } else {
+            $smarty->assign('NEW_TOPIC_BUTTON', false);
+        }
+
+        $no_habers_exist = true;
+    } else {
+        // Topics/sticky habers exist
+        $labels_cache = [];
+
+        $sticky_array = [];
+        // Assign sticky threads to smarty variable
+        foreach ($stickies as $sticky) {
+            // Get number of replies to a haber
+            $replies = DB::getInstance()->get('posts', ['haber_id', $sticky->id])->results();
+            $replies = count($replies);
+
+            // Is there a label?
+            if ($sticky->label != 0) { // yes
+                // Get label
+                if ($labels_cache[$sticky->label]) {
+                    $label = $labels_cache[$sticky->label];
+                } else {
+                    $label = DB::getInstance()->get('haberlers_haber_labels', ['id', $sticky->label])->results();
+                    if (count($label)) {
+                        $label = $label[0];
+
+                        $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label->label])->results();
+                        if (count($label_html)) {
+                            $label_html = Output::getPurified($label_html[0]->html);
+                            $label = str_replace('{x}', Output::getClean($label->name), $label_html);
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
+
+                    $labels_cache[$sticky->label] = $label;
+                }
+            } else { // no
+                $label = '';
+            }
+
+            $labels = [];
+            if ($sticky->labels) {
+                $haber_labels = explode(',', $sticky->labels);
+
+                foreach ($haber_labels as $item) {
+                    // Get label
+                    if ($labels_cache[$item]) {
+                        $labels[] = $labels_cache[$item];
+                    } else {
+                        $label_query = DB::getInstance()->get('haberlers_haber_labels', ['id', $item])->results();
+                        if (count($label_query)) {
+                            $label_query = $label_query[0];
+
+                            $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label_query->label])->results();
+                            if (count($label_html)) {
+                                $label_html = Output::getPurified($label_html[0]->html);
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), $label_html);
+                                $labels[] = $label_html;
+                                $labels_cache[$item] = $label_html;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $haber_user = new User($sticky->haber_creator);
+            $last_reply_user = new User($sticky->haber_last_user);
+
+            // Add to array
+            $sticky_array[] = [
+                'haber_title' => Output::getClean($sticky->haber_title),
+                'haber_id' => $sticky->id,
+                'haber_created_rough' => $timeago->inWords($sticky->haber_date, $language),
+                'haber_created' => date(DATE_FORMAT, $sticky->haber_date),
+                'haber_created_username' => $haber_user->getDisplayname(),
+                'haber_created_mcname' => $haber_user->getDisplayname(true),
+                'haber_created_style' => $haber_user->getGroupStyle(),
+                'haber_created_user_id' => Output::getClean($sticky->haber_creator),
+                'views' => $sticky->haber_views,
+                'locked' => $sticky->locked,
+                'posts' => $replies,
+                'last_reply_avatar' => $last_reply_user->getAvatar(),
+                'last_reply_rough' => $timeago->inWords($sticky->haber_reply_date, $language),
+                'last_reply' => date(DATE_FORMAT, $sticky->haber_reply_date),
+                'last_reply_username' => $last_reply_user->getDisplayname(),
+                'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
+                'last_reply_user_id' => Output::getClean($sticky->haber_last_user),
+                'label' => $label,
+                'labels' => $labels,
+                'author_link' => $haber_user->getProfileURL(),
+                'link' => URL::build('/haberler/konu/' . urlencode($sticky->id) . '-' . $haberler->titleToURL($sticky->haber_title)),
+                'last_reply_link' => $last_reply_user->getProfileURL()
+            ];
+        }
+        // Clear out variables
+        $stickies = null;
+        $sticky = null;
+
+        // Latest discussions
+        // Pagination
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
+        $results = $paginator->getLimited($habers, 10, $p, count($habers));
+        $pagination = $paginator->generate(7, URL::build('/haberler/bakis/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+
+        if (count($habers)) {
+            $smarty->assign('PAGINATION', $pagination);
+        } else {
+            $smarty->assign('PAGINATION', '');
+        }
+
+        $template_array = [];
+        // Get a list of all habers from the haberler, and paginate
+        foreach ($results->data as $nValue) {
+            // Get number of replies to a haber
+            $replies = DB::getInstance()->get('posts', ['haber_id', $nValue->id])->results();
+            $replies = count($replies);
+
+            // Is there a label?
+            if ($nValue->label != 0) { // yes
+                // Get label
+                if ($labels_cache[$nValue->label]) {
+                    $label = $labels_cache[$nValue->label];
+                } else {
+                    $label = DB::getInstance()->get('haberlers_haber_labels', ['id', $nValue->label])->results();
+                    if (count($label)) {
+                        $label = $label[0];
+
+                        $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label->label])->results();
+                        if (count($label_html)) {
+                            $label_html = $label_html[0]->html;
+                            $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
+                        } else {
+                            $label = '';
+                        }
+                    } else {
+                        $label = '';
+                    }
+
+                    $labels_cache[$nValue->label] = $label;
+                }
+            } else { // no
+                $label = '';
+            }
+
+            $labels = [];
+            if ($nValue->labels) {
+                if ($labels_cache[$nValue->labels]) {
+                    $labels[] = $labels_cache[$nValue->labels];
+                } else {
+                    $haber_labels = explode(',', $nValue->labels);
+
+                    foreach ($haber_labels as $item) {
+                        // Get label
+                        $label_query = DB::getInstance()->get('haberlers_haber_labels', ['id', $item])->results();
+                        if (count($label_query)) {
+                            $label_query = $label_query[0];
+
+                            $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label_query->label])->results();
+                            if (count($label_html)) {
+                                $label_html = $label_html[0]->html;
+                                $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
+                                $labels[] = $label_html;
+                                $labels_cache[$item] = $label_html;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $haber_user = new User($nValue->haber_creator);
+            $last_reply_user = new User($nValue->haber_last_user);
+
+            // Add to array
+            $template_array[] = [
+                'haber_title' => Output::getClean($nValue->haber_title),
+                'haber_id' => $nValue->id,
+                'haber_created_rough' => $timeago->inWords($nValue->haber_date, $language),
+                'haber_created' => date(DATE_FORMAT, $nValue->haber_date),
+                'haber_created_username' => $haber_user->getDisplayname(),
+                'haber_created_mcname' => $haber_user->getDisplayname(true),
+                'haber_created_style' => $haber_user->getGroupStyle(),
+                'haber_created_user_id' => Output::getClean($nValue->haber_creator),
+                'locked' => $nValue->locked,
+                'views' => $nValue->haber_views,
+                'posts' => $replies,
+                'last_reply_avatar' => $last_reply_user->getAvatar(),
+                'last_reply_rough' => $timeago->inWords($nValue->haber_reply_date, $language),
+                'last_reply' => date(DATE_FORMAT, $nValue->haber_reply_date),
+                'last_reply_username' => $last_reply_user->getDisplayname(),
+                'last_reply_mcname' => $last_reply_user->getDisplayname(true),
+                'last_reply_style' => $last_reply_user->getGroupStyle(),
+                'label' => $label,
+                'labels' => $labels,
+                'author_link' => $haber_user->getProfileURL(),
+                'link' => URL::build('/haberler/konu/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->haber_title)),
+                'last_reply_link' => $last_reply_user->getProfileURL(),
+                'last_reply_user_id' => Output::getClean($nValue->haber_last_user)
+            ];
+        }
+
+        // Assign to Smarty variable
+        $smarty->assign('STICKY_DISCUSSIONS', $sticky_array);
+        $smarty->assign('LATEST_DISCUSSIONS', $template_array);
+    }
+
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+    $template->onPageLoad();
+
+    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+
+    require(ROOT_PATH . '/core/templates/navbar.php');
+    require(ROOT_PATH . '/core/templates/footer.php');
+
+    // Display template
+    if (isset($no_habers_exist)) {
+        $template->displayTemplate('haberler/view_haberler_no_discussions.tpl', $smarty);
+    } else {
+        $template->displayTemplate('haberler/view_haberler.tpl', $smarty);
+    }
+}
