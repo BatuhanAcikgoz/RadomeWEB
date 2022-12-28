@@ -31,13 +31,5 @@ class Haberler_Sitemap {
         }
 
         $haberlers = null;
-
-        $habers = $db->query('SELECT id, haberler_id, haber_title FROM rw_habers WHERE deleted = 0 AND haberler_id IN (SELECT haberler_id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
-
-        foreach ($habers as $haber) {
-            $sitemap->addItem(URL::build('/haberler/konu/' . urlencode($haber->id) . '-' . Text::urlSafe($haber->haber_title)), 0.5);
-        }
-
-        $habers = null;
     }
 }
