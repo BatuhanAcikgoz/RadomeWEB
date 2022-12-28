@@ -60,14 +60,6 @@
                                     </select>
                                 </div>
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="news_forum" value="0">
-                                    <input id="InputNews" name="news_forum" type="checkbox" class="custom-control-input"
-                                        value="1" />
-                                    <label for="InputNews" class="custom-control-label">
-                                        {$DISPLAY_TOPICS_AS_NEWS}
-                                    </label>
-                                </div>
-                                <div class="form-group custom-control custom-switch">
                                     <input type="hidden" name="redirect" value="0">
                                     <input id="InputForumRedirect" name="redirect" type="checkbox"
                                         class="custom-control-input" value="1" />

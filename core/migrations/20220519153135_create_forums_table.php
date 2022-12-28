@@ -17,7 +17,6 @@ final class CreateForumsTable extends AbstractMigration
             ->addColumn('last_topic_posted', 'integer', ['length' => 11, 'null' => true, 'default' => null])
             ->addColumn('parent', 'integer', ['length' => 11, 'default' => 0])
             ->addColumn('forum_order', 'integer', ['length' => 11])
-            ->addColumn('news', 'boolean', ['default' => false])
             ->addColumn('forum_type', 'string', ['length' => 255, 'default' => 'forum'])
             ->addColumn('redirect_forum', 'boolean', ['default' => false])
             ->addColumn('redirect_url', 'string', ['length' => 255, 'null' => true, 'default' => null])

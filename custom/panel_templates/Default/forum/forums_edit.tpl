@@ -96,15 +96,6 @@
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="hidden" name="display" value="0" />
-                                    <input id="InputDisplay" name="display" type="checkbox" class="custom-control-input"
-                                        value="1" {if $DISPLAY_TOPICS_AS_NEWS_VALUE} checked{/if} />
-                                    <label for="InputDisplay" class="custom-control-label">
-                                        {$DISPLAY_TOPICS_AS_NEWS}
-                                    </label>
-                                </div>
-
-                                <div class="form-group custom-control custom-switch">
                                     <input id="InputForumRedirect" name="redirect" type="checkbox"
                                         class="custom-control-input" value="1" {if $REDIRECT_FORUM_VALUE}
                                         checked{/if} />

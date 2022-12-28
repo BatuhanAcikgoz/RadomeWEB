@@ -204,7 +204,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
 
                                     DB::getInstance()->update('forums', $forum->id, [
                                         'parent' => $parent,
-                                        'news' => Input::get('news_forum'),
                                         'redirect_forum' => $redirect,
                                         'redirect_url' => $redirect_url,
                                         'hooks' => $hooks
@@ -249,7 +248,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                     $smarty->assign([
                         'SELECT_PARENT_FORUM' => $forum_language->get('forum', 'select_a_parent_forum'),
                         'PARENT_FORUMS' => $template_array,
-                        'DISPLAY_TOPICS_AS_NEWS' => $forum_language->get('forum', 'display_topics_as_news'),
                         'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
                         'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),
                         'REDIRECT_URL_VALUE' => Output::getClean(Input::get('redirect_url')),
@@ -539,7 +537,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                                 $to_update = [
                                     'forum_title' => Output::getClean(Input::get('title')),
                                     'forum_description' => Output::getClean(Input::get('description')),
-                                    'news' => Input::get('display'),
                                     'parent' => $parent,
                                     'redirect_forum' => $redirect,
                                     'icon' => Input::get('icon'),
@@ -760,8 +757,6 @@ if (!isset($_GET['action']) && !isset($_GET['forum'])) {
                 'PARENT_FORUM_VALUE' => $forum[0]->parent,
                 'NO_PARENT' => $forum_language->get('forum', 'has_no_parent'),
                 'PARENT_FORUM_LIST' => $template_forums_array,
-                'DISPLAY_TOPICS_AS_NEWS' => $forum_language->get('forum', 'display_topics_as_news'),
-                'DISPLAY_TOPICS_AS_NEWS_VALUE' => ($forum[0]->news == 1),
                 'REDIRECT_FORUM' => $forum_language->get('forum', 'redirect_forum'),
                 'REDIRECT_FORUM_VALUE' => ($forum[0]->redirect_forum == 1),
                 'REDIRECT_URL' => $forum_language->get('forum', 'redirect_url'),

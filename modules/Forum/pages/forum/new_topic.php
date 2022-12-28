@@ -269,7 +269,6 @@ $smarty->assign([
     'CONTENT_LABEL' => $language->get('general', 'content'),
     'FORUM_TITLE' => Output::getClean($forum_title),
     'FORUM_DESCRIPTION' => Output::getPurified($forum_query->forum_description),
-    'NEWS_FORUM' => $forum_query->news
 ]);
 
 $content = $_POST['content'] ?? $forum_query->topic_placeholder ?? null;
