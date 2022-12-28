@@ -48,7 +48,7 @@ class Haberler_Module extends Module {
 
         // Hooks
         EventHandler::registerEvent('newTopic',
-            $this->_haberler_language->get('haberler', 'new_haber_hook_info'),
+            $this->_haberler_language->get('haberler', 'new_topic_hook_info'),
             [
                 'user_id' => $this->_language->get('admin', 'user_id'),
                 'username' => $this->_language->get('user', 'username'),
@@ -56,19 +56,42 @@ class Haberler_Module extends Module {
                 'content' => $this->_language->get('general', 'content'),
                 'content_full' => $this->_language->get('general', 'full_content'),
                 'avatar_url' => $this->_language->get('user', 'avatar'),
-                'title' => $this->_haberler_language->get('haberler', 'haber_title'),
+                'title' => $this->_haberler_language->get('haberler', 'topic_title'),
                 'url' => $this->_language->get('general', 'url'),
                 'available_hooks' => $this->_haberler_language->get('haberler', 'available_hooks')
             ]
         );
 
-
-        EventHandler::registerEvent('preTopicCreate',
-            $this->_haberler_language->get('haberler', 'pre_haber_create_hook_info'),
+        EventHandler::registerEvent('prePostCreate',
+            $this->_haberler_language->get('haberler', 'pre_post_create_hook_info'),
             [
                 'content' => $this->_language->get('general', 'content'),
                 'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
-                'haber_id' => $this->_haberler_language->get('haberler', 'haber_id'),
+                'topic_id' => $this->_haberler_language->get('haberler', 'topic_id'),
+                'user' => $this->_haberler_language->get('haberler', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('prePostEdit',
+            $this->_haberler_language->get('haberler', 'pre_post_edit_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
+                'topic_id' => $this->_haberler_language->get('haberler', 'topic_id'),
+                'user' => $this->_haberler_language->get('haberler', 'user_object')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('preTopicCreate',
+            $this->_haberler_language->get('haberler', 'pre_topic_create_hook_info'),
+            [
+                'content' => $this->_language->get('general', 'content'),
+                'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
+                'topic_id' => $this->_haberler_language->get('haberler', 'topic_id'),
                 'user' => $this->_haberler_language->get('haberler', 'user_object')
             ],
             true,
@@ -76,20 +99,75 @@ class Haberler_Module extends Module {
         );
 
         EventHandler::registerEvent('preTopicEdit',
-            $this->_haberler_language->get('haberler', 'pre_haber_edit_hook_info'),
+            $this->_haberler_language->get('haberler', 'pre_topic_edit_hook_info'),
             [
                 'content' => $this->_language->get('general', 'content'),
                 'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
-                'haber_id' => $this->_haberler_language->get('haberler', 'haber_id'),
-                'haber_title' => $this->_haberler_language->get('haberler', 'haber_title'),
+                'topic_id' => $this->_haberler_language->get('haberler', 'topic_id'),
+                'topic_title' => $this->_haberler_language->get('haberler', 'topic_title'),
                 'user' => $this->_haberler_language->get('haberler', 'user_object')
             ],
             true,
             true
         );
 
+        EventHandler::registerEvent('renderPost',
+            $this->_haberler_language->get('haberler', 'render_post'),
+            [
+                'content' => $this->_language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('renderPostEdit',
+            $this->_haberler_language->get('haberler', 'render_post_edit'),
+            [
+                'content' => $this->_language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
+        EventHandler::registerEvent('topicReply',
+            $this->_haberler_language->get('haberler', 'topic_reply'),
+            [
+                'user_id' => $this->_language->get('admin', 'user_id'),
+                'username' => $this->_language->get('user', 'username'),
+                'nickname' => $this->_language->get('user', 'nickname'),
+                'content' => $this->_language->get('general', 'content'),
+                'content_full' => $this->_language->get('general', 'full_content'),
+                'avatar_url' => $this->_language->get('user', 'avatar'),
+                'title' => $this->_haberler_language->get('haberler', 'topic_title'),
+                'url' => $this->_language->get('general', 'url'),
+                'topic_author_user_id' => $this->_haberler_language->get('haberler', 'topic_author_uuid'),
+                'topic_author_username' => $this->_haberler_language->get('haberler', 'topic_author_username'),
+                'topic_author_nickname' => $this->_haberler_language->get('haberler', 'topic_author_nickname'),
+                'topic_id' => $this->_haberler_language->get('haberler', 'topic_id'),
+                'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
+            ]
+        );
+
+        EventHandler::registerListener('deleteUser', 'DeleteUserHaberlerHook::execute');
+
+        EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
+        EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
+
+        EventHandler::registerListener('renderPost', 'ContentHook::purify');
+        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
+
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('cloneGroup', 'CloneGroupHaberlerHook::execute');
     }
 
     public function onInstall() {
