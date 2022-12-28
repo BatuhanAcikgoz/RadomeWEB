@@ -65,15 +65,15 @@ class Haberler {
                                 $return[$haberler->id]['subhaberlers'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get haber/post count
-                                $habers = $this->_db->orderWhere('habers', 'haberler_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
-                                $habers = count($habers);
-                                $return[$haberler->id]['subhaberlers'][$item->id]->habers = $habers;
+                                $posts = $this->_db->orderWhere('posts', 'haberler_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+                                $posts = count($posts);
+                                $return[$haberler->id]['subhaberlers'][$item->id]->posts = $posts;
 
                                 $posts = $this->_db->orderWhere('posts', 'haberler_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
                                 $posts = count($posts);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->posts = $posts;
 
-                                // Can the user view other habers
+                                // Can the user view other posts
                                 if ($item->last_user_posted == $user_id || $this->canViewOtherTopics($item->id, $groups)) {
                                     if ($item->last_haber_posted) {
                                         // Last reply
@@ -82,7 +82,7 @@ class Haberler {
                                         $last_reply = null;
                                     }
                                 } else {
-                                    $last_haber = $this->_db->orderWhere('habers', 'haberler_id = ' . $item->id . ' AND deleted = 0 AND haber_creator = ' . $user_id, 'haber_reply_date', 'DESC')->results();
+                                    $last_haber = $this->_db->orderWhere('posts', 'haberler_id = ' . $item->id . ' AND deleted = 0 AND haber_creator = ' . $user_id, 'haber_reply_date', 'DESC')->results();
                                     if (count($last_haber)) {
                                         $last_reply = $this->_db->orderWhere('posts', 'haber_id = ' . $last_haber[0]->id, 'created', 'DESC')->results();
                                     } else {
@@ -101,7 +101,7 @@ class Haberler {
                                     }
 
                                     // Title
-                                    $last_haber = $this->_db->get('habers', ['id', $last_reply[$n]->haber_id])->results();
+                                    $last_haber = $this->_db->get('posts', ['id', $last_reply[$n]->haber_id])->results();
 
                                     $return[$haberler->id]['subhaberlers'][$item->id]->last_post = $last_reply[$n];
                                     $return[$haberler->id]['subhaberlers'][$item->id]->last_post->title = Output::getClean($last_haber[0]->haber_title);
@@ -186,19 +186,19 @@ class Haberler {
     // Returns true/false depending on whether the current user can view a haberler
     // Params: $haberler_id (integer) - haberler id to check, $groups (array) - user groups
     public function canViewOtherTopics(int $haberler_id, array $groups = [0]): bool {
-        $cache_key = 'habers_view_' . $haberler_id . '_' . implode('_', $groups);
+        $cache_key = 'posts_view_' . $haberler_id . '_' . implode('_', $groups);
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
         }
         // Does the haberler exist?
         $exists = $this->_db->get('haberlers', ['id', $haberler_id])->results();
         if (count($exists)) {
-            // Can the user view other habers?
+            // Can the user view other posts?
             $access = $this->_db->get('haberlers_permissions', ['haberler_id', $haberler_id])->results();
 
             foreach ($access as $item) {
                 if (in_array($item->group_id, $groups)) {
-                    if ($item->view_other_habers == 1) {
+                    if ($item->view_other_posts == 1) {
                         self::$_permission_cache[$cache_key] = true;
                         return true;
                     }
@@ -210,11 +210,11 @@ class Haberler {
     }
 
     /**
-     * Get the newest 50 habers this user/group can view
+     * Get the newest 50 posts this user/group can view
      *
      * @param array $groups Array of groups the user is in
      * @param int $user_id User ID
-     * @return array 50 latest habers
+     * @return array 50 latest posts
      */
 
     /**
@@ -225,7 +225,7 @@ class Haberler {
      */
     public function haberExist(int $haber_id): bool {
         // Does the haber exist?
-        $exists = $this->_db->get('habers', ['id', $haber_id])->results();
+        $exists = $this->_db->get('posts', ['id', $haber_id])->results();
         return count($exists) > 0;
     }
 
@@ -241,11 +241,11 @@ class Haberler {
     }
 
     /**
-     * Determine if the groups can post habers in the haberler or not.
+     * Determine if the groups can post posts in the haberler or not.
      *
      * @param int $haberler_id The haberler ID
      * @param array $groups The user's groups
-     * @return bool Whether the groups can post habers in the haberler or not
+     * @return bool Whether the groups can post posts in the haberler or not
      */
     public function canPostTopic(int $haberler_id, array $groups = [0]): bool {
         return $this->hasPermission($haberler_id, 'create_haber', $groups);
@@ -289,7 +289,7 @@ class Haberler {
                     foreach ($latest_post_query as $latest_post) {
                         if ($latest_post->deleted != 1) {
                             // Ensure haber isn't deleted
-                            $haber_query = $this->_db->get('habers', ['id', $latest_post->haber_id])->results();
+                            $haber_query = $this->_db->get('posts', ['id', $latest_post->haber_id])->results();
 
                             if (empty($haber_query)) {
                                 continue;
@@ -339,11 +339,11 @@ class Haberler {
      * Update the database with the new latest haberler haber posts.
      */
     public function updateTopicLatestPosts(): void {
-        $habers = $this->_db->get('habers', ['id', '<>', 0])->results();
+        $posts = $this->_db->get('posts', ['id', '<>', 0])->results();
         $latest_posts = [];
         $n = 0;
 
-        foreach ($habers as $haber) {
+        foreach ($posts as $haber) {
             $latest_post_query = $this->_db->orderWhere('posts', 'haber_id = ' . $haber->id, 'post_date', 'DESC')->results();
 
             if (count($latest_post_query)) {
@@ -369,7 +369,7 @@ class Haberler {
 
         foreach ($latest_posts as $latest_post) {
             if (!empty($latest_post['date'])) {
-                $this->_db->update('habers', $latest_post['haber_id'], [
+                $this->_db->update('posts', $latest_post['haber_id'], [
                     'haber_reply_date' => $latest_post['date'],
                     'haber_last_user' => $latest_post['author']
                 ]);
@@ -418,7 +418,7 @@ class Haberler {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM rw_habers WHERE haberler_id IN (SELECT id FROM rw_haberlers WHERE news = 1) AND deleted = 0 ORDER BY haber_date DESC LIMIT 10')->results();
+        $news_items = $this->_db->query('SELECT * FROM rw_posts WHERE haberler_id IN (SELECT id FROM rw_haberlers WHERE news = 1) AND deleted = 0 ORDER BY haber_date DESC LIMIT 10')->results();
 
         foreach ($news_items as $item) {
             $news_post = $this->_db->get('posts', ['haber_id', $item->id])->results();
@@ -541,15 +541,15 @@ class Haberler {
      * Get a user's haber count
      *
      * @param int|null $user_id User ID to check
-     * @return int Number of habers
+     * @return int Number of posts
      */
     public function getTopicCount(int $user_id = null): int {
         if ($user_id) {
-            if (isset(self::$_count_cache["habers_$user_id"])) {
-                return self::$_count_cache["habers_$user_id"];
+            if (isset(self::$_count_cache["posts_$user_id"])) {
+                return self::$_count_cache["posts_$user_id"];
             }
-            $count = $this->_db->query('SELECT COUNT(*) AS c FROM rw_habers WHERE deleted = 0 AND haber_creator = ?', [$user_id])->first()->c;
-            self::$_count_cache["habers_$user_id"] = $count;
+            $count = $this->_db->query('SELECT COUNT(*) AS c FROM rw_posts WHERE deleted = 0 AND haber_creator = ?', [$user_id])->first()->c;
+            self::$_count_cache["posts_$user_id"] = $count;
             return $count;
         }
 
@@ -560,7 +560,7 @@ class Haberler {
      * Get posts on a specific haber.
      *
      * @param int|null $tid The haber ID to check.
-     * @return array|false Array of habers or false on failure.
+     * @return array|false Array of posts or false on failure.
      */
     public function getPosts(int $tid = null) {
         if ($tid) {

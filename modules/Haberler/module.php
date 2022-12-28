@@ -40,7 +40,7 @@ class Haberler_Module extends Module {
         $pages->add('Haberler', '/haberler/arama', 'pages/haberler/search.php');
 
         // UserCP
-        $pages->add('Haberler', '/kullanici/takip_edilen_konular', 'pages/user/following_habers.php');
+        $pages->add('Haberler', '/kullanici/takip_edilen_konular', 'pages/user/following_posts.php');
 
         // Redirects
         $pages->add('Haberler', '/haberler/konuyu_goruntule', 'pages/haberler/redirect.php');
@@ -167,7 +167,7 @@ class Haberler_Module extends Module {
             // Global variables if user is logged in
             if ($user->isLoggedIn()) {
                 // Basic user variables
-                $haber_count = DB::getInstance()->get('habers', ['haber_creator', $user->data()->id])->results();
+                $haber_count = DB::getInstance()->get('posts', ['haber_creator', $user->data()->id])->results();
                 $haber_count = count($haber_count);
                 $smarty->assign('LOGGED_IN_USER_FORUM', [
                     'haber_count' => $haber_count,
@@ -180,7 +180,7 @@ class Haberler_Module extends Module {
                 if ($user_id) {
                     $haberler = new Haberler();
 
-                    $smarty->assign('TOPICS', $this->_haberler_language->get('haberler', 'x_habers', ['count' => $haberler->getTopicCount($user_id)]));
+                    $smarty->assign('TOPICS', $this->_haberler_language->get('haberler', 'x_posts', ['count' => $haberler->getTopicCount($user_id)]));
                 }
             }
 
