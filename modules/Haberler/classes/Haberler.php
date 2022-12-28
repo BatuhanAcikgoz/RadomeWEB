@@ -216,50 +216,6 @@ class Haberler {
      * @param int $user_id User ID
      * @return array 50 latest habers
      */
-    public function getLatestDiscussions(array $groups = [0], int $user_id = 0): array {
-        if (!$user_id) {
-            $user_id = 0;
-        }
-
-        $all_habers_haberlers = DB::getInstance()->query('SELECT haberler_id FROM rw_haberlers_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_habers = 1')->results();
-
-        $own_habers_haberlers = [];
-        if ($user_id > 0) {
-            $own_habers_haberlers = DB::getInstance()->query('SELECT haberler_id FROM rw_haberlers_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_habers = 0')->results();
-        }
-
-        if (!count($all_habers_haberlers) && !count($own_habers_haberlers)) {
-            return [];
-        }
-
-        foreach ($all_habers_haberlers as $haberler) {
-            $all_habers_haberlers_string .= $haberler->haberler_id . ',';
-        }
-        $all_habers_haberlers_string = rtrim($all_habers_haberlers_string, ',');
-
-        if (count($own_habers_haberlers)) {
-            foreach ($own_habers_haberlers as $haberler) {
-                $own_habers_haberlers_string .= $haberler->haberler_id . ',';
-            }
-            $own_habers_haberlers_string = rtrim($own_habers_haberlers_string, ',');
-
-            return DB::getInstance()->query(
-                '(SELECT habers.id as id, habers.haberler_id as haberler_id, habers.haber_title as haber_title, habers.haber_creator as haber_creator, habers.haber_last_user as haber_last_user, habers.haber_date as haber_date, habers.haber_reply_date as haber_reply_date, habers.haber_views as haber_views, habers.locked as locked, habers.sticky as sticky, habers.label as label, habers.deleted as deleted, posts.id as last_post_id FROM rw_habers habers LEFT JOIN rw_posts posts ON habers.id = posts.haber_id AND posts.id = (SELECT MAX(id) FROM rw_posts p WHERE p.haber_id = habers.id AND p.deleted = 0) WHERE habers.deleted = 0 AND habers.haberler_id IN (' . $all_habers_haberlers_string . ') ORDER BY habers.haber_reply_date DESC LIMIT 50)
-                UNION
-                (SELECT habers.id as id, habers.haberler_id as haberler_id, habers.haber_title as haber_title, habers.haber_creator as haber_creator, habers.haber_last_user as haber_last_user, habers.haber_date as haber_date, habers.haber_reply_date as haber_reply_date, habers.haber_views as haber_views, habers.locked as locked, habers.sticky as sticky, habers.label as label, habers.deleted as deleted, posts.id as last_post_id FROM rw_habers habers LEFT JOIN rw_posts posts ON habers.id = posts.haber_id AND posts.id = (SELECT MAX(id) FROM rw_posts p WHERE p.haber_id = habers.id AND p.deleted = 0) WHERE habers.deleted = 0 AND ((habers.haberler_id IN (' . $own_habers_haberlers_string . ') AND habers.haber_creator = ?) OR habers.sticky = 1) ORDER BY habers.haber_reply_date DESC LIMIT 50)
-                ORDER BY haber_reply_date DESC LIMIT 50',
-                [$user_id],
-                true
-            )->results();
-        }
-
-        return DB::getInstance()->query(
-            'SELECT habers.id as id, habers.haberler_id as haberler_id, habers.haber_title as haber_title, habers.haber_creator as haber_creator, habers.haber_last_user as haber_last_user, habers.haber_date as haber_date, habers.haber_reply_date as haber_reply_date, habers.haber_views as haber_views, habers.locked as locked, habers.sticky as sticky, habers.label as label, habers.deleted as deleted, posts.id as last_post_id
-            FROM rw_habers habers 
-            LEFT JOIN rw_posts posts ON habers.id = posts.haber_id AND posts.id = (SELECT MAX(id) FROM rw_posts p WHERE p.haber_id = habers.id AND p.deleted = 0) 
-            WHERE habers.deleted = 0 AND habers.haberler_id IN (' . $all_habers_haberlers_string . ') ORDER BY habers.haber_reply_date DESC LIMIT 50',
-        )->results();
-    }
 
     /**
      * Determine if a haber exists or not.
