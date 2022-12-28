@@ -57,6 +57,7 @@ return array(
     'Fields' => $baseDir . '/core/classes/Core/Fields.php',
     'Forum' => $baseDir . '/modules/Forum/classes/Forum.php',
     'Forum_Sitemap' => $baseDir . '/modules/Forum/classes/Forum_Sitemap.php',
+    'Haberler_Sitemap' => $baseDir . '/modules/Forum/classes/Haberler_Sitemap.php',
     'Group' => $baseDir . '/core/classes/DTO/Group.php',
     'GroupSyncInjector' => $baseDir . '/core/classes/Group_Sync/GroupSyncInjector.php',
     'GroupSyncManager' => $baseDir . '/core/classes/Group_Sync/GroupSyncManager.php',
