@@ -216,50 +216,6 @@ class Haberler {
      * @param int $user_id User ID
      * @return array 50 latest topics
      */
-    public function getLatestDiscussions(array $groups = [0], int $user_id = 0): array {
-        if (!$user_id) {
-            $user_id = 0;
-        }
-
-        $all_topics_haberlers = DB::getInstance()->query('SELECT haberler_id FROM nl2_haberlers_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 1')->results();
-
-        $own_topics_haberlers = [];
-        if ($user_id > 0) {
-            $own_topics_haberlers = DB::getInstance()->query('SELECT haberler_id FROM nl2_haberlers_permissions WHERE group_id IN (' . rtrim(implode(',', $groups), ',') . ') AND `view` = 1 AND view_other_topics = 0')->results();
-        }
-
-        if (!count($all_topics_haberlers) && !count($own_topics_haberlers)) {
-            return [];
-        }
-
-        foreach ($all_topics_haberlers as $haberler) {
-            $all_topics_haberlers_string .= $haberler->haberler_id . ',';
-        }
-        $all_topics_haberlers_string = rtrim($all_topics_haberlers_string, ',');
-
-        if (count($own_topics_haberlers)) {
-            foreach ($own_topics_haberlers as $haberler) {
-                $own_topics_haberlers_string .= $haberler->haberler_id . ',';
-            }
-            $own_topics_haberlers_string = rtrim($own_topics_haberlers_string, ',');
-
-            return DB::getInstance()->query(
-                '(SELECT topics.id as id, topics.haberler_id as haberler_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND topics.haberler_id IN (' . $all_topics_haberlers_string . ') ORDER BY topics.topic_reply_date DESC LIMIT 50)
-                UNION
-                (SELECT topics.id as id, topics.haberler_id as haberler_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id FROM nl2_topics topics LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) WHERE topics.deleted = 0 AND ((topics.haberler_id IN (' . $own_topics_haberlers_string . ') AND topics.topic_creator = ?) OR topics.sticky = 1) ORDER BY topics.topic_reply_date DESC LIMIT 50)
-                ORDER BY topic_reply_date DESC LIMIT 50',
-                [$user_id],
-                true
-            )->results();
-        }
-
-        return DB::getInstance()->query(
-            'SELECT topics.id as id, topics.haberler_id as haberler_id, topics.topic_title as topic_title, topics.topic_creator as topic_creator, topics.topic_last_user as topic_last_user, topics.topic_date as topic_date, topics.topic_reply_date as topic_reply_date, topics.topic_views as topic_views, topics.locked as locked, topics.sticky as sticky, topics.label as label, topics.deleted as deleted, posts.id as last_post_id
-            FROM nl2_topics topics 
-            LEFT JOIN nl2_posts posts ON topics.id = posts.topic_id AND posts.id = (SELECT MAX(id) FROM nl2_posts p WHERE p.topic_id = topics.id AND p.deleted = 0) 
-            WHERE topics.deleted = 0 AND topics.haberler_id IN (' . $all_topics_haberlers_string . ') ORDER BY topics.topic_reply_date DESC LIMIT 50',
-        )->results();
-    }
 
     /**
      * Determine if a topic exists or not.
