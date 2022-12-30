@@ -156,9 +156,6 @@ class Haberler_Module extends Module {
                 'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
             ]
         );
-
-        EventHandler::registerListener('deleteUser', 'DeleteUserHaberlerHook::execute');
-
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
@@ -175,8 +172,6 @@ class Haberler_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
-
-        EventHandler::registerListener('cloneGroup', 'CloneGroupHaberlerHook::execute');
     }
 
     public function onInstall() {
