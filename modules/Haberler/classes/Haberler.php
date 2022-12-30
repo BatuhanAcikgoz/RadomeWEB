@@ -3,8 +3,8 @@
  * Haberler class
  *
  * @package Modules\Haberler
- * @author Samerton
- * @version 2.0.0-pr13
+ * @author Reeignn
+ * @version 2.0.2
  * @license MIT
  */
 class Haberler {
