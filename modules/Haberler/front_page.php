@@ -13,7 +13,6 @@ $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 } else {
-    $haberler = new Haberler();
 
     $latest_news = $haberler->getLatestNews(); // Get latest 5 items
 
