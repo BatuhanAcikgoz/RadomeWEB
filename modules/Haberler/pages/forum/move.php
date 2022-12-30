@@ -1,31 +1,31 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
- *  Move a haber
+ *  Move a topic
  */
 
 const PAGE = 'haberler';
-$page_title = $haberler_language->get('haberler', 'move_haber');
+$page_title = $haberler_language->get('haberler', 'move_topic');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $haberler = new Haberler();
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
-    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
 }
 
-$haber_id = $_GET['tid'];
-$haber = DB::getInstance()->get('habers', ['id', $haber_id])->results();
-if (!count($haber)) {
-    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+$topic_id = $_GET['tid'];
+$topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
+if (!count($topic)) {
+    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
 }
-$haberler_id = $haber[0]->haberler_id;
-$haber = $haber[0];
+$haberler_id = $topic[0]->haberler_id;
+$topic = $topic[0];
 
 if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
@@ -42,10 +42,10 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 Redirect::to(URL::build('/haberler'));
             }
 
-            $posts_to_move = DB::getInstance()->get('posts', ['haber_id', $haber_id])->results();
+            $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
-                DB::getInstance()->update('habers', $haber->id, [
+                DB::getInstance()->update('topics', $topic->id, [
                     'haberler_id' => Input::get('haberler')
                 ]);
                 foreach ($posts_to_move as $post_to_move) {
@@ -55,13 +55,13 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 }
 
                 //TODO: Topic name & and Haberlers name
-                Log::getInstance()->log(Log::Action('haberlers/move'), Output::getClean($haber_id) . ' => ' . Output::getClean(Input::get('haberler')));
+                Log::getInstance()->log(Log::Action('haberlers/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('haberler')));
 
                 // Update latest posts in categories
                 $haberler->updateHaberlerLatestPosts();
                 $haberler->updateTopicLatestPosts();
 
-                Redirect::to(URL::build('/haberler/konu/' . $haber_id));
+                Redirect::to(URL::build('/haberler/topic/' . $topic_id));
 
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/haberler') . '">Haberler index</a>';
@@ -93,7 +93,7 @@ foreach ($categories as $category) {
     $template_haberlers[] = $to_add;
 
 
-    $haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$category->id]);
+    $haberlers = DB::getInstance()->query('SELECT * FROM nl2_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$category->id]);
 
     if ($haberlers->count()) {
         $haberlers = $haberlers->results();
@@ -124,14 +124,14 @@ foreach ($categories as $category) {
 
 // Assign Smarty variables
 $smarty->assign([
-    'MOVE_TOPIC' => $haberler_language->get('haberler', 'move_haber'),
-    'MOVE_TO' => $haberler_language->get('haberler', 'move_haber_to'),
+    'MOVE_TOPIC' => $haberler_language->get('haberler', 'move_topic'),
+    'MOVE_TO' => $haberler_language->get('haberler', 'move_topic_to'),
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/haberler/konu/' . urlencode($haber->id)),
-    'FORUMS' => $template_haberlers
+    'CANCEL_LINK' => URL::build('/haberler/topic/' . urlencode($topic->id)),
+    'HABERLERS' => $template_haberlers
 ]);
 
 // Load modules + template

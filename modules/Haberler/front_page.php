@@ -1,10 +1,10 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Haberler module - front page module
  */
@@ -13,6 +13,7 @@ $cache->setCache('news_cache');
 if ($cache->isCached('news')) {
     $news = $cache->retrieve('news');
 } else {
+    $haberler = new Haberler();
 
     $latest_news = $haberler->getLatestNews(); // Get latest 5 items
 
@@ -22,12 +23,12 @@ if ($cache->isCached('news')) {
         $post_user = new User($item['author']);
 
         $news[] = [
-            'id' => $item['haber_id'],
-            'url' => URL::build('/haberler/konu/' . urlencode($item['haber_id']) . '-' . $haberler->titleToURL($item['haber_title'])),
-            'date' => date(DATE_FORMAT, strtotime($item['haber_date'])),
-            'time_ago' => $item['haber_date'],
-            'title' => Output::getClean($item['haber_title']),
-            'views' => $item['haber_views'],
+            'id' => $item['topic_id'],
+            'url' => URL::build('/haberler/topic/' . urlencode($item['topic_id']) . '-' . $haberler->titleToURL($item['topic_title'])),
+            'date' => date(DATE_FORMAT, strtotime($item['topic_date'])),
+            'time_ago' => $item['topic_date'],
+            'title' => Output::getClean($item['topic_title']),
+            'views' => $item['topic_views'],
             'replies' => $item['replies'],
             'author_id' => Output::getClean($item['author']),
             'author_url' => $post_user->getProfileURL(),

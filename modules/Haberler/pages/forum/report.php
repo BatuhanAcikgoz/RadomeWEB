@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Report a post
  */
@@ -42,7 +42,7 @@ if (Token::check()) {
             if ($report->reporter_id == $user->data()->id && $report->status == 0) {
                 // User already has an open report
                 Session::flash('failure_post', $haberler_language->get('haberler', 'post_already_reported'));
-                Redirect::to(URL::build('/haberler/konu/' . urlencode($_POST['haber'])));
+                Redirect::to(URL::build('/haberler/topic/' . urlencode($_POST['topic'])));
             }
         }
     }
@@ -63,7 +63,7 @@ if (Token::check()) {
             'report_reason' => Output::getClean($_POST['reason']),
             'updated_by' => $user->data()->id,
             'reported_post' => $post->id,
-            'link' => URL::build('/haberler/konu/' . urlencode($_POST['haber']), 'pid=' . urlencode($_POST['post']))
+            'link' => URL::build('/haberler/topic/' . urlencode($_POST['topic']), 'pid=' . urlencode($_POST['post']))
         ]);
 
         Log::getInstance()->log(Log::Action('misc/report'), $post->post_creator);
@@ -76,4 +76,4 @@ if (Token::check()) {
     // Invalid token
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
 }
-Redirect::to(URL::build('/haberler/konu/' . urlencode($_POST['haber'])));
+Redirect::to(URL::build('/haberler/topic/' . urlencode($_POST['topic'])));

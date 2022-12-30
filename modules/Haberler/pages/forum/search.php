@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr13
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Haberler search page
  */
@@ -36,7 +36,7 @@ if (!isset($_GET['s'])) {
                 $search = str_replace(' ', '+', Output::getClean(Input::get('haberler_search')));
                 $search = preg_replace('/[^a-zA-Z0-9 +]+/', '', $search); // alphanumeric only
 
-                Redirect::to(URL::build('/haberler/arama/', 's=' . urlencode($search) . '&p=1'));
+                Redirect::to(URL::build('/haberler/search/', 's=' . urlencode($search) . '&p=1'));
             }
 
             $error = $haberler_language->get('haberler', 'invalid_search_query', ['min' => 3, 'max' => 128]);
@@ -56,34 +56,34 @@ if (!isset($_GET['s'])) {
 
     if (isset($_SESSION['last_haberler_search']) && $_SESSION['last_haberler_search_query'] != $_GET['s'] && $_SESSION['last_haberler_search'] > strtotime('-1 minute')) {
         Session::flash('search_error', $haberler_language->get('haberler', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_haberler_search']))]));
-        Redirect::to(URL::build('/haberler/arama'));
+        Redirect::to(URL::build('/haberler/search'));
     }
 
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_habers = DB::getInstance()->query('SELECT * FROM rw_habers WHERE haber_title LIKE ?', ['%' . $search . '%'])->results();
-        $search_posts = DB::getInstance()->query('SELECT * FROM rw_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
+        $search_topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_posts = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
-        $search_results = array_merge($search_habers, $search_posts);
+        $search_results = array_merge($search_topics, $search_posts);
 
         $results = [];
         foreach ($search_results as $result) {
             // Check permissions
             $perms = DB::getInstance()->get('haberlers_permissions', ['haberler_id', $result->haberler_id])->results();
             foreach ($perms as $perm) {
-                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_habers == 1) {
-                    if (isset($result->haber_id)) {
+                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
+                    if (isset($result->topic_id)) {
                         // Post
                         if (!isset($results[$result->id]) && $result->deleted == 0) {
-                            // Get associated haber
-                            $haber = DB::getInstance()->get('habers', ['id', $result->haber_id])->results();
-                            if (count($haber) && $haber[0]->deleted === 0) {
-                                $haber = $haber[0];
+                            // Get associated topic
+                            $topic = DB::getInstance()->get('topics', ['id', $result->topic_id])->results();
+                            if (count($topic) && $topic[0]->deleted === 0) {
+                                $topic = $topic[0];
                                 $results[$result->id] = [
                                     'post_id' => $result->id,
-                                    'haber_id' => $haber->id,
-                                    'haber_title' => $haber->haber_title,
+                                    'topic_id' => $topic->id,
+                                    'topic_title' => $topic->topic_title,
                                     'post_author' => $result->post_creator,
                                     'post_date' => $result->post_date,
                                     'post_content' => $result->post_content
@@ -98,14 +98,14 @@ if (!isset($_GET['s'])) {
                         }
                     } else {
                         // Topic, get associated post
-                        $post = DB::getInstance()->query('SELECT * FROM rw_posts WHERE haber_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                        $post = DB::getInstance()->query('SELECT * FROM nl2_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = [
                                     'post_id' => $post->id,
-                                    'haber_id' => $result->id,
-                                    'haber_title' => $result->haber_title,
+                                    'topic_id' => $result->id,
+                                    'topic_title' => $result->topic_title,
                                     'post_author' => $post->post_creator,
                                     'post_date' => $post->post_date,
                                     'post_content' => $post->post_content
@@ -158,7 +158,7 @@ if (isset($_GET['s'])) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($results, 10, $p, count($results));
-        $pagination = $paginator->generate(7, URL::build('/haberler/arama/', 's=' . urlencode($search) . '&'));
+        $pagination = $paginator->generate(7, URL::build('/haberler/search/', 's=' . urlencode($search) . '&'));
 
         $smarty->assign('PAGINATION', $pagination);
 
@@ -180,8 +180,8 @@ if (isset($_GET['s'])) {
                 'post_date_full' => date(DATE_FORMAT, strtotime($results->data[$n]['post_date'])),
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
-                'haber_title' => Output::getClean($results->data[$n]['haber_title']),
-                'post_url' => URL::build('/haberler/konu/' . urlencode($results->data[$n]['haber_id']) . '-' . $haberler->titleToURL($results->data[$n]['haber_title']), 'pid=' . $results->data[$n]['post_id'])
+                'topic_title' => Output::getClean($results->data[$n]['topic_title']),
+                'post_url' => URL::build('/haberler/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $haberler->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
             ];
             $n++;
         }
@@ -199,7 +199,7 @@ if (isset($_GET['s'])) {
     $smarty->assign([
         'SEARCH_RESULTS' => $haberler_language->get('haberler', 'search_results'),
         'NEW_SEARCH' => $haberler_language->get('haberler', 'new_search'),
-        'NEW_SEARCH_URL' => URL::build('/haberler/arama'),
+        'NEW_SEARCH_URL' => URL::build('/haberler/search'),
         'SEARCH_TERM' => (isset($_GET['s']) ? Output::getClean($_GET['s']) : '')
     ]);
 
@@ -224,8 +224,8 @@ if (isset($_GET['s'])) {
     }
 
     $smarty->assign([
-        'FORUM_SEARCH' => $haberler_language->get('haberler', 'haberler_search'),
-        'FORM_ACTION' => URL::build('/haberler/arama'),
+        'HABERLER_SEARCH' => $haberler_language->get('haberler', 'haberler_search'),
+        'FORM_ACTION' => URL::build('/haberler/search'),
         'SEARCH' => $language->get('general', 'search'),
         'TOKEN' => Token::get(),
         'SUBMIT' => $language->get('general', 'submit'),

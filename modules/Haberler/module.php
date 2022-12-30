@@ -1,10 +1,10 @@
 <?php
 /*
  *  Made by Samerton
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Haberler module file
  */
@@ -19,32 +19,41 @@ class Haberler_Module extends Module {
         $this->_haberler_language = $haberler_language;
 
         $name = 'Haberler';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Reeignn</a>';
+        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
         $module_version = '2.0.2';
-        $radome_version = '2.0.2';
+        $nameless_version = '2.0.2';
 
-        parent::__construct($this, $name, $author, $module_version, $radome_version);
+        parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('Haberler', '/panel/haberlerlar', 'pages/panel/settings.php');
+        $pages->add('Haberler', '/panel/haberlers', 'pages/panel/haberlers.php');
+        $pages->add('Haberler', '/panel/haberlers/labels', 'pages/panel/labels.php');
+        $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
 
         $pages->add('Haberler', '/haberler', 'pages/haberler/index.php', 'haberler', true);
-        $pages->add('Haberler', '/haberler/hata', 'pages/haberler/error.php');
-        $pages->add('Haberler', '/haberler/bakis', 'pages/haberler/view_haberler.php');
-        $pages->add('Haberler', '/haberler/konu', 'pages/haberler/view_haber.php');
-        $pages->add('Haberler', '/haberler/yeni', 'pages/haberler/new_haber.php');
-        $pages->add('Haberler', '/haberler/kaldir', 'pages/haberler/delete.php');
-        $pages->add('Haberler', '/haberler/duzenle', 'pages/haberler/edit.php');
-        $pages->add('Haberler', '/haberler/kitle', 'pages/haberler/lock.php');
-        $pages->add('Haberler', '/haberler/sabitle', 'pages/haberler/stick.php');
-        $pages->add('Haberler', '/haberler/arama', 'pages/haberler/search.php');
+        $pages->add('Haberler', '/haberler/error', 'pages/haberler/error.php');
+        $pages->add('Haberler', '/haberler/view', 'pages/haberler/view_haberler.php');
+        $pages->add('Haberler', '/haberler/topic', 'pages/haberler/view_topic.php');
+        $pages->add('Haberler', '/haberler/new', 'pages/haberler/new_topic.php');
+        $pages->add('Haberler', '/haberler/spam', 'pages/haberler/spam.php');
+        $pages->add('Haberler', '/haberler/report', 'pages/haberler/report.php');
+        $pages->add('Haberler', '/haberler/get_quotes', 'pages/haberler/get_quotes.php');
+        $pages->add('Haberler', '/haberler/delete_post', 'pages/haberler/delete_post.php');
+        $pages->add('Haberler', '/haberler/delete', 'pages/haberler/delete.php');
+        $pages->add('Haberler', '/haberler/move', 'pages/haberler/move.php');
+        $pages->add('Haberler', '/haberler/merge', 'pages/haberler/merge.php');
+        $pages->add('Haberler', '/haberler/edit', 'pages/haberler/edit.php');
+        $pages->add('Haberler', '/haberler/lock', 'pages/haberler/lock.php');
+        $pages->add('Haberler', '/haberler/stick', 'pages/haberler/stick.php');
+        $pages->add('Haberler', '/haberler/reactions', 'pages/haberler/reactions.php');
+        $pages->add('Haberler', '/haberler/search', 'pages/haberler/search.php');
 
         // UserCP
-        $pages->add('Haberler', '/kullanici/takip_edilen_konular', 'pages/user/following_posts.php');
+        $pages->add('Haberler', '/user/following_topics', 'pages/user/following_topics.php');
 
         // Redirects
-        $pages->add('Haberler', '/haberler/konuyu_goruntule', 'pages/haberler/redirect.php');
-        $pages->add('Haberler', '/haberler/haberler_goruntule', 'pages/haberler/redirect.php');
+        $pages->add('Haberler', '/haberler/view_topic', 'pages/haberler/redirect.php');
+        $pages->add('Haberler', '/haberler/view_haberler', 'pages/haberler/redirect.php');
 
         // Hooks
         EventHandler::registerEvent('newTopic',
@@ -148,6 +157,8 @@ class Haberler_Module extends Module {
             ]
         );
 
+        EventHandler::registerListener('deleteUser', 'DeleteUserHaberlerHook::execute');
+
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
@@ -164,6 +175,8 @@ class Haberler_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('cloneGroup', 'CloneGroupHaberlerHook::execute');
     }
 
     public function onInstall() {
@@ -241,10 +254,13 @@ class Haberler_Module extends Module {
             // Global variables if user is logged in
             if ($user->isLoggedIn()) {
                 // Basic user variables
-                $haber_count = DB::getInstance()->get('posts', ['haber_creator', $user->data()->id])->results();
-                $haber_count = count($haber_count);
-                $smarty->assign('LOGGED_IN_USER_FORUM', [
-                    'haber_count' => $haber_count,
+                $topic_count = DB::getInstance()->get('topics', ['topic_creator', $user->data()->id])->results();
+                $topic_count = count($topic_count);
+                $post_count = DB::getInstance()->get('posts', ['post_creator', $user->data()->id])->results();
+                $post_count = count($post_count);
+                $smarty->assign('LOGGED_IN_USER_HABERLER', [
+                    'topic_count' => $topic_count,
+                    'post_count' => $post_count
                 ]);
             }
 
@@ -254,7 +270,8 @@ class Haberler_Module extends Module {
                 if ($user_id) {
                     $haberler = new Haberler();
 
-                    $smarty->assign('TOPICS', $this->_haberler_language->get('haberler', 'x_posts', ['count' => $haberler->getTopicCount($user_id)]));
+                    $smarty->assign('TOPICS', $this->_haberler_language->get('haberler', 'x_topics', ['count' => $haberler->getTopicCount($user_id)]));
+                    $smarty->assign('POSTS', $this->_haberler_language->get('haberler', 'x_posts', ['count' => $haberler->getPostCount($user_id)]));
                 }
             }
 
@@ -277,7 +294,7 @@ class Haberler_Module extends Module {
                     }
 
                     $navs[2]->add('haberler_divider', mb_strtoupper($this->_haberler_language->get('haberler', 'haberler'), 'UTF-8'), 'divider', 'top', null, $order, '');
-                    $navs[2]->add('haberler_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/haberlerlar/ayarlar'), 'top', null, $order + 0.1, $icon);
+                    $navs[2]->add('haberler_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/haberlers/settings'), 'top', null, $order + 0.1, $icon);
 
                     if (!$cache->isCached('haberler_icon')) {
                         $icon = '<i class="nav-icon fas fa-comments"></i>';
@@ -286,7 +303,7 @@ class Haberler_Module extends Module {
                         $icon = $cache->retrieve('haberler_icon');
                     }
 
-                    $navs[2]->add('haberlers', $this->_haberler_language->get('haberler', 'haberlers'), URL::build('/panel/haberlerlar'), 'top', null, $order + 0.2, $icon);
+                    $navs[2]->add('haberlers', $this->_haberler_language->get('haberler', 'haberlers'), URL::build('/panel/haberlers'), 'top', null, $order + 0.2, $icon);
 
                     if (!$cache->isCached('haberler_label_icon')) {
                         $icon = '<i class="nav-icon fas fa-tags"></i>';
@@ -295,7 +312,83 @@ class Haberler_Module extends Module {
                         $icon = $cache->retrieve('haberler_label_icon');
                     }
 
-                    $navs[2]->add('haberler_labels', $this->_haberler_language->get('haberler', 'labels'), URL::build('/panel/haberlerlar/etiketler'), 'top', null, $order + 0.3, $icon);
+                    $navs[2]->add('haberler_labels', $this->_haberler_language->get('haberler', 'labels'), URL::build('/panel/haberlers/labels'), 'top', null, $order + 0.3, $icon);
+                }
+
+                if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
+                    // Dashboard graph
+
+                    // Get data for topics and posts
+                    $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
+                    $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
+
+                    $cache->setCache('dashboard_graph');
+                    if ($cache->isCached('haberler_data')) {
+                        $output = $cache->retrieve('haberler_data');
+
+                    } else {
+                        $output = [];
+
+                        $output['datasets']['topics']['label'] = 'haberler_language/haberler/topics_title'; // for $haberler_language->get('haberler', 'topics_title');
+                        $output['datasets']['topics']['colour'] = '#00931D';
+                        $output['datasets']['posts']['label'] = 'haberler_language/haberler/posts_title'; // for $haberler_language->get('haberler', 'posts_title');
+                        $output['datasets']['posts']['colour'] = '#ffde0a';
+
+                        foreach ($latest_topics as $topic) {
+                            $date = date('d M Y', $topic->topic_date);
+                            $date = '_' . strtotime($date);
+
+                            if (isset($output[$date]['topics'])) {
+                                $output[$date]['topics'] += 1;
+                            } else {
+                                $output[$date]['topics'] = 1;
+                            }
+                        }
+
+                        foreach ($latest_posts as $post) {
+                            $date = date('d M Y', strtotime($post->post_date));
+                            $date = '_' . strtotime($date);
+
+                            if (isset($output[$date]['posts'])) {
+                                $output[$date]['posts'] += 1;
+                            } else {
+                                $output[$date]['posts'] = 1;
+                            }
+                        }
+
+                        // Fill in missing dates, set topics/posts to 0
+                        $start = strtotime('-1 week');
+                        $start = date('d M Y', $start);
+                        $start = strtotime($start);
+                        $end = strtotime(date('d M Y'));
+                        while ($start <= $end) {
+                            if (!isset($output['_' . $start]['topics'])) {
+                                $output['_' . $start]['topics'] = 0;
+                            }
+
+                            if (!isset($output['_' . $start]['posts'])) {
+                                $output['_' . $start]['posts'] = 0;
+                            }
+
+                            $start = strtotime('+1 day', $start);
+                        }
+
+                        // Sort by date
+                        ksort($output);
+
+                        $cache->store('haberler_data', $output, 120);
+
+                    }
+
+                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $output);
+
+                    // Dashboard stats
+                    require_once(ROOT_PATH . '/modules/Haberler/collections/panel/RecentTopics.php');
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_haberler_language, $cache, count($latest_topics)));
+
+                    require_once(ROOT_PATH . '/modules/Haberler/collections/panel/RecentPosts.php');
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_haberler_language, $cache, count($latest_posts)));
+
                 }
             }
         }

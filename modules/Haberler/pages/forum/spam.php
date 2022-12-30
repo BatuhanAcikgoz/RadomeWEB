@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Mark a post as spam
  */
@@ -45,14 +45,14 @@ if ($haberler->canModerateHaberler($post->haberler_id, $user->getAllGroupIds()))
         // Ensure user is not admin
         if ($is_admin) {
             Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
-            Redirect::to(URL::build('/haberler/konu/' . urlencode($post->haber_id), 'pid=' . urlencode($post->id)));
+            Redirect::to(URL::build('/haberler/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
         }
 
         // Delete all posts from the user
         DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
 
-        // Delete all habers from the user
-        DB::getInstance()->delete('habers', ['haber_creator', $post->post_creator]);
+        // Delete all topics from the user
+        DB::getInstance()->delete('topics', ['topic_creator', $post->post_creator]);
 
         // Log user out
         $banned_user_ip = $banned_user->data()->lastip;
@@ -75,7 +75,7 @@ if ($haberler->canModerateHaberler($post->haberler_id, $user->getAllGroupIds()))
         Redirect::to(URL::build('/haberler'));
     } else {
         // Invalid token
-        Redirect::to(URL::build('/haberler/konu/' . urlencode($post->haber_id), 'pid=' . urlencode($post->id)));
+        Redirect::to(URL::build('/haberler/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
     }
 } else {
     // Can't moderate haberler

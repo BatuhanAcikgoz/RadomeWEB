@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  React to a post
  */
@@ -36,11 +36,11 @@ if (Input::exists()) {
     }
 
     $post = $post[0];
-    $haber_id = $post->haber_id;
+    $topic_id = $post->topic_id;
 
     // Check user can actually view the post
     if (!($haberler->haberlerExist($post->haberler_id, $user->getAllGroupIds()))) {
-        Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+        Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
     }
 
     if (Token::check()) {
@@ -81,7 +81,7 @@ if (Input::exists()) {
 
         // Redirect
     }
-    Redirect::to(URL::build('/haberler/konu/' . urlencode($haber_id), 'pid=' . urlencode($post->id)));
+    Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
 } else {
     Redirect::to(URL::build('/haberler'));
 }

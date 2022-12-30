@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Haberler initialisation file
  */
@@ -17,11 +17,14 @@ if (!$module_installed) {
     // Need to run the installer
 
     $exists = DB::getInstance()->showTables('haberlers');
+    if (empty($exists)) {
+        die('Run the installer first!');
+    }
 
     $cache->store('module_haberler', true);
 }
 
-const FORUM = true;
+const HABERLER = true;
 
 // Initialise haberler language
 $haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language');
@@ -41,8 +44,8 @@ if (!isset($profile_tabs)) {
 }
 $profile_tabs['haberler'] = ['title' => $haberler_language->get('haberler', 'haberler'), 'smarty_template' => 'haberler/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Haberler' . DIRECTORY_SEPARATOR . 'profile_tab.php'];
 
-// Following habers UserCP sidebar
-$cc_nav->add('cc_following_habers', $haberler_language->get('haberler', 'following_habers'), URL::build('/kullanici/takip_edilen_konular'));
+// Following topics UserCP sidebar
+$cc_nav->add('cc_following_topics', $haberler_language->get('haberler', 'following_topics'), URL::build('/user/following_topics'));
 
 // Initialise module
 require_once(ROOT_PATH . '/modules/Haberler/module.php');

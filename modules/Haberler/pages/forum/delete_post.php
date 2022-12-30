@@ -1,10 +1,10 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0-pr8
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Delete post page
  */
@@ -39,7 +39,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
-                    DB::getInstance()->update('habers', Input::get('tid'), [
+                    DB::getInstance()->update('topics', Input::get('tid'), [
                         'deleted' => true,
                     ]);
 
@@ -48,10 +48,10 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
 
                     $redirect = URL::build('/haberler'); // Create a redirect string
                 } else {
-                    $redirect = URL::build('/haberler/konu/' . urlencode(Input::get('tid')));
+                    $redirect = URL::build('/haberler/topic/' . urlencode(Input::get('tid')));
                 }
             } else {
-                $redirect = URL::build('/haberler/arama/', 'p=1&s=' . urlencode($_POST['search_string']));
+                $redirect = URL::build('/haberler/search/', 'p=1&s=' . urlencode($_POST['search_string']));
             }
 
             DB::getInstance()->update('posts', Input::get('pid'), [
@@ -59,7 +59,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
             ]);
 
             if (isset($opening_post)) {
-                $posts = DB::getInstance()->get('posts', ['haber_id', $_POST['tid']])->results();
+                $posts = DB::getInstance()->get('posts', ['topic_id', $_POST['tid']])->results();
 
                 if (count($posts)) {
                     foreach ($posts as $post) {
@@ -78,7 +78,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
             Redirect::to($redirect);
 
         } else {
-            Redirect::to(URL::build('/haberler/konu/' . urlencode(Input::get('tid'))));
+            Redirect::to(URL::build('/haberler/topic/' . urlencode(Input::get('tid'))));
         }
     } else {
         echo 'No post selected';

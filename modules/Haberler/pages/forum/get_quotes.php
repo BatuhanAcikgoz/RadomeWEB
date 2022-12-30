@@ -1,10 +1,10 @@
 <?php
 /*
- *  Made by Reeignn
- *  https://github.com/Verira/RadomeWEB
- *  RadomeWEB v2.1
+ *  Made by Samerton
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr8
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Get a list of quotes
  */
@@ -32,13 +32,13 @@ foreach ($_POST['posts'] as $item) {
     $content = $post['content'];
     $content = preg_replace('~<blockquote(.*?)>(.*)</blockquote>~si', '', $content);
 
-    if ($post['haber_id'] == $_POST['haber']) {
+    if ($post['topic_id'] == $_POST['topic']) {
         $post_author = new User($post['creator']);
         $posts[] = [
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
-            'link' => URL::build('/haberler/konu/' . urlencode($post['haber_id']), 'pid=' . urlencode($item))
+            'link' => URL::build('/haberler/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
         ];
     }
 }

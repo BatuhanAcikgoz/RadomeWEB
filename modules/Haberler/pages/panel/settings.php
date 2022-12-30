@@ -1,10 +1,10 @@
 <?php
 /*
  *  Made by Partydragen
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0-pr12
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.0.0-pr12
  *
- *  License: GPL-3.0
+ *  License: MIT
  *
  *  Panel haberlers page
  */
@@ -50,7 +50,7 @@ if (Input::exists()) {
         // Invalid token
         Session::flash('admin_haberlers_settings', $language->get('general', 'invalid_token'));
     }
-    Redirect::to(URL::build('/panel/haberlerlar/ayarlar'));
+    Redirect::to(URL::build('/panel/haberlers/settings'));
 }
 
 // Retrieve Link Location from cache
@@ -81,7 +81,7 @@ if (isset($errors) && count($errors)) {
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'FORUM' => $haberler_language->get('haberler', 'haberler'),
+    'HABERLER' => $haberler_language->get('haberler', 'haberler'),
     'SETTINGS' => $language->get('admin', 'settings'),
     'LINK_LOCATION' => $language->get('admin', 'page_link_location'),
     'LINK_LOCATION_VALUE' => $link_location,
