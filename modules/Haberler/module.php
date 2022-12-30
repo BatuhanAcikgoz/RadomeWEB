@@ -148,8 +148,6 @@ class Haberler_Module extends Module {
             ]
         );
 
-        EventHandler::registerListener('deleteUser', 'DeleteUserHaberlerHook::execute');
-
         EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
         EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
