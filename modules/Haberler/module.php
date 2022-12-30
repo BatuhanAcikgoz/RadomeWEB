@@ -164,8 +164,6 @@ class Haberler_Module extends Module {
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
-
-        EventHandler::registerListener('cloneGroup', 'CloneGroupHaberlerHook::execute');
     }
 
     public function onInstall() {
