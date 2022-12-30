@@ -17,9 +17,6 @@ if (!$module_installed) {
     // Need to run the installer
 
     $exists = DB::getInstance()->showTables('haberlers');
-    if (empty($exists)) {
-        die('Run the installer first!');
-    }
 
     $cache->store('module_haberler', true);
 }
