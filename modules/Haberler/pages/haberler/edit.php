@@ -33,7 +33,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = DB::getInstance()->query('SELECT * FROM rw_posts WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
+$post_editing = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
 
 // Check topic exists
 if (!count($post_editing)) {
@@ -56,7 +56,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = DB::getInstance()->get('posts', ['id', $post_id])->results();
+$post_editing = DB::getInstance()->get('haberlers', ['id', $post_id])->results();
 
 // Check post exists
 if (!count($post_editing)) {
@@ -121,7 +121,7 @@ if (Input::exists()) {
             ])['content'];
 
             // Update post content
-            DB::getInstance()->update('posts', $post_id, [
+            DB::getInstance()->update('haberlers', $post_id, [
                 'post_content' => $content,
                 'last_edited' => date('U')
             ]);

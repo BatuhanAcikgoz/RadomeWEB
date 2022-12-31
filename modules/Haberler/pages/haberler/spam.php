@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/haberler'));
 }
 
-$post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
+$post = DB::getInstance()->get('haberlers', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/haberler'));
@@ -48,8 +48,8 @@ if ($haberler->canModerateHaberler($post->haberler_id, $user->getAllGroupIds()))
             Redirect::to(URL::build('/haberler/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
         }
 
-        // Delete all posts from the user
-        DB::getInstance()->delete('posts', ['post_creator', $post->post_creator]);
+        // Delete all haberlers from the user
+        DB::getInstance()->delete('haberlers', ['post_creator', $post->post_creator]);
 
         // Delete all topics from the user
         DB::getInstance()->delete('topics', ['topic_creator', $post->post_creator]);

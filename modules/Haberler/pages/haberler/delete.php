@@ -47,17 +47,17 @@ if ($haberler->canModerateHaberler($topic->haberler_id, $user->getAllGroupIds())
     //TODO: TOPIC
     Log::getInstance()->log(Log::Action('haberlers/topic/delete'), $topic_id);
 
-    $posts = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
+    $haberlers = DB::getInstance()->get('haberlers', ['topic_id', $topic_id])->results();
 
-    if (count($posts)) {
-        foreach ($posts as $post) {
-            DB::getInstance()->update('posts', $post->id, [
+    if (count($haberlers)) {
+        foreach ($haberlers as $post) {
+            DB::getInstance()->update('haberlers', $post->id, [
                 'deleted' => true,
             ]);
         }
     }
 
-    // Update latest posts in haberlers
+    // Update latest haberlers in haberlers
     $haberler->updateHaberlerLatestPosts();
 
 }

@@ -37,17 +37,17 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 ]
             ]);
 
-            $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
+            $haberlers_to_move = DB::getInstance()->get('haberlers', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
-                foreach ($posts_to_move as $post_to_move) {
-                    DB::getInstance()->update('posts', $post_to_move->id, [
+                foreach ($haberlers_to_move as $post_to_move) {
+                    DB::getInstance()->update('haberlers', $post_to_move->id, [
                         'topic_id' => Input::get('merge')
                     ]);
                 }
                 DB::getInstance()->delete('topics', ['id', $topic_id]);
                 Log::getInstance()->log(Log::Action('haberlers/merge'));
-                // Update latest posts in categories
+                // Update latest haberlers in categories
                 $haberler->updateHaberlerLatestPosts();
                 $haberler->updateTopicLatestPosts();
 

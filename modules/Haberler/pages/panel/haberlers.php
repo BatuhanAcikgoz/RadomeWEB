@@ -393,11 +393,11 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                         if (Input::get('confirm') === 'true') {
                             $haberler_perms = DB::getInstance()->get('haberlers_permissions', ['haberler_id', $_GET['fid']])->results(); // Get permissions to be deleted
                             if (Input::get('move_haberler') === 'none') {
-                                $posts = DB::getInstance()->get('posts', ['haberler_id', $_GET['fid']])->results();
+                                $haberlers = DB::getInstance()->get('haberlers', ['haberler_id', $_GET['fid']])->results();
                                 $topics = DB::getInstance()->get('topics', ['haberler_id', $_GET['fid']])->results();
 
-                                foreach ($posts as $post) {
-                                    DB::getInstance()->delete('posts', ['id', $post->id]);
+                                foreach ($haberlers as $post) {
+                                    DB::getInstance()->delete('haberlers', ['id', $post->id]);
                                 }
                                 foreach ($topics as $topic) {
                                     DB::getInstance()->delete('topics', ['id', $topic->id]);
@@ -407,11 +407,11 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                             } else {
                                 $new_haberler = Input::get('move_haberler');
-                                $posts = DB::getInstance()->get('posts', ['haberler_id', $_GET['fid']])->results();
+                                $haberlers = DB::getInstance()->get('haberlers', ['haberler_id', $_GET['fid']])->results();
                                 $topics = DB::getInstance()->get('topics', ['haberler_id', $_GET['fid']])->results();
 
-                                foreach ($posts as $post) {
-                                    DB::getInstance()->update('posts', $post->id, [
+                                foreach ($haberlers as $post) {
+                                    DB::getInstance()->update('haberlers', $post->id, [
                                         'haberler_id' => $new_haberler
                                     ]);
                                 }
@@ -451,8 +451,8 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                 $smarty->assign([
                     'DELETE_HABERLER' => $haberler_language->get('haberler', 'delete_haberler'),
-                    'MOVE_TOPICS_AND_POSTS_TO' => $haberler_language->get('haberler', 'move_topics_and_posts_to'),
-                    'DELETE_TOPICS_AND_POSTS' => $haberler_language->get('haberler', 'delete_topics_and_posts'),
+                    'MOVE_TOPICS_AND_POSTS_TO' => $haberler_language->get('haberler', 'move_topics_and_haberlers_to'),
+                    'DELETE_TOPICS_AND_POSTS' => $haberler_language->get('haberler', 'delete_topics_and_haberlers'),
                     'OTHER_HABERLERS' => $template_array
                 ]);
 

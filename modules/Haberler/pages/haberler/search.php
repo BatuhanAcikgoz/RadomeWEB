@@ -63,9 +63,9 @@ if (!isset($_GET['s'])) {
     if (!$cache->isCached('result')) {
         // Execute search
         $search_topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
-        $search_posts = DB::getInstance()->query('SELECT * FROM rw_posts WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
+        $search_haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
-        $search_results = array_merge($search_topics, $search_posts);
+        $search_results = array_merge($search_topics, $search_haberlers);
 
         $results = [];
         foreach ($search_results as $result) {
@@ -98,7 +98,7 @@ if (!isset($_GET['s'])) {
                         }
                     } else {
                         // Topic, get associated post
-                        $post = DB::getInstance()->query('SELECT * FROM rw_posts WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
+                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
@@ -163,15 +163,15 @@ if (isset($_GET['s'])) {
         $smarty->assign('PAGINATION', $pagination);
 
         // Posts to display on the page
-        $posts = [];
-        // Display the correct number of posts
+        $haberlers = [];
+        // Display the correct number of haberlers
         $n = 0;
         while (($n < count($results->data)) && isset($results->data[$n])) {
             // Purify post content
             $content = EventHandler::executeEvent('renderPost', ['content' => $results->data[$n]['post_content']])['content'];
 
             $post_user = new User($results->data[$n]['post_author']);
-            $posts[$n] = [
+            $haberlers[$n] = [
                 'post_author' => $post_user->getDisplayname(),
                 'post_author_id' => Output::getClean($results->data[$n]['post_author']),
                 'post_author_avatar' => $post_user->getAvatar(25),
@@ -189,7 +189,7 @@ if (isset($_GET['s'])) {
         $results = null;
 
         $smarty->assign([
-            'RESULTS' => $posts,
+            'RESULTS' => $haberlers,
             'READ_FULL_POST' => $haberler_language->get('haberler', 'read_full_post')
         ]);
     } else {

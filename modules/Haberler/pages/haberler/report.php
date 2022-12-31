@@ -24,7 +24,7 @@ if (!isset($_POST['post']) || !is_numeric($_POST['post'])) {
     Redirect::to(URL::build('/haberler'));
 }
 
-$post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
+$post = DB::getInstance()->get('haberlers', ['id', $_POST['post']])->results();
 if (!count($post)) {
     // Doesn't exist
     Redirect::to(URL::build('/haberler'));

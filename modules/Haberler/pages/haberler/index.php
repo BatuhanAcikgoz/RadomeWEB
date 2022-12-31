@@ -49,7 +49,7 @@ $smarty->assign('BY', $haberler_language->get('haberler', 'by'));
 $smarty->assign('IN', $haberler_language->get('haberler', 'in'));
 $smarty->assign('VIEWS', $haberler_language->get('haberler', 'views'));
 $smarty->assign('TOPICS', $haberler_language->get('haberler', 'topics'));
-$smarty->assign('POSTS', $haberler_language->get('haberler', 'posts'));
+$smarty->assign('POSTS', $haberler_language->get('haberler', 'haberlers'));
 $smarty->assign('STATISTICS', $haberler_language->get('haberler', 'statistics'));
 $smarty->assign('OVERVIEW', $haberler_language->get('haberler', 'overview'));
 $smarty->assign('LATEST_DISCUSSIONS_TITLE', $haberler_language->get('haberler', 'latest_discussions'));

@@ -252,7 +252,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('LAST_REPLY', $haberler_language->get('haberler', 'last_reply'));
     $smarty->assign('BY', $haberler_language->get('haberler', 'by'));
     $smarty->assign('VIEWS', $haberler_language->get('haberler', 'views'));
-    $smarty->assign('POSTS', $haberler_language->get('haberler', 'posts'));
+    $smarty->assign('POSTS', $haberler_language->get('haberler', 'haberlers'));
     $smarty->assign('STATISTICS', $haberler_language->get('haberler', 'stats'));
     $smarty->assign('OVERVIEW', $haberler_language->get('haberler', 'overview'));
     $smarty->assign('LATEST_DISCUSSIONS_TITLE', $haberler_language->get('haberler', 'latest_discussions'));
@@ -293,7 +293,7 @@ if ($haberler_query->redirect_haberler == 1) {
         // Assign sticky threads to smarty variable
         foreach ($stickies as $sticky) {
             // Get number of replies to a topic
-            $replies = DB::getInstance()->get('posts', ['topic_id', $sticky->id])->results();
+            $replies = DB::getInstance()->get('haberlers', ['topic_id', $sticky->id])->results();
             $replies = count($replies);
 
             // Is there a label?
@@ -363,7 +363,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'topic_created_user_id' => Output::getClean($sticky->topic_creator),
                 'views' => $sticky->topic_views,
                 'locked' => $sticky->locked,
-                'posts' => $replies,
+                'haberlers' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords($sticky->topic_reply_date, $language),
                 'last_reply' => date(DATE_FORMAT, $sticky->topic_reply_date),
@@ -402,7 +402,7 @@ if ($haberler_query->redirect_haberler == 1) {
         // Get a list of all topics from the haberler, and paginate
         foreach ($results->data as $nValue) {
             // Get number of replies to a topic
-            $replies = DB::getInstance()->get('posts', ['topic_id', $nValue->id])->results();
+            $replies = DB::getInstance()->get('haberlers', ['topic_id', $nValue->id])->results();
             $replies = count($replies);
 
             // Is there a label?
@@ -472,7 +472,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'topic_created_user_id' => Output::getClean($nValue->topic_creator),
                 'locked' => $nValue->locked,
                 'views' => $nValue->topic_views,
-                'posts' => $replies,
+                'haberlers' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords($nValue->topic_reply_date, $language),
                 'last_reply' => date(DATE_FORMAT, $nValue->topic_reply_date),

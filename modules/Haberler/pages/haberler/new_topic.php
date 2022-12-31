@@ -94,7 +94,7 @@ if (count($haberler_labels)) {
 if (Input::exists()) {
     if (Token::check()) {
         // Check post limits
-        $last_post = DB::getInstance()->orderWhere('posts', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1')->results();
+        $last_post = DB::getInstance()->orderWhere('haberlers', 'post_creator = ' . $user->data()->id, 'post_date', 'DESC LIMIT 1')->results();
         if (count($last_post)) {
             if ($last_post[0]->created > strtotime('-30 seconds')) {
                 $spam_check = true;
@@ -168,7 +168,7 @@ if (Input::exists()) {
 
                 $content = Input::get('content');
 
-                DB::getInstance()->insert('posts', [
+                DB::getInstance()->insert('haberlers', [
                     'haberler_id' => $fid,
                     'topic_id' => $topic_id,
                     'post_creator' => $user->data()->id,
@@ -187,7 +187,7 @@ if (Input::exists()) {
                     'user' => $user,
                 ])['content'];
 
-                DB::getInstance()->update('posts', $last_post_id, [
+                DB::getInstance()->update('haberlers', $last_post_id, [
                     'post_content' => $content
                 ]);
 

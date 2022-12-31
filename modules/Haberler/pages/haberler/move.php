@@ -42,14 +42,14 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 Redirect::to(URL::build('/haberler'));
             }
 
-            $posts_to_move = DB::getInstance()->get('posts', ['topic_id', $topic_id])->results();
+            $haberlers_to_move = DB::getInstance()->get('haberlers', ['topic_id', $topic_id])->results();
             if ($validation->passed()) {
 
                 DB::getInstance()->update('topics', $topic->id, [
                     'haberler_id' => Input::get('haberler')
                 ]);
-                foreach ($posts_to_move as $post_to_move) {
-                    DB::getInstance()->update('posts', $post_to_move->id, [
+                foreach ($haberlers_to_move as $post_to_move) {
+                    DB::getInstance()->update('haberlers', $post_to_move->id, [
                         'haberler_id' => Input::get('haberler')
                     ]);
                 }
@@ -57,7 +57,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 //TODO: Topic name & and Haberlers name
                 Log::getInstance()->log(Log::Action('haberlers/move'), Output::getClean($topic_id) . ' => ' . Output::getClean(Input::get('haberler')));
 
-                // Update latest posts in categories
+                // Update latest haberlers in categories
                 $haberler->updateHaberlerLatestPosts();
                 $haberler->updateTopicLatestPosts();
 

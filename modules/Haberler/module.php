@@ -238,12 +238,6 @@ class Haberler_Module extends Module {
                 break;
         }
 
-        // Widgets
-        if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
-            // Latest posts
-            $widgets->add(new LatestPostsWidget($this->_haberler_language->get('haberler', 'latest_posts'), $this->_haberler_language->get('haberler', 'by'), $smarty, $cache, $user, $this->_language));
-        }
-
         // Front end or back end?
         if (defined('FRONT_END')) {
             // Global variables if user is logged in
@@ -251,7 +245,7 @@ class Haberler_Module extends Module {
                 // Basic user variables
                 $topic_count = DB::getInstance()->get('topics', ['topic_creator', $user->data()->id])->results();
                 $topic_count = count($topic_count);
-                $post_count = DB::getInstance()->get('posts', ['post_creator', $user->data()->id])->results();
+                $post_count = DB::getInstance()->get('haberlers', ['post_creator', $user->data()->id])->results();
                 $post_count = count($post_count);
                 $smarty->assign('LOGGED_IN_USER_HABERLER', [
                     'topic_count' => $topic_count,
@@ -266,7 +260,7 @@ class Haberler_Module extends Module {
                     $haberler = new Haberler();
 
                     $smarty->assign('TOPICS', $this->_haberler_language->get('haberler', 'x_topics', ['count' => $haberler->getTopicCount($user_id)]));
-                    $smarty->assign('POSTS', $this->_haberler_language->get('haberler', 'x_posts', ['count' => $haberler->getPostCount($user_id)]));
+                    $smarty->assign('POSTS', $this->_haberler_language->get('haberler', 'x_haberlers', ['count' => $haberler->getPostCount($user_id)]));
                 }
             }
 
@@ -313,9 +307,9 @@ class Haberler_Module extends Module {
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                     // Dashboard graph
 
-                    // Get data for topics and posts
+                    // Get data for topics and haberlers
                     $latest_topics = DB::getInstance()->orderWhere('topics', 'topic_date > ' . strtotime('-1 week'), 'topic_date', 'ASC')->results();
-                    $latest_posts = DB::getInstance()->orderWhere('posts', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
+                    $latest_haberlers = DB::getInstance()->orderWhere('haberlers', 'post_date > "' . date('Y-m-d G:i:s', strtotime('-1 week')) . '"', 'post_date', 'ASC')->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('haberler_data')) {
@@ -326,8 +320,8 @@ class Haberler_Module extends Module {
 
                         $output['datasets']['topics']['label'] = 'haberler_language/haberler/topics_title'; // for $haberler_language->get('haberler', 'topics_title');
                         $output['datasets']['topics']['colour'] = '#00931D';
-                        $output['datasets']['posts']['label'] = 'haberler_language/haberler/posts_title'; // for $haberler_language->get('haberler', 'posts_title');
-                        $output['datasets']['posts']['colour'] = '#ffde0a';
+                        $output['datasets']['haberlers']['label'] = 'haberler_language/haberler/haberlers_title'; // for $haberler_language->get('haberler', 'haberlers_title');
+                        $output['datasets']['haberlers']['colour'] = '#ffde0a';
 
                         foreach ($latest_topics as $topic) {
                             $date = date('d M Y', $topic->topic_date);
@@ -340,18 +334,18 @@ class Haberler_Module extends Module {
                             }
                         }
 
-                        foreach ($latest_posts as $post) {
+                        foreach ($latest_haberlers as $post) {
                             $date = date('d M Y', strtotime($post->post_date));
                             $date = '_' . strtotime($date);
 
-                            if (isset($output[$date]['posts'])) {
-                                $output[$date]['posts'] += 1;
+                            if (isset($output[$date]['haberlers'])) {
+                                $output[$date]['haberlers'] += 1;
                             } else {
-                                $output[$date]['posts'] = 1;
+                                $output[$date]['haberlers'] = 1;
                             }
                         }
 
-                        // Fill in missing dates, set topics/posts to 0
+                        // Fill in missing dates, set topics/haberlers to 0
                         $start = strtotime('-1 week');
                         $start = date('d M Y', $start);
                         $start = strtotime($start);
@@ -361,8 +355,8 @@ class Haberler_Module extends Module {
                                 $output['_' . $start]['topics'] = 0;
                             }
 
-                            if (!isset($output['_' . $start]['posts'])) {
-                                $output['_' . $start]['posts'] = 0;
+                            if (!isset($output['_' . $start]['haberlers'])) {
+                                $output['_' . $start]['haberlers'] = 0;
                             }
 
                             $start = strtotime('+1 day', $start);
@@ -382,7 +376,7 @@ class Haberler_Module extends Module {
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_haberler_language, $cache, count($latest_topics)));
 
                     require_once(ROOT_PATH . '/modules/Haberler/collections/panel/RecentPosts.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_haberler_language, $cache, count($latest_posts)));
+                    CollectionManager::addItemToCollection('dashboard_stats', new RecentPostsItem($smarty, $this->_haberler_language, $cache, count($latest_haberlers)));
 
                 }
             }

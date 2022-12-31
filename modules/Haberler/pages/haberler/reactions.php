@@ -29,7 +29,7 @@ if (Input::exists()) {
     }
 
     // Get post information
-    $post = DB::getInstance()->get('posts', ['id', $_POST['post']])->results();
+    $post = DB::getInstance()->get('haberlers', ['id', $_POST['post']])->results();
 
     if (!count($post)) {
         Redirect::to(URL::build('/haberler'));

@@ -24,7 +24,7 @@ if (!isset($_GET['pid']) || !is_numeric($_GET['pid'])) {
 }
 
 // Get post and haberler ID
-$post = DB::getInstance()->get('posts', ['id', $_GET['pid']])->results();
+$post = DB::getInstance()->get('haberlers', ['id', $_GET['pid']])->results();
 if (!count($post)) {
     Redirect::to(URL::build('/haberler'));
 }
@@ -54,16 +54,16 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 $redirect = URL::build('/haberler/search/', 'p=1&s=' . urlencode($_POST['search_string']));
             }
 
-            DB::getInstance()->update('posts', Input::get('pid'), [
+            DB::getInstance()->update('haberlers', Input::get('pid'), [
                 'deleted' => true,
             ]);
 
             if (isset($opening_post)) {
-                $posts = DB::getInstance()->get('posts', ['topic_id', $_POST['tid']])->results();
+                $haberlers = DB::getInstance()->get('haberlers', ['topic_id', $_POST['tid']])->results();
 
-                if (count($posts)) {
-                    foreach ($posts as $post) {
-                        DB::getInstance()->update('posts', $post->id, [
+                if (count($haberlers)) {
+                    foreach ($haberlers as $post) {
+                        DB::getInstance()->update('haberlers', $post->id, [
                             'deleted' => true,
                         ]);
                         Log::getInstance()->log(Log::Action('haberlers/post/delete'), $post->id);
@@ -71,7 +71,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
                 }
             }
 
-            // Update latest posts in categories
+            // Update latest haberlers in categories
             $haberler->updateHaberlerLatestPosts();
             $haberler->updateTopicLatestPosts();
 

@@ -24,9 +24,9 @@ if (empty($_POST)) {
     die(json_encode(['error' => 'No post data']));
 }
 
-$posts = [];
+$haberlers = [];
 
-foreach ($_POST['posts'] as $item) {
+foreach ($_POST['haberlers'] as $item) {
     $post = $haberler->getIndividualPost($item);
 
     $content = $post['content'];
@@ -34,7 +34,7 @@ foreach ($_POST['posts'] as $item) {
 
     if ($post['topic_id'] == $_POST['topic']) {
         $post_author = new User($post['creator']);
-        $posts[] = [
+        $haberlers[] = [
             'content' => Output::getPurified($content),
             'author_username' => $post_author->getDisplayname(),
             'author_nickname' => $post_author->getDisplayname(true),
@@ -44,4 +44,4 @@ foreach ($_POST['posts'] as $item) {
 }
 
 
-die(json_encode($posts));
+die(json_encode($haberlers));
