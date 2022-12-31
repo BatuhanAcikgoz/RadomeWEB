@@ -36,7 +36,6 @@ $home_type = Util::getSetting('home_type');
 $smarty->assign('HOME_TYPE', $home_type);
 
 if ($home_type === 'news') {
-    require(ROOT_PATH . '/' . 'modules/Haberler');
     foreach ($front_page_modules as $module) {
         require(ROOT_PATH . '/' . $module);
     }
