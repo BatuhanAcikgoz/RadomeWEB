@@ -304,6 +304,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'Fields' => __DIR__ . '/../..' . '/core/classes/Core/Fields.php',
         'Forum' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum.php',
         'Forum_Sitemap' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum_Sitemap.php',
+        'Haberler' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler.php',
         'Haberler_Sitemap' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler_Sitemap.php',
         'Group' => __DIR__ . '/../..' . '/core/classes/DTO/Group.php',
         'GroupSyncInjector' => __DIR__ . '/../..' . '/core/classes/Group_Sync/GroupSyncInjector.php',
