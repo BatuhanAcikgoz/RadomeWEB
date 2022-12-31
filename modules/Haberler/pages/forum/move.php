@@ -93,7 +93,7 @@ foreach ($categories as $category) {
     $template_haberlers[] = $to_add;
 
 
-    $haberlers = DB::getInstance()->query('SELECT * FROM nl2_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$category->id]);
+    $haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$category->id]);
 
     if ($haberlers->count()) {
         $haberlers = $haberlers->results();

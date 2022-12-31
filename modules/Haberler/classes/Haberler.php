@@ -3,8 +3,8 @@
  * Haberler class
  *
  * @package Modules\Haberler
- * @author Samerton
- * @version 2.0.0-pr13
+ * @author Reeignn
+ * @version 2.0.2
  * @license MIT
  */
 class Haberler {
@@ -418,7 +418,7 @@ class Haberler {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM nl2_topics WHERE haberler_id IN (SELECT id FROM nl2_haberlers WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
+        $news_items = $this->_db->query('SELECT * FROM rw_topics WHERE haberler_id IN (SELECT id FROM rw_haberlers WHERE news = 1) AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
 
         foreach ($news_items as $item) {
             $news_post = $this->_db->get('posts', ['topic_id', $item->id])->results();
@@ -529,7 +529,7 @@ class Haberler {
             if (isset(self::$_count_cache["posts_$user_id"])) {
                 return self::$_count_cache["posts_$user_id"];
             }
-            $count = $this->_db->query('SELECT COUNT(*) AS c FROM nl2_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
+            $count = $this->_db->query('SELECT COUNT(*) AS c FROM rw_posts WHERE deleted = 0 AND post_creator = ?', [$user_id])->first()->c;
             self::$_count_cache["posts_$user_id"] = $count;
             return $count;
         }
@@ -548,7 +548,7 @@ class Haberler {
             if (isset(self::$_count_cache["topics_$user_id"])) {
                 return self::$_count_cache["topics_$user_id"];
             }
-            $count = $this->_db->query('SELECT COUNT(*) AS c FROM nl2_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
+            $count = $this->_db->query('SELECT COUNT(*) AS c FROM rw_topics WHERE deleted = 0 AND topic_creator = ?', [$user_id])->first()->c;
             self::$_count_cache["topics_$user_id"] = $count;
             return $count;
         }
@@ -598,7 +598,7 @@ class Haberler {
 
         $ret = [];
 
-        $subhaberlers_query = $this->_db->query('SELECT * FROM nl2_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_id]);
+        $subhaberlers_query = $this->_db->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_id]);
 
         if (!$subhaberlers_query->count()) {
             return $ret;

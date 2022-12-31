@@ -42,7 +42,7 @@ if (!$can_reply) {
     Redirect::to(URL::build('/haberler/view/' . urlencode($fid)));
 }
 
-$current_haberler = DB::getInstance()->query('SELECT * FROM nl2_haberlers WHERE id = ?', [$fid])->first();
+$current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
 
 // Topic labels

@@ -112,13 +112,13 @@ if ($haberler_query->redirect_haberler == 1) {
     }
 
     if ($haberler->canViewOtherTopics($fid, $user_groups)) {
-        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
     } else {
-        $topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
+        $topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
     }
 
     // Get sticky topics
-    $stickies = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
+    $stickies = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
     // Search bar
     $smarty->assign([
@@ -180,7 +180,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('HABERLER_INDEX_LINK', URL::build('/haberler'));
 
     // Any subhaberlers?
-    $subhaberlers = DB::getInstance()->query('SELECT * FROM nl2_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_query->id])->results();
+    $subhaberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_query->id])->results();
 
     $subhaberler_array = [];
 
@@ -190,9 +190,9 @@ if ($haberler_query->redirect_haberler == 1) {
             // Get number of topics
             if ($haberler->haberlerExist($subhaberler->id, $user_groups)) {
                 if ($haberler->canViewOtherTopics($subhaberler->id, $user_groups)) {
-                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subhaberler->id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subhaberler->id])->results();
                 } else {
-                    $latest_post = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subhaberler->id, $user_id])->results();
+                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subhaberler->id, $user_id])->results();
                 }
 
                 $subhaberler_topics = count($latest_post);

@@ -367,7 +367,7 @@ if (!isset($_GET['action'])) {
             // List label types
             // $labels = DB::getInstance()->get('haberlers_labels', ['id', '<>', 0])->results();
             $labels = DB::getInstance()->query(
-                "SELECT `nl2_haberlers_labels`.*, (SELECT COUNT(id) FROM nl2_haberlers_topic_labels WHERE nl2_haberlers_labels.id = nl2_haberlers_topic_labels.id) as count FROM `nl2_haberlers_labels`"
+                "SELECT `rw_haberlers_labels`.*, (SELECT COUNT(id) FROM rw_haberlers_topic_labels WHERE rw_haberlers_labels.id = rw_haberlers_topic_labels.id) as count FROM `rw_haberlers_labels`"
             )->results();
             $template_array = [];
 
@@ -557,7 +557,7 @@ if (!isset($_GET['action'])) {
 
             if (Token::check($_POST['token'])) {
                 // Make sure label type is not in use
-                $count = DB::getInstance()->query('SELECT COUNT(id) AS count FROM nl2_haberlers_topic_labels WHERE nl2_haberlers_topic_labels.label = ?', [$_GET['lid']])->first()->count;
+                $count = DB::getInstance()->query('SELECT COUNT(id) AS count FROM rw_haberlers_topic_labels WHERE rw_haberlers_topic_labels.label = ?', [$_GET['lid']])->first()->count;
 
                 if ($count < 1) {
                     // Delete the label

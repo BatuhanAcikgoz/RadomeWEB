@@ -25,7 +25,7 @@ if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
 }
 
 $topic_id = $_GET['tid'];
-$haberler_id = DB::getInstance()->query('SELECT haberler_id FROM nl2_topics WHERE id = ?', [$topic_id])->first();
+$haberler_id = DB::getInstance()->query('SELECT haberler_id FROM rw_topics WHERE id = ?', [$topic_id])->first();
 $haberler_id = $haberler_id->haberler_id;
 
 if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
@@ -66,7 +66,7 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
 $token = Token::get();
 
 // Get topics
-$topics = DB::getInstance()->query('SELECT * FROM nl2_topics WHERE haberler_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$haberler_id, $topic_id])->results();
+$topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE haberler_id = ? AND deleted = 0 AND id <> ? ORDER BY id ASC', [$haberler_id, $topic_id])->results();
 
 // Smarty
 $smarty->assign([

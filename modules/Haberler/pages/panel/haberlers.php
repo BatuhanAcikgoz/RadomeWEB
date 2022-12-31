@@ -718,8 +718,8 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
             }
 
             // Get all haberler permissions
-            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM nl2_haberlers_permissions WHERE group_id = 0 AND haberler_id = ?', [$haberler[0]->id])->results();
-            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM nl2_haberlers_permissions WHERE haberler_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$haberler[0]->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM rw_haberlers_permissions WHERE group_id = 0 AND haberler_id = ?', [$haberler[0]->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_haberlers_permissions WHERE haberler_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$haberler[0]->id])->results();
 
             // Get default labels
             $enabled_labels = $haberler[0]->default_labels ? explode(',', $haberler[0]->default_labels) : [];
