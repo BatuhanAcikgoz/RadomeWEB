@@ -29,15 +29,6 @@ const FORUM = true;
 // Initialise forum language
 $forum_language = new Language(ROOT_PATH . '/modules/Forum/language');
 
-/*
- *  Temp methods for front page module, profile page tab + admin sidebar; likely to change in the future
- */
-// Front page module
-if (!isset($front_page_modules)) {
-    $front_page_modules = [];
-}
-$front_page_modules[] = 'modules/Forum/front_page.php';
-
 // Profile page tab
 if (!isset($profile_tabs)) {
     $profile_tabs = [];
