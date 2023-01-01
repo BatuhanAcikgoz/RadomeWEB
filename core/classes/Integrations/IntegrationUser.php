@@ -68,6 +68,15 @@ class IntegrationUser {
     }
 
     /**
+     * Get if this integration user is verified or not.
+     *
+     * @return bool Whether this integration user has been verified.
+     */
+    public function isVerified(): bool {
+        return $this->data()->verified;
+    }
+
+    /**
      * Update integration user data in the database.
      *
      * @param array $fields Column names and values to update.
@@ -87,13 +96,14 @@ class IntegrationUser {
      * @param string|null $username The username of the integration account
      * @param string|null $code (optional) The verification code to verify the ownership
      */
-    public function linkIntegration(User $user, ?string $identifier, ?string $username, string $code = null): void {
+    public function linkIntegration(User $user, ?string $identifier, ?string $username, bool $verified = false, string $code = null): void {
         $this->_db->query(
-            'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, date, code) VALUES (?, ?, ?, ?, ?, ?)', [
+           'INSERT INTO rw_users_integrations (user_id, integration_id, identifier, username, date, code) VALUES (?, ?, ?, ?, ?, ?, ?)', [
                 $user->data()->id,
                 $this->_integration->data()->id,
                 Output::getClean($identifier),
                 Output::getClean($username),
+                $verified ? 1 : 0,
                 date('U'),
                 $code
             ]
@@ -116,6 +126,7 @@ class IntegrationUser {
             'integration_user' => [
                 'identifier' => $identifier,
                 'username' => $username,
+                'verified' => $verified,
             ]
         ]);
     }
@@ -123,7 +134,33 @@ class IntegrationUser {
     /**
      * Verify user integration
      */
+    public function verifyIntegration(): void {
+        $this->update([
+            'verified' => true,
+            'code' => null
+        ]);
 
+        $this->_integration->onSuccessfulVerification($this);
+
+        $user = $this->getUser();
+        $default_language = new Language('core', DEFAULT_LANGUAGE);
+        EventHandler::executeEvent('verifyIntegrationUser', [
+            'integration' => $this->_integration->getName(),
+            'user_id' => $user->data()->id,
+            'username' => $user->getDisplayname(),
+            'content' => $default_language->get('user', 'user_has_verified_integration', [
+                'user' => $user->getDisplayname(),
+                'integration' => $this->_integration->getName(),
+            ]),
+            'avatar_url' => $user->getAvatar(128, true),
+            'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
+            'integration_user' => [
+                'identifier' => $this->data()->identifier,
+                'username' => $this->data()->username,
+                'verified' => $this->data()->verified,
+            ]
+        ]);
+    }
     /**
      * Delete integration user data.
      */
@@ -150,6 +187,7 @@ class IntegrationUser {
             'integration_user' => [
                 'identifier' => $this->data()->identifier,
                 'username' => $this->data()->username,
+                'verified' => $this->data()->verified,
             ]
         ]);
     }

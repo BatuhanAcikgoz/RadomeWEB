@@ -107,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'user_id' => 1,
                         'identifier' => Input::get('username'),
                         'username' => Input::get('username'),
+                        'verified' => true,
                         'date' => date('U'),
                     ]);
             }

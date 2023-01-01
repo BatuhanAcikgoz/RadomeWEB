@@ -545,7 +545,7 @@ class DatabaseInitialiser {
             'name' => 'Minecraft',
             'enabled' => true,
             'can_unlink' => false,
-            'required' => false,
+            'required' => true,
         ]);
 
         // TODO: should this be in the DiscordIntegration module...?

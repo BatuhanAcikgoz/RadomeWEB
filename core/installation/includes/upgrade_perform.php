@@ -510,6 +510,7 @@ try {
                 'user_id' => $item->id,
                 'identifier' => $item->uuid,
                 'username' => $item->mcname,
+                'verified' => true,
                 'date' => $item->joined,
             ]);
         }
