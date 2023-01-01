@@ -36,7 +36,7 @@ $radomeweb_settings_array = array(
     array('rbg', '/custom/templates/RadomeWEB/img/registerbg.jpg', 'THEME_R_BG'),
     array('elr_logo', '250px', 'THEME_ELR_LOGO'),
     array('elr_margin', '150px', 'THEME_ELR_MARGIN'),
-    array('wb_s1', '6011d988377d4a3489af570b2397ea61', 'THEME_WB_S1'),
+    array('wb_s1', '38cf12b817714b44903eca6519656238', 'THEME_WB_S1'),
     array('wb_s2', '449bfe5d39ea407eb52bfb8f093f2637', 'THEME_WB_S2'),
     array('wb_s3', 'ce5a752ace874b029464de883a8495c5', 'THEME_WB_S3'),
     array('wb_s4', 'bf232ed38a564985a05f71d2f5a6d0e1', 'THEME_WB_S4'),
