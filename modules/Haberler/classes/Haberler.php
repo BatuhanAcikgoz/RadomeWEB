@@ -336,7 +336,7 @@ class Haberler {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE haber_id AND deleted = 0 ORDER BY topic_date DESC LIMIT 10')->results();
+        $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE haber_id AND deleted = 0 ORDER BY post_date DESC LIMIT 10')->results();
 
         foreach ($news_items as $item) {
             $news_post = $this->_db->get('haberlers', ['haber_id', $item->id])->results();
@@ -351,7 +351,7 @@ class Haberler {
             $post = $news_post[0]->post_content;
             $return[] = [
                 'topic_id' => $item->id,
-                'topic_date' => $post_date,
+                'post_date' => $post_date,
                 'topic_title' => $item->haber_title,
                 'haber_views' => $item->post_views,
                 'author' => $item->post_creator,
@@ -361,7 +361,7 @@ class Haberler {
 
         // Order the discussions by date - most recent first
         usort($return, static function ($a, $b) {
-            return strtotime($b['topic_date']) - strtotime($a['topic_date']);
+            return strtotime($b['post_date']) - strtotime($a['post_date']);
         });
 
         return array_slice($return, 0, $number, true);
