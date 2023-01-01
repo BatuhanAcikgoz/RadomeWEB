@@ -99,8 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'language_id' => $default_language[0]->id,
             ]);
 
-            $profile = ProfileUtils::getProfile(Output::getClean(Input::get('username')));
-            if ($profile !== null) {
                 $result = $profile->getProfileAsArray();
                     DB::getInstance()->insert('users_integrations', [
                         'integration_id' => 1,
@@ -110,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         'verified' => true,
                         'date' => date('U'),
                     ]);
-            }
+        
 
             DatabaseInitialiser::runPostUser();
 
