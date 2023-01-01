@@ -176,51 +176,6 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                     }
 
                     // Deal with input
-                    if (Input::exists()) {
-                        $errors = [];
-
-                        if (Token::check()) {
-                            try {
-                                if (isset($_POST['redirect']) && $_POST['redirect'] == 1) {
-                                    $redirect = 1;
-                                    if (isset($_POST['redirect_url']) && strlen($_POST['redirect_url']) > 0 && strlen($_POST['redirect_url']) <= 512) {
-                                        $redirect_url = Output::getClean($_POST['redirect_url']);
-                                    } else {
-                                        $redirect_error = true;
-                                    }
-                                } else {
-                                    $redirect = 0;
-                                    $redirect_url = null;
-                                }
-
-                                if (isset($_POST['hooks']) && count($_POST['hooks'])) {
-                                    $hooks = json_encode($_POST['hooks']);
-                                } else {
-                                    $hooks = null;
-                                }
-
-                                if (!isset($redirect_error)) {
-                                    $parent = $_POST['parent'] ?? 0;
-
-                                    DB::getInstance()->update('haberlers', $haberler->id, [
-                                        'parent' => $parent,
-                                        'news' => Input::get('news_haberler'),
-                                        'redirect_haberler' => $redirect,
-                                        'redirect_url' => $redirect_url,
-                                        'hooks' => $hooks
-                                    ]);
-
-                                    Redirect::to(URL::build('/panel/haberlers/', 'haberler=' . $haberler->id));
-                                }
-
-                                $errors[] = $haberler_language->get('haberler', 'invalid_redirect_url');
-                            } catch (Exception $e) {
-                                $errors[] = $e->getMessage();
-                            }
-                        } else {
-                            $errors[] = $language->get('general', 'invalid_token');
-                        }
-                    }
 
                     // Get a list of haberlers
                     $haberlers = DB::getInstance()->get('haberlers', ['id', '<>', $haberler->id])->results();
@@ -537,16 +492,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                                 // Update the haberler
                                 $to_update = [
-                                    'haberler_title' => Output::getClean(Input::get('title')),
-                                    'haberler_description' => Output::getClean(Input::get('description')),
-                                    'news' => Input::get('display'),
-                                    'parent' => $parent,
-                                    'redirect_haberler' => $redirect,
-                                    'icon' => Input::get('icon'),
-                                    'haberler_type' => Output::getClean(Input::get('haberler_type')),
-                                    'topic_placeholder' => Input::get('topic_placeholder'),
-                                    'hooks' => $hooks,
-                                    'default_labels' => $default_labels
+                                    'haber_title' => Output::getClean(Input::get('title')),
                                 ];
 
                                 if (!isset($redirect_error)) {
