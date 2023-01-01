@@ -108,6 +108,12 @@ class IntegrationUser {
                 $code
             ]
         );
+        $minecraft_int = DB::getInstance()->get('users_integrations', ['name', $username])->results();
+        if ($minecraft_int == 1) {
+                DB::getInstance()->insert('users_integrations', [
+                    'verified' => true,
+                ]);
+        }
 
         // Load the data for this integration from the query we just made
         $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM rw_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
