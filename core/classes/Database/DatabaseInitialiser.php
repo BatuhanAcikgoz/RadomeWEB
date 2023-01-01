@@ -705,8 +705,7 @@ class DatabaseInitialiser {
             'forum_description' => 'Sunucu hakkında haberler!',
             'forum_order' => 2,
             'parent' => 1,
-            'forum_type' => 'forum',
-            'news' => 1
+            'forum_type' => 'forum'
         ]);
 
         $this->_db->insert('topics', [
