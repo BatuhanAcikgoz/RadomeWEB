@@ -41,7 +41,7 @@ class Haberler {
         }
 
         // Get a list of parent haberlers
-        $parent_haberlers = $this->_db->orderWhere('haberlers', 'parent = 0', 'haberler_order', 'ASC')->results();
+        $parent_haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haberler_order', 'ASC')->results();
 
         $return = [];
 
@@ -53,7 +53,7 @@ class Haberler {
                     $return[$haberler->id]['icon'] = Output::getPurified($haberler->icon);
 
                     // Get subhaberlers
-                    $haberlers = $this->_db->orderWhere('haberlers', 'parent = ' . $haberler->id, 'haberler_order', 'ASC')->results();
+                    $haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haberler_order', 'ASC')->results();
                     if (count($haberlers)) {
                         foreach ($haberlers as $item) {
                             if ($this->haberlerExist($item->id, $groups)) {
@@ -97,7 +97,7 @@ class Haberler {
                                 }
 
                                 // Get list of subhaberlers (names + links)
-                                $subhaberlers = $this->_db->orderWhere('haberlers', 'parent = ' . $item->id, 'haberler_order', 'ASC')->results();
+                                $subhaberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haberler_order', 'ASC')->results();
                                 if (count($subhaberlers)) {
                                     foreach ($subhaberlers as $subhaberler) {
                                         if ($this->haberlerExist($subhaberler->id, $groups)) {
@@ -479,7 +479,7 @@ class Haberler {
 
         $ret = [];
 
-        $subhaberlers_query = $this->_db->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haber_id]);
+        $subhaberlers_query = $this->_db->query('SELECT * FROM rw_haberlers WHERE deleted = ? ORDER BY haberler_order ASC', [$haber_id]);
 
         if (!$subhaberlers_query->count()) {
             return $ret;
