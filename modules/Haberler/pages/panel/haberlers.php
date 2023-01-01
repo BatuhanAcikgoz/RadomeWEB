@@ -128,9 +128,9 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                                         'icon' => Input::get('haberler_icon')
                                     ]);
 
-                                    $haberler_id = DB::getInstance()->lastId();
+                                    $haber_id = DB::getInstance()->lastId();
 
-                                    Redirect::to(URL::build('/panel/haberlers/', 'action=new&step=2&haberler=' . $haberler_id));
+                                    Redirect::to(URL::build('/panel/haberlers/', 'action=new&step=2&haberler=' . $haber_id));
                                 } catch (Exception $e) {
                                     $errors[] = $e->getMessage();
                                 }
@@ -292,8 +292,8 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                     $dir = $_GET['dir'];
 
-                    $haberler_id = DB::getInstance()->get('haberlers', ['id', $_GET['fid']])->results();
-                    $haberler_id = $haberler_id[0]->id;
+                    $haber_id = DB::getInstance()->get('haberlers', ['id', $_GET['fid']])->results();
+                    $haber_id = $haber_id[0]->id;
 
                     $haberler_order = DB::getInstance()->get('haberlers', ['id', $_GET['fid']])->results();
                     $haberler_order = $haberler_order[0]->haberler_order;
@@ -313,7 +313,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                         try {
                             if (isset($previous_fid, $previous_f_order)) {
-                                DB::getInstance()->update('haberlers', $haberler_id, [
+                                DB::getInstance()->update('haberlers', $haber_id, [
                                     'haberler_order' => $previous_f_order
                                 ]);
                                 DB::getInstance()->update('haberlers', $previous_fid, [
@@ -339,7 +339,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                         }
                         try {
                             if (isset($previous_fid, $previous_f_order)) {
-                                DB::getInstance()->update('haberlers', $haberler_id, [
+                                DB::getInstance()->update('haberlers', $haber_id, [
                                     'haberler_order' => $previous_f_order
                                 ]);
                                 DB::getInstance()->update('haberlers', $previous_fid, [
@@ -391,10 +391,10 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                 if (Input::exists()) {
                     if (Token::check()) {
                         if (Input::get('confirm') === 'true') {
-                            $haberler_perms = DB::getInstance()->get('haberlers_permissions', ['haberler_id', $_GET['fid']])->results(); // Get permissions to be deleted
+                            $haberler_perms = DB::getInstance()->get('haberlers_permissions', ['haber_id', $_GET['fid']])->results(); // Get permissions to be deleted
                             if (Input::get('move_haberler') === 'none') {
-                                $haberlers = DB::getInstance()->get('haberlers', ['haberler_id', $_GET['fid']])->results();
-                                $topics = DB::getInstance()->get('topics', ['haberler_id', $_GET['fid']])->results();
+                                $haberlers = DB::getInstance()->get('haberlers', ['haber_id', $_GET['fid']])->results();
+                                $topics = DB::getInstance()->get('topics', ['haber_id', $_GET['fid']])->results();
 
                                 foreach ($haberlers as $post) {
                                     DB::getInstance()->delete('haberlers', ['id', $post->id]);
@@ -407,17 +407,17 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                             } else {
                                 $new_haberler = Input::get('move_haberler');
-                                $haberlers = DB::getInstance()->get('haberlers', ['haberler_id', $_GET['fid']])->results();
-                                $topics = DB::getInstance()->get('topics', ['haberler_id', $_GET['fid']])->results();
+                                $haberlers = DB::getInstance()->get('haberlers', ['haber_id', $_GET['fid']])->results();
+                                $topics = DB::getInstance()->get('topics', ['haber_id', $_GET['fid']])->results();
 
                                 foreach ($haberlers as $post) {
                                     DB::getInstance()->update('haberlers', $post->id, [
-                                        'haberler_id' => $new_haberler
+                                        'haber_id' => $new_haberler
                                     ]);
                                 }
                                 foreach ($topics as $topic) {
                                     DB::getInstance()->update('topics', $topic->id, [
-                                        'haberler_id' => $new_haberler
+                                        'haber_id' => $new_haberler
                                     ]);
                                 }
 
@@ -572,7 +572,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
 
                             $haberler_perm_exists = 0;
 
-                            $haberler_perm_query = DB::getInstance()->get('haberlers_permissions', ['haberler_id', $_GET['haberler']])->results();
+                            $haberler_perm_query = DB::getInstance()->get('haberlers_permissions', ['haber_id', $_GET['haberler']])->results();
                             if (count($haberler_perm_query)) {
                                 foreach ($haberler_perm_query as $query) {
                                     if ($query->group_id == 0) {
@@ -597,7 +597,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                                 } else { // Permission doesn't exist, create
                                     DB::getInstance()->insert('haberlers_permissions', [
                                         'group_id' => 0,
-                                        'haberler_id' => $_GET['haberler'],
+                                        'haber_id' => $_GET['haberler'],
                                         'view' => $view,
                                         'create_topic' => $create,
                                         'edit_topic' => $edit,
@@ -664,7 +664,7 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
                                     } else { // Permission doesn't exist, create
                                         DB::getInstance()->insert('haberlers_permissions', [
                                             'group_id' => $group->id,
-                                            'haberler_id' => $_GET['haberler'],
+                                            'haber_id' => $_GET['haberler'],
                                             'view' => $view,
                                             'create_topic' => $create,
                                             'edit_topic' => $edit,
@@ -718,8 +718,8 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
             }
 
             // Get all haberler permissions
-            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM rw_haberlers_permissions WHERE group_id = 0 AND haberler_id = ?', [$haberler[0]->id])->results();
-            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_haberlers_permissions WHERE haberler_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$haberler[0]->id])->results();
+            $guest_query = DB::getInstance()->query('SELECT 0 AS id, `view`, view_other_topics FROM rw_haberlers_permissions WHERE group_id = 0 AND haber_id = ?', [$haberler[0]->id])->results();
+            $group_query = DB::getInstance()->query('SELECT id, name, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_groups A LEFT JOIN (SELECT group_id, `view`, create_topic, edit_topic, create_post, view_other_topics, moderate FROM rw_haberlers_permissions WHERE haber_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$haberler[0]->id])->results();
 
             // Get default labels
             $enabled_labels = $haberler[0]->default_labels ? explode(',', $haberler[0]->default_labels) : [];
@@ -727,9 +727,9 @@ if (!isset($_GET['action']) && !isset($_GET['haberler'])) {
             $available_labels = [];
             if (count($haberler_labels)) {
                 foreach ($haberler_labels as $label) {
-                    $haberler_ids = explode(',', $label->fids);
+                    $haber_ids = explode(',', $label->fids);
 
-                    if (in_array($haberler[0]->id, $haberler_ids)) {
+                    if (in_array($haberler[0]->id, $haber_ids)) {
                         $available_labels[] = [
                             'id' => Output::getClean($label->id),
                             'name' => Output::getClean($label->name),

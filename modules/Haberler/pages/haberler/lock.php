@@ -30,9 +30,9 @@ if ($user->isLoggedIn()) {
         Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
     }
 
-    $haberler_id = $topic[0]->haberler_id;
+    $haber_id = $topic[0]->haber_id;
 
-    if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
+    if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
         $locked_status = $topic[0]->locked;
 
         if ($locked_status == 1) {

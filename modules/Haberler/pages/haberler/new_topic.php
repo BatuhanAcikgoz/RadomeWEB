@@ -55,9 +55,9 @@ $selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_labe
 $haberler_labels = DB::getInstance()->get('haberlers_topic_labels', ['id', '<>', 0])->results();
 if (count($haberler_labels)) {
     foreach ($haberler_labels as $label) {
-        $haberler_ids = explode(',', $label->fids);
+        $haber_ids = explode(',', $label->fids);
 
-        if (in_array($fid, $haberler_ids)) {
+        if (in_array($fid, $haber_ids)) {
             // Check permissions
             $lgroups = explode(',', $label->gids);
 
@@ -156,7 +156,7 @@ if (Input::exists()) {
                 }
 
                 DB::getInstance()->insert('topics', [
-                    'haberler_id' => $fid,
+                    'haber_id' => $fid,
                     'topic_title' => Input::get('title'),
                     'topic_creator' => $user->data()->id,
                     'topic_last_user' => $user->data()->id,
@@ -169,7 +169,7 @@ if (Input::exists()) {
                 $content = Input::get('content');
 
                 DB::getInstance()->insert('haberlers', [
-                    'haberler_id' => $fid,
+                    'haber_id' => $fid,
                     'topic_id' => $topic_id,
                     'post_creator' => $user->data()->id,
                     'post_content' => $content,

@@ -24,10 +24,10 @@ $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 if (!count($topic)) {
     Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
 }
-$haberler_id = $topic[0]->haberler_id;
+$haber_id = $topic[0]->haber_id;
 $topic = $topic[0];
 
-if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
+if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
             $validation = Validate::check($_POST, [
@@ -46,11 +46,11 @@ if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
             if ($validation->passed()) {
 
                 DB::getInstance()->update('topics', $topic->id, [
-                    'haberler_id' => Input::get('haberler')
+                    'haber_id' => Input::get('haberler')
                 ]);
                 foreach ($haberlers_to_move as $post_to_move) {
                     DB::getInstance()->update('haberlers', $post_to_move->id, [
-                        'haberler_id' => Input::get('haberler')
+                        'haber_id' => Input::get('haberler')
                     ]);
                 }
 
@@ -102,7 +102,7 @@ foreach ($categories as $category) {
                 continue;
             }
 
-            if ($item->id !== $haberler_id) {
+            if ($item->id !== $haber_id) {
                 $to_add = new stdClass();
                 $to_add->id = Output::getClean($item->id);
                 $to_add->haberler_title = Output::getClean($item->haberler_title);

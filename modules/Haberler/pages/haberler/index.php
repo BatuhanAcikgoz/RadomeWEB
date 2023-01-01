@@ -69,26 +69,26 @@ if ($cache->isCached('haberlers')) {
         foreach ($haberlers as $key => $item) {
             $haberlers[$key]['link'] = URL::build('/haberler/view/' . urlencode($key) . '-' . $haberler->titleToURL($item['title']));
             if (isset($item['subhaberlers']) && count($item['subhaberlers'])) {
-                foreach ($item['subhaberlers'] as $subhaberler_id => $subhaberler) {
+                foreach ($item['subhaberlers'] as $subhaber_id => $subhaberler) {
                     if (isset($subhaberler->last_post)) {
-                        $last_post_user = new User($haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->post_creator);
+                        $last_post_user = new User($haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->post_creator);
 
-                        $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->avatar = $last_post_user->getAvatar(64);
-                        $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->user_style = $last_post_user->getGroupStyle();
-                        $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->username = $last_post_user->getDisplayname();
-                        $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->profile = $last_post_user->getProfileURL();
+                        $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->avatar = $last_post_user->getAvatar(64);
+                        $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->user_style = $last_post_user->getGroupStyle();
+                        $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->username = $last_post_user->getDisplayname();
+                        $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->profile = $last_post_user->getProfileURL();
 
-                        if (is_null($haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->created)) {
-                            $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->date_friendly = $timeago->inWords($haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->post_date, $language);
-                            $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->post_date = date(DATE_FORMAT, strtotime($haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->post_date));
+                        if (is_null($haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->created)) {
+                            $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->date_friendly = $timeago->inWords($haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->post_date, $language);
+                            $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->post_date = date(DATE_FORMAT, strtotime($haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->post_date));
                         } else {
-                            $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->date_friendly = $timeago->inWords($haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->created, $language);
-                            $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->post_date = date(DATE_FORMAT, $haberlers[$key]['subhaberlers'][$subhaberler_id]->last_post->created);
+                            $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->date_friendly = $timeago->inWords($haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->created, $language);
+                            $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->post_date = date(DATE_FORMAT, $haberlers[$key]['subhaberlers'][$subhaber_id]->last_post->created);
                         }
                     }
 
-                    if ($haberlers[$key]['subhaberlers'][$subhaberler_id]->redirect_haberler == 1 && URL::isExternalURL($haberlers[$key]['subhaberlers'][$subhaberler_id]->redirect_url)) {
-                        $haberlers[$key]['subhaberlers'][$subhaberler_id]->redirect_confirm = $haberler_language->get('haberler', 'haberler_redirect_warning', ['url' => $haberlers[$key]['subhaberlers'][$subhaberler_id]->redirect_to]);
+                    if ($haberlers[$key]['subhaberlers'][$subhaber_id]->redirect_haberler == 1 && URL::isExternalURL($haberlers[$key]['subhaberlers'][$subhaber_id]->redirect_url)) {
+                        $haberlers[$key]['subhaberlers'][$subhaber_id]->redirect_confirm = $haberler_language->get('haberler', 'haberler_redirect_warning', ['url' => $haberlers[$key]['subhaberlers'][$subhaber_id]->redirect_to]);
                     }
                 }
             }

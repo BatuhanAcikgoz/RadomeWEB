@@ -30,9 +30,9 @@ if (!count($post)) {
 }
 $post = $post[0];
 
-$haberler_id = $post->haberler_id;
+$haber_id = $post->haber_id;
 
-if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
+if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
     if (Input::exists()) {
         if (Token::check()) {
             if (isset($_POST['tid'])) {

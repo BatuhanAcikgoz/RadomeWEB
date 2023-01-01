@@ -39,7 +39,7 @@ if (Input::exists()) {
     $topic_id = $post->topic_id;
 
     // Check user can actually view the post
-    if (!($haberler->haberlerExist($post->haberler_id, $user->getAllGroupIds()))) {
+    if (!($haberler->haberlerExist($post->haber_id, $user->getAllGroupIds()))) {
         Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
     }
 

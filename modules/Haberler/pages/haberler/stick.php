@@ -39,9 +39,9 @@ if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
     Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
 }
 
-$haberler_id = $topic[0]->haberler_id;
+$haber_id = $topic[0]->haber_id;
 
-if ($haberler->canModerateHaberler($haberler_id, $user->getAllGroupIds())) {
+if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
     // Get current status
     if ($topic[0]->sticky == 0) {
         $sticky = 1;
