@@ -108,7 +108,7 @@ class IntegrationUser {
                 $code
             ]
         );
-        $minecraft_int = DB::getInstance()->get('users_integrations', ['name', $username])->results();
+        $minecraft_int = DB::getInstance()->get('users_integrations', ['username', $username])->results();
         if ($minecraft_int == 1) {
                 DB::getInstance()->insert('users_integrations', [
                     'verified' => true,
