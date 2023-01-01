@@ -110,9 +110,9 @@ class IntegrationUser {
         );
         $minecraft_int = DB::getInstance()->get('users_integrations', ['username', $username])->results();
         if ($minecraft_int == 1) {
-                DB::getInstance()->insert('users_integrations', [
-                    'verified' => true,
-                ]);
+            DB::getInstance()->update('user_id', $user->data()->id, [
+                'verified' => true
+            ]);
         }
 
         // Load the data for this integration from the query we just made

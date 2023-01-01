@@ -10,6 +10,8 @@ class IntegrationUserData {
     public bool $verified;
     public int $date;
     public ?string $code;
+    public bool $show_publicly;
+    public int $last_sync;
 
     public function __construct(object $row) {
         $this->id = $row->id;
@@ -20,6 +22,8 @@ class IntegrationUserData {
         $this->verified = $row->verified;
         $this->date = $row->date;
         $this->code = $row->code;
+        $this->show_publicly = $row->show_publicly;
+        $this->last_sync = $row->last_sync;
     }
 
 }
