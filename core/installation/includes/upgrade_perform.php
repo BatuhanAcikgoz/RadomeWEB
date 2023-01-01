@@ -105,8 +105,7 @@ try {
                 'last_user_posted' => $item->last_user_posted,
                 'last_topic_posted' => $item->last_topic_posted,
                 'parent' => $item->parent,
-                'forum_order' => $item->forum_order,
-                'news' => $item->news
+                'forum_order' => $item->forum_order
             ]);
         }
     }
