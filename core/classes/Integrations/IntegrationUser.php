@@ -129,11 +129,11 @@ class IntegrationUser {
                 'verified' => $verified,
             ]
         ]);
-        $rw_int_user_id = $user->data()->id;
-        $minecraft_int = DB::getInstance()->get('users_integrations', ['user_id', '=', $user->data()->id])->results();
-        $minecraft_int = $minecraft_int[0]->integration_id;
+        $rw_user_id = DB::getInstance()->get('users_integrations', ['user_id', '=', $user->data()->id])->results();
+        $minecraft_int = $rw_user_id[0]->integration_id;
+        $rw_user_id_to_id = $rw_user_id[0]->id;
         if ($minecraft_int === 1) {
-            DB::getInstance()->update('users_integrations', $user->data()->id, [
+            DB::getInstance()->update('users_integrations', $rw_user_id_to_id, [
                 'verified' => true
             ]);
         }
