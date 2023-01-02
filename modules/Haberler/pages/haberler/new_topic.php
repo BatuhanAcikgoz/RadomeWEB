@@ -131,7 +131,7 @@ if (Input::exists()) {
                     'post_content' => $content
                 ]);
 
-                Log::getInstance()->log(Log::Action('forum/topic/create'), Output::getClean(Input::get('title')));
+                Log::getInstance()->log(Log::Action('Deneme'));
 
                 // Execute hooks and pass $available_hooks
                 $default_haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language', DEFAULT_LANGUAGE);
