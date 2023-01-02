@@ -24,12 +24,6 @@ $haberler = new Haberler();
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 
-// Does the haberler exist, and can the user view it?
-$list = $haberler->haberlerExist($user_groups);
-if (!$list) {
-    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
-}
-
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
 
