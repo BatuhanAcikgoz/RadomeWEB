@@ -197,6 +197,7 @@ if (Input::exists()) {
                     'last_topic_posted' => $topic_id
                 ]);
 
+                Log::getInstance()->log(Log::Action('forums/topic/create'), Output::getClean(Input::get('title')));
 
                 // Execute hooks and pass $available_hooks
                 $default_forum_language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
