@@ -19,13 +19,17 @@ if (!$user->isLoggedIn()) {
     Redirect::to(URL::build('/haberler'));
 }
 
+if ($user->hasPermission('admincp.haberlers')) {
+    Redirect::to(URL::build('/haberler/yeni'));
+} else {
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+}
+
 $haberler = new Haberler();
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
-if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/goruntule/' . urlencode($fid)));
-}
+
 
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
