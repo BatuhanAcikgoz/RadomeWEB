@@ -81,7 +81,7 @@ if (Input::exists()) {
 
         // Redirect
     }
-    Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . urlencode($post->id)));
 } else {
     Redirect::to(URL::build('/haberler'));
 }

@@ -20,7 +20,7 @@ if (str_contains($route, 'view_haberler')) {
     if (str_contains($route, 'view_topic')) {
         // Build new topic URL
         if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
-            $url = URL::build('/haberler/topic/' . urlencode($_GET['tid']));
+            $url = URL::build('/haberler/haber/' . urlencode($_GET['tid']));
         } else {
             $url = URL::build('/haberler');
         }

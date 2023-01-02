@@ -205,7 +205,7 @@ if ($haberler_query->redirect_haberler == 1) {
                     }
 
                     $latest_post_user = new User($latest_post->topic_last_user);
-                    $latest_post_link = URL::build('/haberler/topic/' . urlencode($latest_post->id) . '-' . $haberler->titleToURL($latest_post->topic_title));
+                    $latest_post_link = URL::build('/haberler/haber/' . urlencode($latest_post->id) . '-' . $haberler->titleToURL($latest_post->topic_title));
                     $latest_post_avatar = $latest_post_user->getAvatar();
                     $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
@@ -374,7 +374,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/haberler/topic/' . urlencode($sticky->id) . '-' . $haberler->titleToURL($sticky->topic_title)),
+                'link' => URL::build('/haberler/haber/' . urlencode($sticky->id) . '-' . $haberler->titleToURL($sticky->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL()
             ];
         }
@@ -482,7 +482,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'label' => $label,
                 'labels' => $labels,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/haberler/topic/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->topic_title)),
+                'link' => URL::build('/haberler/haber/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->topic_title)),
                 'last_reply_link' => $last_reply_user->getProfileURL(),
                 'last_reply_user_id' => Output::getClean($nValue->topic_last_user)
             ];

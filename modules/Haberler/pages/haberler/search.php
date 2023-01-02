@@ -181,7 +181,7 @@ if (isset($_GET['s'])) {
                 'post_date_friendly' => $timeago->inWords($results->data[$n]['post_date'], $language),
                 'content' => $content,
                 'topic_title' => Output::getClean($results->data[$n]['topic_title']),
-                'post_url' => URL::build('/haberler/topic/' . urlencode($results->data[$n]['topic_id']) . '-' . $haberler->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
+                'post_url' => URL::build('/haberler/haber/' . urlencode($results->data[$n]['topic_id']) . '-' . $haberler->titleToURL($results->data[$n]['topic_title']), 'pid=' . $results->data[$n]['post_id'])
             ];
             $n++;
         }

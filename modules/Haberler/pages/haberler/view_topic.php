@@ -71,7 +71,7 @@ if (isset($_GET['p'])) {
 
     if ($_GET['p'] <= 1) {
         // Avoid bug in pagination class
-        Redirect::to(URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)));
+        Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)));
     }
     $p = $_GET['p'];
 } else {
@@ -91,9 +91,9 @@ if (isset($_GET['pid'])) {
             $i++;
         }
         if (ceil($output / 10) != $p) {
-            Redirect::to(URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'p=' . ceil($output / 10)) . '#post-' . $_GET['pid']);
         } else {
-            Redirect::to(URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)) . '#post-' . $_GET['pid']);
         }
     } else {
         require_once(ROOT_PATH . '/404.php');
@@ -130,12 +130,12 @@ if (isset($_GET['action'])) {
         }
     }
 
-    Redirect::to(URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)));
 }
 
 $haberler_parent = DB::getInstance()->get('haberlers', ['id', $topic->haber_id])->results();
 
-$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/topic'])->results();
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/haber'])->results();
 if (count($page_metadata)) {
     $first_post = DB::getInstance()->orderWhere('haberlers', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
     $first_post = htmlentities(strip_tags(str_ireplace(['<br />', '<br>', '<br/>', '&nbsp;'], ["\n", "\n", "\n", ' '], $first_post[0]->post_content)), ENT_QUOTES, 'UTF-8', false);
@@ -224,7 +224,7 @@ if (Input::exists()) {
             $content = EventHandler::executeEvent('prePostCreate', [
                 'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
                 'alert_short' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag'],
-                'alert_url' => URL::build('/haberler/topic/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
+                'alert_url' => URL::build('/haberler/haber/' . urlencode($tid), 'pid=' . urlencode($last_post_id)),
                 'content' => $content,
                 'user' => $user,
             ])['content'];
@@ -259,7 +259,7 @@ if (Input::exists()) {
                 'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", $content)),
                 'avatar_url' => $user->getAvatar(128, true),
                 'title' => $topic->topic_title,
-                'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/topic/' . urlencode($topic->id) . '-' . $haberler->titleToURL($topic->topic_title)), '/'),
+                'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/haber/' . urlencode($topic->id) . '-' . $haberler->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
                 'topic_author_username' => $topic_user->data()->username,
                 'topic_author_nickname' => $topic_user->data()->nickname,
@@ -280,7 +280,7 @@ if (Input::exists()) {
                                 'new_reply',
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                                URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
@@ -302,7 +302,7 @@ if (Input::exists()) {
                         $language->get('emails', 'haberler_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->topic_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'haberler_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
+                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id),
                         $language->get('emails', 'thanks')
                     ],
                     $html
@@ -329,7 +329,7 @@ if (Input::exists()) {
                 }
             }
             Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
-            Redirect::to(URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id));
         } else {
             $error = $validate->errors();
         }
@@ -371,7 +371,7 @@ $breadcrumbs = [
         'id' => 0,
         'haberler_title' => Output::getClean($topic->topic_title),
         'active' => 1,
-        'link' => URL::build('/haberler/topic/' . urlencode($topic->id) . '-' . $haberler->titleToURL($topic->topic_title))
+        'link' => URL::build('/haberler/haber/' . urlencode($topic->id) . '-' . $haberler->titleToURL($topic->topic_title))
     ],
     1 => [
         'id' => $haberler_parent[0]->id,
@@ -482,9 +482,9 @@ if ($user->isLoggedIn() && $haberler->canModerateHaberler($haberler_parent[0]->i
 $smarty->assign([
     'SHARE' => $haberler_language->get('haberler', 'share'),
     'SHARE_TWITTER' => $haberler_language->get('haberler', 'share_twitter'),
-    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)),
+    'SHARE_TWITTER_URL' => 'https://twitter.com/intent/tweet?text=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)),
     'SHARE_FACEBOOK' => $haberler_language->get('haberler', 'share_facebook'),
-    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/haberler/topic/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title))
+    'SHARE_FACEBOOK_URL' => 'https://www.facebook.com/sharer/sharer.php?u=' . urlencode(rtrim(URL::getSelfURL(), '/')) . URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title))
 ]);
 
 // Pagination
@@ -494,7 +494,7 @@ $paginator = new Paginator(
     $template_pagination_right ?? null
 );
 $results = $paginator->getLimited($haberlers, 10, $p, count($haberlers));
-$pagination = $paginator->generate(7, URL::build('/haberler/topic/' . $tid . '-' . $haberler->titleToURL($topic->topic_title)));
+$pagination = $paginator->generate(7, URL::build('/haberler/haber/' . $tid . '-' . $haberler->titleToURL($topic->topic_title)));
 
 $smarty->assign('PAGINATION', $pagination);
 
@@ -512,7 +512,7 @@ foreach ($results->data as $n => $nValue) {
     $signature = $post_creator->getSignature();
 
     // Panel heading content
-    $url = URL::build('/haberler/topic/' . $tid . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
+    $url = URL::build('/haberler/haber/' . $tid . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
 
     if ($n != 0) {
         $heading = $haberler_language->get('haberler', 're') . Output::getClean($topic->topic_title);
@@ -673,12 +673,12 @@ if ($user->isLoggedIn()) {
 
         $smarty->assign([
             'UNFOLLOW' => $haberler_language->get('haberler', 'unfollow'),
-            'UNFOLLOW_URL' => URL::build('/haberler/topic/' . $tid . '/', 'action=unfollow')
+            'UNFOLLOW_URL' => URL::build('/haberler/haber/' . $tid . '/', 'action=unfollow')
         ]);
     } else {
         $smarty->assign([
             'FOLLOW' => $haberler_language->get('haberler', 'follow'),
-            'FOLLOW_URL' => URL::build('/haberler/topic/' . $tid . '/', 'action=follow')
+            'FOLLOW_URL' => URL::build('/haberler/haber/' . $tid . '/', 'action=follow')
         ]);
     }
 }

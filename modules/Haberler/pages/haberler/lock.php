@@ -27,7 +27,7 @@ if ($user->isLoggedIn()) {
 
     if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
         Session::flash('failure_post', $language->get('general', 'invalid_token'));
-        Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
+        Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
     }
 
     $haber_id = $topic[0]->haber_id;
@@ -46,7 +46,7 @@ if ($user->isLoggedIn()) {
         ]);
         Log::getInstance()->log(Log::Action('haberlers/topic/lock'), ($locked_status == 1) ? $language->get('log', 'info_haberlers_lock') : $language->get('log', 'info_haberlers_unlock'));
 
-        Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
+        Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 
     } else {
         Redirect::to(URL::build('/haberler'));

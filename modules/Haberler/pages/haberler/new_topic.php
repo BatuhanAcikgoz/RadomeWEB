@@ -182,7 +182,7 @@ if (Input::exists()) {
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
                     'alert_short' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/haberler/topic/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
+                    'alert_url' => URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . urlencode($last_post_id)),
                     'content' => $content,
                     'user' => $user,
                 ])['content'];
@@ -214,13 +214,13 @@ if (Input::exists()) {
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
-                    'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/topic/' . urlencode($topic_id) . '-' . $haberler->titleToURL(Input::get('title'))), '/'),
+                    'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/haber/' . urlencode($topic_id) . '-' . $haberler->titleToURL(Input::get('title'))), '/'),
                     'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
 
-                Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id) . '-' . $haberler->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id) . '-' . $haberler->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }

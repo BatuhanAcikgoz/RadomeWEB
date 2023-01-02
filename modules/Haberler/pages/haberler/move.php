@@ -61,7 +61,7 @@ if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
                 $haberler->updateHaberlerLatestPosts();
                 $haberler->updateTopicLatestPosts();
 
-                Redirect::to(URL::build('/haberler/topic/' . $topic_id));
+                Redirect::to(URL::build('/haberler/haber/' . $topic_id));
 
             } else {
                 echo 'Error processing that action. <a href="' . URL::build('/haberler') . '">Haberler index</a>';
@@ -130,7 +130,7 @@ $smarty->assign([
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
-    'CANCEL_LINK' => URL::build('/haberler/topic/' . urlencode($topic->id)),
+    'CANCEL_LINK' => URL::build('/haberler/haber/' . urlencode($topic->id)),
     'HABERLERS' => $template_haberlers
 ]);
 

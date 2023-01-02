@@ -70,11 +70,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->data()->id == $post_editing[0]->post_creator && !$haberler->canEditTopic($haber_id, $user_groups) && !$haberler->canModerateHaberler($haber_id, $user_groups)) {
-    Redirect::to(URL::build('/haberler/topic/' . urlencode($post_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
 }
 
 if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($haber_id, $user_groups))) {
-    Redirect::to(URL::build('/haberler/topic/' . urlencode($post_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
 }
 
 // Deal with input
@@ -163,7 +163,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $haberler_language->get('haberler', 'post_edited_successfully'));
-            Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id), 'pid=' . ($post_id)));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . ($post_id)));
         }
 
         // Error handling
@@ -242,7 +242,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/haberler/topic/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
+    'CANCEL_LINK' => URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CONTENT_LABEL' => $language->get('general', 'content'),
     'TOPIC_TITLE' => $haberler_language->get('haberler', 'topic_title')

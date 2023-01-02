@@ -36,7 +36,7 @@ if (!count($topic)) {
 
 if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
     Session::flash('failure_post', $language->get('general', 'invalid_token'));
-    Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
 $haber_id = $topic[0]->haber_id;
@@ -60,4 +60,4 @@ if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
     Session::flash('success_post', $status);
 }
 
-Redirect::to(URL::build('/haberler/topic/' . urlencode($topic_id)));
+Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));

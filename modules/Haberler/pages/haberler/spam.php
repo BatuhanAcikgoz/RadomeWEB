@@ -45,7 +45,7 @@ if ($haberler->canModerateHaberler($post->haber_id, $user->getAllGroupIds())) {
         // Ensure user is not admin
         if ($is_admin) {
             Session::flash('failure_post', $language->get('moderator', 'cant_ban_admin'));
-            Redirect::to(URL::build('/haberler/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
         }
 
         // Delete all haberlers from the user
@@ -75,7 +75,7 @@ if ($haberler->canModerateHaberler($post->haber_id, $user->getAllGroupIds())) {
         Redirect::to(URL::build('/haberler'));
     } else {
         // Invalid token
-        Redirect::to(URL::build('/haberler/topic/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
+        Redirect::to(URL::build('/haberler/haber/' . urlencode($post->topic_id), 'pid=' . urlencode($post->id)));
     }
 } else {
     // Can't moderate haberler

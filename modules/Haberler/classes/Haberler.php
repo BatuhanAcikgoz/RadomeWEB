@@ -93,7 +93,7 @@ class Haberler {
 
                                     $return[$haberler->id]['subhaberlers'][$item->id]->last_post = $last_reply[$n];
                                     $return[$haberler->id]['subhaberlers'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-                                    $return[$haberler->id]['subhaberlers'][$item->id]->last_post->link = URL::build('/haberler/topic/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
+                                    $return[$haberler->id]['subhaberlers'][$item->id]->last_post->link = URL::build('/haberler/haber/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
                                 }
 
                                 // Get list of subhaberlers (names + links)

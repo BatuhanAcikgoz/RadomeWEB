@@ -48,7 +48,7 @@ if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
 
                     $redirect = URL::build('/haberler'); // Create a redirect string
                 } else {
-                    $redirect = URL::build('/haberler/topic/' . urlencode(Input::get('tid')));
+                    $redirect = URL::build('/haberler/haber/' . urlencode(Input::get('tid')));
                 }
             } else {
                 $redirect = URL::build('/haberler/search/', 'p=1&s=' . urlencode($_POST['search_string']));
@@ -78,7 +78,7 @@ if ($haberler->canModerateHaberler($haber_id, $user->getAllGroupIds())) {
             Redirect::to($redirect);
 
         } else {
-            Redirect::to(URL::build('/haberler/topic/' . urlencode(Input::get('tid'))));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode(Input::get('tid'))));
         }
     } else {
         echo 'No post selected';
