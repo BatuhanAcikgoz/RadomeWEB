@@ -20,7 +20,7 @@ if (!$user->isLoggedIn()) {
 }
 
 if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/yeni'));
+    
 } else {
     Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
