@@ -21,25 +21,13 @@ if (!$user->isLoggedIn()) {
 
 $haberler = new Haberler();
 
-if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
-    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
-}
-
-$fid = (int)$_GET['fid'];
-
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 
 // Does the haberler exist, and can the user view it?
-$list = $haberler->haberlerExist($fid, $user_groups);
+$list = $haberler->haberlerExist($user_groups);
 if (!$list) {
     Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
-}
-
-// Can the user post a topic in this haberler?
-$can_reply = $haberler->canPostTopic($fid, $user_groups);
-if (!$can_reply) {
-    Redirect::to(URL::build('/haberler/goruntule/' . urlencode($fid)));
 }
 
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
@@ -51,44 +39,6 @@ $labels = [];
 
 $default_labels = $current_haberler->default_labels ? explode(',', $current_haberler->default_labels) : [];
 $selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
-
-$haberler_labels = DB::getInstance()->get('haberlers_topic_labels', ['id', '<>', 0])->results();
-if (count($haberler_labels)) {
-    foreach ($haberler_labels as $label) {
-        $haber_ids = explode(',', $label->fids);
-
-        if (in_array($fid, $haber_ids)) {
-            // Check permissions
-            $lgroups = explode(',', $label->gids);
-
-            $hasperm = false;
-            foreach ($user_groups as $group_id) {
-                if (in_array($group_id, $lgroups)) {
-                    $hasperm = true;
-                    break;
-                }
-            }
-
-            if (!$hasperm) {
-                continue;
-            }
-
-            // Get label HTML
-            $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label->label])->results();
-            if (!count($label_html)) {
-                continue;
-            }
-
-            $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
-
-            $labels[] = [
-                'id' => $label->id,
-                'html' => $label_html,
-                'checked' => in_array($label->id, $selected_labels)
-            ];
-        }
-    }
-}
 
 // Deal with any inputted data
 if (Input::exists()) {
@@ -189,12 +139,6 @@ if (Input::exists()) {
 
                 DB::getInstance()->update('haberlers', $last_post_id, [
                     'post_content' => $content
-                ]);
-
-                DB::getInstance()->update('haberlers', $fid, [
-                    'last_post_date' => date('U'),
-                    'last_user_posted' => $user->data()->id,
-                    'last_topic_posted' => $topic_id
                 ]);
 
                 Log::getInstance()->log(Log::Action('haberlers/topic/create'), Output::getClean(Input::get('title')));
