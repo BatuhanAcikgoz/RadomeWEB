@@ -16,13 +16,13 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 $haberler = new Haberler();
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 $topic_id = $_GET['tid'];
 $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 if (!count($topic)) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 $haber_id = $topic[0]->haber_id;
 $topic = $topic[0];

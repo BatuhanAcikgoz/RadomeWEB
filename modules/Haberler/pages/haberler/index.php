@@ -67,7 +67,7 @@ if ($cache->isCached('haberlers')) {
     // Loop through to get last poster avatars and to format a date
     if (count($haberlers)) {
         foreach ($haberlers as $key => $item) {
-            $haberlers[$key]['link'] = URL::build('/haberler/view/' . urlencode($key) . '-' . $haberler->titleToURL($item['title']));
+            $haberlers[$key]['link'] = URL::build('/haberler/goruntule/' . urlencode($key) . '-' . $haberler->titleToURL($item['title']));
             if (isset($item['subhaberlers']) && count($item['subhaberlers'])) {
                 foreach ($item['subhaberlers'] as $subhaber_id => $subhaberler) {
                     if (isset($subhaberler->last_post)) {

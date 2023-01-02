@@ -61,7 +61,7 @@ class Haberler {
                                 $return[$haberler->id]['subhaberlers'][$item->id]->haberler_title = Output::getClean($item->haberler_title);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->haberler_description = Output::getClean($item->haberler_description);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->icon = Output::getPurified($item->icon);
-                                $return[$haberler->id]['subhaberlers'][$item->id]->link = URL::build('/haberler/view/' . urlencode($item->id) . '-' . $this->titleToURL($item->haberler_title));
+                                $return[$haberler->id]['subhaberlers'][$item->id]->link = URL::build('/haberler/goruntule/' . urlencode($item->id) . '-' . $this->titleToURL($item->haberler_title));
                                 $return[$haberler->id]['subhaberlers'][$item->id]->redirect_to = Output::getClean($item->redirect_url);
 
                                 // Get topic/post count
@@ -106,7 +106,7 @@ class Haberler {
                                             }
                                             $return[$haberler->id]['subhaberlers'][$item->id]->subhaberlers[$subhaberler->id] = new stdClass();
                                             $return[$haberler->id]['subhaberlers'][$item->id]->subhaberlers[$subhaberler->id]->title = Output::getClean($subhaberler->haberler_title);
-                                            $return[$haberler->id]['subhaberlers'][$item->id]->subhaberlers[$subhaberler->id]->link = URL::build('/haberler/view/' . urlencode($subhaberler->id) . '-' . $this->titleToURL($subhaberler->haberler_title));
+                                            $return[$haberler->id]['subhaberlers'][$item->id]->subhaberlers[$subhaberler->id]->link = URL::build('/haberler/goruntule/' . urlencode($subhaberler->id) . '-' . $this->titleToURL($subhaberler->haberler_title));
                                             $return[$haberler->id]['subhaberlers'][$item->id]->subhaberlers[$subhaberler->id]->icon = Output::getPurified($subhaberler->icon);
                                         }
                                     }

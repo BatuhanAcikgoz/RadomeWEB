@@ -31,29 +31,20 @@ class Haberler_Module extends Module {
         $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
 
         $pages->add('Haberler', '/haberler', 'pages/haberler/index.php', 'haberler', true);
-        $pages->add('Haberler', '/haberler/error', 'pages/haberler/error.php');
-        $pages->add('Haberler', '/haberler/view', 'pages/haberler/view_haberler.php');
+        $pages->add('Haberler', '/haberler/hata', 'pages/haberler/error.php');
+        $pages->add('Haberler', '/haberler/goruntule', 'pages/haberler/view_haberler.php');
         $pages->add('Haberler', '/haberler/topic', 'pages/haberler/view_topic.php');
-        $pages->add('Haberler', '/haberler/new', 'pages/haberler/new_topic.php');
+        $pages->add('Haberler', '/haberler/yeni', 'pages/haberler/new_topic.php');
         $pages->add('Haberler', '/haberler/spam', 'pages/haberler/spam.php');
-        $pages->add('Haberler', '/haberler/report', 'pages/haberler/report.php');
-        $pages->add('Haberler', '/haberler/get_quotes', 'pages/haberler/get_quotes.php');
         $pages->add('Haberler', '/haberler/delete_post', 'pages/haberler/delete_post.php');
         $pages->add('Haberler', '/haberler/delete', 'pages/haberler/delete.php');
-        $pages->add('Haberler', '/haberler/move', 'pages/haberler/move.php');
-        $pages->add('Haberler', '/haberler/merge', 'pages/haberler/merge.php');
         $pages->add('Haberler', '/haberler/edit', 'pages/haberler/edit.php');
-        $pages->add('Haberler', '/haberler/lock', 'pages/haberler/lock.php');
         $pages->add('Haberler', '/haberler/stick', 'pages/haberler/stick.php');
-        $pages->add('Haberler', '/haberler/reactions', 'pages/haberler/reactions.php');
         $pages->add('Haberler', '/haberler/search', 'pages/haberler/search.php');
 
-        // UserCP
-        $pages->add('Haberler', '/user/following_topics', 'pages/user/following_topics.php');
-
         // Redirects
-        $pages->add('Haberler', '/haberler/view_topic', 'pages/haberler/redirect.php');
-        $pages->add('Haberler', '/haberler/view_haberler', 'pages/haberler/redirect.php');
+        $pages->add('Haberler', '/haberler/haberi_goruntule', 'pages/haberler/redirect.php');
+        $pages->add('Haberler', '/haberler/haber_goruntule', 'pages/haberler/redirect.php');
 
         // Hooks
         EventHandler::registerEvent('newTopic',

@@ -40,7 +40,7 @@ if (Input::exists()) {
 
     // Check user can actually view the post
     if (!($haberler->haberlerExist($post->haber_id, $user->getAllGroupIds()))) {
-        Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+        Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
     }
 
     if (Token::check()) {

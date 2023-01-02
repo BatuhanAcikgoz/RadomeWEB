@@ -53,14 +53,14 @@ if (isset($_GET['p'])) {
 
     if ($_GET['p'] == 1) {
         // Avoid bug in pagination class
-        Redirect::to(URL::build('/haberler/view/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+        Redirect::to(URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
     }
     $p = $_GET['p'];
 } else {
     $p = 1;
 }
 
-$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/view'])->results();
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/goruntule'])->results();
 if (count($page_metadata)) {
 
     define('PAGE_DESCRIPTION', str_replace(
@@ -133,14 +133,14 @@ if ($haberler_query->redirect_haberler == 1) {
         'id' => $haberler_query->id,
         'haberler_title' => Output::getClean($haberler_query->haberler_title),
         'active' => 1,
-        'link' => URL::build('/haberler/view/' . urlencode($haberler_query->id) . '-' . $haberler->titleToURL($haberler_query->haberler_title))
+        'link' => URL::build('/haberler/goruntule/' . urlencode($haberler_query->id) . '-' . $haberler->titleToURL($haberler_query->haberler_title))
     ]];
     if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         // Category
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-            'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+            'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
         ];
     } else {
         if (!empty($parent_category)) {
@@ -148,7 +148,7 @@ if ($haberler_query->redirect_haberler == 1) {
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
             ];
             $parent = false;
             while ($parent == false) {
@@ -156,7 +156,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 $breadcrumbs[] = [
                     'id' => $parent_category[0]->id,
                     'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                    'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                    'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
                 ];
                 if ($parent_category[0]->parent == 0) {
                     $parent = true;
@@ -235,7 +235,7 @@ if ($haberler_query->redirect_haberler == 1) {
                     'title' => Output::getPurified($subhaberler->haberler_title),
                     'description' => Output::getPurified($subhaberler->haberler_description),
                     'topics' => $subhaberler_topics,
-                    'link' => URL::build('/haberler/view/' . urlencode($subhaberler->id) . '-' . $haberler->titleToURL($subhaberler->haberler_title)),
+                    'link' => URL::build('/haberler/goruntule/' . urlencode($subhaberler->id) . '-' . $haberler->titleToURL($subhaberler->haberler_title)),
                     'latest_post' => $latest_post,
                     'icon' => Output::getPurified($subhaberler->icon),
                     'redirect' => $subhaberler->redirect_haberler
@@ -266,7 +266,7 @@ if ($haberler_query->redirect_haberler == 1) {
 
     // Can the user post here?
     if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
-        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/new/', 'fid=' . urlencode($fid)));
+        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
     } else {
         $smarty->assign('NEW_TOPIC_BUTTON', false);
     }
@@ -279,7 +279,7 @@ if ($haberler_query->redirect_haberler == 1) {
         $smarty->assign('NO_TOPICS_FULL', $haberler_language->get('haberler', 'no_topics'));
 
         if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
-            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/new/', 'fid=' . urlencode($fid)));
+            $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
         } else {
             $smarty->assign('NEW_TOPIC_BUTTON', false);
         }
@@ -390,7 +390,7 @@ if ($haberler_query->redirect_haberler == 1) {
             $template_pagination_right ?? null
         );
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
-        $pagination = $paginator->generate(7, URL::build('/haberler/view/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+        $pagination = $paginator->generate(7, URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
 
         if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);

@@ -27,7 +27,7 @@ class Haberler_Sitemap {
         $haberlers = $db->query('SELECT id, haberler_title, last_post_date FROM rw_haberlers WHERE id IN (SELECT haber_id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($haberlers as $haberler) {
-            $sitemap->addItem(URL::build('/haberler/view/' . urlencode($haberler->id) . '-' . Text::urlSafe($haberler->haberler_title)), 0.5, 'daily', date('Y-m-d', $haberler->last_post_date));
+            $sitemap->addItem(URL::build('/haberler/goruntule/' . urlencode($haberler->id) . '-' . Text::urlSafe($haberler->haberler_title)), 0.5, 'daily', date('Y-m-d', $haberler->last_post_date));
         }
 
         $haberlers = null;

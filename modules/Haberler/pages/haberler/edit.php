@@ -26,7 +26,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
     $post_id = $_GET['pid'];
     $topic_id = $_GET['tid'];
 } else {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 /*
@@ -37,7 +37,7 @@ $post_editing = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic
 
 // Check topic exists
 if (!count($post_editing)) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 if ($post_editing[0]->id == $post_id) {
@@ -60,7 +60,7 @@ $post_editing = DB::getInstance()->get('haberlers', ['id', $post_id])->results()
 
 // Check post exists
 if (!count($post_editing)) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 $haber_id = $post_editing[0]->haber_id;

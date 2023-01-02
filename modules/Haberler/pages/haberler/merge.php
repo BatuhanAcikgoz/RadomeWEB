@@ -21,7 +21,7 @@ if (!$user->isLoggedIn()) {
 }
 
 if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 $topic_id = $_GET['tid'];

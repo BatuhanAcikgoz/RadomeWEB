@@ -21,17 +21,17 @@ if (isset($_GET['tid'])) {
     if (is_numeric($_GET['tid'])) {
         $topic_id = $_GET['tid'];
     } else {
-        Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+        Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
     }
 } else {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 // Check topic exists and get haberler ID
 $topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
 
 if (!count($topic)) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 if (!isset($_POST['token']) || !Token::check($_POST['token'])) {

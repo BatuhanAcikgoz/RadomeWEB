@@ -12,7 +12,7 @@
 if (str_contains($route, 'view_haberler')) {
     // Build new haberler URL
     if (isset($_GET['fid']) && is_numeric($_GET['fid'])) {
-        $url = URL::build('/haberler/view/' . urlencode($_GET['fid']));
+        $url = URL::build('/haberler/goruntule/' . urlencode($_GET['fid']));
     } else {
         $url = URL::build('/haberler');
     }

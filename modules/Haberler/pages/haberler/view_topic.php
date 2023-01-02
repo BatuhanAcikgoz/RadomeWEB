@@ -143,7 +143,7 @@ if (count($page_metadata)) {
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{title}', '{author}', '{haberler_title}', '{page}', '{post}'], [Output::getClean(SITE_NAME), Output::getClean($topic->topic_title), Output::getClean($user->idToName($topic->topic_creator)), Output::getClean($haberler_parent[0]->haberler_title), Output::getClean($p), substr($first_post, 0, 160) . '...'], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
 } else {
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/view_topic'])->results();
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/haberi_goruntule'])->results();
 
     if (count($page_metadata)) {
         $first_post = DB::getInstance()->orderWhere('haberlers', 'topic_id = ' . $topic->id, 'created', 'ASC LIMIT 1')->results();
@@ -376,7 +376,7 @@ $breadcrumbs = [
     1 => [
         'id' => $haberler_parent[0]->id,
         'haberler_title' => Output::getClean($haberler_parent[0]->haberler_title),
-        'link' => URL::build('/haberler/view/' . urlencode($haberler_parent[0]->id) . '-' . $haberler->titleToURL($haberler_parent[0]->haberler_title))
+        'link' => URL::build('/haberler/goruntule/' . urlencode($haberler_parent[0]->id) . '-' . $haberler->titleToURL($haberler_parent[0]->haberler_title))
     ]
 ];
 if (!empty($parent_category) && $parent_category[0]->parent == 0) {
@@ -384,7 +384,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
     $breadcrumbs[] = [
         'id' => $parent_category[0]->id,
         'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-        'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+        'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
     ];
 } else {
     if (!empty($parent_category)) {
@@ -392,7 +392,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
         $breadcrumbs[] = [
             'id' => $parent_category[0]->id,
             'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-            'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+            'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
         ];
         $parent = false;
         while ($parent == false) {
@@ -400,7 +400,7 @@ if (!empty($parent_category) && $parent_category[0]->parent == 0) {
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
                 'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                'link' => URL::build('/haberler/view/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
             ];
             if ($parent_category[0]->parent == 0) {
                 $parent = true;

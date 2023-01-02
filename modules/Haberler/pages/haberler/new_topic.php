@@ -22,7 +22,7 @@ if (!$user->isLoggedIn()) {
 $haberler = new Haberler();
 
 if (!isset($_GET['fid']) || !is_numeric($_GET['fid'])) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 $fid = (int)$_GET['fid'];
@@ -33,13 +33,13 @@ $user_groups = $user->getAllGroupIds();
 // Does the haberler exist, and can the user view it?
 $list = $haberler->haberlerExist($fid, $user_groups);
 if (!$list) {
-    Redirect::to(URL::build('/haberler/error/', 'error=not_exist'));
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
 // Can the user post a topic in this haberler?
 $can_reply = $haberler->canPostTopic($fid, $user_groups);
 if (!$can_reply) {
-    Redirect::to(URL::build('/haberler/view/' . urlencode($fid)));
+    Redirect::to(URL::build('/haberler/goruntule/' . urlencode($fid)));
 }
 
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
