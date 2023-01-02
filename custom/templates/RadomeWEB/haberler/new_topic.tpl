@@ -49,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-theme" data-dismiss="modal">{$CLOSE}</button>
-                <a href="{$FORUM_LINK}" class="btn btn-secondary">{$CANCEL}</a>
+                <a href="{$HABERLER_LINK}" class="btn btn-secondary">{$CANCEL}</a>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
             {$CONFIRM_REDIRECT}
             <hr />
             <div class="btn-group" role="group">
-                <a href="{$FORUM_INDEX}" class="btn btn-secondary">{$NO}</a>
+                <a href="{$HABERLER_INDEX}" class="btn btn-secondary">{$NO}</a>
                 <a href="{$REDIRECT_URL}" target="_blank" rel="noopener nofollow" class="btn btn-theme">{$YES}</a>
             </div>
         </div>

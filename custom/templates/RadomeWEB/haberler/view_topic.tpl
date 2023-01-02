@@ -2,13 +2,13 @@
 <div class="container" style="min-height: calc(-175.133px + 100vh);">
     <ol class="breadcrumb">
         {foreach from=$BREADCRUMBS item=breadcrumb}
-        <li{if isset($breadcrumb.active)} class="active" {/if}>{if !isset($breadcrumb.active)}<a class="white-link" href="{$breadcrumb.link}">{/if}{$breadcrumb.forum_title}{if !isset($breadcrumb.active)}</a>{/if}
+        <li{if isset($breadcrumb.active)} class="active" {/if}>{if !isset($breadcrumb.active)}<a class="white-link" href="{$breadcrumb.link}">{/if}{$breadcrumb.haberler_title}{if !isset($breadcrumb.active)}</a>{/if}
             </li>
         {/foreach}
     </ol>
     <div class="row">
         <div class="col-md-12">
-            <span class="float-right forum-btns">
+            <span class="float-right haberler-btns">
             <div class="btn-group">
             	<button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown" style="vertical-align:baseline;">{$SHARE} <span class="caret"></span></button>
             	    <ul class="dropdown-menu dropdown-menu-right" role="menu">
@@ -44,7 +44,7 @@
     </div>
     <div class="card-body" id="post-{$reply.id}">
         <div class="row">
-            <div class="col-md-2 col-inv forum-col">
+            <div class="col-md-2 col-inv haberler-col">
                 <center>
                     <img class="avatar-img" style="max-width:100px; max-height:100px;" src="{$reply.avatar}" />
                     <br/><br />
@@ -60,7 +60,7 @@
 
 							{* Badges Module *}
 							{if isset($USER_BADGES_LIST)}
-								{include file='badges/forum_bdg.tpl'}
+								{include file='badges/haberler_bdg.tpl'}
 							{/if}
 							{* /Badges Module *}
                 </center>
@@ -82,7 +82,7 @@
                {/if}
                </span>
                 <hr/>
-                <div class="forum_post">
+                <div class="haberler_post">
                     {$reply.content}
                 </div><br/> {if $reply.edited !== null}
                 <small><span rel="tooltip" data-toggle="hover"
