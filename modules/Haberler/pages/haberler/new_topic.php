@@ -131,7 +131,6 @@ if (Input::exists()) {
                     'post_content' => $content
                 ]);
 
-                Log::getInstance()->log(Log::Action('zurt', 'zart'));
 
                 // Execute hooks and pass $available_hooks
                 $default_haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language', DEFAULT_LANGUAGE);
