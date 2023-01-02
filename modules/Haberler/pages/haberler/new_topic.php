@@ -31,7 +31,7 @@ $haberler = new Haberler();
 $user_groups = $user->getAllGroupIds();
 
 
-$current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$fid])->first();
+$current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$topic_id])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
 
 // Topic labels
@@ -106,27 +106,16 @@ if (Input::exists()) {
                     }
                 }
 
-                DB::getInstance()->insert('topics', [
-                    'haber_id' => $fid,
-                    'topic_title' => Input::get('title'),
-                    'topic_creator' => $user->data()->id,
-                    'topic_last_user' => $user->data()->id,
-                    'topic_date' => date('U'),
-                    'topic_reply_date' => date('U'),
-                    'labels' => implode(',', $post_labels)
-                ]);
                 $topic_id = DB::getInstance()->lastId();
-
-                $content = Input::get('content');
-
-                DB::getInstance()->insert('haberlers', [
-                    'haber_id' => $fid,
-                    'topic_id' => $topic_id,
+                DB::getInstance()->insert('topics', [
+                    'haber_id' => $topic_id,
+                    'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
-                    'post_content' => $content,
-                    'post_date' => date('Y-m-d H:i:s'),
-                    'created' => date('U')
+                    'post_content' => Input::get('title'),
+                    'post_date' => date('U'),
+                    'post_date' => date('Y-m-d H:i:s')
                 ]);
+
 
                 // Get last post ID
                 $last_post_id = DB::getInstance()->lastId();
@@ -146,7 +135,7 @@ if (Input::exists()) {
 
                 // Execute hooks and pass $available_hooks
                 $default_haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language', DEFAULT_LANGUAGE);
-                $available_hooks = DB::getInstance()->get('haberlers', ['id', $fid])->results();
+                $available_hooks = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
                 $available_hooks = json_decode($available_hooks[0]->hooks);
                 EventHandler::executeEvent('newTopic', [
                     'user_id' => Output::getClean($user->data()->id),
@@ -189,7 +178,7 @@ $creating_topic_in = $haberler_language->get('haberler', 'creating_topic_in_x', 
 $smarty->assign('CREATING_TOPIC_IN', $creating_topic_in);
 
 // Get info about haberler
-$haberler_query = DB::getInstance()->get('haberlers', ['id', $fid])->results();
+$haberler_query = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
 $haberler_query = $haberler_query[0];
 
 // Placeholder?
