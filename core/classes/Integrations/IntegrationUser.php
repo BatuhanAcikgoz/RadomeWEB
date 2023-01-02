@@ -129,7 +129,8 @@ class IntegrationUser {
                 'verified' => $verified,
             ]
         ]);
-        $minecraft_int = DB::getInstance()->query('SELECT integration_id FROM `rw_users_integrations` WHERE user_id = ?', [$user->data()->id]);
+        $rw_int_id = $this->_integration->data()->id;
+        $minecraft_int = DB::getInstance()->query("SELECT integration_id FROM rw_users_integrations WHERE user_id = {$rw_int_id}")->results();
         if ($minecraft_int === 1) {
             DB::getInstance()->update('users_integrations', $user->data()->id, [
                 'verified' => true
