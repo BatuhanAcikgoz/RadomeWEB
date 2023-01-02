@@ -108,12 +108,6 @@ class IntegrationUser {
                 $code
             ]
         );
-        $minecraft_int = DB::getInstance()->get('users_integrations', ['integration_id', $this->_integration->data()->id])->results();
-        if ($minecraft_int == 1) {
-            DB::getInstance()->update('users_integrations', $user->data()->id, [
-                'verified' => true
-            ]);
-        }
 
         // Load the data for this integration from the query we just made
         $this->_data = new IntegrationUserData($this->_db->query('SELECT * FROM rw_users_integrations WHERE id = ?', [$this->_db->lastId()])->first());
@@ -135,6 +129,13 @@ class IntegrationUser {
                 'verified' => $verified,
             ]
         ]);
+        
+        $minecraft_int = DB::getInstance()->get('users_integrations', ['integration_id', $this->_integration->data()->id])->results();
+        if ($minecraft_int == 1) {
+            DB::getInstance()->update('users_integrations', $user->data()->id, [
+                'verified' => true
+            ]);
+        }
     }
 
     /**
