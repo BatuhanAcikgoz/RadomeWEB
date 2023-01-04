@@ -110,8 +110,8 @@ if (Input::exists()) {
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
                     'post_content' => Input::get('content'),
-                    'created' => date('U'),
-                    'post_date' => date('Y-m-d H:i:s')
+                    'post_date' => date('Y-m-d H:i:s'),
+                    'created' => date('U')
                 ]);
 
 
