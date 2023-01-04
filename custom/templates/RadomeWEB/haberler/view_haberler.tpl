@@ -79,6 +79,38 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table haberler-table">
+                        {foreach from=$NEWS item=item}
+                            <div class="card">
+                                <div class="card-header header-theme">
+                                    <div class="news-flex">
+                                        <div class="news-avatar">
+                                            <a href="{$item.author_url}" data-poload="{$USER_INFO_URL}{$item.author_id}"
+                                                data-html="true" data-placement="top">
+                                                <img src="{$item.author_avatar}" class="avatar-img" style="width:50px"
+                                                    alt="{$item.author_name}">
+                                            </a>
+                                        </div>
+                                        <div class="news-info">
+                                            <span class="news-title"><a class="news-title-text"
+                                                    href="{$item.url}">{$item.title}</a>{if $item.label} <span
+                                                    class="pull-right">{$item.label}</span>{/if}</span><br />
+                                            <span class="news-info"><i class="fas fa-pen-alt"></i>&nbsp;<a
+                                                    data-poload="{$USER_INFO_URL}{$item.author_id}" data-html="true"
+                                                    data-placement="top" href="{$item.author_url}"
+                                                    style="{$item.author_style}"><b>{$item.author_name}</b></a>&nbsp;&bull;&nbsp;
+                                                <span data-toggle="tooltip" title="{$item.date}"><i
+                                                        class="fas fa-user-clock"></i>&nbsp;<b>{$item.time_ago}&nbsp;&bull;&nbsp;</b></span><i
+                                                    class="fas fa-eye"></i>&nbsp;<b>{$item.views}</b></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body forum_post">
+                                    {$item.content}
+                                    <a href="{$item.url}" class="btn btn-theme btn-older-news float-right">{$READ_FULL_POST} <i
+                                            class="fas fa-share"></i></a>
+                                </div>
+                            </div>
+                        {/foreach}
                         </table>
                     </div>
                 </div>

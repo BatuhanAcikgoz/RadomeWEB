@@ -342,6 +342,42 @@ class Haberler {
         return array_slice($return, 0, $number, true);
     }
 
+    public function getHaberView(int $number = 5): array {
+        $return = []; // Array to return containing news
+        $labels_cache = []; // Array to contain labels
+
+        $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE id AND deleted = 0 ORDER BY post_date')->results();
+
+        foreach ($news_items as $item) {
+            $news_post = $this->_db->get('haberlers', ['id', $item->id])->results();
+
+            if (is_null($news_post[0]->created)) {
+                $post_date = date(DATE_FORMAT, strtotime($news_post[0]->post_date));
+            } else {
+                $post_date = date(DATE_FORMAT, $news_post[0]->created);
+            }
+
+            $post = $news_post[0]->post_content;
+            $return[] = [
+                'haber_id' => $item->id,
+                'post_date' => $post_date,
+                'haber_title' => $item->haber_title,
+                'post_views' => $item->post_views,
+                'author' => $item->post_creator,
+                'content' => Text::truncate($post),
+                'created' => $item->created,
+            ];
+        }
+
+        // Order the discussions by date - most recent first
+        usort($return, static function ($a, $b) {
+            return strtotime($b['post_date']) - strtotime($a['post_date']);
+        });
+
+        return array_slice($return, 0, $number, true);
+    }
+
+
     /**
      * Determine if groups have permission to moderate a haberler.
      *

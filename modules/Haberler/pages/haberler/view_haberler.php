@@ -205,6 +205,32 @@ if ($haberler_query->redirect_haberler == 1) {
         }
     }
 
+    $latest_news = $haberler->getHaberView(); // Get latest 5 items
+
+    $news = [];
+
+    foreach ($latest_news as $item) {
+        $post_user = new User($item['author']);
+        $timeago = new TimeAgo(TIMEZONE);
+        $news[] = [
+            'id' => $item['id'],
+            'url' => URL::build('/haberler/haber/' . urlencode($item['id']) . '-' . $haberler->titleToURL($item['haber_title'])),
+            'date' => Output::getClean($item['post_date']),
+            'time_ago' => $timeago->inWords($item['created'], $language),
+            'title' => Output::getClean($item['haber_title']),
+            'views' => $item['post_views'],
+            'author_id' => Output::getClean($item['author']),
+            'author_url' => $post_user->getProfileURL(),
+            'author_style' => $post_user->getGroupStyle(),
+            'author_name' => $post_user->getDisplayname(true),
+            'author_nickname' => $post_user->getDisplayname(),
+            'author_avatar' => $post_user->getAvatar(64),
+            'author_group' => Output::getClean($post_user->getMainGroup()->name),
+            'author_group_html' => $post_user->getMainGroup()->group_html,
+            'content' => EventHandler::executeEvent('renderPost', ['content' => $item['content']])['content']
+        ];
+    }
+
     // Assign language variables
     $smarty->assign('HABERLERS', $haberler_language->get('haberler', 'haberlers'));
     $smarty->assign('DISCUSSION', $haberler_language->get('haberler', 'discussion'));
