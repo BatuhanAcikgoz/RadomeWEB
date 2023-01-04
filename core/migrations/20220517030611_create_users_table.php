@@ -37,7 +37,7 @@ final class CreateUsersTable extends AbstractMigration
             ->addColumn('tfa_secret', 'string', ['length' => 256, 'null' => true])
             ->addColumn('tfa_complete', 'boolean', ['default' => false])
             ->addColumn('banner', 'string', ['length' => 64, 'null' => true])
-            ->addColumn('timezone', 'string', ['length' => 32, 'default' => 'Europe/London'])
+            ->addColumn('timezone', 'string', ['length' => 32, 'default' => 'Europe/Istanbul'])
             ->addColumn('avatar_updated', 'integer', ['length' => 11, 'null' => true]);
 
         $table

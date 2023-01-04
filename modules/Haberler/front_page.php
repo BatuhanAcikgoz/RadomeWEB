@@ -26,10 +26,9 @@ if ($cache->isCached('news')) {
             'id' => $item['haber_id'],
             'url' => URL::build('/haberler/haber/' . urlencode($item['haber_id']) . '-' . $haberler->titleToURL($item['haber_title'])),
             'date' => date(DATE_FORMAT, strtotime($item['post_date'])),
-            'time_ago' => $item['topic_date'],
+            'time_ago' => $item['post_date'],
             'title' => Output::getClean($item['topic_title']),
-            'views' => $item['topic_views'],
-            'replies' => $item['replies'],
+            'views' => $item['post_views'],
             'author_id' => Output::getClean($item['author']),
             'author_url' => $post_user->getProfileURL(),
             'author_style' => $post_user->getGroupStyle(),
@@ -38,9 +37,7 @@ if ($cache->isCached('news')) {
             'author_avatar' => $post_user->getAvatar(64),
             'author_group' => Output::getClean($post_user->getMainGroup()->name),
             'author_group_html' => $post_user->getMainGroup()->group_html,
-            'content' => EventHandler::executeEvent('renderPost', ['content' => $item['content']])['content'],
-            'label' => $item['label'],
-            'labels' => $item['labels']
+            'content' => EventHandler::executeEvent('renderPost', ['content' => $item['content']])['content']
         ];
     }
 
