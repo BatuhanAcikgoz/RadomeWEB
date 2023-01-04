@@ -155,8 +155,6 @@ if ($haberler_query->redirect_haberler == 1) {
 
     $subhaberler_array = [];
 
-    if (count($subhaberlers)) {
-        // append subhaberlers to string
         foreach ($subhaberlers as $subhaberler) {
             // Get number of topics
             if ($haberler->haberlerExist($subhaberler->id, $user_groups)) {
@@ -476,4 +474,3 @@ if ($haberler_query->redirect_haberler == 1) {
     } else {
         $template->displayTemplate('haberler/view_haberler.tpl', $smarty);
     }
-}
