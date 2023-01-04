@@ -73,7 +73,7 @@ if (isset($_GET['p'])) {
 
 // Is the URL pointing to a specific post?
 if (isset($_GET['pid'])) {
-    $haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? AND deleted = 0', [$tid])->results();
+    $haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? AND deleted = 0', [$tid])->results();
     if (count($haberlers)) {
         $i = 0;
         while ($i < count($haberlers)) {
