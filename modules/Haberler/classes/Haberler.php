@@ -457,7 +457,7 @@ class Haberler {
     public function getPosts(int $tid = null) {
         if ($tid) {
             // Get haberlers from database
-            $haberlers = $this->_db->get('haberlers', ['topic_id', $tid]);
+            $haberlers = $this->_db->get('haberlers', ['id', $tid]);
 
             if ($haberlers->count()) {
                 $haberlers = $haberlers->results();
