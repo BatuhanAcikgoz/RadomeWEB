@@ -152,7 +152,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Assign author + title to Smarty variables
 // Get first post
-$first_post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$tid])->first();
+$first_post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY id ASC LIMIT 1', [$tid])->first();
 
 $topic_user = new User($topic->topic_creator);
 
