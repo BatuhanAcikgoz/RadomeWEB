@@ -34,13 +34,6 @@ $fid = Output::getClean($fid[0]);
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 
-// Does the haberler exist, and can the user view it?
-$list = $haberler->canViewHaberler($fid, $user_groups);
-if (!$list) {
-    require_once(ROOT_PATH . '/403.php');
-    die();
-}
-
 // Get data from the database
 $haberler_query = DB::getInstance()->get('haberlers', ['id', $fid])->results();
 $haberler_query = $haberler_query[0];
@@ -111,12 +104,6 @@ if ($haberler_query->redirect_haberler == 1) {
         $user_id = 0;
     }
 
-    if ($haberler->canViewOtherTopics($fid, $user_groups)) {
-        $topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE id = ? AND sticky = 0 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
-    } else {
-        $topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE id = ? AND sticky = 0 AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$fid, $user_id])->results();
-    }
-
     // Get sticky topics
     $stickies = DB::getInstance()->query('SELECT * FROM rw_topics WHERE id = ? AND sticky = 1 AND deleted = 0 ORDER BY topic_reply_date DESC', [$fid])->results();
 
@@ -147,16 +134,16 @@ if ($haberler_query->redirect_haberler == 1) {
             // Parent haberler, get its category
             $breadcrumbs[] = [
                 'id' => $parent_category[0]->id,
-                'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                'haberler_title' => Output::getClean($parent_category[0]->haber_title),
+                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haber_title))
             ];
             $parent = false;
             while ($parent == false) {
                 $parent_category = DB::getInstance()->get('haberlers', ['id', $parent_category[0]->parent])->results();
                 $breadcrumbs[] = [
                     'id' => $parent_category[0]->id,
-                    'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                    'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
+                    'haberler_title' => Output::getClean($parent_category[0]->haber_title),
+                    'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haber_title))
                 ];
                 if ($parent_category[0]->parent == 0) {
                     $parent = true;
@@ -204,16 +191,11 @@ if ($haberler_query->redirect_haberler == 1) {
                         }
                     }
 
-                    $latest_post_user = new User($latest_post->topic_last_user);
-                    $latest_post_link = URL::build('/haberler/haber/' . urlencode($latest_post->id) . '-' . $haberler->titleToURL($latest_post->topic_title));
+            
                     $latest_post_avatar = $latest_post_user->getAvatar();
-                    $latest_post_title = Output::getClean($latest_post->topic_title);
                     $latest_post_user_displayname = $latest_post_user->getDisplayname();
                     $latest_post_user_link = $latest_post_user->getProfileURL();
                     $latest_post_style = $latest_post_user->getGroupStyle();
-                    $latest_post_date_timeago = $timeago->inWords($latest_post->topic_reply_date, $language);
-                    $latest_post_time = date(DATE_FORMAT, $latest_post->topic_reply_date);
-                    $latest_post_user_id = Output::getClean($latest_post->topic_last_user);
 
                     $latest_post = [
                         'link' => $latest_post_link,
@@ -265,8 +247,8 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('STICKY_TOPICS', $haberler_language->get('haberler', 'sticky_topics'));
 
     // Can the user post here?
-    if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
-        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
+    if ($user->isLoggedIn() && $user->hasPermission('admincp.haberlers')) {
+        $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/'));
     } else {
         $smarty->assign('NEW_TOPIC_BUTTON', false);
     }
@@ -278,7 +260,7 @@ if ($haberler_query->redirect_haberler == 1) {
         // No topics yet
         $smarty->assign('NO_TOPICS_FULL', $haberler_language->get('haberler', 'no_topics'));
 
-        if ($user->isLoggedIn() && $haberler->canPostTopic($fid, $user_groups)) {
+        if ($user->isLoggedIn() && $user->hasPermission('admincp.haberlers')) {
             $smarty->assign('NEW_TOPIC_BUTTON', URL::build('/haberler/yeni/', 'fid=' . urlencode($fid)));
         } else {
             $smarty->assign('NEW_TOPIC_BUTTON', false);
@@ -402,7 +384,7 @@ if ($haberler_query->redirect_haberler == 1) {
         // Get a list of all topics from the haberler, and paginate
         foreach ($results->data as $nValue) {
             // Get number of replies to a topic
-            $replies = DB::getInstance()->get('haberlers', ['topic_id', $nValue->id])->results();
+            $replies = DB::getInstance()->get('haberlers', ['id', $nValue->id])->results();
             $replies = count($replies);
 
             // Is there a label?
@@ -462,16 +444,16 @@ if ($haberler_query->redirect_haberler == 1) {
 
             // Add to array
             $template_array[] = [
-                'topic_title' => Output::getClean($nValue->topic_title),
+                'topic_title' => Output::getClean($nValue->haber_title),
                 'topic_id' => $nValue->id,
-                'topic_created_rough' => $timeago->inWords($nValue->topic_date, $language),
-                'topic_created' => date(DATE_FORMAT, $nValue->topic_date),
+                'topic_created_rough' => $timeago->inWords($nValue->post_date, $language),
+                'topic_created' => date(DATE_FORMAT, $nValue->post_date),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
                 'topic_created_style' => $topic_user->getGroupStyle(),
-                'topic_created_user_id' => Output::getClean($nValue->topic_creator),
+                'topic_created_user_id' => Output::getClean($nValue->post_creator),
                 'locked' => $nValue->locked,
-                'views' => $nValue->topic_views,
+                'views' => $nValue->post_views,
                 'haberlers' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords($nValue->topic_reply_date, $language),
