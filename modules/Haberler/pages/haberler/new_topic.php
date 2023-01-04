@@ -110,7 +110,7 @@ if (Input::exists()) {
                     'haber_id' => DB::getInstance()->lastId(),
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
-                    'post_content' => Input::get('post_conent'),
+                    'post_content' => Input::get('post_content'),
                     'post_date' => date('U'),
                     'post_date' => date('Y-m-d H:i:s')
                 ]);
