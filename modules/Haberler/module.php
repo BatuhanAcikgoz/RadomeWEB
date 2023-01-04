@@ -216,7 +216,7 @@ class Haberler_Module extends Module {
 
         $cache->setCache('navbar_icons');
         if (!$cache->isCached('haberler_icon')) {
-            $icon = '';
+            $icon = '<i class="fas fa-newspaper"></i>';
         } else {
             $icon = $cache->retrieve('haberler_icon');
         }
