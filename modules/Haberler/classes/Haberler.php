@@ -355,6 +355,7 @@ class Haberler {
                 'post_views' => $item->post_views,
                 'author' => $item->post_creator,
                 'content' => Text::truncate($post),
+                'created' => $item->created,
             ];
         }
 
