@@ -106,9 +106,7 @@ if (Input::exists()) {
                     }
                 }
 
-                $id = DB::getInstance()->lastId();
                 DB::getInstance()->insert('haberlers', [
-                    'id' => $id,
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
                     'post_content' => Input::get('content'),
