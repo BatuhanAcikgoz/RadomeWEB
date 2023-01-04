@@ -54,17 +54,6 @@
                                         <td><a class="white-link" href="{$subhaberler.link}">{$subhaberler.title}</a></td>
                                         <td><strong>{$subhaberler.topics}</strong> {$TOPICS}</td>
                                         <td>
-                                            {if count($subhaberler.latest_post)}
-                                                <a class="white-link"
-                                                    href="{$subhaberler.latest_post.link}">{$subhaberler.latest_post.title}</a>
-                                                <br /><small><span data-toggle="tooltip" data-trigger="hover"
-                                                        data-original-title="{$subhaberler.latest_post.time}">{$subhaberler.latest_post.timeago}</span>
-                                                    {$BY} <a style="{$subhaberler.latest_post.last_user_style}"
-                                                        href="{$subhaberler.latest_post.last_user_link}"
-                                                        data-poload="{$USER_INFO_URL}{$subhaberler.latest_post.last_user_id}"
-                                                        data-html="true"
-                                                    data-placement="top">{$subhaberler.latest_post.last_user}</a></small> {else}
-                                            {$NO_TOPICS} {/if}
                                         </td>
                                     </tr>
                                 {/foreach}
