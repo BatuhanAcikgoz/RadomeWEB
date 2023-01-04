@@ -349,10 +349,10 @@ class Haberler {
 
             $post = $news_post[0]->post_content;
             $return[] = [
-                'topic_id' => $item->id,
+                'haber_id' => $item->id,
                 'post_date' => $post_date,
-                'topic_title' => $item->haber_title,
-                'haber_views' => $item->post_views,
+                'haber_title' => $item->haber_title,
+                'post_views' => $item->post_views,
                 'author' => $item->post_creator,
                 'content' => Text::truncate($post),
             ];
