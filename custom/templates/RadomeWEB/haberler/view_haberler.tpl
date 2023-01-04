@@ -54,6 +54,17 @@
                                         <td><a class="white-link" href="{$subhaberler.link}">{$subhaberler.title}</a></td>
                                         <td><strong>{$subhaberler.topics}</strong> {$TOPICS}</td>
                                         <td>
+                                            {if count($subhaberler.latest_post)}
+                                                <a class="white-link"
+                                                    href="{$subhaberler.latest_post.link}">{$subhaberler.latest_post.title}</a>
+                                                <br /><small><span data-toggle="tooltip" data-trigger="hover"
+                                                        data-original-title="{$subhaberler.latest_post.time}">{$subhaberler.latest_post.timeago}</span>
+                                                    {$BY} <a style="{$subhaberler.latest_post.last_user_style}"
+                                                        href="{$subhaberler.latest_post.last_user_link}"
+                                                        data-poload="{$USER_INFO_URL}{$subhaberler.latest_post.last_user_id}"
+                                                        data-html="true"
+                                                    data-placement="top">{$subhaberler.latest_post.last_user}</a></small> {else}
+                                            {$NO_TOPICS} {/if}
                                         </td>
                                     </tr>
                                 {/foreach}
@@ -68,78 +79,6 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table haberler-table">
-                            {if ($LATEST_DISCUSSIONS|@count == 0) && (!count($STICKY_DISCUSSIONS))}
-                                {$NO_TOPICS}
-                            {/if}
-
-                            {if count($STICKY_DISCUSSIONS)}
-                                {foreach from=$STICKY_DISCUSSIONS item=sticky}
-                                    <tr>
-                                        <td>
-                                            {if $sticky.locked == 1}<i class="fas fa-lock"></i> {/if}<i
-                                                class="fas fa-thumbtack"></i> {if isset($sticky.labels) && count($sticky.labels)}
-                                                    {foreach from=$sticky.labels item=label}
-                                                      {$label}
-                                                    {/foreach}
-                                                  {/if} <a class="white-link"
-                                                href="{$sticky.link}">{$sticky.topic_title}</a><br />
-                                            <small><span data-toggle="tooltip" data-trigger="hover"
-                                                    data-original-title="{$sticky.topic_created}">{$sticky.topic_created_rough}</span>
-                                                {$BY} <a style="{$sticky.topic_created_style}" href="{$sticky.author_link}"
-                                                    data-poload="{$USER_INFO_URL}{$sticky.topic_created_user_id}"
-                                                    data-html="true"
-                                                    data-placement="top">{$sticky.topic_created_username}</a></small>
-                                        </td>
-                                        <td>
-                                            <strong>{$sticky.views}</strong> {$VIEWS}<br />
-                                            <strong>{$sticky.posts}</strong> {$POSTS}
-                                        </td>
-                                        <td>
-                                            {$LAST_REPLY}:<br />
-                                            <small><span data-toggle="tooltip" data-trigger="hover"
-                                                    data-original-title="{$sticky.last_reply}">{$sticky.last_reply_rough}</span>
-                                                {$BY} <a style="{$sticky.last_reply_style}" href="{$sticky.last_reply_link}"
-                                                    data-poload="{$USER_INFO_URL}{$sticky.last_reply_user_id}" data-html="true"
-                                                    data-placement="top">{$sticky.last_reply_username}</a></small>
-                                        </td>
-                                    </tr>
-                                {/foreach}
-                            {/if}
-                            {if $LATEST_DISCUSSIONS|@count > 0} 
-                                {foreach from=$LATEST_DISCUSSIONS item=discussion}
-                                    <tr>
-                                        <td>
-                                            <span style="display:inline;">{if isset($discussion.labels) && count($discussion.labels)}
-                                                {foreach from=$discussion.labels item=label}
-                                                  {$label}
-                                                {/foreach}
-                                              {/if}</span>{if $discussion.locked == 1}<i class="fas fa-lock"></i> {/if} <a class="white-link"
-                                                href="{$discussion.link}">{$discussion.topic_title}</a><br />
-                                            <small><span data-toggle="tooltip" data-trigger="hover"
-                                                    data-original-title="{$discussion.topic_created}">{$discussion.topic_created_rough}</span>
-                                                {$BY} <a style="{$discussion.topic_created_style}"
-                                                    href="{$discussion.author_link}"
-                                                    data-poload="{$USER_INFO_URL}{$discussion.topic_created_user_id}"
-                                                    data-html="true"
-                                                    data-placement="top">{$discussion.topic_created_username}</a></small>
-                                        </td>
-                                        <td>
-                                            <strong>{$discussion.views}</strong> {$VIEWS}<br />
-                                            <strong>{$discussion.posts}</strong> {$POSTS}
-                                        </td>
-                                        <td>
-                                            {$LAST_REPLY}:<br />
-                                            <small><span data-toggle="tooltip" data-trigger="hover"
-                                                    data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span>
-                                                {$BY} <a style="{$discussion.last_reply_style}"
-                                                    href="{$discussion.last_reply_link}"
-                                                    data-poload="{$USER_INFO_URL}{$discussion.last_reply_user_id}"
-                                                    data-html="true"
-                                                    data-placement="top">{$discussion.last_reply_username}</a></small>
-                                        </td>
-                                    </tr>
-                                {/foreach} 
-                            {/if}
                         </table>
                     </div>
                 </div>

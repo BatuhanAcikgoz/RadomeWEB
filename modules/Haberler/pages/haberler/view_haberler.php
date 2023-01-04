@@ -234,6 +234,7 @@ if ($haberler_query->redirect_haberler == 1) {
 
     $smarty->assign('NEW_TOPIC', $haberler_language->get('haberler', 'new_topic'));
 
+
     // Load modules + template
     Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
