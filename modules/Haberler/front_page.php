@@ -25,7 +25,7 @@ if ($cache->isCached('news')) {
         $news[] = [
             'id' => $item['id'],
             'url' => URL::build('/haberler/haber/' . urlencode($item['id']) . '-' . $haberler->titleToURL($item['haber_title'])),
-            'date' => date(DATE_FORMAT, strtotime($item['post_date'])),
+            'date' => Output::getClean($item['post_date']),
             'time_ago' => $item['post_date'],
             'title' => Output::getClean($item['haber_title']),
             'views' => $item['post_views'],
