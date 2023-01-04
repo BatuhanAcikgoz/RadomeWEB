@@ -290,7 +290,6 @@ if ($haberler_query->redirect_haberler == 1) {
                 'topic_created_user_id' => Output::getClean($nValue->post_creator),
                 'locked' => $nValue->locked,
                 'views' => $nValue->post_views,
-                'posts' => $nValue->post_content,
                 'haberlers' => $replies,
                 'last_reply_avatar' => $last_reply_user->getAvatar(),
                 'last_reply_rough' => $timeago->inWords($nValue->post_date, $language),
