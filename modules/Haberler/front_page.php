@@ -41,7 +41,7 @@ if ($cache->isCached('news')) {
         ];
     }
 
-    $cache->store('news', $news, 5);
+    $cache->store('news', $news, 1);
 }
 
 $smarty->assign('LATEST_ANNOUNCEMENTS', $haberler_language->get('haberler', 'latest_announcements'));
