@@ -123,7 +123,7 @@ if (Input::exists()) {
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
                     'alert_short' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag'],
                     'alert_url' => URL::build('/haberler/haber/' . urlencode($haber_id)),
-                    'content' => $content,
+                    'content' => Input::get('content'),
                     'user' => $user,
                 ])['content'];
 
