@@ -21,7 +21,6 @@ if ($cache->isCached('news')) {
 
     foreach ($latest_news as $item) {
         $post_user = new User($item['author']);
-
         $news[] = [
             'id' => $item['id'],
             'url' => URL::build('/haberler/haber/' . urlencode($item['id']) . '-' . $haberler->titleToURL($item['haber_title'])),
