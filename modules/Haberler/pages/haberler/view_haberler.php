@@ -248,6 +248,30 @@ if ($haberler_query->redirect_haberler == 1) {
 
         $no_topics_exist = true;
     } else {
+        // Topics/sticky topics exist
+        $labels_cache = [];
+
+        $sticky_array = [];
+        // Assign sticky threads to smarty variable
+        // Clear out variables
+        $stickies = null;
+        $sticky = null;
+
+        // Latest discussions
+        // Pagination
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
+        $results = $paginator->getLimited($topics, 10, $p, count($topics));
+        $pagination = $paginator->generate(7, URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+
+        if (count($topics)) {
+            $smarty->assign('PAGINATION', $pagination);
+        } else {
+            $smarty->assign('PAGINATION', '');
+        }
 
         $template_array = [];
         // Get a list of all topics from the haberler, and paginate
