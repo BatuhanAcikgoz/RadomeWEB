@@ -15,22 +15,6 @@ const PAGE = 'haberler';
 $haberler = new Haberler();
 $timeago = new TimeAgo(TIMEZONE);
 
-// Get haberler ID
-$fid = explode('/', $route);
-$fid = $fid[count($fid) - 1];
-
-if (!strlen($fid)) {
-    require_once(ROOT_PATH . '/404.php');
-    die();
-}
-
-$fid = explode('-', $fid);
-if (!is_numeric($fid[0])) {
-    require_once(ROOT_PATH . '/404.php');
-    die();
-}
-$fid = Output::getClean($fid[0]);
-
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
 

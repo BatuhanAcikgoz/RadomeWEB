@@ -49,7 +49,7 @@ class Haberler {
             foreach ($parent_haberlers as $haberler) {
                 if ($this->haberlerExist($haberler->id, $groups)) {
                     $return[$haberler->id]['description'] = Output::getClean($haberler->haberler_description);
-                    $return[$haberler->id]['title'] = Output::getClean($haberler->haberler_title);
+                    $return[$haberler->id]['title'] = Output::getClean($haberler->haber_title);
                     $return[$haberler->id]['icon'] = Output::getPurified($haberler->icon);
 
                     // Get subhaberlers
@@ -58,7 +58,7 @@ class Haberler {
                         foreach ($haberlers as $item) {
                             if ($this->haberlerExist($item->id, $groups)) {
                                 $return[$haberler->id]['subhaberlers'][$item->id] = $item;
-                                $return[$haberler->id]['subhaberlers'][$item->id]->haberler_title = Output::getClean($item->haberler_title);
+                                $return[$haberler->id]['subhaberlers'][$item->id]->haber_title = Output::getClean($item->haber_title);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->haberler_description = Output::getClean($item->haberler_description);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->icon = Output::getPurified($item->icon);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->link = URL::build('/haberler/goruntule/' . urlencode($item->id) . '-' . $this->titleToURL($item->haberler_title));
@@ -70,31 +70,6 @@ class Haberler {
                                 $haberlers = count($haberlers);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->haberlers = $haberlers;
 
-                                // Can the user view other topics
-                                    if ($item->last_topic_posted) {
-                                        // Last reply
-                                        $last_reply = $this->_db->orderWhere('haberlers', 'topic_id = ' . $item->last_topic_posted, 'created', 'DESC')->results();
-                                    } else {
-                                        $last_reply = null;
-                                    }
-
-                                if (isset($last_reply) && count($last_reply)) {
-                                    $n = 0;
-                                    while (isset($last_reply[$n]) && $last_reply[$n]->deleted == 1) {
-                                        $n++;
-                                    }
-
-                                    if (!isset($last_reply[$n])) {
-                                        continue;
-                                    }
-
-                                    // Title
-                                    $last_topic = $this->_db->get('haberlers', ['id', $last_reply[$n]->topic_id])->results();
-
-                                    $return[$haberler->id]['subhaberlers'][$item->id]->last_post = $last_reply[$n];
-                                    $return[$haberler->id]['subhaberlers'][$item->id]->last_post->title = Output::getClean($last_topic[0]->topic_title);
-                                    $return[$haberler->id]['subhaberlers'][$item->id]->last_post->link = URL::build('/haberler/haber/' . urlencode($last_reply[$n]->topic_id) . '-' . $this->titleToURL($last_topic[0]->topic_title), 'pid=' . $last_reply[0]->id);
-                                }
 
                                 // Get list of subhaberlers (names + links)
                                 $subhaberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
