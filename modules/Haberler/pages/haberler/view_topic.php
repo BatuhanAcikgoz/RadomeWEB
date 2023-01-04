@@ -55,13 +55,6 @@ if ($user->isLoggedIn()) {
     $user_id = 0;
 }
 
-if ($topic->topic_creator != $user_id && !$haberler->canViewOtherTopics($topic->id, $user_groups)) {
-    // Only allow viewing stickied topics
-    if ($topic->sticky == 0) {
-        require_once(ROOT_PATH . '/403.php');
-        die();
-    }
-}
 
 // Get page
 if (isset($_GET['p'])) {
