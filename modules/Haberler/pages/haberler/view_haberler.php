@@ -150,60 +150,7 @@ if ($haberler_query->redirect_haberler == 1) {
     // Any subhaberlers?
     $haberlers = DB::getInstance()->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
 
-    $subhaberler_array = [];
 
-        foreach ($subhaberlers as $subhaberler) {
-            // Get number of topics
-            if ($haberler->haberlerExist($subhaberler->id, $user_groups)) {
-                if ($haberler->canViewOtherTopics($subhaberler->id, $user_groups)) {
-                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_topics WHERE id = ? AND deleted = 0 ORDER BY topic_reply_date DESC', [$subhaberler->id])->results();
-                } else {
-                    $latest_post = DB::getInstance()->query('SELECT * FROM rw_topics WHERE id = ? AND deleted = 0 AND topic_creator = ? ORDER BY topic_reply_date DESC', [$subhaberler->id, $user_id])->results();
-                }
-
-                $subhaberler_topics = count($latest_post);
-                if (count($latest_post)) {
-                    foreach ($latest_post as $item) {
-                        if ($item->deleted == 0) {
-                            $latest_post = $item;
-                            break;
-                        }
-                    }
-
-            
-                    $latest_post_avatar = $latest_post_user->getAvatar();
-                    $latest_post_user_displayname = $latest_post_user->getDisplayname();
-                    $latest_post_user_link = $latest_post_user->getProfileURL();
-                    $latest_post_style = $latest_post_user->getGroupStyle();
-
-                    $latest_post = [
-                        'link' => $latest_post_link,
-                        'title' => $latest_post_title,
-                        'last_user_avatar' => $latest_post_avatar,
-                        'last_user' => $latest_post_user_displayname,
-                        'last_user_style' => $latest_post_style,
-                        'last_user_link' => $latest_post_user_link,
-                        'timeago' => $latest_post_date_timeago,
-                        'time' => $latest_post_time,
-                        'last_user_id' => $latest_post_user_id
-                    ];
-                } else {
-                    $latest_post = [];
-                }
-
-                $subhaberler_array[] = [
-                    'id' => $subhaberler->id,
-                    'title' => Output::getPurified($subhaberler->haberler_title),
-                    'description' => Output::getPurified($subhaberler->haberler_description),
-                    'topics' => $subhaberler_topics,
-                    'link' => URL::build('/haberler/goruntule/' . urlencode($subhaberler->id) . '-' . $haberler->titleToURL($subhaberler->haberler_title)),
-                    'latest_post' => $latest_post,
-                    'icon' => Output::getPurified($subhaberler->icon),
-                    'redirect' => $subhaberler->redirect_haberler
-                ];
-            }
-        }
-    }
 
     // Assign language variables
     $smarty->assign('HABERLERS', $haberler_language->get('haberler', 'haberlers'));
@@ -219,11 +166,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('LATEST_DISCUSSIONS_TITLE', $haberler_language->get('haberler', 'latest_discussions'));
     $smarty->assign('TOPICS', $haberler_language->get('haberler', 'topics'));
     $smarty->assign('NO_TOPICS', $haberler_language->get('haberler', 'no_topics_short'));
-    $smarty->assign('SUBHABERLERS', $subhaberler_array);
-    $smarty->assign('SUBHABERLER_LANGUAGE', $haberler_language->get('haberler', 'subhaberlers'));
-    $smarty->assign('HABERLER_TITLE', Output::getPurified($haberler_query->haberler_title));
-    $smarty->assign('HABERLER_ICON', Output::getPurified($haberler_query->icon));
-    $smarty->assign('STICKY_TOPICS', $haberler_language->get('haberler', 'sticky_topics'));
+    $smarty->assign('HABERLER_TITLE', Output::getPurified($haberler_query->haber_title));
 
     // Can the user post here?
     if ($user->isLoggedIn() && $user->hasPermission('admincp.haberlers')) {
@@ -385,3 +328,4 @@ if ($haberler_query->redirect_haberler == 1) {
     } else {
         $template->displayTemplate('haberler/view_haberler.tpl', $smarty);
     }
+}
