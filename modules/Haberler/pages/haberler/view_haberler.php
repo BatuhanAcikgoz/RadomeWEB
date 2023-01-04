@@ -235,6 +235,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('NEW_TOPIC', $haberler_language->get('haberler', 'new_topic'));
 
     // Topics
+    $topics = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE deleted = 0 ORDER BY created DESC')->results();
     if (!count($topics)) {
         // No topics yet
         $smarty->assign('NO_TOPICS_FULL', $haberler_language->get('haberler', 'no_topics'));
@@ -353,7 +354,6 @@ if ($haberler_query->redirect_haberler == 1) {
         $results = $paginator->getLimited($topics, 10, $p, count($topics));
         $pagination = $paginator->generate(7, URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
 
-        $topics = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE deleted = 0 ORDER BY created DESC')->results();
         if (count($topics)) {
             $smarty->assign('PAGINATION', $pagination);
         } else {
