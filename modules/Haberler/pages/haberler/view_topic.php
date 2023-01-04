@@ -55,7 +55,7 @@ if ($user->isLoggedIn()) {
     $user_id = 0;
 }
 
-if ($topic->topic_creator != $user_id && !$haberler->canViewOtherTopics($topic->haber_id, $user_groups)) {
+if ($topic->topic_creator != $user_id && !$haberler->canViewOtherTopics($topic->id, $user_groups)) {
     // Only allow viewing stickied topics
     if ($topic->sticky == 0) {
         require_once(ROOT_PATH . '/403.php');
@@ -133,7 +133,7 @@ if (isset($_GET['action'])) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title)));
 }
 
-$haberler_parent = DB::getInstance()->get('haberlers', ['id', $topic->haber_id])->results();
+$haberler_parent = DB::getInstance()->get('haberlers', ['id', $topic->id])->results();
 
 $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/haberler/haber'])->results();
 if (count($page_metadata)) {
@@ -170,7 +170,7 @@ $smarty->assign([
     'TOPIC_AUTHOR_PROFILE' => $topic_user->getProfileURL(),
     'TOPIC_AUTHOR_STYLE' => $topic_user->getGroupStyle(),
     'TOPIC_ID' => $topic->id,
-    'haber_id' => $topic->haber_id,
+    'id' => $topic->id,
     'TOPIC_LAST_EDITED' => ($first_post->last_edited ? $timeago->inWords($first_post->last_edited, $language) : null),
     'TOPIC_LAST_EDITED_FULL' => ($first_post->last_edited ? date(DATE_FORMAT, $first_post->last_edited) : null)
 ]);
@@ -211,7 +211,7 @@ if (Input::exists()) {
             $content = Input::get('content');
 
             DB::getInstance()->insert('haberlers', [
-                'haber_id' => $topic->haber_id,
+                'id' => $topic->id,
                 'topic_id' => $tid,
                 'post_creator' => $user->data()->id,
                 'post_content' => $content,
@@ -233,7 +233,7 @@ if (Input::exists()) {
                 'post_content' => $content
             ]);
 
-            DB::getInstance()->update('haberlers', $topic->haber_id, [
+            DB::getInstance()->update('haberlers', $topic->id, [
                 'last_topic_posted' => $tid,
                 'last_user_posted' => $user->data()->id,
                 'last_post_date' => date('U')
@@ -246,7 +246,7 @@ if (Input::exists()) {
             // Execute hooks and pass $available_hooks
             // TODO: This gets hooks only for this specific haberler, not any of its parents...
             $default_haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language', DEFAULT_LANGUAGE);
-            $available_hooks = DB::getInstance()->get('haberlers', ['id', $topic->haber_id])->results();
+            $available_hooks = DB::getInstance()->get('haberlers', ['id', $topic->id])->results();
             $available_hooks = json_decode($available_hooks[0]->hooks);
             EventHandler::executeEvent('topicReply', [
                 'user_id' => $user->data()->id,

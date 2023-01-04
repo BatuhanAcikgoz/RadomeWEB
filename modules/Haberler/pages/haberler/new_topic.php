@@ -106,9 +106,9 @@ if (Input::exists()) {
                     }
                 }
 
-                $haber_id = DB::getInstance()->lastId();
+                $id = DB::getInstance()->lastId();
                 DB::getInstance()->insert('haberlers', [
-                    'haber_id' => $haber_id,
+                    'id' => $id,
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
                     'post_content' => Input::get('content'),
@@ -118,16 +118,16 @@ if (Input::exists()) {
 
 
                 // Get last post ID
-                $haber_id = DB::getInstance()->lastId();
+                $id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
                     'alert_short' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag'],
-                    'alert_url' => URL::build('/haberler/haber/' . urlencode($haber_id)),
+                    'alert_url' => URL::build('/haberler/haber/' . urlencode($id)),
                     'content' => Input::get('content'),
                     'user' => $user,
                 ])['content'];
 
-                DB::getInstance()->update('haberlers', $haber_id, [
+                DB::getInstance()->update('haberlers', $id, [
                     'post_content' => $content
                 ]);
 

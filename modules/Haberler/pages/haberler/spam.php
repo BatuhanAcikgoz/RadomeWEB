@@ -32,7 +32,7 @@ if (!count($post)) {
 $post = $post[0];
 
 // Check the user can moderate the haberler
-if ($haberler->canModerateHaberler($post->haber_id, $user->getAllGroupIds())) {
+if ($haberler->canModerateHaberler($post->id, $user->getAllGroupIds())) {
     // Check token
     if (Token::check()) {
         // Valid token, go ahead and mark the user as spam

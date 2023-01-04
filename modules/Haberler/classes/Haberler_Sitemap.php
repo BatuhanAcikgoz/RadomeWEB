@@ -24,7 +24,7 @@ class Haberler_Sitemap {
 
         $db = DB::getInstance();
 
-        $haberlers = $db->query('SELECT id, haberler_title, last_post_date FROM rw_haberlers WHERE id IN (SELECT haber_id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
+        $haberlers = $db->query('SELECT id, haberler_title, last_post_date FROM rw_haberlers WHERE id IN (SELECT id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($haberlers as $haberler) {
             $sitemap->addItem(URL::build('/haberler/goruntule/' . urlencode($haberler->id) . '-' . Text::urlSafe($haberler->haberler_title)), 0.5, 'daily', date('Y-m-d', $haberler->last_post_date));
@@ -32,7 +32,7 @@ class Haberler_Sitemap {
 
         $haberlers = null;
 
-        $topics = $db->query('SELECT id, haber_id, topic_title FROM rw_topics WHERE deleted = 0 AND haber_id IN (SELECT haber_id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
+        $topics = $db->query('SELECT id, id, topic_title FROM rw_topics WHERE deleted = 0 AND id IN (SELECT id FROM rw_haberlers_permissions WHERE group_id = 0 AND `view` = 1)')->results();
 
         foreach ($topics as $topic) {
             $sitemap->addItem(URL::build('/haberler/haber/' . urlencode($topic->id) . '-' . Text::urlSafe($topic->topic_title)), 0.5);

@@ -39,7 +39,7 @@ if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
 
 $topic = $topic[0];
 
-if ($haberler->canModerateHaberler($topic->haber_id, $user->getAllGroupIds())) {
+if ($haberler->canModerateHaberler($topic->id, $user->getAllGroupIds())) {
 
     DB::getInstance()->update('topics', $topic_id, [
         'deleted' => true,

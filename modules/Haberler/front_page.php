@@ -23,8 +23,8 @@ if ($cache->isCached('news')) {
         $post_user = new User($item['author']);
 
         $news[] = [
-            'id' => $item['haber_id'],
-            'url' => URL::build('/haberler/haber/' . urlencode($item['haber_id']) . '-' . $haberler->titleToURL($item['haber_title'])),
+            'id' => $item['id'],
+            'url' => URL::build('/haberler/haber/' . urlencode($item['id']) . '-' . $haberler->titleToURL($item['haber_title'])),
             'date' => date(DATE_FORMAT, strtotime($item['post_date'])),
             'time_ago' => $item['post_date'],
             'title' => Output::getClean($item['topic_title']),

@@ -41,7 +41,7 @@ class Haberler {
         }
 
         // Get a list of parent haberlers
-        $parent_haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haber_id', 'ASC')->results();
+        $parent_haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
 
         $return = [];
 
@@ -53,7 +53,7 @@ class Haberler {
                     $return[$haberler->id]['icon'] = Output::getPurified($haberler->icon);
 
                     // Get subhaberlers
-                    $haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haber_id', 'ASC')->results();
+                    $haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
                     if (count($haberlers)) {
                         foreach ($haberlers as $item) {
                             if ($this->haberlerExist($item->id, $groups)) {
@@ -66,7 +66,7 @@ class Haberler {
 
                                 // Get topic/post count
 
-                                $haberlers = $this->_db->orderWhere('haberlers', 'haber_id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
+                                $haberlers = $this->_db->orderWhere('haberlers', 'id = ' . $item->id . ' AND deleted = 0', 'id', 'ASC')->results();
                                 $haberlers = count($haberlers);
                                 $return[$haberler->id]['subhaberlers'][$item->id]->haberlers = $haberlers;
 
@@ -97,7 +97,7 @@ class Haberler {
                                 }
 
                                 // Get list of subhaberlers (names + links)
-                                $subhaberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'haber_id', 'ASC')->results();
+                                $subhaberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
                                 if (count($subhaberlers)) {
                                     foreach ($subhaberlers as $subhaberler) {
                                         if ($this->haberlerExist($subhaberler->id, $groups)) {
@@ -124,12 +124,12 @@ class Haberler {
     /**
      * Determine if a haberler exists (in the context of a specific user)
      *
-     * @param int $haber_id ID of the haberler
+     * @param int $id ID of the haberler
      * @param array $groups Array of groups the user is in
      * @return bool Whether the haberler exists or not
      */
-    public function haberlerExist(int $haber_id, array $groups = [0]): bool {
-        $exists = $this->_db->get('haberlers', ['id', $haber_id])->results();
+    public function haberlerExist(int $id, array $groups = [0]): bool {
+        $exists = $this->_db->get('haberlers', ['id', $id])->results();
 
         return false;
     }
@@ -146,17 +146,17 @@ class Haberler {
     }
 
     // Returns true/false depending on whether the current user can view a haberler
-    // Params: $haber_id (integer) - haberler id to check, $groups (array) - user groups
-    public function canViewOtherTopics(int $haber_id, array $groups = [0]): bool {
-        $cache_key = 'topics_view_' . $haber_id . '_' . implode('_', $groups);
+    // Params: $id (integer) - haberler id to check, $groups (array) - user groups
+    public function canViewOtherTopics(int $id, array $groups = [0]): bool {
+        $cache_key = 'topics_view_' . $id . '_' . implode('_', $groups);
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
         }
         // Does the haberler exist?
-        $exists = $this->_db->get('haberlers', ['id', $haber_id])->results();
+        $exists = $this->_db->get('haberlers', ['id', $id])->results();
         if (count($exists)) {
             // Can the user view other topics?
-            $access = $this->_db->get('haberlers_permissions', ['haber_id', $haber_id])->results();
+            $access = $this->_db->get('haberlers_permissions', ['id', $id])->results();
 
             foreach ($access as $item) {
                 if (in_array($item->group_id, $groups)) {
@@ -201,7 +201,7 @@ class Haberler {
 
         foreach ($haberlers as $item) {
             if ($item->parent != 0) {
-                $latest_post_query = $this->_db->orderWhere('haberlers', 'haber_id = ' . $item->id, 'post_date', 'DESC')->results();
+                $latest_post_query = $this->_db->orderWhere('haberlers', 'id = ' . $item->id, 'post_date', 'DESC')->results();
 
                 if (!empty($latest_post_query)) {
                     foreach ($latest_post_query as $latest_post) {
@@ -213,7 +213,7 @@ class Haberler {
                                 continue;
                             }
 
-                            $latest_haberlers[$n]['haber_id'] = $item->id;
+                            $latest_haberlers[$n]['id'] = $item->id;
                             if ($latest_post->created) {
                                 $latest_haberlers[$n]['date'] = $latest_post->created;
                             } else {
@@ -228,7 +228,7 @@ class Haberler {
                 }
 
                 if (!isset($latest_haberlers[$n])) {
-                    $latest_haberlers[$n]['haber_id'] = $item->id;
+                    $latest_haberlers[$n]['id'] = $item->id;
                     $latest_haberlers[$n]['date'] = null;
                     $latest_haberlers[$n]['author'] = null;
                     $latest_haberlers[$n]['topic_id'] = null;
@@ -242,7 +242,7 @@ class Haberler {
 
         if (count($latest_haberlers)) {
             foreach ($latest_haberlers as $latest_post) {
-                $this->_db->update('haberlers', $latest_post['haber_id'], [
+                $this->_db->update('haberlers', $latest_post['id'], [
                     'last_post_date' => $latest_post['date'],
                     'last_user_posted' => $latest_post['author'],
                     'last_topic_posted' => $latest_post['topic_id']
@@ -298,11 +298,11 @@ class Haberler {
     /**
      * Get the title of a specific haberler.
      *
-     * @param int $haber_id The haberler ID to get the title of.
+     * @param int $id The haberler ID to get the title of.
      * @return string The haberler title.
      */
-    public function getHaberlerTitle(int $haber_id): string {
-        $data = $this->_db->get('haberlers', ['id', $haber_id])->results();
+    public function getHaberlerTitle(int $id): string {
+        $data = $this->_db->get('haberlers', ['id', $id])->results();
         return $data[0]->haberler_title;
     }
 
@@ -319,7 +319,7 @@ class Haberler {
                 'creator' => $data[0]->post_creator,
                 'content' => $data[0]->post_content,
                 'date' => $data[0]->post_date,
-                'haber_id' => $data[0]->haber_id,
+                'id' => $data[0]->id,
                 'topic_id' => $data[0]->topic_id
             ];
         }
@@ -336,11 +336,10 @@ class Haberler {
         $return = []; // Array to return containing news
         $labels_cache = []; // Array to contain labels
 
-        $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE haber_id AND deleted = 0 ORDER BY post_date DESC LIMIT 10')->results();
+        $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE id AND deleted = 0 ORDER BY post_date DESC LIMIT 10')->results();
 
         foreach ($news_items as $item) {
-            $news_post = $this->_db->get('haberlers', ['haber_id', $item->id])->results();
-            $haberlers = count($news_post);
+            $news_post = $this->_db->get('haberlers', ['id', $item->id])->results();
 
             if (is_null($news_post[0]->created)) {
                 $post_date = date(DATE_FORMAT, strtotime($news_post[0]->post_date));
@@ -370,21 +369,21 @@ class Haberler {
     /**
      * Determine if groups have permission to moderate a haberler.
      *
-     * @param int|null $haber_id The haberler ID to check.
+     * @param int|null $id The haberler ID to check.
      * @param array $groups The groups to check.
      * @return bool Whether the groups can moderate the haberler.
      */
-    public function canModerateHaberler(int $haber_id = null, array $groups = [0]): bool {
-        if (!$haber_id || in_array(0, $groups)) {
+    public function canModerateHaberler(int $id = null, array $groups = [0]): bool {
+        if (!$id || in_array(0, $groups)) {
             return false;
         }
 
-        $cache_key = 'moderate_' . $haber_id . '_' . implode('_', $groups);
+        $cache_key = 'moderate_' . $id . '_' . implode('_', $groups);
         if (isset(self::$_permission_cache[$cache_key])) {
             return true;
         }
 
-        $permissions = $this->_db->get('haberlers_permissions', ['haber_id', $haber_id])->results();
+        $permissions = $this->_db->get('haberlers_permissions', ['id', $id])->results();
 
         // Check the haberler
         foreach ($permissions as $permission) {
@@ -467,19 +466,19 @@ class Haberler {
     /**
      * Get any subhaberlers at any level for a haberler
      *
-     * @param int $haber_id The haberler ID
+     * @param int $id The haberler ID
      * @param array $groups The user groups
      * @param int $depth The depth of the subhaberlers to get
      * @return array Subhaberlers at any level for a haberler
      */
-    public function getAnySubhaberlers(int $haber_id, array $groups = [0], int $depth = 0): array {
+    public function getAnySubhaberlers(int $id, array $groups = [0], int $depth = 0): array {
         if ($depth == 10) {
             return [];
         }
 
         $ret = [];
 
-        $subhaberlers_query = $this->_db->query('SELECT * FROM rw_haberlers WHERE deleted = ? ORDER BY haber_id ASC', [$haber_id]);
+        $subhaberlers_query = $this->_db->query('SELECT * FROM rw_haberlers WHERE deleted = ? ORDER BY id ASC', [$id]);
 
         if (!$subhaberlers_query->count()) {
             return $ret;

@@ -70,7 +70,7 @@ if (!isset($_GET['s'])) {
         $results = [];
         foreach ($search_results as $result) {
             // Check permissions
-            $perms = DB::getInstance()->get('haberlers_permissions', ['haber_id', $result->haber_id])->results();
+            $perms = DB::getInstance()->get('haberlers_permissions', ['id', $result->id])->results();
             foreach ($perms as $perm) {
                 if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
                     if (isset($result->topic_id)) {

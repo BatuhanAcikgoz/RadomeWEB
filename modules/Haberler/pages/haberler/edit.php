@@ -63,17 +63,17 @@ if (!count($post_editing)) {
     Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
-$haber_id = $post_editing[0]->haber_id;
+$id = $post_editing[0]->id;
 
 // Get user group IDs
 $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
-if ($user->data()->id == $post_editing[0]->post_creator && !$haberler->canEditTopic($haber_id, $user_groups) && !$haberler->canModerateHaberler($haber_id, $user_groups)) {
+if ($user->data()->id == $post_editing[0]->post_creator && !$haberler->canEditTopic($id, $user_groups) && !$haberler->canModerateHaberler($id, $user_groups)) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
 }
 
-if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($haber_id, $user_groups))) {
+if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($id, $user_groups))) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
 }
 
@@ -195,9 +195,9 @@ if (isset($edit_title, $post_labels)) {
     $haberler_labels = DB::getInstance()->get('haberlers_topic_labels', ['id', '<>', 0])->results();
     if (count($haberler_labels)) {
         foreach ($haberler_labels as $label) {
-            $haber_ids = explode(',', $label->fids);
+            $ids = explode(',', $label->fids);
 
-            if (in_array($haber_id, $haber_ids)) {
+            if (in_array($id, $ids)) {
                 // Check permissions
                 $lgroups = explode(',', $label->gids);
                 $perms = false;
