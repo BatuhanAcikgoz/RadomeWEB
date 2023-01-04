@@ -21,11 +21,12 @@ if ($cache->isCached('news')) {
 
     foreach ($latest_news as $item) {
         $post_user = new User($item['author']);
+        $timeago = new TimeAgo(TIMEZONE);
         $news[] = [
             'id' => $item['id'],
             'url' => URL::build('/haberler/haber/' . urlencode($item['id']) . '-' . $haberler->titleToURL($item['haber_title'])),
             'date' => Output::getClean($item['post_date']),
-            'time_ago' => date(DATE_FORMAT, strtotime($item['created'])),
+            'time_ago' => $timeago->inWords($item['created'], $language),
             'title' => Output::getClean($item['haber_title']),
             'views' => $item['post_views'],
             'author_id' => Output::getClean($item['author']),
@@ -43,7 +44,6 @@ if ($cache->isCached('news')) {
     $cache->store('news', $news, 5);
 }
 
-$timeago = new TimeAgo(TIMEZONE);
 foreach ($news as $key => $item) {
     $news[$key]['time_ago'] = $timeago->inWords($item['time_ago'], $language);
 }
