@@ -102,17 +102,10 @@
                                         </td>
                                         <td>
                                             <strong>{$discussion.views}</strong> {$VIEWS}<br />
-                                            <strong>{$discussion.posts}</strong> {$POSTS}
                                         </td>
                                         <td>
-                                            {$LAST_REPLY}:<br />
-                                            <small><span data-toggle="tooltip" data-trigger="hover"
-                                                    data-original-title="{$discussion.last_reply}">{$discussion.last_reply_rough}</span>
-                                                {$BY} <a style="{$discussion.last_reply_style}"
-                                                    href="{$discussion.last_reply_link}"
-                                                    data-poload="{$USER_INFO_URL}{$discussion.last_reply_user_id}"
-                                                    data-html="true"
-                                                    data-placement="top">{$discussion.last_reply_username}</a></small>
+                                            {$POSTS}:<br />
+                                            <strong>{$discussion.posts}</strong>
                                         </td>
                                     </tr>
                                 {/foreach} 
