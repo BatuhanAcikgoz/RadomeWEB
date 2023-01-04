@@ -30,7 +30,7 @@ class Haberler_Module extends Module {
         $pages->add('Haberler', '/panel/haberlers/labels', 'pages/panel/labels.php');
         $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
 
-        $pages->add('Haberler', '/haberler', 'pages/haberler/index.php', 'haberler', true);
+        $pages->add('Haberler', '/haberler', 'pages/haberler/view_haberler.php', 'haberler', true);
         $pages->add('Haberler', '/haberler/hata', 'pages/haberler/error.php');
         $pages->add('Haberler', '/haberler/goruntule', 'pages/haberler/view_haberler.php');
         $pages->add('Haberler', '/haberler/haber', 'pages/haberler/view_topic.php');
