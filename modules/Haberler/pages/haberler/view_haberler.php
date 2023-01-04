@@ -427,7 +427,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'topic_title' => Output::getClean($nValue->haber_title),
                 'topic_id' => $nValue->id,
                 'topic_created_rough' => $timeago->inWords($nValue->post_date, $language),
-                'topic_created' => date(DATE_FORMAT, $nValue->post_date),
+                'topic_created' => date(DATE_FORMAT, $nValue->created),
                 'topic_created_username' => $topic_user->getDisplayname(),
                 'topic_created_mcname' => $topic_user->getDisplayname(true),
                 'topic_created_style' => $topic_user->getGroupStyle(),
