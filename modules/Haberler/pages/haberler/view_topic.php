@@ -339,12 +339,12 @@ if ($user->isLoggedIn()) {
 // View count
 if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     if (!Cookie::exists('nl-topic-' . $tid)) {
-        DB::getInstance()->increment('haberlers', $tid, 'topic_views');
+        DB::getInstance()->increment('haberlers', $tid, 'post_views');
         Cookie::put('nl-topic-' . $tid, 'true', 3600);
     }
 } else {
     if (!Session::exists('nl-topic-' . $tid)) {
-        DB::getInstance()->increment('haberlers', $tid, 'topic_views');
+        DB::getInstance()->increment('haberlers', $tid, 'post_views');
         Session::put('nl-topic-' . $tid, 'true');
     }
 }
