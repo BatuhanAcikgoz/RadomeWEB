@@ -44,10 +44,6 @@ if ($cache->isCached('news')) {
     $cache->store('news', $news, 5);
 }
 
-foreach ($news as $key => $item) {
-    $news[$key]['time_ago'] = $timeago->inWords($item['time_ago'], $language);
-}
-
 $smarty->assign('LATEST_ANNOUNCEMENTS', $haberler_language->get('haberler', 'latest_announcements'));
 $smarty->assign('READ_FULL_POST', $haberler_language->get('haberler', 'read_full_post'));
 $smarty->assign('NEWS', $news);
