@@ -151,7 +151,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('HABERLER_INDEX_LINK', URL::build('/haberler'));
 
     // Any subhaberlers?
-    $subhaberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE parent = ? ORDER BY haberler_order ASC', [$haberler_query->id])->results();
+    $haberlers = $this->_db->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
 
     $subhaberler_array = [];
 
