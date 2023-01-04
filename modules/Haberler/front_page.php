@@ -41,7 +41,7 @@ if ($cache->isCached('news')) {
         ];
     }
 
-    $cache->store('news', $news, 60);
+    $cache->store('news', $news, 5);
 }
 
 $timeago = new TimeAgo(TIMEZONE);
