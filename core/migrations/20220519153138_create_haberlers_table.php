@@ -20,7 +20,6 @@ final class CreateHaberlersTable extends AbstractMigration
             ->addColumn('created', 'integer', ['length' => 11]);
 
         $table
-            ->addForeignKey('haber_id', 'rw_haberlers', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE'])
             ->addForeignKey('post_creator', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
 
         $table
