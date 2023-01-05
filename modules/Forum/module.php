@@ -223,7 +223,7 @@ class Forum_Module extends Module {
 
         $cache->setCache('navbar_icons');
         if (!$cache->isCached('forum_icon')) {
-            $icon = '<i class="fas fa-comments-alt"></i>';
+            $icon = '<i class="fas fa-comments"></i>';
         } else {
             $icon = $cache->retrieve('forum_icon');
         }
