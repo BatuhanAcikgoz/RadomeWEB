@@ -15,9 +15,6 @@ const PAGE = 'haberler';
 $haberler = new Haberler();
 $timeago = new TimeAgo(TIMEZONE);
 
-// Get user group ID
-$user_groups = $user->getAllGroupIds();
-
 // Get data from the database
 $haberler_query = DB::getInstance()->get('haberlers', ['deleted', 0])->results();
 $haberler_query = $haberler_query[0];
@@ -199,23 +196,6 @@ if ($haberler_query->redirect_haberler == 1) {
         // Clear out variables
         $stickies = null;
         $sticky = null;
-
-        // Latest discussions
-        // Pagination
-        $paginator = new Paginator(
-            $template_pagination ?? null,
-            $template_pagination_left ?? null,
-            $template_pagination_right ?? null
-        );
-        $results = $paginator->getLimited($topics, 10, $p, count($topics));
-        $pagination = $paginator->generate(7, URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
-
-        if (count($topics)) {
-            $smarty->assign('PAGINATION', $pagination);
-        } else {
-            $smarty->assign('PAGINATION', '');
-        }
-
         $template_array = [];
         // Get a list of all topics from the haberler, and paginate
         foreach ($results->data as $nValue) {
