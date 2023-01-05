@@ -224,16 +224,8 @@ if ($haberler_query->redirect_haberler == 1) {
                 'views' => $nValue->post_views,
                 'posts' => (substr($nValue->post_content,'0','65').'...'),
                 'haberlers' => $replies,
-                'last_reply_avatar' => $last_reply_user->getAvatar(),
-                'last_reply_rough' => $timeago->inWords($nValue->post_date, $language),
-                'last_reply' => date(DATE_FORMAT, $nValue->created),
-                'last_reply_username' => $last_reply_user->getDisplayname(),
-                'last_reply_mcname' => $last_reply_user->getDisplayname(true),
-                'last_reply_style' => $last_reply_user->getGroupStyle(),
                 'author_link' => $topic_user->getProfileURL(),
                 'link' => URL::build('/haberler/haber/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->topic_title)),
-                'last_reply_link' => $last_reply_user->getProfileURL(),
-                'last_reply_user_id' => Output::getClean($nValue->topic_last_user)
             ];
         }
 
