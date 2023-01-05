@@ -208,8 +208,7 @@ if ($haberler_query->redirect_haberler == 1) {
         // Get a list of all topics from the haberler, and paginate
         foreach ($results->data as $nValue) {
 
-            $topic_user = new User($nValue->topic_creator);
-            $last_reply_user = new User($nValue->topic_last_user);
+            $topic_user = new User($nValue->post_creator);
 
             // Add to array
             $template_array[] = [
