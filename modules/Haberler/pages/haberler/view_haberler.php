@@ -151,16 +151,11 @@ if ($haberler_query->redirect_haberler == 1) {
 
     // Assign language variables
     $smarty->assign('HABERLERS', $haberler_language->get('haberler', 'haberlers'));
-    $smarty->assign('DISCUSSION', $haberler_language->get('haberler', 'discussion'));
     $smarty->assign('TOPIC', $haberler_language->get('haberler', 'topic'));
     $smarty->assign('STATS', $haberler_language->get('haberler', 'stats'));
-    $smarty->assign('LAST_REPLY', $haberler_language->get('haberler', 'last_reply'));
     $smarty->assign('BY', $haberler_language->get('haberler', 'by'));
     $smarty->assign('VIEWS', $haberler_language->get('haberler', 'views'));
     $smarty->assign('POSTS', $haberler_language->get('haberler', 'haberlers'));
-    $smarty->assign('STATISTICS', $haberler_language->get('haberler', 'stats'));
-    $smarty->assign('OVERVIEW', $haberler_language->get('haberler', 'overview'));
-    $smarty->assign('LATEST_DISCUSSIONS_TITLE', $haberler_language->get('haberler', 'latest_discussions'));
     $smarty->assign('TOPICS', $haberler_language->get('haberler', 'topics'));
     $smarty->assign('NO_TOPICS', $haberler_language->get('haberler', 'no_topics_short'));
     $smarty->assign('HABERLER_TITLE', Output::getPurified($haberler_query->haber_title));
@@ -196,64 +191,22 @@ if ($haberler_query->redirect_haberler == 1) {
         // Clear out variables
         $stickies = null;
         $sticky = null;
+        $paginator = new Paginator(
+            $template_pagination ?? null,
+            $template_pagination_left ?? null,
+            $template_pagination_right ?? null
+        );
+        $results = $paginator->getLimited($topics, 10, $p, count($topics));
+        $pagination = $paginator->generate(7, URL::build('/haberler/goruntule/' . urlencode($fid) . '-' . $haberler->titleToURL($haberler_query->haberler_title)));
+
+        if (count($topics)) {
+            $smarty->assign('PAGINATION', $pagination);
+        } else {
+            $smarty->assign('PAGINATION', '');
+        }
         $template_array = [];
         // Get a list of all topics from the haberler, and paginate
         foreach ($results->data as $nValue) {
-            // Get number of replies to a topic
-            $replies = DB::getInstance()->get('haberlers', ['id', $nValue->id])->results();
-            $replies = count($replies);
-
-            // Is there a label?
-            if ($nValue->label != 0) { // yes
-                // Get label
-                if ($labels_cache[$nValue->label]) {
-                    $label = $labels_cache[$nValue->label];
-                } else {
-                    $label = DB::getInstance()->get('haberlers_topic_labels', ['id', $nValue->label])->results();
-                    if (count($label)) {
-                        $label = $label[0];
-
-                        $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label->label])->results();
-                        if (count($label_html)) {
-                            $label_html = $label_html[0]->html;
-                            $label = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html));
-                        } else {
-                            $label = '';
-                        }
-                    } else {
-                        $label = '';
-                    }
-
-                    $labels_cache[$nValue->label] = $label;
-                }
-            } else { // no
-                $label = '';
-            }
-
-            $labels = [];
-            if ($nValue->labels) {
-                if ($labels_cache[$nValue->labels]) {
-                    $labels[] = $labels_cache[$nValue->labels];
-                } else {
-                    $topic_labels = explode(',', $nValue->labels);
-
-                    foreach ($topic_labels as $item) {
-                        // Get label
-                        $label_query = DB::getInstance()->get('haberlers_topic_labels', ['id', $item])->results();
-                        if (count($label_query)) {
-                            $label_query = $label_query[0];
-
-                            $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label_query->label])->results();
-                            if (count($label_html)) {
-                                $label_html = $label_html[0]->html;
-                                $label_html = str_replace('{x}', Output::getClean($label_query->name), Output::getPurified($label_html));
-                                $labels[] = $label_html;
-                                $labels_cache[$item] = $label_html;
-                            }
-                        }
-                    }
-                }
-            }
 
             $topic_user = new User($nValue->topic_creator);
             $last_reply_user = new User($nValue->topic_last_user);
