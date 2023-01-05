@@ -92,48 +92,11 @@ if ($haberler_query->redirect_haberler == 1) {
         'TOKEN' => Token::get()
     ]);
 
-    // Breadcrumbs and search bar - same for latest discussions view + table view
-    $parent_category = DB::getInstance()->get('haberlers', ['id', $haberler_query->parent])->results();
-    $breadcrumbs = [0 => [
-        'id' => $haberler_query->id,
-        'haberler_title' => Output::getClean($haberler_query->haberler_title),
-        'active' => 1,
-        'link' => URL::build('/haberler/goruntule/' . urlencode($haberler_query->id) . '-' . $haberler->titleToURL($haberler_query->haberler_title))
-    ]];
-    if (!empty($parent_category) && $parent_category[0]->parent == 0) {
-        // Category
-        $breadcrumbs[] = [
-            'id' => $parent_category[0]->id,
-            'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-            'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
-        ];
-    } else {
-        if (!empty($parent_category)) {
-            // Parent haberler, get its category
-            $breadcrumbs[] = [
-                'id' => $parent_category[0]->id,
-                'haberler_title' => Output::getClean($parent_category[0]->haber_title),
-                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haber_title))
-            ];
-            $parent = false;
-            while ($parent == false) {
-                $parent_category = DB::getInstance()->get('haberlers', ['id', $parent_category[0]->parent])->results();
-                $breadcrumbs[] = [
-                    'id' => $parent_category[0]->id,
-                    'haberler_title' => Output::getClean($parent_category[0]->haber_title),
-                    'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haber_title))
-                ];
-                if ($parent_category[0]->parent == 0) {
-                    $parent = true;
-                }
-            }
-        }
-    }
 
     $breadcrumbs[] = [
         'id' => 'index',
         'haberler_title' => $haberler_language->get('haberler', 'haberler_index'),
-        'link' => URL::build('/haberler')
+        'link' => URL::build('/')
     ];
 
     $smarty->assign('BREADCRUMBS', array_reverse($breadcrumbs));
@@ -142,7 +105,7 @@ if ($haberler_query->redirect_haberler == 1) {
     $smarty->assign('SERVER_STATUS', '');
 
     // Assignments
-    $smarty->assign('HABERLER_INDEX_LINK', URL::build('/haberler'));
+    $smarty->assign('HABERLER_INDEX_LINK', URL::build('/'));
 
     // Any subhaberlers?
     $haberlers = DB::getInstance()->orderWhere('haberlers', 'deleted = 0', 'id', 'ASC')->results();
