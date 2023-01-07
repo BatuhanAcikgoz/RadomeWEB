@@ -61,7 +61,7 @@ class ServerStatusWidget extends WidgetBase {
                     $server_array['join_at'] = $server->ip;
                 }
 
-                $this->_cache->store('server_status', $server_array, 1);
+                $this->_cache->store('server_status', $server_array, 120);
             }
         }
 
