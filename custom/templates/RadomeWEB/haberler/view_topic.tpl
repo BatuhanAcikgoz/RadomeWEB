@@ -145,6 +145,5 @@
                 </div>
             </div>
         </div>
-    </div>
-{/if}    
+    </div>   
 {/if} {include file='footer.tpl'}
