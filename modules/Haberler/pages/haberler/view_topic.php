@@ -453,6 +453,8 @@ foreach ($results->data as $n => $nValue) {
     ];
 }
 
+$smarty->assign('REPLIES', $replies);
+
 // Assign Smarty language variables
 $smarty->assign([
     'POSTS' => $haberler_language->get('haberler', 'haberlers'),
