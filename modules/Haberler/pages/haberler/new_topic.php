@@ -204,7 +204,7 @@ if (count($users_following)) {
             }
         }
     }
-    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'haberler_topic_reply.html']);
+    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
     $html = file_get_contents($path);
 
     $message = str_replace(
