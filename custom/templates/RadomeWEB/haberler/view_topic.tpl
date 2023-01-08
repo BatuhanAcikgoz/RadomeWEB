@@ -50,6 +50,13 @@
                         {if $reply.user_title}
                             <br />
                             <small>{$reply.user_title}</small>
+                            
+							{* Badges Module *}
+							{if isset($USER_BADGES_LIST)}
+								{include file='badges/forum_bdg.tpl'}
+							{/if}
+							{* /Badges Module *}
+                            
                             <hr />
                         {/if}
 
