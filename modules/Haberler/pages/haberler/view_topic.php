@@ -276,6 +276,18 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
+$replies = [];
+// Display the correct number of posts
+foreach ($results->data as $n => $nValue) {
+    $post_creator = new User($nValue->post_creator);
+    if (!$post_creator->exists()) {
+        continue;
+    }
+
+    // Get user's group HTML formatting and their signature
+    $user_groups_html = $post_creator->getAllGroupHtml();
+    $signature = $post_creator->getSignature();
+
 $replies[] = [
     'url' => $url,
     'heading' => $heading,
@@ -310,6 +322,7 @@ $replies[] = [
     'post_reactions' => $post_reactions,
     'karma' => $total_karma
 ];
+}
 
 $template->assets()->include([
     AssetTree::TINYMCE,
