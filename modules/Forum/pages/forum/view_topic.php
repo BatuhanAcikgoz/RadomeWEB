@@ -313,7 +313,6 @@ if (Input::exists()) {
                 'url' => URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($topic->id) . '-' . $forum->titleToURL($topic->topic_title)), '/'),
                 'topic_author_user_id' => $topic_user->data()->id,
                 'topic_author_username' => $topic_user->data()->username,
-                'topic_author_nickname' => $topic_user->data()->nickname,
                 'topic_id' => $tid,
                 'post_id' => $last_post_id,
                 'available_hooks' => $available_hooks === null ? [] : $available_hooks

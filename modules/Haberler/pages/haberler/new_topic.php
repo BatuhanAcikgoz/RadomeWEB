@@ -186,6 +186,7 @@ if ($haberler_query->topic_placeholder) {
 $id = DB::getInstance()->lastId();
 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
 $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
+$topic = $topic[0];
 if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
