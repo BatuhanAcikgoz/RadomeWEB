@@ -31,6 +31,9 @@ if (!is_numeric($tid[0])) {
 }
 $tid = $tid[0];
 
+// Does the topic exist, and can the user view it?
+$user_groups = $user->getAllGroupIds();
+
 $list = $haberler->topicExist($tid);
 if (!$list) {
     require_once(ROOT_PATH . '/404.php');
