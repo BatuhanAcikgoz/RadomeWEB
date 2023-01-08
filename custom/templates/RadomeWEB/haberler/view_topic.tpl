@@ -130,6 +130,7 @@
 </div>
 </div>
 </div>
+{foreach}
 {if isset($CAN_MODERATE)}
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
         aria-hidden="true">
