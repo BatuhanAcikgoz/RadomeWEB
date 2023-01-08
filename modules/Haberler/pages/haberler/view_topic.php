@@ -372,7 +372,7 @@ if ($user->isLoggedIn() && $can_reply) {
     if ($topic->locked != 1) { // Not locked
         $smarty->assign('NEW_REPLY', $haberler_language->get('haberler', 'new_reply'));
     } else { // Locked
-        if ($haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
+        if ($user->hasPermission('admincp.haberlers')) {
             // Can post anyway
             $smarty->assign('NEW_REPLY', $haberler_language->get('haberler', 'new_reply'));
         } else {
@@ -387,7 +387,7 @@ if ($topic->locked == 1) {
 }
 
 // Is the user a moderator?
-if ($user->isLoggedIn() && $haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
+if ($user->isLoggedIn() && $user->hasPermission('admincp.haberlers')) {
     $smarty->assign([
         'CAN_MODERATE' => true,
         'MOD_ACTIONS' => $haberler_language->get('haberler', 'mod_actions'),
