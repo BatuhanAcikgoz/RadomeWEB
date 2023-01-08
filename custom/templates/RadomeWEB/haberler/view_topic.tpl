@@ -78,7 +78,6 @@
               data-original-title="{$reply.edited_full}">{$reply.edited}</span>
             </small>{/if}
             <br/>
-            {else}
             <br/> {/if} {else}
             <br/> {/if}
             <hr/> {$reply.signature}
