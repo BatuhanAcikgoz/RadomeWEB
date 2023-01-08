@@ -31,10 +31,6 @@ $haberler = new Haberler();
 $user_groups = $user->getAllGroupIds();
 $topic_id = DB::getInstance()->lastId();
 
-// Get topic ID
-$tid = explode('/', $route);
-$tid = $tid[count($tid) - 1];
-
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$topic_id])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
 
@@ -149,13 +145,13 @@ if (Input::exists()) {
                     'content_full' => strip_tags(str_ireplace(['<br />', '<br>', '<br/>'], "\r\n", Input::get('content'))),
                     'avatar_url' => $user->getAvatar(128, true),
                     'title' => Input::get('title'),
-                    'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL(Input::get('title'))), '/'),
+                    'url' => URL::getSelfURL() . ltrim(URL::build('/haberler/haber/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))), '/'),
                     'available_hooks' => $available_hooks === null ? [] : $available_hooks
                 ]);
 
                 Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
 
-                Redirect::to(URL::build('/haberler/haber/' . urlencode($tid) . '-' . $haberler->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/haberler/haber/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }
