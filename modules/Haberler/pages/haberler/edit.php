@@ -49,7 +49,7 @@ if ($post_editing[0]->id == $post_id) {
 
     $post_title = DB::getInstance()->get('topics', ['id', $topic_id])->results();
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
-    $post_title = Output::getClean($post_title[0]->topic_title);
+    $post_title = Output::getClean($post_title[0]->haber_title);
 }
 
 /*

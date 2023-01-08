@@ -188,7 +188,7 @@ if ($haberler_query->redirect_haberler == 1) {
                 'posts' => (substr($nValue->post_content,'0','65').'...'),
                 'haberlers' => $replies,
                 'author_link' => $topic_user->getProfileURL(),
-                'link' => URL::build('/haberler/haber/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->topic_title)),
+                'link' => URL::build('/haberler/haber/' . urlencode($nValue->id) . '-' . $haberler->titleToURL($nValue->haber_title)),
             ];
         }
 

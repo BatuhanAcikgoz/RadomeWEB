@@ -83,7 +83,7 @@ if (!isset($_GET['s'])) {
                                 $results[$result->id] = [
                                     'post_id' => $result->id,
                                     'topic_id' => $topic->id,
-                                    'topic_title' => $topic->topic_title,
+                                    'topic_title' => $topic->haber_title,
                                     'post_author' => $result->post_creator,
                                     'post_date' => $result->post_date,
                                     'post_content' => $result->post_content
@@ -105,7 +105,7 @@ if (!isset($_GET['s'])) {
                                 $results[$post->id] = [
                                     'post_id' => $post->id,
                                     'topic_id' => $result->id,
-                                    'topic_title' => $result->topic_title,
+                                    'topic_title' => $result->haber_title,
                                     'post_author' => $post->post_creator,
                                     'post_date' => $post->post_date,
                                     'post_content' => $post->post_content
