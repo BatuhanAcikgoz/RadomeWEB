@@ -62,36 +62,6 @@
 							{/if}
 							{* /Badges Module *}
                 </center>
-            </div>
-                <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.post_date}">{$reply.post_date_rough}</span>
-                <span class="float-right">
-               {if isset($reply.buttons.edit)}
-               <a class="btn btn-theme btn-sm" data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.edit.TEXT}" href="{$reply.buttons.edit.URL}"><i class="fas fa-pen fa-fw" aria-hidden="true"></i></a>
-               {/if}
-               {if isset($reply.buttons.report)}
-               <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.report.TEXT}" data-toggle="modal" data-target="#report{$reply.id}Modal"><i class="fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i></button>
-               {/if}
-               {if isset($reply.buttons.spam)}
-               <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.spam.TEXT}" data-toggle="modal" data-target="#spam{$reply.id}Modal"><i class="fas fa-flag fa-fw" aria-hidden="true"></i></button>
-               {/if}
-               {if isset($reply.buttons.delete)}
-               <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.delete.TEXT}" data-toggle="modal" data-target="#delete{$reply.id}Modal"><i class="fas fa-trash fa-fw" aria-hidden="true"></i></button>
-                <br/>
-                <div class="well">
-                    {foreach from=$REACTIONS item=reaction}
-                    <form class="inline-form" action="{$REACTIONS_URL}" method="post">
-                        <input type="hidden" name="token" value="{$TOKEN}">
-                        <input type="hidden" name="reaction" value="{$reaction->id}">
-                        <input type="hidden" name="post" value="{$reply.id}">
-                        <a href="#" onclick="$(this).closest('form').submit();" style="padding:10px;" rel="tooltip" data-toggle="hover" data-original-title="{$reaction->name}">{$reaction->html}</a>
-                    </form>
-                    {/foreach}
-                </div>
-                {else}
-                <br/> {/if} {else}
-                <br/> {/if}
-                <hr/> {$reply.signature}
-            </div>
         </div>
     </div>
 </div>
