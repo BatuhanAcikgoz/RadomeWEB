@@ -84,6 +84,7 @@
         </div>
     </div>
 </div>
+{/if}
 <div class="modal fade" id="delete{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="delete{$reply.id}ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
