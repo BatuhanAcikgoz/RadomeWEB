@@ -183,7 +183,7 @@ if ($haberler_query->topic_placeholder) {
     $placeholder = Output::getPurified($haberler_query->topic_placeholder);
 }
 
-$users_following = DB::getInstance()->get('users', ['verified', 1])->results();
+$users_following = DB::getInstance()->get('users', ['active', 1])->results();
 if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
