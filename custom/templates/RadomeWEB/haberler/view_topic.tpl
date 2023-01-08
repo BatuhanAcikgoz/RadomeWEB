@@ -35,11 +35,7 @@
     </div>
     <div class="card">
         <div class="card-header text-white header-theme"><a href="{$reply.url}"
-                class="white-text">{if count($TOPIC_LABELS)}
-                    {foreach from=$TOPIC_LABELS item=label}{$label}
-                        {/foreach}
-                        {/if}
-                        {if isset($LOCKED) && $smarty.foreach.arr.first}
+                class="white-text">
                         <span class="fas fa-lock"></span> {/if}{$reply.heading}</a>
                 </div>
                 <div class="card-body" id="post-{$reply.id}">
