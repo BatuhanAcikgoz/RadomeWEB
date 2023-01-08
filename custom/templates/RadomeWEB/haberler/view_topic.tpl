@@ -35,8 +35,7 @@
     </div>
     <div class="card">
         <div class="card-header text-white header-theme"><a href="{$reply.url}"
-                class="white-text">
-                        <span class="fas fa-lock"></span>{$reply.heading}</a>
+                class="white-text">{$reply.heading}</a>
                 </div>
                 <div class="card-body" id="post-{$reply.id}">
                     <div class="row">
@@ -47,12 +46,16 @@
                                 <strong><a style="{$reply.user_style}" href="{$reply.profile}"
                                         data-poload="{$USER_INFO_URL}{$reply.user_id}" data-html="true"
                                         data-placement="top">{$reply.username}</a></strong>
-                                <br />
-                                    <br />
+                                <br /> {foreach from=$reply.user_groups item=group} {$group}
+                                    <br /> {/foreach} 
                                         {if $reply.user_title}
                                             <br />
                                         <small>{$reply.user_title}</small> {/if}
-                                        <hr />
+                                        <hr /> {if count($reply.fields)} 
+                                            {foreach from=$reply.fields item=field} {$field.name}:
+                                            {$field.value}<br /> {/foreach} 
+                                        {/if}
+
                                         {* Badges Module *}
                                         {if isset($USER_BADGES_LIST)}
                                             {include file='badges/forum_bdg.tpl'}
