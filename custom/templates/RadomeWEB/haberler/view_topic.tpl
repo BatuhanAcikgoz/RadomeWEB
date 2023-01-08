@@ -20,9 +20,7 @@
             <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown">{$MOD_ACTIONS} <span class="caret"></span></button>
             	<ul class="dropdown-menu" role="menu">
-                	<li><a class="dropdown-item" href="{$MERGE_URL}"><i class="fas fa-compress-arrows-alt"></i> {$MERGE}</a></li>
                 	<li><a class="dropdown-item" href="" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i> {$DELETE}</a></li>
-                	<li><a class="dropdown-item" href="{$MOVE_URL}"><i class="fas fa-arrow-right"></i> {$MOVE}</a></li>
             	</ul>
             </div>
             {/if}
