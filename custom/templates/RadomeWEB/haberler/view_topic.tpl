@@ -46,15 +46,19 @@
                         <strong><a style="{$reply.user_style}" href="{$reply.profile}"
                                 data-poload="{$USER_INFO_URL}{$reply.user_id}" data-html="true"
                                 data-placement="top">{$reply.username}</a></strong>
-                        <br />
-                            <br />
-                            <small>{$reply.user_title}</small>
-                        {* Badges Module *}
-                        {if isset($USER_BADGES_LIST)}
-                            {include file='badges/forum_bdg.tpl'}
-                        {/if}
-                        {* /Badges Module *}
-                    </center>
+                                <br/> {foreach from=$reply.user_groups item=group} {$group}
+                                <br/> {/foreach} {if $reply.user_title}
+                                <br/>
+                                <small>{$reply.user_title}</small> {/if}
+                                <br/>
+                                <hr /> {if count($reply.fields)} {foreach from=$reply.fields item=field} {$field.name}: {$field.value}<br/> {/foreach} {/if}
+            
+                                        {* Badges Module *}
+                                        {if isset($USER_BADGES_LIST)}
+                                            {include file='badges/forum_bdg.tpl'}
+                                        {/if}
+                                        {* /Badges Module *}
+                            </center>
                 </div>
                 <div class="col-md-10">
                     <span data-toggle="tooltip" data-trigger="hover"
