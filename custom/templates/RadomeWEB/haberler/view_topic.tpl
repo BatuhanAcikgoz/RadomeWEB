@@ -56,11 +56,7 @@
                                         {if $reply.user_title}
                                             <br />
                                         <small>{$reply.user_title}</small> {/if}
-                                        <hr /> {if count($reply.fields)} 
-                                            {foreach from=$reply.fields item=field} {$field.name}:
-                                            {$field.value}<br /> {/foreach} 
-                                        {/if}
-
+                                        <hr />
                                         {* Badges Module *}
                                         {if isset($USER_BADGES_LIST)}
                                             {include file='badges/forum_bdg.tpl'}
