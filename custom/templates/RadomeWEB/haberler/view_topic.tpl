@@ -56,9 +56,6 @@
                                         {if $reply.user_title}
                                             <br />
                                         <small>{$reply.user_title}</small> {/if}
-                                        <hr /> {$reply.user_posts_count}
-                                        <br /> {$reply.user_topics_count}
-                                        <br />
                                         <hr /> {if count($reply.fields)} 
                                             {foreach from=$reply.fields item=field} {$field.name}:
                                             {$field.value}<br /> {/foreach} 
@@ -79,18 +76,6 @@
                                             <a class="btn btn-theme btn-sm" data-toggle="tooltip" data-trigger="hover"
                                                 data-original-title="{$reply.buttons.edit.TEXT}" href="{$reply.buttons.edit.URL}"><i
                                                     class="fas fa-pen fa-fw" aria-hidden="true"></i></a>
-                                        {/if}
-                                        {if isset($reply.buttons.report)}
-                                            <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover"
-                                                data-original-title="{$reply.buttons.report.TEXT}" data-toggle="modal"
-                                                data-target="#report{$reply.id}Modal"><i class="fas fa-exclamation-triangle fa-fw"
-                                                    aria-hidden="true"></i></button>
-                                        {/if}
-                                        {if isset($reply.buttons.spam)}
-                                            <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover"
-                                                data-original-title="{$reply.buttons.spam.TEXT}" data-toggle="modal"
-                                                data-target="#spam{$reply.id}Modal"><i class="fas fa-flag fa-fw"
-                                                    aria-hidden="true"></i></button>
                                         {/if}
                                         {if isset($reply.buttons.delete)}
                                             <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover"
