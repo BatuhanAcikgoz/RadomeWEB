@@ -35,6 +35,9 @@
 <div class="alert alert-danger">
     {$SESSION_FAILURE_POST}
 </div>
+<div class="forum_post">
+{$reply.content}
+</div>
 {/if} 
 {if isset($CAN_MODERATE)}
 <div class="modal fade" id="spam{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="spam{$reply.id}ModalLabel" aria-hidden="true">
