@@ -183,7 +183,9 @@ if ($haberler_query->topic_placeholder) {
     $placeholder = Output::getPurified($haberler_query->topic_placeholder);
 }
 
+$id = DB::getInstance()->lastId();
 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
+$topic = DB::getInstance()->get('haberler', ['id', $id])->results();
 if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
@@ -213,7 +215,7 @@ if (count($users_following)) {
             $language->get('emails', 'haberler_topic_reply_subject', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
             $language->get('emails', 'greeting'),
             $language->get('emails', 'haberler_topic_reply_message', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-            rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $last_post_id),
+            rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title)),
             $language->get('emails', 'thanks')
         ],
         $html
