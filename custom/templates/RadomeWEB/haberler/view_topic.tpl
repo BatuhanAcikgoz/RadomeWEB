@@ -33,6 +33,7 @@
             </span>
         </div>
     </div>
+    {foreach from=$REPLIES item=reply name=arr}
     <div class="card">
         <div class="card-header text-white header-theme"><a href="{$reply.url}" class="white-text">{$reply.heading}</a>
         </div>
@@ -145,4 +146,5 @@
             </div>
         </div>
     </div>
+{/if}    
 {/if} {include file='footer.tpl'}
