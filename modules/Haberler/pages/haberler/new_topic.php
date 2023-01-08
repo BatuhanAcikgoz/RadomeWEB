@@ -183,7 +183,7 @@ if ($haberler_query->topic_placeholder) {
     $placeholder = Output::getPurified($haberler_query->topic_placeholder);
 }
 
-$users_following = DB::getInstance()->get('users')->results();
+$users_following = DB::getInstance()->get('users', ['verified', 1])->results();
 if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
@@ -196,9 +196,6 @@ if (count($users_following)) {
                     ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->haber_title)]],
                     URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $last_post_id)
                 );
-                DB::getInstance()->update('topics_following', $user_following->id, [
-                    'existing_alerts' => 1
-                ]);
             }
             $user_info = DB::getInstance()->get('users', ['id', $user_following->user_id])->results();
             if ($user_info[0]->topic_updates) {
