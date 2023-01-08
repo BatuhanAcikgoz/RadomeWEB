@@ -36,7 +36,7 @@
     <div class="card">
         <div class="card-header text-white header-theme"><a href="{$reply.url}"
                 class="white-text">
-                        <span class="fas fa-lock"></span> {/if}{$reply.heading}</a>
+                        <span class="fas fa-lock"></span>{$reply.heading}</a>
                 </div>
                 <div class="card-body" id="post-{$reply.id}">
                     <div class="row">
