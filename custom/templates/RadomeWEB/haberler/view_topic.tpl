@@ -76,24 +76,8 @@
             </div><br/> {if $reply.edited !== null}
             <small><span rel="tooltip" data-toggle="hover"
               data-original-title="{$reply.edited_full}">{$reply.edited}</span>
-           </small>{/if} {if count($reply.post_reactions)}
-            <span class="float-right" data-toggle="modal" data-target="#reactions{$reply.id}Modal">
-           {foreach from=$reply.post_reactions name="reactions" item=reaction}
-           {$reaction.html} x {$reaction.count}
-           {if !($smarty.foreach.reactions.last)} | {/if}
-           {/foreach}
-           </span> {/if} {if $reply.user_id !== $USER_ID} {if isset($REACTIONS) && count($REACTIONS)}
+            </small>{/if}
             <br/>
-            <div class="well">
-                {foreach from=$REACTIONS item=reaction}
-                <form class="inline-form" action="{$REACTIONS_URL}" method="post">
-                    <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="hidden" name="reaction" value="{$reaction->id}">
-                    <input type="hidden" name="post" value="{$reply.id}">
-                    <a href="#" onclick="$(this).closest('form').submit();" style="padding:10px;" rel="tooltip" data-toggle="hover" data-original-title="{$reaction->name}">{$reaction->html}</a>
-                </form>
-                {/foreach}
-            </div>
             {else}
             <br/> {/if} {else}
             <br/> {/if}
