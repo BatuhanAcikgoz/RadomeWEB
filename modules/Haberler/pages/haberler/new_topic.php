@@ -190,7 +190,6 @@ $topic = $topic[0];
 if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
-        if ($user_following->id != $user->data()->id) {
                 Alert::create(
                     $user_following->id,
                     'new_reply',
@@ -202,7 +201,6 @@ if (count($users_following)) {
             if ($user_info[0]->topic_updates) {
                 $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
             }
-        }
     }
     $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
     $html = file_get_contents($path);
