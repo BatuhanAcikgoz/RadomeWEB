@@ -261,6 +261,199 @@ $pagination = $paginator->generate(7, URL::build('/haberler/haber/' . $tid . '-'
 
 $smarty->assign('PAGINATION', $pagination);
 
+// Replies
+$replies = [];
+// Display the correct number of posts
+foreach ($results->data as $n => $nValue) {
+    $post_creator = new User($nValue->post_creator);
+    if (!$post_creator->exists()) {
+        continue;
+    }
+
+    // Get user's group HTML formatting and their signature
+    $user_groups_html = $post_creator->getAllGroupHtml();
+    $signature = $post_creator->getSignature();
+
+    // Panel heading content
+    $url = URL::build('/forum/konu/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
+
+    if ($n != 0) {
+        $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
+    } else {
+        $heading = Output::getClean($topic->topic_title);
+    }
+
+    // Which buttons do we need to display?
+    $buttons = [];
+
+    if ($user->isLoggedIn()) {
+        // Assign token
+        $smarty->assign('TOKEN', $token);
+
+        // Edit button
+        if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+            $buttons['edit'] = [
+                'URL' => URL::build('/forum/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'TEXT' => $forum_language->get('forum', 'edit')
+            ];
+        } else {
+            if ($user->data()->id == $nValue->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
+                if ($topic->locked != 1) { // Can't edit if topic is locked
+                    $buttons['edit'] = [
+                        'URL' => URL::build('/forum/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                        'TEXT' => $forum_language->get('forum', 'edit')
+                    ];
+                }
+            }
+        }
+
+        // Delete button
+        if ($user->data()->id != $nValue->post_creator && $moderate = $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+            $buttons['spam'] = [
+                'URL' => URL::build('/forum/spam/'),
+                'TEXT' => $language->get('moderator', 'spam')
+            ];
+        }
+        if ($moderate || $user->data()->id == $nValue->post_creator) {
+            $buttons['delete'] = [
+                'URL' => URL::build('/forum/konuyu_sil/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'TEXT' => $language->get('general', 'delete'),
+                'NUMBER' => $p . $n
+            ];
+        }
+
+        if ($user->data()->id != $nValue->post_creator) {
+            // Report button
+            $buttons['report'] = [
+                'URL' => URL::build('/forum/raporla/'),
+                'REPORT_TEXT' => $language->get('user', 'report_post_content'),
+                'TEXT' => $language->get('general', 'report')
+            ];
+        }
+
+        // Quote button
+        if ($can_reply) {
+            if ($topic->locked != 1 || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+                $buttons['quote'] = [
+                    'TEXT' => $forum_language->get('forum', 'quote')
+                ];
+            }
+        }
+    }
+
+    // Profile fields
+    $fields = $post_creator->getProfileFields(false, true);
+
+    // User integrations
+    $user_integrations = [];
+    foreach ($post_creator->getIntegrations() as $key => $integrationUser) {
+        if ($integrationUser->data()->username != null && $integrationUser->data()->show_publicly) {
+            $fields[] = [
+                'name' => Output::getClean($key),
+                'value' => Output::getClean($integrationUser->data()->username)
+            ];
+
+            $user_integrations[$key] = [
+                'username' => Output::getClean($integrationUser->data()->username),
+                'identifier' => Output::getClean($integrationUser->data()->identifier)
+            ];
+        }
+    }
+
+    $forum_placeholders = $post_creator->getForumPlaceholders();
+    foreach ($forum_placeholders as $forum_placeholder) {
+        $fields[] = [
+            'name' => $forum_placeholder->friendly_name,
+            'value' => $forum_placeholder->value
+        ];
+    }
+
+    // Get post reactions
+    $post_reactions = [];
+    $total_karma = 0;
+    if ($reactions_enabled) {
+        $post_reactions_query = DB::getInstance()->get('forums_reactions', ['post_id', $nValue->id])->results();
+
+        if (count($post_reactions_query)) {
+            foreach ($post_reactions_query as $item) {
+                if (!isset($post_reactions[$item->reaction_id])) {
+                    $post_reactions[$item->reaction_id]['count'] = 1;
+
+                    $reaction = DB::getInstance()->get('reactions', ['id', $item->reaction_id])->results();
+                    $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
+                    $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
+
+                    if ($reaction[0]->type == 2) {
+                        $total_karma++;
+                    } else {
+                        if ($reaction[0]->type == 0) {
+                            $total_karma--;
+                        }
+                    }
+                } else {
+                    $post_reactions[$item->reaction_id]['count']++;
+                }
+
+                $reaction_user = new User($item->user_given);
+                $post_reactions[$item->reaction_id]['users'][] = [
+                    'username' => $reaction_user->getDisplayname(true),
+                    'nickname' => $reaction_user->getDisplayname(),
+                    'style' => $reaction_user->getGroupStyle(),
+                    'avatar' => $reaction_user->getAvatar(),
+                    'profile' => $reaction_user->getProfileURL()
+                ];
+            }
+        }
+    }
+
+    // Purify post content
+    $content = EventHandler::executeEvent('renderPost', ['content' => $nValue->post_content])['content'];
+
+    // Get post date
+    if (is_null($nValue->created)) {
+        $post_date_rough = $timeago->inWords($nValue->post_date, $language);
+        $post_date = date(DATE_FORMAT, strtotime($nValue->post_date));
+    } else {
+        $post_date_rough = $timeago->inWords($nValue->created, $language);
+        $post_date = date(DATE_FORMAT, $nValue->created);
+    }
+
+    $replies[] = [
+        'url' => $url,
+        'heading' => $heading,
+        'id' => $nValue->id,
+        'user_id' => $post_creator->data()->id,
+        'avatar' => $post_creator->getAvatar(),
+        'integrations' => $user_integrations,
+        'username' => $post_creator->getDisplayname(),
+        'mcname' => $post_creator->getDisplayname(true),
+        'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
+        'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
+        'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
+        'user_title' => Output::getClean($post_creator->data()->user_title),
+        'profile' => $post_creator->getProfileURL(),
+        'user_style' => $post_creator->getGroupStyle(),
+        'user_groups' => $user_groups_html,
+        'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
+        'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
+        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
+        'user_registered_full' => date('d M Y', $post_creator->data()->joined),
+        'user_reputation' => $post_creator->data()->reputation,
+        'post_date_rough' => $post_date_rough,
+        'post_date' => $post_date,
+        'buttons' => $buttons,
+        'content' => $content,
+        'signature' => Output::getPurified(Text::renderEmojis($signature)),
+        'fields' => (empty($fields) ? [] : $fields),
+        'edited' => is_null($nValue->last_edited)
+            ? null
+            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
+        'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
+        'post_reactions' => $post_reactions,
+        'karma' => $total_karma
+    ];
+}
+
 // Assign Smarty language variables
 $smarty->assign([
     'POSTS' => $haberler_language->get('haberler', 'haberlers'),
@@ -275,52 +468,6 @@ $smarty->assign([
     'SUCCESS' => $language->get('general', 'success'),
     'ERROR' => $language->get('general', 'error')
 ]);
-
-$replies = [];
-// Display the correct number of posts
-foreach ($results->data as $n => $nValue) {
-    $post_creator = new User($nValue->post_creator);
-    if (!$post_creator->exists()) {
-        continue;
-    }
-
-    // Get user's group HTML formatting and their signature
-    $user_groups_html = $post_creator->getAllGroupHtml();
-    $signature = $post_creator->getSignature();
-
-$replies[] = [
-    'url' => $url,
-    'heading' => $heading,
-    'id' => $nValue->id,
-    'user_id' => $post_creator->data()->id,
-    'avatar' => $post_creator->getAvatar(),
-    'integrations' => $user_integrations,
-    'username' => $post_creator->getDisplayname(),
-    'mcname' => $post_creator->getDisplayname(true),
-    'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
-    'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
-    'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
-    'user_title' => Output::getClean($post_creator->data()->user_title),
-    'profile' => $post_creator->getProfileURL(),
-    'user_style' => $post_creator->getGroupStyle(),
-    'user_groups' => $user_groups_html,
-    'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
-    'user_registered_full' => date('d M Y', $post_creator->data()->joined),
-    'user_reputation' => $post_creator->data()->reputation,
-    'post_date_rough' => $post_date_rough,
-    'post_date' => $post_date,
-    'buttons' => $buttons,
-    'content' => $content,
-    'signature' => Output::getPurified(Text::renderEmojis($signature)),
-    'fields' => (empty($fields) ? [] : $fields),
-    'edited' => is_null($nValue->last_edited)
-        ? null
-        : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
-    'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
-    'post_reactions' => $post_reactions,
-    'karma' => $total_karma
-];
-}
 
 $template->assets()->include([
     AssetTree::TINYMCE,
