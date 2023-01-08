@@ -333,11 +333,6 @@ $breadcrumbs = [
         'active' => 1,
         'link' => URL::build('/haberler/haber/' . urlencode($topic->id) . '-' . $haberler->titleToURL($topic->haber_title))
     ],
-    1 => [
-        'id' => $haberler_parent[0]->id,
-        'haberler_title' => Output::getClean($haberler_parent[0]->haberler_title),
-        'link' => URL::build('/haberler/goruntule/' . urlencode($haberler_parent[0]->id) . '-' . $haberler->titleToURL($haberler_parent[0]->haberler_title))
-    ]
 ];
 
 $breadcrumbs[] = [
