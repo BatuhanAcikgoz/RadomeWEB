@@ -34,6 +34,13 @@ $topic_id = DB::getInstance()->lastId();
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$topic_id])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
 
+// Topic labels
+$smarty->assign('LABELS_TEXT', $haberler_language->get('haberler', 'label'));
+$labels = [];
+
+$default_labels = $current_haberler->default_labels ? explode(',', $current_haberler->default_labels) : [];
+$selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
+
 // Deal with any inputted data
 if (Input::exists()) {
     if (Token::check()) {
