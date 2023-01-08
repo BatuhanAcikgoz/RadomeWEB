@@ -275,12 +275,12 @@ foreach ($results->data as $n => $nValue) {
     $signature = $post_creator->getSignature();
 
     // Panel heading content
-    $url = URL::build('/haberler/haber/' . $tid . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
+    $url = URL::build('/haberler/haber/' . $tid . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $nValue->id);
 
     if ($n != 0) {
-        $heading = $haberler_language->get('haberler', 're') . Output::getClean($topic->topic_title);
+        $heading = $haberler_language->get('haberler', 're') . Output::getClean($topic->haber_title);
     } else {
-        $heading = Output::getClean($topic->topic_title);
+        $heading = Output::getClean($topic->haber_title);
     }
 
     // Which buttons do we need to display?
