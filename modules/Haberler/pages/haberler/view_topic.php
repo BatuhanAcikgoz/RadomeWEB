@@ -41,7 +41,7 @@ if (!$list) {
 }
 
 // Get the topic information
-$topic = DB::getInstance()->get('topics', ['id', $tid])->results();
+$topic = DB::getInstance()->get('haberlers', ['id', $tid])->results();
 $topic = $topic[0];
 
 if ($topic->deleted == 1) {
@@ -339,35 +339,6 @@ $breadcrumbs = [
         'link' => URL::build('/haberler/goruntule/' . urlencode($haberler_parent[0]->id) . '-' . $haberler->titleToURL($haberler_parent[0]->haberler_title))
     ]
 ];
-if (!empty($parent_category) && $parent_category[0]->parent == 0) {
-    // Category
-    $breadcrumbs[] = [
-        'id' => $parent_category[0]->id,
-        'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-        'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
-    ];
-} else {
-    if (!empty($parent_category)) {
-        // Parent haberler, get its category
-        $breadcrumbs[] = [
-            'id' => $parent_category[0]->id,
-            'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-            'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
-        ];
-        $parent = false;
-        while ($parent == false) {
-            $parent_category = DB::getInstance()->get('haberlers', ['id', $parent_category[0]->parent])->results();
-            $breadcrumbs[] = [
-                'id' => $parent_category[0]->id,
-                'haberler_title' => Output::getClean($parent_category[0]->haberler_title),
-                'link' => URL::build('/haberler/goruntule/' . urlencode($parent_category[0]->id) . '-' . $haberler->titleToURL($parent_category[0]->haberler_title))
-            ];
-            if ($parent_category[0]->parent == 0) {
-                $parent = true;
-            }
-        }
-    }
-}
 
 $breadcrumbs[] = [
     'id' => 'index',
