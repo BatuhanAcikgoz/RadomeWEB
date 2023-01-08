@@ -74,6 +74,31 @@ if (Input::exists()) {
             if ($validate->passed()) {
                 $post_labels = [];
 
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                    foreach ($_POST['topic_label'] as $topic_label) {
+                        $label = DB::getInstance()->get('haberlers_topic_labels', ['id', $topic_label])->results();
+                        if (count($label)) {
+                            $lgroups = explode(',', $label[0]->gids);
+
+                            $hasperm = false;
+                            foreach ($user_groups as $group_id) {
+                                if (in_array($group_id, $lgroups)) {
+                                    $hasperm = true;
+                                    break;
+                                }
+                            }
+
+                            if ($hasperm) {
+                                $post_labels[] = $label[0]->id;
+                            }
+                        }
+                    }
+                } else {
+                    if (count($default_labels)) {
+                        $post_labels = $default_labels;
+                    }
+                }
+
                 DB::getInstance()->insert('haberlers', [
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
@@ -84,7 +109,6 @@ if (Input::exists()) {
 
 
                 // Get last post ID
-                $topic_id = DB::getInstance()->lastId();
                 $id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
