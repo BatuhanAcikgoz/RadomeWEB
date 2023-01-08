@@ -276,6 +276,41 @@ $smarty->assign([
     'ERROR' => $language->get('general', 'error')
 ]);
 
+$replies[] = [
+    'url' => $url,
+    'heading' => $heading,
+    'id' => $nValue->id,
+    'user_id' => $post_creator->data()->id,
+    'avatar' => $post_creator->getAvatar(),
+    'integrations' => $user_integrations,
+    'username' => $post_creator->getDisplayname(),
+    'mcname' => $post_creator->getDisplayname(true),
+    'last_seen' => $language->get('user', 'last_seen_x', ['lastSeenAt' => $timeago->inWords($post_creator->data()->last_online, $language)]),
+    'last_seen_full' => date('d M Y', $post_creator->data()->last_online),
+    'online_now' => $post_creator->data()->last_online > strtotime('5 minutes ago'),
+    'user_title' => Output::getClean($post_creator->data()->user_title),
+    'profile' => $post_creator->getProfileURL(),
+    'user_style' => $post_creator->getGroupStyle(),
+    'user_groups' => $user_groups_html,
+    'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
+    'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
+    'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
+    'user_registered_full' => date('d M Y', $post_creator->data()->joined),
+    'user_reputation' => $post_creator->data()->reputation,
+    'post_date_rough' => $post_date_rough,
+    'post_date' => $post_date,
+    'buttons' => $buttons,
+    'content' => $content,
+    'signature' => Output::getPurified(Text::renderEmojis($signature)),
+    'fields' => (empty($fields) ? [] : $fields),
+    'edited' => is_null($nValue->last_edited)
+        ? null
+        : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
+    'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
+    'post_reactions' => $post_reactions,
+    'karma' => $total_karma
+];
+
 $template->assets()->include([
     AssetTree::TINYMCE,
 ]);
