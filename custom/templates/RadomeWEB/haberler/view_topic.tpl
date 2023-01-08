@@ -63,7 +63,6 @@
 							{* /Badges Module *}
                 </center>
             </div>
-            <div class="col-md-10">
                 <span data-toggle="tooltip" data-trigger="hover" data-original-title="{$reply.post_date}">{$reply.post_date_rough}</span>
                 <span class="float-right">
                {if isset($reply.buttons.edit)}
@@ -77,21 +76,6 @@
                {/if}
                {if isset($reply.buttons.delete)}
                <button class="btn btn-theme btn-sm" rel="tooltip" data-trigger="hover" data-original-title="{$reply.buttons.delete.TEXT}" data-toggle="modal" data-target="#delete{$reply.id}Modal"><i class="fas fa-trash fa-fw" aria-hidden="true"></i></button>
-               {/if}
-               </span>
-                <hr/>
-                <div class="haberler_post">
-                    {$reply.content}
-                </div><br/> {if $reply.edited !== null}
-                <small><span rel="tooltip" data-toggle="hover"
-                  data-original-title="{$reply.edited_full}">{$reply.edited}</span>
-               </small>{/if} {if count($reply.post_reactions)}
-                <span class="float-right" data-toggle="modal" data-target="#reactions{$reply.id}Modal">
-               {foreach from=$reply.post_reactions name="reactions" item=reaction}
-               {$reaction.html} x {$reaction.count}
-               {if !($smarty.foreach.reactions.last)} | {/if}
-               {/foreach}
-               </span> {/if} {if $reply.user_id !== $USER_ID} {if isset($REACTIONS) && count($REACTIONS)}
                 <br/>
                 <div class="well">
                     {foreach from=$REACTIONS item=reaction}
@@ -108,47 +92,6 @@
                 <br/> {/if}
                 <hr/> {$reply.signature}
             </div>
-        </div>
-    </div>
-</div>
-{if count($reply.post_reactions)}
-<div class="modal fade" id="reactions{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="reactions{$reply.id}ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title" id="reactions{$reply.id}ModalLabel">{$REACTIONS_TEXT}</span>
-            </div>
-            <div class="modal-body">
-                {foreach from=$reply.post_reactions name=reactions item=reaction}
-                <strong>{$reaction.html} x {$reaction.count}:</strong>
-                <br />{foreach from=$reaction.users item=user}
-                <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="avatar-img" style="height:20px;width:20px;" alt="{$user.username}"/> {$user.username}</a>
-                <br/> {/foreach} {if !($smarty.foreach.reactions.last)}
-                <hr/> {/if} {/foreach}
-            </div>
-        </div>
-    </div>
-</div>
-{/if} {if isset($reply.buttons.report)}
-<div class="modal fade" id="report{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="report{$reply.id}ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title" id="report{$reply.id}ModalLabel">{$reply.buttons.report.TEXT}</span>
-            </div>
-            <form action="{$reply.buttons.report.URL}" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="InputReason">{$reply.buttons.report.REPORT_TEXT} </label>
-                        <textarea class="form-control" id="InputReason" name="reason"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
-                    <input type="hidden" name="post" value="{$reply.id}">
-                    <input type="hidden" name="topic" value="{$TOPIC_ID}">
-                    <input type="hidden" name="token" value="{$TOKEN}">
-                    <button type="submit" class="btn btn-theme">{$reply.buttons.report.TEXT}</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -191,10 +134,6 @@
         </div>
     </div>
 </div>
-{/if} {/foreach} {$PAGINATION} {if isset($TOPIC_LOCKED_NOTICE)}
-<div class="alert alert-info">{$TOPIC_LOCKED_NOTICE}</div>
-{/if} {if isset($CAN_REPLY)}
-{/if}
 </div>
 </div>
 </div>
