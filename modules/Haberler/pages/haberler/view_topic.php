@@ -275,10 +275,10 @@ foreach ($results->data as $n => $nValue) {
     $signature = $post_creator->getSignature();
 
     // Panel heading content
-    $url = URL::build('/forum/konu/' . $tid . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
+    $url = URL::build('/haberler/haber/' . $tid . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $nValue->id);
 
     if ($n != 0) {
-        $heading = $forum_language->get('forum', 're') . Output::getClean($topic->topic_title);
+        $heading = $haberler_language->get('haberler', 're') . Output::getClean($topic->topic_title);
     } else {
         $heading = Output::getClean($topic->topic_title);
     }
@@ -291,32 +291,32 @@ foreach ($results->data as $n => $nValue) {
         $smarty->assign('TOKEN', $token);
 
         // Edit button
-        if ($forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+        if ($haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
             $buttons['edit'] = [
-                'URL' => URL::build('/forum/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
-                'TEXT' => $forum_language->get('forum', 'edit')
+                'URL' => URL::build('/haberler/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'TEXT' => $haberler_language->get('haberler', 'edit')
             ];
         } else {
-            if ($user->data()->id == $nValue->post_creator && $forum->canEditTopic($forum_parent[0]->id, $user_groups)) {
+            if ($user->data()->id == $nValue->post_creator && $user->hasPermission('admincp.haberlers')) {
                 if ($topic->locked != 1) { // Can't edit if topic is locked
                     $buttons['edit'] = [
-                        'URL' => URL::build('/forum/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
-                        'TEXT' => $forum_language->get('forum', 'edit')
+                        'URL' => URL::build('/haberler/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                        'TEXT' => $haberler_language->get('haberler', 'edit')
                     ];
                 }
             }
         }
 
         // Delete button
-        if ($user->data()->id != $nValue->post_creator && $moderate = $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+        if ($user->data()->id != $nValue->post_creator && $moderate = $haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
             $buttons['spam'] = [
-                'URL' => URL::build('/forum/spam/'),
+                'URL' => URL::build('/haberler/spam/'),
                 'TEXT' => $language->get('moderator', 'spam')
             ];
         }
         if ($moderate || $user->data()->id == $nValue->post_creator) {
             $buttons['delete'] = [
-                'URL' => URL::build('/forum/konuyu_sil/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'URL' => URL::build('/haberler/konuyu_sil/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $language->get('general', 'delete'),
                 'NUMBER' => $p . $n
             ];
@@ -325,7 +325,7 @@ foreach ($results->data as $n => $nValue) {
         if ($user->data()->id != $nValue->post_creator) {
             // Report button
             $buttons['report'] = [
-                'URL' => URL::build('/forum/raporla/'),
+                'URL' => URL::build('/haberler/raporla/'),
                 'REPORT_TEXT' => $language->get('user', 'report_post_content'),
                 'TEXT' => $language->get('general', 'report')
             ];
@@ -333,9 +333,9 @@ foreach ($results->data as $n => $nValue) {
 
         // Quote button
         if ($can_reply) {
-            if ($topic->locked != 1 || $forum->canModerateForum($forum_parent[0]->id, $user_groups)) {
+            if ($topic->locked != 1 || $haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
                 $buttons['quote'] = [
-                    'TEXT' => $forum_language->get('forum', 'quote')
+                    'TEXT' => $haberler_language->get('haberler', 'quote')
                 ];
             }
         }
@@ -360,11 +360,10 @@ foreach ($results->data as $n => $nValue) {
         }
     }
 
-    $forum_placeholders = $post_creator->getForumPlaceholders();
-    foreach ($forum_placeholders as $forum_placeholder) {
+    foreach ($haberler_placeholders as $haberler_placeholder) {
         $fields[] = [
-            'name' => $forum_placeholder->friendly_name,
-            'value' => $forum_placeholder->value
+            'name' => $haberler_placeholder->friendly_name,
+            'value' => $haberler_placeholder->value
         ];
     }
 
@@ -372,7 +371,7 @@ foreach ($results->data as $n => $nValue) {
     $post_reactions = [];
     $total_karma = 0;
     if ($reactions_enabled) {
-        $post_reactions_query = DB::getInstance()->get('forums_reactions', ['post_id', $nValue->id])->results();
+        $post_reactions_query = DB::getInstance()->get('haberlers_reactions', ['post_id', $nValue->id])->results();
 
         if (count($post_reactions_query)) {
             foreach ($post_reactions_query as $item) {
@@ -434,9 +433,9 @@ foreach ($results->data as $n => $nValue) {
         'profile' => $post_creator->getProfileURL(),
         'user_style' => $post_creator->getGroupStyle(),
         'user_groups' => $user_groups_html,
-        'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
-        'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
-        'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
+        'user_posts_count' => $haberler_language->get('haberler', 'x_posts', ['count' => $haberler->getPostCount($nValue->post_creator)]),
+        'user_topics_count' => $haberler_language->get('haberler', 'x_topics', ['count' => $haberler->getTopicCount($nValue->post_creator)]),
+        'user_registered' => $haberler_language->get('haberler', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
         'user_registered_full' => date('d M Y', $post_creator->data()->joined),
         'user_reputation' => $post_creator->data()->reputation,
         'post_date_rough' => $post_date_rough,
@@ -447,7 +446,7 @@ foreach ($results->data as $n => $nValue) {
         'fields' => (empty($fields) ? [] : $fields),
         'edited' => is_null($nValue->last_edited)
             ? null
-            : $forum_language->get('forum', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
+            : $haberler_language->get('haberler', 'last_edited', ['lastEditedAt' => $timeago->inWords($nValue->last_edited, $language)]),
         'edited_full' => (is_null($nValue->last_edited) ? null : date(DATE_FORMAT, $nValue->last_edited)),
         'post_reactions' => $post_reactions,
         'karma' => $total_karma
