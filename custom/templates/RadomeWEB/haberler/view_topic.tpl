@@ -9,7 +9,7 @@
     </ol>
     <div class="row">
         <div class="col-md-12">
-            <span class="float-right haberler-btns">
+            <span class="float-right forum-btns">
                 <div class="btn-group">
                     <button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown"
                         style="vertical-align:baseline;">{$SHARE} <span class="caret"></span></button>
