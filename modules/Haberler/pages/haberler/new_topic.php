@@ -191,7 +191,6 @@ if (count($users_following)) {
     $users_following_info = [];
     foreach ($users_following as $user_following) {
         if ($user_following->id != $user->data()->id) {
-            if ($user_following->existing_alerts == 0) {
                 Alert::create(
                     $user_following->id,
                     'new_reply',
@@ -199,7 +198,6 @@ if (count($users_following)) {
                     ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->haber_title)]],
                     URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $last_post_id)
                 );
-            }
             $user_info = DB::getInstance()->get('users', ['id', $user_following->id])->results();
             if ($user_info[0]->topic_updates) {
                 $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
