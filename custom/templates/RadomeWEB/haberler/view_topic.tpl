@@ -65,7 +65,7 @@
         </div>
     </div>
 </div>
-{/if} {if isset($CAN_MODERATE)}
+{if isset($CAN_MODERATE)}
 <div class="modal fade" id="spam{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="spam{$reply.id}ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
