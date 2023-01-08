@@ -291,7 +291,7 @@ foreach ($results->data as $n => $nValue) {
         $smarty->assign('TOKEN', $token);
 
         // Edit button
-        if ($haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
+        if ($user->hasPermission('admincp.haberlers')) {
             $buttons['edit'] = [
                 'URL' => URL::build('/haberler/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $haberler_language->get('haberler', 'edit')
@@ -308,7 +308,7 @@ foreach ($results->data as $n => $nValue) {
         }
 
         // Delete button
-        if ($user->data()->id != $nValue->post_creator && $moderate = $haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
+        if ($user->data()->id != $nValue->post_creator) {
             $buttons['spam'] = [
                 'URL' => URL::build('/haberler/spam/'),
                 'TEXT' => $language->get('moderator', 'spam')
