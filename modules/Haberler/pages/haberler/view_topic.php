@@ -320,9 +320,6 @@ if ($user->isLoggedIn()) {
     $template->addJSScript('var quotedPosts = [];');
 }
 
-// Are reactions enabled?
-$reactions_enabled = Util::getSetting('haberler_reactions') === '1';
-
 // Assign Smarty variables to pass to template
 $parent_category = DB::getInstance()->get('haberlers', ['id', $haberler_parent[0]->parent])->results();
 
