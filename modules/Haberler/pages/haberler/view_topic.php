@@ -304,8 +304,6 @@ $replies[] = [
     'profile' => $post_creator->getProfileURL(),
     'user_style' => $post_creator->getGroupStyle(),
     'user_groups' => $user_groups_html,
-    'user_posts_count' => $forum_language->get('forum', 'x_posts', ['count' => $forum->getPostCount($nValue->post_creator)]),
-    'user_topics_count' => $forum_language->get('forum', 'x_topics', ['count' => $forum->getTopicCount($nValue->post_creator)]),
     'user_registered' => $forum_language->get('forum', 'registered_x', ['registeredAt' => $timeago->inWords($post_creator->data()->joined, $language)]),
     'user_registered_full' => date('d M Y', $post_creator->data()->joined),
     'user_reputation' => $post_creator->data()->reputation,
