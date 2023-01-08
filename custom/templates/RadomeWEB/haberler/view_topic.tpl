@@ -46,8 +46,7 @@
                                 <strong><a style="{$reply.user_style}" href="{$reply.profile}"
                                         data-poload="{$USER_INFO_URL}{$reply.user_id}" data-html="true"
                                         data-placement="top">{$reply.username}</a></strong>
-                                <br /> {foreach from=$reply.user_groups item=group} {$group}
-                                    <br /> {/foreach} 
+                                <br />
                                         {if $reply.user_title}
                                             <br />
                                         <small>{$reply.user_title}</small> {/if}
