@@ -309,7 +309,6 @@ class Haberler {
      */
     public function getLatestNews(int $number = 5): array {
         $return = []; // Array to return containing news
-        $labels_cache = []; // Array to contain labels
 
         $news_items = $this->_db->query('SELECT * FROM rw_haberlers WHERE id AND deleted = 0 ORDER BY post_date DESC LIMIT 10')->results();
 

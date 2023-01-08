@@ -29,17 +29,10 @@ $haberler = new Haberler();
 
 // Get user group ID
 $user_groups = $user->getAllGroupIds();
-
+$topic_id = DB::getInstance()->lastId();
 
 $current_haberler = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ?', [$topic_id])->first();
 $haberler_title = Output::getClean($current_haberler->haberler_title);
-
-// Topic labels
-$smarty->assign('LABELS_TEXT', $haberler_language->get('haberler', 'label'));
-$labels = [];
-
-$default_labels = $current_haberler->default_labels ? explode(',', $current_haberler->default_labels) : [];
-$selected_labels = ((isset($_POST['topic_label']) && is_array($_POST['topic_label'])) ? Input::get('topic_label') : $default_labels);
 
 // Deal with any inputted data
 if (Input::exists()) {
@@ -81,31 +74,6 @@ if (Input::exists()) {
             if ($validate->passed()) {
                 $post_labels = [];
 
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = DB::getInstance()->get('haberlers_topic_labels', ['id', $topic_label])->results();
-                        if (count($label)) {
-                            $lgroups = explode(',', $label[0]->gids);
-
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
-                                }
-                            }
-
-                            if ($hasperm) {
-                                $post_labels[] = $label[0]->id;
-                            }
-                        }
-                    }
-                } else {
-                    if (count($default_labels)) {
-                        $post_labels = $default_labels;
-                    }
-                }
-
                 DB::getInstance()->insert('haberlers', [
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
@@ -116,6 +84,7 @@ if (Input::exists()) {
 
 
                 // Get last post ID
+                $topic_id = DB::getInstance()->lastId();
                 $id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
                     'alert_full' => ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'user_tag_info', 'replace' => '{{author}}', 'replace_with' => $user->getDisplayname()],
