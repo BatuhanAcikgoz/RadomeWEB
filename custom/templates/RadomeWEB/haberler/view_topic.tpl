@@ -102,11 +102,7 @@
                                     <hr />
                                     <div class="forum_post">
                                         {$reply.content}
-                                    </div><br /> {if $reply.edited !== null}
-                                        <small><span rel="tooltip" data-toggle="hover"
-                                                data-original-title="{$reply.edited_full}">{$reply.edited}</span>
-                                    </small>{/if}
-                                    <br />
+                                    </div>
                             </div>
                         </div>
                     </div>
