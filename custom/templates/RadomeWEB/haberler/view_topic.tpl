@@ -80,6 +80,7 @@
                     <div class="forum_post">
                         {$reply.content}
                     </div>
+                    <hr/> {$reply.signature}
                 </div>
             </div>
         </div>
