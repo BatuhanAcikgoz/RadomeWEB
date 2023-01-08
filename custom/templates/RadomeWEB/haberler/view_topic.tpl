@@ -49,7 +49,7 @@
                                 <br />
                                         {if $reply.user_title}
                                             <br />
-                                        <small>{$reply.user_title}</small> {/if}
+                                        <small>{$reply.user_title}</small>
                                         <hr />
                                         {/if}
 
