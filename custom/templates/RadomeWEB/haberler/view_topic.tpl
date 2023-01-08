@@ -47,19 +47,8 @@
                                 data-poload="{$USER_INFO_URL}{$reply.user_id}" data-html="true"
                                 data-placement="top">{$reply.username}</a></strong>
                         <br />
-                        {if $reply.user_title}
                             <br />
                             <small>{$reply.user_title}</small>
-                            
-							{* Badges Module *}
-							{if isset($USER_BADGES_LIST)}
-								{include file='badges/forum_bdg.tpl'}
-							{/if}
-							{* /Badges Module *}
-                            
-                            <hr />
-                        {/if}
-
                         {* Badges Module *}
                         {if isset($USER_BADGES_LIST)}
                             {include file='badges/forum_bdg.tpl'}
