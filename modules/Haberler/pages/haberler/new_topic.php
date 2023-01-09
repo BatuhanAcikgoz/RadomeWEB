@@ -105,7 +105,8 @@ if (Input::exists()) {
                         $post_labels = $default_labels;
                     }
                 }
-
+                
+                Log::getInstance()->log(Log::Action('haberlers/create'), $topic_id);
                 DB::getInstance()->insert('haberlers', [
                     'haber_title' => Input::get('title'),
                     'post_creator' => $user->data()->id,
@@ -114,7 +115,7 @@ if (Input::exists()) {
                     'created' => date('U')
                 ]);
 
-                Log::getInstance()->log(Log::Action('haberlers/create'), $topic_id);
+
 
                 // Get last post ID
                 $id = DB::getInstance()->lastId();
@@ -152,7 +153,7 @@ if (Input::exists()) {
 
                 Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
 
-                Redirect::to(URL::build('/haberler/haber/' . $id . '-' . $haberler->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/haberler/haber/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }
