@@ -196,8 +196,8 @@ if (count($users_following)) {
                 Alert::create(
                     $user_following->id,
                     'new_reply',
-                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
-                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{topic}}'], 'replace_with' => [Output::getClean($topic->haber_title)]],
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{topic}}'], 'replace_with' => [Output::getClean($topic->haber_title)]],
                     URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title))
                 );
                 $user_info = DB::getInstance()->get('users', ['id', $user_following->id])->results();
@@ -212,15 +212,15 @@ if (count($users_following)) {
         ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
         [
             Output::getClean(SITE_NAME),
-            $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
+            $language->get('emails', 'new_haber', ['topic' => $topic->haber_title]),
             $language->get('emails', 'greeting'),
-            $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
+            $language->get('emails', 'new_haber_content', ['content' => html_entity_decode($content)]),
             rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title)),
             $language->get('emails', 'thanks')
         ],
         $html
     );
-    $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]);
+    $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['topic' => $topic->haber_title]);
 
     $reply_to = Email::getReplyTo();
     foreach ($users_following_info as $user_info) {

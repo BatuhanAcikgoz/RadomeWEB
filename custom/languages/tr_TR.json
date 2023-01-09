@@ -516,7 +516,7 @@
     "emails/register_subject": "Hesabı Doğrula",
     "emails/thanks": "Teşekkürler,",
     "emails/new_haber": "Yeni Haber: {{topic}}",
-    "emails/new_haber_content": "Yeni Haber İçeriği: {{content}} {content} content",
+    "emails/new_haber_content": "Yeni Haber İçeriği: {{content}}",
     "errors/403_back": "Geri Dön",
     "errors/403_content": "Bu sayfayı görüntülemek için yetkiniz yok.",
     "errors/403_home": "Ana Sayfa",
