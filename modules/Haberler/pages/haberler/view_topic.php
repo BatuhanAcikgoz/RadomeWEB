@@ -308,36 +308,12 @@ foreach ($results->data as $n => $nValue) {
         }
 
         // Delete button
-        if ($user->data()->id != $nValue->post_creator) {
-            $buttons['spam'] = [
-                'URL' => URL::build('/haberler/spam/'),
-                'TEXT' => $language->get('moderator', 'spam')
-            ];
-        }
         if ($moderate || $user->data()->id == $nValue->post_creator) {
             $buttons['delete'] = [
                 'URL' => URL::build('/haberler/konuyu_sil/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
                 'TEXT' => $language->get('general', 'delete'),
                 'NUMBER' => $p . $n
             ];
-        }
-
-        if ($user->data()->id != $nValue->post_creator) {
-            // Report button
-            $buttons['report'] = [
-                'URL' => URL::build('/haberler/raporla/'),
-                'REPORT_TEXT' => $language->get('user', 'report_post_content'),
-                'TEXT' => $language->get('general', 'report')
-            ];
-        }
-
-        // Quote button
-        if ($can_reply) {
-            if ($topic->locked != 1 || $haberler->canModerateHaberler($haberler_parent[0]->id, $user_groups)) {
-                $buttons['quote'] = [
-                    'TEXT' => $haberler_language->get('haberler', 'quote')
-                ];
-            }
         }
     }
 
