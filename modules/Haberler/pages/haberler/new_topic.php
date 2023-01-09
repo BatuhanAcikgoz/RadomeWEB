@@ -197,10 +197,6 @@ if (count($users_following)) {
                     ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
                     URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $last_post_id)
                 );
-            $user_info = DB::getInstance()->get('users', ['id', $user_following->id])->results();
-            if ($user_info[0]->topic_updates) {
-                $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
-            }
     }
     $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
     $html = file_get_contents($path);
