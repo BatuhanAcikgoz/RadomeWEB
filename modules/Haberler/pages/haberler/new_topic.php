@@ -196,8 +196,8 @@ $content = Input::get('content');
                             Alert::create(
                                 $user_following->id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic[0]->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic[0]->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic[0]->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic[0]->topic_title)]],
                                 URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic[0]->haber_title))
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
