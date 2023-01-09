@@ -32,7 +32,7 @@ if (!count($topic)) {
     Redirect::to(URL::build('/haberler'));
 }
 
-if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+if (Token::check($_POST['token'])) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
