@@ -182,7 +182,7 @@ if (Input::exists()) {
                                         $language->get('emails', 'new_haber', ['topic' => $haberler->titleToURL(Input::get('title'))]),
                                         $language->get('emails', 'greeting'),
                                         $language->get('emails', 'new_haber_content', ['content' => html_entity_decode(Input::get('content'))]),
-                                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL(Input::get('title'))),
+                                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))),
                                         $language->get('emails', 'thanks')
                                     ],
                                     $html
