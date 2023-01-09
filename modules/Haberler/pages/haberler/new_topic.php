@@ -195,10 +195,10 @@ $content = Input::get('content');
                         if ($user_following->existing_alerts == 0) {
                             Alert::create(
                                 $user_following->id,
-                                'new_reply',
+                                'new_haber',
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => '{{topic}}', 'replace_with' => Output::getClean($topic[0]->topic_title)],
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => '{{topic}}', 'replace_with' => Output::getClean($topic[0]->topic_title)],
-                                URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic[0]->haber_title))
+                                URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))))
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
@@ -219,7 +219,7 @@ $content = Input::get('content');
                         $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic[0]->haber_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic[0]->haber_title)),
+                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL(Input::get('title'))),
                         $language->get('emails', 'thanks')
                     ],
                     $html
