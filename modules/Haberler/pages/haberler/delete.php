@@ -26,7 +26,7 @@ if (!isset($_GET['tid']) || !is_numeric($_GET['tid'])) {
 $topic_id = $_GET['tid'];
 
 // Check topic exists
-$topic = DB::getInstance()->get('topics', ['id', $topic_id])->results();
+$topic = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
 
 if (!count($topic)) {
     Redirect::to(URL::build('/haberler'));
