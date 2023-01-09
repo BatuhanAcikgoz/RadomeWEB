@@ -47,7 +47,7 @@ if ($haberler->canModerateHaberler($topic->id, $user->getAllGroupIds())) {
     //TODO: TOPIC
     Log::getInstance()->log(Log::Action('haberlers/topic/delete'), $topic_id);
 
-    $haberlers = DB::getInstance()->get('haberlers', ['topic_id', $topic_id])->results();
+    $haberlers = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
 
     if (count($haberlers)) {
         foreach ($haberlers as $post) {

@@ -39,7 +39,7 @@ if ($haberler->canModerateHaberler($id, $user->getAllGroupIds())) {
                 // Is it the OP?
                 if (isset($_POST['number']) && Input::get('number') == 10) {
 
-                    DB::getInstance()->update('topics', Input::get('tid'), [
+                    DB::getInstance()->update('haberler', Input::get('tid'), [
                         'deleted' => true,
                     ]);
 
@@ -59,7 +59,7 @@ if ($haberler->canModerateHaberler($id, $user->getAllGroupIds())) {
             ]);
 
             if (isset($opening_post)) {
-                $haberlers = DB::getInstance()->get('haberlers', ['topic_id', $_POST['tid']])->results();
+                $haberlers = DB::getInstance()->get('haberlers', ['id', $_POST['tid']])->results();
 
                 if (count($haberlers)) {
                     foreach ($haberlers as $post) {
