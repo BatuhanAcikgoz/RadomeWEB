@@ -152,7 +152,7 @@ if (Input::exists()) {
 
                 Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
 
-                Redirect::to(URL::build('/haberler/haber/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))));
+                Redirect::to(URL::build('/haberler/haber/' . $id . '-' . $haberler->titleToURL(Input::get('title'))));
             } else {
                 $error = $validate->errors();
             }
