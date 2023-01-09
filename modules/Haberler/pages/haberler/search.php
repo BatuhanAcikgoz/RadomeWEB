@@ -62,42 +62,13 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_topics = DB::getInstance()->query('SELECT * FROM rw_topics WHERE topic_title LIKE ?', ['%' . $search . '%'])->results();
+        $search_topics = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE haber_title LIKE ?', ['%' . $search . '%'])->results();
         $search_haberlers = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE post_content LIKE ?', ['%' . $search . '%'])->results();
 
         $search_results = array_merge($search_topics, $search_haberlers);
 
         $results = [];
         foreach ($search_results as $result) {
-            // Check permissions
-            $perms = DB::getInstance()->get('haberlers_permissions', ['id', $result->id])->results();
-            foreach ($perms as $perm) {
-                if (in_array($perm->group_id, $user_groups) && $perm->view == 1 && $perm->view_other_topics == 1) {
-                    if (isset($result->topic_id)) {
-                        // Post
-                        if (!isset($results[$result->id]) && $result->deleted == 0) {
-                            // Get associated topic
-                            $topic = DB::getInstance()->get('topics', ['id', $result->topic_id])->results();
-                            if (count($topic) && $topic[0]->deleted === 0) {
-                                $topic = $topic[0];
-                                $results[$result->id] = [
-                                    'post_id' => $result->id,
-                                    'topic_id' => $topic->id,
-                                    'topic_title' => $topic->haber_title,
-                                    'post_author' => $result->post_creator,
-                                    'post_date' => $result->post_date,
-                                    'post_content' => $result->post_content
-                                ];
-
-                                break;
-                            }
-
-                            break;
-                        } else {
-                            break;
-                        }
-                    } else {
-                        // Topic, get associated post
                         $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
@@ -118,10 +89,6 @@ if (!isset($_GET['s'])) {
                         } else {
                             break;
                         }
-                    }
-
-                }
-            }
         }
 
         $results = array_values($results);
