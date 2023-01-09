@@ -163,6 +163,10 @@ class Log extends Instanceable {
             'report' => 'report',
             'curl_error' => 'curl_error'
         ],
+        'haberlers' => [
+            'delete' => 'haber_delete',
+            'create' => 'haber_create'
+        ],
         'api' => [
             // TODO
         ],

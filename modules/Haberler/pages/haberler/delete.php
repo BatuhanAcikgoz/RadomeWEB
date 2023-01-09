@@ -40,7 +40,7 @@ if ($user->hasPermission('admincp.haberlers')) {
         'deleted' => true,
     ]);
     //TODO: TOPIC
-    Log::getInstance()->log(Log::Action('haberlers/topic/delete'), $topic_id);
+    Log::getInstance()->log(Log::Action('haberlers/delete'), $topic_id);
 
     $haberlers = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
 

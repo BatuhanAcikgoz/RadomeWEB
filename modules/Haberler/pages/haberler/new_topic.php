@@ -114,6 +114,7 @@ if (Input::exists()) {
                     'created' => date('U')
                 ]);
 
+                Log::getInstance()->log(Log::Action('haberlers/create'), $topic_id);
 
                 // Get last post ID
                 $id = DB::getInstance()->lastId();
