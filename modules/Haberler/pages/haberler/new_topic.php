@@ -198,7 +198,7 @@ $content = Input::get('content');
                                 'new_haber',
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => '{{topic}}', 'replace_with' => Output::getClean($topic[0]->topic_title)],
                                 ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => '{{topic}}', 'replace_with' => Output::getClean($topic[0]->topic_title)],
-                                URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title'))))
+                                URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL(Input::get('title')))
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
