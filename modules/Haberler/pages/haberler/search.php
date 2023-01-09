@@ -92,6 +92,7 @@ if (!isset($_GET['s'])) {
         }
 
         $results = array_values($results);
+        $cache->store('result', $results, 60);
 
         if (!isset($_SESSION['last_haberler_search_query']) || $_SESSION['last_haberler_search_query'] != $_GET['s']) {
             $_SESSION['last_haberler_search'] = date('U');
