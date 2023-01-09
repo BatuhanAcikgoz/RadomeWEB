@@ -185,14 +185,15 @@ if ($haberler_query->topic_placeholder) {
     $placeholder = Output::getPurified($haberler_query->topic_placeholder);
 }
 
-$id = DB::getInstance()->lastId();
+
 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
-$topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
 $content = Input::get('content');
             if (count($users_following)) {
                 $users_following_info = [];
                 foreach ($users_following as $user_following) {
                         if ($user_following->existing_alerts == 0) {
+                            $id = DB::getInstance()->lastId();
+                            $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
                             Alert::create(
                                 $user_following->id,
                                 'new_haber',
