@@ -32,6 +32,11 @@ if (!count($topic)) {
     Redirect::to(URL::build('/haberler'));
 }
 
+if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
+    Session::flash('failure_post', $language->get('general', 'invalid_token'));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
+}
+
 $topic = $topic[0];
 
 if ($user->hasPermission('admincp.haberlers')) {

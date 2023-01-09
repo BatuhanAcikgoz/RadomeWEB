@@ -122,7 +122,6 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
                         <input type="hidden" name="tid" value="{$TOPIC_ID}">
                         <input type="hidden" name="number" value="{$reply.buttons.delete.NUMBER}">
-                        <input type="hidden" name="pid" value="{$reply.id}">
                         <input type="hidden" name="token" value="{$TOKEN}">
                         <button type="submit" class="btn btn-theme">{$reply.buttons.delete.TEXT}</button>
                     </form>
