@@ -151,12 +151,11 @@ if (Input::exists()) {
 
                 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
                 $content = Input::get('content');
+                $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
                             if (count($users_following)) {
                                 $users_following_info = [];
                                 foreach ($users_following as $user_following) {
                                         if ($user_following->existing_alerts == 0) {
-                                            $id = DB::getInstance()->lastId();
-                                            $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
                                             Alert::create(
                                                 $user_following->id,
                                                 'new_haber',
@@ -180,9 +179,9 @@ if (Input::exists()) {
                                     ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                                     [
                                         Output::getClean(SITE_NAME),
-                                        $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic[0]->haber_title]),
+                                        $language->get('emails', 'new_haber', ['topic' => $haberler->titleToURL(Input::get('title'))]),
                                         $language->get('emails', 'greeting'),
-                                        $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode(Input::get('content'))]),
+                                        $language->get('emails', 'new_haber_content', ['content' => html_entity_decode(Input::get('content'))]),
                                         rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL(Input::get('title'))),
                                         $language->get('emails', 'thanks')
                                     ],
