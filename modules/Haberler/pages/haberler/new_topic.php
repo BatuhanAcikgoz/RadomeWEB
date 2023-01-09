@@ -115,8 +115,6 @@ if (Input::exists()) {
                     'created' => date('U')
                 ]);
 
-
-
                 // Get last post ID
                 $id = DB::getInstance()->lastId();
                 $content = EventHandler::executeEvent('preTopicCreate', [
