@@ -211,7 +211,7 @@ if (count($users_following)) {
             Output::getClean(SITE_NAME),
             $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
             $language->get('emails', 'greeting'),
-            $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
+            $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($topic->post_content)]),
             rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title)),
             $language->get('emails', 'thanks')
         ],
