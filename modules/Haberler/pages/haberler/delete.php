@@ -39,9 +39,9 @@ if (!isset($_POST['token']) || !Token::check($_POST['token'])) {
 
 $topic = $topic[0];
 
-if ($haberler->canModerateHaberler($topic->id, $user->getAllGroupIds())) {
+if ($user->hasPermission('admincp.haberlers')) {
 
-    DB::getInstance()->update('topics', $topic_id, [
+    DB::getInstance()->update('haberlers', $topic_id, [
         'deleted' => true,
     ]);
     //TODO: TOPIC
