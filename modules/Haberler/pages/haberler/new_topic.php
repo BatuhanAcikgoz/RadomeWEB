@@ -131,58 +131,6 @@ if (Input::exists()) {
                     'post_content' => $content
                 ]);
 
-                $id = DB::getInstance()->lastId();
-                $users_following = DB::getInstance()->get('users', ['active', 1])->results();
-                $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
-                $topic = $topic[0];
-                $content = Input::get('content');
-                if (count($users_following)) {
-                    $users_following_info = [];
-                    foreach ($users_following as $user_following) {
-                                Alert::create(
-                                    $user_following->id,
-                                    'new_reply',
-                                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
-                                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
-                                    URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title))
-                                );
-                    }
-                    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
-                    $html = file_get_contents($path);
-                
-                    $message = str_replace(
-                        ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
-                        [
-                            Output::getClean(SITE_NAME),
-                            $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
-                            $language->get('emails', 'greeting'),
-                            $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                            rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title)),
-                            $language->get('emails', 'thanks')
-                        ],
-                        $html
-                    );
-                    $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]);
-                
-                    $reply_to = Email::getReplyTo();
-                    foreach ($users_following_info as $user_info) {
-                        $sent = Email::send(
-                            ['email' => $user_info['email'], 'name' => $user_info['username']],
-                            $subject,
-                            $message,
-                            $reply_to
-                        );
-                
-                        if (isset($sent['error'])) {
-                            DB::getInstance()->insert('email_errors', [
-                                'type' => Email::FORUM_TOPIC_REPLY,
-                                'content' => $sent['error'],
-                                'at' => date('U'),
-                                'user_id' => ($user->data()->id)
-                            ]);
-                        }
-                    }
-                }
 
                 // Execute hooks and pass $available_hooks
                 $default_haberler_language = new Language(ROOT_PATH . '/modules/Haberler/language', DEFAULT_LANGUAGE);
@@ -235,6 +183,63 @@ $haberler_query = $haberler_query[0];
 // Placeholder?
 if ($haberler_query->topic_placeholder) {
     $placeholder = Output::getPurified($haberler_query->topic_placeholder);
+}
+
+$id = DB::getInstance()->lastId();
+$users_following = DB::getInstance()->get('users', ['active', 1])->results();
+$topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
+$topic = $topic[0];
+$content = Input::get('content');
+if (count($users_following)) {
+    $users_following_info = [];
+    foreach ($users_following as $user_following) {
+                Alert::create(
+                    $user_following->id,
+                    'new_reply',
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
+                    URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title))
+                );
+                $user_info = DB::getInstance()->get('users', ['id', $user_following->id])->results();
+                if ($user_info[0]->topic_updates) {
+                    $users_following_info[] = ['email' => $user_info[0]->email, 'username' => $user_info[0]->username];
+                }
+    }
+    $path = implode(DIRECTORY_SEPARATOR, [ROOT_PATH, 'custom', 'templates', TEMPLATE, 'email', 'forum_topic_reply.html']);
+    $html = file_get_contents($path);
+
+    $message = str_replace(
+        ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
+        [
+            Output::getClean(SITE_NAME),
+            $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
+            $language->get('emails', 'greeting'),
+            $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
+            rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic->haber_title)),
+            $language->get('emails', 'thanks')
+        ],
+        $html
+    );
+    $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]);
+
+    $reply_to = Email::getReplyTo();
+    foreach ($users_following_info as $user_info) {
+        $sent = Email::send(
+            ['email' => $user_info['email'], 'name' => $user_info['username']],
+            $subject,
+            $message,
+            $reply_to
+        );
+
+        if (isset($sent['error'])) {
+            DB::getInstance()->insert('email_errors', [
+                'type' => Email::FORUM_TOPIC_REPLY,
+                'content' => $sent['error'],
+                'at' => date('U'),
+                'user_id' => ($user->data()->id)
+            ]);
+        }
+    }
 }
 
 // Smarty variables
