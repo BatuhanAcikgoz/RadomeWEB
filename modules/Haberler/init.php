@@ -35,12 +35,6 @@ if (!isset($front_page_modules)) {
 }
 $front_page_modules[] = 'modules/Haberler/front_page.php';
 
-// Profile page tab
-if (!isset($profile_tabs)) {
-    $profile_tabs = [];
-}
-$profile_tabs['haberler'] = ['title' => $haberler_language->get('haberler', 'haberler'), 'smarty_template' => 'haberler/profile_tab.tpl', 'require' => ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Haberler' . DIRECTORY_SEPARATOR . 'profile_tab.php'];
-
 // Following topics UserCP sidebar
 $cc_nav->add('cc_following_topics', $haberler_language->get('haberler', 'following_topics'), URL::build('/user/following_topics'));
 
