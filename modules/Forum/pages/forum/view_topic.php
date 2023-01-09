@@ -327,7 +327,7 @@ if (Input::exists()) {
                         if ($user_following->existing_alerts == 0) {
                             Alert::create(
                                 $user_following->user_id,
-                                'new_haber',
+                                'new_reply',
                                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 ['path' => ROOT_PATH . '/modules/Forum/language', 'file' => 'forum', 'term' => 'new_reply_in_topic', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
                                 URL::build('/forum/konu/' . urlencode($tid) . '-' . $forum->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
