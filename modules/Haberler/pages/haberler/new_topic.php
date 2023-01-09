@@ -193,8 +193,8 @@ if (count($users_following)) {
                 Alert::create(
                     $user_following->id,
                     'new_reply',
-                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->haber_title)]],
-                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->haber_title)]],
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
+                    ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->username), Output::getClean($topic->haber_title)]],
                     URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title), 'pid=' . $last_post_id)
                 );
             $user_info = DB::getInstance()->get('users', ['id', $user_following->id])->results();
