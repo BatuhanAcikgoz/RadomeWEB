@@ -188,7 +188,6 @@ if ($haberler_query->topic_placeholder) {
 $id = DB::getInstance()->lastId();
 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
 $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
-$topic = $topic[0];
 $content = Input::get('content');
             if (count($users_following)) {
                 $users_following_info = [];
@@ -197,9 +196,9 @@ $content = Input::get('content');
                             Alert::create(
                                 $user_following->id,
                                 'new_reply',
-                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic->topic_title)]],
-                                URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->topic_title), 'pid=' . $last_post_id)
+                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic[0]->topic_title)]],
+                                ['path' => ROOT_PATH . '/modules/Haberler/language', 'file' => 'haberler', 'term' => 'new_haber', 'replace' => ['{{author}}', '{{topic}}'], 'replace_with' => [Output::getClean($user->data()->nickname), Output::getClean($topic[0]->topic_title)]],
+                                URL::build('/haberler/konu/' . urlencode($id) . '-' . $haberler->titleToURL($topic[0]->haber_title))
                             );
                             DB::getInstance()->update('topics_following', $user_following->id, [
                                 'existing_alerts' => 1
@@ -217,15 +216,15 @@ $content = Input::get('content');
                     ['[Sitename]', '[TopicReply]', '[Greeting]', '[Message]', '[Link]', '[Thanks]'],
                     [
                         Output::getClean(SITE_NAME),
-                        $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]),
+                        $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic[0]->haber_title]),
                         $language->get('emails', 'greeting'),
                         $language->get('emails', 'new_haber_content', ['author' => $user->data()->username, 'content' => html_entity_decode($content)]),
-                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic->haber_title)),
+                        rtrim(URL::getSelfURL(), '/') . URL::build('/haberler/konu/' . urlencode($tid) . '-' . $haberler->titleToURL($topic[0]->haber_title)),
                         $language->get('emails', 'thanks')
                     ],
                     $html
                 );
-                $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic->haber_title]);
+                $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic[0]->haber_title]);
 
                 $reply_to = Email::getReplyTo();
                 foreach ($users_following_info as $user_info) {
