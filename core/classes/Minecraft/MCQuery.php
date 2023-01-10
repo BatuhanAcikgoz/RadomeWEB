@@ -60,7 +60,7 @@ class MCQuery {
                 }
 
                 if (!$bedrock) {
-                    $ping = new MinecraftPing($query_ip[0], $query_ip[1], 5);
+                    $ping = new MinecraftPing($query_ip[0], $query_ip[1], 20);
 
                     if ($ip['pre'] == 1) {
                         $query = $ping->QueryOldPre17();
@@ -161,8 +161,9 @@ class MCQuery {
                 'value' => $error
             ];
         }
+        $query->Close;
     }
-
+    
     /**
      * Formats a list of players into something useful for the frontend.
      *
