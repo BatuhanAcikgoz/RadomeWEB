@@ -105,26 +105,24 @@
 					</thead>
 					<tbody>
 <?php if( $Info !== false ): ?>
-<?php foreach( $Info->players as $InfoKey => $InfoValue ): ?>
 						<tr>
-							<td><?php echo htmlspecialchars( $InfoKey ); ?></td>
+							<td><?php echo htmlspecialchars( $Info->players ); ?></td>
 							<td><?php
 	if( $InfoKey === 'favicon' )
 	{
-		echo '<img width="64" height="64" src="' . Str_Replace( "\n", "", $InfoValue ) . '">';
-	}else if( Is_Array( $InfoValue ) )
+		echo '<img width="64" height="64" src="' . Str_Replace( "\n", "", ) . '">';
+	}else if( Is_Array( $Info->players ) )
 	{
 		echo "<pre>";
-		print_r( $InfoValue );
+		print_r( $Info->players );
 		echo "</pre>";
 	}
 	else
 	{
-		echo htmlspecialchars( $InfoValue );
+		echo htmlspecialchars( $Info->players );
 	}
 ?></td>
 						</tr>
-<?php endforeach; ?>
 <?php else: ?>
 						<tr>
 							<td colspan="2">No information received</td>
