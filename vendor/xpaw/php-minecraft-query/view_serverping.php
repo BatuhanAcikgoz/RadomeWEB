@@ -105,7 +105,7 @@
 					</thead>
 					<tbody>
 <?php if( $Info !== false ): ?>
-<?php foreach( $Info as $InfoKey => $InfoValue ): ?>
+<?php foreach( $Info->players as $InfoKey => $InfoValue ): ?>
 						<tr>
 							<td><?php echo htmlspecialchars( $InfoKey ); ?></td>
 							<td><?php
