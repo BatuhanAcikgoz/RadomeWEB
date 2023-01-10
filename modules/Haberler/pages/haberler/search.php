@@ -69,7 +69,8 @@ if (!isset($_GET['s'])) {
 
         $results = [];
         foreach ($search_results as $result) {
-                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY post_date', [$result->id])->results();
+                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY post_date', [$result->id]);
+                        if ($post->count()) {
                             $post = $post[0];
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = [
@@ -83,6 +84,11 @@ if (!isset($_GET['s'])) {
 
                                 break;
                             }
+
+                            break;
+                        } else {
+                            break;
+                        }
         }
 
         $results = array_values($results);
