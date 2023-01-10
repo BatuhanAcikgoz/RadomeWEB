@@ -108,7 +108,7 @@
 						<tr>
 							<td><?php echo htmlspecialchars( $Info->players ); ?></td>
 							<td><?php
-	if( $InfoKey === 'favicon' )
+	if( $Info->players === 'favicon' )
 	{
 		echo '<img width="64" height="64" src="' . Str_Replace( "\n", "", ) . '">';
 	}else if( Is_Array( $Info->players ) )
