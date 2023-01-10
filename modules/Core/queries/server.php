@@ -30,7 +30,7 @@ if ($cache->isCached('result')) {
     ];
 
     $result = json_encode(MCQuery::singleQuery($full_ip, $query_type, $server->bedrock, $language), JSON_PRETTY_PRINT);
-    $cache->store('result', $result, 30);
+    //$cache->store('result', $result, 30);
     echo $result;
 }
 
