@@ -109,7 +109,7 @@
 							<td><?php echo htmlspecialchars( $Info->players ); ?></td>
 							<td><?php
 		echo "<pre>";
-		print_r( $Info->players );
+		print_r( $Info[players] );
 		echo "</pre>";
 ?></td>
 						</tr>
