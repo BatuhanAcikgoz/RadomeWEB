@@ -25,7 +25,7 @@
 		$Query = new MinecraftPing( MQ_SERVER_ADDR, MQ_SERVER_PORT, MQ_TIMEOUT );
 
 		$Info = $Query->Query( );
-
+		$Info = $Info['players'];
 		if( $Info === false )
 		{
 			/*
@@ -105,14 +105,26 @@
 					</thead>
 					<tbody>
 <?php if( $Info !== false ): ?>
+<?php foreach( $Info as $InfoKey => $InfoValue ): ?>
 						<tr>
-							<td><?php echo htmlspecialchars( $Info->players ); ?></td>
+							<td><?php echo htmlspecialchars( $InfoKey ); ?></td>
 							<td><?php
+	if( $InfoKey === 'favicon' )
+	{
+		echo '<img width="64" height="64" src="' . Str_Replace( "\n", "", $InfoValue ) . '">';
+	}else if( Is_Array( $InfoValue ) )
+	{
 		echo "<pre>";
-		print_r( $Info[players] );
+		print_r( $InfoValue );
 		echo "</pre>";
+	}
+	else
+	{
+		echo htmlspecialchars( $InfoValue );
+	}
 ?></td>
 						</tr>
+<?php endforeach; ?>
 <?php else: ?>
 						<tr>
 							<td colspan="2">No information received</td>
