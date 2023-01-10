@@ -69,7 +69,7 @@ if (!isset($_GET['s'])) {
 
         $results = [];
         foreach ($search_results as $result) {
-                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY post_date', [$result->id]);
+                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
                             $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
