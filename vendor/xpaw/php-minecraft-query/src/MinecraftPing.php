@@ -150,7 +150,7 @@ class MinecraftPing
 	public function QueryOldPre17( )
 	{
 		fwrite( $this->Socket, "\xFE\x01" );
-		$Data = fread( $this->Socket, 512 );
+		$Data = fread( $this->Socket, 1024 );
 		$Len = StrLen( $Data );
 
 		if( $Len < 4 || $Data[ 0 ] !== "\xFF" )
