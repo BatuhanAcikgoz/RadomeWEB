@@ -69,7 +69,7 @@ if (!isset($_GET['s'])) {
 
         $results = [];
         foreach ($search_results as $result) {
-                            if (!isset($results[$post->id]) && $post->deleted == 0) {
+                            if ($post->deleted == 0) {
                                 $results[$post->id] = [
                                     'post_id' => $result->id,
                                     'topic_id' => $result->id,
