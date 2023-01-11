@@ -69,7 +69,6 @@ if (!isset($_GET['s'])) {
 
         $results = [];
         foreach ($search_results as $result) {
-                        if ($post->count()) {
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = [
                                     'post_id' => $result->id,
@@ -82,11 +81,6 @@ if (!isset($_GET['s'])) {
 
                                 break;
                             }
-
-                            break;
-                        } else {
-                            break;
-                        }
         }
 
         $results = array_values($results);
