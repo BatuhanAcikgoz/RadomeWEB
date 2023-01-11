@@ -54,8 +54,8 @@ if (!isset($_GET['s'])) {
         $p = 1;
     }
 
-    if (isset($_SESSION['last_haberler_search']) && $_SESSION['last_haberler_search_query'] != $_GET['s'] && $_SESSION['last_haberler_search'] > strtotime('-1 minute')) {
-        Session::flash('search_error', $haberler_language->get('haberler', 'search_again_in_x_seconds', ['count' => (60 - (date('U') - $_SESSION['last_haberler_search']))]));
+    if (isset($_SESSION['last_haberler_search']) && $_SESSION['last_haberler_search_query'] != $_GET['s'] && $_SESSION['last_haberler_search'] > strtotime('-30 seconds')) {
+        Session::flash('search_error', $haberler_language->get('haberler', 'search_again_in_x_seconds', ['count' => (30 - (date('U') - $_SESSION['last_haberler_search']))]));
         Redirect::to(URL::build('/haberler/search'));
     }
 
