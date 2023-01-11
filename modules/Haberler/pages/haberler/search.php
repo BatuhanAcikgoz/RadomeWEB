@@ -69,17 +69,15 @@ if (!isset($_GET['s'])) {
 
         $results = [];
         foreach ($search_results as $result) {
-                        $post = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY post_date ASC LIMIT 1', [$result->id]);
                         if ($post->count()) {
-                            $post = $post->first();
                             if (!isset($results[$post->id]) && $post->deleted == 0) {
                                 $results[$post->id] = [
-                                    'post_id' => $post->id,
+                                    'post_id' => $result->id,
                                     'topic_id' => $result->id,
                                     'topic_title' => $result->haber_title,
-                                    'post_author' => $post->post_creator,
-                                    'post_date' => $post->post_date,
-                                    'post_content' => $post->post_content
+                                    'post_author' => $result->post_creator,
+                                    'post_date' => $result->post_date,
+                                    'post_content' => $result->post_content
                                 ];
 
                                 break;
@@ -92,7 +90,7 @@ if (!isset($_GET['s'])) {
         }
 
         $results = array_values($results);
-        $cache->store('result', $results, 60);
+        $cache->store('result', $results, 1);
 
         if (!isset($_SESSION['last_haberler_search_query']) || $_SESSION['last_haberler_search_query'] != $_GET['s']) {
             $_SESSION['last_haberler_search'] = date('U');
