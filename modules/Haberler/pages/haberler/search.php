@@ -62,7 +62,7 @@ if (!isset($_GET['s'])) {
     $cache->setCache($search . '-' . rtrim(implode('-', $user_groups), '-'));
     if (!$cache->isCached('result')) {
         // Execute search
-        $search_results = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE haber_title and post_content LIKE ?', ['%' . $search . '%'])->results();
+        $search_results = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE haber_title and post_content LIKE ?', [$search])->results();
 
         $results = [];
         foreach ($search_results as $result) {
