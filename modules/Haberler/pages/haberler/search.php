@@ -67,7 +67,7 @@ if (!isset($_GET['s'])) {
         $results = [];
         foreach ($search_results as $result) {
                             if ($post->deleted == 0) {
-                                $results[$post->id] = [
+                                $results[] = [
                                     'post_id' => $result->id,
                                     'topic_id' => $result->id,
                                     'topic_title' => $result->haber_title,
@@ -75,8 +75,6 @@ if (!isset($_GET['s'])) {
                                     'post_date' => $result->post_date,
                                     'post_content' => $result->post_content
                                 ];
-
-                                break;
                             }
         }
 
