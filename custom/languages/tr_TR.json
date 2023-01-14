@@ -767,7 +767,7 @@
     "table/display_records_per_page": "Display _MENU_ records per page",
     "table/filtered": "(filtered from _MAX_ total records)",
     "table/no_records": "Kayıt Yok",
-    "table/nothing_found": "Sonuş Bulunamadı",
+    "table/nothing_found": "Sonuç Bulunamadı",
     "table/page_x_of_y": "Showing page _PAGE_ of _PAGES_",
     "time/1_day": "1 gün önce",
     "time/1_minute": "1 dakika önce",
