@@ -88,7 +88,7 @@
           <h3>{$PURCHASE}</h3>
           <hr />
           <div class="field">
-            <div class="form-group custom-control custom-switchx" style="display:inline;">
+            <div class="form-group custom-control custom-switch" style="display:inline;">
               <input type="hidden" name="token" value="{$TOKEN}">
               <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}</label>
               <span class="left floated"><input type="submit" class="btn btn-theme" value="{$PURCHASE} &raquo;"></span>

@@ -14,9 +14,9 @@
     {/if}
     
        <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
-      <div class="ui segment">
+      <div class="card">
 
-        <h1 style="display:inline;">{$STORE} &raquo; {$PRODUCT_NAME}</h1>
+        <h1 class="card-header header-theme" style="display:inline;">{$STORE} &raquo; {$PRODUCT_NAME}</h1>
         {include file='store/navbar.tpl'}
         
         </br>
@@ -52,7 +52,7 @@
               {if $field.type == "1"}
                 <input type="text" name="{$field.id}" id="{$field.id}" value="{$field.value}" placeholder="{$field.description}" {if $field.required}required{/if}>
               {elseif $field.type == "2"}
-                <select class="ui fluid dropdown" name="{$field.id}" id="{$field.id}" {if $field.required}required{/if}>
+                <select class="dropdown-menu" name="{$field.id}" id="{$field.id}" {if $field.required}required{/if}>
                   {foreach from=$field.options item=option}
                   <option value="{$option}" {if $option eq $field.value} selected{/if}>{$option}</option>
                   {/foreach}
