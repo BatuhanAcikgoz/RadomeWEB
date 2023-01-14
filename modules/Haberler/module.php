@@ -145,17 +145,6 @@ class Haberler_Module extends Module {
                 'post_id' => $this->_haberler_language->get('haberler', 'post_id'),
             ]
         );
-        EventHandler::registerListener('prePostCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('prePostEdit', 'MentionsHook::preEdit');
-        EventHandler::registerListener('preTopicCreate', 'MentionsHook::preCreate');
-        EventHandler::registerListener('preTopicEdit', 'MentionsHook::preEdit');
-
-        EventHandler::registerListener('renderPost', 'ContentHook::purify');
-        EventHandler::registerListener('renderPost', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPost', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPost', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderPost', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderHaber', 'ContentHook::purify');
         EventHandler::registerListener('renderHaber', 'ContentHook::codeTransform', 15);
@@ -163,11 +152,6 @@ class Haberler_Module extends Module {
         EventHandler::registerListener('renderHaber', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderHaber', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderHaber', 'MentionsHook::parsePost', 5);
-
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderPostEdit', 'ContentHook::replaceAnchors', 15);
     }
 
     public function onInstall() {
