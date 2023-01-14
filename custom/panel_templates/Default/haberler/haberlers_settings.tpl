@@ -25,7 +25,6 @@
                         <h1 class="h3 mb-0 text-gray-800">{$SETTINGS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
-                            <li class="breadcrumb-item active">{$FORUM}</li>
                             <li class="breadcrumb-item active">{$SETTINGS}</li>
                         </ol>
                     </div>
@@ -52,14 +51,6 @@
                                         <option value="4" {if $LINK_LOCATION_VALUE eq 4} selected{/if}>{$LINK_NONE}
                                         </option>
                                     </select>
-                                </div>
-
-                                <div class="form-group custom-control custom-switch">
-                                    <input id="InputUseReactions" name="use_reactions" type="checkbox"
-                                        class="custom-control-input" {if $USE_REACTIONS_VALUE} checked{/if} />
-                                    <label for="InputUseReactions" class="custom-control-label">
-                                        {$USE_REACTIONS}
-                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
