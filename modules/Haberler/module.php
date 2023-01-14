@@ -158,11 +158,11 @@ class Haberler_Module extends Module {
         EventHandler::registerListener('renderPost', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderHaber', 'ContentHook::purify');
-        EventHandler::registerListener('renderHaber', 'ContentHook::codeTransform', 3);
-        EventHandler::registerListener('renderHaber', 'ContentHook::decode', 4);
-        EventHandler::registerListener('renderHaber', 'ContentHook::renderEmojis', 2);
-        EventHandler::registerListener('renderHaber', 'ContentHook::replaceAnchors', 3);
-        EventHandler::registerListener('renderHaber', 'MentionsHook::parsePost', 1);
+        EventHandler::registerListener('renderHaber', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderHaber', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderHaber', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderHaber', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderHaber', 'MentionsHook::parsePost', 5);
 
         EventHandler::registerListener('renderPostEdit', 'ContentHook::purify');
         EventHandler::registerListener('renderPostEdit', 'ContentHook::codeTransform', 15);
