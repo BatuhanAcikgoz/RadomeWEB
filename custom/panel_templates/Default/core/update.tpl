@@ -37,13 +37,11 @@
                             {if isset($PHP_WARNING)}
                                 <div class="alert bg-danger text-white">{$PHP_WARNING}</div>
                             {/if}
-                                    <div class="alert bg-primary text-white">
-                                        {$CURRENT_VERSION}
-                                    </div>
-                                    <hr />
+                                    
                                     <div class="alert bg-success text-white">
                                         <span><i class="icon fa fa-check"></i>&nbsp;&nbsp;{$UP_TO_DATE}</span>
                                     </div>
+                                    <hr />
                                     <a href="{$CHECK_AGAIN_LINK}" class="btn btn-primary">{$CHECK_AGAIN}</a>
                         </div>
                     </div>
