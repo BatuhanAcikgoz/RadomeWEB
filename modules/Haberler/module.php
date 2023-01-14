@@ -19,11 +19,11 @@ class Haberler_Module extends Module {
         $this->_haberler_language = $haberler_language;
 
         $name = 'Haberler';
-        $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Samerton</a>';
+        $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '2.0.2';
-        $nameless_version = '2.0.2';
+        $radome_version = '2.0.2';
 
-        parent::__construct($this, $name, $author, $module_version, $nameless_version);
+        parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Define URLs which belong to this module
         $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
