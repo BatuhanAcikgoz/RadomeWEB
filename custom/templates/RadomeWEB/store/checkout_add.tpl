@@ -80,10 +80,10 @@
                       <label>{$option}</label>
                     </div>
                   </div>
-                  <hr />
                 {/foreach}
               {/if}
             </div>
+            <hr />
           {/foreach}
           
           <div class="field" style="margin: 20px;">
