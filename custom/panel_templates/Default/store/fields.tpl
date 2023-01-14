@@ -64,14 +64,14 @@
                                     <tbody>
                                     {foreach from=$FIELDS_LIST item=field}
                                         <tr>
-                                            <td><a href="{$field.edit_link}">{$field.identifier}</a> {if $field.identifier == '{quantity}'}&nbsp;<button role="button" class="btn btn-sm btn-warning" data-toggle="popover" data-title="Early access" data-content="This feature is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you"><i class="fa-brands fa-patreon"></i></button>{/if}</td>
+                                            <td><a href="{$field.edit_link}">{$field.identifier}</a></td>
                                             <td>{$field.description}</td>
                                             <td>{$field.type}</td>
                                             <td>{if $field.required eq 1}<i class="fa fa-check-circle text-success"></i>{else}<i class="fa fa-times-circle text-danger"></i>{/if}</td>
                                             <td>
                                                 <div class="float-md-right">
                                                     <a class="btn btn-warning btn-sm" href="{$field.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
-                                                    {if $field.identifier != '{quantity}'}<button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$field.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>{else}<button class="btn btn-danger btn-sm" type="button"><i class="fa fa-lock fa-fw"></i></button>{/if}
+                                                    <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteModal('{$field.delete_link}')">
                                                 </div>
                                             </td>
                                         </tr>

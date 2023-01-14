@@ -532,25 +532,6 @@ class Magaza_Module extends Module {
             ]);
         }
 
-        if (!$this->_db->showTables('store_fields')) {
-            try {
-                $this->_db->createTable("store_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `identifier` varchar(32) NOT NULL, `description` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `options` text NULL, `regex` varchar(64) DEFAULT NULL, `default_value` varchar(64) NOT NULL DEFAULT '', `deleted` int(11) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
-
-                $this->_db->insert('store_fields', [
-                    'identifier' => 'quantity',
-                    'description' => 'Quantity',
-                    'type' => '4',
-                    'required' => '1',
-                    'min' => '1',
-                    'max' => '2',
-                    'default_value' => '1',
-                    'order' => '0'
-                ]);
-            } catch (Exception $e) {
-                // Error
-            }
-        }
-
         try {
             // Update main admin group permissions
             $group = $this->_db->get('groups', ['id', '=', 2])->results();

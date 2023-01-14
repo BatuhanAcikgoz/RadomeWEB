@@ -187,16 +187,6 @@ class DatabaseInitialiser {
             'displayname' => 'Kredi',
             'enabled' => 1
         ]);
-        $this->_db->insert('store_fields', [
-            'identifier' => 'quantity',
-            'description' => 'Quantity',
-            'type' => '4',
-            'required' => '1',
-            'min' => '1',
-            'max' => '2',
-            'default_value' => '1',
-            'order' => '0'
-        ]);
         $gateway_exists = $this->_db->get('store_gateways', ['name', '=', 'Kredi']);
         if (!$gateway_exists->count()) {
             $this->_db->insert('store_gateways', [
