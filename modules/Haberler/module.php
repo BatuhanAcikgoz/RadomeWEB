@@ -26,7 +26,7 @@ class Haberler_Module extends Module {
         parent::__construct($this, $name, $author, $module_version, $nameless_version);
 
         // Define URLs which belong to this module
-        $pages->add('Haberler', '/panel/haberlers', 'pages/panel/haberlers.php');
+        $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
 
         $pages->add('Haberler', '/haberler', 'pages/haberler/view_haberler.php', 'haberler', true);
         $pages->add('Haberler', '/haberler/hata', 'pages/haberler/error.php');
