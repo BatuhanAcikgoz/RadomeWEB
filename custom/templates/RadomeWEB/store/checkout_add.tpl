@@ -42,17 +42,17 @@
         {/if}
         
         <form class="ui form" action="" method="post" id="forms">
-          <h3>{$PRODUCT_NAME}</h3>
+          <h3 style="margin: 20px;">{$PRODUCT_NAME}</h3>
           <div class="ui divider"></div>
           
           {foreach from=$PRODUCT_FIELDS item=field}
-            <div class="field">
+            <div class="field" style="margin: 20px;">
               <label for="{$field.id}">{$field.description} {if $field.required} <span class="text-danger"><strong>*</strong></span>{/if}</label>
               
               {if $field.type == "1"}
                 <input type="text" name="{$field.id}" id="{$field.id}" value="{$field.value}" placeholder="{$field.description}" {if $field.required}required{/if}>
               {elseif $field.type == "2"}
-                <select class="dropdown-menu" name="{$field.id}" id="{$field.id}" {if $field.required}required{/if}>
+                <select class="rounded-lg dropdown" name="{$field.id}" id="{$field.id}" {if $field.required}required{/if}>
                   {foreach from=$field.options item=option}
                   <option value="{$option}" {if $option eq $field.value} selected{/if}>{$option}</option>
                   {/foreach}
@@ -62,7 +62,7 @@
               {elseif $field.type == "4"}
                 <input type="number" name="{$field.id}" id="{$field.id}" value="{$field.value}" placeholder="{$field.description}" {if $field.required}required{/if}>
               {elseif $field.type == "5"}
-                <input type="email" name="{$field.id}" id="{$field.id}" value="{$field.value}" placeholder="{$field.description}" {if $field.required}required{/if}>
+                <input class="rounded-lg" type="email" name="{$field.id}" id="{$field.id}" value="{$field.value}" placeholder="{$field.description}" {if $field.required}required{/if}>
               {elseif $field.type == "6"}
                 {foreach from=$field.options item=option}
                   <div class="field">
@@ -80,14 +80,15 @@
                       <label>{$option}</label>
                     </div>
                   </div>
+                  <hr />
                 {/foreach}
               {/if}
             </div>
           {/foreach}
           
-          <div class="field">
+          <div class="field" style="margin: 20px;">
               <input type="hidden" name="token" value="{$TOKEN}">
-              <input type="submit" class="ui green button" value="{$CONTINUE}">
+              <input type="submit" class="btn btn-theme primary" value="{$CONTINUE}">
           </div>
 
         </form>
