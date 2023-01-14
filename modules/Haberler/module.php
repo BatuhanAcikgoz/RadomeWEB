@@ -27,8 +27,6 @@ class Haberler_Module extends Module {
 
         // Define URLs which belong to this module
         $pages->add('Haberler', '/panel/haberlers', 'pages/panel/haberlers.php');
-        $pages->add('Haberler', '/panel/haberlers/labels', 'pages/panel/labels.php');
-        $pages->add('Haberler', '/panel/haberlers/settings', 'pages/panel/settings.php');
 
         $pages->add('Haberler', '/haberler', 'pages/haberler/view_haberler.php', 'haberler', true);
         $pages->add('Haberler', '/haberler/hata', 'pages/haberler/error.php');
@@ -283,23 +281,6 @@ class Haberler_Module extends Module {
                     $navs[2]->add('haberler_divider', mb_strtoupper($this->_haberler_language->get('haberler', 'haberler'), 'UTF-8'), 'divider', 'top', null, $order, '');
                     $navs[2]->add('haberler_settings', $this->_language->get('admin', 'settings'), URL::build('/panel/haberlers/settings'), 'top', null, $order + 0.1, $icon);
 
-                    if (!$cache->isCached('haberler_icon')) {
-                        $icon = '<i class="nav-icon fas fa-comments"></i>';
-                        $cache->store('haberler_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('haberler_icon');
-                    }
-
-                    $navs[2]->add('haberlers', $this->_haberler_language->get('haberler', 'haberlers'), URL::build('/panel/haberlers'), 'top', null, $order + 0.2, $icon);
-
-                    if (!$cache->isCached('haberler_label_icon')) {
-                        $icon = '<i class="nav-icon fas fa-tags"></i>';
-                        $cache->store('haberler_label_icon', $icon);
-                    } else {
-                        $icon = $cache->retrieve('haberler_label_icon');
-                    }
-
-                    $navs[2]->add('haberler_labels', $this->_haberler_language->get('haberler', 'labels'), URL::build('/panel/haberlers/labels'), 'top', null, $order + 0.3, $icon);
                 }
 
             }
