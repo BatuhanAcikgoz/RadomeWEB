@@ -44,7 +44,7 @@
         <form class="ui form" action="" method="post" id="forms">
           <h3 style="margin: 20px;">{$PRODUCT_NAME}</h3>
           <div class="ui divider"></div>
-          
+          <hr />
           {foreach from=$PRODUCT_FIELDS item=field}
             <div class="field" style="margin: 20px;">
               <label for="{$field.id}">{$field.description} {if $field.required} <span class="text-danger"><strong>*</strong></span>{/if}</label>
