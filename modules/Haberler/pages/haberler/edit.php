@@ -150,6 +150,13 @@ if (isset($errors)) {
 
 $smarty->assign('EDITING_POST', $haberler_language->get('haberler', 'edit_post'));
 
+if (isset($edit_title, $post_labels)) {
+    $smarty->assign('EDITING_TOPIC', true);
+
+    $smarty->assign('TOPIC_TITLE_VALUE', $post_title);
+
+}
+
 // Purify post content
 $content = EventHandler::executeEvent('renderPostEdit', [
     'content' => $post_editing[0]->post_content,
