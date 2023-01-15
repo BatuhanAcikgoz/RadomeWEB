@@ -13,7 +13,7 @@
                 <form action="" method="post">
                     {if isset($EDITING_TOPIC)}
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="title" value="{$TOPIC_TITLE}">
+                        <input type="text" class="form-control form-control-lg" name="title" value="{$TOPIC_TITLE_VALUE}">
                     </div>
                     {/if} {if isset($MARKDOWN)}
                     <div class="form-group">
