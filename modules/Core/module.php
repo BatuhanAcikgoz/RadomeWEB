@@ -669,26 +669,6 @@ class Core_Module extends Module {
         define('PRE_VALIDATED_DEFAULT', $group_id);
 
 
-
-                if (!is_string($update_check) && $update_check->updateAvailable()) {
-                    $smarty->assign([
-                        'NEW_UPDATE' => $update_check->isUrgent()
-                            ? $language->get('admin', 'new_urgent_update_available')
-                            : $language->get('admin', 'new_update_available'),
-                        'NEW_UPDATE_URGENT' => $update_check->isUrgent(),
-                        'CURRENT_VERSION' => $language->get('admin', 'current_version_x', [
-                            'version' => Output::getClean(RADOME_VERSION)
-                        ]),
-                        'NEW_VERSION' => $language->get('admin', 'new_version_x', [
-                            'version' => Output::getClean($update_check->version())
-                        ]),
-                        'RADOME_UPDATE' => $language->get('admin', 'update'),
-                        'RADOME_UPDATE_LINK' => URL::build('/panel/guncelleme')
-                    ]);
-                }
-            }
-        }
-
         if (defined('MINECRAFT') && MINECRAFT === true) {
             // Status page?
             $cache->setCache('status_page');
