@@ -165,7 +165,8 @@ class Log extends Instanceable {
         ],
         'haberlers' => [
             'delete' => 'haber_delete',
-            'create' => 'haber_create'
+            'create' => 'haber_create',
+            'edit' => 'haber_edit'
         ],
         'api' => [
             // TODO
