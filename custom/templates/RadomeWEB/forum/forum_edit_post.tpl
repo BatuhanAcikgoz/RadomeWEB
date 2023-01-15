@@ -13,7 +13,7 @@
                 <form action="" method="post">
                     {if isset($EDITING_TOPIC)}
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-lg" name="title" value="{$TOPIC_TITLE_VALUE}">
+                        <input type="text" class="form-control form-control-lg" name="title" placeholder="{$TOPIC_TITLE}" value="{$TOPIC_TITLE_VALUE}">
                     </div>
                     {if count($LABELS)}
                     <div class="form-group">
