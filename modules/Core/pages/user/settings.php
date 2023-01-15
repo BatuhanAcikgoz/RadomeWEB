@@ -50,9 +50,9 @@ if (isset($_GET['do'])) {
             $smarty->assign([
                 'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
                 'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $secret),
+                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $user->data()->tfa_secret),
                 'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
-                'TFA_CODE' => chunk_split($secret, 4, ' '),
+                'TFA_CODE' => chunk_split($user->data()->tfa_secret, 4, ' '),
                 'NEXT' => $language->get('general', 'next'),
                 'LINK' => URL::build('/kullanici/ayarlar/', 'do=enable_tfa&amp;s=2'),
                 'CANCEL' => $language->get('general', 'cancel'),
