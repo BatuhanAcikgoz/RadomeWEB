@@ -39,20 +39,16 @@ if (isset($_GET['do'])) {
                 $errors[] = Session::get('force_tfa_alert');
             }
 
-            // Generate secret
+                        // Generate secret
             $secret = $tfa->createSecret();
-
-            $user->update([
-                'tfa_secret' => $secret
-            ]);
 
             // Assign Smarty variables
             $smarty->assign([
                 'TWO_FACTOR_AUTH' => $language->get('user', 'two_factor_auth'),
                 'TFA_SCAN_CODE_TEXT' => $language->get('user', 'tfa_scan_code'),
-                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $user->data()->tfa_secret),
+                'IMG_SRC' => $tfa->getQRCodeImageAsDataUri(Output::getClean(SITE_NAME) . ':' . Output::getClean($user->data()->username), $secret),
                 'TFA_CODE_TEXT' => $language->get('user', 'tfa_code'),
-                'TFA_CODE' => chunk_split($user->data()->tfa_secret, 4, ' '),
+                'TFA_CODE' => chunk_split($secret, 4, ' '),
                 'NEXT' => $language->get('general', 'next'),
                 'LINK' => URL::build('/kullanici/ayarlar/', 'do=enable_tfa&amp;s=2'),
                 'CANCEL' => $language->get('general', 'cancel'),
@@ -79,6 +75,7 @@ if (isset($_GET['do'])) {
                             $user->update([
                                 'tfa_complete' => true,
                                 'tfa_enabled' => true,
+                                'tfa_secret' => $secret,
                                 'tfa_type' => 1
                             ]);
 
