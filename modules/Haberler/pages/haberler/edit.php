@@ -69,7 +69,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/haber/2' . urlencode($topic_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
+}
+
+if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($id, $user_groups))) {
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
 // Deal with input
@@ -134,7 +138,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $haberler_language->get('haberler', 'post_edited_successfully'));
-            Redirect::to(URL::build('/haberler/haber/12' . urlencode($topic_id)));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
         }
 
         // Error handling

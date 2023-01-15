@@ -293,14 +293,14 @@ foreach ($results->data as $n => $nValue) {
         // Edit button
         if ($user->hasPermission('admincp.haberlers')) {
             $buttons['edit'] = [
-                'URL' => URL::build('/haberler/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                'URL' => URL::build('/haberler/duzenle/', 'tid=' . $nValue->id),
                 'TEXT' => $haberler_language->get('haberler', 'edit')
             ];
         } else {
             if ($user->data()->id == $nValue->post_creator && $user->hasPermission('admincp.haberlers')) {
                 if ($topic->locked != 1) { // Can't edit if topic is locked
                     $buttons['edit'] = [
-                        'URL' => URL::build('/haberler/duzenle/', 'pid=' . $nValue->id . '&amp;tid=' . $tid),
+                        'URL' => URL::build('/haberler/duzenle/', 'tid=' . $nValue->id),
                         'TEXT' => $haberler_language->get('haberler', 'edit')
                     ];
                 }
