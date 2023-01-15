@@ -120,7 +120,7 @@ if (Input::exists()) {
 
             if (isset($edit_title)) {
 
-                DB::getInstance()->update('topics', $topic_id, [
+                DB::getInstance()->update('haberlers', $topic_id, [
                     'haber_title' => Input::get('title'),
                 ]);
 
