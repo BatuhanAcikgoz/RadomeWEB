@@ -47,7 +47,6 @@ if ($post_editing[0]->id == $topic_id) {
      */
 
     $post_title = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
-    $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->haber_title);
 }
 
@@ -124,7 +123,6 @@ if (Input::exists()) {
 
                 DB::getInstance()->update('topics', $topic_id, [
                     'haber_title' => Input::get('title'),
-                    'labels' => implode(',', $post_labels)
                 ]);
 
                 Log::getInstance()->log(Log::Action('haberlers/topic/edit'), Input::get('title'));
@@ -151,55 +149,6 @@ if (isset($errors)) {
 }
 
 $smarty->assign('EDITING_POST', $haberler_language->get('haberler', 'edit_post'));
-
-if (isset($edit_title, $post_labels)) {
-    $smarty->assign('EDITING_TOPIC', true);
-
-    $smarty->assign('TOPIC_TITLE_VALUE', $post_title);
-
-    // Topic labels
-    $smarty->assign('LABELS_TEXT', $haberler_language->get('haberler', 'label'));
-    $labels = [];
-
-    $haberler_labels = DB::getInstance()->get('haberlers_topic_labels', ['id', '<>', 0])->results();
-    if (count($haberler_labels)) {
-        foreach ($haberler_labels as $label) {
-            $ids = explode(',', $label->fids);
-
-            if (in_array($id, $ids)) {
-                // Check permissions
-                $lgroups = explode(',', $label->gids);
-                $perms = false;
-
-                foreach ($user_groups as $group) {
-                    if (in_array($group, $lgroups)) {
-                        $perms = true;
-                    }
-                }
-
-                if ($perms == false) {
-                    continue;
-                }
-
-                // Get label HTML
-                $label_html = DB::getInstance()->get('haberlers_labels', ['id', $label->label])->results();
-                if (!count($label_html)) {
-                    continue;
-                }
-
-                $label_html = str_replace('{x}', Output::getClean($label->name), Output::getPurified($label_html[0]->html));
-
-                $labels[] = [
-                    'id' => $label->id,
-                    'active' => in_array($label->id, $post_labels),
-                    'html' => $label_html
-                ];
-            }
-        }
-    }
-
-    $smarty->assign('LABELS', $labels);
-}
 
 // Purify post content
 $content = EventHandler::executeEvent('renderPostEdit', [
