@@ -46,14 +46,6 @@ if (isset($errors) && count($errors)) {
     ]);
 }
 
-$cache->setCache('update_check');
-if ($cache->isCached('update_check')) {
-    $update_check = $cache->retrieve('update_check');
-} else {
-    $update_check = Util::updateCheck();
-    $cache->store('update_check', $update_check, 3600);
-}
-
 if (!is_string($update_check)) {
     if ($update_check->updateAvailable()) {
         $smarty->assign([

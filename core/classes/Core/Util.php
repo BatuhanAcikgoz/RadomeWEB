@@ -218,40 +218,6 @@ class Util {
     }
 
     /**
-     * Check for Radome updates.
-     *
-     * @return string|UpdateCheck Object with information about any updates, or error message.
-     */
-    public static function updateCheck() {
-        $uid = self::getSetting('unique_id');
-
-        $update_check_response = HttpClient::get('https://radome.web.tr/api/updateCheck&uid=' . $uid .
-            '&version=' . RADOME_VERSION .
-            '&php_version=' . urlencode(PHP_VERSION)
-        );
-
-        if ($update_check_response->hasError()) {
-            return $update_check_response->getError();
-        }
-
-        $update_check = new UpdateCheck($update_check_response);
-        if ($update_check->hasError()) {
-            return $update_check->getErrorMessage();
-        }
-
-        self::setSetting("version_checked", date('U'));
-
-        if ($update_check->updateAvailable()) {
-            self::setSetting('version_update', $update_check->isUrgent()
-                ? 'urgent'
-                : 'true'
-            );
-        }
-
-        return $update_check;
-    }
-
-    /**
      * Get the latest Radome news.
      *
      * @return string RadomeWEB news in JSON.
