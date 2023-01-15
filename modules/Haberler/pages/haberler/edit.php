@@ -150,7 +150,7 @@ if (isset($errors)) {
 
 $smarty->assign('EDITING_POST', $haberler_language->get('haberler', 'edit_post'));
 
-if (isset($edit_title, $post_labels)) {
+if (isset($edit_title)) {
     $smarty->assign('EDITING_TOPIC', true);
 
     $smarty->assign('TOPIC_TITLE_VALUE', $post_title);
