@@ -22,12 +22,6 @@ if (!$user->isLoggedIn()) {
 // Initialise
 $haberler = new Haberler();
 
-if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
-    $topic_id = $_GET['tid'];
-} else {
-    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
-}
-
 /*
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
@@ -39,7 +33,7 @@ if (!count($post_editing)) {
     Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
 }
 
-if ($post_editing[0]->id == $post_id) {
+if ($post_editing[0]->id == $topic_id) {
     $edit_title = true;
 
     /*
@@ -55,7 +49,7 @@ if ($post_editing[0]->id == $post_id) {
  *  Get the post we're editing
  */
 
-$post_editing = DB::getInstance()->get('haberlers', ['id', $post_id])->results();
+$post_editing = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
 
 // Check post exists
 if (!count($post_editing)) {
@@ -69,11 +63,11 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
 if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($id, $user_groups))) {
-    Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
+    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
 // Deal with input
@@ -119,12 +113,12 @@ if (Input::exists()) {
             ])['content'];
 
             // Update post content
-            DB::getInstance()->update('haberlers', $post_id, [
+            DB::getInstance()->update('haberlers', $topic_id, [
                 'post_content' => $content,
                 'last_edited' => date('U')
             ]);
 
-            Log::getInstance()->log(Log::Action('haberlers/post/edit'), $post_id);
+            Log::getInstance()->log(Log::Action('haberlers/post/edit'), $topic_id);
 
             if (isset($edit_title)) {
 
