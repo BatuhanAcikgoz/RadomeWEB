@@ -586,6 +586,7 @@ if ($page != 'install') {
                 if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/kullanici/ayarlar', 'do=enable_tfa'));
+                    die();
                 }
             }
         }
