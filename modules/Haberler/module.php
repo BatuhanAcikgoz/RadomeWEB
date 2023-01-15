@@ -36,7 +36,7 @@ class Haberler_Module extends Module {
         $pages->add('Haberler', '/haberler/spam', 'pages/haberler/spam.php');
         $pages->add('Haberler', '/haberler/delete_post', 'pages/haberler/delete_post.php');
         $pages->add('Haberler', '/haberler/delete', 'pages/haberler/delete.php');
-        $pages->add('Haberler', '/haberler/edit', 'pages/haberler/edit.php');
+        $pages->add('Haberler', '/haberler/duzenle', 'pages/haberler/edit.php');
         $pages->add('Haberler', '/haberler/stick', 'pages/haberler/stick.php');
         $pages->add('Haberler', '/haberler/search', 'pages/haberler/search.php');
 
