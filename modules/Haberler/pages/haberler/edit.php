@@ -68,9 +68,7 @@ $id = $post_editing[0]->id;
 $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
-if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
-}
+
 
 if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($id, $user_groups))) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
