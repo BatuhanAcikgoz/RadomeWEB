@@ -134,7 +134,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $haberler_language->get('haberler', 'post_edited_successfully'));
-            Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
+            Redirect::to(URL::build('/haberler/haber/12' . urlencode($topic_id)));
         }
 
         // Error handling
