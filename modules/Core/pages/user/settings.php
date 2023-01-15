@@ -24,7 +24,7 @@ $forum_enabled = Util::isModuleEnabled('Forum');
 
 // Two factor auth?
 if (isset($_GET['do'])) {
-    if (str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
+    if ($_GET['do'] == 'enable_tfa') {
 
         // Ensure TFA is currently disabled
         if ($user->data()->tfa_enabled == 1) {
