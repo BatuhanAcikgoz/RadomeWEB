@@ -35,10 +35,16 @@ if (isset($_GET['do'])) {
 
         if (!isset($_GET['s'])) {
 
-
             if (Session::exists('force_tfa_alert')) {
                 $errors[] = Session::get('force_tfa_alert');
             }
+
+            // Generate secret
+            $secret = $tfa->createSecret();
+
+            $user->update([
+                'tfa_secret' => $secret
+            ]);
 
             // Assign Smarty variables
             $smarty->assign([
