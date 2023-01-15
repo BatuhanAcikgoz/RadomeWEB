@@ -15,13 +15,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control form-control-lg" name="title" value="{$TOPIC_TITLE}">
                     </div>
-                    {if count($LABELS)}
-                    <div class="form-group">
-                        {foreach from=$LABELS item=label}
-                        <label for="{$label.id}">{$label.html}</label>
-                        <input type="checkbox" name="topic_label[]" id="{$label.id}" value="{$label.id}"{if $label.active} checked="checked"{/if}> {/foreach}
-                    </div>
-                    {/if} {/if} {if isset($MARKDOWN)}
+                    {/if} {if isset($MARKDOWN)}
                     <div class="form-group">
                         <textarea class="form-control" style="width:100%" id="markdown" name="content" rows="20"></textarea>
                         <span class="float-right"><i data-toggle="popover" data-placement="top" data-html="true" data-content="{$MARKDOWN_HELP}" class="fa fa-question-circle text-info" aria-hidden="true"></i></span>
