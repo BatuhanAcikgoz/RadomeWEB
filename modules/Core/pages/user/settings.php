@@ -41,9 +41,6 @@ if (isset($_GET['do'])) {
                 'tfa_secret' => $secret
             ]);
 
-            if (Session::exists('force_tfa_alert')) {
-                $errors[] = Session::get('force_tfa_alert');
-            }
 
             // Assign Smarty variables
             $smarty->assign([
