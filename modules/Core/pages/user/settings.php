@@ -39,7 +39,7 @@ if (isset($_GET['do'])) {
                 $errors[] = Session::get('force_tfa_alert');
             }
 
-                        // Generate secret
+            // Generate secret
             $secret = $tfa->createSecret();
 
             // Assign Smarty variables
@@ -62,6 +62,9 @@ if (isset($_GET['do'])) {
                 ]);
             }
 
+            $user->update([
+                'tfa_secret' => $secret
+            ]);
             // Load modules + template
 
             // Display template
@@ -75,7 +78,6 @@ if (isset($_GET['do'])) {
                             $user->update([
                                 'tfa_complete' => true,
                                 'tfa_enabled' => true,
-                                'tfa_secret' => $secret,
                                 'tfa_type' => 1
                             ]);
 
