@@ -583,10 +583,9 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/cikis') {
-                if (strpos($_SERVER['REQUEST_URI'], 'do=enable_tfa') === false) {
+                if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa') && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/kullanici/ayarlar', 'do=enable_tfa'));
-                    die();
                 }
             }
         }
