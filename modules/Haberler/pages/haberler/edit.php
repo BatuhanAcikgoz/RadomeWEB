@@ -69,7 +69,7 @@ $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
 if ($user->hasPermission('admincp.haberlers')) {
-    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
+    Redirect::to(URL::build('/haberler/haber/2' . urlencode($topic_id)));
 }
 
 // Deal with input
