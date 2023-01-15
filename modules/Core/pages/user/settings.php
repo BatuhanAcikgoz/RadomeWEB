@@ -27,9 +27,6 @@ if (isset($_GET['do'])) {
     if ($_GET['do'] == 'enable_tfa') {
 
         // Ensure TFA is currently disabled
-        if ($user->data()->tfa_enabled == 1) {
-            Redirect::to(URL::build('/kullanici/ayarlar'));
-        }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
 
@@ -86,7 +83,6 @@ if (isset($_GET['do'])) {
 
                             Session::delete('force_tfa_alert');
                             Session::flash('tfa_success', $language->get('user', 'tfa_successful'));
-                            Redirect::to(URL::build('/kullanici/ayarlar'));
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
@@ -138,7 +134,6 @@ if (isset($_GET['do'])) {
                     ]);
 
                     Session::flash('settings_success', $language->get('user', 'tfa_disabled'));
-                    Redirect::to(URL::build('/kullanici/ayarlar'));
                 }
 
                 echo $language->get('general', 'invalid_token') . '<hr />';
