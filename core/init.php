@@ -583,7 +583,6 @@ if ($page != 'install') {
         if (isset($forced) && $forced) {
             // Do they have TFA configured?
             if (!$user->data()->tfa_enabled) {
-                    Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
                     Redirect::to(URL::build('/kullanici/ayarlar', 'do=enable_tfa'));
             }
         }
