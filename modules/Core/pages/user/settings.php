@@ -26,10 +26,6 @@ $forum_enabled = Util::isModuleEnabled('Forum');
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'enable_tfa') {
 
-        // Ensure TFA is currently disabled
-        if ($user->data()->tfa_enabled == 1) {
-            Redirect::to(URL::build('/kullanici/ayarlar'));
-        }
 
         $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
 
