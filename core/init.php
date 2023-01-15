@@ -585,7 +585,7 @@ if ($page != 'install') {
             if (!$user->data()->tfa_enabled && rtrim($_GET['route'], '/') != '/cikis') {
                 if (!str_contains($_SERVER['REQUEST_URI'], 'do=enable_tfa')) {
                     Session::put('force_tfa_alert', $language->get('admin', 'force_tfa_alert'));
-                    Redirect::to(URL::build('/kullanici/ayarlar/?do=enable_tfa'));
+                    Redirect::to(URL::build('/kullanici/ayarlar/?do=enable_tfa'. ''));
                 }
             }
         }
