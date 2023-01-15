@@ -124,7 +124,7 @@ if (Input::exists()) {
                     'haber_title' => Input::get('title'),
                 ]);
 
-                Log::getInstance()->log(Log::Action('haberlers/topic/edit'), Input::get('title'));
+                Log::getInstance()->log(Log::Action('haberlers/edit'), Input::get('title'));
             }
 
             // Display success message and redirect
