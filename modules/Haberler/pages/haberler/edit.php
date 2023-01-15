@@ -72,10 +72,6 @@ if ($user->hasPermission('admincp.haberlers')) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
 }
 
-if ($user->data()->id != $post_editing[0]->post_creator && !($haberler->canModerateHaberler($id, $user_groups))) {
-    Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
-}
-
 // Deal with input
 if (Input::exists()) {
     // Check token
