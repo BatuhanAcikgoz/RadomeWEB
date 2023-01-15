@@ -22,6 +22,12 @@ if (!$user->isLoggedIn()) {
 // Initialise
 $haberler = new Haberler();
 
+if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
+    $topic_id = $_GET['tid'];
+} else {
+    Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
+}
+
 /*
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
