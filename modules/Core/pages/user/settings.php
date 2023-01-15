@@ -34,13 +34,10 @@ if (isset($_GET['do'])) {
         $tfa = new \RobThree\Auth\TwoFactorAuth(Output::getClean(SITE_NAME));
 
         if (!isset($_GET['s'])) {
-            // Generate secret
-            $secret = $tfa->createSecret();
 
-            $user->update([
-                'tfa_secret' => $secret
-            ]);
-
+            if (Session::exists('force_tfa_alert')) {
+                $errors[] = Session::get('force_tfa_alert');
+            }
 
             // Assign Smarty variables
             $smarty->assign([
@@ -55,6 +52,13 @@ if (isset($_GET['do'])) {
                 'CANCEL_LINK' => URL::build('/kullanici/ayarlar/', 'do=disable_tfa'),
                 'ERROR_TITLE' => $language->get('general', 'error')
             ]);
+
+                        // Generate secret
+                        $secret = $tfa->createSecret();
+
+                        $user->update([
+                            'tfa_secret' => $secret
+                        ]);
 
             if (isset($errors) && count($errors)) {
                 $smarty->assign([
