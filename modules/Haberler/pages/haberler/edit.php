@@ -114,7 +114,6 @@ if (Input::exists()) {
             // Update post content
             DB::getInstance()->update('haberlers', $topic_id, [
                 'post_content' => $content,
-                'last_edited' => date('U')
             ]);
 
             Log::getInstance()->log(Log::Action('haberlers/post/edit'), $topic_id);
