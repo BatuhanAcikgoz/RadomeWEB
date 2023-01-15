@@ -1,604 +1,104 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="x-apple-disable-message-reformatting">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><!--[if IE]><html xmlns="http://www.w3.org/1999/xhtml" class="ie"><![endif]--><!--[if !IE]><!--><html style="margin: 0;padding: 0;" xmlns="http://www.w3.org/1999/xhtml"><!--<![endif]--><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge" /><!--<![endif]-->
+    <meta name="viewport" content="width=device-width" /><style type="text/css">
+@media only screen and (min-width: 620px){.wrapper{min-width:600px !important}.wrapper h1{}.wrapper h1{font-size:26px !important;line-height:34px !important}.wrapper h2{}.wrapper h2{font-size:20px !important;line-height:28px !important}.wrapper h3{}.column{}.wrapper .size-8{font-size:8px !important;line-height:14px !important}.wrapper .size-9{font-size:9px !important;line-height:16px !important}.wrapper .size-10{font-size:10px !important;line-height:18px !important}.wrapper .size-11{font-size:11px !important;line-height:19px !important}.wrapper .size-12{font-size:12px !important;line-height:19px !important}.wrapper .size-13{font-size:13px !important;line-height:21px !important}.wrapper .size-14{font-size:14px !important;line-height:21px !important}.wrapper .size-15{font-size:15px !important;line-height:23px !important}.wrapper .size-16{font-size:16px !important;line-height:24px
+!important}.wrapper .size-17{font-size:17px !important;line-height:26px !important}.wrapper .size-18{font-size:18px !important;line-height:26px !important}.wrapper .size-20{font-size:20px !important;line-height:28px !important}.wrapper .size-22{font-size:22px !important;line-height:31px !important}.wrapper .size-24{font-size:24px !important;line-height:32px !important}.wrapper .size-26{font-size:26px !important;line-height:34px !important}.wrapper .size-28{font-size:28px !important;line-height:36px !important}.wrapper .size-30{font-size:30px !important;line-height:38px !important}.wrapper .size-32{font-size:32px !important;line-height:40px !important}.wrapper .size-34{font-size:34px !important;line-height:43px !important}.wrapper .size-36{font-size:36px !important;line-height:43px !important}.wrapper .size-40{font-size:40px !important;line-height:47px !important}.wrapper
+.size-44{font-size:44px !important;line-height:50px !important}.wrapper .size-48{font-size:48px !important;line-height:54px !important}.wrapper .size-56{font-size:56px !important;line-height:60px !important}.wrapper .size-64{font-size:64px !important;line-height:63px !important}}
+</style>
+    <meta name="x-apple-disable-message-reformatting" />
+    <style type="text/css">
+</style>
 
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet">
-
-    <!-- CSS Reset : BEGIN -->
-    <style>
-
-        /* What it does: Remove spaces around the email design added by some email clients. */
-        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-        html,
-body {
-    margin: 0 auto !important;
-    padding: 0 !important;
-    height: 100% !important;
-    width: 100% !important;
-    background: #f1f1f1;
-}
-
-/* What it does: Stops email clients resizing small text. */
-* {
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-}
-
-/* What it does: Centers email on Android 4.4 */
-div[style*="margin: 16px 0"] {
-    margin: 0 !important;
-}
-
-/* What it does: Stops Outlook from adding extra spacing to tables. */
-table,
-td {
-    mso-table-lspace: 0pt !important;
-    mso-table-rspace: 0pt !important;
-}
-
-/* What it does: Fixes webkit padding issue. */
-table {
-    border-spacing: 0 !important;
-    border-collapse: collapse !important;
-    table-layout: fixed !important;
-    margin: 0 auto !important;
-}
-
-/* What it does: Uses a better rendering method when resizing images in IE. */
-img {
-    -ms-interpolation-mode:bicubic;
-}
-
-/* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
-a {
-    text-decoration: none;
-}
-
-/* What it does: A work-around for email clients meddling in triggered links. */
-*[x-apple-data-detectors],  /* iOS */
-.unstyle-auto-detected-links *,
-.aBn {
-    border-bottom: 0 !important;
-    cursor: default !important;
-    color: inherit !important;
-    text-decoration: none !important;
-    font-size: inherit !important;
-    font-family: inherit !important;
-    font-weight: inherit !important;
-    line-height: inherit !important;
-}
-
-/* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
-.a6S {
-    display: none !important;
-    opacity: 0.01 !important;
-}
-
-/* What it does: Prevents Gmail from changing the text color in conversation threads. */
-.im {
-    color: inherit !important;
-}
-
-/* If the above doesn't work, add a .g-img class to any image in question. */
-img.g-img + div {
-    display: none !important;
-}
-
-/* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-/* Create one of these media queries for each additional viewport size you'd like to fix */
-
-/* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
-@media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
-    u ~ div .email-container {
-        min-width: 320px !important;
-    }
-}
-/* iPhone 6, 6S, 7, 8, and X */
-@media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
-    u ~ div .email-container {
-        min-width: 375px !important;
-    }
-}
-/* iPhone 6+, 7+, and 8+ */
-@media only screen and (min-device-width: 414px) {
-    u ~ div .email-container {
-        min-width: 414px !important;
-    }
-}
-
-
-    </style>
-
-    <!-- CSS Reset : END -->
-
-    <!-- Progressive Enhancements : BEGIN -->
-    <style>
-
-	    .primary{
-	background: #4da6ff;
-}
-.bg_white{
-	background: #ffffff;
-}
-.bg_light{
-	background: #fafafa;
-}
-.bg_black{
-	background: #000000;
-}
-.bg_dark{
-	background: rgba(0,0,0,.8);
-}
-.email-section{
-	padding:2.5em;
-}
-
-/*BUTTON*/
-.btn{
-	padding: 5px 15px;
-	display: inline-block;
-}
-.btn.btn-primary{
-	border-radius: 5px;
-	background: #4da6ff;
-	color: #000;
-}
-.btn.btn-white{
-	border-radius: 5px;
-	background: #ffffff;
-	color: #000000;
-}
-.btn.btn-white-outline{
-	border-radius: 5px;
-	background: transparent;
-	border: 1px solid #fff;
-	color: #fff;
-}
-.btn.btn-black{
-	border-radius: 5px;
-	background: #000;
-	color: #fff;
-}
-
-h1,h2,h3,h4,h5,h6{
-	font-family: 'Nunito Sans', sans-serif;
-	color: #000000;
-	margin-top: 0;
-}
-
-body{
-	font-family: 'Nunito Sans', sans-serif;
-	font-weight: 400;
-	font-size: 15px;
-	line-height: 1.8;
-	color: rgba(0,0,0,.4);
-}
-
-a{
-	color: #4da6ff;
-}
-
-table{
-}
-/*LOGO*/
-
-.logo h1{
-	margin: 0;
-}
-.logo h1 a{
-	color: #000000;
-	font-size: 20px;
-	font-weight: 700;
-	font-family: 'Nunito Sans', sans-serif;
-}
-
-.navigation{
-	padding: 0;
-}
-.navigation li{
-	list-style: none;
-	display: inline-block;;
-	margin-left: 5px;
-	font-size: 13px;
-	font-weight: 500;
-}
-.navigation li a{
-	color: rgba(0,0,0,.4);
-}
-
-/*HERO*/
-.hero{
-	position: relative;
-	z-index: 0;
-}
-.hero .overlay{
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	content: '';
-	width: 100%;
-	background: #000000;
-	z-index: -1;
-	opacity: .3;
-}
-.hero .icon{
-}
-.hero .icon a{
-	display: block;
-	width: 60px;
-	margin: 0 auto;
-}
-.hero .text{
-	color: rgba(0,0,0,.8);
-}
-.hero .text h2{
-	color: #000;
-	font-size: 32px;
-	margin-bottom: 0;
-	font-weight: 200;
-	line-height: 1.4;
-}
-
-
-/*HEADING SECTION*/
-.heading-section{
-}
-.heading-section h2{
-	color: #000000;
-	font-size: 28px;
-	margin-top: 0;
-	line-height: 1.4;
-	font-weight: 400;
-}
-.heading-section .subheading{
-	margin-bottom: 20px !important;
-	display: inline-block;
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	color: rgba(0,0,0,.4);
-	position: relative;
-}
-.heading-section .subheading::after{
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: -10px;
-	content: '';
-	width: 100%;
-	height: 2px;
-	background: #4da6ff;
-	margin: 0 auto;
-}
-
-.heading-section-white{
-	color: rgba(255,255,255,.8);
-}
-.heading-section-white h2{
-	font-family: 
-	line-height: 1;
-	padding-bottom: 0;
-}
-.heading-section-white h2{
-	color: #ffffff;
-}
-.heading-section-white .subheading{
-	margin-bottom: 0;
-	display: inline-block;
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	color: rgba(255,255,255,.4);
-}
-
-
-.icon{
-	text-align: center;
-}
-.icon img{
-}
-
-
-/*SERVICES*/
-.services{
-}
-.text-services{
-	padding: 10px 10px 0; 
-	text-align: center;
-}
-.text-services h3{
-	font-size: 18px;
-	font-weight: 400;
-}
-
-.services-list{
-	padding: 0;
-	margin: 0 0 20px 0;
-	width: 100%;
-	float: left;
-}
-
-.services-list img{
-	float: left;
-}
-.services-list .text{
-	width: calc(100% - 60px);
-	float: right;
-}
-.services-list h3{
-	margin-top: 0;
-	margin-bottom: 0;
-}
-.services-list p{
-	margin: 0;
-}
-
-/*PROJECT*/
-.project-entry{
-	position: relative;
-}
-.text-project{
-	padding-top: 10px;
-	position: absolute;
-	bottom: 10px;
-	left: 0;
-	right: 0;
-}
-.text-project h3{
-	margin-bottom: 0;
-	font-size: 16px;
-	font-weight: 600;
-}
-.text-project h3 a{
-	color: #fff;
-}
-.text-project span{
-	font-size: 13px;
-	color: rgba(255,255,255,.8);
-}
-
-/*PRICING*/
-.pricing{
-	position: relative;
-	text-align: center;
-	border: 1px solid rgba(0,0,0,.05);
-	border: 1px solid #4da6ff;
-	padding: 2em 1em;
-	/*rgba(0,0,0,.05;)*/
-}
-.pricing h3{
-	font-weight: 400;
-	margin-bottom: 10px;
-}
-.pricing h2{
-	font-size: 50px;
-	font-weight: 400;
-	margin-bottom: 0;
-	margin-top: 0;
-	line-height: 1.4;
-}
-.pricing .start{
-	padding: 0;
-	font-weight: 600;
-	margin-bottom: 0;
-}
-.pricing h2 span{
-}
-.pricing h2 small{
-	font-size: 18px;
-}
-.pricing ul{
-	padding: 0;
-	margin: 20px 0 0 0;
-}
-.pricing ul li{
-	list-style: none;
-	margin-bottom: 10px;
-}
-
-/*BLOG*/
-.text-services .meta{
-	text-transform: uppercase;
-	font-size: 14px;
-	margin-top: 0;
-}
-.text-services h3{
-	margin-top: 0;
-	line-height: 1.2;
-	font-size: 20px;
-}
-
-/*TESTIMONY*/
-.text-testimony .name{
-	margin: 0;
-}
-.text-testimony .position{
-	color: rgba(0,0,0,.3);
-
-}
-
-
-/*VIDEO*/
-.img{
-	width: 100%;
-	height: auto;
-	position: relative;
-}
-.img .icon{
-	position: absolute;
-	top: 50%;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	margin-top: -25px;
-}
-.img .icon a{
-	display: block;
-	width: 60px;
-	position: absolute;
-	top: 0;
-	left: 50%;
-	margin-left: -25px;
-}
-
-
-
-/*COUNTER*/
-.counter{
-	width: 100%;
-	position: relative;
-	z-index: 0;
-}
-.counter .overlay{
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	content: '';
-	width: 100%;
-	background: #000000;
-	z-index: -1;
-	opacity: .3;
-}
-.counter-text{
-	text-align: center;
-}
-.counter-text .num{
-	display: block;
-	color: #000;
-	font-size: 34px;
-	font-weight: 400;
-}
-.counter-text .name{
-	display: block;
-	color: rgba(0,0,0,.9);
-	font-size: 14px;
-}
-
-
-
-ul.social{
-	padding: 20px 0 0 0;
-}
-ul.social li{
-	display: inline-block;
-	margin-right: 10px;
-}
-/*FOOTER*/
-
-.footer{
-	color: rgba(255,255,255,.5);
-
-}
-.footer .heading{
-	color: #ffffff;
-	font-size: 20px;
-}
-.footer ul{
-	margin: 0;
-	padding: 0;
-}
-.footer ul li{
-	list-style: none;
-	margin-bottom: 10px;
-}
-.footer ul li a{
-	color: rgba(255,255,255,1);
-}
-
-
-@media screen and (max-width: 500px) {
-
-	.icon{
-		text-align: left;
-	}
-
-	.text-services{
-		padding-left: 0;
-		padding-right: 20px;
-		text-align: left;
-	}
-
-}
-
-
-    </style>
-
-
+  <style type="text/css">
+body{background-color: #fbfbfb}.logo a:hover,.logo a:focus{color:#1e2e3b !important}.mso .layout-has-border{border-top:1px solid #c8c8c8;border-bottom:1px solid #c8c8c8}.mso .layout-has-bottom-border{border-bottom:1px solid #c8c8c8}.mso .border,.ie .border{background-color:#c8c8c8}.mso h1,.ie h1{}.mso h1,.ie h1{font-size:26px !important;line-height:34px !important}.mso h2,.ie h2{}.mso h2,.ie h2{font-size:20px !important;line-height:28px !important}.mso h3,.ie h3{}.mso .layout__inner,.ie .layout__inner{}.mso .footer__share-button p{}.mso .footer__share-button p{font-family:Georgia,serif}
+</style><meta name="robots" content="noindex,nofollow" />
+<meta property="og:title" content="My First Campaign" />
 </head>
+<!--[if mso]>
+  <body class="mso">
+<![endif]-->
+<!--[if !mso]><!-->
+  <body class="full-padding" style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;">
+<!--<![endif]-->
+    <table class="wrapper" style="border-collapse: collapse;table-layout: fixed;min-width: 320px;width: 100%;background-color: #fbfbfb;" cellpadding="0" cellspacing="0" role="presentation"><tbody><tr><td>
+      <div role="banner">
+        <div class="preheader" style="Margin: 0 auto;max-width: 560px;min-width: 280px; width: 280px;width: calc(28000% - 167440px);">
+          <div style="border-collapse: collapse;display: table;width: 100%;">
+          <!--[if (mso)|(IE)]><table align="center" class="preheader" cellpadding="0" cellspacing="0" role="presentation"><tr><td style="width: 280px" valign="top"><![endif]-->
+            <div class="snippet" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 140px; width: 140px;width: calc(14000% - 78120px);padding: 10px 0 5px 0;color: #999;font-family: Georgia,serif;">
 
-<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
-	<center style="width: 100%; background-color: #f1f1f1;">
-    <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
-      &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
-    </div>
-    <div style="max-width: 600px; margin: 0 auto;" class="email-container">
-    	<!-- BEGIN BODY -->
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-      	<tr>
-          <td valign="top" class="bg_white" style="padding: 1em 2.5em;">
-          	<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
-          		<tr>
-          			<td class="logo" style="text-align: center;">
-			            <h1><a href="#">[Sitename]</a></h1>
-			          </td>
-          		</tr>
-          	</table>
-          </td> 
-	      </tr><!-- end tr -->
-				<tr>
-          <td valign="middle" class="hero bg_white">
-            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-            	<tr>
-            		<td valign="middle" width="50%">
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                      <td>
-                        <img src="https://radome.web.tr/free-mail.jpg" alt="" style="width: 100%; max-width: 600px; height: auto; margin: auto; display: block;">
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-                <td valign="middle" width="50%" class="primary">
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                      <td class="text" style="text-align: left; padding: 20px 30px;">
-				              	<h2>[Greeting]</h2>
-				              	<p>[Message]</p>
-				              	<p><a class="btn btn-black">[Code]</a></p>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-            	</tr>
-            </table>
-          </td>
-	      </tr><!-- end tr -->
-      <!-- 1 Column Text + Button : END -->
-      </table>
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-        <tr>
-        	<td valign="middle" class="bg_black footer email-section">
-        		<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
-        			<tr>
-        				<td width="100%" style="text-align: center;">
-        					<p style="margin-top: 0;">[Thanks], <a style="color:#4da6ff">[Sitename]</a><br> • Website powered by <a href="https://radome.web.tr/">RadomeWEB WebScript</a></p>
-        				</td>
-        			</tr>
-            </table>
-        	</td>
-        </tr>
-      </table>
+            </div>
+          <!--[if (mso)|(IE)]></td><td style="width: 280px" valign="top"><![endif]-->
+            <div class="webversion" style="display: table-cell;Float: left;font-size: 12px;line-height: 19px;max-width: 280px;min-width: 139px; width: 139px;width: calc(14100% - 78680px);padding: 10px 0 5px 0;text-align: right;color: #999;font-family: Georgia,serif;">
 
+            </div>
+          <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+          </div>
+        </div>
+
+      </div>
+      <div>
+      <div class="layout one-col fixed-width stack" style="Margin: 0 auto;max-width: 600px;min-width: 320px; width: 320px;width: calc(28000% - 167400px);overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;">
+        <div class="layout__inner" style="border-collapse: collapse;display: table;width: 100%;background-color: #2C2F33;">
+        <!--[if (mso)|(IE)]><table align="center" cellpadding="0" cellspacing="0" role="presentation"><tr class="layout-fixed-width" style="background-color: #ffffff;"><td style="width: 600px" class="w560"><![endif]-->
+          <div class="column" style="text-align: left;color: #99AAB5;font-size: 14px;line-height: 21px;font-family: Georgia,serif;">
+
+            <div style="Margin-left: 20px;Margin-right: 20px;Margin-top: 24px;">
+        <div style="font-size: 12px;font-style: normal;font-weight: normal;line-height: 19px;Margin-bottom: 20px;" align="center">
+          <img style="border: 0;display: block;height: auto;width: 100%;max-width: 900px;" alt="" width="560" src="https://dev.radome.web.tr/uploads/template_banners/homepage_bg_trimmed.jpg" />
+        </div>
+      </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p class="size-20" style="Margin-top: 0;Margin-bottom: 20px;font-size: 17px;line-height: 26px;text-align: center;" lang="x-size-20"><strong>[Sitename]</strong></p>
+      </div>
     </div>
-  </center>
-</body>
-</html>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p class="size-16" style="Margin-top: 0;Margin-bottom: 0;font-size: 16px;line-height: 24px;" lang="x-size-16">[Greeting]&nbsp;<strong>[Sitename]</strong></p><p class="size-16" style="Margin-top: 20px;Margin-bottom: 20px;font-size: 16px;line-height: 24px;" lang="x-size-16">[Message] [Thanks]</p>
+      </div>
+    </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div class="btn btn--flat btn--medium" style="Margin-bottom: 20px;text-align: center;">
+        <![if !mso]><a style="border-radius: 4px;display: inline-block;font-size: 12px;font-weight: bold;line-height: 22px;padding: 10px 20px;text-align: center;text-decoration: none !important;transition: opacity 0.1s ease-in;color: #ffffff !important;background-color: #7289DA;font-family: Georgia, serif;">[Code]</a><![endif]>
+      <!--[if mso]><p style="line-height:0;margin:0;">&nbsp;</p><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="[link]" style="width:132px" arcsize="10%" fillcolor="#51B046" stroke="f"><v:textbox style="mso-fit-shape-to-text:t" inset="0px,9px,0px,9px"><center style="font-size:12px;line-height:22px;color:#FFFFFF;font-family:Georgia,serif;font-weight:bold;mso-line-height-rule:exactly;mso-text-raise:4px">Verify Account</center></v:textbox></v:roundrect><![endif]--></div>
+    </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div class="divider" style="display: block;font-size: 2px;line-height: 2px;Margin-left: auto;Margin-right: auto;width: 40px;background-color: #c8c8c8;Margin-bottom: 20px;">&nbsp;</div>
+    </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p class="size-12" style="Margin-top: 0;Margin-bottom: 20px;font-size: 12px;line-height: 19px;text-align: center;" lang="x-size-12">[Code]</p>
+      </div>
+    </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p style="Margin-top: 0;Margin-bottom: 20px;">&#169; [Sitename] 2020</p>
+      </div>
+    </div>
+
+            <div style="Margin-left: 20px;Margin-right: 20px;">
+      <div style="mso-line-height-rule: exactly;mso-text-raise: 11px;vertical-align: middle;">
+        <p style="Margin-top: 0;Margin-bottom: 20px;text-align: center;">Powered by <a style="text-decoration: underline;transition: opacity 0.1s ease-in;color: #41637e;" href="https://radome.web.tr">RadomeWEB</a></p>
+      </div>
+    </div>
+
+        <div style="font-size: 12px;font-style: normal;font-weight: normal;line-height: 19px;" align="center">
+          <img class="gnd-corner-image gnd-corner-image-center gnd-corner-image-bottom" style="border: 0;display: block;height: auto;width: 100%;max-width: 31px;" alt="" width="31" src="https://dev.radome.web.tr/uploads/logos/logo.webp" />
+        </div>
+
+
+          </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        </div>
+      </div>
+
+</body></html>
