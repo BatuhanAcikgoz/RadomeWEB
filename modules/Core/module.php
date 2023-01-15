@@ -668,16 +668,7 @@ class Core_Module extends Module {
 
         define('PRE_VALIDATED_DEFAULT', $group_id);
 
-        // Check for updates
-        if ($user->isLoggedIn()) {
-            if ((defined('PANEL_PAGE') && PANEL_PAGE !== 'update') && $user->hasPermission('admincp.update')) {
-                $cache->setCache('update_check');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-                    $update_check = Util::updateCheck();
-                    $cache->store('update_check', $update_check, 3600);
-                }
+
 
                 if (!is_string($update_check) && $update_check->updateAvailable()) {
                     $smarty->assign([
