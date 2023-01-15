@@ -47,7 +47,7 @@ if ($post_editing[0]->id == $post_id) {
      *  Get the title of the topic
      */
 
-    $post_title = DB::getInstance()->get('topics', ['id', $topic_id])->results();
+    $post_title = DB::getInstance()->get('haberlers', ['id', $topic_id])->results();
     $post_labels = $post_title[0]->labels ? explode(',', $post_title[0]->labels) : [];
     $post_title = Output::getClean($post_title[0]->haber_title);
 }
@@ -69,7 +69,7 @@ $id = $post_editing[0]->id;
 $user_groups = $user->getAllGroupIds();
 
 // Check permissions before proceeding
-if ($user->data()->id == $post_editing[0]->post_creator && !$haberler->canEditTopic($id, $user_groups) && !$haberler->canModerateHaberler($id, $user_groups)) {
+if ($user->hasPermission('admincp.haberlers')) {
     Redirect::to(URL::build('/haberler/haber/' . urlencode($post_id)));
 }
 
@@ -129,32 +129,9 @@ if (Input::exists()) {
             Log::getInstance()->log(Log::Action('haberlers/post/edit'), $post_id);
 
             if (isset($edit_title)) {
-                // Update title and labels
-                $post_labels = [];
-
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = DB::getInstance()->get('haberlers_topic_labels', ['id', $topic_label])->results();
-                        if (count($label)) {
-                            $lgroups = explode(',', $label[0]->gids);
-
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
-                                }
-                            }
-
-                            if ($hasperm) {
-                                $post_labels[] = $label[0]->id;
-                            }
-                        }
-                    }
-                }
 
                 DB::getInstance()->update('topics', $topic_id, [
-                    'topic_title' => Input::get('title'),
+                    'haber_title' => Input::get('title'),
                     'labels' => implode(',', $post_labels)
                 ]);
 

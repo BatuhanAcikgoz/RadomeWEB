@@ -16,7 +16,7 @@
     "haberler\/creating_haberler": "Yeni haberler oluşturma",
     "haberler\/creating_label": "Yeni etiket oluşturma",
     "haberler\/creating_label_type": "Yeni etiket türü oluşturma",
-    "haberler\/creating_topic_in_x": "{{haberler}} içinde konu oluşturuluyor",
+    "haberler\/creating_topic_in_x": "Yeni haber oluşturuluyor.",
     "haberler\/default_labels": "Default Labels",
     "haberler\/default_labels_info": "These will be assigned to a new topic in the haberler unless overridden during topic creation. Ctrl+Click to select multiple",
     "haberler\/delete_haberler": "Haberleru sil",
