@@ -582,7 +582,7 @@ if ($page != 'install') {
 
         if (isset($forced) && $forced && $user->data()->tfa_enabled == 0) {
             // Do they have TFA configured?
-                    Redirect::to(URL::build('/kullanici/ayarlar', 'do=enable_tfa'));
+                    Redirect::to(URL::build('/kullanici/ayarlar/*do=enable_tfa'));
         }
 
         $user_integrations = [];
