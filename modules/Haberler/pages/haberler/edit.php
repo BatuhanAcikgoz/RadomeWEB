@@ -22,8 +22,7 @@ if (!$user->isLoggedIn()) {
 // Initialise
 $haberler = new Haberler();
 
-if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric($_GET['tid'])) {
-    $post_id = $_GET['pid'];
+if (isset($_GET['tid']) && is_numeric($_GET['tid'])) {
     $topic_id = $_GET['tid'];
 } else {
     Redirect::to(URL::build('/haberler/hata/', 'error=not_exist'));
@@ -33,7 +32,7 @@ if (isset($_GET['pid'], $_GET['tid']) && is_numeric($_GET['pid']) && is_numeric(
  *  Is the post the first in the topic? If so, allow the title to be edited.
  */
 
-$post_editing = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE topic_id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
+$post_editing = DB::getInstance()->query('SELECT * FROM rw_haberlers WHERE id = ? ORDER BY id ASC LIMIT 1', [$topic_id])->results();
 
 // Check topic exists
 if (!count($post_editing)) {
@@ -115,8 +114,7 @@ if (Input::exists()) {
             // Valid post content
             $content = EventHandler::executeEvent(isset($edit_title) ? 'preTopicEdit' : 'prePostEdit', [
                 'content' => Input::get('content'),
-                'post_id' => $post_id,
-                'topic_id' => $topic_id,
+                'id' => $topic_id,
                 'user' => $user,
             ])['content'];
 
@@ -140,7 +138,7 @@ if (Input::exists()) {
 
             // Display success message and redirect
             Session::flash('success_post', $haberler_language->get('haberler', 'post_edited_successfully'));
-            Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . ($post_id)));
+            Redirect::to(URL::build('/haberler/haber/' . urlencode($topic_id)));
         }
 
         // Error handling
@@ -219,7 +217,7 @@ $smarty->assign([
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
     'CANCEL' => $language->get('general', 'cancel'),
-    'CANCEL_LINK' => URL::build('/haberler/haber/' . urlencode($topic_id), 'pid=' . urlencode($post_id)),
+    'CANCEL_LINK' => URL::build('/haberler/haber/' . urlencode($topic_id)),
     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
     'CONTENT_LABEL' => $language->get('general', 'content'),
     'TOPIC_TITLE' => $haberler_language->get('haberler', 'topic_title')
