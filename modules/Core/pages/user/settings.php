@@ -35,6 +35,7 @@ if (isset($_GET['do'])) {
 
         if (!isset($_GET['s'])) {
 
+
             if (Session::exists('force_tfa_alert')) {
                 $errors[] = Session::get('force_tfa_alert');
             }
@@ -52,13 +53,6 @@ if (isset($_GET['do'])) {
                 'CANCEL_LINK' => URL::build('/kullanici/ayarlar/', 'do=disable_tfa'),
                 'ERROR_TITLE' => $language->get('general', 'error')
             ]);
-
-                        // Generate secret
-                        $secret = $tfa->createSecret();
-
-                        $user->update([
-                            'tfa_secret' => $secret
-                        ]);
 
             if (isset($errors) && count($errors)) {
                 $smarty->assign([
