@@ -19,7 +19,7 @@ class GetAnnouncementsEndpoint extends NoAuthEndpoint {
             new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/'])
         );
 
-        foreach ($announcements->getAvailable('api') as $announcement) {
+        foreach ($announcements->getAll('api') as $announcement) {
             $guest_announcements[] = [
                 'id' => $announcement->id,
                 'header' => $announcement->header,
