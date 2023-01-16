@@ -19,7 +19,7 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
         if (isset($_POST['guild_id'])) {
             Util::setSetting('discord_integration', 1);
             Util::setSetting('discord_bot_username', $_POST['guild_id']);
-            Util::setSetting('discord_bot_url', $_POST['guild_id']);
+            Util::setSetting('discord_bot_url', $_POST['identifier']);
             $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
             }
     }
