@@ -26,7 +26,7 @@ $mcmp_key = $mcmp_key[0]->value;
 $minecraftmp_top_voters = ('https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5');
 $mcmp_vote_page = HttpClient::get($minecraftmp_top_voters);
 $mcmp_vote = $mcmp_vote_page->json(true);
-$top_voters = $mcmp_vote1->voters;
+$top_voters = $mcmp_vote->voters;
 
 $voters_array = [];
 foreach ($top_voters as $top_voters) {
