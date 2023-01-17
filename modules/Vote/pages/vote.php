@@ -23,7 +23,7 @@ if (!empty($vote_message)) {
 }
 $mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
 $mcmp_key = $mcmp_key[0]->value;
-$minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
+$minecraftmp_top_voters = ('https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5');
 $mcmp_vote_page = HttpClient::get($minecraftmp_top_voters);
 $mcmp_vote = $mcmp_vote_page->json(true);
 $top_voters = $mcmp_vote1->voters;
