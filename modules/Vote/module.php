@@ -130,34 +130,6 @@ class Vote_Module extends Module {
 				$navs[2]->add('vote', $this->_vote_language->get('vote', 'vote'), URL::build('/panel/vote'), 'top', null, $order + 0.1, $icon);
 			}
 		}
-
-		// Check for module updates
-        if (isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')) {
-            // Page belong to this module?
-            $page = $pages->getActivePage();
-            if ($page['module'] == 'Vote') {
-
-                $cache->setCache('vote_module_cache');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-					require_once(ROOT_PATH . '/modules/Vote/classes/Vote.php');
-                    $cache->store('update_check', $update_check, 3600);
-                }
-
-                $update_check = json_decode($update_check);
-                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {  
-                    $smarty->assign([
-                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $this->_vote_language->get('vote', 'new_urgent_update_available_x', ['module' => $this->getName()]) : $this->_vote_language->get('vote', 'new_update_available_x', ['module' => $this->getName()]),
-                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => $this->_vote_language->get('vote', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
-                        'NEW_VERSION' => $this->_vote_language->get('vote', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
-                        'RADOME_UPDATE' => $this->_vote_language->get('vote', 'view_resource'),
-                        'RADOME_UPDATE_LINK' => Output::getClean($update_check->link)
-                    ]);
-                }
-            }
-        }
 	}
 
     public function getDebugInfo(): array {
