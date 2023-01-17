@@ -9,6 +9,16 @@
     <div class="row">
         <div class="col-md-12">
             <span class="float-right forum-btns">
+            {if isset($CAN_REPLY)}
+            <a {if isset($LOCKED) && !isset($CAN_MODERATE)} disabled="disabled" {else} href="#reply_section" {/if}
+            class="btn btn-{if isset($LOCKED) && !isset($CAN_MODERATE)}theme disabled{else}theme{/if}" >{if isset($LOCKED) && !isset($CAN_MODERATE)}<i class="fa fa-lock" aria-hidden="true"></i>
+            {/if}{$NEW_REPLY}</a>
+            {/if}
+            {if isset($UNFOLLOW)}
+                <a class="btn btn-secondary" href="{$UNFOLLOW_URL}">{$UNFOLLOW}</a>
+              {elseif isset($FOLLOW)}
+                <a class="btn btn-theme" href="{$FOLLOW_URL}">{$FOLLOW}</a>
+            {/if}
             <div class="btn-group">
             	<button type="button" class="btn dropdown-toggle btn-theme" data-toggle="dropdown" style="vertical-align:baseline;">{$SHARE} <span class="caret"></span></button>
             	    <ul class="dropdown-menu dropdown-menu-right" role="menu">
