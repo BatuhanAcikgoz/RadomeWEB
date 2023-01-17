@@ -52,7 +52,7 @@ foreach ($votes_mcmp as $mcmp_votes) {
 $search_value = $_GET["vote_search"];
 if(isset($search_value)){
 $sResults2 = ('https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value);
-$sResults = HttpClient::get($sResults2);
+$sResults=file_get_contents($sResults2);
 if(!empty($sResults)){
 
 } else {
