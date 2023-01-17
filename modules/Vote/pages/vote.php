@@ -36,6 +36,29 @@ foreach ($top_voters as $top_voters) {
 	];
 }
 
+$minecraftmp_votes = 'https://minecraft-mp.com/api/?object=servers&element=votes&key='.$mcmp_key.'&format=json';
+$mcmp_vote2_page = HttpClient::get($minecraftmp_votes);
+$mcmp_vote2 = $mcmp_vote2_page->json();
+$votes_mcmp = $mcmp_vote2->votes;
+$timeago = new TimeAgo(TIMEZONE);
+$votes_array = [];
+foreach ($votes_mcmp as $mcmp_votes) {
+	$votes_array[] = [
+		'nickname' => Output::getClean($mcmp_votes->nickname),
+		'date_friendly' => $timeago->inWords($mcmp_votes->timestamp, $language),
+	];
+}
+
+$search_value = $_GET["vote_search"];
+if(isset($search_value)){
+$sResults2 = ('https://minecraft-mp.com/api/?object=votes&element=claim&key='.$mcmp_key.'&username='.$search_value);
+$sResults = HttpClient::get($sResults2);
+if(!empty($sResults)){
+
+} else {
+	// no results
+}
+} 
 
 
 // Get sites from database
