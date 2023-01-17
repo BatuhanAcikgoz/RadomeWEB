@@ -206,6 +206,32 @@
 {/if} {/foreach} {$PAGINATION} {if isset($TOPIC_LOCKED_NOTICE)}
 <div class="alert alert-info">{$TOPIC_LOCKED_NOTICE}</div>
 {/if} {if isset($CAN_REPLY)}
+    <div class="card">
+    <div class="card-header header-theme">{$NEW_REPLY}</div>
+    <div class="card-body">
+        <div id="reply_section">
+            <form action="" method="post">
+
+                {if isset($MARKDOWN)}
+                    <div class="form-group">
+                      <textarea class="form-control" name="content" id="markdown" >{$CONTENT}</textarea>
+                    </div>
+                {else}
+                    <div class="form-group">
+                      <textarea class="form-control" name="content" id="quickreply">{$CONTENT}</textarea>
+                    </div>
+                {/if}
+
+                <br/>
+                <input type="hidden" name="token" value="{$TOKEN}">
+                <button type="submit" class="btn btn-theme">{$SUBMIT}</button>
+                <button type="button" class="btn btn-secondary" id="quoteButton" onclick="insertQuotes();">
+               {$INSERT_QUOTES}
+               </button>
+            </form>
+        </div>
+    </div>
+</div>
 {/if}
 </div>
 </div>
