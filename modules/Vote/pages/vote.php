@@ -25,11 +25,11 @@ $mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->
 $mcmp_key = $mcmp_key[0]->value;
 $minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
 $mcmp_vote_page = HttpClient::get($minecraftmp_top_voters);
-$mcmp_vote = $mcmp_vote_page->json(true);
-$mcmp_top_voters = $mcmp_vote->voters;
+$mcmp_vote = $mcmp_vote_page->json();
+$top_voters = $mcmp_vote->voters;
 
 $voters_array = [];
-foreach ($mcmp_top_voters as $top_voters) {
+foreach ($top_voters as $top_voters) {
 	$voters_array[] = [
 		'nickname' => Output::getClean($top_voters->nickname),
 		'votes' => Output::getClean($top_voters->votes),
