@@ -27,13 +27,7 @@ $minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=
 $mcmp_vote1 = json_decode(file_get_contents($minecraftmp_top_voters));
 $top_voters = $mcmp_vote1->voters;
 
-$voters_array = [];
-foreach ($top_voters as $top_voters) {
-	$voters_array[] = [
-		'nickname' => Output::getClean($top_voters->nickname),
-		'votes' => Output::getClean($top_voters->votes),
-	];
-}
+
 
 
 // Get sites from database
