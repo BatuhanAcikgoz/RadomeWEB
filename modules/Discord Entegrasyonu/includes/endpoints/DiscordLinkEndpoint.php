@@ -20,7 +20,7 @@ class DiscordLinkEndpoint extends KeyAuthEndpoint {
             $user = DB::getInstance()->get('users', ['username', '=', $_POST['player_name']])->results();
             $user_id = $user[0]->id;
             
-            DB::getInstance()->insert('user_integrations', [
+            DB::getInstance()->insert('users_integrations', [
                 'user_id' => $user_id,
                 'integration_id' => 2,
                 'identifier' => $_POST['discord_identifier'],
