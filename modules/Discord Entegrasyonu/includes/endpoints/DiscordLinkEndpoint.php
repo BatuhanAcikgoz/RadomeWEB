@@ -24,7 +24,7 @@ class DiscordLinkEndpoint extends KeyAuthEndpoint {
                 'user_id' => $user_id,
                 'integration_id' => 2,
                 'identifier' => $_POST['discord_identifier'],
-                'username' => $_POST['discord_identifier'],
+                'username' => $_POST['discord_username'],
                 'verified' => 1,
                 'date' => date('U')
             ]);
