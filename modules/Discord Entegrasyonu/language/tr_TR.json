@@ -33,6 +33,7 @@
     "discord_integration\/discord_settings_updated": "Discord ayarları başarıyla güncellendi",
     "discord_integration\/discord_unknown_error": "Discord rollerini senkronize ederken bilinmeyen bir hata vardı.Lütfen bir yöneticiyle iletişime geçin.",
     "discord_integration\/discord_user_id": "Discord Kullanıcı ID",
+    "discord_integration\/discord_link_successfull": "Discord bağlantısı başarıyla yapıldı!",
     "discord_integration\/discord_username": "Discord Kullanıcı adı",
     "discord_integration\/discord_usernames_updated": "Discord Kullanıcı Adları Başarıyla Güncellendi",
     "discord_integration\/discord_widget_disabled": "The widget is disabled for the specified Discord server. Please go to the 'Widget' tab in your Discord server settings, and ensure the Discord widget is enabled and that the ID is correct.",
