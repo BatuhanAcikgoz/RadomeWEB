@@ -12,7 +12,6 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
         $query = 'SELECT * FROM rw_unlink_pending';
         $where = ' WHERE status = 0';
         $order = ' ORDER BY `id` ASC';
-        $params = [];
 
         $commands_query = $api->getDb()->query($query . $where . $order)->results();
         foreach ($commands_query as $commands) {
@@ -20,12 +19,7 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
                     'command' => $commands->command,
                 ];
         }
-
-        $api->returnArray(['commands' => $commands]);
+        $return['command'] = $commands;
+        $api->returnArray($return);
     }
-    
-    /**
-    * @param $uuid string UUID to format
-    * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
-    */
 }
