@@ -17,7 +17,7 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
                 ];
         }
 
-        $api->returnArray(['customers' => $commands]);
+        $api->returnArray(['commands' => $commands]);
     }
     
     /**
