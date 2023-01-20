@@ -2,16 +2,13 @@
 {include file='navbar.tpl'}
 <div class="container" style="min-height: calc(-175.133px + 100vh);">
     {if isset($SUCCESS)}
-        <div class="modal fade" tabindex="-1" role="dialog" style="display: flex;">
+        <div class="modal" tabindex="-1" role="dialog" style="display: flex;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="">{$SUCCESS_TITLE}<i class="fas fa-check"></i></div>
                     <div class="modal-body">
                         {$SUCCESS}
                     </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                  </div>
                 </div>
             </div>
         </div>
