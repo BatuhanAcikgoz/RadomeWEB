@@ -30,7 +30,7 @@ if (Input::exists()) {
 
         if (Input::get('action') === 'link') {
             // Link Integration
-            $integration->onLinkRequest($user);
+            Session::flash('connections_success', Discord::getLanguageTerm('discord_id_confirm'));
 
         } else if (Input::get('action') === 'unlink') {
             // Unlink Integration
@@ -39,8 +39,6 @@ if (Input::exists()) {
             }
 
         } else if (Input::get('action') === 'verify') {
-            // Verify Integration
-            $integration->onVerifyRequest($user);
 
         }
 

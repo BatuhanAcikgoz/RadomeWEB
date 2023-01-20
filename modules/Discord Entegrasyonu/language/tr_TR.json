@@ -15,7 +15,7 @@
     "discord_integration\/discord_communication_error": "Discord Bot ile iletişim kurarken bir hata vardı.Lütfen botun çalıştığından ve bot URL'nizin doğru olduğundan emin olun.",
     "discord_integration\/discord_database_error": "Radome Link veritabanı şu anda kapalı. Lütfen daha sonra tekrar deneyiniz.",
     "discord_integration\/discord_guild_id": "Discord Server ID",
-    "discord_integration\/discord_id_confirm": "Please run the command \"\/verify {{token}}\" in Discord to finish linking your Discord account.",
+    "discord_integration\/discord_id_confirm": "Hesabınızı bağlamak için oyna.zorapvp.xyz sunucumuza bağlanıp ekranda çıkan 4 haneli kodu  discord sunucumuzda (https://discord.gg/xYkPsKnYE8) bulunan ZoraPvP#5844 botuna özelden atarak hesabınızı bağlayabilirsiniz!",
     "discord_integration\/discord_id_help": "For information on where to find Discord IDs, please read {{linkStart}}this.{{linkEnd}}",
     "discord_integration\/discord_id_length": "Lütfen Discord sunucu kimliğinizin {{min}} ve {{max}} rakamları arasında olduğundan emin olun.",
     "discord_integration\/discord_id_numeric": "Please ensure your Discord Server ID is numeric (Numbers only).",
