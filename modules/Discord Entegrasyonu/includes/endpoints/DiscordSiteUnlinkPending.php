@@ -18,8 +18,7 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
         $commands = [];
         foreach ($commands_query as $commands) {
                 $commands[] = [
-                    'id' => 'deneme',
-                    'commands' => 'Reeignn'
+                    'command' => $commands->data()->command,
                 ];
         }
 
