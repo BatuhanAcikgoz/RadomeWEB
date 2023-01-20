@@ -14,7 +14,7 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
         $order = ' ORDER BY `id` ASC';
         $params = [];
 
-        $commands_query = $api->getDb()->query($query . $where . $order, $params)->results();
+        $commands_query = $api->getDb()->query($query . $where . $order)->results();
         $commands_query = [];
         foreach ($commands_query as $commands_query) {
                 $commands_query[] = [
