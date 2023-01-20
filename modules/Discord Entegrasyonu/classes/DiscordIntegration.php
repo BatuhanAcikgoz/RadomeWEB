@@ -42,7 +42,7 @@ class DiscordIntegration extends IntegrationBase {
     public function onUnlinkRequest(User $user) {
         $integrationUser = new IntegrationUser($this, $user->data()->id, 'user_id');
         $integrationUser->unlinkIntegration();
-        $userint = DB::getInstance()->get('users_integrations', ['user_id', '=', $user->data()->id, 'and', 'integration_id', '=', 2])->results();
+        $userint = DB::getInstance()->query('SELECT * FROM rw_users_integrations WHERE integration_id = 2 and user_id = ?', [$user->data()->id])->results();
         DB::getInstance()->insert('unlink_pending', [
             'command' => 'discord unlink '.$user->data()->username,
         ]);
