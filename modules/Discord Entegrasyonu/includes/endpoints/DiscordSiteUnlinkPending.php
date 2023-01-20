@@ -12,11 +12,9 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
         $commands_query = $api->getDb()->query('SELECT * FROM rw_unlink_pending WHERE status = 0')->results();
 
         foreach ($commands_query as $commands) {
-            if ($commands->command != null) {
                 $commands[] = [
                     'commands' => $commands-> command
                 ];
-            }
         }
 
         $api->returnArray(['customers' => $commands]);
