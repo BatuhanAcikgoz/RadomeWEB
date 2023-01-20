@@ -11,14 +11,8 @@ class DiscordSiteUnlinkPending extends KeyAuthEndpoint {
     public function execute(Radome2API $api): void {
         $commands_query = DB::getInstance()->query('SELECT * FROM rw_unlink_pending WHERE status = 0')->results();
 
-        foreach ($commands_query as $commands) {
-            $commands[] = [
-                'id' => $commands->id,
-                'command' => $commands->command,
-            ];
-        }
 
-        $api->returnArray(['commands' => $commands]);
+        $api->returnArray(['commands' => 'deneme']);
     }
     
     /**
