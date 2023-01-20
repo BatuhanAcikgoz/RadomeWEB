@@ -25,7 +25,7 @@ final class CreateUsersIntegrationsTable extends AbstractMigration
             ->addForeignKey('integration_id', 'rw_integrations', 'id', ['delete' => 'CASCADE']);
 
         $table
-            ->addIndex(['user_id', 'integration_id'], ['unique' => true]);
+            ->addIndex(['user_id', 'integration_id', 'identifier'], ['unique' => true]);
 
         $table->create();
     }

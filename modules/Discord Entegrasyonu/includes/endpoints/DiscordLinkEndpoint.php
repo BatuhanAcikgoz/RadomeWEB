@@ -31,5 +31,8 @@ class DiscordLinkEndpoint extends KeyAuthEndpoint {
 
             $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
             }
+            else {
+                $api->returnArray(['message' => Discord::getLanguageTerm('discord_unknown_error')]);
+            }
     }
 }
