@@ -14,13 +14,12 @@ class DiscordSiteUnlinkExecuted extends KeyAuthEndpoint {
             $api->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS, 'Herhangi bir komut bulunamadı!');
         }
         
-        $ids = '(';
+        $ids = [];
         foreach ($commands as $id) {
-            if (is_numeric($id)) {
-                $ids .= ((int) $id) . ',';
-            }
+            $commands[] = [
+                'id' => $id->id,
+            ];
         }
-        $ids = rtrim($ids, ',') . ')';
 
         // Ensure the user exists
         $api->getDb()->query('UPDATE `rw_unlink_pending` SET `status`=1 WHERE id IN ' . $ids);
