@@ -11,7 +11,7 @@ class DiscordSiteUnlinkExecuted extends KeyAuthEndpoint {
     public function execute(Radome2API $api): void {
         $commands = $_POST['commands'];
         if (!is_array($commands) || !count($commands)) {
-            $api->throwError('store:no_commands_provided');
+            $api->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS, 'Herhangi bir komut bulunamadı!');
         }
         
         $ids = '(';
@@ -23,7 +23,7 @@ class DiscordSiteUnlinkExecuted extends KeyAuthEndpoint {
         $ids = rtrim($ids, ',') . ')';
 
         // Ensure the user exists
-        $user = $api->getDb()->query('UPDATE `rw_store_pending_actions` SET `status`=1 WHERE id IN ' . $ids);
+        $user = $api->getDb()->query('UPDATE `rw_unlink_pending` SET `status`=1 WHERE id IN ' . $ids);
         
         $api->returnArray(['success' => true]);
     }
