@@ -23,7 +23,7 @@ class DiscordSiteUnlinkExecuted extends KeyAuthEndpoint {
         $ids = rtrim($ids, ',') . ')';
 
         // Ensure the user exists
-        $user = $api->getDb()->query('UPDATE `rw_unlink_pending` SET `status`=1 WHERE id IN ' . $ids);
+        $api->getDb()->query('UPDATE `rw_unlink_pending` SET `status`=1 WHERE id IN ' . $ids);
         
         $api->returnArray(['success' => true]);
     }
