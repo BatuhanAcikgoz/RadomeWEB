@@ -11,7 +11,9 @@ final class CreateDiscordUnlinkPendingTable extends AbstractMigration
 
         $table
             ->addColumn('command', 'string', ['length' => 2048])
-            ->addColumn('status', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0]);
+            ->addColumn('date', 'integer', ['length' => 11])
+            ->addColumn('status', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
+            ->addColumn('executed_date', 'integer', ['length' => 11]);
 
         $table->create();
     }

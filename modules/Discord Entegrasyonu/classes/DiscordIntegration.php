@@ -44,9 +44,11 @@ class DiscordIntegration extends IntegrationBase {
         $userint = DB::getInstance()->query('SELECT * FROM rw_users_integrations WHERE integration_id = 2 and user_id = ?', [$user->data()->id])->results();
         DB::getInstance()->insert('unlink_pending', [
             'command' => 'discord unlink '.$user->data()->username,
+            'date' => date('U'),
         ]);
         DB::getInstance()->insert('unlink_pending', [
             'command' => 'discord unlink '.$userint[0]->identifier,
+            'date' => date('U'),
         ]);
         
         $integrationUser->unlinkIntegration();
