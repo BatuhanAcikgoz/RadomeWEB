@@ -20,7 +20,7 @@ class DiscordMcUnlinkEndpoint extends KeyAuthEndpoint {
             $user = DB::getInstance()->get('users', ['username', '=', $_POST['player_name']])->results();
             $user_id = $user[0]->id;
             
-            DB::getInstance()->query('DELETE * FROM rw_users_integrations WHERE integration_id = 2 and user_id = ?', [$user_id]);
+            DB::getInstance()->query('DELETE * FROM rw_users_integrations WHERE integration_id = 2 and user_id = 1');
 
             $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
             }
