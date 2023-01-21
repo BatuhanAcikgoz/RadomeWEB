@@ -996,7 +996,7 @@
     "admin/email_port_invalid": "Lütfen geçerli bir e-posta portu girin.",
     "admin/email_message_subject": "Subject",
     "admin/email_preview_popup": "Ön izleme",
-    "user/integration_unlinked": "{{integration}} hesabınızın bağlantısını başarıyla kaldırdınız.",
+    "user/integration_unlinked": "{{integration}} hesabınızın bağlantısını başarıyla kaldırdınız. Minecraft sunucusundan unlink atılması 1 dakika kadar sürebilir. Bunun için yetkilileri etiketlemeyiniz!",
     "user/integration_required_to_continue": "Lütfen bu web sitesini kullanmaya devam etmeden önce bağlanın ve gerekli bağlantıları doğrulayın.",
     "user/integration_identifier_already_linked": "{{integration}} tanımlayıcısı zaten başka bir kullanıcıya bağlı.",
     "user/user_has_linked_integration": "{{user}}, {{integration}} hesabını bağladı.",
