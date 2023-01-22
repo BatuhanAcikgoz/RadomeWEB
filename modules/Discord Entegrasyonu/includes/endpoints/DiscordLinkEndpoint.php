@@ -39,7 +39,7 @@ class DiscordLinkEndpoint extends KeyAuthEndpoint {
             ]);
         } else {
             
-            DB::getInstance()->query("UPDATE rw_users_integrations SET identifier = {$discord_identifier}, username = {$discord_username} WHERE user_id = {$user_id} AND integration_id = 2");
+            DB::getInstance()->query("UPDATE rw_users_integrations SET identifier = ?, username = ? WHERE user_id = ? AND integration_id = 2", [$discord_identifier, $discord_username, $user_id]);
         }
 
             $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
