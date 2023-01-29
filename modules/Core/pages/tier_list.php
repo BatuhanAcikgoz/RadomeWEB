@@ -42,14 +42,12 @@ foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
     }
 
     // TODO: move this to placeholders class
-    foreach ($data as $row) {
-        $row_data = new stdClass();
-
-        $row_data->name = $leaderboard_placeholder->name;
-        $row_data->username = Output::getClean($leaderboard_users[$uuid]->data()->username);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($uuid, 24);
-
-        $leaderboard_placeholders_data[] = $row_data;
+    foreach ($data as $rowlt1) {
+        $rowlt1[] = [
+            'username' => $username->getUsername(),
+            'group_id' => $group_id,
+            'avatar' => AvatarSource::getAvatarFromUUID($username, 24),
+        ];
     }
 }
 
@@ -59,7 +57,8 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
+    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data,
+    'ROWLT1' => $rowlt1
 ]);
 
 $template->addJSScript('

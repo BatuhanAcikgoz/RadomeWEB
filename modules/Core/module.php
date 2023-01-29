@@ -55,6 +55,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
         $pages->add('Core', '/durum', 'pages/status.php', 'status');
         $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
+        $pages->add('Core', '/tier_list', 'pages/tier_list.php', 'tier_list');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
         $pages->add('Core', '/kullanici', 'pages/user/index.php');

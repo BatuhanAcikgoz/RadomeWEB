@@ -32,23 +32,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {foreach from=$LEADERBOARD_PLACEHOLDERS_DATA item=data}
-                                    {if $data->name eq $placeholder->name and $data->server_id eq
-                                    $placeholder->server_id}
+                                    {foreach from=$ROWLT1 item=data}
                                     <tr>
                                         <td>
                                             <img class="avatar-img" style="height: 30px; width: 30px;"
                                                 src="{$data->avatar}" alt="{$data->username}">
                                             <span>{$data->username}</span>
                                         </td>
-                                        <td>
-                                            {$data->value}
-                                        </td>
-                                        <td>
-                                            {$data->last_updated}
-                                        </td>
                                     </tr>
-                                    {/if}
                                     {/foreach}
                             </table>
                         </div>
