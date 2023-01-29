@@ -23,10 +23,13 @@ $smarty->assign([
     'DASHBOARD' => $language->get('admin', 'dashboard'),
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
     'MINECRAFT' => $language->get('admin', 'minecraft'),
+    'TIER_LIST' => $language->get('admin', 'tier_list'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
+    'BACK' => $language->get('general', 'back'),
+    'BACK_LINK' => URL::build('/panel/minecraft'),
     'MINECRAFT_SERVERS' => $language->get('admin', 'minecraft_servers')
 ]);
 
