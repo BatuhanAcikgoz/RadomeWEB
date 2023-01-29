@@ -453,6 +453,7 @@
     "admin/placeholder_leaderboard_title": "Leaderboard Title",
     "admin/placeholder_leaderboard_updated": "Updated leaderboard settings successfully",
     "admin/placeholders": "Placeholders",
+    "admin/tier_list": "Tier List",
     "admin/placeholders_friendly_name": "Friendly Name",
     "admin/placeholders_friendly_name_info": "Use this to set a 'nickname' to this placeholder. The friendly name will be used instead of the raw name.",
     "admin/placeholders_info": "Placeholders allow the RadomeWEB Spigot plugin to send statistics about each player to your website so they can display them on their profile and forum posts.",

@@ -96,6 +96,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/minecraft/sunucular', 'pages/panel/minecraft_servers.php');
         $pages->add('Core', '/panel/minecraft/sorgu_hatalari', 'pages/panel/minecraft_query_errors.php');
         $pages->add('Core', '/panel/minecraft/bannerlar', 'pages/panel/minecraft_server_banners.php');
+        $pages->add('Core', '/panel/minecraft/tier_list', 'pages/panel/tier_list.php');
         $pages->add('Core', '/panel/guvenlik', 'pages/panel/security.php');
         $pages->add('Core', '/panel/guncelleme', 'pages/panel/update.php');
         $pages->add('Core', '/panel/yukseltme', 'pages/panel/upgrade.php');

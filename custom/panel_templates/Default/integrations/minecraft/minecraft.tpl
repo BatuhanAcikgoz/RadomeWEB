@@ -53,20 +53,6 @@
                         {if $MINECRAFT_ENABLED eq 1}
                             <div class="table-responsive">
                                 <table class="table table-striped">
-                                    {if isset($AUTHME)}
-                                        <tr>
-                                            <td>
-                                                <a href="{$AUTHME_LINK}">{$AUTHME}</a>
-                                            </td>
-                                        </tr>
-                                    {/if}
-                                    {if isset($ACCOUNT_VERIFICATION)}
-                                        <tr>
-                                            <td>
-                                                <a href="{$ACCOUNT_VERIFICATION_LINK}">{$ACCOUNT_VERIFICATION}</a>
-                                            </td>
-                                        </tr>
-                                    {/if}
                                     {if isset($SERVERS)}
                                         <tr>
                                             <td>
@@ -92,6 +78,13 @@
                                         <tr>
                                             <td>
                                                 <a href="{$PLACEHOLDERS_LINK}">{$PLACEHOLDERS}</a>
+                                            </td>
+                                        </tr>
+                                    {/if}
+                                    {if isset($TIER_LIST)}
+                                        <tr>
+                                            <td>
+                                                <a href="{$TIER_LIST_LINK}">{$TIER_LIST}</a>
                                             </td>
                                         </tr>
                                     {/if}

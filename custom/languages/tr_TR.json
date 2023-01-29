@@ -1202,6 +1202,7 @@
     "admin/linking_integration_for_x": "{{user}} için {{integration}} entegrasyonunu bağlama",
     "admin/link_account_success": "{{user}}, {{integration}} hesabını başarıyla bağladı.",
     "admin/placeholders": "Yer Tutuclar",
+    "admin/tier_list": "Tier List",
     "admin/placeholder_leaderboard_enabled": "Lider Tablosu Etkin",
     "admin/placeholder_leaderboard_sort": "Skor Tablosu Sıralaması",
     "admin/placeholder_leaderboard_title": "Skor Tablosu Başlığı",

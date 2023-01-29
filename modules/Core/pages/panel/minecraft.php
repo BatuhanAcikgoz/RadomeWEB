@@ -93,6 +93,13 @@ if ($minecraft_enabled == 1) {
             'PLACEHOLDERS_LINK' => URL::build('/panel/minecraft/placeholderlar')
         ]);
     }
+
+    if ($user->hasPermission('admincp.core.servers')) {
+        $smarty->assign([
+            'TIER_LIST' => $language->get('admin', 'tier_list'),
+            'TIER_LIST_LINK' => URL::build('/panel/minecraft/tier_list')
+        ]);
+    }
 }
 
 $template->onPageLoad();
