@@ -43,7 +43,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
-
+        $user = new User($rowlt1[0]->username);
+        $row_data->style = $user->getGroupStyle();
         $row_data->username = Output::getClean($rowlt1->username);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
 
