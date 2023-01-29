@@ -22,7 +22,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">{$TIER_LIST}</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{$TIER_LIST_SETTINGS}</h1>
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$INTEGRATIONS}</li>
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$TIER_LIST}</p>
+                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$TIER_LIST_SETTINGS}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></span>

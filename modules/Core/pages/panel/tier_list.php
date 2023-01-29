@@ -24,6 +24,7 @@ $smarty->assign([
     'INTEGRATIONS' => $language->get('admin', 'integrations'),
     'MINECRAFT' => $language->get('admin', 'minecraft'),
     'TIER_LIST' => $language->get('admin', 'tier_list'),
+    'TIER_LIST_SETTINGS' => $language->get('admin', 'tier_list'),
     'MINECRAFT_LINK' => URL::build('/panel/minecraft'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
