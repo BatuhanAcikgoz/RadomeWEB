@@ -33,7 +33,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id FROM rw_users LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE group_id = ?")->results();
+    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id FROM rw_users LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id")->results();
 
     
     if (!count($data)) {
