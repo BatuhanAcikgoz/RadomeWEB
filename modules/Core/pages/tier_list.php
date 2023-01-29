@@ -43,7 +43,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($data as $row) {
         $row_data[] = [
-            'username' => $row->username,
+            'username' => 'Reeignn',
             'avatar' => AvatarSource::getAvatarFromUUID($row->username, 24),
         ];
     }
