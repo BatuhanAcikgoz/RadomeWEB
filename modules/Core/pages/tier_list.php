@@ -41,14 +41,11 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     }
 
     // TODO: move this to placeholders class
-    foreach ($data as $rowlt1) {
-        $row_data = new stdClass();
-
-        $username_1 = $rowlt1->username;
-        $row_data->username = $rowlt1->username;
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($username_1, 24);
-
-        $leaderboard_placeholders_data[] = $row_data;
+    foreach ($data as $row) {
+        $row_data[] = [
+            'username' => Output::getClean($row->username->data()->username),
+            'avatar' => AvatarSource::getAvatarFromUUID($row->username, 24),
+        ];
     }
 }
 
@@ -58,7 +55,7 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data,
+    'LEADERBOARD_PLACEHOLDERS_DATA' => $row_data,
     'ROWLT1' => $rowlt1
 ]);
 
