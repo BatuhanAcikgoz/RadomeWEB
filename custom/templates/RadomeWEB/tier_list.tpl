@@ -7,9 +7,9 @@
         <div class="col-md-3">
             <div class="nav flex-column nav-pills" id="pills-tab" role="tablist" aria-orientation="vertical">
                 {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-                    <a class="item leaderboard_tab btn mb-1 btn-theme btn-lg btn-block" name="{$placeholder->safe_name}" server_id="{$placeholder->server_id}"
-                    id="tab-{$placeholder->safe_name}-server-{$placeholder->server_id}"
-                    onclick="showTable('{$placeholder->safe_name}', '{$placeholder->server_id}');">
+                    <a class="item leaderboard_tab btn mb-1 btn-theme btn-lg btn-block" name="{$placeholder->name}"
+                    id="tab-{$placeholder->name}"
+                    onclick="showTable('{$placeholder->name}');">
                     {$placeholder->leaderboard_title}
                 </a>
                 {/foreach}
