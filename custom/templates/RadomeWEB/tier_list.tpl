@@ -26,9 +26,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>{$PLAYER}</th>
-                                        <th>{$SCORE}</th>
-                                        <th>{$LAST_UPDATED}</th>
+                                        <th>Tier 1</th>
                                     </tr>
                                 </thead>
                                 <tbody>
