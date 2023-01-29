@@ -18,7 +18,7 @@
         <div class="col-md-9">
             <div class="tab-content" id="pills-tabContent">
                 {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
-                    <div class="leaderboard_table" id="table-{$placeholder->safe_name}-server-{$placeholder->server_id}"
+                    <div class="leaderboard_table" id="table-{$placeholder->name}"
                     style="display: none;">
                     <div class="card">
                         <div class="card-header header-theme">{$placeholder->leaderboard_title}</div>

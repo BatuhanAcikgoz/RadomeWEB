@@ -56,7 +56,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data,
     'ROWLT1' => $rowlt1
 ]);
