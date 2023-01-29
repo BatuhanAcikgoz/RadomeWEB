@@ -1,6 +1,6 @@
 <?php
 
-if (!$user->handlePanelPageLoad('admincp.minecraft.servers')) {
+if (!$user->handlePanelPageLoad('admincp.minecraft.tier_list')) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -13,7 +13,7 @@ $page_title = $language->get('admin', 'tier_list');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 
-$template_file = 'integrations/minecraft/minecraft_tier_list.tpl';
+$template_file = 'integrations/minecraft/minecraft_tier_list_settings.tpl';
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
