@@ -43,11 +43,13 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
-        $rowlt1 = [
-            'username' => $data[0]->$username,
-            'group_id' => $data[0]->$group_id,
-            'avatar' => $data[0]->$username,
-        ];
+        $rowlt1 = new stdClass();
+
+
+        $rowlt1->username = Output::getClean($leaderboard_users[$username]->data()->username);
+        $rowlt1->avatar = AvatarSource::getAvatarFromUUID($username, 24);
+
+        $leaderboard_placeholders_data[] = $row_data;
     }
 }
 
