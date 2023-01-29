@@ -31,7 +31,7 @@ $leaderboard_users = [];
 
 $timeago = new TimeAgo(TIMEZONE);
 
-foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
+foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
     $lt1 = "1";
     $data = $this->_db->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id FROM rw_users LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE group_id = 1", [$lt1]);
