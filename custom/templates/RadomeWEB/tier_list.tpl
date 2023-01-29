@@ -27,6 +27,10 @@
                                 <thead>
                                     <tr>
                                         <th>Tier 1</th>
+                                        <th>Tier 2</th>
+                                        <th>Tier 3</th>
+                                        <th>Tier 4</th>
+                                        <th>Tier 5</th>
                                     </tr>
                                 </thead>
                                 <tbody>
