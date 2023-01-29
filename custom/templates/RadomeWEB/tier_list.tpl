@@ -21,7 +21,7 @@
                     <div class="leaderboard_table" id="table-{$placeholder->name}"
                     style="display: none;">
                     <div class="card">
-                        <div class="card-header header-theme">{$placeholder->leaderboard_title}</div>
+                        <div class="card-header header-theme">{$placeholder->friendly_name}</div>
                         <div class="card-body" style="overflow-x: auto">
                             <table class="table table-striped">
                                 <thead>
