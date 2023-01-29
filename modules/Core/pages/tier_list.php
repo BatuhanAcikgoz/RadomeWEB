@@ -45,7 +45,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
         $row_data = new stdClass();
 
         $username_1 = $rowlt1->username;
-        $row_data->username = $rowlt1->username_;
+        $row_data->username = $rowlt1->username;
         $row_data->avatar = AvatarSource::getAvatarFromUUID($username_1, 24);
 
         $leaderboard_placeholders_data[] = $row_data;
