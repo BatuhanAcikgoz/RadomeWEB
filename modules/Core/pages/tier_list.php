@@ -33,7 +33,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id FROM rw_users LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LIMIT 50")->results();
+    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id FROM rw_users LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE group_id = ?")->results();
 
     
     if (!count($data)) {
@@ -42,10 +42,10 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
-        $rowlt1 = new stdClass();
+        $row_data = new stdClass();
 
-        $rowlt1->username = $leaderboard_users[$username];
-        $rowlt1->avatar = $leaderboard_users[$username];
+        $row_data->username = Output::getClean($rowlt1->username->data()->username);
+        $row_data->avatar = AvatarSource::getAvatarFromUUID($username, 24);
 
         $leaderboard_placeholders_data[] = $row_data;
     }
