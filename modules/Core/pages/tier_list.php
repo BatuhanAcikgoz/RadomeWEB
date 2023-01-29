@@ -9,7 +9,7 @@
  *  Leaderboards page
  */
 
-$tier_list_db = DB::getInstance()->query("SELECT * FROM rw_tier_list")->results();
+$tier_list_db = DB::getInstance()->query("SELECT * FROM rw_tier_list WHERE name = ?", [$placeholder_name])->results();
 
 if (!count($tier_list_db)) {
     require_once(ROOT_PATH . '/403.php');
