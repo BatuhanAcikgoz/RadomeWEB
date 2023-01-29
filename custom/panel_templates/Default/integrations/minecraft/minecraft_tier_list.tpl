@@ -27,7 +27,7 @@
                             <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                             <li class="breadcrumb-item active">{$INTEGRATIONS}</li>
                             <li class="breadcrumb-item"><a href="{$MINECRAFT_LINK}">{$MINECRAFT}</a></li>
-                            <li class="breadcrumb-item active">{$PLACEHOLDERS}</li>
+                            <li class="breadcrumb-item active">{$TIER_LIST}</li>
                         </ol>
                     </div>
 
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-9">
-                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$PLACEHOLDER_LEADERBOARD_INFO}</p>
+                                    <p style="margin-top: 7px; margin-bottom: 7px;">{$TIER_LIST}</p>
                                 </div>
                                 <div class="col-md-3">
                                     <span class="float-md-right"><a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a></span>
