@@ -43,7 +43,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
-        $rowlt1[] = [
+        $rowlt1 = [
             'username' => $data[0]->$username,
             'group_id' => $data[0]->$group_id,
             'avatar' => $data[0]->$username,
