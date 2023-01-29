@@ -10,7 +10,7 @@
                     <a class="item leaderboard_tab btn mb-1 btn-theme btn-lg btn-block" name="{$placeholder->name}"
                     id="tab-{$placeholder->name}"
                     onclick="showTable('{$placeholder->name}');">
-                    {$placeholder->leaderboard_title}
+                    {$placeholder->friendly_name}
                 </a>
                 {/foreach}
             </div>
