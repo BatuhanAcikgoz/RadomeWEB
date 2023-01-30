@@ -9,9 +9,9 @@
  *  Leaderboards page
  */
 
-$leaderboard_placeholders = DB::getInstance()->query("SELECT * FROM rw_tier_list")->results();
+$tier_list_db = DB::getInstance()->query("SELECT * FROM rw_tier_list")->results();
 
-if (!count($leaderboard_placeholders)) {
+if (!count($tier_list_db)) {
     require_once(ROOT_PATH . '/403.php');
     die();
 }
@@ -22,8 +22,8 @@ if (Util::getSetting('tier_list_page') !== '1') {
     die();
 }
 
-const PAGE = 'leaderboards';
-$page_title = $language->get('general', 'leaderboards');
+const PAGE = 'tier_list';
+$page_title = $language->get('admin', 'tiler_list');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
@@ -31,20 +31,20 @@ $leaderboard_users = [];
 
 $timeago = new TimeAgo(TIMEZONE);
 
-foreach ($leaderboard_placeholders as $leaderboard_placeholder) {
+foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
     $tierlt1 = $leaderboard_placeholder->lt1;
     $tier_name = $leaderboard_placeholder->name;
     $data = DB::getInstance()->query("SELECT * FROM rw_users_tier_list WHERE name = ? AND lt1 = ?", [$tier_name, $tierlt1])->results();
 
-
+    
     if (!count($data)) {
         continue;
     }
 
-    foreach ($data as $row) {
+    // TODO: move this to placeholders class
+    foreach ($data as $rowlt1) {
         $row_data = new stdClass();
-
         $user = new User($rowlt1->user_id);
         $row_data->style = $user->getGroupStyle();
         $row_data->username = $user->getDisplayname(true);
@@ -60,7 +60,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $leaderboard_placeholders,
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
     'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
 ]);
 
@@ -71,7 +71,6 @@ $template->addJSScript('
 
         if (name === null) {
             name = $(".leaderboard_tab").first().attr("name");
-            server_id = $(".leaderboard_tab").first().attr("server_id");
         }
 
         if (!first) {
