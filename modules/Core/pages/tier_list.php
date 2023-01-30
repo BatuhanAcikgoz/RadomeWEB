@@ -33,35 +33,20 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    $tierlt1 = $leaderboard_placeholder->lt1;
-    $tier_name = $leaderboard_placeholder->name;
-    $datalt1 = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name, rw_tier_list.lt1 FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LEFT JOIN rw_groups ON rw_groups.id = rw_tier_list.lt1 WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? AND rw_tier_list.lt1 = ?", [$tierlt1, $tier_name, $tierlt1])->results();
-
-
-    $tierlt2 = $leaderboard_placeholder->lt2;
-    $datalt1 = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name, rw_tier_list.lt1 FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LEFT JOIN rw_groups ON rw_groups.id = rw_tier_list.lt1 WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? AND rw_tier_list.lt1 = ?", [$tierlt2, $tier_name, $tierlt2])->results();
     
-    
-    foreach ($datalt2 as $rowlt1) {
-        $row_data = new stdClass();
-        $user = new User($rowlt1->id);
-        $row_data->style = $user->getGroupStyle();
-        $row_data->username = Output::getClean($rowlt1->username);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
 
-        $leaderboard_placeholders_datalt2[] = $row_data;
-    }
+}
+$datalt1 = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name, rw_tier_list.lt1 FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LEFT JOIN rw_groups ON rw_groups.id = rw_tier_list.lt1 WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? AND rw_tier_list.lt1 = ?", [$tierlt1, $tier_name, $tierlt1])->results();
 
-    // TODO: move this to placeholders class
-    foreach ($datalt1 as $rowlt1) {
-        $row_data = new stdClass();
-        $user = new User($rowlt1->id);
-        $row_data->style = $user->getGroupStyle();
-        $row_data->username = Output::getClean($rowlt1->username);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
+// TODO: move this to placeholders class
+foreach ($datalt1 as $rowlt1) {
+    $row_data = new stdClass();
+    $user = new User($rowlt1->id);
+    $row_data->style = $user->getGroupStyle();
+    $row_data->username = Output::getClean($rowlt1->username);
+    $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
 
-        $leaderboard_placeholders_datalt1[] = $row_data;
-    }
+    $leaderboard_placeholders_datalt1[] = $row_data;
 }
 
 $smarty->assign([
