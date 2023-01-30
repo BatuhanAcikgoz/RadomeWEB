@@ -34,7 +34,7 @@ $timeago = new TimeAgo(TIMEZONE);
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
     $tierlt1 = $tier_list_db[0]->lt1;
-    $data = DB::getInstance()->query("SELECT * FROM rw_groups WHERE group_id = ?", [$tierlt1])->results();
+    $data = DB::getInstance()->query("SELECT * FROM rw_users_groups WHERE group_id = ?", [$tierlt1])->results();
 
     
     if (!count($data)) {
