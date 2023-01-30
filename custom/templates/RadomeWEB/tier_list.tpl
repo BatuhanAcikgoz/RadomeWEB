@@ -43,15 +43,6 @@
                                         </td>
                                     </tr>
                                     {/foreach}
-                                    {foreach from=$LEADERBOARD_PLACEHOLDERS_DATALT2 item=data}
-                                        <tr>
-                                            <td>
-                                                <img class="avatar-img" style="height: 30px; width: 30px;"
-                                                    src="{$data->avatar}" alt="{$data->username}">
-                                                <span>{$data->username}</span>
-                                            </td>
-                                        </tr>
-                                        {/foreach}
                             </table>
                         </div>
                     </div>
