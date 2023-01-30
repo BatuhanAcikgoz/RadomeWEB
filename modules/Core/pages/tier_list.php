@@ -9,7 +9,7 @@
  *  Leaderboards page
  */
 
-$tier_list_db = DB::getInstance()->query("SELECT * FROM rw_tier_list")->results();
+$tier_list_db = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id")->results();
 
 if (!count($tier_list_db)) {
     require_once(ROOT_PATH . '/403.php');
@@ -37,7 +37,6 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     $tier_name = $tier_list_db[0]->name;
     $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ?", [$tierlt1, $tier_name])->results();
 
-    
     if (!count($data)) {
         continue;
     }
@@ -60,8 +59,7 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data,
-    'ROWLT1' => $rowlt1
+    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
 ]);
 
 $template->addJSScript('
