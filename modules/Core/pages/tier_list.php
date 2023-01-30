@@ -35,7 +35,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
     $tierlt1 = $tier_list_db[0]->lt1;
     $tier_name = $tier_list_db[0]->name;
-    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? ", [$tierlt1, $$tier_name])->results();
+    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ?", [$tierlt1, $$tier_name])->results();
 
     
     if (!count($data)) {
