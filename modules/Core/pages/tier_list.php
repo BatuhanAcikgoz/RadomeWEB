@@ -23,7 +23,7 @@ if (Util::getSetting('tier_list_page') !== '1') {
 }
 
 const PAGE = 'tier_list';
-$page_title = $language->get('admin', 'tiler_list');
+$page_title = $language->get('admin', 'tier_list');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 $leaderboard_placeholders_data = [];
