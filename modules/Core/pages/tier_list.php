@@ -58,7 +58,7 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
+    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data1
 ]);
 
 $template->addJSScript('
