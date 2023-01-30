@@ -33,7 +33,9 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id")->results();
+    $tierlt1 = $tier_list_db[0]->lt1;
+    $tier_name = $tier_list_db[0]->name;
+    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ?", [$tierlt1, $tier_name])->results();
 
     if (!count($data)) {
         continue;
@@ -43,12 +45,12 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($data as $rowlt1) {
         $tierlt1 = $tier_list_db[0]->lt1;
         $tier_name = $tier_list_db[0]->name;
-        $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ?", [$tierlt1, $tier_name])->results();
+        $rowlt1_data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ?", [$tierlt1, $tier_name])->results();
         $row_data = new stdClass();
-        $user = new User($rowlt1->id);
+        $user = new User($rowlt1_data[0]->id);
         $row_data->style = $user->getGroupStyle();
-        $row_data->username = Output::getClean($rowlt1->username);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
+        $row_data->username = Output::getClean($rowlt1_data[0]->username);
+        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1_data[0]->username, 24);
 
         $leaderboard_placeholders_data[] = $row_data;
     }
