@@ -45,10 +45,11 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
-        $user = new User($rowlt1->id);
+        $user = new User($rowlt1->user_id);
         $row_data->style = $user->getGroupStyle();
-        $row_data->username = Output::getClean($rowlt1->username);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
+        $row_data->username = $user->getDisplayname(true);
+        $row_data->avatar = $user->getAvatar(500);
+        $row_data->profile_url = $user->getProfileURL();
 
         $leaderboard_placeholders_data[] = $row_data;
     }
