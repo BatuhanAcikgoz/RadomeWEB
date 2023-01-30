@@ -34,7 +34,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {foreach from=$LEADERBOARD_PLACEHOLDERS_DATALT1 item=data}
+                                    {foreach from=$LEADERBOARD_PLACEHOLDERS_DATA item=data}
                                     <tr>
                                         <td>
                                             <img class="avatar-img" style="height: 30px; width: 30px;"
