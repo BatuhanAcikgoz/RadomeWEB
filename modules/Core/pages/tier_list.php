@@ -9,7 +9,7 @@
  *  Leaderboards page
  */
 
-$tier_list_db = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id")->results();
+$tier_list_db = DB::getInstance()->query("SELECT * FROM rw_tier_list")->results();
 
 if (!count($tier_list_db)) {
     require_once(ROOT_PATH . '/403.php');
