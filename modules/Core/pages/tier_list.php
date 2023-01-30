@@ -48,7 +48,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
         $row_data->name = $leaderboard_placeholder->name;
         $row_data->style = $user->getGroupStyle();
         $row_data->username = $user->getDisplayname(true);
-        $row_data->avatar = $user->getAvatar(500);
+        $row_data->avatar = $user->getAvatar(32);
         $row_data->profile_url = $user->getProfileURL();
 
         $leaderboard_placeholders_data[] = $row_data;
