@@ -33,7 +33,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    
+
     $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name, rw_tier_list.lt1 FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LEFT JOIN rw_groups ON rw_groups.id = rw_tier_list.lt1 WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? AND rw_tier_list.lt1 = ?", [$leaderboard_placeholder->lt1, $leaderboard_placeholder->name, $leaderboard_placeholder->lt1])->results();
 
     
@@ -44,7 +44,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
-        $user = new User($rowlt1->user_id);
+        $user = new User($rowlt1->id);
         $row_data->style = $user->getGroupStyle();
         $row_data->username = $user->getDisplayname(true);
         $row_data->avatar = $user->getAvatar(500);
