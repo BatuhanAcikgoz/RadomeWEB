@@ -45,7 +45,6 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
         $user = new User($rowlt1->user_id);
-        $row_data->style = $user->getGroupStyle();
         $row_data->username = Output::getClean($rowlt1->user_id);
         $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->user_id, 24);
 
