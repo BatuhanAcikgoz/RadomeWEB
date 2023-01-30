@@ -35,6 +35,7 @@
                                 </thead>
                                 <tbody>
                                     {foreach from=$LEADERBOARD_PLACEHOLDERS_DATA item=data}
+                                    {if $data->name eq $placeholder->name}
                                     <tr>
                                         <td>
                                             <img class="avatar-img" style="height: 30px; width: 30px;"
@@ -42,6 +43,7 @@
                                             <span>{$data->username}</span>
                                         </td>
                                     </tr>
+                                    {/if}
                                     {/foreach}
                             </table>
                         </div>

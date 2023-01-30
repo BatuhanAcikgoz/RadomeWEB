@@ -45,6 +45,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
         $user = new User($rowlt1->id);
+        $row_data->name = $leaderboard_placeholder->name;
         $row_data->style = $user->getGroupStyle();
         $row_data->username = $user->getDisplayname(true);
         $row_data->avatar = $user->getAvatar(500);
