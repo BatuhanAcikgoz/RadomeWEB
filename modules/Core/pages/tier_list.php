@@ -33,8 +33,9 @@ $timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
-    $tierlt1 = $tier_list_db[0]->lt1;
-    $data = DB::getInstance()->query("SELECT * FROM rw_users_groups WHERE group_id = ?", [$tierlt1])->results();
+    $tierlt1 = $leaderboard_placeholder->lt1;
+    $tier_name = $leaderboard_placeholder->name;
+    $data = DB::getInstance()->query("SELECT rw_users.id, rw_users.username, rw_users_groups.group_id, rw_tier_list.name, rw_tier_list.lt1 FROM rw_users JOIN rw_tier_list LEFT JOIN rw_users_groups ON rw_users.id = rw_users_groups.user_id LEFT JOIN rw_groups ON rw_groups.id = rw_tier_list.lt1 WHERE rw_users_groups.group_id = ? AND rw_tier_list.name = ? AND rw_tier_list.lt1 = ?", [$tierlt1, $tier_name, $tierlt1])->results();
 
     
     if (!count($data)) {
@@ -44,9 +45,10 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($data as $rowlt1) {
         $row_data = new stdClass();
-        $user = new User($rowlt1->user_id);
-        $row_data->username = Output::getClean($rowlt1->user_id);
-        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->user_id, 24);
+        $user = new User($rowlt1->id);
+        $row_data->style = $user->getGroupStyle();
+        $row_data->username = Output::getClean($rowlt1->username);
+        $row_data->avatar = AvatarSource::getAvatarFromUUID($rowlt1->username, 24);
 
         $leaderboard_placeholders_data[] = $row_data;
     }
@@ -58,7 +60,7 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data1
+    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data
 ]);
 
 $template->addJSScript('
