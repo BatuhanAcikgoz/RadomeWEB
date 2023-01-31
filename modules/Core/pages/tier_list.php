@@ -180,7 +180,7 @@ if (!$cache->isCached('tier_list_db')) {
 
     $cache->store('tier_list_db', $tier_list_db, 120);
 } else {
-    $leaderboards_order = $cache->retrieve('tier_list_db');
+    $tier_list_db = $cache->retrieve('tier_list_db');
 }
 
 $smarty->assign([
