@@ -57,7 +57,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 
         // TODO: move this to placeholders class
-        if (!$cache->isCached('tier_list_lt1_data')) {
         foreach ($datalt1 as $rowlt1) {
             $row_datalt1 = new stdClass();
             $tier_user = new User($rowlt1->id);
@@ -68,10 +67,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
             $row_datalt1->profile_url = $tier_user->getProfileURL();
 
             $tier_list_lt1_data[] = $row_datalt1;
-        }
-        $cache->store('tier_list_lt1_data', $tier_list_lt1_data, 120);
-        } else {
-        $tier_list_lt1_data = $cache->retrieve('tier_list_lt1_data');
         }
 
 
