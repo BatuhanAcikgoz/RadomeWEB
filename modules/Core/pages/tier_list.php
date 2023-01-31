@@ -178,7 +178,7 @@ if (!$cache->isCached('tier_list_db')) {
     $tier_list_ht4_data = [];
     $tier_list_ht5_data = [];
 
-    $cache->store('tier_list_db', 120);
+    $cache->store('tier_list_db', 1);
 } else {
     $leaderboards_order = $cache->retrieve('tier_list_db');
 }
