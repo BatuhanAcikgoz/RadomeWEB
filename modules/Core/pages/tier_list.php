@@ -40,8 +40,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
     $tier_list_ht4_data = [];
     $tier_list_ht5_data = [];
 
-    if (!$cache->isCached('tier_list_db')) {
-
     foreach ($tier_list_db as $leaderboard_placeholder) {
         // Get all rows from user placeholder table with this placeholders server id + name
 
@@ -59,6 +57,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 
         // TODO: move this to placeholders class
+        if (!$cache->isCached('tier_list_lt1_data')) {
         foreach ($datalt1 as $rowlt1) {
             $row_datalt1 = new stdClass();
             $tier_user = new User($rowlt1->id);
@@ -70,6 +69,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
             $tier_list_lt1_data[] = $row_datalt1;
         }
+        $cache->store('tier_list_lt1_data', $tier_list_lt1_data, 120);
+        } else {
+        $tier_list_lt1_data = $cache->retrieve('tier_list_lt1_data');
+        }
+
 
         foreach ($datalt2 as $rowlt2) {
             $row_datalt2 = new stdClass();
@@ -119,6 +123,8 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
             $tier_list_lt5_data[] = $row_datalt5;
         }
 
+
+        if (!$cache->isCached('tier_list_ht1_data')) {
         foreach ($dataht1 as $rowht1) {
             $row_dataht1 = new stdClass();
             $tier_user = new User($rowht1->id);
@@ -130,6 +136,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
             $tier_list_ht1_data[] = $row_dataht1;
         }
+        $cache->store('tier_list_ht1_data', $tier_list_ht1_data, 120);
+        } else {
+        $tier_list_ht1_data = $cache->retrieve('tier_list_ht1_data');
+        }
+
 
         foreach ($dataht2 as $rowht2) {
             $row_dataht2 = new stdClass();
@@ -180,10 +191,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
-    $cache->store('tier_list_db', $tier_list_db, 120);
-} else {
-    $tier_list_db = $cache->retrieve('tier_list_db');
-}
 
 $smarty->assign([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
