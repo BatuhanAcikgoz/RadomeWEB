@@ -40,7 +40,7 @@
                                         <td>
                                             <img class="avatar-img" style="height: 30px; width: 30px;"
                                                 src="{$data->avatar}" alt="{$data->username}">
-                                            <span>{$data->username}</span>
+                                            <a href="{$data->profile_url}" style="{$data->style}">{$data->username}</a>
                                         </td>
                                     </tr>
                                     {/if}
@@ -51,7 +51,7 @@
                                             <td>
                                                 <img class="avatar-img" style="height: 30px; width: 30px;"
                                                     src="{$data->avatar}" alt="{$data->username}">
-                                                <span>{$data->username}</span>
+                                                <a href="{$data->profile_url}" style="{$data->style}">{$data->username}</a>
                                             </td>
                                         </tr>
                                         {/if}
