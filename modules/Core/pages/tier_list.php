@@ -186,7 +186,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
     } else {
         $tier_list_db = $cache->retrieve('$tier_list_db');
-
+    }
 
 
 $smarty->assign([
@@ -207,7 +207,6 @@ $smarty->assign([
     'TIER_LIST_HT5_DATA' => $tier_list_ht5_data
 ]);
 
-}
 $template->addJSScript('
     window.onLoad = showTable(null, true);
 
