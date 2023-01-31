@@ -44,18 +44,6 @@
                                         </td>
                                     </tr>
                                     {/if}
-                                    {/foreach}
-                                    {foreach from=$TIER_LIST_LT1_DATA item=data}
-                                        {if $data->name eq $placeholder->name}
-                                        <tr>
-                                            <td>
-                                                <img class="avatar-img" style="height: 30px; width: 30px;"
-                                                    src="{$data->avatar}" alt="{$data->username}">
-                                                <span>{$data->username}</span>
-                                            </td>
-                                        </tr>
-                                        {/if}
-                                        {/foreach}
                             </table>
                         </div>
                     </div>
