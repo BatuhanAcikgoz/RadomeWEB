@@ -4,18 +4,16 @@
 
     <div class="container leaderboards">
         <div class="row justify-content-center">
+        {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
             <div class="col-md-3">
-            {foreach from=$LEADERBOARD_PLACEHOLDERS item=placeholder}
                 <div class="nav flex-column nav-pills" id="pills-tab" role="tablist" aria-orientation="vertical">
-
                         <a class="item leaderboard_tab btn mb-1 btn-theme btn-lg btn-block" name="{$placeholder->name}"
                             id="tab-{$placeholder->name}" onclick="showTable('{$placeholder->name}');">
                             {$placeholder->friendly_name}
                         </a>
-                    
                 </div>
-            {/foreach}
             </div>
+        {/foreach}
         </div>
         <div class="row">
             <div class="col-md-12">
