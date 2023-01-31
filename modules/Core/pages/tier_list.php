@@ -57,7 +57,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     // TODO: move this to placeholders class
     foreach ($datalt1 as $rowlt1) {
         $row_datalt1 = new stdClass();
-        $user = new User($rowlt1->id);
+        $user = new User($rowlt1->id, 'id');
         $row_datalt1->user_id = $rowlt1->id;
         $row_datalt1->name = $leaderboard_placeholder->name;
         $row_datalt1->username = $user->getDisplayname(true);
@@ -81,7 +81,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($datalt3 as $rowlt3) {
         $row_datalt3 = new stdClass();
-        $user = new User($rowlt3->id);
+        $user = new User($rowlt3->id, 'id');
         $row_datalt3->user_id = $rowlt3->id;
         $row_datalt3->name = $leaderboard_placeholder->name;
         $row_datalt3->username = $user->getDisplayname(true);
@@ -93,7 +93,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($datalt4 as $rowlt4) {
         $row_datalt4 = new stdClass();
-        $user = new User($rowlt4->id);
+        $user = new User($rowlt4->id, 'id');
         $row_datalt4->user_id = $rowlt4->id;
         $row_datalt4->name = $leaderboard_placeholder->name;
         $row_datalt4->username = $user->getDisplayname(true);
@@ -105,7 +105,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($datalt5 as $rowlt5) {
         $row_datalt5 = new stdClass();
-        $user = new User($rowlt5->id);
+        $user = new User($rowlt5->id, 'id');
         $row_datalt5->user_id = $rowlt5->id;
         $row_datalt5->name = $leaderboard_placeholder->name;
         $row_datalt5->username = $user->getDisplayname(true);
@@ -117,7 +117,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     
     foreach ($dataht1 as $rowht1) {
         $row_dataht1 = new stdClass();
-        $user = new User($rowht1->id);
+        $user = new User($rowht1->id, 'id');
         $row_dataht1->user_id = $rowht1->id;
         $row_dataht1->name = $leaderboard_placeholder->name;
         $row_dataht1->username = $user->getDisplayname(true);
@@ -129,7 +129,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($dataht2 as $rowht2) {
         $row_dataht2 = new stdClass();
-        $user = new User($rowht2->id);
+        $user = new User($rowht2->id, 'id');
         $row_dataht2->user_id = $rowht2->id;
         $row_dataht2->name = $leaderboard_placeholder->name;
         $row_dataht2->username = $user->getDisplayname(true);
@@ -141,7 +141,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($dataht3 as $rowht3) {
         $row_dataht3 = new stdClass();
-        $user = new User($rowht3->id);
+        $user = new User($rowht3->id, 'id');
         $row_dataht3->user_id = $rowht3->id;
         $row_dataht3->name = $leaderboard_placeholder->name;
         $row_dataht3->username = $user->getDisplayname(true);
@@ -153,7 +153,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($dataht4 as $rowht4) {
         $row_dataht4 = new stdClass();
-        $user = new User($rowht4->id);
+        $user = new User($rowht4->id, 'id');
         $row_dataht4->user_id = $rowht4->id;
         $row_dataht4->name = $leaderboard_placeholder->name;
         $row_dataht4->username = $user->getDisplayname(true);
@@ -165,7 +165,7 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
 
     foreach ($dataht5 as $rowht5) {
         $row_dataht5 = new stdClass();
-        $user = new User($rowht5->id);
+        $user = new User($rowht5->id, 'id');
         $row_dataht5->user_id = $rowht5->id;
         $row_dataht5->name = $leaderboard_placeholder->name;
         $row_dataht5->username = $user->getDisplayname(true);
