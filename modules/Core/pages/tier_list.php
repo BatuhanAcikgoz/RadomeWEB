@@ -184,8 +184,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
     
         $cache->store('result', $tier_list_db, 1);
 
-    } else {
-        $tier_list_db = $cache->retrieve('$tier_list_db');
     }
 
 
