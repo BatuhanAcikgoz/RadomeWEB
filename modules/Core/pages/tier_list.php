@@ -184,7 +184,9 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
     
         $cache->store('result', $tier_list_db, 1);
 
-    }
+    } else {
+        $tier_list_db = $cache->retrieve('$tier_list_db');
+
 
 
 $smarty->assign([
@@ -192,7 +194,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $cache->retrieve('$tier_list_db'),
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
     'TIER_LIST_LT1_DATA' => $tier_list_lt1_data,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
@@ -205,6 +207,7 @@ $smarty->assign([
     'TIER_LIST_HT5_DATA' => $tier_list_ht5_data
 ]);
 
+}
 $template->addJSScript('
     window.onLoad = showTable(null, true);
 
