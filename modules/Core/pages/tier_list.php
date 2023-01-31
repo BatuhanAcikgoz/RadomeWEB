@@ -124,7 +124,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
 
 
-        if (!$cache->isCached('tier_list_ht1_data')) {
         foreach ($dataht1 as $rowht1) {
             $row_dataht1 = new stdClass();
             $tier_user = new User($rowht1->id);
@@ -136,11 +135,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
             $tier_list_ht1_data[] = $row_dataht1;
         }
-        $cache->store('tier_list_ht1_data', $tier_list_ht1_data, 120);
-        } else {
-        $tier_list_ht1_data = $cache->retrieve('tier_list_ht1_data');
-        }
-
 
         foreach ($dataht2 as $rowht2) {
             $row_dataht2 = new stdClass();
@@ -191,14 +185,21 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
+    if (!$cache->isCached('$tier_list_db')) {
+    
+        $cache->store('result', $tier_list_db, 1);
+
+    } else {
+        $tier_list_db = $cache->retrieve('$tier_list_db');
+    }
+
 
 $smarty->assign([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'LEADERBOARD_PLACEHOLDERS_DATA' => $leaderboard_placeholders_data,
+    'LEADERBOARD_PLACEHOLDERS' =>  $cache->retrieve('$tier_list_db'),
     'TIER_LIST_LT1_DATA' => $tier_list_lt1_data,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
