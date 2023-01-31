@@ -234,7 +234,7 @@ $template->addJSScript('
 ');
 
 // Load modules + template
-Module::loadPage($tier_user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
 $template->onPageLoad();
 
