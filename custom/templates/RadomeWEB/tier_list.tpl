@@ -44,6 +44,7 @@
                                         </td>
                                     </tr>
                                     {/if}
+                                    {/foreach}
                             </table>
                         </div>
                     </div>
