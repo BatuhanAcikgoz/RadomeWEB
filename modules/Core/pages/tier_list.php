@@ -28,18 +28,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 if (!$cache->isCached('tier_list_db')) {
 
-    $tier_list_lt1_data = [];
-    $tier_list_lt2_data = [];
-    $tier_list_lt3_data = [];
-    $tier_list_lt4_data = [];
-    $tier_list_lt5_data = [];
-
-    $tier_list_ht1_data = [];
-    $tier_list_ht2_data = [];
-    $tier_list_ht3_data = [];
-    $tier_list_ht4_data = [];
-    $tier_list_ht5_data = [];
-
     foreach ($tier_list_db as $leaderboard_placeholder) {
         // Get all rows from user placeholder table with this placeholders server id + name
 
@@ -177,6 +165,18 @@ if (!$cache->isCached('tier_list_db')) {
             $tier_list_ht5_data[] = $row_dataht5;
         }
     }
+
+    $tier_list_lt1_data = [];
+    $tier_list_lt2_data = [];
+    $tier_list_lt3_data = [];
+    $tier_list_lt4_data = [];
+    $tier_list_lt5_data = [];
+
+    $tier_list_ht1_data = [];
+    $tier_list_ht2_data = [];
+    $tier_list_ht3_data = [];
+    $tier_list_ht4_data = [];
+    $tier_list_ht5_data = [];
 
     $cache->store('tier_list_db', 120);
 } else {
