@@ -180,14 +180,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
-    if (!$cache->isCached('$tier_list_db')) {
-    
-        $cache->store('result', $tier_list_db, 1);
-
-    } else {
-        $tier_list_db = $cache->retrieve('$tier_list_db');
-    }
-
 
 $smarty->assign([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
