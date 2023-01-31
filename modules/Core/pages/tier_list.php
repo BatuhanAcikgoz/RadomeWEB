@@ -26,9 +26,6 @@ const PAGE = 'tier_list';
 $page_title = $language->get('admin', 'tier_list');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
-$leaderboard_placeholders_data = [];
-$leaderboard_users = [];
-
 $tier_list_lt1_data = [];
 $tier_list_lt2_data = [];
 $tier_list_lt3_data = [];
@@ -40,8 +37,6 @@ $tier_list_ht2_data = [];
 $tier_list_ht3_data = [];
 $tier_list_ht4_data = [];
 $tier_list_ht5_data = [];
-
-$timeago = new TimeAgo(TIMEZONE);
 
 foreach ($tier_list_db as $leaderboard_placeholder) {
     // Get all rows from user placeholder table with this placeholders server id + name
