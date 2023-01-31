@@ -63,8 +63,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($datalt1 as $rowlt1) {
         $row_datalt1 = new stdClass();
         $user = new User($rowlt1->id);
+        $row_datalt1->user_id = $rowlt1->id;
         $row_datalt1->name = $leaderboard_placeholder->name;
-        $row_datalt1->style = $user->getGroupStyle();
         $row_datalt1->username = $user->getDisplayname(true);
         $row_datalt1->avatar = $user->getAvatar(32);
         $row_datalt1->profile_url = $user->getProfileURL();
@@ -75,8 +75,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($datalt2 as $rowlt2) {
         $row_datalt2 = new stdClass();
         $user = new User($rowlt2->id);
+        $row_datalt2->user_id = $rowlt2->id;
         $row_datalt2->name = $leaderboard_placeholder->name;
-        $row_datalt2->style = $user->getGroupStyle();
         $row_datalt2->username = $user->getDisplayname(true);
         $row_datalt2->avatar = $user->getAvatar(32);
         $row_datalt2->profile_url = $user->getProfileURL();
@@ -87,8 +87,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($datalt3 as $rowlt3) {
         $row_datalt3 = new stdClass();
         $user = new User($rowlt3->id);
+        $row_datalt3->user_id = $rowlt3->id;
         $row_datalt3->name = $leaderboard_placeholder->name;
-        $row_datalt3->style = $user->getGroupStyle();
         $row_datalt3->username = $user->getDisplayname(true);
         $row_datalt3->avatar = $user->getAvatar(32);
         $row_datalt3->profile_url = $user->getProfileURL();
@@ -99,8 +99,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($datalt4 as $rowlt4) {
         $row_datalt4 = new stdClass();
         $user = new User($rowlt4->id);
+        $row_datalt4->user_id = $rowlt4->id;
         $row_datalt4->name = $leaderboard_placeholder->name;
-        $row_datalt4->style = $user->getGroupStyle();
         $row_datalt4->username = $user->getDisplayname(true);
         $row_datalt4->avatar = $user->getAvatar(32);
         $row_datalt4->profile_url = $user->getProfileURL();
@@ -111,8 +111,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($datalt5 as $rowlt5) {
         $row_datalt5 = new stdClass();
         $user = new User($rowlt5->id);
+        $row_datalt5->user_id = $rowlt5->id;
         $row_datalt5->name = $leaderboard_placeholder->name;
-        $row_datalt5->style = $user->getGroupStyle();
         $row_datalt5->username = $user->getDisplayname(true);
         $row_datalt5->avatar = $user->getAvatar(32);
         $row_datalt5->profile_url = $user->getProfileURL();
@@ -123,8 +123,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($dataht1 as $rowht1) {
         $row_dataht1 = new stdClass();
         $user = new User($rowht1->id);
+        $row_dataht1->user_id = $rowht1->id;
         $row_dataht1->name = $leaderboard_placeholder->name;
-        $row_dataht1->style = $user->getGroupStyle();
         $row_dataht1->username = $user->getDisplayname(true);
         $row_dataht1->avatar = $user->getAvatar(32);
         $row_dataht1->profile_url = $user->getProfileURL();
@@ -135,8 +135,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($dataht2 as $rowht2) {
         $row_dataht2 = new stdClass();
         $user = new User($rowht2->id);
+        $row_dataht2->user_id = $rowht2->id;
         $row_dataht2->name = $leaderboard_placeholder->name;
-        $row_dataht2->style = $user->getGroupStyle();
         $row_dataht2->username = $user->getDisplayname(true);
         $row_dataht2->avatar = $user->getAvatar(32);
         $row_dataht2->profile_url = $user->getProfileURL();
@@ -147,8 +147,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($dataht3 as $rowht3) {
         $row_dataht3 = new stdClass();
         $user = new User($rowht3->id);
+        $row_dataht3->user_id = $rowht3->id;
         $row_dataht3->name = $leaderboard_placeholder->name;
-        $row_dataht3->style = $user->getGroupStyle();
         $row_dataht3->username = $user->getDisplayname(true);
         $row_dataht3->avatar = $user->getAvatar(32);
         $row_dataht3->profile_url = $user->getProfileURL();
@@ -159,8 +159,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($dataht4 as $rowht4) {
         $row_dataht4 = new stdClass();
         $user = new User($rowht4->id);
+        $row_dataht4->user_id = $rowht4->id;
         $row_dataht4->name = $leaderboard_placeholder->name;
-        $row_dataht4->style = $user->getGroupStyle();
         $row_dataht4->username = $user->getDisplayname(true);
         $row_dataht4->avatar = $user->getAvatar(32);
         $row_dataht4->profile_url = $user->getProfileURL();
@@ -171,8 +171,8 @@ foreach ($tier_list_db as $leaderboard_placeholder) {
     foreach ($dataht5 as $rowht5) {
         $row_dataht5 = new stdClass();
         $user = new User($rowht5->id);
+        $row_dataht5->user_id = $rowht5->id;
         $row_dataht5->name = $leaderboard_placeholder->name;
-        $row_dataht5->style = $user->getGroupStyle();
         $row_dataht5->username = $user->getDisplayname(true);
         $row_dataht5->avatar = $user->getAvatar(32);
         $row_dataht5->profile_url = $user->getProfileURL();

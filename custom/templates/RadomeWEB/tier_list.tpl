@@ -40,7 +40,7 @@
                                         <td>
                                             <img class="avatar-img" style="height: 30px; width: 30px;"
                                                 src="{$data->avatar}" alt="{$data->username}">
-                                            <a href="{$data->profile_url}" style="{$data->style}">{$data->username}</a>
+                                            <a href="{$data->profile_url}" style="color:  #2787c7;" data-poload="{$USER_INFO_URL}{$data->id}">{$data->username}</a>
                                         </td>
                                     </tr>
                                     {/if}
@@ -51,7 +51,7 @@
                                             <td>
                                                 <img class="avatar-img" style="height: 30px; width: 30px;"
                                                     src="{$data->avatar}" alt="{$data->username}">
-                                                <a href="{$data->profile_url}" style="{$data->style}">{$data->username}</a>
+                                                <a href="{$data->profile_url}" style="color:  #5dade2 ;" data-poload="{$USER_INFO_URL}{$data->id}">{$data->username}</a>
                                             </td>
                                         </tr>
                                         {/if}
