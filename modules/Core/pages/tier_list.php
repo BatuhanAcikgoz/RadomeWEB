@@ -22,7 +22,7 @@ if (Util::getSetting('tier_list_page') !== '1') {
     die();
 }
 
-const PAGE = 'tier_list';
+const PAGE = 'leaderboards';
 $page_title = $language->get('admin', 'tier_list');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
