@@ -40,6 +40,9 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
     $tier_list_ht4_data = [];
     $tier_list_ht5_data = [];
 
+    if (!$cache->isCached('tier_list_db')) {
+        $cache->store('tier_list_db', $tier_list_db, 120);
+
     foreach ($tier_list_db as $leaderboard_placeholder) {
         // Get all rows from user placeholder table with this placeholders server id + name
 
@@ -180,8 +183,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
-    if (!$cache->isCached('tier_list_db')) {
-        $cache->store('tier_list_db', $tier_list_db, 120);
     } else {
         $tier_list_db_cache = $cache->retrieve('tier_list_db');
     }
