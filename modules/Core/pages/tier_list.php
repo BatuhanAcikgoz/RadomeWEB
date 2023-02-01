@@ -197,7 +197,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db_cache,
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
     'TIER_LIST_LT1_DATA' => $tier_list_lt1_data_cache,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
