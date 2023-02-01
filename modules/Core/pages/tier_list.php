@@ -40,9 +40,6 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
     $tier_list_ht4_data = [];
     $tier_list_ht5_data = [];
 
-    if (!$cache->isCached('tier_list_db')) {
-        $cache->store('tier_list_db', $tier_list_db, 120);
-
     foreach ($tier_list_db as $leaderboard_placeholder) {
         // Get all rows from user placeholder table with this placeholders server id + name
 
@@ -183,6 +180,8 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
+    if (!$cache->isCached('tier_list_db')) {
+        $cache->store('tier_list_db', $tier_list_db, 120);
     } else {
         $tier_list_db_cache = $cache->retrieve('tier_list_db');
     }
@@ -206,7 +205,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db_cache,
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
     'TIER_LIST_LT1_DATA' => $tier_list_lt1_data_cache,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
