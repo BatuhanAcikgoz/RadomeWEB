@@ -27,10 +27,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Tier 1</th>
-                                                <th>Tier 2</th>
-                                                <th>Tier 3</th>
-                                                <th>Tier 4</th>
-                                                <th>Tier 5</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -60,34 +56,43 @@
                                                     </tr>
                                                 {/if}
                                             {/foreach}
-                                            {foreach from=$TIER_LIST_HT2_DATA item=data}
-                                                {if $data->name eq $placeholder->name}
-                                                    <tr>
-                                                        <td>
-                                                            <img class="avatar-img" style="height: 30px; width: 30px;"
-                                                                src="{$data->avatar}" alt="{$data->username}">
-                                                            <a href="{$data->profile_url}" style="color:  #035e9b;"
-                                                                data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
-                                                                data-placement="top">{$data->username}</a>
-                                                        </td>
-                                                    </tr>
-                                                {/if}
-                                            {/foreach}
-                                            {foreach from=$TIER_LIST_LT2_DATA item=data}
-                                                {if $data->name eq $placeholder->name}
-                                                    <tr>
-                                                        <td>
-                                                            <img class="avatar-img" style="height: 30px; width: 30px;"
-                                                                src="{$data->avatar}" alt="{$data->username}">
-                                                            <a href="{$data->profile_url}" style="color:  #5dade2 ;"
-                                                                data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
-                                                                data-placement="top">{$data->username}</a>
-                                                        </td>
-                                                    </tr>
-                                                {/if}
-                                            {/foreach}
                                         </tbody>
                                     </table>
+                                    <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Tier 2</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach from=$TIER_LIST_HT2_DATA item=data}
+                                            {if $data->name eq $placeholder->name}
+                                                <tr>
+                                                    <td>
+                                                        <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                            src="{$data->avatar}" alt="{$data->username}">
+                                                        <a href="{$data->profile_url}" style="color:  #035e9b;"
+                                                            data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                            data-placement="top">{$data->username}</a>
+                                                    </td>
+                                                </tr>
+                                            {/if}
+                                        {/foreach}
+                                        {foreach from=$TIER_LIST_LT2_DATA item=data}
+                                            {if $data->name eq $placeholder->name}
+                                                <tr>
+                                                    <td>
+                                                        <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                            src="{$data->avatar}" alt="{$data->username}">
+                                                        <a href="{$data->profile_url}" style="color:  #5dade2 ;"
+                                                            data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                            data-placement="top">{$data->username}</a>
+                                                    </td>
+                                                </tr>
+                                            {/if}
+                                        {/foreach}
+                                    </tbody>
+                                </table>
                                 </div>
                             </div>
                         </div>
