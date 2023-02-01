@@ -23,7 +23,7 @@
                             <div class="card">
                                 <div class="card-header header-theme">{$placeholder->friendly_name}</div>
                                 <div class="row">
-                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                    <div class="card-body" style="overflow-x: auto">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -60,7 +60,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                    <div class="card-body" style="overflow-x: auto">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -97,7 +97,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                    <div class="card-body" style="overflow-x: auto">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -134,7 +134,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                    <div class="card-body" style="overflow-x: auto">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -171,7 +171,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                    <div class="card-body" style="overflow-x: auto">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
