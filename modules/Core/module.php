@@ -745,7 +745,7 @@ class Core_Module extends Module {
                 $tier_list_icon = $cache->retrieve('tier_list_icon');
             }
 
-            $navs[0]->addDropdown('tier_list', $language->get('general', 'tier_list'), 'top', $tier_list_order, $tier_list_icon);
+            $navs[2]->addDropdown('tier_list', $language->get('general', 'tier_list'), 'top', $tier_list_order, $tier_list_icon);
         }
 
         // Check page type (frontend or backend)
