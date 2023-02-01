@@ -97,6 +97,117 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tier 3</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$TIER_LIST_HT3_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #035e9b;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                                {foreach from=$TIER_LIST_LT3_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #5dade2 ;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tier 4</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$TIER_LIST_HT4_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #035e9b;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                                {foreach from=$TIER_LIST_LT4_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #5dade2 ;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="card-body col-md-3" style="overflow-x: auto">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tier 5</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {foreach from=$TIER_LIST_HT5_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #035e9b;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                                {foreach from=$TIER_LIST_LT5_DATA item=data}
+                                                    {if $data->name eq $placeholder->name}
+                                                        <tr>
+                                                            <td>
+                                                                <img class="avatar-img" style="height: 30px; width: 30px;"
+                                                                    src="{$data->avatar}" alt="{$data->username}">
+                                                                <a href="{$data->profile_url}" style="color:  #5dade2 ;"
+                                                                    data-poload="{$USER_INFO_URL}{$data->user_id}" data-html="true"
+                                                                    data-placement="top">{$data->username}</a>
+                                                            </td>
+                                                        </tr>
+                                                    {/if}
+                                                {/foreach}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
