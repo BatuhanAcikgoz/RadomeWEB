@@ -180,6 +180,12 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
+    if (!$cache->isCached('tier_list_db')) {
+        $cache->store('tier_list_db', $tier_list_db, 120);
+    } else {
+        $tier_list_db_cache = $cache->retrieve('tier_list_db');
+    }
+
     if (!$cache->isCached('tier_list_lt1_data')) {
         $cache->store('tier_list_lt1_data', $tier_list_lt1_data, 120);
     } else {
@@ -199,7 +205,7 @@ $smarty->assign([
     'SCORE' => $language->get('admin', 'placeholders_score'),
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
-    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
+    'LEADERBOARD_PLACEHOLDERS' => $tier_list_db_cache,
     'TIER_LIST_LT1_DATA' => $tier_list_lt1_data_cache,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
