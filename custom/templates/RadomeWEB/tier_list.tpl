@@ -22,7 +22,8 @@
                         <div class="leaderboard_table" id="table-{$placeholder->name}" style="display: none;">
                             <div class="card">
                                 <div class="card-header header-theme">{$placeholder->friendly_name}</div>
-                                <div class="card-body" style="overflow-x: auto">
+                                <div class="row">
+                                <div class="card-body col-md-3" style="overflow-x: auto">
                                     <table class="table table-striped">
                                         <thead>
                                             <tr>
@@ -58,6 +59,7 @@
                                             {/foreach}
                                         </tbody>
                                     </table>
+                                    <div class="card-body col-md-3" style="overflow-x: auto">
                                     <table class="table table-striped">
                                     <thead>
                                         <tr>
@@ -93,6 +95,8 @@
                                         {/foreach}
                                     </tbody>
                                 </table>
+                                </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
