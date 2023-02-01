@@ -740,7 +740,7 @@ class Core_Module extends Module {
 
             $cache->setCache('navbar_icons');
             if (!$cache->isCached('tier_list_icon')) {
-                $tier_list_icon = '<i class="fas fa-crown"></i>';
+                $tier_list_icon = '<i class="fad fa-layer-group"></i>';
             } else {
                 $tier_list_icon = $cache->retrieve('tier_list_icon');
             }
