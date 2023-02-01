@@ -60,6 +60,7 @@
                                                     </tr>
                                                 {/if}
                                             {/foreach}
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
