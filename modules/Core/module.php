@@ -727,6 +727,27 @@ class Core_Module extends Module {
             $navs[0]->add('leaderboards', $language->get('general', 'leaderboards'), URL::build('/siralama'), 'top', null, $leaderboards_order, $leaderboards_icon);
         }
 
+
+        // Only add leaderboard link if there is at least one enabled placeholder
+        if (Util::getSetting('tier_list_page') === '1') {
+            $cache->setCache('navbar_order');
+            if (!$cache->isCached('tier_list_order')) {
+                $tier_list_order = 20;
+                $cache->store('tier_list_order', 20);
+            } else {
+                $tier_list_order = $cache->retrieve('tier_list_order');
+            }
+
+            $cache->setCache('navbar_icons');
+            if (!$cache->isCached('tier_list_icon')) {
+                $tier_list_icon = '<i class="fas fa-crown"></i>';
+            } else {
+                $tier_list_icon = $cache->retrieve('tier_list_icon');
+            }
+
+            $navs[0]->addDropdown('tier_list', $language->get('general', 'tier_list'), URL::build('/tier_list'), 'dropdown', $tier_list_order, $tier_list_icon);
+        }
+
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
