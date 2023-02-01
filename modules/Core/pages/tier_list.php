@@ -180,6 +180,19 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
         }
     }
 
+    if (!$cache->isCached('tier_list_lt1_data')) {
+        $cache->store('tier_list_lt1_data', $tier_list_lt1_data, 120);
+    } else {
+        $tier_list_lt1_data_cache = $cache->retrieve('tier_list_lt1_data');
+    }
+
+
+    if (!$cache->isCached('tier_list_ht1_data')) {
+        $cache->store('tier_list_ht1_data', $tier_list_ht1_data, 120);
+    } else {
+        $tier_list_ht1_data_cache = $cache->retrieve('tier_list_ht1_data');
+    }
+
 
 $smarty->assign([
     'PLAYER' => $language->get('admin', 'placeholders_player'),
@@ -187,7 +200,7 @@ $smarty->assign([
     'LAST_UPDATED' => $language->get('admin', 'placeholders_last_updated'),
     'LEADERBOARDS' => $language->get('general', 'leaderboards'),
     'LEADERBOARD_PLACEHOLDERS' => $tier_list_db,
-    'TIER_LIST_LT1_DATA' => $tier_list_lt1_data,
+    'TIER_LIST_LT1_DATA' => $tier_list_lt1_data_cache,
     'TIER_LIST_LT2_DATA' => $tier_list_lt2_data,
     'TIER_LIST_LT3_DATA' => $tier_list_lt3_data,
     'TIER_LIST_LT4_DATA' => $tier_list_lt4_data,
