@@ -85,6 +85,13 @@ if (isset($_GET['do'])) {
             if (!$forced)
                 $force_continue = false;
 
+                if ($field->identifier == 'quantity' && !empty(Input::get($field->id))) {
+                    $quantity = Input::get($field->id);
+                    if (!is_numeric($quantity) || $quantity < 1) {
+                        Session::flash('store_error', $store_language->get('general', 'invalid_quantity'));
+                        Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
+                    }
+                }    
         }
 
         // Continue to next step if all fields are force loaded
@@ -151,6 +158,14 @@ if (isset($_GET['do'])) {
                             'description' => Output::getClean($field->description),
                             'type' => Output::getClean($field->type)
                         ];
+
+                        if ($field->identifier == 'quantity') {
+                            $quantity = Input::get($field->id);
+                            if (!is_numeric($quantity) || $quantity < 1) {
+                                Session::flash('store_error', $store_language->get('general', 'invalid_quantity'));
+                                Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
+                            }
+                        }
 
                     }
                     
