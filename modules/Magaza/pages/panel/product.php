@@ -466,7 +466,7 @@ if (!isset($_GET['action'])) {
 
         $products_list = [];
         $selected_products = json_decode($product->data()->required_products, true) ?? [];
-        $products = DB::getInstance()->query('SELECT * FROM nl2_store_products WHERE id <> ? AND deleted = 0', [$product->data()->id])->results();
+        $products = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE id <> ? AND deleted = 0', [$product->data()->id])->results();
         foreach ($products as $item) {
             $products_list[] = [
                 'id' => $item->id,
@@ -477,7 +477,7 @@ if (!isset($_GET['action'])) {
 
         $groups_list = [];
         $selected_groups = json_decode($product->data()->required_groups, true) ?? [];
-        $groups = DB::getInstance()->query('SELECT * FROM nl2_groups')->results();
+        $groups = DB::getInstance()->query('SELECT * FROM rw_groups')->results();
         foreach ($groups as $item) {
             $groups_list[] = [
                 'id' => $item->id,
