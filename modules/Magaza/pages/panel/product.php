@@ -553,7 +553,7 @@ $smarty->assign([
     'ACTIONS' => $store_language->get('admin', 'actions'),
     'ACTIONS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=actions'),
     'LIMITS_AND_REQUIREMENTS' => $store_language->get('admin', 'limits_and_requirements'),
-    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id)
+    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=limits_requirements')
 ]);
 
 $template->onPageLoad();
