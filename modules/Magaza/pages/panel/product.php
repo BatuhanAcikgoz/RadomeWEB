@@ -443,7 +443,7 @@ if (!isset($_GET['action'])) {
                 ]);
 
                 Session::flash('products_success', $store_language->get('admin', 'product_updated_successfully'));
-                Redirect::to(URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=limits_requirements'));
+                Redirect::to(URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements'));
             } else {
                 // Invalid token
                 $errors[] = $language->get('general', 'invalid_token');
@@ -553,7 +553,7 @@ $smarty->assign([
     'ACTIONS' => $store_language->get('admin', 'actions'),
     'ACTIONS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=actions'),
     'LIMITS_AND_REQUIREMENTS' => $store_language->get('admin', 'limits_and_requirements'),
-    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id . '&action=limits_requirements')
+    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/magaza/urun/' , 'product=' . $product->data()->id . '&action=limits_requirements')
 ]);
 
 $template->onPageLoad();
