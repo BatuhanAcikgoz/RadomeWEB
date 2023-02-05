@@ -35,9 +35,9 @@
                   <div class="card-header header-theme">
                   <span>{$product.name}   |   </span>
                   {if $product.sale_active}
-                    <span style="color: #dc3545;text-decoration:line-through;">{$product.price}{$CURRENCY_SYMBOL}</span>
+                    <span style="color: #dc3545;text-decoration:line-through;">{$product.price_format}</span>
                   {/if}
-                  {$product.real_price}{$CURRENCY_SYMBOL}
+                  {$product.real_price_format}
                 </div>
                     {if $product.image}
                       <div class="img-fluid">
@@ -58,7 +58,7 @@
                 <div class="modal" id="modal{$product.id}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                   <div class="modal-header">
-                    {$product.name} | {$CURRENCY_SYMBOL}{$product.price} {$CURRENCY}
+                {$product.name} | {if $product.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$product.price_format}</span>{/if} {$product.real_price_format}
                   </div>
                   <div class="modal-content">
                     {if $product.image}

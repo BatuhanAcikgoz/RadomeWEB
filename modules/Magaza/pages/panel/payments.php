@@ -69,7 +69,15 @@ if (isset($_GET['customer'])) {
                 'status_id' => $paymentQuery->status_id,
                 'status' => $payment->getStatusHtml(),
                 'currency' => Output::getClean($paymentQuery->currency),
-                'amount' => Output::getClean($paymentQuery->amount),
+                'amount' => Magaza::fromCents($paymentQuery->amount_cents),
+                'amount_format' => Output::getPurified(
+                    Magaza::formatPrice(
+                        $paymentQuery->amount_cents,
+                        $paymentQuery->currency,
+                        $currency_symbol,
+                        STORE_CURRENCY_FORMAT,
+                    )
+                ),
                 'date' => date(DATE_FORMAT, $paymentQuery->created),
                 'link' => URL::build('/panel/magaza/odemeler', 'payment=' . Output::getClean($paymentQuery->id))
             ];
@@ -212,6 +220,12 @@ if (isset($_GET['customer'])) {
         ]);
     }
 
+    $payment_method = 'Manual';
+    if ($payment->data()->gateway_id != 0) {
+        $payment_method = DB::getInstance()->query('SELECT name FROM nl2_store_gateways WHERE id = ?', [$payment->data()->gateway_id])->first();
+        $payment_method = $payment_method->name;
+    }
+
     $smarty->assign([
         'VIEWING_PAYMENT' => $store_language->get('admin', 'viewing_payment', ['payment' => Output::getClean($payment->data()->transaction)]),
         'BACK' => $language->get('general', 'back'),
@@ -224,13 +238,21 @@ if (isset($_GET['customer'])) {
         'TRANSACTION' => $store_language->get('admin', 'transaction'),
         'TRANSACTION_VALUE' => Output::getClean($payment->data()->transaction),
         'PAYMENT_METHOD' => $store_language->get('admin', 'payment_method'),
-        'PAYMENT_METHOD_VALUE' => Output::getClean($payment->data()->gateway_id),
+        'PAYMENT_METHOD_VALUE' => Output::getClean($payment_method),
         'STATUS' => $store_language->get('admin', 'status'),
         'STATUS_VALUE' => $payment->getStatusHtml(),
         'UUID' => $store_language->get('admin', 'uuid'),
         'UUID_VALUE' => $uuid,
         'PRICE' => $store_language->get('general', 'price'),
-        'PRICE_VALUE' => Output::getClean($payment->data()->amount),
+        'PRICE_VALUE' => Magaza::fromCents($payment->data()->amount_cents),
+        'PRICE_FORMAT_VALUE' => Output::getPurified(
+            Magaza::formatPrice(
+                $payment->data()->amount_cents,
+                $payment->data()->currency,
+                Magaza::getCurrencySymbol(),
+                STORE_CURRENCY_FORMAT,
+            )
+        ),
         'CURRENCY_SYMBOL' => Output::getClean(Magaza::getCurrencySymbol()),
         'CURRENCY_ISO' => Output::getClean($payment->data()->currency),
         'DATE_VALUE' => date(DATE_FORMAT, $payment->data()->created),
@@ -295,12 +317,11 @@ if (isset($_GET['customer'])) {
 
                         // Register payment
                         $payment = new Payment();
-                        $payment->handlePaymentEvent('COMPLETED', [
+                        $payment->handlePaymentEvent(Payment::COMPLETED, [
                             'order_id' => $order->data()->id,
                             'gateway_id' => 0,
-                            'amount' => 0,
-                            'currency' => Magaza::getCurrency(),
-                            'fee' => 0
+                            'amount_cents' => Magaza::toCents(Input::get('price')),
+                            'currency' => Magaza::getCurrency()
                         ]);
 
                         Session::flash('store_payment_success', $store_language->get('admin', 'payment_created_successfully'));
@@ -318,7 +339,8 @@ if (isset($_GET['customer'])) {
         $smarty->assign([
             'CREATE_PAYMENT' => $store_language->get('admin', 'create_payment'),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/magaza/odemeler')
+            'BACK_LINK' => URL::build('/panel/magaza/odemeler'),
+            'PRICE' => $store_language->get('admin', 'price'),
         ]);
 
         // Products to choose
@@ -384,7 +406,15 @@ if (isset($_GET['customer'])) {
                 'status_id' => $paymentQuery->status_id,
                 'status' => $payment->getStatusHtml(),
                 'currency_symbol' => Output::getClean(Magaza::getCurrencySymbol()),
-                'amount' => Output::getClean($paymentQuery->amount),
+                'amount' => Magaza::fromCents($paymentQuery->amount_cents),
+                'amount_format' => Output::getPurified(
+                    Magaza::formatPrice(
+                        $paymentQuery->amount_cents,
+                        $paymentQuery->currency,
+                        Magaza::getCurrencySymbol(),
+                        STORE_CURRENCY_FORMAT,
+                    )
+                ),
                 'date' => date(DATE_FORMAT, $paymentQuery->created),
                 'date_unix' => Output::getClean($paymentQuery->created),
                 'link' => URL::build('/panel/magaza/odemeler/', 'payment=' . Output::getClean($paymentQuery->id))

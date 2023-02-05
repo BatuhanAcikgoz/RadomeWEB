@@ -13,6 +13,15 @@
 // Language
 $store_language = new Language(ROOT_PATH . '/modules/Magaza/language', LANGUAGE);
 
+spl_autoload_register(function ($class) {
+    $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Magaza', 'classes', 'DTO', $class . '.php']);
+    if (file_exists($path)) {
+        require_once($path);
+    }
+});
+
+
+
 // Load classes
 spl_autoload_register(function ($class) {
     $path = join(DIRECTORY_SEPARATOR, [ROOT_PATH, 'modules', 'Magaza', 'classes', $class . '.php']);

@@ -22,10 +22,9 @@ define('PARENT_PAGE', 'store');
 define('PANEL_PAGE', 'store_products');
 $page_title = $store_language->get('general', 'products');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
 
 $store = new Magaza($cache, $store_language);
-$configuration = new Configuration('store');
+
 
 if (!isset($_GET['action'])) {
     // Get all products and categories
@@ -35,11 +34,12 @@ if (!isset($_GET['action'])) {
     if ($categories->count()) {
         $categories = $categories->results();
 
-        $currency = Output::getClean($configuration->get('currency'));
-        $currency_symbol = Output::getClean($configuration->get('currency_symbol'));
+        $currency = Output::getClean(Magaza::getCurrency());
+        $currency_symbol = Output::getClean(Magaza::getCurrencySymbol());
 
         foreach ($categories as $category) {
             $new_category = [
+                'id' => Output::getClean($category->id),
                 'name' => Output::getClean(Output::getDecoded($category->name)),
                 'products' => [],
                 'edit_link' => URL::build('/panel/magaza/kategoriler/', 'action=edit&id=' . Output::getClean($category->id)),
@@ -56,7 +56,15 @@ if (!isset($_GET['action'])) {
                         'id' => Output::getClean($product->id),
                         'id_x' => $store_language->get('admin', 'id_x', ['id' => Output::getClean($product->id)]),
                         'name' => Output::getClean($product->name),
-                        'price' => Output::getClean($product->price),
+                        'price' => Magaza::fromCents($product->price_cents),
+                        'price_format' => Output::getPurified(
+                            Magaza::formatPrice(
+                                $product->price_cents,
+                                $currency,
+                                $currency_symbol,
+                                STORE_CURRENCY_FORMAT,
+                            )
+                        ),
                         'edit_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id)),
                         'delete_link' => URL::build('/panel/magaza/urun/', 'product=' . Output::getClean($product->id) . '&action=delete')
                     ];
@@ -72,6 +80,10 @@ if (!isset($_GET['action'])) {
         $smarty->assign('NO_PRODUCTS', $store_language->get('general', 'no_products'));
     }
 
+    $template->assets()->include(
+        AssetTree::JQUERY_UI
+    );
+
     $smarty->assign([
         'ALL_CATEGORIES' => $all_categories,
         'CURRENCY' => $currency,
@@ -85,6 +97,8 @@ if (!isset($_GET['action'])) {
         'CONFIRM_DELETE_PRODUCT' => $store_language->get('admin', 'product_confirm_delete'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
+        'REORDER_CATEGORY_URL' => URL::build('/panel/store/products', 'action=order_categories'),
+        'REORDER_PRODUCTS_URL' => URL::build('/panel/store/products', 'action=order_products'),
     ]);
 
     $template_file = 'store/products.tpl';
@@ -126,8 +140,6 @@ if (!isset($_GET['action'])) {
                         // Get price
                         if (!isset($_POST['price']) || !is_numeric($_POST['price']) || $_POST['price'] < 0.00 || $_POST['price'] > 1000 || !preg_match('/^\d+(?:\.\d{2})?$/', $_POST['price'])) {
                             $errors[] = $store_language->get('admin', 'invalid_price');
-                        } else {
-                            $price = number_format($_POST['price'], 2, '.', '');
                         }
 
                         // insert into database if there is no errors
@@ -150,7 +162,7 @@ if (!isset($_GET['action'])) {
                                 'name' => Input::get('name'),
                                 'description' => Input::get('description'),
                                 'category_id' => $category[0]->id,
-                                'price' => $price,
+                                'price_cents' => Magaza::toCents(Input::get('price')),
                                 'hidden' => $hidden,
                                 'disabled' => $disabled,
                                 'order' => $last_order + 1,
@@ -232,7 +244,7 @@ if (!isset($_GET['action'])) {
                 'REMOVE_IMAGE_LINK' => URL::build('/panel/magaza/urun/' , 'action=remove_image&product=' . $product->data()->id),
                 'FIELDS' => $store_language->get('admin', 'fields'),
                 'FIELDS_LIST' => $fields_array,
-                'CURRENCY' => Output::getClean($configuration->get('currency')),
+                'CURRENCY' => Output::getClean(Magaza::getCurrency()),
                 'HIDE_PRODUCT' => $store_language->get('admin', 'hide_product_from_store'),
                 'HIDE_PRODUCT_VALUE' => ((isset($_POST['hidden'])) ? 1 : 0),
                 'DISABLE_PRODUCT' => $store_language->get('admin', 'disable_product'),
@@ -243,13 +255,35 @@ if (!isset($_GET['action'])) {
                 AssetTree::TINYMCE,
             ]);
 
-            $template->addJSScript(Input::createTinyEditor($language, 'inputDescription'));
+            $template->addJSScript(Input::createTinyEditor($language, 'inputDescription', null, false, true));
 
             $template_file = 'store/product_new.tpl';
-        break;
+            break;
+
+            case 'order_categories':
+                if (isset($_POST['categories']) && Token::check($_POST['token'])) {
+                    $categories = json_decode($_POST['categories']);
+                    $i = 1;
+    
+                    foreach ($categories as $item) {
+                        DB::getInstance()->query('UPDATE rw_store_categories SET `order` = ? WHERE id = ?', [$i, $item]);
+                        $i++;
+                    }
+                }
+                die('Complete');
+    
+            case 'order_products':
+                if (isset($_POST['products']) && Token::check($_POST['token'])) {
+                    $i = 1;
+    
+                    foreach ($products as $item) {
+                        DB::getInstance()->query('UPDATE rw_store_products SET `order` = ? WHERE id = ?', [$i, $item]);
+                        $i++;
+                    }
+                }
+                die('Complete');
         default:
             Redirect::to(URL::build('/panel/magaza/urunler'));
-        break;
     }
 }
 

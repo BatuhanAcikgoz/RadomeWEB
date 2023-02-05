@@ -51,7 +51,7 @@
                                 <input type="text" name="name" class="form-control" id="InputName" value="{$CATEGORY_NAME_VALUE}" placeholder="{$CATEGORY_NAME}" required>
                             </div>
                             <div class="form-group">
-                                <strong><label for="inputDescription">{$CATEGORY_DESCRIPTION}</label></strong>
+                                <label for="inputDescription">{$CATEGORY_DESCRIPTION}</label>
                                 <textarea id="inputDescription" name="description">{$CATEGORY_DESCRIPTION_VALUE}</textarea>
                             </div>
                             <div class="form-group">

@@ -11,9 +11,12 @@ class PayPal_Gateway extends GatewayBase {
 
     public function __construct() {
         $name = 'PayPal';
+        $author = '<a href="https://radome.web.tr/" target="_blank" rel="nofollow noopener">RadomeWEB</a>';
+        $gateway_version = '1.4.3';
+        $store_version = '1.4.3';
         $settings = ROOT_PATH . '/modules/Magaza/gateways/PayPal/gateway_settings/settings.php';
 
-        parent::__construct($name, $settings);
+        parent::__construct($name, $author, $gateway_version, $store_version, $settings);
     }
 
     public function onCheckoutPageLoad(TemplateBase $template, Customer $customer): void {
@@ -27,16 +30,16 @@ class PayPal_Gateway extends GatewayBase {
             return;
         }
 
-        $return_url = rtrim(Util::getSelfURL(), '/') . URL::build('/magaza/islem/', 'gateway=PayPal&do=success');
-        $cancel_url = rtrim(Util::getSelfURL(), '/') . URL::build('/magaza/islem/', 'gateway=PayPal&do=cancel');
-        $listener_url = rtrim(Util::getSelfURL(), '/') . URL::build('/magaza/listener/', 'gateway=PayPal');
+        $return_url = rtrim(URL::getSelfURL(), '/') . URL::build('/magaza/islem/', 'gateway=PayPal&do=success');
+        $cancel_url = rtrim(URL::getSelfURL(), '/') . URL::build('/magaza/islem/', 'gateway=PayPal&do=cancel');
+        $listener_url = rtrim(URL::getSelfURL(), '/') . URL::build('/magaza/listener/', 'gateway=PayPal');
 
         echo '
             <form name="pay" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
               <input type="hidden" name="cmd" value="_xclick">
               <input type="hidden" name="business" value="' . $paypal_email . '" />
               <input type="hidden" name="currency_code" value="' . $order->getAmount()->getCurrency() . '" />
-              <input type="hidden" name="amount" value="' . $order->getAmount()->getTotal() . '" />
+              <input type="hidden" name="amount" value="' . Magaza::fromCents($order->getAmount()->getTotalCents()) . '" />
               <input type="hidden" name="item_name" value="' . $order->getDescription() . '">
               <input type="hidden" name="item_number" value="' . $order->data()->id . '">
               <input type="hidden" name="no_shipping" value="1">
@@ -65,9 +68,9 @@ class PayPal_Gateway extends GatewayBase {
                     'created' => date('U'),
                     'last_updated' => date('U'),
                     'status_id' => 0,
-                    'amount' => $_POST['mc_gross'],
+                    'amount_cents' => Magaza::toCents($_POST['mc_gross']),
                     'currency' => $_POST['mc_currency'],
-                    'fee' => $_POST['mc_fee']
+                    'fee_cents' => Magaza::toCents($_POST['mc_fee'] ?? 0)
                 ]);
             }
 
@@ -136,7 +139,7 @@ class PayPal_Gateway extends GatewayBase {
             $item_name = $_POST['item_name'];
             $item_number = $_POST['item_number'];
             $payment_status = $_POST['payment_status'];
-            $payment_amount = $_POST['mc_gross'];
+            $payment_amount = Magaza::toCents($_POST['mc_gross']);
             $payment_currency = $_POST['mc_currency'];
             $payment_fee = $_POST['mc_fee'];
             $transaction_id = $_POST['txn_id'];
@@ -156,9 +159,9 @@ class PayPal_Gateway extends GatewayBase {
                             // Payment exists
                             $data = [
                                 'transaction' => $transaction_id,
-                                'amount' => $payment_amount,
+                                'amount_cents' => $payment_amount,
                                 'currency' => $payment_currency,
-                                'fee' => $payment_fee
+                                'fee_cents' => Magaza::toCents($payment_fee ?? 0)
                             ];
                         } else {
                             // Register new payment
@@ -166,20 +169,20 @@ class PayPal_Gateway extends GatewayBase {
                                 'order_id' => $order_id,
                                 'gateway_id' => $this->getId(),
                                 'transaction' => $transaction_id,
-                                'amount' => $payment_amount,
+                                'amount_cents' => $payment_amount,
                                 'currency' => $payment_currency,
-                                'fee' => $payment_fee
+                                'fee_cents' => Magaza::toCents($payment_fee ?? 0)
                             ];
                         }
                         
-                        $payment->handlePaymentEvent('COMPLETED', $data);
+                        $payment->handlePaymentEvent(Payment::COMPLETED, $data);
                     break;
                     case 'Refunded';
                         // Payment refunded
                         $payment = new Payment($_POST['parent_txn_id'], 'transaction');
                         if ($payment->exists()) {
                             // Payment exists
-                            $payment->handlePaymentEvent('REFUNDED');
+                            $payment->handlePaymentEvent(Payment::REFUNDED);
                         }
                     break;
                     default:
@@ -187,7 +190,7 @@ class PayPal_Gateway extends GatewayBase {
                         $payment = new Payment($transaction_id, 'transaction');
                         if ($payment->exists()) {
                             // Payment exists
-                            $payment->handlePaymentEvent('REFUNDED');
+                            $payment->handlePaymentEvent(Payment::REFUNDED);
                         }
                     break;
                 }

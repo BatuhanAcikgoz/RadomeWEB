@@ -26,14 +26,13 @@ if (Input::exists()) {
     }
 }
 
-$configuration = new Configuration('store');
-$currency = Output::getClean($configuration->get('currency'));
-$currency_symbol = Output::getClean($configuration->get('currency_symbol'));
+$currency = Output::getClean(Magaza::getCurrency());
+$currency_symbol = Output::getClean(Magaza::getCurrencySymbol());
 
 // Get user credits if user is logged in
-$credits = 0;
+$cents = 0;
 if ($from_customer->exists()) {
-    $credits = $from_customer->getCredits();
+    $cents = $from_customer->data()->cents;
 }
 
 $show_credits_amount = Util::getSetting('show_credits_amount', '1');
@@ -45,7 +44,7 @@ $smarty->assign([
     'SHOPPING_CART_PRODUCTS' => $shopping_cart->getProducts(),
     'X_ITEMS_FOR_Y' => $store_language->get('general', 'x_items_for_y', [
         'items' => count($shopping_cart->getItems()),
-        'amount' => $shopping_cart->getTotalPrice(),
+        'amount' => Magaza::fromCents($shopping_cart->getTotalPriceCents()),
         'currency' => $currency,
         'currency_symbol' => $currency_symbol,
     ]),
@@ -54,5 +53,13 @@ $smarty->assign([
     'CURRENCY_SYMBOL' => $currency_symbol,
     'ACCOUNT' => $language->get('user', 'user_cp'),
     'CREDITS' => $store_language->get('general', 'credits'),
-    'CREDITS_VALUE' => $credits,
+    'CREDITS_VALUE' => Magaza::fromCents($cents),
+    'CREDITS_FORMAT_VALUE' => Output::getPurified(
+        Magaza::formatPrice(
+            $cents,
+            $currency,
+            $currency_symbol,
+            STORE_CURRENCY_FORMAT,
+        )
+    ),
 ]);

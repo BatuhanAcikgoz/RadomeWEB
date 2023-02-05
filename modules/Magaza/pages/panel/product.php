@@ -73,8 +73,6 @@ if (!isset($_GET['action'])) {
                 // Get price
                 if (!isset($_POST['price']) || !is_numeric($_POST['price']) || $_POST['price'] < 0.00 || $_POST['price'] > 1000 || !preg_match('/^\d+(?:\.\d{2})?$/', $_POST['price'])) {
                     $errors[] = $store_language->get('admin', 'invalid_price');
-                } else {
-                    $price = number_format($_POST['price'], 2, '.', '');
                 }
 
                 // insert into database if there is no errors
@@ -92,7 +90,7 @@ if (!isset($_GET['action'])) {
                         'name' => Input::get('name'),
                         'description' => Input::get('description'),
                         'category_id' => $category[0]->id,
-                        'price' => $price,
+                        'price_cents' => Magaza::toCents(Input::get('price')),
                         'hidden' => $hidden,
                         'disabled' => $disabled
                     ]);
@@ -215,6 +213,12 @@ if (!isset($_GET['action'])) {
             case 3:
                 $type = 'Changeback';
             break;
+            case 4:
+                $type = 'Renewal';
+            break;
+            case 5:
+                $type = 'Expire';
+            break;
         }
 
         $actions_array[] = [
@@ -228,7 +232,6 @@ if (!isset($_GET['action'])) {
         ];
     }
 
-    $configuration = new Configuration('store');
     $smarty->assign([
         'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
         'ID' => Output::getClean($product->data()->id),
@@ -239,7 +242,7 @@ if (!isset($_GET['action'])) {
         'PRODUCT_DESCRIPTION' => $store_language->get('admin', 'product_description'),
         'PRODUCT_DESCRIPTION_VALUE' => Output::getPurified(Output::getDecoded($product->data()->description)),
         'PRICE' => $store_language->get('general', 'price'),
-        'PRODUCT_PRICE_VALUE' => Output::getClean($product->data()->price),
+        'PRODUCT_PRICE_VALUE' => Magaza::fromCents($product->data()->price_cents),
         'PRODUCT_CATEGORY_VALUE' => Output::getClean($product->data()->category_id),
         'CATEGORY' => $store_language->get('admin', 'category'),
         'CATEGORY_LIST' => $store->getAllCategories(),
@@ -250,7 +253,7 @@ if (!isset($_GET['action'])) {
         'NEW_ACTION' => $store_language->get('admin', 'new_action'),
         'NEW_ACTION_LINK' => URL::build('/panel/magaza/urun/' , 'action=new_action&product=' . $product->data()->id),
         'ACTION_LIST' => $actions_array,
-        'CURRENCY' => Output::getClean($configuration->get('currency')),
+        'CURRENCY' => Output::getClean(Magaza::getCurrency()),
         'HIDE_PRODUCT' => $store_language->get('admin', 'hide_product_from_store'),
         'HIDE_PRODUCT_VALUE' => $product->data()->hidden,
         'DISABLE_PRODUCT' => $store_language->get('admin', 'disable_product'),
@@ -267,7 +270,7 @@ if (!isset($_GET['action'])) {
         AssetTree::TINYMCE,
     ]);
 
-    $template->addJSScript(Input::createTinyEditor($language, 'inputDescription'));
+    $template->addJSScript(Input::createTinyEditor($language, 'inputDescription', null, false, true));
 
     $template_file = 'store/product.tpl';
 } else {
@@ -388,6 +391,12 @@ if (!isset($_GET['action'])) {
                     break;
                     case 3:
                         $type = 'Changeback';
+                    break;
+                    case 4:
+                        $type = 'Renewal';
+                    break;
+                    case 5:
+                        $type = 'Expire';
                     break;
                 }
 

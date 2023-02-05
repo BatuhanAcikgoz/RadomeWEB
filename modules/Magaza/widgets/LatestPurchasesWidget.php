@@ -80,7 +80,15 @@ class LatestMagazaPurchasesWidget extends WidgetBase {
 					$latest_purchases[] = [
 						'avatar' => $avatar,
 						'profile' => URL::build('/profil/' . $username),
-						'price' => Output::getClean($purchase->amount),
+						'price' => Magaza::fromCents($purchase->amount_cents),
+                        'price_format' => Output::getPurified(
+                            Magaza::formatPrice(
+                                $purchase->amount_cents,
+                                $purchase->currency,
+                                Magaza::getCurrencySymbol(),
+                                STORE_CURRENCY_FORMAT,
+                            )
+                        ),
 						'currency' => Output::getClean($purchase->currency),
 						'currency_symbol' => Output::getClean(Magaza::getCurrencySymbol()),
 						'uuid' => Output::getClean($purchase->identifier),

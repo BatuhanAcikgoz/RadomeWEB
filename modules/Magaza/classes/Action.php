@@ -8,6 +8,11 @@
  * @license MIT
  */
 class Action {
+    public const PURCHASE = 1;
+    public const REFUND = 2;
+    public const CHANGEBACK = 3;
+    public const RENEWAL = 4;
+    public const EXPIRE = 5;
 
     private DB $_db;
 
@@ -170,6 +175,16 @@ class Action {
         $placeholders['{purchaserUserId}'] = $customer->exists() ? $customer->data()->user_id ?? 0 : 0;
         $placeholders['{purchaserName}'] = $customer->getUsername();
         $placeholders['{purchaserUuid}'] = $customer->getIdentifier();
+
+        // User Integrations placeholders
+        $user = $order->recipient()->getUser();
+        foreach ($user->getIntegrations() as $integrationUser) {
+            $integrationName = strtolower($integrationUser->getIntegration()->getName());
+
+            $placeholders['{' . $integrationName . 'Username}'] = $integrationUser->data()->username;
+            $placeholders['{' . $integrationName . 'Identifier}'] = $integrationUser->data()->identifier;
+            $placeholders['{' . $integrationName . 'Verified}'] = $integrationUser->data()->verified ? true : false;
+        }
 
         try {
             // For each quantity

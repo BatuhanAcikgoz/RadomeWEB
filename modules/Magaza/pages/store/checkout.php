@@ -16,6 +16,12 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Magaza/core/frontend_init.php');
 
+if (!Util::getSetting('allow_guests', '0', 'Magaza')) {
+    if (!$user->isLoggedIn()) {
+        Redirect::to(URL::build('/giris/'));
+    }
+}
+
 $gateways = new Gateways();
 
 $store_url = $store->getMagazaURL();
@@ -23,8 +29,8 @@ $store_url = $store->getMagazaURL();
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'complete') {
         // Checkout complete page
-        $checkout_complete_content = DB::getInstance()->get('store_settings', ['name', '=', 'checkout_complete_content'])->results();
-        $smarty->assign('CHECKOUT_COMPLETE_CONTENT', Output::getPurified(Output::getDecoded($checkout_complete_content[0]->value)));
+        $checkout_complete_content = Util::getSetting('checkout_complete_content', '', 'Magaza');
+        $smarty->assign('CHECKOUT_COMPLETE_CONTENT', Output::getPurified(Output::getDecoded($checkout_complete_content)));
         
         $template_file = 'store/checkout_complete.tpl';
     } else {
@@ -42,27 +48,25 @@ if (isset($_GET['do'])) {
         die('Invalid product');
     }
 
-    if ($user->isLoggedIn()) {
-        // Check for any required integrations
-        foreach ($product->getRequiredIntegrations() as $integration) {
-            $integrationUser = $user->getIntegration($integration->getName());
-            if ($integrationUser == null || $integrationUser->data()->username == null || $integrationUser->data()->identifier == null) {
-                Session::flash('store_error', $store_language->get('general', 'product_requires_integration', [
-                    'integration' => Output::getClean($integration->getName()),
-                    'linkStart' => '<a href="' . URL::build('/kullanici/baglantilar') . '">',
-                    'linkEnd' => '</a>'
-                ]));
-                Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
-            }
-        }
+    // Execute event with allow modules to interact with it 
+    $addProductEvent = EventHandler::executeEvent('storeCheckoutAddProduct', [
+        'user' => $user,
+        'product' => $product,
+        'customer' => $from_customer,
+        'recipient' => $to_customer,
+        'fields' => $product->getFields()
+    ]);
+
+    // Check if the event returned any errors
+    if (isset($addProductEvent['errors']) && count($addProductEvent['errors'])) {
+        Session::flash('store_error', $addProductEvent['errors'][0]);
+        Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
     }
 
-    $fields = $product->getFields();
+    // Check if the product requires customer input
+    $fields = $addProductEvent['fields'];
     if (count($fields)) {
-        $force_continue = true;
 
-        // Any fields to fill?
-        $quantity = 1;
         $product_fields = [];
         foreach ($fields as $field) {
             $options = explode(',', Output::getClean($field->options));
@@ -73,31 +77,13 @@ if (isset($_GET['do'])) {
             $product_fields[] = [
                 'id' => Output::getClean($field->id),
                 'identifier' => Output::getClean($field->identifier),
-                'value' => $forced ? Output::getClean($_GET[$field->identifier]) : (isset($_POST[$field->id]) && !is_array($_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : Output::getClean($field->default_value)),
+                'value' => isset($_POST[$field->id]) && !is_array($_POST[$field->id]) ? Output::getClean(Input::get($field->id)) : Output::getClean($field->default_value),
                 'description' => Output::getClean($field->description),
                 'type' => Output::getClean($field->type),
                 'required' => Output::getClean($field->required),
-                'options' => $options,
-                'forced' => $forced
+                'options' => explode(',', Output::getClean($field->options))
             ];
 
-            // Continue to next step if all fields are force loaded
-            if (!$forced)
-                $force_continue = false;
-
-                if ($field->identifier == 'quantity' && !empty(Input::get($field->id))) {
-                    $quantity = Input::get($field->id);
-                    if (!is_numeric($quantity) || $quantity < 1) {
-                        Session::flash('store_error', $store_language->get('general', 'invalid_quantity'));
-                        Redirect::to(URL::build($store_url . '/kategori/' . $product->data()->category_id));
-                    }
-                }    
-        }
-
-        // Continue to next step if all fields are force loaded
-        if ($force_continue) {
-            $shopping_cart->add($_GET['add'], 1, $product_fields);
-            Redirect::to(URL::build($store_url . '/checkout/'));
         }
 
         // Deal with any input
@@ -151,7 +137,7 @@ if (isset($_GET['do'])) {
                         $item = $_POST[$field->id];
                         $value = (!is_array($item) ? $item : implode(', ', $item));
 
-                        $product_fields[] = [
+                        $product_fields[$field->id] = [
                             'id' => Output::getClean($field->id),
                             'identifier' => Output::getClean($field->identifier),
                             'value' => $value,
@@ -169,8 +155,23 @@ if (isset($_GET['do'])) {
 
                     }
                     
-                    $shopping_cart->add($_GET['add'], 1, $product_fields);
-                    Redirect::to(URL::build($store_url . '/checkout/'));
+
+                    // Execute event with allow modules to further validate the fields
+                    $fieldsValidationEvent = EventHandler::executeEvent('storeCheckoutFieldsValidation', [
+                        'user' => $user,
+                        'product' => $product,
+                        'customer' => $from_customer,
+                        'recipient' => $to_customer,
+                        'fields' => $product_fields
+                    ]);
+
+                    // Check if the event returned any errors
+                    if (isset($fieldsValidationEvent['errors']) && count($fieldsValidationEvent['errors'])) {
+                        $errors = $fieldsValidationEvent['errors'];
+                    } else {
+                        $shopping_cart->add($_GET['add'], $quantity, $product_fields);
+                        Redirect::to(URL::build($store_url . '/checkout/'));
+                    }
                 } else {
                     // Validation errors
                     foreach ($validation->errors() as $item) {
@@ -210,7 +211,7 @@ if (isset($_GET['do'])) {
         $template_file = 'store/checkout_add.tpl';
 
     } else {
-        // No fields to fill, continue to next step
+        // No customer input to fill, continue to next step
         $shopping_cart->add($_GET['add']);
         Redirect::to(URL::build($store_url . '/checkout/'));
     }
@@ -256,32 +257,31 @@ if (isset($_GET['do'])) {
                 // Create order
                 $amount = new Amount();
                 $amount->setCurrency($currency);
-                $amount->setTotal($shopping_cart->getTotalPrice());
+                $amount->setTotalCents($shopping_cart->getTotalPriceCents());
 
                 $order = new Order();
                 $order->setAmount($amount);
 
-                $order->create($user, $from_customer, $to_customer, $shopping_cart->getItems());
+                $order->setProducts($shopping_cart->getProducts());
+                $order->create($user, $from_customer, $to_customer, $shopping_cart->getItems(), $shopping_cart->getCoupon());
 
                 // Complete order if there is nothing to pay
-                $amount_to_pay = $shopping_cart->getTotalPrice();
+                $amount_to_pay = $shopping_cart->getTotalPriceCents();
                 if ($amount_to_pay == 0) {
                     $payment = new Payment();
-                    $payment->handlePaymentEvent('COMPLETED', [
+                    $payment->handlePaymentEvent(Payment::COMPLETED, [
                         'order_id' => $order->data()->id,
                         'gateway_id' => 0,
-                        'amount' => 0,
+                        'amount_cents' => 0,
                         'transaction' => 'Free',
-                        'currency' => Output::getClean($configuration->get('currency')),
-                        'fee' => 0
+                        'currency' => Magaza::getCurrency()
                     ]);
 
                     $shopping_cart->clear();
                     Redirect::to(URL::build($store_url . '/checkout/', 'do=complete'));
                 }
 
-                $payment_method = $_POST['payment_method'];
-                $gateway = $gateways->get($payment_method);
+                $gateway = $gateways->get($_POST['payment_method']);
                 if ($gateway) {
                     // Load gateway process
                     $gateway->processOrder($order);
@@ -319,7 +319,7 @@ if (isset($_GET['do'])) {
     // Load shopping list
     $shopping_cart_list = [];
     foreach ($shopping_cart->getProducts() as $product) {
-        $item = $shopping_cart->getItems()[$product->id];
+        $item = $shopping_cart->getItems()[$product->data()->id];
 
         $fields = [];
         foreach ($item['fields'] as $field) {
@@ -337,11 +337,38 @@ if (isset($_GET['do'])) {
         }
 
         $shopping_cart_list[] = [
-            'name' => Output::getClean($product->name),
+            'name' => Output::getClean($product->data()->name),
             'quantity' => $item['quantity'],
-            'price' => Output::getClean($product->price) * $item['quantity'],
+            'price' => Magaza::fromCents($product->data()->price_cents * $item['quantity']),
+            'real_price' => Magaza::fromCents($product->getRealPriceCents() * $item['quantity']),
+            'sale_discount' => Magaza::fromCents($product->data()->sale_discount_cents * $item['quantity']),
+            'price_format' => Output::getPurified(
+                Magaza::formatPrice(
+                    $product->data()->price_cents * $item['quantity'],
+                    $currency,
+                    $currency_symbol,
+                    STORE_CURRENCY_FORMAT,
+                )
+            ),
+            'real_price_format' => Output::getPurified(
+                Magaza::formatPrice(
+                    $product->getRealPriceCents() * $item['quantity'],
+                    $currency,
+                    $currency_symbol,
+                    STORE_CURRENCY_FORMAT,
+                )
+            ),
+            'sale_discount_format' => Output::getPurified(
+                Magaza::formatPrice(
+                    $product->data()->sale_discount_cents * $item['quantity'],
+                    $currency,
+                    $currency_symbol,
+                    STORE_CURRENCY_FORMAT,
+                )
+            ),
+            'sale_active' => $product->data()->sale_active,
             'fields' => $fields,
-            'remove_link' => URL::build($store_url . '/checkout/', 'remove=' . $product->id),
+            'remove_link' => URL::build($store_url . '/checkout/', 'remove=' . $product->data()->id),
         ];
     }
 
@@ -365,7 +392,40 @@ if (isset($_GET['do'])) {
         'QUANTITY' => $store_language->get('general', 'quantity'),
         'PRICE' => $store_language->get('general', 'price'),
         'TOTAL_PRICE' => $store_language->get('general', 'total_price'),
-        'TOTAL_PRICE_VALUE' => $shopping_cart->getTotalPrice(),
+        'TOTAL_DISCOUNT' => $store_language->get('general', 'total_discount'),
+        'PRICE_TO_PAY' => $store_language->get('general', 'price_to_pay'),
+        'TOTAL_REAL_PRICE_VALUE' => Magaza::fromCents($shopping_cart->getTotalRealPriceCents()),
+        'TOTAL_DISCOUNT_VALUE' => Magaza::fromCents($shopping_cart->getTotalDiscountCents()),
+        'TOTAL_PRICE_VALUE' => Magaza::fromCents($shopping_cart->getTotalPriceCents()),
+        'TOTAL_PRICE_FORMAT_VALUE' => Output::getPurified(
+            Magaza::formatPrice(
+                $shopping_cart->getTotalCents(),
+                $currency,
+                $currency_symbol,
+                STORE_CURRENCY_FORMAT,
+            )
+        ),
+        'TOTAL_REAL_PRICE_FORMAT_VALUE' => Output::getPurified(
+            Magaza::formatPrice(
+                $shopping_cart->getTotalRealPriceCents(),
+                $currency,
+                $currency_symbol,
+                STORE_CURRENCY_FORMAT,
+            )
+        ),
+        'TOTAL_DISCOUNT_FORMAT_VALUE' => Output::getPurified(
+            Magaza::formatPrice(
+                $shopping_cart->getTotalDiscountCents(),
+                $currency,
+                $currency_symbol,
+                STORE_CURRENCY_FORMAT,
+            )
+        ),
+        'REDEEM' => $store_language->get('general', 'redeem'),
+        'REDEEM_COUPON' => $store_language->get('general', 'redeem_coupon'),
+        'REDEEM_COUPON_HERE' => $store_language->get('general', 'redeem_coupon_here'),
+        'REDEEM_COUPON_URL' => URL::build('/queries/redeem_coupon'),
+        'REDEEM_COUPON_VALUE' => $shopping_cart->getCoupon() != null ? Output::getClean($shopping_cart->getCoupon()->data()->code) : '',
         'PAYMENT_METHOD' => $store_language->get('general', 'payment_method'),
         'PURCHASE' => $store_language->get('general', 'purchase'),
         'AGREE_T_AND_C_PURCHASE' => $store_language->get('general', 'agree_t_and_c_purchase', [
@@ -389,6 +449,11 @@ $smarty->assign([
 
 // Load modules + template
 Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+
+if (Session::exists('store_success')) {
+    $success = Session::flash('store_success');
+}
 
 if (Session::exists('store_error')) {
     $errors[] = Session::flash('store_error');

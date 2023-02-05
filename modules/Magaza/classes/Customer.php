@@ -189,7 +189,15 @@ class Customer {
                     'status_id' => $paymentQuery->status_id,
                     'status' => $payment->getStatusHtml(),
                     'currency' => Output::getPurified($paymentQuery->currency),
-                    'amount' => Output::getClean($paymentQuery->amount),
+                    'amount' => Magaza::fromCents($paymentQuery->amount_cents),
+                    'amount_format' => Output::getPurified(
+                        Magaza::formatPrice(
+                            $paymentQuery->amount_cents,
+                            $paymentQuery->currency,
+                            Magaza::getCurrencySymbol(),
+                            STORE_CURRENCY_FORMAT,
+                        )
+                    ),
                     'date' => date('d M Y, H:i', $paymentQuery->created),
                     'link' => URL::build('/panel/magaza/odemeler', 'payment=' . Output::getClean($paymentQuery->id))
                 ];

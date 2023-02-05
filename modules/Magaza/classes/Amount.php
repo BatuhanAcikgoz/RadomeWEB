@@ -38,20 +38,20 @@ class Amount {
     }
 
     /**
-     * Set the amount to charge.
+     *  Set the amount of cents to charge.
      *
-     * @param string|double $total
+     * @param int $total
      */
-    public function setTotal($total): void {
+    public function setTotalCents(int $total): void {
         $this->_total = $total;
     }
 
     /**
-     * The amount to charge.
+     * The amount of cents to charge.
      *
-     * @return string
+     * @return int
      */
-    public function getTotal(): string {
+    public function getTotalCents(): int {
         return $this->_total;
     }
 }

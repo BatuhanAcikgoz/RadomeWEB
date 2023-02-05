@@ -15,8 +15,8 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Magaza/core/frontend_init.php');
 
-$content = DB::getInstance()->get('store_settings', ['name', '=', 'store_content'])->results();
-$content = Output::getDecoded($content[0]->value);
+$content = Util::getSetting('store_content', '', 'Magaza');
+$content = Output::getDecoded($content);
 $content = Output::getPurified($content);
 $categories_list = [];
 $categories = DB::getInstance()->query('SELECT id, image FROM rw_store_categories WHERE deleted = 0')->results();

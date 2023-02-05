@@ -45,32 +45,59 @@
         {/if}
         
         <form class="col-md-12" action="" method="post" id="forms">
-          <h3>{$SHOPPING_CART}</h3>
-          <br>
-          <table class="table table-striped">
-            <thead>
+        <h3>{$SHOPPING_CART}</h3>
+        <br>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{$NAME}</th>
+              <th>{$OPTIONS}</th>
+              <th>{$QUANTITY}</th>
+              <th>{$PRICE}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {foreach from=$SHOPPING_CART_LIST item=item}
               <tr>
-                <th>{$NAME}</th>
-                <th>{$OPTIONS}</th>
-                <th>{$QUANTITY}</th>
-                <th>{$PRICE}</th>
-                <th></th>
+              <td>{$item.name}</td>
+            <td>{if count($item.fields)} {foreach from=$item.fields item=field name=fields}<strong>{$field.description}</strong>: {$field.value}{if not $smarty.foreach.fields.last}</br>{/if}{/foreach} {/if}</td>
+            <td>{$item.quantity}</td>
+            <td>{if $item.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$item.price_format}</span>{/if} {$item.real_price_format}</td>
+            <td><a href="{$item.remove_link}" class="ui icon remove red tiny button right floated"><i class="icon remove"></i></a></td>
               </tr>
-            </thead>
-            <tbody>
-              {foreach from=$SHOPPING_CART_LIST item=item}
-                <tr>
-                  <td>{$item.name}</td>
-                  <td>{if count($item.fields)} {foreach from=$item.fields item=field name=fields}<strong>{$field.description}</strong>: {$field.value}{if not $smarty.foreach.fields.last}</br>{/if}{/foreach} {/if}</td>
-                  <td>{$item.quantity}</td>
-                  <td>{$CURRENCY_SYMBOL}{$item.price} {$CURRENCY}</td>
-                  <td><a href="{$item.remove_link}" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
-                </tr>
-              {/foreach}
+            {/foreach}
             </tbody>
           </table>
         
-          <h4>{$TOTAL_PRICE} {$TOTAL_PRICE_VALUE} {$CURRENCY}</h4>
+          <table class="ui collapsing table">
+          <tbody>
+            <tr>
+              <td>{$TOTAL_PRICE}</td>
+              <td>{$TOTAL_PRICE_FORMAT_VALUE}</td>
+            </tr>
+            <tr>
+              <td>{$TOTAL_DISCOUNT}</td>
+              <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
+            </tr>
+            <tr>
+              <td>{$PRICE_TO_PAY}</td>
+              <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>{$REDEEM_COUPON}</h3>
+        <div class="ui divider"></div>
+        <form class="ui form" action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
+          <div class="field">
+              <div class="ui action input">
+                  <input type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}" placeholder="{$REDEEM_COUPON_HERE}"/>
+                  <input type="hidden" name="token" value="{$TOKEN}">
+                  <button class="ui green button">{$REDEEM} &raquo;</button>
+              </div>
+          </div>
+        </form>
           <br style="margin-bottom: 15px;">
           
           <h3>{$PAYMENT_METHOD}</h3>

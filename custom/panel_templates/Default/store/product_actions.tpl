@@ -82,8 +82,9 @@
                                 </table>
                             </div>
                         {else}
-                            <hr>
-                            There are no actions yet.
+                            </br>
+                            <div class="float-md-right"><a href="{$NEW_ACTION_LINK}" class="btn btn-primary">{$NEW_ACTION}</a></div>
+                            <p>There are no actions yet.</p>
                         {/if}
 
                         

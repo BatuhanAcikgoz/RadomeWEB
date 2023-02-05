@@ -8,10 +8,23 @@
  * @license MIT
  */
 class Payment {
+    public const PENDING = 'PENDING';
+    public const COMPLETED = 'COMPLETED';
+    public const REFUNDED = 'REFUNDED';
+    public const REVERSED = 'REVERSED';
+    public const DENIED = 'DENIED';
 
-    private $_db,
-            $_data,
-            $_order;
+    private DB $_db;
+
+    /**
+     * @var PaymentData|null The product data. Basically just the row from `nl2_store_payments` where the payment ID is the key.
+     */
+    private ?PaymentData $_data;
+
+    /**
+     * @var Order The order this payment belong to.
+     */
+    private $_order;
 
     public function __construct($value = null, $field = 'id', $query_data = null) {
         $this->_db = DB::getInstance();
@@ -19,11 +32,11 @@ class Payment {
         if (!$query_data && $value) {
             $data = $this->_db->get('store_payments', [$field, '=', $value]);
             if ($data->count()) {
-                $this->_data = $data->first();
+                $this->_data = new PaymentData($data->first());
             }
         } else if ($query_data) {
             // Load data from existing query.
-            $this->_data = $query_data;
+            $this->_data = new PaymentData($query_data);
         }
     }
 
@@ -51,7 +64,7 @@ class Payment {
 
         $data = $this->_db->get('store_payments', ['id', '=', $last_id]);
         if ($data->count()) {
-            $this->_data = $data->first();
+            $this->_data = new PaymentData($data->first());
         }
 
         return $last_id;
@@ -69,9 +82,9 @@ class Payment {
     /**
      * Get the payment data.
      *
-     * @return object This payment data.
+     * @return PaymentData This payment data.
      */
-    public function data() {
+    public function data(): ?PaymentData {
         return $this->_data;
     }
 
@@ -94,7 +107,7 @@ class Payment {
 
             $username = $this->getOrder()->recipient()->getUsername();
             switch ($event) {
-                case 'PENDING':
+                case self::PENDING:
                     // Payment pending
                     $update_array = [
                         'status_id' => 0,
@@ -105,13 +118,14 @@ class Payment {
 
                     EventHandler::executeEvent('paymentPending', [
                         'event' => 'paymentPending',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
                     ]);
                 break;
-                case 'COMPLETED':
+                case self::COMPLETED:
                     // Payment completed
                     $update_array = [
                         'status_id' => 1,
@@ -120,19 +134,20 @@ class Payment {
 
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
-                    $this->executeAllActions(1);
+                    $this->executeAllActions(Action::PURCHASE);
 
                     EventHandler::executeEvent('paymentCompleted', [
                         'event' => 'paymentCompleted',
+                        'order' => $this->getOrder(),
+                        'order_id' => $this->data()->order_id,
                         'username' => $username,
                         'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
                         'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
                         'footer' => $default_language->get('general', 'radomeweb'),
-                        'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                     ]);
                 break;
-                case 'REFUNDED':
+                case self::REFUNDED:
                     // Payment refunded
                     $update_array = [
                         'status_id' => 2,
@@ -142,17 +157,18 @@ class Payment {
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
                     $this->deletePendingActions();
-                    $this->executeAllActions(2);
+                    $this->executeAllActions(Action::REFUND);
 
                     EventHandler::executeEvent('paymentRefunded', [
                         'event' => 'paymentRefunded',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'refunded_payment_text', ['user' => $username]),
                     ]);
                 break;
-                case 'REVERSED':
+                case self::REVERSED:
                     // Payment reversed
                     $update_array = [
                         'status_id' => 3,
@@ -162,17 +178,18 @@ class Payment {
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
                     $this->deletePendingActions();
-                    $this->executeAllActions(3);
+                    $this->executeAllActions(Action::CHANGEBACK);
 
                     EventHandler::executeEvent('paymentReversed', [
                         'event' => 'paymentReversed',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'reversed_payment_text', ['user' => $username]),
                     ]);
                 break;
-                case 'DENIED':
+                case self::DENIED:
                     // Payment denied
                     $update_array = [
                         'status_id' => 4,
@@ -183,6 +200,7 @@ class Payment {
 
                     EventHandler::executeEvent('paymentDenied', [
                         'event' => 'paymentDenied',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
@@ -197,7 +215,7 @@ class Payment {
         } else {
             // Register payment
             switch ($event) {
-                case 'PENDING':
+                case self::PENDING:
                     // Payment pending
                     $insert_array = [
                         'status_id' => 0,
@@ -210,13 +228,14 @@ class Payment {
                     $username = $this->getOrder()->recipient()->getUsername();
                     EventHandler::executeEvent('paymentPending', [
                         'event' => 'paymentPending',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,
                         'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
                     ]);
                 break;
-                case 'COMPLETED':
+                case self::COMPLETED:
                     // Payment completed
                     $insert_array = [
                         'status_id' => 1,
@@ -226,11 +245,12 @@ class Payment {
 
                     $this->create(array_merge($insert_array, $extra_data));
 
-                    $this->executeAllActions(1);
+                    $this->executeAllActions(Action::PURCHASE);
 
                     $username = $this->getOrder()->recipient()->getUsername();
                     EventHandler::executeEvent('paymentCompleted', [
                         'event' => 'paymentCompleted',
+                        'order' => $this->getOrder(),
                         'order_id' => $this->data()->order_id,
                         'payment_id' => $this->data()->id,
                         'username' => $username,

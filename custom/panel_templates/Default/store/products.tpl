@@ -51,39 +51,41 @@
                             <p>{$NO_PRODUCTS}</p>
                         {else}
                             {foreach from=$ALL_CATEGORIES item=category}
-                            <div class="card card-default">
-                                <div class="card-header">
-                                    <strong>{$category.name}</strong>
-                                    <span class="float-md-right">
-                                        <a class="btn btn-warning btn-sm" href="{$category.edit_link}"><i class="fas fa-pencil-alt"></i></a>
-                                        <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteCategoryModal('{$category.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
-                                    </span>
-                                </div>
-                                <div class="card-body">
-                                {if count($category.products)}
-                                {foreach from=$category.products item=product name=product_loop}
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            {$product.name} <small>{$product.id_x}</small>
+                                <div class="card card-default" data-id="{$category.id}">
+                                    <div class="card-header">
+                                        <strong>{$category.name}</strong>
+                                        <div class="float-md-right">
+                                            <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
+                                            <a class="btn btn-warning btn-sm" href="{$category.edit_link}"><i class="fas fa-pencil-alt"></i></a>
+                                            <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteCategoryModal('{$category.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
                                         </div>
-                                        <div class="col-md-4">
-                                            <center>{$CURRENCY_SYMBOL}{$product.price} {$CURRENCY}</center>
                                         </div>
-                                        <div class="col-md-4">
-                                            {if isset($product.edit_link)}
-                                            <span class="float-md-right">
-                                                <a class="btn btn-warning btn-sm" href="{$product.edit_link}"><i class="fas fa-pencil-alt"></i></a>
-                                                <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteProductModal('{$product.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
-                                            </span>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <tbody class="sortableProducts" data-id="{$category.id}">
+                                                {if count($category.products)}
+                                                    {foreach from=$category.products item=product name=product_loop}
+                                                        <tr data-id="{$product.id}">
+                                                            <td width="45%" style="padding-left: 35px">{$product.name} <small>{$product.id_x}</small></td>
+                                                            <td width="15%"><center>{$product.price_format}</center></td>
+                                                            <td width="40%" style="padding-right: 1.25rem">
+                                                                {if isset($product.edit_link)}
+                                                                    <div class="float-md-right">
+                                                                        <div class="btn btn-secondary btn-sm"><i class="fas fa-arrows-alt"></i></div>
+                                                                        <a class="btn btn-warning btn-sm" href="{$product.edit_link}"><i class="fas fa-pencil-alt"></i></a>
+                                                                        <button class="btn btn-danger btn-sm" type="button" onclick="showDeleteProductModal('{$product.delete_link}')"><i class="fas fa-trash fa-fw"></i></button>
+                                                                    </div>
+                                                                {/if}
+                                                            </td>
+                                                        </tr>
+                                                    {/foreach}
                                             {/if}
-                                        </div>
+                                            </tbody>
+                                            </table>
                                     </div>
-                                    {if !$smarty.foreach.product_loop.last}<hr />{/if}
-                                {/foreach}
-                                {/if}
                                 </div>
-                            </div>
                             {/foreach}
+                            </div>
                         {/if}
 
                         
@@ -107,26 +109,26 @@
     <!-- End Wrapper -->
 </div>
     
-    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {$CONFIRM_DELETE_CATEGORY}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
-                    <a href="#" id="deleteCategoryLink" class="btn btn-primary">{$YES}</a>
-                </div>
+<div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{$ARE_YOU_SURE}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {$CONFIRM_DELETE_CATEGORY}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
+                <a href="#" id="deleteCategoryLink" class="btn btn-primary">{$YES}</a>
             </div>
         </div>
     </div>
-    
+    </div>
+
     <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -142,10 +144,10 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{$NO}</button>
                     <a href="#" id="deleteProductLink" class="btn btn-primary">{$YES}</a>
-                </div>
             </div>
         </div>
     </div>
+</div>    
 
 {include file='scripts.tpl'}
 
@@ -158,6 +160,54 @@
         $('#deleteProductLink').attr('href', id);
         $('#deleteProductModal').modal().show();
     }
+
+        // Draggable functionality
+        $(document).ready(function () {
+        $('.sortableCategories').each(function() {
+            $(this).sortable({
+                start: function(event, ui) {
+                    const start_pos = ui.item.index();
+                    ui.item.data('startPos', start_pos);
+                },
+                update: function(event, ui) {
+                    const categories = $(event.target).children();
+                    const toSubmit = [];
+                    categories.each(function() {
+                        toSubmit.push($(this).data().id);
+                    });
+                    const data = new URLSearchParams();
+                    data.append("token", "{$TOKEN}");
+                    data.append("categories", JSON.stringify(toSubmit));
+                    fetch("{$REORDER_CATEGORY_URL}", {
+                        method: 'POST',
+                        body: data
+                    }).catch((err) => console.log(err));
+                }
+            })
+        })
+        $('.sortableProducts').each(function() {
+            $(this).sortable({
+                start: function(event, ui) {
+                    const start_pos = ui.item.index();
+                    ui.item.data('startPos', start_pos);
+                },
+                update: function(event, ui) {
+                    const products = $(event.target).children();
+                    const toSubmit = [];
+                    products.each(function() {
+                        toSubmit.push($(this).data().id);
+                    });
+                    const data = new URLSearchParams();
+                    data.append("token", "{$TOKEN}");
+                    data.append("products", JSON.stringify(toSubmit));
+                    fetch('{$REORDER_PRODUCTS_URL}', {
+                        method: 'POST',
+                        body: data
+                    }).catch((err) => console.log(err));
+                }
+            })
+        })
+    })
 </script>
 
 </body>

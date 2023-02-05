@@ -19,6 +19,7 @@ class Magaza_Module extends Module {
         $this->_language = $language;
         $this->_store_language = $store_language;
         $this->_cache = $cache;
+        $this->_store_url = Magaza::getMagazaPath();
 
         $name = 'Magaza';
         $author = '<a href="https://batuhanacikgoz.com.tr/" target="_blank" rel="nofollow noopener">Reeignn</a>';
@@ -26,14 +27,6 @@ class Magaza_Module extends Module {
         $radome_version = '2.0.2';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
-
-        // Get variables from cache
-        $cache->setCache('store_settings');
-        if ($cache->isCached('store_url')) {
-            $this->_store_url = Output::getClean(rtrim($cache->retrieve('store_url'), '/'));
-        } else {
-            $this->_store_url = '/magaza';
-        }
 
         // Define URLs which belong to this module
         $pages->add('Magaza', $this->_store_url, 'pages/store/index.php', 'store', true);
@@ -52,7 +45,10 @@ class Magaza_Module extends Module {
         $pages->add('Magaza', '/panel/magaza/odemeler', 'pages/panel/payments.php');
         $pages->add('Magaza', '/panel/magaza/baglantilar', 'pages/panel/connections.php');
         $pages->add('Magaza', '/panel/magaza/alanlar', 'pages/panel/fields.php');
+        $pages->add('Magaza', '/panel/magaza/indirimler', 'pages/panel/sales.php');
         $pages->add('Magaza', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
+        $pages->add('Magaza', '/panel/magaza/kuponlar', 'pages/panel/coupons.php');
+        $pages->add('Magaza', '/sorgu/redeem_coupon', 'queries/redeem_coupon.php');
 
         $pages->add('Magaza', '/kullanici/magaza', 'pages/user/store.php');
 
@@ -61,6 +57,29 @@ class Magaza_Module extends Module {
         EventHandler::registerEvent('paymentRefunded', $store_language->get('admin', 'payment_refunded'));
         EventHandler::registerEvent('paymentReversed', $store_language->get('admin', 'payment_reversed'));
         EventHandler::registerEvent('paymentDenied', $store_language->get('admin', 'payment_denied'));
+        EventHandler::registerEvent('storeCheckoutAddProduct', 'storeCheckoutAddProduct', [], true, true);
+        EventHandler::registerEvent('renderStoreProduct', 'renderStoreProduct', [], true, true);
+        EventHandler::registerEvent('storeCheckoutAddProduct', 'storeCheckoutAddProduct', [], true, true);
+        EventHandler::registerEvent('storeCheckoutFieldsValidation', 'storeCheckoutFieldsValidation', [], true, true);
+
+        require_once(ROOT_PATH . '/modules/Magaza/hooks/CheckoutAddProductHook.php');
+        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::globalLimit');
+        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::userLimit');
+        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredProducts');
+        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredGroups');
+        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredIntegrations');
+        EventHandler::registerListener('renderStoreCategory', 'ContentHook::purify');
+        EventHandler::registerListener('renderStoreCategory', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderStoreCategory', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderStoreCategory', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderStoreCategory', 'ContentHook::replaceAnchors', 15);
+        EventHandler::registerListener('renderStoreProduct', 'ContentHook::purify');
+        EventHandler::registerListener('renderStoreProduct', 'ContentHook::codeTransform', 15);
+        EventHandler::registerListener('renderStoreProduct', 'ContentHook::decode', 20);
+        EventHandler::registerListener('renderStoreProduct', 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener('renderStoreProduct', 'ContentHook::replaceAnchors', 15);
+
+        define('STORE_CURRENCY_FORMAT', Util::getSetting('currency_format', '{currencySymbol}{price} {currencyCode}', 'Magaza'));
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Magaza/includes/endpoints');
 
@@ -147,6 +166,9 @@ class Magaza_Module extends Module {
                 'staffcp.store.payments' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'payments'),
                 'staffcp.store.connections' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'connections'),
                 'staffcp.store.fields' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'fields'),
+                'staffcp.store.manage_credits' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'manage_users_credits'),
+                'staffcp.store.sales' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'sales'),
+                'staffcp.store.coupons' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'coupons'),
             ]);
 
             if ($user->hasPermission('staffcp.store')) {
@@ -227,6 +249,26 @@ class Magaza_Module extends Module {
 
                     $navs[2]->add('store_payments', $this->_store_language->get('admin', 'payments'), URL::build('/panel/magaza/odemeler'), 'top', null, ($order + 0.7), $icon);
                 }
+
+                if ($user->hasPermission('staffcp.store.sales')) {
+                    if (!$cache->isCached('store_sales_icon')) {
+                        $icon = '<i class="nav-icon fa-solid fa-tag"></i>';
+                        $cache->store('store_sales_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('store_sales_icon');
+
+                        $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/store/sales'), 'top', null, ($order + 0.8), $icon);
+                    }
+    
+                    if ($user->hasPermission('staffcp.store.coupons')) {
+                        if (!$cache->isCached('store_coupons_icon')) {
+                            $icon = '<i class="nav-icon fas fa-ticket-alt"></i>';
+                            $cache->store('store_coupons_icon', $icon);
+                        } else
+                            $icon = $cache->retrieve('store_coupons_icon');
+    
+                        $navs[2]->add('store_coupons', $this->_store_language->get('admin', 'coupons'), URL::build('/panel/magaza/kuponlar'), 'top', null, ($order + 0.9), $icon);
+                }
             }
 
             if ($user->hasPermission('staffcp.store.payments'))
@@ -254,6 +296,7 @@ class Magaza_Module extends Module {
                 'name' => Output::getClean($data->name),
                 'service_id' => $data->service_id,
                 'last_fetch' => (int)$data->last_fetch,
+                'pending_actions' => (int)$this->_db->query('SELECT COUNT(*) AS c FROM rw_store_pending_actions WHERE connection_id = ? AND status = 0', [$data->id])->first()->c,
             ];
         }
 
@@ -343,7 +386,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_products')) {
             try {
-                $this->_db->createTable('store_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `category_id` int(11) NOT NULL, `name` varchar(128) NOT NULL, `price` varchar(8) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `global_limit` varchar(128) DEFAULT NULL, `user_limit` varchar(128) DEFAULT NULL, `required_products` varchar(128) DEFAULT NULL, `required_groups` varchar(128) DEFAULT NULL, `required_integrations` varchar(128) DEFAULT NULL, `payment_type` tinyint(1) NOT NULL DEFAULT \'1\', `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `category_id` int(11) NOT NULL, `name` varchar(128) NOT NULL, `price_cents` int(11) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `global_limit` varchar(128) DEFAULT NULL, `user_limit` varchar(128) DEFAULT NULL, `required_products` varchar(128) DEFAULT NULL, `required_groups` varchar(128) DEFAULT NULL, `required_integrations` varchar(128) DEFAULT NULL, `payment_type` tinyint(1) NOT NULL DEFAULT \'1\', `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -407,7 +450,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_payments')) {
             try {
-                $this->_db->createTable('store_payments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `payment_id` varchar(64) DEFAULT NULL, `agreement_id` varchar(64) DEFAULT NULL, `transaction` varchar(32) DEFAULT NULL, `amount` varchar(11) DEFAULT NULL, `currency` varchar(11) DEFAULT NULL, `fee` varchar(11) DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `created` int(11) NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_payments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `payment_id` varchar(64) DEFAULT NULL, `agreement_id` varchar(64) DEFAULT NULL, `transaction` varchar(32) DEFAULT NULL, `amount_cents` int(11) DEFAULT NULL, `currency` varchar(11) DEFAULT NULL, `fee_cents` int(11) DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `created` int(11) NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -429,37 +472,12 @@ class Magaza_Module extends Module {
             }
         }
 
-        if (!$this->_db->showTables('store_settings')) {
-            try {
-                $this->_db->createTable('store_settings', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `value` text, PRIMARY KEY (`id`)');
-            } catch (Exception $e) {
-                // Error
-            }
-
-            $this->_db->insert('store_settings', [
-                'name' => 'checkout_complete_content',
-                'value' => 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.'
-            ]);
-
-            $this->_db->insert('store_settings', [
-                'name' => 'currency',
-                'value' => 'TL'
-            ]);
-
-            $this->_db->insert('store_settings', [
-                'name' => 'currency_symbol',
-                'value' => '₺'
-            ]);
-
-            $this->_db->insert('store_settings', [
-                'name' => 'allow_guests',
-                'value' => 0
-            ]);
-
-            $this->_db->insert('store_settings', [
-                'name' => 'player_login',
-                'value' => 0
-            ]);
+        if (!$this->_db->get('settings', ['module', '=', 'Magaza'])->count()) {
+            Util::setSetting('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
+            Util::setSetting('currency', 'USD', 'Magaza');
+            Util::setSetting('currency_symbol', '$', 'Magaza');
+            Util::setSetting('allow_guests', 0, 'Magaza');
+            Util::setSetting('player_login', 0, 'Magaza');
         }
 
         if (!$this->_db->showTables('store_gateways')) {

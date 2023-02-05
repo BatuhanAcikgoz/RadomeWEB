@@ -13,6 +13,13 @@ class Magaza {
     private $_db,
             $_cache;
 
+   /**
+     * @var array The list of the active sales.
+     */
+    private static array $_active_sales;
+
+
+
     /**
      * @var Language Instance of Language class for translations
      */
@@ -25,16 +32,8 @@ class Magaza {
         $this->_cache = $cache;
     }
 
-    public function getMagazaURL() {
-        // Get variables from cache
-        $this->_cache->setCache('store_settings');
-        if ($this->_cache->isCached('store_url')) {
-            $store_url = Output::getClean(rtrim($this->_cache->retrieve('store_url'), '/'));
-        } else {
-            $store_url = '/magaza';
-        }
-
-        return $store_url;
+    public function getMagazaURL(): string {
+        return Util::getSetting('store_path', '/magaza', 'Magaza');
     }
 
     // Get all products
@@ -137,21 +136,51 @@ class Magaza {
     }
 
     public static function getMagazaPath(): string {
-        $configuration = new Configuration('store');
-
-        return $configuration->get('store_path');
+        return Util::getSetting('store_path', '/magaza', 'Magaza');
     }
 
     public static function getCurrency(): string {
-        $configuration = new Configuration('store');
-
-        return $configuration->get('currency');
+        return Util::getSetting('currency', 'TL', 'Magaza');
     }
 
     public static function getCurrencySymbol(): string {
-        $configuration = new Configuration('store');
+        return Util::getSetting('currency_symbol', '₺', 'Magaza');
+    }
 
-        return $configuration->get('currency_symbol');
+    /**
+     * Helper function to format price with currency
+     *
+     * @param $price_cents int Price
+     * @param $currencyCode string Currency code (eg GBP, USD, EUR)
+     * @param $currencySymbol string Currency symbol
+     * @param $format ?string Format
+     * @return string Formatted price with currency
+     */
+    public static function formatPrice(int $price_cents, string $currencyCode, string $currencySymbol, ?string $format = '{currencySymbol}{price} {currencyCode}'): string {
+        return str_replace([
+            '{currencyCode}',
+            '{currencySymbol}',
+            '{price}'
+        ], [
+            $currencyCode,
+            $currencySymbol,
+            sprintf('%0.2f', $price_cents / 100),
+        ], $format);
+    }
+
+    /**
+     * Get the active sales .
+     *
+     * @return Product[] The products for this order.
+     */
+    public static function getActiveSales(): array {
+        return self::$_active_sales ??= (function (): array {
+            $active_sales = [];
+
+            $sales = DB::getInstance()->query('SELECT * FROM rw_store_sales WHERE start_date < ? AND expire_date > ? ORDER BY `expire_date` DESC', [date('U'), date('U')])->results();
+
+            return $sales;
+        })();
     }
 
     /*
@@ -160,5 +189,9 @@ class Magaza {
      */
     public static function toCents($value): int {
         return (int) (string) ((float) preg_replace("/[^0-9.]/", "", $value) * 100);
+    }
+
+    public static function fromCents(int $cents): string {
+        return sprintf('%0.2f', $cents / 100);
     }
 }

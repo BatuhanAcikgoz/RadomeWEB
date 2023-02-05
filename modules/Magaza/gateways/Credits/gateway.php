@@ -11,9 +11,12 @@ class Credits_Gateway extends GatewayBase {
 
     public function __construct() {
         $name = 'Kredi';
+        $author = '<a href="https://radome.web.tr" target="_blank" rel="nofollow noopener">RadomeWEB</a>';
+        $gateway_version = '1.4.3';
+        $store_version = '1.4.3';
         $settings = ROOT_PATH . '/modules/Magaza/gateways/Credits/gateway_settings/settings.php';
 
-        parent::__construct($name, $settings);
+         parent::__construct($name, $author, $gateway_version, $store_version, $settings);
     }
 
     public function onCheckoutPageLoad(TemplateBase $template, Customer $customer): void {
@@ -33,19 +36,18 @@ class Credits_Gateway extends GatewayBase {
 
     public function processOrder(Order $order): void {
         $customer = $order->customer();
-        $amount_to_pay = $order->getAmount()->getTotal();
+        $amount_to_pay = $order->getAmount()->getTotalCents();
 
-        if ($customer->exists() && $customer->getCredits() >= $amount_to_pay) {
-            $customer->removeCents(Magaza::toCents($amount_to_pay));
+        if ($customer->exists() && $customer->data()->cents >= $amount_to_pay) {
+            $customer->removeCents($amount_to_pay);
 
             $payment = new Payment();
-            $payment->handlePaymentEvent('COMPLETED', [
+            $payment->handlePaymentEvent(Payment::COMPLETED, [
                 'order_id' => $order->data()->id,
                 'gateway_id' => $this->getId(),
-                'amount' => $amount_to_pay,
+                'amount_cents' => $amount_to_pay,
                 'transaction' => 'Credits',
-                'currency' => Magaza::getCurrency(),
-                'fee' => 0
+                'currency' => Magaza::getCurrency()
             ]);
 
             $shopping_cart = new ShoppingCart();

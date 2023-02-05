@@ -21,10 +21,6 @@ define('PANEL_PAGE', 'store_gateways');
 $page_title = $store_language->get('admin', 'gateways');
 
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
-require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
-require_once(ROOT_PATH . '/modules/Magaza/classes/Gateways.php');
-require_once(ROOT_PATH . '/modules/Magaza/classes/GatewayBase.php');
-require_once(ROOT_PATH . '/modules/Magaza/classes/MagazaConfig.php');
 
 $store = new Magaza($cache, $store_language);
 $gateways = new Gateways();
@@ -46,6 +42,10 @@ if (!isset($_GET['gateway'])) {
         foreach ($gateways->getAll() as $gateway) {
             $gateways_list[] = [
                 'name' => Output::getClean($gateway->getName()),
+                'version' => Output::getClean($gateway->getVersion()),
+                'store_version' => Output::getClean($gateway->getStoreVersion()),
+                'author' => Output::getPurified($gateway->getAuthor()),
+                'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($gateway->getAuthor())]),
                 'enabled' => $gateway->isEnabled(),
                 'edit_link' => URL::build('/panel/magaza/gateways/', 'gateway=' . Output::getClean($gateway->getName())),
             ];
