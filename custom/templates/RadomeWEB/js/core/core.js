@@ -22,7 +22,7 @@ $('#nav-header-close').click(function () {
     $('.overlay').removeClass("active");
 });
 
-if (($("#header-pjs").length)) {
+if ((particles == "yes") && ($("#header-pjs").length)) {
     $(window).on("load", function () {
         particlesJS.load("header-pjs", pjsPath);
     });
