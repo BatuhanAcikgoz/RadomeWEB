@@ -257,7 +257,7 @@ class Magaza_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_sales_icon');
 
-                        $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/store/sales'), 'top', null, ($order + 0.8), $icon);
+                        $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/magaza/indirimler'), 'top', null, ($order + 0.8), $icon);
                     }
     
                     if ($user->hasPermission('staffcp.store.coupons')) {
