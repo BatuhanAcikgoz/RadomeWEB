@@ -338,7 +338,6 @@ class Forum_Module extends Module {
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM rw_forms_replies
                             WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
-                            AND `status_id` = 1
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
                         [$start_time],
