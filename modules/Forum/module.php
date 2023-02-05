@@ -318,6 +318,7 @@ class Forum_Module extends Module {
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                     // Dashboard graph
 
+                    
                     // Get data for topics and submissions
                     $start_time = strtotime('7 days ago');
                     $latest_topics = DB::getInstance()->query(
@@ -338,11 +339,13 @@ class Forum_Module extends Module {
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM rw_forms_replies
                             WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
-                            AND `status_id` = 1
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
                         [$start_time],
                     );
+                    $latest_submissions = $latest_submissions->results();
+
+                    //Open submissions count
                     $open_submissions = DB::getInstance()->query(
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
@@ -354,7 +357,6 @@ class Forum_Module extends Module {
                         [$start_time],
                     );
                     $open_submissions_count = $open_submissions->count();
-                    $latest_submissions = $latest_submissions->results();
 
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('forum_data')) {
