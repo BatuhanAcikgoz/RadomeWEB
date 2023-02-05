@@ -235,7 +235,7 @@ class RadomeWEB_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
             $i++;
         }
 
