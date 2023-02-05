@@ -586,7 +586,7 @@ class DatabaseInitialiser {
         Util::setSetting('external_query', '0');
         Util::setSetting('followers', '0');
         Util::setSetting('language', '1');
-        Util::setSetting('timezone', 'Europe/Istanbul');
+        Util::setSetting('timezone', $_SESSION['install_timezone']);
         Util::setSetting('maintenance', '0');
         Util::setSetting('maintenance_message', 'Sitemiz şu anda bakım modundadır. Daha sonra tekrar deneyiniz.');
         Util::setSetting('authme', 0);
