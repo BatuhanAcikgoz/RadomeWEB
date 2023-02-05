@@ -338,11 +338,22 @@ class Forum_Module extends Module {
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM rw_forms_replies
                             WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
+                            AND `status_id` = 1
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
                         [$start_time],
                     );
-                    $latest_submissions_count = $latest_submissions->count();
+                    $open_submissions = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM rw_forms_replies
+                            WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
+                            AND `status_id` = 1
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
+                        SQL,
+                        [$start_time],
+                    );
+                    $open_submissions_count = $open_submissions->count();
                     $latest_submissions = $latest_submissions->results();
 
                     $cache->setCache('dashboard_graph');
@@ -390,7 +401,7 @@ class Forum_Module extends Module {
                     CollectionManager::addItemToCollection('dashboard_stats', new RecentTopicsItem($smarty, $this->_forum_language, $cache, $latest_topics_count));
 
                     require_once(ROOT_PATH . '/modules/Formlar/collections/panel/Recentforms_replies.php');
-                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, $latest_submissions_count));
+                    CollectionManager::addItemToCollection('dashboard_stats', new Recentforms_repliesItem($smarty, $this->_forum_language, $cache, $open_submissions_count));
 
                 }
             }
