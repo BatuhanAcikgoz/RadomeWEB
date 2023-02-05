@@ -246,13 +246,13 @@ class Util {
         return URL::replaceAnchorsWithText($data);
     }
 
-    private static function getSettingsCache(?string $module): ?array {
+    private static function hasSettingsCache(?string $module): bool {
         $cache_name = $module !== null ? $module : 'core';
+        return self::$_cached_settings !== null && isset(self::$_cached_settings[$cache_name]);
+    }        
 
-        if (self::$_cached_settings === null ||
-                !isset(self::$_cached_settings[$cache_name])) {
-            return null;
-        }
+    private static function &getSettingsCache(?string $module): array {
+        $cache_name = $module !== null ? $module : 'core';
 
         return self::$_cached_settings[$cache_name];
     }
@@ -272,9 +272,7 @@ class Util {
      * @return ?string Setting from DB or $fallback.
      */
     public static function getSetting(string $setting, ?string $fallback = null, string $module = 'core'): ?string {
-        $cache = self::getSettingsCache($module);
-
-        if ($cache === null) {
+        if (!self::hasSettingsCache($module)) {
             // Load all settings for this module and store it as a dictionary
             if ($module === 'core') {
                 $result = DB::getInstance()->query('SELECT `name`, `value` FROM `rw_settings` WHERE `module` IS NULL')->results();
@@ -289,6 +287,7 @@ class Util {
             self::setSettingsCache($module, $cache);
         }
 
+        $cache = &self::getSettingsCache($module);
         return $cache[$setting] ?? $fallback;
     }
 
@@ -330,15 +329,16 @@ class Util {
             }
         }
 
-        $cache = self::getSettingsCache($module);
-        if ($cache === null) {
+        if (!self::hasSettingsCache($module)) {
             return;
         }
 
-        if ($new_value === null && isset($cache[$setting])) {
-            unset($cache[$setting]);
-        } else if ($new_value !== null) {
+        $cache = &self::getSettingsCache($module);
+
+        if ($new_value !== null) {
             $cache[$setting] = $new_value;
+        } else if (isset($cache[$setting])) {
+            unset($cache[$setting]);
         }
     }
 

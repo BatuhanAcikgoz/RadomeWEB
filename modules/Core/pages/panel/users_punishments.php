@@ -269,6 +269,7 @@ if (isset($_GET['user'])) {
                                         }
                                     }
                                 }
+                                Redirect::to(URL::build('/panel/kullanicilar/cezalar/', 'user=' . urlencode($query->id)));
                             } else {
                                 $errors[] = $language->get('moderator', 'cant_punish_admin');
                             }

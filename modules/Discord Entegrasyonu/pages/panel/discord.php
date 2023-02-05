@@ -113,7 +113,7 @@ $smarty->assign([
     'INVITE_LINK' => Discord::getLanguageTerm('discord_invite_info', [
         'inviteLinkStart' => '<a target="_blank" href="https://radome.web.tr/discord-bot-invite">',
         'inviteLinkEnd' => '</a>',
-        'command' => '<code>/apiurl</code>',
+        'command' => '<code>/configure link</code>',
         'selfHostLinkStart' => '<a target="_blank" href="https://github.com/RadomeWEB/Radome-Link/wiki/Installation-guide">',
         'selfHostLinkEnd' => '</a>',
     ]),

@@ -10,14 +10,16 @@
  *  Profile Posts Widget
  */
 
-class ProfilePostsWidget extends WidgetBase {
+class ProfilePostsWidget extends WidgetBase
+{
 
     private Cache $_cache;
     private Language $_language;
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago)
+    {
         $this->_language = $language;
         $this->_smarty = $smarty;
         $this->_cache = $cache;
@@ -37,7 +39,8 @@ class ProfilePostsWidget extends WidgetBase {
         $this->_order = $widget_query->order ?? null;
     }
 
-    public function initialise(): void {
+    public function initialise(): void
+    {
         // Generate HTML code for widget
         if ($this->_user->isLoggedIn()) {
             $user_id = $this->_user->data()->id;
@@ -51,21 +54,36 @@ class ProfilePostsWidget extends WidgetBase {
         if ($this->_cache->isCached('profile_posts_' . $user_id)) {
             $posts_array = $this->_cache->retrieve('profile_posts_' . $user_id);
         } else {
-            $posts = DB::getInstance()->query('SELECT * FROM rw_user_profile_wall_posts ORDER BY time DESC LIMIT 5')->results();
+            if ($this->_user->isLoggedIn()) {
+                if ($this->_user->hasPermission('profile.private.bypass')) {
+                    $posts = DB::getInstance()->query('SELECT * FROM rw_user_profile_wall_posts ORDER BY `time` DESC LIMIT 5')->results();
+                } else {
+                    $posts = DB::getInstance()->query(
+                        <<<SQL
+                        SELECT *
+                        FROM rw_user_profile_wall_posts
+                        WHERE `user_id` NOT IN (
+                            SELECT `id` FROM rw_users WHERE `private_profile` = 1
+                        )
+                        AND EXISTS (SELECT `id` FROM rw_blocked_users WHERE `user_blocked_id` = `user_id`) = 0
+                        ORDER BY `time` DESC LIMIT 5
+                        SQL,
+                    )->results();
+                }
+            } else {
+                $posts = DB::getInstance()->query(
+                    <<<SQL
+                        SELECT *
+                        FROM rw_user_profile_wall_posts
+                        WHERE `user_id` NOT IN (
+                            SELECT `id` FROM rw_users WHERE `private_profile` = 1
+                        )
+                        ORDER BY `time` DESC LIMIT 5
+                        SQL,
+                )->results();
+            }
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
-
-                if ($this->_user->isLoggedIn()) {
-                    if ($this->_user->isBlocked($post->author_id, $this->_user->data()->id)) {
-                        continue;
-                    }
-                    if ($post_author->isPrivateProfile() && !$this->_user->hasPermission('profile.private.bypass')) {
-                        continue;
-                    }
-                } else if ($post_author->isPrivateProfile()) {
-                    continue;
-                }
-
                 $post_user = new User($post->user_id);
                 $link = rtrim($post_user->getProfileURL(), '/');
 

@@ -227,16 +227,15 @@ class RadomeWEB_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (strpos($route, '/forum/konu/') !== false || PAGE == 'profile') {
+        if (str_contains($route, '/forum/konu/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);
-        }
 
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
             $i++;
         }
 

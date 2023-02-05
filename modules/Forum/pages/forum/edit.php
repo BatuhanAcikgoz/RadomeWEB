@@ -132,27 +132,35 @@ if (Input::exists()) {
                 // Update title and labels
                 $post_labels = [];
 
-                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
-                    foreach ($_POST['topic_label'] as $topic_label) {
-                        $label = DB::getInstance()->get('forums_topic_labels', ['id', $topic_label])->results();
-                        if (count($label)) {
-                            $lgroups = explode(',', $label[0]->gids);
+                //
+                //  This is quite a mess but let me try to explain.
+                //
+                //  1. We get all the topic labels for this topic
+                //  2. We filter all the labels the user has access to
+                //  3. Check which labels already exist on the forum that the user DOESN'T have access to
+                //  4. Get all the newly posted labels and add the labels that already existed and the user doesn't have access to, to the labels array
+                //  5. Save the labels
+                //
 
-                            $hasperm = false;
-                            foreach ($user_groups as $group_id) {
-                                if (in_array($group_id, $lgroups)) {
-                                    $hasperm = true;
-                                    break;
-                                }
-                            }
+                $all_forum_labels = DB::getInstance()->get('forums_topic_labels', ['id', '<>', 0])->results();
+                $forum_labels = array_reduce($all_forum_labels, function (&$prev, $lbl) use ($forum_id) {
+                    $forum_ids = explode(',', $lbl->fids);
+                    if (in_array($forum_id, $forum_ids)) {
+                        $prev[] = $lbl->id;
 
-                            if ($hasperm) {
-                                $post_labels[] = $label[0]->id;
-                            }
-                        }
                     }
-                }
+                    return $prev;
+                }, []);
+                $accessible_labels = Forum::getAccessibleLabels($forum_labels, $user_groups);
+                $existing_inaccessible_labels = array_diff($existing_labels, $accessible_labels);
 
+                // Get all the posted labels and see which ones the user can actually edit
+                if (isset($_POST['topic_label']) && !empty($_POST['topic_label']) && is_array($_POST['topic_label'])) {
+                    $post_labels = Forum::getAccessibleLabels($_POST['topic_label'], $user_groups);
+
+                }
+                
+                $post_labels = array_merge($existing_inaccessible_labels, $post_labels);
                 DB::getInstance()->update('topics', $topic_id, [
                     'topic_title' => Input::get('title'),
                     'labels' => implode(',', $post_labels)

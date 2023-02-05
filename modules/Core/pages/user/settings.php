@@ -90,8 +90,6 @@ if (isset($_GET['do'])) {
                         }
 
                         $error = $language->get('user', 'invalid_tfa');
-                    } else {
-                        $error = $language->get('user', 'invalid_tfa');
                     }
                 } else {
                     $error = $language->get('general', 'invalid_token');

@@ -225,9 +225,6 @@
                 <br/>
                 <input type="hidden" name="token" value="{$TOKEN}">
                 <button type="submit" class="btn btn-theme">{$SUBMIT}</button>
-                <button type="button" class="btn btn-secondary" id="quoteButton" onclick="insertQuotes();">
-               {$INSERT_QUOTES}
-               </button>
             </form>
         </div>
     </div>

@@ -157,7 +157,7 @@ DatabaseInitialiser::runPreUser();
 Util::setSetting('sitename', getEnvVar('RADOME_SITE_NAME'));
 Util::setSetting('incoming_email', getEnvVar('RADOME_SITE_CONTACT_EMAIL'));
 Util::setSetting('outgoing_email', getEnvVar('RADOME_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('RADOME_EMAIL_VERIFICATION', '1', $valid_values = ['0', '1']));
+Util::setSetting('email_verification', getEnvVar('RADOME_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 
@@ -190,6 +190,7 @@ $user->create([
     'active' => true,
     'last_online' => date('U'),
     'language_id' => DB::getInstance()->get('languages', ['is_default', 1])->results()[0]->id,
+    'timezone' => $_SESSION['install_timezone'],
 ]);
 DB::getInstance()->query('INSERT INTO `rw_users_groups` (`user_id`, `group_id`, `received`, `expire`) VALUES (?, ?, ?, ?)', [
     1,

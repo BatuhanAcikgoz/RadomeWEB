@@ -11,6 +11,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['install_path'] = $_POST['install_path'] ?? '';
         $_SESSION['friendly_urls'] = $_POST['friendly'] ?? false;
 
+        if (getenv('RADOME_PATH')) {
+            $_SESSION['install_path'] = getenv('RADOME_PATH');
+        } else {
+            $requestPathParts = explode('/', $_SERVER['REQUEST_URI']);
+            array_pop($requestPathParts); // remove /install.php
+            $path = implode('/', $requestPathParts);
+            if (substr($path, 0, 1) == "/") {
+                $path = substr($path, 1);
+            }
+            $_SESSION['install_path'] = $path;
+
+        }
+
         Redirect::to('?step=database_configuration');
     }
 
@@ -37,12 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div <?php if (getenv('RADOME_HOSTNAME_HIDE') !== false) echo 'style="display: none"' ?>>
                             <?php create_field('text', $language->get('installer', 'host'), 'hostname', 'inputHostname', getenv('RADOME_HOSTNAME') ?: Output::getClean($_SERVER['SERVER_NAME'])); ?>
                             <p><?php echo $language->get('installer', 'host_help'); ?></p>
-                            <div class="ui divider"></div>
-                        </div>
-
-                        <div <?php if (getenv('RADOME_PATH_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('text', $language->get('installer', 'radome_path'), 'install_path', 'inputPath', getenv('RADOME_PATH') ?: Output::getClean($install_path)); ?>
-                            <p><?php echo $language->get('installer', 'radome_path_info'); ?></p>
                             <div class="ui divider"></div>
                         </div>
 

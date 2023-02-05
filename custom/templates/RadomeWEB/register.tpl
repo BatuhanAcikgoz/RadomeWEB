@@ -40,7 +40,12 @@
                 </div>
                 <div class="col-md-4 elr-col-right" style="overflow-y: scroll">
                     <div class="container elr-container">
-                        <span class="elr-title">{$CREATE_AN_ACCOUNT}</span>
+                        <span class="elr-title">{$CREATE_AN_ACCOUNT}    {if $OAUTH_FLOW}
+                            <div class="sub header">{$OAUTH_MESSAGE_CONTINUE}</div>
+                            <div class="sub header">
+                                {$OAUTH_MESSAGE_CONTINUE}
+                            </div>
+                            {/if}</span>
 			            <br /><br />
 			            <form action="" method="post">
                         {if isset($REGISTRATION_ERROR)}
@@ -129,9 +134,33 @@
                             <input type="hidden" name="token" value="{$TOKEN}">
                             <input id="timezone" type="hidden" name="timezone" value=''>
                             <div class="col-6"><button type="submit" class="btn btn-theme btn-block">{$REGISTER}</button></div>
+                            {if $OAUTH_FLOW}
+                                <div class="col-6"><a class="ui button right floated" href="{$OAUTH_CANCEL_REGISTER_URL}">{$CANCEL}</a></div>
+                                {/if}
                             <div class="col-6"><a href="{$LOGIN_URL}" class="btn btn-theme btn-block">{$LOG_IN}</a></div>
                         </div>
                     </form>
+                    {if $OAUTH_AVAILABLE and !$OAUTH_FLOW}
+                        <div class="my-4">{$OR}</div>
+                        <div class="row">
+                            {foreach $OAUTH_PROVIDERS as $name => $meta}
+                            <div class="d-flex flex-column">
+                                <a href="{$meta.url}" class="btn btn-primary btn-lg float-left">
+                                    {if $meta.icon}
+                                    <i class="{$meta.icon} fa-lg"></i>
+                                    {/if}
+                                    {$name|ucfirst}
+                                </a>
+                            </div>
+                            {/foreach}
+                        </div>
+                        {/if}
+                        {if !$OAUTH_FLOW}
+                        <div class="my-4">{$ALREADY_REGISTERED}</div>
+                        <div class="justify-content-center">
+                            <a class="btn btn-success btn-lg" href="{$LOGIN_URL}">{$LOG_IN}</a>
+                        </div>
+                        {/if}
                     </div>
                 </div>
             </div>

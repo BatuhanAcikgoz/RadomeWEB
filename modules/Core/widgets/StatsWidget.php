@@ -42,20 +42,16 @@ class StatsWidget extends WidgetBase {
             $latest_member = $users_query['latest_member'];
 
         } else {
-
-            $users_query = DB::getInstance()->orderAll('users', 'joined', 'DESC')->results();
-            $users_registered = count($users_query);
-
-            $latest_user = new User($users_query[0]->id);
+            $users_query = DB::getInstance()->query('SELECT `id` FROM rw_users ORDER BY `joined` DESC LIMIT 1')->first()->id;
+            $users_registered = DB::getInstance()->query('SELECT COUNT(*) as c FROM rw_users')->first()->c;
+            $latest_user = new User($users_query);
             $latest_member = [
                 'style' => $latest_user->getGroupStyle(),
                 'profile' => $latest_user->getProfileURL(),
                 'avatar' => $latest_user->getAvatar(),
                 'username' => $latest_user->getDisplayname(true),
-                'id' => Output::getClean($users_query[0]->id)
+                'id' => Output::getClean($users_query)
             ];
-
-            $users_query = null;
 
             $this->_cache->store(
                 'statistics',
@@ -69,8 +65,7 @@ class StatsWidget extends WidgetBase {
         }
 
         if (!$this->_cache->isCached('online_users')) {
-            $online_users = DB::getInstance()->query('SELECT count(*) FROM rw_users WHERE last_online > ?', [strtotime('-5 minutes')])->first();
-            $online_users = $online_users->{'count(*)'};
+            $online_users = DB::getInstance()->query('SELECT COUNT(*) as c FROM rw_users WHERE last_online > ?', [strtotime('-5 minutes')])->first()->c;
             $this->_cache->store('online_users', $online_users, 60);
         } else {
             $online_users = $this->_cache->retrieve('online_users');
@@ -78,8 +73,7 @@ class StatsWidget extends WidgetBase {
 
         if (!$this->_cache->isCached('online_guests')) {
             try {
-                $online_guests = DB::getInstance()->query('SELECT count(*) FROM rw_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first();
-                $online_guests = $online_guests->{'count(*)'};
+                $online_guests = DB::getInstance()->query('SELECT COUNT(*) as c FROM rw_online_guests WHERE last_seen > ?', [strtotime('-5 minutes')])->first()->c;
                 $this->_cache->store('online_guests', $online_guests, 60);
             } catch (Exception $e) {
                 // Upgrade script hasn't been run
@@ -89,22 +83,17 @@ class StatsWidget extends WidgetBase {
             $online_guests = $this->_cache->retrieve('online_guests');
         }
 
-        $forum_module = DB::getInstance()->get('modules', ['name', 'Forum'])->results();
-        $forum_module = $forum_module[0];
-
-        if ($forum_module->enabled) {
+        if (Util::isModuleEnabled('Forum')) {
             $this->_cache->setCache('forum_stats');
             if (!$this->_cache->isCached('total_topics')) {
-                $total_topics = DB::getInstance()->query('SELECT count(*) FROM rw_topics WHERE deleted = 0')->first();
-                $total_topics = $total_topics->{'count(*)'};
+                $total_topics = DB::getInstance()->query('SELECT COUNT(*) as c FROM rw_topics WHERE deleted = 0')->first()->c;
                 $this->_cache->store('total_topics', $total_topics, 60);
             } else {
                 $total_topics = $this->_cache->retrieve('total_topics');
             }
 
             if (!$this->_cache->isCached('total_posts')) {
-                $total_posts = DB::getInstance()->query('SELECT count(*) FROM rw_posts WHERE deleted = 0')->first();
-                $total_posts = $total_posts->{'count(*)'};
+                $total_posts = DB::getInstance()->query('SELECT COUNT(*) as c FROM rw_posts WHERE deleted = 0')->first()->c;
                 $this->_cache->store('total_posts', $total_posts, 60);
             } else {
                 $total_posts = $this->_cache->retrieve('total_posts');
