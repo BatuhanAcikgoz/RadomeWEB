@@ -235,7 +235,7 @@ class RadomeWEB_Template extends TemplateBase {
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
-            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = ' . json_encode($value);
+            $JSVars .= ($i == 0 ? 'var ' : ', ') . $var . ' = "' . $value . '"';
             $i++;
         }
 
@@ -252,8 +252,8 @@ class RadomeWEB_Template extends TemplateBase {
             $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
         }
     }
+	}
 }
-
 $cache->setCache('settings');
 if(!$cache->isCached('discord_count')){
   	$Discord_Server_ID = Discord::getGuildId();
