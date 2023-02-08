@@ -11,7 +11,6 @@ final class CreateMagazaProductsActionsTable extends AbstractMigration
 
         $table
             ->addColumn('product_id', 'integer', ['length' => 11])
-            ->addColumn('field_id', 'integer', ['length' => 11])
             ->addColumn('type', 'integer', ['length' => 11, 'default' => 1])
             ->addColumn('service_id', 'integer', ['length' => 11])
             ->addColumn('command', 'string', ['length' => 2048])

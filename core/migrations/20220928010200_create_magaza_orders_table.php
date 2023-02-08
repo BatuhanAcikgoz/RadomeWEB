@@ -14,7 +14,8 @@ final class CreateMagazaOrdersTable extends AbstractMigration
             ->addColumn('from_customer_id', 'integer', ['length' => 11])
             ->addColumn('to_customer_id', 'integer', ['length' => 11])
             ->addColumn('created', 'integer', ['length' => 11])
-            ->addColumn('ip', 'string', ['length' => 128]);
+            ->addColumn('ip', 'string', ['length' => 128])
+            ->addColumn('coupon_id', 'integer', ['length' => 11]);
 
         $table->create();
     }

@@ -15,9 +15,9 @@ final class CreateMagazaPaymentsTable extends AbstractMigration
             ->addColumn('payment_id', 'string', ['length' => 64, 'null' => true, 'default' => NULL])
             ->addColumn('agreement_id', 'string', ['length' => 64, 'null' => true, 'default' => NULL])
             ->addColumn('transaction', 'string', ['length' => 32, 'null' => true, 'default' => NULL])
-            ->addColumn('amount', 'string', ['length' => 11, 'null' => true, 'default' => NULL])
+            ->addColumn('amount_cents', 'integer', ['length' => 11, 'null' => true, 'default' => NULL])
             ->addColumn('currency', 'string', ['length' => 11, 'null' => true, 'default' => NULL])
-            ->addColumn('fee', 'string', ['length' => 11, 'null' => true, 'default' => NULL])
+            ->addColumn('fee_cents', 'integer', ['length' => 11, 'null' => true, 'default' => NULL])
             ->addColumn('status_id', 'integer', ['length' => 11, 'default' => 0])
             ->addColumn('created', 'integer', ['length' => 11])
             ->addColumn('last_updated', 'integer', ['length' => 11]);

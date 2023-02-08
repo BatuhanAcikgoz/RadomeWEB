@@ -14,7 +14,7 @@ final class CreateMagazaCustomersTable extends AbstractMigration
             ->addColumn('integration_id', 'integer', ['length' => 11])
             ->addColumn('username', 'string', ['length' => 64, 'null' => true,  'default' => NULL])
             ->addColumn('identifier', 'string', ['length' => 64, 'null' => true, 'default' => NULL])
-            ->addColumn('cents', 'integer', ['length' => 11, 'default' => 0]);
+            ->addColumn('cents', 'integer', ['length' => 20, 'default' => 0]);
 
         $table->create();
     }
