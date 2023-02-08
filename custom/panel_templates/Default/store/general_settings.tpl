@@ -47,11 +47,6 @@
                                 </div>
 
                                 <div class="form-group custom-control custom-switch">
-                                    <input type="checkbox" name="player_login" id="inputPlayerLogin" class="custom-control-input" {if $PLAYER_LOGIN_VALUE} checked{/if} />
-                                    <label class="custom-control-label" for="inputPlayerLogin">{$PLAYER_LOGIN}</label>
-                                </div>
-
-                                <div class="form-group custom-control custom-switch">
                                     <input type="checkbox" name="show_credits_amount" id="inputShowCreditsAmount" class="custom-control-input" {if $SHOW_CREDITS_AMOUNT_VALUE} checked{/if} />
                                     <label class="custom-control-label" for="inputShowCreditsAmount">{$SHOW_CREDITS_AMOUNT}</label>
                                 </div>
