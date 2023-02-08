@@ -100,8 +100,8 @@
                                             <input type="text" class="form-control" id="inputCurrencyFormat" name="currency_format" placeholder="{$CURRENCY_FORMAT}" value="{$CURRENCY_FORMAT_VALUE}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStoreContent">{$STORE_INDEX_CONTENT}</label>
-                                    <textarea id="inputStoreContent" name="store_content">{$STORE_INDEX_CONTENT_VALUE}</textarea>
+                                    <label for="inputMagazaContent">{$STORE_INDEX_CONTENT}</label>
+                                    <textarea id="inputMagazaContent" name="store_content">{$STORE_INDEX_CONTENT_VALUE}</textarea>
                                 </div>
 
                                 <div class="form-group">
