@@ -238,7 +238,7 @@ if (!isset($_GET['action'])) {
                 'CONNECTIONS' => $store_language->get('admin', 'service_connections'),
                 'CONNECTIONS_LIST' => $connections_array,
                 'PRODUCT_IMAGE' => $store_language->get('admin', 'product_image'),
-                'PRODUCT_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
+                'PRODUCT_IMAGE_VALUE' => '',
                 'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
                 'BROWSE' => $language->get('general', 'browse'),
                 'REMOVE' => $language->get('general', 'remove'),
