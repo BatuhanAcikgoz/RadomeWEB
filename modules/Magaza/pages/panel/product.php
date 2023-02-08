@@ -507,7 +507,7 @@ if (!isset($_GET['action'])) {
         $smarty->assign([
             'PRODUCT_TITLE' => $store_language->get('admin', 'editing_product_x', ['product' => Output::getClean($product->data()->name)]),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/store/product/' , 'product=' . $product->data()->id),
+            'BACK_LINK' => URL::build('/panel/magaza/product/' , 'product=' . $product->data()->id),
             'GLOBAL_LIMIT_VALUE' => $global_limit,
             'USER_LIMIT_VALUE' => $user_limit,
             'PRODUCTS_LIST' => $products_list,

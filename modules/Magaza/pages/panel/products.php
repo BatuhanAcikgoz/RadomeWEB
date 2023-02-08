@@ -97,8 +97,8 @@ if (!isset($_GET['action'])) {
         'CONFIRM_DELETE_PRODUCT' => $store_language->get('admin', 'product_confirm_delete'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'REORDER_CATEGORY_URL' => URL::build('/panel/store/products', 'action=order_categories'),
-        'REORDER_PRODUCTS_URL' => URL::build('/panel/store/products', 'action=order_products'),
+        'REORDER_CATEGORY_URL' => URL::build('/panel/magaza/products', 'action=order_categories'),
+        'REORDER_PRODUCTS_URL' => URL::build('/panel/magaza/products', 'action=order_products'),
     ]);
 
     $template_file = 'store/products.tpl';
