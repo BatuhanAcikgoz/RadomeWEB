@@ -702,19 +702,8 @@ class DatabaseInitialiser {
             'forum_type' => 'forum'
         ]);
 
-        $this->_db->insert('topics', [
-            'forum_id' => 2,
-            'topic_title' => 'RadomeWEB Minecraft WebScripti',
-            'topic_creator' => 1,
-            'topic_last_user' => 1,
-            'topic_date' => date('U'),
-            'topic_reply_date' => date('U'),
-            'label' => null
-        ]);
-
-        $this->_db->insert('posts', [
-            'forum_id' => 2,
-            'topic_id' => 1,
+        $this->_db->insert('haberlers', [
+            'haber_title' => 'RadomeWEB Minecraft Website Scripti',
             'post_creator' => 1,
             'post_content' =>
                 '<p>RadomeWEB Gelişmiş Minecraft WebScripti</p>
