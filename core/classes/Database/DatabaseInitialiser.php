@@ -562,6 +562,7 @@ class DatabaseInitialiser {
         Util::setSetting('currency_symbol', '₺', 'Magaza');
         Util::setSetting('allow_guests', 0, 'Magaza');
         Util::setSetting('player_login', 0, 'Magaza');
+        Util::setSetting('tier_list_page', 1);
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
