@@ -48,6 +48,9 @@
                           <li class="nav-item">
                             <a class="nav-link active">{$ACTIONS}</a>
                           </li>
+                          <li class="nav-item">
+                          <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
+                          </li>
                         </ul>
 
                         <!-- Success and Error Alerts -->
