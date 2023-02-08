@@ -81,7 +81,7 @@
                                                     {/foreach}
                                             {/if}
                                             </tbody>
-                                            </table>
+                                        </table>
                                     </div>
                                 </div>
                             {/foreach}
@@ -101,11 +101,9 @@
             <!-- End Main Content -->
         </div>
 
-        {include file='footer.tpl'}
-
         <!-- End Content Wrapper -->
     </div>
-
+    {include file='footer.tpl'}
     <!-- End Wrapper -->
 </div>
     
