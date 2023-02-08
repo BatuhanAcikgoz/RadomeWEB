@@ -122,15 +122,14 @@
                 <br>
 
                 <h3>{$PURCHASE}</h3>
-                <hr />
+                <div class="ui divider"></div>
                 <div class="field">
-                  <div class="form-group custom-control custom-switch" style="display:inline;">
+                  <div class="ui checkbox" style="display:inline;">
                     <input type="hidden" name="token" value="{$TOKEN}">
-                    <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}</label>
-                    <span class="left floated"><input type="submit" class="btn btn-theme" value="{$PURCHASE} &raquo;"></span>
+                    <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE} <span class="right floated"><input type="submit" class="ui green button right floated" value="{$PURCHASE} &raquo;"></span></label>
                   </div>
                 </div>
-                </br style="margin-bottom: 15px;">
+                </br>
               </form>
 
             </div>
