@@ -557,8 +557,8 @@ class DatabaseInitialiser {
         Util::setSetting('username_sync', '1');
         Util::setSetting('status_page', '1');
         Util::setSetting('placeholders', '1');
-        Util::setSetting('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
-        Util::setSetting('currency', 'USD', 'Magaza');
+        Util::setSetting('checkout_complete_content', 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.', 'Magaza');
+        Util::setSetting('currency', 'TL', 'Magaza');
         Util::setSetting('currency_symbol', '₺', 'Magaza');
         Util::setSetting('allow_guests', 0, 'Magaza');
         Util::setSetting('player_login', 0, 'Magaza');
