@@ -114,7 +114,7 @@ if (isset($_POST) && !empty($_POST)) {
             $cache->store('store_location', $location);
 
             Session::flash('store_success', $store_language->get('admin', 'updated_successfully'));
-            Redirect::to(URL::build('/panel/magaza/general_settings'));
+            Redirect::to(URL::build('/panel/magaza/genel_ayarlar'));
             
         } else {
             $errors = $validation->errors();
