@@ -32,12 +32,6 @@
 
                 <!-- Update Notification -->
                 {include file='includes/update.tpl'}
-                
-                <div class="alert alert-warning" role="alert">
-                    This features is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you
-                    </br></br>
-                    <a href="https://partydragen.com/patreon/" target="_blank" class="btn btn-primary">Patreon</a>
-                </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-body">
@@ -82,8 +76,7 @@
                             <hr>
                             {$NO_SALES}
                         {/if}
-                        
-                        <center><p>Store Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></br>Support on <a href="https://discord.gg/TtH6tpp" target="_blank">Discord</a></p></center>
+                
                     </div>
                 </div>
 
