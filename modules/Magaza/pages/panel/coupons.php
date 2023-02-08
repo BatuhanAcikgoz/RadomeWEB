@@ -33,8 +33,8 @@ if (!isset($_GET['action'])) {
             $coupons_list[] = [
                 'code' => Output::getClean($coupon->code),
                 'active' => date('U') > $coupon->start_date && $coupon->expire_date > date('U'),
-                'edit_link' => URL::build('/panel/magaza/coupons/', 'action=edit&id=' . $coupon->id),
-                'delete_link' => URL::build('/panel/magaza/coupons/', 'action=delete&id=' . $coupon->id)
+                'edit_link' => URL::build('/panel/magaza/kuponlar/', 'action=edit&id=' . $coupon->id),
+                'delete_link' => URL::build('/panel/magaza/kuponlar/', 'action=delete&id=' . $coupon->id)
             ];
         }
 
@@ -51,7 +51,7 @@ if (!isset($_GET['action'])) {
 
     $smarty->assign([
         'NEW_COUPON' => $store_language->get('admin', 'new_coupon'),
-        'NEW_COUPON_LINK' => URL::build('/panel/magaza/coupons/', 'action=new'),
+        'NEW_COUPON_LINK' => URL::build('/panel/magaza/kuponlar/', 'action=new'),
         'NO_COUPONS' => $store_language->get('admin', 'no_coupons'),
     ]);
 
@@ -111,7 +111,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('coupons_success', $store_language->get('admin', 'coupon_created_successfully'));
-                            Redirect::to(URL::build('/panel/magaza/coupons'));
+                            Redirect::to(URL::build('/panel/magaza/kuponlar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -137,7 +137,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'COUPON_TITLE' => $store_language->get('admin', 'creating_coupon'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/magaza/coupons'),
+                'BACK_LINK' => URL::build('/panel/magaza/kuponlar'),
                 'PRODUCTS_LIST' => $products_list,
                 'CODE' => $store_language->get('admin', 'code'),
                 'CODE_VALUE' => ((isset($_POST['code']) && $_POST['code']) ? Output::getClean(Input::get('code')) : SecureRandom::alphanumeric(16)),
@@ -165,12 +165,12 @@ if (!isset($_GET['action'])) {
         break;
         case 'edit';
             if (!is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/magaza/coupons'));
+                Redirect::to(URL::build('/panel/magaza/kuponlar'));
             }
 
             $coupon = DB::getInstance()->get('store_coupons', ['id', '=', $_GET['id']]);
             if (!$coupon->count()) {
-                Redirect::to(URL::build('/panel/magaza/coupons'));
+                Redirect::to(URL::build('/panel/magaza/kuponlar'));
             }
             $coupon = $coupon->first();
 
@@ -226,7 +226,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('coupons_success', $store_language->get('admin', 'coupon_updated_successfully'));
-                            Redirect::to(URL::build('/panel/magaza/coupons'));
+                            Redirect::to(URL::build('/panel/magaza/kuponlar'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -253,7 +253,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'COUPON_TITLE' => $store_language->get('admin', 'editing_coupon_x', ['coupon' => Output::getClean($coupon->code)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/magaza/coupons'),
+                'BACK_LINK' => URL::build('/panel/magaza/kuponlar'),
                 'PRODUCTS_LIST' => $products_list,
                 'CODE' => $store_language->get('admin', 'code'),
                 'CODE_VALUE' => Output::getClean($coupon->code),
@@ -282,7 +282,7 @@ if (!isset($_GET['action'])) {
         case 'delete';
             // Delete coupon
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/magaza/coupons'));
+                Redirect::to(URL::build('/panel/magaza/kuponlar'));
             }
 
             if (Token::check()) {
@@ -291,10 +291,10 @@ if (!isset($_GET['action'])) {
             } else {
                 Session::flash('coupons_success', $language->get('general', 'invalid_token'));
             }
-            Redirect::to(URL::build('/panel/magaza/coupons'));
+            Redirect::to(URL::build('/panel/magaza/kuponlar'));
         break;
         default:
-            Redirect::to(URL::build('/panel/magaza/coupons'));
+            Redirect::to(URL::build('/panel/magaza/kuponlar'));
         break;
     }
 }
