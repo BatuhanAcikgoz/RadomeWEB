@@ -182,11 +182,6 @@ class DatabaseInitialiser {
             'fids' => '1',
             'gids' => '2,3'
         ));
-        $this->_db->insert('store_gateways', [
-            'name' => 'Kredi',
-            'displayname' => 'Kredi',
-            'enabled' => 1
-        ]);
         $this->_db->insert('store_fields', [
             'identifier' => 'quantity',
             'description' => 'Quantity',
@@ -243,12 +238,6 @@ class DatabaseInitialiser {
         $this->_db->insert('store_gateways', [
             'name' => 'PayPalBusiness',
             'displayname' => 'PayPal'
-        ]);
-
-        $this->_db->insert('store_gateways', [
-            'name' => 'Kredi',
-            'displayname' => 'Kredi',
-            'enabled' => 1
         ]);
         DB::getInstance()->insert('vote_sites', [
             'site' => 'https://minecraft-mp.com',
