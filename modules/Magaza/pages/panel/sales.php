@@ -55,7 +55,7 @@ if (!isset($_GET['action'])) {
         'NO_SALES' => $store_language->get('admin', 'no_sales'),
     ]);
 
-    $template_file = 'magaza/indirimler.tpl';
+    $template_file = 'store/sales.tpl';
 } else {
     switch ($_GET['action']) {
         case 'new';
