@@ -22,6 +22,7 @@ define('PARENT_PAGE', 'store');
 define('PANEL_PAGE', 'store_products');
 $page_title = $store_language->get('general', 'products');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
+require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
 
 $store = new Magaza($cache, $store_language);
 
@@ -97,8 +98,8 @@ if (!isset($_GET['action'])) {
         'CONFIRM_DELETE_PRODUCT' => $store_language->get('admin', 'product_confirm_delete'),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'REORDER_CATEGORY_URL' => URL::build('/panel/magaza/products', 'action=order_categories'),
-        'REORDER_PRODUCTS_URL' => URL::build('/panel/magaza/products', 'action=order_products'),
+        'REORDER_CATEGORY_URL' => URL::build('/panel/store/products', 'action=order_categories'),
+        'REORDER_PRODUCTS_URL' => URL::build('/panel/store/products', 'action=order_products'),
     ]);
 
     $template_file = 'store/products.tpl';
@@ -237,7 +238,7 @@ if (!isset($_GET['action'])) {
                 'CONNECTIONS' => $store_language->get('admin', 'service_connections'),
                 'CONNECTIONS_LIST' => $connections_array,
                 'PRODUCT_IMAGE' => $store_language->get('admin', 'product_image'),
-                'PRODUCT_IMAGE_VALUE' => (((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image))),
+                'PRODUCT_IMAGE_VALUE' => (!is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/') . 'uploads/store/' . Output::getClean($product->data()->image)) : null),
                 'UPLOAD_NEW_IMAGE' => $store_language->get('admin', 'upload_new_image'),
                 'BROWSE' => $language->get('general', 'browse'),
                 'REMOVE' => $language->get('general', 'remove'),
