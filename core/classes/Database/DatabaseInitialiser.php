@@ -200,35 +200,6 @@ class DatabaseInitialiser {
                 'enabled' => 1
             ]);
         }
-        $this->_db->insert('store_settings', [
-            'name' => 'checkout_complete_content',
-            'value' => 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.'
-        ]);
-
-        $this->_db->insert('store_settings', [
-            'name' => 'currency',
-            'value' => 'TL'
-        ]);
-
-        $this->_db->insert('store_settings', [
-            'name' => 'currency_symbol',
-            'value' => '₺'
-        ]);
-
-        $this->_db->insert('store_settings', [
-            'name' => 'allow_guests',
-            'value' => 0
-        ]);
-
-        $this->_db->insert('store_settings', [
-            'name' => 'player_login',
-            'value' => 0
-        ]);
-
-        $this->_db->insert('store_settings', [
-            'name' => 'store_path',
-            'value' => '/magaza'
-        ]);
 
         $this->_db->insert('store_gateways', [
             'name' => 'PayPal',
@@ -588,7 +559,7 @@ class DatabaseInitialiser {
         Util::setSetting('placeholders', '1');
         Util::setSetting('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
         Util::setSetting('currency', 'USD', 'Magaza');
-        Util::setSetting('currency_symbol', '$', 'Magaza');
+        Util::setSetting('currency_symbol', '₺', 'Magaza');
         Util::setSetting('allow_guests', 0, 'Magaza');
         Util::setSetting('player_login', 0, 'Magaza');
 

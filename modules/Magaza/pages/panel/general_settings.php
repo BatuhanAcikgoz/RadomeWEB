@@ -80,7 +80,7 @@ if (isset($_POST) && !empty($_POST)) {
             if (isset($_POST['store_path']) && strlen(str_replace(' ', '', $_POST['store_path'])) > 0)
                 $store_path_input = rtrim(Output::getClean($_POST['store_path']), '/');
             else
-                $store_path_input = '/store';
+                $store_path_input = '/magaza';
 
             Util::setSetting('store_path', $store_path_input, 'Magaza');
             Util::setSetting('allow_guests', $allow_guests, 'Magaza');
@@ -152,7 +152,7 @@ $store_index_content = Output::getClean(Output::getPurified(Output::getDecoded(U
 $checkout_complete_content = Output::getClean(Output::getPurified(Output::getDecoded(Util::getSetting('checkout_complete_content', '', 'Magaza'))));
 
 // Magaza Path
-$store_path = Util::getSetting('store_path', '/store', 'Magaza');
+$store_path = Util::getSetting('store_path', '/magaza', 'Magaza');
 
 // Currency
 $currency_list = ['TL', 'USD', 'EUR'];
