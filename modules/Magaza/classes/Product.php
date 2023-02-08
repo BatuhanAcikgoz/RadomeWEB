@@ -12,7 +12,7 @@ class Product {
     private DB $_db;
 
     /**
-     * @var ProductData|null The product data. Basically just the row from `nl2_store_products` where the product ID is the key.
+     * @var ProductData|null The product data. Basically just the row from `rw_store_products` where the product ID is the key.
      */
     private ?ProductData $_data;
 

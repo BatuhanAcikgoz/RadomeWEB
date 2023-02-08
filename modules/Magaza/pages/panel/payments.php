@@ -222,7 +222,7 @@ if (isset($_GET['customer'])) {
 
     $payment_method = 'Manual';
     if ($payment->data()->gateway_id != 0) {
-        $payment_method = DB::getInstance()->query('SELECT name FROM nl2_store_gateways WHERE id = ?', [$payment->data()->gateway_id])->first();
+        $payment_method = DB::getInstance()->query('SELECT name FROM rw_store_gateways WHERE id = ?', [$payment->data()->gateway_id])->first();
         $payment_method = $payment_method->name;
     }
 

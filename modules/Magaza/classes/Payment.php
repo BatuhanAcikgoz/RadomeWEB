@@ -17,7 +17,7 @@ class Payment {
     private DB $_db;
 
     /**
-     * @var PaymentData|null The product data. Basically just the row from `nl2_store_payments` where the payment ID is the key.
+     * @var PaymentData|null The product data. Basically just the row from `rw_store_payments` where the payment ID is the key.
      */
     private ?PaymentData $_data;
 
