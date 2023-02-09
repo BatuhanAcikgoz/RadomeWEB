@@ -34,7 +34,7 @@
           </div>
         {/if}
 
-        <div class="card-header"><h3>{$SHOPPING_CART}</h3></div>
+        <div class="card-title"><h3>{$SHOPPING_CART}</h3></div>
         <table class="table table-bordered table-striped">
           <thead>
             <tr>
@@ -42,7 +42,7 @@
               <th>{$OPTIONS}</th>
               <th>{$QUANTITY}</th>
               <th>{$PRICE}</th>
-              <th></th>
+              <th>{$REMOVE_PRODUCT}</th>
             </tr>
           </thead>
           <tbody>
@@ -77,7 +77,7 @@
           </tbody>
         </table>
 
-        <div class="card-header"><h3>{$REDEEM_COUPON}</h3></div>
+        <div class="card-title"><h3>{$REDEEM_COUPON}</h3></div>
         <hr>
         <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
           <div class="form-group">
@@ -89,7 +89,7 @@
           </div>
         </form>
 
-        <div class="card-header"><h3>{$PAYMENT_METHOD}</h3></div>
+        <div class="card-title"><h3>{$PAYMENT_METHOD}</h3></div>
         <hr>
         <form action="" method="post" id="forms">
           {foreach from=$PAYMENT_METHODS item=gateway}
@@ -101,7 +101,7 @@
             </div>
           {/foreach}
 
-          <div class="card-header"><h3>{$PURCHASE}</h3></div>
+          <div class="card-title"><h3>{$PURCHASE}</h3></div>
           <hr>
           <div class="form-group">
             <div class="form-check" style="display:inline;">

@@ -386,6 +386,7 @@ if (isset($_GET['do'])) {
     $smarty->assign([
         'TOKEN' => Token::get(),
         'CHECKOUT' => $store_language->get('general', 'checkout'),
+        'REMOVE_PRODUCT' => $store_language->get('general', 'remove_product'),
         'SHOPPING_CART' => $store_language->get('general', 'shopping_cart'),
         'NAME' => $store_language->get('general', 'name'),
         'OPTIONS' => $store_language->get('general', 'options'),

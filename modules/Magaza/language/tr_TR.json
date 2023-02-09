@@ -261,6 +261,7 @@
     "general/product_requires_groups": "Bu ürünü satın almak için gerekli {{group}} grubunu kaçırıyorsunuz",
     "general/product_requires_integration": "{{integration}} hesabınızı bağlamanızı gerektirir, bunu {{linkStart}} hesap bağlantıları {{linkEnd}} adresinden yapabilirsiniz.",
     "general/unable_to_find_player": "Bu kullanıcı adıyla bir oyuncu bulamıyor",
+    "general/remove_product": "Ürünü Kaldır",
     "general/redeem": "Kullan",
     "general/redeem_coupon": "Kodu Uygula",
     "general/redeem_coupon_here": "Kupon kodun var mı? Buraya gir",
