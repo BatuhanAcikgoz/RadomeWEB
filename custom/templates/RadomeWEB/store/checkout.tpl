@@ -15,7 +15,7 @@
     <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
       <div class="card">
 
-        <h1 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h1>
+        <div class="card-header"> <h2 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2></div>
         {include file='store/navbar.tpl'}
 
         </br>
@@ -34,7 +34,7 @@
           </div>
         {/if}
 
-        <h3>{$SHOPPING_CART}</h3>
+        <div class="card-title"><h3>{$SHOPPING_CART}</h3></div>
         <table class="table table-sm table-bordered table-striped">
           <thead>
             <tr>
