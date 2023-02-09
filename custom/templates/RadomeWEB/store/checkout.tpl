@@ -35,7 +35,7 @@
         {/if}
 
         <div class="card-title"><h3 style="margin-top: 30px;">{$SHOPPING_CART}</h3></div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th>{$NAME}</th>
