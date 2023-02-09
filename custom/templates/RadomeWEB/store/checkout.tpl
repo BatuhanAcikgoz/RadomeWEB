@@ -21,13 +21,13 @@
         </br>
 
         {if isset($SUCCESS)}
-          <div class="alert alert-success">
+          <div class="alert alert-success" style="margin-top: 30px;">
              {$SUCCESS}
           </div>
         {/if}
 
         {if isset($ERRORS)}
-          <div class="alert alert-danger">
+          <div class="alert alert-danger" style="margin-top: 30px;">
               {foreach from=$ERRORS item=error}
                 {$error}<br />
               {/foreach}
