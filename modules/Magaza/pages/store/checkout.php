@@ -394,9 +394,9 @@ if (isset($_GET['do'])) {
         'TOTAL_PRICE' => $store_language->get('general', 'total_price'),
         'TOTAL_DISCOUNT' => $store_language->get('general', 'total_discount'),
         'PRICE_TO_PAY' => $store_language->get('general', 'price_to_pay'),
+        'TOTAL_PRICE_VALUE' => Magaza::fromCents($shopping_cart->getTotalPriceCents()),
         'TOTAL_REAL_PRICE_VALUE' => Magaza::fromCents($shopping_cart->getTotalRealPriceCents()),
         'TOTAL_DISCOUNT_VALUE' => Magaza::fromCents($shopping_cart->getTotalDiscountCents()),
-        'TOTAL_PRICE_VALUE' => Magaza::fromCents($shopping_cart->getTotalPriceCents()),
         'TOTAL_PRICE_FORMAT_VALUE' => Output::getPurified(
             Magaza::formatPrice(
                 $shopping_cart->getTotalCents(),
