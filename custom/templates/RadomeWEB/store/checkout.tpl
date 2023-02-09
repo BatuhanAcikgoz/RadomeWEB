@@ -13,9 +13,9 @@
   {/if}
 
     <div class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
-      <div class="card">
+      <div class="card-header header-theme"> <h2 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2></div>
+      <div class="card card-body">
 
-        <div class="card-header"> <h2 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2></div>
         {include file='store/navbar.tpl'}
 
         </br>
@@ -34,8 +34,8 @@
           </div>
         {/if}
 
-        <div class="card-title"><h3>{$SHOPPING_CART}</h3></div>
-        <table class="table table-sm table-bordered table-striped">
+        <div class="card-header"><h3>{$SHOPPING_CART}</h3></div>
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>{$NAME}</th>
@@ -77,19 +77,19 @@
           </tbody>
         </table>
 
-        <h3>{$REDEEM_COUPON}</h3>
+        <div class="card-header"><h3>{$REDEEM_COUPON}</h3></div>
         <hr>
         <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
           <div class="form-group">
               <div class="form-inline">
-                  <input type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}" placeholder="{$REDEEM_COUPON_HERE}"/>
+                  <input class="form-control input-sm" type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}" placeholder="{$REDEEM_COUPON_HERE}"/>
                   <input type="hidden" name="token" value="{$TOKEN}">
-                  <button class="btn btn-success">{$REDEEM} &raquo;</button>
+                  <button class="btn btn-success" style="margin-left: 10px;">{$REDEEM} &raquo;</button>
               </div>
           </div>
         </form>
 
-        <h3>{$PAYMENT_METHOD}</h3>
+        <div class="card-header"><h3>{$PAYMENT_METHOD}</h3></div>
         <hr>
         <form action="" method="post" id="forms">
           {foreach from=$PAYMENT_METHODS item=gateway}
@@ -101,7 +101,7 @@
             </div>
           {/foreach}
 
-          <h3>{$PURCHASE}</h3>
+          <div class="card-header"><h3>{$PURCHASE}</h3></div>
           <hr>
           <div class="form-group">
             <div class="form-check" style="display:inline;">
