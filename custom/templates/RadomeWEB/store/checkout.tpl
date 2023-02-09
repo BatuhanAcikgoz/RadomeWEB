@@ -122,8 +122,7 @@
               <div class="form-group">
                 <div class="form-check" style="display:inline;">
                   <input type="hidden" name="token" value="{$TOKEN}">
-                  <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE} <span
-                      class="right floated"><button class="btn btn-success" style="margin-left: 10px;">{$PURCHASE} &raquo;</button></span></label>
+                  <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}<button class="btn btn-success" style="margin-left: 10px;">{$PURCHASE} &raquo;</button></label>
                 </div>
               </div>
               </br>
