@@ -35,7 +35,7 @@
         {/if}
 
         <div class="card-title"><h3>{$SHOPPING_CART}</h3></div>
-        <table class="table table-hover">
+        <table class="table table-bordered table-striped">
           <thead>
             <tr>
               <th>{$NAME}</th>
@@ -52,7 +52,7 @@
                 <td>{if count($item.fields)} {foreach from=$item.fields item=field name=fields}<strong>{$field.description}</strong>: {$field.value}{if not $smarty.foreach.fields.last}</br>{/if}{/foreach} {/if}</td>
                 <td>{$item.quantity}</td>
                 <td>{if $item.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$item.price_format}</span>{/if} {$item.real_price_format}</td>
-                <td><a href="{$item.remove_link}" class="btn btn-danger btn-sm float-right"><i class="fas fa-times"></i></a></td>
+                <td><a href="{$item.remove_link}" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></a></td>
               </tr>
             {/foreach}
           </tbody>
