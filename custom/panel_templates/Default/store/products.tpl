@@ -103,10 +103,10 @@
 
         <!-- End Content Wrapper -->
     </div>
-    {include file='footer.tpl'}
     <!-- End Wrapper -->
 </div>
-    
+{include file='footer.tpl'}    
+
 <div class="modal fade" id="deleteCategoryModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
