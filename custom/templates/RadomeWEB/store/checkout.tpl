@@ -69,19 +69,19 @@
 
             <table class="table">
               <tbody>
-                {if $TOTAL_DISCOUNT_VALUE > 0}
-                  <tr>
-                    <td>{$PRICE_TO_PAY}</td>
-                    <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
-                  </tr>
-                  <tr>
-                    <td>{$TOTAL_DISCOUNT}</td>
-                    <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
-                  </tr>
-                {/if}
+              {if $TOTAL_DISCOUNT_VALUE > 0}
                 <tr>
                   <td>{$TOTAL_PRICE}</td>
                   <td>{$TOTAL_PRICE_FORMAT_VALUE}</td>
+                </tr>
+                <tr>
+                  <td>{$TOTAL_DISCOUNT}</td>
+                  <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
+                </tr>
+                {/if}
+                <tr>
+                  <td>{$PRICE_TO_PAY}</td>
+                  <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
                 </tr>
               </tbody>
             </table>
