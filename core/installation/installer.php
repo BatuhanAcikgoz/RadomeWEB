@@ -5,9 +5,6 @@ if (!defined('DEFAULT_LANGUAGE')) {
     define('DEFAULT_LANGUAGE', 'tr_TR');
 }
 
-if (!defined('MINECRAFT')) {
-    define('MINECRAFT', false);
-}
 
 if (isset($_GET['do'])) {
     $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');

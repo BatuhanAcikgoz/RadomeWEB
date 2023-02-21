@@ -20,6 +20,7 @@ final class CreateMagazaProductsTable extends AbstractMigration
             ->addColumn('required_products', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('required_groups', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('required_integrations', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('allowed_gateways', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('payment_type', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 1])
             ->addColumn('hidden', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('disabled', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])

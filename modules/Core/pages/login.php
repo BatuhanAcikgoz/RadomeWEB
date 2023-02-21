@@ -157,80 +157,6 @@ if (Input::exists()) {
                         // Did the user check 'remember me'?
                         $remember = Input::get('remember') == 1;
 
-                        $cache->setCache('authme_cache');
-                        $authme_db = $cache->retrieve('authme');
-
-                        if (defined(MINECRAFT) && MINECRAFT && Util::getSetting('authme') === '1' && $authme_db['sync'] == '1') {
-
-                            // Sync AuthMe password
-                            try {
-                                $authme_conn = new mysqli($authme_db['address'], $authme_db['user'], $authme_db['pass'], $authme_db['db'], $authme_db['port']);
-
-                                if ($authme_conn->connect_errno) {
-                                    // Connection error
-                                    // Continue anyway, and use already stored password
-                                } else {
-                                    // Success, check user exists in database and validate password
-                                    if ($method_field == 'email') {
-                                        $field = 'email';
-                                    } else {
-                                        $field = 'realname';
-                                    }
-
-                                    $stmt = $authme_conn->prepare('SELECT password FROM ' . $authme_db['table'] . ' WHERE ' . $field . ' = ?');
-                                    if ($stmt) {
-                                        $stmt->bind_param('s', $username);
-                                        $stmt->execute();
-                                        $stmt->bind_result($password);
-
-                                        while ($stmt->fetch()) {
-                                            // Retrieve result
-                                        }
-
-                                        $stmt->free_result();
-                                        $stmt->close();
-
-                                        switch ($authme_db['hash']) {
-                                            case 'sha256':
-                                                $exploded = explode('$', $password);
-                                                $salt = $exploded[2];
-
-                                                $password = $salt . '$' . $exploded[3];
-
-                                                break;
-
-                                            case 'pbkdf2':
-                                                $exploded = explode('$', $password);
-
-                                                $iterations = $exploded[1];
-                                                $salt = $exploded[2];
-                                                $pass = $exploded[3];
-
-                                                $password = $iterations . '$' . $salt . '$' . $pass;
-
-                                                break;
-                                        }
-
-                                        // Update password
-                                        if (!is_null($password)) {
-                                            if ($method_field == 'email') {
-                                                $user_id = $user->emailToId($username);
-                                            } else {
-                                                $user_id = $user->nameToId($username);
-                                            }
-
-                                            DB::getInstance()->update('users', $user_id, [
-                                                'password' => $password,
-                                                'pass_method' => $authme_db['hash']
-                                            ]);
-                                        }
-                                    }
-                                }
-                            } catch (Exception $e) {
-                                // Error, continue as we can use the already stored password
-                            }
-                        }
-
                         $login = $user->login($username, Input::get('password'), $remember, $method_field);
 
                         // Successful login?
@@ -276,7 +202,7 @@ if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (MINECRAFT) {
+} else if (Util::getSetting('mc_integration')) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));

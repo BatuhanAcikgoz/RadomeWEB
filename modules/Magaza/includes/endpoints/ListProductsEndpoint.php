@@ -61,7 +61,7 @@ class ListProductsEndpoint extends KeyAuthEndpoint {
                 'id' => (int) $product->data()->id,
                 'category_id' => (int) $product->data()->category_id,
                 'name' => $product->data()->name,
-                'price' => (double) Store::fromCents($product->data()->price_cents),
+                'price' => (double) Magaza::fromCents($product->data()->price_cents),
                 'price_cents' => (int) $product->data()->price_cents,
                 'hidden' => (bool) $product->data()->hidden,
                 'disabled' => (bool) $product->data()->disabled,

@@ -269,5 +269,6 @@
     "general/invalid_coupon": "Geçersiz kupon kodu.",
     "general/redeem_limit_reached": "Bu kupon için ulaşılan limiti kullanın.",
     "general/customer_redeem_limit_reached": "Bu kupon için maksimum kullanımlara ulaştınız.",
-    "general/redeem_min_basket_value": "Bu kupon kullanmak minimum {{min_basket}} harcaması gerektirir."
+    "general/redeem_min_basket_value": "Bu kupon kullanmak minimum {{min_basket}} harcaması gerektirir.",
+    "general/price_must_be_at_least_x": "Fiyat en az {{price}} olmalıdır"
 }

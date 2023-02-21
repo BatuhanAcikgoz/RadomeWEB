@@ -55,14 +55,6 @@ if ($registration_enabled == 0) {
     die();
 }
 
-// Check if Minecraft is enabled
-$minecraft = MINECRAFT;
-
-if ($minecraft == '1') {
-    // Check if AuthMe is enabled
-
-}
-
 // Registration page
 
 $captcha = CaptchaBase::isCaptchaEnabled();

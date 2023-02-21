@@ -29,8 +29,12 @@ class PriceAdjustmentHook extends HookBase {
                 } else if ($sale->discount_type == 2) {
                     // Amount discount
                     $product->data()->sale_active = true;
-                    $product->data()->sale_discount_cents = $sale->discount_amount;
+                    $product->data()->sale_discount_cents = Magaza::toCents($sale->discount_amount);
                 }
+            }
+            // Prevent the discount from being more than the price itself
+            if ($product->data()->sale_discount_cents >= $product->data()->price_cents) {
+                $product->data()->sale_discount_cents = $product->data()->price_cents;
             }
         }
 
@@ -51,14 +55,15 @@ class PriceAdjustmentHook extends HookBase {
                 } else if ($coupon->data()->discount_type == 2) {
                     // Amount discount
                     $product->data()->sale_active = true;
-                    $product->data()->sale_discount_cents = $coupon->data()->discount_amount;
+                    $product->data()->sale_discount_cents = Magaza::toCents($coupon->data()->discount_amount);
                 }
             }
-        }
 
+        // Prevent the discount from being more than the price itself
         // Prevent the discount from being more than the price itself
         if ($product->data()->sale_discount_cents >= $product->data()->price_cents) {
             $product->data()->sale_discount_cents = $product->data()->price_cents;
+        }
         }
 
         return $params;

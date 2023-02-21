@@ -59,6 +59,11 @@ if (Input::exists()) {
             if (isset($_POST['remove_credits']) && is_numeric($_POST['remove_credits']) && $_POST['remove_credits'] > 0) {
                 $command['remove_credits'] = Input::get('remove_credits');
             }
+
+            // Send alert to user
+            if (isset($_POST['alert']) && !empty($_POST['alert'])) {
+                $command['alert'] = Input::get('alert');
+            }
                 
             if (!count($command)) {
                 $errors[] = 'You need at least one action';
@@ -113,7 +118,8 @@ if (!$action->exists()) {
         'ADD_GROUPS_VALUE' => ((isset($_POST['add_groups']) && is_array($_POST['add_groups'])) ? $_POST['add_groups'] : []),
         'REMOVE_GROUPS_VALUE' => ((isset($_POST['remove_groups']) && is_array($_POST['remove_groups'])) ? $_POST['remove_groups'] : []),
         'ADD_CREDITS_VALUE' => ((isset($_POST['add_credits']) && $_POST['add_credits']) ? Output::getClean($_POST['add_credits']) : '0.00'),
-        'REMOVE_CREDITS_VALUE' => ((isset($_POST['remove_credits']) && $_POST['remove_credits']) ? Output::getClean($_POST['remove_credits']) : '0.00')
+        'REMOVE_CREDITS_VALUE' => ((isset($_POST['remove_credits']) && $_POST['remove_credits']) ? Output::getClean($_POST['remove_credits']) : '0.00'),
+        'ALERT_VALUE' => ((isset($_POST['alert']) && $_POST['alert']) ? Output::getClean($_POST['alert']) : '')
     ]);
 } else {
     // Updating action
@@ -124,7 +130,8 @@ if (!$action->exists()) {
         'ADD_GROUPS_VALUE' => ((isset($command['add_groups']) && is_array($command['add_groups'])) ? $command['add_groups'] : []),
         'REMOVE_GROUPS_VALUE' => ((isset($command['remove_groups']) && is_array($command['remove_groups'])) ? $command['remove_groups'] : []),
         'ADD_CREDITS_VALUE' => ((isset($command['add_credits']) && $command['add_credits']) ? Output::getClean($command['add_credits']) : '0.00'),
-        'REMOVE_CREDITS_VALUE' => ((isset($command['remove_credits']) && $command['remove_credits']) ? Output::getClean($command['remove_credits']) : '0.00')
+        'REMOVE_CREDITS_VALUE' => ((isset($command['remove_credits']) && $command['remove_credits']) ? Output::getClean($command['remove_credits']) : '0.00'),
+        'ALERT_VALUE' => ((isset($command['alert']) && $command['alert']) ? Output::getClean($command['alert']) : '')
     ]);
 }
 

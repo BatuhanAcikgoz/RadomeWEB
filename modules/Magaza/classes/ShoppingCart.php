@@ -29,9 +29,9 @@ class ShoppingCart {
     // Constructor
     public function __construct() {
         $shopping_cart = $_SESSION['shopping_cart'] ?? [];
-        $this->_items = $_SESSION['shopping_cart']['items'] ?? [];
+        $items = $_SESSION['shopping_cart']['items'] ?? [];
 
-        if (count($this->_items)) {
+        if (count($items)) {
             // Get active coupon
             if (isset($_SESSION['shopping_cart']['coupon_id'])) {
                 $coupon = new Coupon($_SESSION['shopping_cart']['coupon_id']);
@@ -41,7 +41,7 @@ class ShoppingCart {
             }
 
             // Get products
-            $products_ids = implode(',', array_keys($this->_items));
+            $products_ids = implode(',', array_keys($items));
             $products_query = DB::getInstance()->query('SELECT * FROM rw_store_products WHERE id in ('.$products_ids.') AND disabled = 0 AND deleted = 0 ')->results();
             foreach ($products_query as $item) {
                 $product = new Product(null, null, $item);
@@ -51,19 +51,14 @@ class ShoppingCart {
                     'name' => $product->data()->name,
                     'content' => $product->data()->description,
                     'image' => (isset($product->data()->image) && !is_null($product->data()->image) ? (defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/' . 'uploads/store/' . Output::getClean(Output::getDecoded($product->data()->image))) : null),
-                    'link' => URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->data()->id)),
+                    'link' => URL::build(Magaza::getMagazaURL() . '/checkout', 'add=' . Output::getClean($product->data()->id)),
                     'hidden' => false,
                     'shopping_cart' => $this
                 ]);
 
-                $this->_products[$item->id] = $product;
-            }
-
-            // Remove items if they're invalid, disabled or deleted
-            foreach ($this->_items as $item) {
-                if (!array_key_exists($item['id'], $this->_products) || $item['quantity'] <= 0) {
-                    $this->remove($item['id']);
-                }
+                $item = $items[$product->data()->id];
+                $this->_items[$product->data()->id] = new Item($product, $item['quantity'], $item['fields']);
+                $this->_products[$product->data()->id] = $product;
             }
         }
     }
@@ -99,7 +94,7 @@ class ShoppingCart {
 
     // Get the products from the shopping cart
     public function getProducts(): array {
-        return $this->_products ? $this->_products : [];
+        return $this->_products;
     }
 
    // Set coupon for this shopping cart
@@ -118,23 +113,12 @@ public function getCoupon(): ?Coupon {
     return $this->_coupon;
 }
 
-    // Get total price to pay in cents
-    public function getTotalPriceCents(): int {
-        $price = 0;
-
-        foreach ($this->getProducts() as $product) {
-            $price += $product->getRealPriceCents() * $this->_items[$product->data()->id]['quantity'];
-        }
-
-        return $price;
-    }
-
         // Get total price to pay in cents
         public function getTotalCents(): int {
             $price = 0;
     
-            foreach ($this->getProducts() as $product) {
-                $price += $product->data()->price_cents * $this->_items[$product->data()->id]['quantity'];
+            foreach ($this->getItems() as $item) {
+                $price += $item->getSubtotalPrice();
             }
     
             return $price;
@@ -144,8 +128,8 @@ public function getCoupon(): ?Coupon {
         public function getTotalRealPriceCents(): int {
             $price = 0;
     
-            foreach ($this->getProducts() as $product) {
-                $price += $product->getRealPriceCents() * $this->_items[$product->data()->id]['quantity'];
+            foreach ($this->getItems() as $item) {
+                $price += $item->getTotalPrice();
             }
     
             return $price;
@@ -155,8 +139,8 @@ public function getCoupon(): ?Coupon {
         public function getTotalDiscountCents(): int {
             $discount = 0;
     
-            foreach ($this->getProducts() as $product) {
-                $discount += $product->data()->sale_discount_cents * $this->_items[$product->data()->id]['quantity'];
+            foreach ($this->getItems() as $item) {
+                $discount += $item->getTotalDiscounts();
             }
     
             return $discount;

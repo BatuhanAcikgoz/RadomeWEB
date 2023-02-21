@@ -45,6 +45,19 @@ class RadomeWEBService extends ServiceBase {
             if (isset($command['remove_credits']) && is_numeric($command['remove_credits']) && $command['remove_credits'] > 0) {
                 $recipient->removeCents(Magaza::toCents($command['remove_credits']));
             }
+
+            // Send alert to user
+            if (isset($command['alert']) && !empty($command['alert'])) {
+                $alert = str_replace(array_keys($placeholders), array_values($placeholders), $command['alert']);
+                DB::getInstance()->insert('alerts', [
+                    'user_id' => $user->data()->id,
+                    'type' => 'store',
+                    'url' => Magaza::getMagazaPath(),
+                    'content_short' => $alert,
+                    'content' => $alert,
+                    'created' => date('U')
+                ]);
+            }
         }
 
         // Action executed

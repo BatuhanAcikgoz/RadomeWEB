@@ -188,7 +188,7 @@ $smarty->assign([
     'STORE_PATH_VALUE' => $store_path,
     'CURRENCY_FORMAT' => $store_language->get('admin', 'currency_format'),
     'CURRENCY_FORMAT_INFO' => $store_language->get('admin', 'currency_format_info'),
-    'CURRENCY_FORMAT_VALUE' => Util::getSetting('currency_format', '{currencySymbol}{price} {currencyCode}', 'Store'),
+    'CURRENCY_FORMAT_VALUE' => Util::getSetting('currency_format', '{currencySymbol}{price} {currencyCode}', 'Magaza'),
     'CURRENCY' => $store_language->get('admin', 'currency'),
     'CURRENCY_LIST' => $currency_list,
     'CURRENCY_VALUE' => Output::getClean($currency),

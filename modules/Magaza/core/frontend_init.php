@@ -44,7 +44,7 @@ $smarty->assign([
     'SHOPPING_CART_PRODUCTS' => $shopping_cart->getProducts(),
     'X_ITEMS_FOR_Y' => $store_language->get('general', 'x_items_for_y', [
         'items' => count($shopping_cart->getItems()),
-        'amount' => Magaza::fromCents($shopping_cart->getTotalPriceCents()),
+        'amount' => Magaza::fromCents($shopping_cart->getTotalRealPriceCents()),
         'currency' => $currency,
         'currency_symbol' => $currency_symbol,
     ]),

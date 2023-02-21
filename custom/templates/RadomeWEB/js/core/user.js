@@ -1,5 +1,6 @@
-if (!('Notification' in window))
+if (!('Notification' in window)) {
 	window.Notification = null;
+}
 
 if (loggedIn == 1) {
 

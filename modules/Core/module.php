@@ -454,7 +454,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -670,7 +670,7 @@ class Core_Module extends Module {
         define('PRE_VALIDATED_DEFAULT', $group_id);
 
 
-        if (defined('MINECRAFT') && MINECRAFT === true) {
+        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
             // Status page?
             $cache->setCache('status_page');
             if ($cache->isCached('enabled')) {
@@ -749,7 +749,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (defined('MINECRAFT') && MINECRAFT === true) {
+            if (Util::getSetting('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 
@@ -785,13 +785,14 @@ class Core_Module extends Module {
                         $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
 
                         // Get query type
-                        $query_type = Util::getSetting('external_query') === '1' ? 'external' : 'internal';
+                        $query_type = Util::getSetting('query_type', 'internal');
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
 
                             foreach ($sub_servers as $server) {
                                 $servers[] = [
+                                    'id' => $server->id,
                                     'ip' => $server->ip . (is_null($server->port) ? '' : ':' . $server->port),
                                     'pre' => $server->pre,
                                     'name' => $server->name,
@@ -799,7 +800,7 @@ class Core_Module extends Module {
                                 ];
                             }
 
-                            $result = MCQuery::multiQuery($servers, $query_type, $language, true);
+                            $result = $query_type === 'plugin' ? PluginQuery::multiQuery($servers, $language, true) : MCQuery::multiQuery($servers, $query_type, $language, true);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -819,7 +820,7 @@ class Core_Module extends Module {
                             }
 
                         } else {
-                            $result = MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
+                            $result = $query_type === 'plugin' ? PluginQuery::singleQuery($default->id, $language) : MCQuery::singleQuery($full_ip, $query_type, $default->bedrock, $language);
 
                             if (isset($result['status_value']) && $result['status_value'] == 1) {
                                 $result['status'] = $language->get('general', 'online');
@@ -1458,7 +1459,7 @@ class Core_Module extends Module {
             'minecraft' => [
                 'mc_integration' => (bool)Util::getSetting('mc_integration'),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
-                'external_query' => (bool)Util::getSetting('external_query'),
+                'query_type' => Util::getSetting('query_type', 'internal'),
                 'servers' => $servers,
             ]
         ];

@@ -103,7 +103,7 @@ if ($transactions->count()) {
                 Magaza::formatPrice(
                     $transaction->amount_cents,
                     $currency,
-                    $currency_symbol,
+                    Magaza::getCurrencySymbol(),
                     STORE_CURRENCY_FORMAT,
                 )
             ),
