@@ -259,7 +259,7 @@ if (!isset($_GET['action'])) {
                 'EXPIRE_DATE_MIN' => date('Y-m-d\TH:i', $sale->expire_date),
             ]);
 
-            $template_file = 'magaza/indirimler_form.tpl';
+            $template_file = 'magaza/discounts_form.tpl';
         break;
         case 'delete';
             // Delete sale
