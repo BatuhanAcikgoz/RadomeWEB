@@ -12,7 +12,8 @@ final class CreateMagazaOrdersProductsTable extends AbstractMigration
         $table
             ->addColumn('order_id', 'integer', ['length' => 11])
             ->addColumn('product_id', 'integer', ['length' => 11])
-            ->addColumn('quantity', 'integer', ['length' => 11, 'default' => 1]);
+            ->addColumn('quantity', 'integer', ['length' => 11, 'default' => 1])
+            ->addColumn('amount_cents', 'integer', ['length' => 11]);
 
         $table->create();
     }
