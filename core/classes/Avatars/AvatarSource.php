@@ -69,7 +69,6 @@ class AvatarSource {
         }
 
         // Attempt to get their MC avatar if Minecraft integration is enabled
-        if (Util::getSetting('mc_integration')) {
             if ($data->uuid != null && $data->uuid != 'none') {
                 $uuid = $data->username;
             } else {
@@ -87,7 +86,7 @@ class AvatarSource {
             if (self::validImageUrl($url)) {
                 return $url;
             }
-        }
+        
 
         return "https://mc-heads.net/avatar/{$data->username}/{$size}";
     }
