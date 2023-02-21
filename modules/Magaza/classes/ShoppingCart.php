@@ -51,7 +51,7 @@ class ShoppingCart {
                     'name' => $product->data()->name,
                     'content' => $product->data()->description,
                     'image' => (isset($product->data()->image) && !is_null($product->data()->image) ? (defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/' . 'uploads/store/' . Output::getClean(Output::getDecoded($product->data()->image))) : null),
-                    'link' => URL::build(Magaza::getMagazaURL() . '/checkout', 'add=' . Output::getClean($product->data()->id)),
+                    'link' => URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->data()->id)),
                     'hidden' => false,
                     'shopping_cart' => $this
                 ]);
