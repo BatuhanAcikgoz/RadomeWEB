@@ -609,6 +609,8 @@ if (isset($_GET['action'])) {
         'NO_DEFAULT_SERVER' => $language->get('admin', 'no_default_server'),
         'GROUP_SYNC_SERVER' => $language->get('admin', 'group_sync_server'),
         'GROUP_SYNC_SERVER_VALUE' => $group_sync_server,
+        'QUERY_INTERVAL' => $language->get('admin', 'query_interval'),
+        'NO_GROUP_SYNC_SERVER' => $language->get('admin', 'no_group_sync_server'),
         'QUERY_TYPE' => $language->get('admin', 'query_type'),
         'INTERNAL' => $language->get('admin', 'internal'),
         'EXTERNAL' => $language->get('admin', 'external'),
