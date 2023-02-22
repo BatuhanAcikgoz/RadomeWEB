@@ -534,6 +534,7 @@ if (isset($_GET['action'])) {
                 // Group sync server
                 Util::setSetting('group_sync_mc_server', $new_group_sync_server);
 
+                // Query type
                 Util::setSetting('query_type', $query_type);
 
                 // Player list limit
@@ -543,9 +544,6 @@ if (isset($_GET['action'])) {
 
                 // Status page
                 Util::setSetting('status_page', $status);
-
-                $cache->setCache('status_page');
-                $cache->store('enabled', $status);
 
                 // Query interval
                 if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
@@ -610,6 +608,7 @@ if (isset($_GET['action'])) {
         'DEFAULT_SERVER_VALUE' => $default,
         'NO_DEFAULT_SERVER' => $language->get('admin', 'no_default_server'),
         'GROUP_SYNC_SERVER' => $language->get('admin', 'group_sync_server'),
+        'GROUP_SYNC_SERVER_VALUE' => $group_sync_server,
         'QUERY_TYPE' => $language->get('admin', 'query_type'),
         'INTERNAL' => $language->get('admin', 'internal'),
         'EXTERNAL' => $language->get('admin', 'external'),
