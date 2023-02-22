@@ -53,6 +53,7 @@ return array(
     'ErrorHandler' => $baseDir . '/core/classes/Misc/ErrorHandler.php',
     'EventHandler' => $baseDir . '/core/classes/Events/EventHandler.php',
     'ExternalMCQuery' => $baseDir . '/core/classes/Minecraft/ExternalMCQuery.php',
+    'PluginQuery' => $baseDir . '/core/classes/Minecraft/PluginQuery.php',
     'FacebookWidget' => $baseDir . '/modules/Core/widgets/FacebookWidget.php',
     'Fields' => $baseDir . '/core/classes/Core/Fields.php',
     'Forum' => $baseDir . '/modules/Forum/classes/Forum.php',

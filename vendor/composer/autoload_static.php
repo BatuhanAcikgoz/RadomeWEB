@@ -300,6 +300,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'ErrorHandler' => __DIR__ . '/../..' . '/core/classes/Misc/ErrorHandler.php',
         'EventHandler' => __DIR__ . '/../..' . '/core/classes/Events/EventHandler.php',
         'ExternalMCQuery' => __DIR__ . '/../..' . '/core/classes/Minecraft/ExternalMCQuery.php',
+        'PluginQuery' => __DIR__ . '/../..' . '/core/classes/Minecraft/PluginQuery.php',
         'FacebookWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/FacebookWidget.php',
         'Fields' => __DIR__ . '/../..' . '/core/classes/Core/Fields.php',
         'Forum' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum.php',
