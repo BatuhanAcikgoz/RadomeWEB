@@ -155,6 +155,7 @@
     "admin/internal": "Dahili",
     "admin/external": "Harici",
     "admin/plugin": "Plugin",
+    "admin/query_type_help": "If the default internal server query does not work, try another option.",
     "admin/face": "Yüz",
     "admin/fatal_log": "Kritik Günlükler",
     "admin/favicon_image_x": "Favicon image: {{imageName}}",
