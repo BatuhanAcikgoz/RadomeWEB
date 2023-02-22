@@ -354,7 +354,7 @@ class Magaza_Module extends Module {
             $products_list[] = [
                 'id' => $product->data()->id,
                 'name' => Output::getClean($product->data()->name),
-                'price' => Output::getClean($product->data()->price),
+                'price' => Output::getClean($product->data()->price_cents),
                 'hidden' => $product->data()->hidden,
                 'disabled' => $product->data()->disabled,
                 'connections' => $connections,
