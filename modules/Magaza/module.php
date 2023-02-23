@@ -313,7 +313,7 @@ class Magaza_Module extends Module {
                         $cache->store('store_data', $data, 120);
                     }
     
-                    Core_Module::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
+                    Core_Module::addDataToDashboardGraph($store_language->get('admin', 'payment_completed'), $data);
                 }
         }
     }
