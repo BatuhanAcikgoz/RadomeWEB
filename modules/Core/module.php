@@ -1340,10 +1340,12 @@ class Core_Module extends Module {
                     ksort($data);
 
                     $cache->store('core_data', $data, 120);
-                }
+                
 
                 self::addDataToDashboardGraph($language->get('admin', 'overview'), $data);
 
+            }
+            
                 // Dashboard stats
                 require_once(ROOT_PATH . '/modules/Core/collections/panel/TotalUsers.php');
                 CollectionManager::addItemToCollection('dashboard_stats', new TotalUsersItem($smarty, $language, $cache));
