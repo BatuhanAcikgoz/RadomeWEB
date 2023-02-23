@@ -276,44 +276,51 @@ class Magaza_Module extends Module {
 
                 if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
                     // Dashboard graph
+
+                    // Get data for topics and payments
+                    $start_time = strtotime('7 days ago');
+
+                    $payments = DB::getInstance()->query(
+                        <<<SQL
+                            SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
+                            FROM rw_forms_replies
+                            WHERE `created` > ? AND `created` < UNIX_TIMESTAMP()
+                            GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
+                        SQL,
+                        [$start_time],
+                    );
+                    $payments = $payments->results();
+
                     $cache->setCache('dashboard_graph');
                     if ($cache->isCached('store_data')) {
                         $data = $cache->retrieve('store_data');
-    
+
                     } else {
-                        $payments = DB::getInstance()->query(
-                            <<<SQL
-                                SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
-                                FROM rw_store_payments
-                                WHERE `created` > ? AND `status_id` = 1
-                                GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
-                            SQL,
-                            [strtotime('7 days ago')],
-                        );
-    
-                        // Output array
                         $data = [];
-    
-                        $data['datasets']['payments']['label'] = 'store_language/admin/payments'; // for $language->get('admin', 'registrations');
+
+                        $data['datasets']['payments']['label'] = 'store_language/admin/payments'; // for $forum_language->get('forum', 'posts_title');
                         $data['datasets']['payments']['colour'] = '#4cf702';
-    
-                        if ($payments->count()) {
-                            foreach ($payments->results() as $day) {
-                                $data['_' . $day->d] = ['payments' => $day->c];
+
+                        if (count($payments)) {
+                            foreach ($payments as $day) {
+                                if (isset($data['_' . $day->d])) {
+                                    $data['_' . $day->d]['payments'] = $day->c;
+                                } else {
+                                    $data['_' . $day->d] = ['payments' => $day->c];
+                                }
                             }
                         }
-    
-                        $payments = null;
-    
+
                         $data = Core_Module::fillMissingGraphDays($data, 'payments');
-    
+
                         // Sort by date
                         ksort($data);
-    
+
                         $cache->store('store_data', $data, 120);
+
                     }
-    
-                    Core_Module::addDataToDashboardGraph("Deneme", $data);
+
+                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
                 }
         }
     }
