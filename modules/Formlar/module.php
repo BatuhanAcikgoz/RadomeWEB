@@ -194,39 +194,6 @@ class Formlar_Module extends Module {
                 }
             }
         }
-
-        // Check for module updates
-        if (isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')) {
-            // Page belong to this module?
-            $page = $pages->getActivePage();
-            if ($page['module'] == 'Formlar') {
-
-                $cache->setCache('forms_module_cache');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-                    require_once(ROOT_PATH . '/modules/Formlar/classes/Formlar.php');
-                    $update_check = Formlar::updateCheck();
-                    $cache->store('update_check', $update_check, 3600);
-                }
-
-                $update_check = json_decode($update_check);
-                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {  
-                    $smarty->assign(array(
-                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $this->_forms_language->get('forms', 'new_urgent_update_available_x', ['module' => $this->getName()]) : $this->_forms_language->get('forms', 'new_update_available_x', ['module' => $this->getName()]),
-                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => $this->_forms_language->get('forms', 'current_version_x', [
-                            'version' => Output::getClean($this->getVersion())
-                        ]),
-                        'NEW_VERSION' => $this->_forms_language->get('forms', 'new_version_x', [
-                            'new_version' => Output::getClean($update_check->new_version)
-                        ]),
-                        'RADOME_UPDATE' => $this->_forms_language->get('forms', 'view_resource'),
-                        'RADOME_UPDATE_LINK' => Output::getClean($update_check->link)
-                    ));
-                }
-            }
-        }
     }
 
     public function getDebugInfo(): array {
