@@ -283,7 +283,7 @@ class Magaza_Module extends Module {
                     } else {
                         $payments = DB::getInstance()->query(
                             <<<SQL
-                                SELECT DATE_FORMAT(FROM_UNIXTIME(`joined`), '%Y-%m-%d') d, COUNT(*) c
+                                SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                                 FROM rw_store_payments
                                 WHERE `created` > ? AND `status_id` = 1
                                 GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
