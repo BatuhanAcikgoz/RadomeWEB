@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // This throws a PDOException if the connection fails
             $db = DB::getCustomInstance($db_address, $db_name, $db_username, $db_password, $db_port, $force_charset=$db_charset);
 
-            // Throw an exception if they attempt to reinstall with a database that contains some NamelessMC data already
+            // Throw an exception if they attempt to reinstall with a database that contains some RadomeWEB data already
             if ($db->showTables('modules') > 0) {
                 throw new RuntimeException('Database already contains tables');
             }

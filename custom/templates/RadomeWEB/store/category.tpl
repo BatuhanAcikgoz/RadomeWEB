@@ -58,7 +58,7 @@
                 <div class="modal" id="modal{$product.id}" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                   <div class="modal-header">
-                {$product.name} | {if $product.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$product.price_format}</span>{/if} {$product.real_price_format}{$product.price_format}
+                {$product.name} | {if $product.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$product.price_format}</span>{/if} {$product.real_price_format}
                   </div>
                   <div class="modal-content">
                     {if $product.image}
