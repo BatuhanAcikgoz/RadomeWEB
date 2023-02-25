@@ -62,7 +62,7 @@
                   </div>
                   <div class="modal-content">
                       <div class="ui small image">
-                        <img class="server" src="{if $product.image}https://devs.radome.web.tr/uploads/favicons/block-min.png{/if}{$product.image}" alt="{$product.name}" style="width: 500px;">
+                        <img class="server" src="{if $product.image}{$product.image}{else}https://devs.radome.web.tr/uploads/favicons/block-min.png{/if}" alt="{$product.name}" style="width: 500px;">
                       </div>
                     <div class="modal-body">
                       {$product.description}
