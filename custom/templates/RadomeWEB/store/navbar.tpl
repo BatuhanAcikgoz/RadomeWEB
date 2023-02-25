@@ -1,3 +1,4 @@
+        <div class="card">
           <div class="col-md-12" style="padding-bottom: 30px;padding-top: 15px;">
             
 
@@ -34,3 +35,4 @@
             {/if}
 
           </div>
+        </div>
