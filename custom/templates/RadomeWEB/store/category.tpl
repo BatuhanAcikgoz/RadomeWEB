@@ -39,7 +39,6 @@
                   {/if}
                   {$product.real_price_format}
                 </div>
-                    {if $product.image}
                       <div class="img-fluid">
                         {if $product.sale_active}
                           <span class="badge badge-danger">
@@ -48,7 +47,6 @@
                         {/if}
                         <img src="{if $product.image}{$product.image}{else}https://devs.radome.web.tr/uploads/favicons/block-min.png{/if}" style="height: 225px" class="server" alt="{$product.name}">
                       </div>
-                    {/if}
                     <div class="btn btn-theme" onClick="$('#modal{$product.id}').modal('show');">
                       {$BUY} &raquo;
                     </div>
