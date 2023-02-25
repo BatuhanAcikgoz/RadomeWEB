@@ -4,22 +4,15 @@
 <div class="container">
   <div class="row">
 
-    {if count($WIDGETS_LEFT)}
-      <div class="col-md-3">
-        {foreach from=$WIDGETS_LEFT item=widget}
-          {$widget}
-        {/foreach}
-      </div>
-    {/if}
-
     <div
-      class="{if count($WIDGETS_LEFT) && count($WIDGETS_RIGHT)}col-md-6{elseif count($WIDGETS_LEFT) || count($WIDGETS_RIGHT)}col-md-9{else}col-md-12{/if}">
+      class="col-md-12">
       <div class="card-header header-theme">
         <h2 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2>
       </div>
+      {include file='store/navbar.tpl'}
       <div class="card card-body">
 
-        {include file='store/navbar.tpl'}
+
 
         </br>
 
