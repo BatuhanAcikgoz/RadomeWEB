@@ -46,7 +46,7 @@
                             {$SALE}
                           </span>
                         {/if}
-                        <img src="{$product.image}" style="height: 225px" class="server" alt="{$product.name}">
+                        <img src="{if $product.image}{$product.image}{else}https://devs.radome.web.tr/uploads/favicons/block-min.png{/if}" style="height: 225px" class="server" alt="{$product.name}">
                       </div>
                     {/if}
                     <div class="btn btn-theme" onClick="$('#modal{$product.id}').modal('show');">
@@ -61,9 +61,11 @@
                 {$product.name} | {if $product.sale_active}<span style="color: #dc3545;text-decoration:line-through;">{$product.price_format}</span>{/if} {$product.real_price_format}
                   </div>
                   <div class="modal-content">
+                    {if $product.image}
                       <div class="ui small image">
-                        <img class="server" src="{if $product.image}{$product.image}{else}https://devs.radome.web.tr/uploads/favicons/block-min.png{/if}" alt="{$product.name}" style="width: 500px;">
+                        <img class="server" src="{$product.image}" alt="{$product.name}" style="width: 500px;">
                       </div>
+                    {/if}
                     <div class="modal-body">
                       {$product.description}
                     </div>
