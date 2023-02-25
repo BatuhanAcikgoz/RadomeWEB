@@ -8,7 +8,7 @@
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$category.title}</button>
                 <i class="dropdown icon"></i>
-                <div class="menu">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {if !$category.only_subcategories}
                   <a class="{if $category.active}active {/if}dropdown-item" href="{$category.url}" style="float: inline-start;">{$category.title}</a>
                   {/if}
