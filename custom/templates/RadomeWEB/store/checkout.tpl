@@ -4,11 +4,8 @@
 <div class="container">
   <div class="row">
 
-    <div
-      class="col-md-12">
-      <div class="card-header header-theme">
-        <h2 style="display:inline;">{$STORE} &raquo; {$CHECKOUT}</h2>
-      </div>
+    <div class="col-md-12">
+        <h2 style="display:inline;"><b>{$CHECKOUT}<b></h2>
       {include file='store/navbar.tpl'}
       <div class="card card-body">
 
