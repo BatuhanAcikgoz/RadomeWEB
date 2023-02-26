@@ -82,6 +82,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
+        'D' => 
+        array (
+            'DeviceDetector\\' => 15,
+        ),
         'C' => 
         array (
             'Cake\\Utility\\' => 13,
@@ -213,6 +217,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
+        ),
+        'DeviceDetector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/matomo/device-detector',
         ),
         'Cake\\Utility\\' => 
         array (

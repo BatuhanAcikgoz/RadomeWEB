@@ -35,6 +35,7 @@ return array(
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'DeviceDetector\\' => array($vendorDir . '/matomo/device-detector'),
     'Cake\\Utility\\' => array($vendorDir . '/cakephp/utility'),
     'Cake\\Datasource\\' => array($vendorDir . '/cakephp/datasource'),
     'Cake\\Database\\' => array($vendorDir . '/cakephp/database'),
