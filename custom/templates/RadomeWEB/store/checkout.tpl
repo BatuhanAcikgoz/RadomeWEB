@@ -2,9 +2,10 @@
 {include file='navbar.tpl'}
 
 <div class="container">
+<h1 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
+{include file='store/navbar.tpl'}
   <div class="row">
-  <h1 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
-  {include file='store/navbar.tpl'}
+
 
     <div class="col-md-9">
       <div class="card card-body">
