@@ -197,9 +197,9 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'DeviceDetector\\' => 
+        'DeviceDetector\\Parser' => 
         array (
-            0 => __DIR__ . '/..' . '/matomo/device-detector-6.1.0',
+            0 => __DIR__ . '/..' . '/matomo/device-detector-6.1.0/Parser',
         ),
         'MinecraftBanner\\' => 
         array (
