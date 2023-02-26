@@ -115,8 +115,8 @@
                         <div class="row">
                             <div class="col-4 col-md-5 col-lg-4">
                                 <span class="button-checkbox">
-				                    <button type="button" class="btn float-left" data-color="info" tabindex="7"> {$I_AGREE}</button>
-				                    <input type="checkbox" name="t_and_c" id="t_and_c" style="display:none;" value="1">
+				                    <span class="float-left"> {$I_AGREE}</span>
+				                    <input type="checkbox" name="t_and_c" id="t_and_c" value="1">
 				                </span>
                             </div>
                             <div class="col-8 col-md-7 col-lg-8">
