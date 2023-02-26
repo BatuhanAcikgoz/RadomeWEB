@@ -4,8 +4,7 @@
 <div class="container">
   <div class="row">
 
-    <div
-      class="col-md-12">
+    <div class="col-md-9">
         <h1 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
       {include file='store/navbar.tpl'}
       <div class="card card-body">
@@ -15,13 +14,13 @@
         </br>
 
         {if isset($SUCCESS)}
-          <div class="alert alert-success" style="margin-top: 30px;">
+          <div class="alert alert-success">
             {$SUCCESS}
           </div>
         {/if}
 
         {if isset($ERRORS)}
-          <div class="alert alert-danger" style="margin-top: 30px;">
+          <div class="alert alert-danger">
             {foreach from=$ERRORS item=error}
               {$error}<br />
             {/foreach}
@@ -29,7 +28,7 @@
         {/if}
 
         <div class="card-title">
-          <h3 style="margin-top: 30px;">{$SHOPPING_CART}</h3>
+          <h3>{$SHOPPING_CART}</h3>
         </div>
         <table class="table table-hover">
           <thead>
@@ -58,95 +57,74 @@
               </tbody>
             </table>
 
-            <table class="table">
-              <tbody>
-              {if $TOTAL_DISCOUNT_VALUE > 0}
-                <tr>
-                  <td>{$TOTAL_PRICE}</td>
-                  <td>{$TOTAL_PRICE_FORMAT_VALUE}</td>
-                </tr>
-                <tr>
-                  <td>{$TOTAL_DISCOUNT}</td>
-                  <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
-                </tr>
-                {/if}
-                <tr>
-                  <td>{$PRICE_TO_PAY}</td>
-                  <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
-                </tr>
-              </tbody>
-            </table>
 
-            <div class="card-title">
-              <h3>{$REDEEM_COUPON}</h3>
-            </div>
-            <hr>
-            <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
-              <div class="form-group">
-                <div class="form-inline">
-                  <input class="form-control input-sm" type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}"
-                    placeholder="{$REDEEM_COUPON_HERE}" />
-                  <input type="hidden" name="token" value="{$TOKEN}">
-                  <button class="btn btn-success" style="margin-left: 10px;">{$REDEEM} &raquo;</button>
-                </div>
-              </div>
-            </form>
-
-            <div class="card-title">
-              <h3>{$PAYMENT_METHOD}</h3>
-            </div>
-            <hr>
-            <form action="" method="post" id="forms">
-              {foreach from=$PAYMENT_METHODS item=gateway}
-                <div class="form-group">
-                  <div class="form-check">
-                    <input type="radio" name="payment_method" value="{$gateway.name}" required>
-                    <label>{$gateway.displayname}</label>
-                  </div>
-                </div>
-              {/foreach}
-
-              <div class="card-title">
-                <h3>{$PURCHASE}</h3>
-              </div>
-              <hr>
-              <div class="form-group">
-                <div class="form-check" style="display:inline;">
-                  <input type="hidden" name="token" value="{$TOKEN}">
-                  <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}<button class="btn btn-success" style="margin-left: 10px;">{$PURCHASE} &raquo;</button></label>
-                </div>
-              </div>
-              </br>
-            </form>
-
-          </div>
         </div>
-
-        {if count($WIDGETS_RIGHT)}
-          <div class="col-md-3">
-            {if isset($LOGGED_IN_USER) && isset($SHOW_CREDITS_AMOUNT)}
-              <div class="card" id="widget-store-account">
-                <div class="card-body">
-                  <h4 class="card-title">{$ACCOUNT}</h4>
-                  <div class="description">
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                        <span class="text">{$CREDITS}</span>
-                        <div class="float-right"><b>{$CREDITS_FORMAT_VALUE}</b></div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            {/if}
-
-            {foreach from=$WIDGETS_RIGHT item=widget}
-              {$widget}
-            {/foreach}
-          </div>
-        {/if}
-
       </div>
+    </div>
+
+    <div class="col-md-3">
+    <table class="table">
+    <tbody>
+    {if $TOTAL_DISCOUNT_VALUE > 0}
+      <tr>
+        <td>{$TOTAL_PRICE}</td>
+        <td>{$TOTAL_PRICE_FORMAT_VALUE}</td>
+      </tr>
+      <tr>
+        <td>{$TOTAL_DISCOUNT}</td>
+        <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
+      </tr>
+      {/if}
+      <tr>
+        <td>{$PRICE_TO_PAY}</td>
+        <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-title">
+    <h3>{$REDEEM_COUPON}</h3>
+  </div>
+  <hr>
+  <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
+    <div class="form-group">
+      <div class="form-inline">
+        <input class="form-control input-sm" type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}"
+          placeholder="{$REDEEM_COUPON_HERE}" />
+        <input type="hidden" name="token" value="{$TOKEN}">
+        <button class="btn btn-success" style="margin-left: 10px;">{$REDEEM} &raquo;</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="card-title">
+    <h3>{$PAYMENT_METHOD}</h3>
+  </div>
+  <hr>
+  <form action="" method="post" id="forms">
+    {foreach from=$PAYMENT_METHODS item=gateway}
+      <div class="form-group">
+        <div class="form-check">
+          <input type="radio" name="payment_method" value="{$gateway.name}" required>
+          <label>{$gateway.displayname}</label>
+        </div>
+      </div>
+    {/foreach}
+
+    <div class="card-title">
+      <h3>{$PURCHASE}</h3>
+    </div>
+    <hr>
+    <div class="form-group">
+      <div class="form-check" style="display:inline;">
+        <input type="hidden" name="token" value="{$TOKEN}">
+        <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}<button class="btn btn-success" style="margin-left: 10px;">{$PURCHASE} &raquo;</button></label>
+      </div>
+    </div>
+    </br>
+  </form>
+
+</div>
     </div>
 
     {include file='footer.tpl'}
