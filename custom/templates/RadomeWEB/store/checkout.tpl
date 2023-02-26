@@ -5,8 +5,6 @@
   <h1 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
   {include file='store/navbar.tpl'}
   <div class="row">
-
-
       <div class="col-md-9">
         <div class="card card-body">
 
@@ -60,7 +58,7 @@
 
 
           </div>
-        </div>
+        </div>  
       </div>
 
       <div class="col-md-3">
