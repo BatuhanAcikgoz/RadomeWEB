@@ -182,6 +182,12 @@
       ),
       'reference' => '9400f305a898f194caff5521f64e5dfa926626f3',
     ),
+    'piwik/device-detector' => array(
+      'dev_requirement' => false,
+      'replaced' => array(
+          0 => '6.1.0',
+      ),
+  ),
     'psr/container' => 
     array (
       'pretty_version' => '2.0.2',
