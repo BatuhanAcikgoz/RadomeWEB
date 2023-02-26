@@ -31,7 +31,7 @@
         <a href="{$CHECKOUT_LINK}" class="btn btn-primary">
           {$X_ITEMS_FOR_Y}
         </a>
-      </div>
+    </div>
     {else}
       <a class="btn btn-primary ">
         {$X_ITEMS_FOR_Y}
