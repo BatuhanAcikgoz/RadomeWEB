@@ -1129,6 +1129,7 @@
     "user/invalid_wall_post": "Please ensure your post is between 1 and 10000 characters.",
     "user/last_message": "Last Message",
     "user/last_seen": "Last Seen:",
+    "admin/last_seen": "Last Seen",
     "user/last_seen_x": "Last Seen: {{lastSeenAt}}",
     "admin/viewing_sessions_for_x": "Viewing login sessions for {{user}}",
     "user/latest_profile_posts": "Latest Profile Posts",
