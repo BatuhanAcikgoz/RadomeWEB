@@ -52,29 +52,14 @@
 
     <div class="col-md-3">
       <div class="card card-body">
-        <table class="table">
-          <tbody>
             {if $TOTAL_DISCOUNT_VALUE > 0}
-              <tr>
-                <td>{$TOTAL_PRICE}</td>
-                <td>{$TOTAL_PRICE_FORMAT_VALUE}</td>
-              </tr>
-              <tr>
-                <td>{$TOTAL_DISCOUNT}</td>
-                <td>{$TOTAL_DISCOUNT_FORMAT_VALUE}</td>
-              </tr>
+              <h4>{$PRICE_TO_PAY} {$TOTAL_PRICE_FORMAT_VALUE}{$TOTAL_DISCOUNT}{$TOTAL_DISCOUNT_FORMAT_VALUE}</h4>
             {/if}
-            <tr>
-              <td>{$PRICE_TO_PAY}</td>
-              <td>{$TOTAL_REAL_PRICE_FORMAT_VALUE}</td>
-            </tr>
-          </tbody>
-        </table>
-
+              <h4>{$PRICE_TO_PAY} {$TOTAL_REAL_PRICE_FORMAT_VALUE}</h4>
+        <hr>
         <div class="card-title">
           <h3>{$REDEEM_COUPON}</h3>
         </div>
-        <hr>
         <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
           <div class="form-group">
             <div class="form-inline">
@@ -85,11 +70,10 @@
             </div>
           </div>
         </form>
-
+        <hr>
         <div class="card-title">
           <h3>{$PAYMENT_METHOD}</h3>
         </div>
-        <hr>
         <form action="" method="post" id="forms">
           {foreach from=$PAYMENT_METHODS item=gateway}
             <div class="form-group">

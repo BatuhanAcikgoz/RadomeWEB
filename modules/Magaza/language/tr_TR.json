@@ -247,7 +247,7 @@
     "general\/received_x_credits_from_x": "You have received {{amount}} credits from {{user}}",
     "general\/total_price": "Toplam Fiyat:",
     "general\/total_discount": "Toplam İndirim:",
-    "general\/price_to_pay": "Ödenecek Tutar:",
+    "general\/price_to_pay": "Toplam Tutar:",
     "general\/radomeweb": "RadomeWEB tarafından yapılmıştır",
     "general\/my_transactions": "İşlemlerim",
     "general\/no_transactions": "Herhangi bir işleminiz yok.",
