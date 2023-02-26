@@ -32,9 +32,11 @@
         </a>
     </div>
     {else}
-      <a class="btn btn-primary" style="float: inline-end">
+    <div class="btn" style="float: inline-end">  
+      <a class="btn btn-primary">
         {$X_ITEMS_FOR_Y}
       </a>
+    </div>  
     {/if}
   </div>
 </div>
