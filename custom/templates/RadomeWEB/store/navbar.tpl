@@ -31,10 +31,6 @@
           {$X_ITEMS_FOR_Y}
         </a>
     </div>
-    {else}
-      <a class="btn btn-primary ">
-        {$X_ITEMS_FOR_Y}
-      </a>
     {/if}
   </div>
 </div>
