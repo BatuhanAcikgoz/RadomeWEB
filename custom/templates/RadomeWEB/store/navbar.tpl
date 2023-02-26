@@ -32,7 +32,7 @@
         </a>
     </div>
     {else}
-      <a class="btn btn-primary">
+      <a class="btn btn-primary" style="float: inline-end">
         {$X_ITEMS_FOR_Y}
       </a>
     {/if}
