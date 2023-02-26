@@ -66,9 +66,9 @@
           <div class="form-group">
             <div class="form-inline">
               <input class="form-control input-sm" type="text" name="coupon" id="coupon" value="{$REDEEM_COUPON_VALUE}"
-                placeholder="{$REDEEM_COUPON_HERE}" />
+                placeholder="{$REDEEM_COUPON_HERE}" style="max-width: 50%;"/>
               <input type="hidden" name="token" value="{$TOKEN}">
-              <button class="btn btn-success">{$REDEEM} &raquo;</button>
+              <button class="btn btn-success" style="margin-left: 10px;">{$REDEEM} &raquo;</button>
             </div>
           </div>
         </form>
