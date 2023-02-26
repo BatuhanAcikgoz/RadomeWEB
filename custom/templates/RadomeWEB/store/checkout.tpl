@@ -83,15 +83,11 @@
               </div>
             </div>
           {/foreach}
-
-          <div class="card-title">
-            <h4>{$PURCHASE}</h4>
-          </div>
           <hr>
           <div class="form-group">
             <div class="form-check" style="display:inline;">
               <input type="hidden" name="token" value="{$TOKEN}">
-              <input type="checkbox" name="t_and_c" value="1" required> <label>{$AGREE_T_AND_C_PURCHASE}<button
+              <label>{$AGREE_T_AND_C_PURCHASE} <input type="checkbox" name="t_and_c" value="1" required><button
                   class="btn btn-success" style="margin-left: 10px;">{$PURCHASE} &raquo;</button></label>
             </div>
           </div>
