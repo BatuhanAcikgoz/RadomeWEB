@@ -104,6 +104,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/samerton/i18next/src',
         ),
+        'matomo\\device-detector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/matomo/device-detector',
+        ),
         'Wohali\\OAuth2\\Client\\' => 
         array (
             0 => __DIR__ . '/..' . '/wohali/oauth2-discord-new/src',

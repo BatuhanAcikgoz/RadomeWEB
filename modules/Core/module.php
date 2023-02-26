@@ -108,6 +108,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/kullanicilar/ip_sorgu', 'pages/panel/users_ip_lookup.php');
         $pages->add('Core', '/panel/kullanicilar/cezalar', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/kullanicilar/raporlar', 'pages/panel/users_reports.php');
+        $pages->add('Core', '/panel/kullanicilar/sessions', 'pages/panel/users_sessions.php');
         $pages->add('Core', '/panel/user', 'pages/panel/user.php');
 
         // Ajax GET requests
@@ -587,6 +588,7 @@ class Core_Module extends Module {
             'modcp.reports' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reports'),
             'modcp.profile_banner_reset' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('moderator', 'reset_profile_banner'),
             'admincp.users.edit' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('admin', 'users') . ' &raquo; ' . $language->get('general', 'edit'),
+            'admincp.users.sessions' => $language->get('admin', 'user_management') . ' &raquo; ' . $language->get('admin', 'users') . ' &raquo; '  . $language->get('general', 'sessions'),
             'admincp.groups' => $language->get('admin', 'groups'),
             'admincp.groups.self' => $language->get('admin', 'groups') . ' &raquo; ' . $language->get('admin', 'can_edit_own_group'),
             'admincp.widgets' => $language->get('admin', 'widgets'),
@@ -1370,6 +1372,10 @@ class Core_Module extends Module {
 
             if ($user->hasPermission('admincp.users.edit')) {
                 self::addUserAction($language->get('general', 'edit'), URL::build('/panel/kullanicilar/duzenle/', 'id={id}'));
+            }
+
+            if ($user->hasPermission('admincp.users.sessions')) {
+                self::addUserAction($language->get('general', 'sessions'), URL::build('/panel/kullanici/sessions', 'id={id}'));
             }
 
             if ($user->hasPermission('admincp.users.edit')) {
