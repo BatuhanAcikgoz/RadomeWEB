@@ -7,17 +7,12 @@
   <div class="row">
     <div class="col-md-9">
       <div class="card card-body">
-
-
-
         </br>
-
         {if isset($SUCCESS)}
           <div class="alert alert-success">
             {$SUCCESS}
           </div>
         {/if}
-
         {if isset($ERRORS)}
           <div class="alert alert-danger">
             {foreach from=$ERRORS item=error}
@@ -55,13 +50,9 @@
                 {/foreach}
               </tbody>
             </table>
-
-
-          </div>
-        </div>
       </div>
     </div>
-    
+
     <div class="col-md-3">
       <div class="card card-body">
         <table class="table">
