@@ -1,10 +1,9 @@
         <div class="card">
           <div class="col-md-12" style="padding-bottom: 10px;padding-top: 10px;">
-            <div class="row">
 
                 {foreach from=$CATEGORIES item=category}
                   {if isset($category.subcategories) && count($category.subcategories)}
-                    <div class="dropdown">
+                    <a class="dropdown">
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$category.title}</button>
                       <i class="dropdown icon"></i>
@@ -18,7 +17,7 @@
                             style="float: inline-start;">{$subcategory.title}</a>
                         {/foreach}
                       </div>
-                    </div>
+                    </a>
                   {else}
                     <a class="{if $category.active}active {/if}" href="{$category.url}"
                       style="float: inline-start; margin-left: 15px;">
@@ -36,6 +35,5 @@
                     {$X_ITEMS_FOR_Y}
                   </a>
                 {/if}
-              </div>
             </div>
           </div>
