@@ -864,6 +864,7 @@
     "general/logout_session_successfully": "Oturumdan başarıyla çıkış yapıldı.",
     "general/session": "Oturum",
     "general/sessions": "Oturumlar",
+    "admin/last_seen": "Son Görülme",
     "user/latest_profile_posts": "Latest Profile Posts",
     "user/leave_conversation": "Görüşmeden Ayrıl",
     "user/max_pm_10_users": "En fazla 10 kullanıcıya mesaj gönderebilirsiniz",
