@@ -1,7 +1,6 @@
         <div class="card">
           <div class="col-md-12" style="padding-bottom: 10px;padding-top: 10px;">
             <div class="row">
-              <div class="col-md-12">
 
                 {foreach from=$CATEGORIES item=category}
                   {if isset($category.subcategories) && count($category.subcategories)}
@@ -40,4 +39,3 @@
               </div>
             </div>
           </div>
-</div>
