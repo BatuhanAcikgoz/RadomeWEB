@@ -4,7 +4,7 @@
                 {foreach from=$CATEGORIES item=category}
                   {if isset($category.subcategories) && count($category.subcategories)}
                     <div class="dropdown btn">
-                      <button class="btn dropdown-toggle" style="color: rgb(210, 210, 210);" type="button" id="dropdownMenuButton"
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$category.title}</button>
                       <i class="dropdown icon"></i>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -20,7 +20,7 @@
                     </div>
                   {else}
                   <div class="btn">  
-                    <a class="{if $category.active}active {/if} btn" href="{$category.url}" style="color: rgb(210, 210, 210);">
+                    <a class="{if $category.active}active {/if} btn btn-secondary" href="{$category.url}">
                       {$category.title}
                     </a>
                   </div>    
