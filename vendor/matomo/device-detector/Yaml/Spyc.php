@@ -25,6 +25,6 @@ class Spyc implements ParserInterface
      */
     public function parseFile(string $file)
     {
-        return SpycParser::YAMLLoad($file);
+
     }
 }
