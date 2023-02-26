@@ -326,6 +326,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'IntegrationUserData' => __DIR__ . '/../..' . '/core/classes/DTO/IntegrationUserData.php',
         'Integrations' => __DIR__ . '/../..' . '/core/classes/Integrations/Integrations.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'DeviceDetector\\AutoLoad' => __DIR__ . '/..' . '/matomo/device-detector-6.1.0/autoload.php',
         'DeviceDetector\\ClientHints' => __DIR__ . '/..' . '/matomo/device-detector-6.1.0/ClientHints.php',
         'DeviceDetector\\DeviceDetector' => __DIR__ . '/..' . '/matomo/device-detector-6.1.0/DeviceDetector.php',
         'KeyAuthEndpoint' => __DIR__ . '/../..' . '/core/classes/Endpoints/KeyAuthEndpoint.php',
