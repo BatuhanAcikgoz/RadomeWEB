@@ -20,10 +20,6 @@
             {/foreach}
           </div>
         {/if}
-
-        <div class="card-title">
-          <h3>{$SHOPPING_CART}</h3>
-        </div>
         <table class="table table-hover">
           <thead>
             <tr>
