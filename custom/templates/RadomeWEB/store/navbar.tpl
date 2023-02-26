@@ -33,11 +33,9 @@
                   </a>
                 </div>  
                 {else}
-                <div class="btn">  
                   <a class="btn btn-theme">
                     {$X_ITEMS_FOR_Y}
                   </a>
-                </div>  
                 {/if}
             </div>
           </div>
