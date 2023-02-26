@@ -1,4 +1,4 @@
-        <div class="card">
+        <div class="card" style="margin-top: 20px;">
           <div class="col-md-12" style="padding-bottom: 10px;padding-top: 10px;">
 
                 {foreach from=$CATEGORIES item=category}
