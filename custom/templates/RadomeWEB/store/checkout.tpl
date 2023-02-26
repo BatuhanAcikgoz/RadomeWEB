@@ -126,7 +126,6 @@
           </div>
           </br>
         </form>
-        </div>
       </div>
     </div>
 
