@@ -60,7 +60,7 @@
               <h4>{$PRICE_TO_PAY} {$TOTAL_REAL_PRICE_FORMAT_VALUE}</h4>
         <hr>
         <div class="card-title">
-          <h4>{$REDEEM_COUPON}</h4>
+          <h5>{$REDEEM_COUPON}</h5>
         </div>
         <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
           <div class="form-group">
@@ -74,7 +74,7 @@
         </form>
         <hr>
         <div class="card-title">
-          <h4>{$PAYMENT_METHOD}</h4>
+          <h5>{$PAYMENT_METHOD}</h5>
         </div>
         <form action="" method="post" id="forms">
           {foreach from=$PAYMENT_METHODS item=gateway}
@@ -87,11 +87,9 @@
           {/foreach}
           <hr>
           <div class="form-group">
-            <div class="form-check" style="display:inline;">
               <input type="hidden" name="token" value="{$TOKEN}">
-              <label>{$AGREE_T_AND_C_PURCHASE} <input type="checkbox" name="t_and_c" value="1" required><button
-                  class="btn btn-success">{$PURCHASE} &raquo;</button></label>
-            </div>
+              <label>{$AGREE_T_AND_C_PURCHASE} <input type="checkbox" name="t_and_c" value="1" required><div class="row justify-content-center" style="padding-top: 20px;"><button
+                  class="btn btn-success">{$PURCHASE} &raquo;</button></div></label>
           </div>
           </br>
         </form>
