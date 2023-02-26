@@ -1,6 +1,6 @@
         <div class="card">
-          <div class="col-md-12" style="padding-bottom: 20px;padding-top: 20px;">
-            
+          <div class="col-md-12" style="padding-bottom: 10px;padding-top: 10px;">
+            <div class="row">
 
 
            {foreach from=$CATEGORIES item=category}
@@ -33,6 +33,6 @@
                 {$X_ITEMS_FOR_Y}
               </a>
             {/if}
-
+            </div>
           </div>
         </div>
