@@ -64,7 +64,7 @@
       </div>
 
       <div class="col-md-3">
-      <div class="card-body">
+      <div class="card card-body">
         <table class="table">
           <tbody>
             {if $TOTAL_DISCOUNT_VALUE > 0}
