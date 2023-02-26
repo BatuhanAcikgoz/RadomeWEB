@@ -58,7 +58,7 @@
               <h4>{$PRICE_TO_PAY} {$TOTAL_REAL_PRICE_FORMAT_VALUE}</h4>
         <hr>
         <div class="card-title">
-          <h3>{$REDEEM_COUPON}</h3>
+          <h4>{$REDEEM_COUPON}</h4>
         </div>
         <form action="{$REDEEM_COUPON_URL}" method="post" id="coupon">
           <div class="form-group">
@@ -72,7 +72,7 @@
         </form>
         <hr>
         <div class="card-title">
-          <h3>{$PAYMENT_METHOD}</h3>
+          <h4>{$PAYMENT_METHOD}</h4>
         </div>
         <form action="" method="post" id="forms">
           {foreach from=$PAYMENT_METHODS item=gateway}
@@ -85,7 +85,7 @@
           {/foreach}
 
           <div class="card-title">
-            <h3>{$PURCHASE}</h3>
+            <h4>{$PURCHASE}</h4>
           </div>
           <hr>
           <div class="form-group">
