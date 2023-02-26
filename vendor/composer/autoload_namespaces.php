@@ -8,5 +8,4 @@ $baseDir = dirname($vendorDir);
 return array(
     'SitemapPHP' => array($vendorDir . '/evert/sitemap-php/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
-    'DeviceDetector' => array($vendorDir . '/matomo/device-detector-6.1.0'),
 );
