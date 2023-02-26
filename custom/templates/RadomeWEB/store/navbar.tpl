@@ -24,7 +24,7 @@
                       style="float: inline-start; margin-left: 15px;">
                       {$category.title}
                     </a>
-                  <div class="btn">  
+                  </div>    
                   {/if}
                 {/foreach}
                 <div class="btn">
