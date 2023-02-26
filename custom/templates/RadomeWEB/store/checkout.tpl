@@ -46,6 +46,7 @@
                 {/foreach}
               </tbody>
             </table>
+            <hr style="margin: 0px;">
       </div>
     </div>
 
