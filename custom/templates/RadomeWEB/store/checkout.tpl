@@ -3,7 +3,7 @@
 
 <div class="container">
   <div class="card-header header-theme">
-  <h1 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
+  <h2 class="card-body" style="display:inline;"><b>{$STORE} &raquo; {$CHECKOUT}</b></h1>
   </div>
   {include file='store/navbar.tpl'}
   <div class="row">
