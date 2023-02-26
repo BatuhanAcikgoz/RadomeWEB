@@ -25,5 +25,16 @@
         </div>
       {/if}
     {/foreach}
+    <div class="btn" style="float: inline-end">
+    {if count($SHOPPING_CART_PRODUCTS)}
+        <a href="{$CHECKOUT_LINK}" class="btn btn-primary">
+          {$X_ITEMS_FOR_Y}
+        </a>
+    </div>
+    {else}
+      <a class="btn btn-primary ">
+        {$X_ITEMS_FOR_Y}
+      </a>
+    {/if}
   </div>
 </div>
