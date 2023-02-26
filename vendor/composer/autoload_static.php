@@ -197,7 +197,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'PHPMailer\\' => 
+        'DeviceDetector\\' => 
         array (
             0 => __DIR__ . '/..' . '/matomo/device-detector-6.1.0',
         ),
