@@ -3,7 +3,7 @@
 
                 {foreach from=$CATEGORIES item=category}
                   {if isset($category.subcategories) && count($category.subcategories)}
-                    <div class="dropdown">
+                    <div class="dropdown btn">
                       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$category.title}</button>
                       <i class="dropdown icon"></i>
