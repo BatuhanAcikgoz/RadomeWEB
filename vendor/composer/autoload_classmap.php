@@ -76,7 +76,6 @@ return array(
     'Integrations' => $baseDir . '/core/classes/Integrations/Integrations.php',
     'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'DeviceDetector\\ClientHints' => $vendorDir . '/matomo/device-detector-6.1.0/ClientHints.php',
-    'DeviceDetector\\Autoload' => $vendorDir . '/matomo/device-detector-6.1.0/autoload.php',
     'DeviceDetector\\DeviceDetector' => $vendorDir . '/matomo/device-detector-6.1.0/DeviceDetector.php',
     'KeyAuthEndpoint' => $baseDir . '/core/classes/Endpoints/KeyAuthEndpoint.php',
     'Language' => $baseDir . '/core/classes/Core/Language.php',
