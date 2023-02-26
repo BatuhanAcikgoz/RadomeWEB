@@ -19,23 +19,22 @@
                       </div>
                     </div>
                   {else}
-                  <div class="btn">  
-                    <a class="{if $category.active}active {/if}" href="{$category.url}"
-                      style="float: inline-start; margin-left: 15px;">
+                  <div class="btn btn-secondary">  
+                    <a class="{if $category.active}active {/if}" href="{$category.url}">
                       {$category.title}
                     </a>
                   </div>    
                   {/if}
                 {/foreach}
-                <div class="btn">
+                <div class="btn" style="float: inline-end">
                 {if count($SHOPPING_CART_PRODUCTS)}
-                  <a href="{$CHECKOUT_LINK}" class="btn btn-theme" style="float: inline-end">
+                  <a href="{$CHECKOUT_LINK}" class="btn btn-theme">
                     {$X_ITEMS_FOR_Y}
                   </a>
                 </div>  
                 {else}
                 <div class="btn">  
-                  <a class="btn btn-theme" style="float: inline-end">
+                  <a class="btn btn-theme">
                     {$X_ITEMS_FOR_Y}
                   </a>
                 </div>  
