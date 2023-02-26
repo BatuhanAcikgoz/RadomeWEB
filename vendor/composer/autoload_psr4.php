@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'xPaw\\' => array($vendorDir . '/xpaw/php-minecraft-query/src'),
     'samerton\\i18next\\' => array($vendorDir . '/samerton/i18next/src'),
-    'matomo\\device-detector\\' => array($vendorDir . '/matomo/device-detector'),
+    'matomo\\device-detector\\' => array($vendorDir . '/matomo/device-detector-6.1.0'),
     'Wohali\\OAuth2\\Client\\' => array($vendorDir . '/wohali/oauth2-discord-new/src'),
     'Symfony\\Polyfill\\Php81\\' => array($vendorDir . '/symfony/polyfill-php81'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
