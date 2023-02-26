@@ -19,8 +19,8 @@
                       </div>
                     </div>
                   {else}
-                  <div class="btn btn-secondary">  
-                    <a class="{if $category.active}active {/if}" href="{$category.url}">
+                  <div class="btn">  
+                    <a class="{if $category.active}active {/if} btn btn-secondary" href="{$category.url}">
                       {$category.title}
                     </a>
                   </div>    
@@ -28,12 +28,12 @@
                 {/foreach}
                 <div class="btn" style="float: inline-end">
                 {if count($SHOPPING_CART_PRODUCTS)}
-                  <a href="{$CHECKOUT_LINK}" class="btn btn-theme">
+                  <a href="{$CHECKOUT_LINK}" class="btn btn-primary">
                     {$X_ITEMS_FOR_Y}
                   </a>
                 </div>  
                 {else}
-                  <a class="btn btn-theme">
+                  <a class="btn btn-primary ">
                     {$X_ITEMS_FOR_Y}
                   </a>
                 {/if}
