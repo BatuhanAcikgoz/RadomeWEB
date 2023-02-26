@@ -224,7 +224,7 @@
     "general\/no_products": "Hiçbir ürün bulunamadı!",
     "general\/no_purchases": "Satın Alma Yok",
     "general\/options": "Seçenekler",
-    "general\/pay_with_credits": "{{currency_symbol}} {{credits}} {{currency}} kredi bakiyenizle ödeme yapın",
+    "general\/pay_with_credits": "{{credits}}{{currency_symbol}}  kredinizle ödeme yapın",
     "general\/payment_method": "Ödeme Yöntemi",
     "general\/pending_payment_text": "{{user} adlı kullanıcıdan bekleyen ödeme",
     "general\/please_enter_username": "Please enter your Minecraft Username to continue",
