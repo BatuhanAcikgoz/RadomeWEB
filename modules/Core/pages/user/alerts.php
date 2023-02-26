@@ -107,5 +107,5 @@ if (!isset($_GET['view'])) {
         ]);
     }
 
-    Redirect::to($alert[0]->url);
+    Redirect::to($alert[0]->url != '#' ? $alert[0]->url : URL::build('/kullanici/uyarilar'));
 }
