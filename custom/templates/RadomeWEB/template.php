@@ -156,13 +156,10 @@ class RadomeWEB_Template extends TemplateBase {
 		
 		$smarty->assign('THEME_radomeweb_URL', Output::getClean($radomeweb_url));
 		$smarty->assign('THEME_LOCAL_VERSION', Output::getClean($radomeweb_local_version));
-		$smarty->assign('THEME_TS_PATH', $template['path'] . 'js/core/ts.js?v=3');
 		$smarty->assign('THEME_MOD_PATH', $template['path'] . 'js/core/mod.min.js');
 
 		$smarty->assign('MENU', $radomeweb_language->get('language', 'menu'));
 		$smarty->assign('DISCORD_BOX_COPY', $radomeweb_language->get('language', 'discord_box_copy'));
-		$smarty->assign('TS_TITLE', $radomeweb_language->get('language', 'ts_title'));
-		$smarty->assign('TS_BUTTON', $radomeweb_language->get('language', 'ts_button'));
 		$smarty->assign('SERVER_BOX_TITLE', $radomeweb_language->get('language', 'server_box_title'));
 		$smarty->assign('NEWS_BUTTON', $radomeweb_language->get('language', 'news_button'));
 		$smarty->assign('NEWS_ERROR_TITLE', $radomeweb_language->get('language', 'news_error_title'));
