@@ -324,11 +324,11 @@ a,
 
 /*---------- Dark Mode ----------*/
 
-.pre.language-markup {
+pre.language-markup {
     background-color: rgba(255,255,255,0.1);
 }
 
-.code.language-markup {
+code.language-markup {
     color: rgba(255,255,255,0.7);
 }
 
@@ -340,7 +340,7 @@ a,
     color: rgb(210, 210, 210);
 }
 
-.body {
+body {
     background-image: url(/custom/templates/RadomeWEB/uploads/bg.png);
     background-color: #18243c;
     color: rgb(210, 210, 210);
@@ -438,14 +438,14 @@ table,
 
 .card-footer,
 .panel-footer,
-.textarea,
-.textarea:focus,
-.input,
-.input:focus,
-.select,
-.select:hover,
-.option,
-.option:hover,
+textarea,
+textarea:focus,
+input,
+input:focus,
+select,
+select:hover,
+option,
+option:hover,
 .popover,
 .popover-body,
 .btn-secondary,
@@ -483,10 +483,10 @@ table,
 .panel-footer,
 .modal-header,
 .pagination .page-item .page-link,
-.table,
-.table tr,
-.table tr th,
-.table tr td,
+table,
+table tr,
+table tr th,
+table tr td,
 .forum-col,
 .dropdown-divider,
 .modal-footer {
@@ -560,9 +560,9 @@ hr {
     color: rgb(210, 210, 210) !important;
 }
 
-.textarea,
-.input,
-.select,
+textarea,
+input,
+select,
 .form-control,
 .input-group-text {
     border: none !important;
@@ -655,7 +655,7 @@ hr {
     box-shadow: none !important;
 }
 
-.pre.language-markup {
+pre.language-markup {
     border-radius: .25rem
 }
 
@@ -715,6 +715,10 @@ hr {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.5rem;
+}
+
+body {
+    background-color: #f7f7f7;
 }
 
 .button-checkbox>.active {
