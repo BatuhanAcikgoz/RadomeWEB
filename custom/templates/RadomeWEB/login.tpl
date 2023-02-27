@@ -65,8 +65,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <span class="button-checkbox">
-                                        <button style="max-width: 100%" type="button" class="btn float-left" data-color="info" tabindex="3"> {$REMEMBER_ME}</button>
-                                        <input type="checkbox" name="remember" id="remember" style="display:none;" value="1">
+                                        <span style="max-width: 100%" class="btn float-left"> {$REMEMBER_ME} <input type="checkbox" name="remember" id="remember" style="margin-left: 10px;" value="1"></span>
                                     </span>
                                 </div>
                                 <div class="col-6">
