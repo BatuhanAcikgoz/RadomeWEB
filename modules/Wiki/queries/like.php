@@ -1,8 +1,7 @@
 <?php
 require(ROOT_PATH . '/modules/Wiki/classes/Wiki.php');
 
-$queries = new Queries();
-$wiki = new Wiki($queries);
+$wiki = new Wiki(DB::getInstance());
 $wiki->getPages();
 
 $_POST = json_decode(file_get_contents("php://input"), true);
