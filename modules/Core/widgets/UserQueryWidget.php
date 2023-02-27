@@ -45,9 +45,8 @@ class UserQueryWidget extends WidgetBase {
         $this->_smarty->assign(
             [
                 'USER_QUERY_TITLE' => $this->_language->get('general', 'user_query_title'),
-                'ONLINE' => $this->_language->get('general', 'online'),
-                'OFFLINE' => $this->_language->get('general', 'offline'),
                 'SEARCH_RESULT' => $search_value,
+                'SEARCH_PLACEHOLDER' => $this->_language->get('general', 'user_query_placeholder'),
             ]
         );
 

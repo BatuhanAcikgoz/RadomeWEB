@@ -443,6 +443,7 @@
     "admin/text": "Metin",
     "admin/textarea": "Metin alanı",
     "admin/title": "Kullanıcı Adı",
+    "general/user_query_placeholder": "Kullanıcı ismi girin",
     "admin/title_max_64": "Kullanıcı başlığı en fazla 64 karakter olmalıdır.",
     "admin/topics": "Konular",
     "admin/total_users": "Toplam Kullanıcılar",
