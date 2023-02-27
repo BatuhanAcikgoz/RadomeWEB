@@ -10,8 +10,7 @@ $page_title = $wiki_language->get('wiki', 'wiki');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require(ROOT_PATH . '/modules/Wiki/classes/Wiki.php');
 require(ROOT_PATH . '/modules/Wiki/classes/Page.php');
-$queries = new Queries();
-$wiki = new Wiki($queries);
+$wiki = new Wiki(DB::getInstance());
 
 $wikipages = $wiki->getPages();
 $settings = $wiki->getSettings();
