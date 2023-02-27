@@ -12,7 +12,7 @@ if (currentTheme !== null) {
         document.getElementById("html").className = "dark";
     }
     if (currentTheme == "light") {
-        document.getElementById("html").className = "";
+        document.getElementById("html").className = "dark";
     }
 }
 
