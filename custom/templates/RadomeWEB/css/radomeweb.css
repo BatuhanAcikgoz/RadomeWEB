@@ -324,23 +324,23 @@ a,
 
 /*---------- Dark Mode ----------*/
 
-.dark pre.language-markup {
+pre.language-markup {
     background-color: rgba(255,255,255,0.1);
 }
 
-.dark code.language-markup {
+code.language-markup {
     color: rgba(255,255,255,0.7);
 }
 
-.dark .swal2-popup {
+.swal2-popup {
     background-color: #282828
 }
 
-.dark .swal2-title, .dark .swal2-html-container {
+.swal2-title, .swal2-html-container {
     color: rgb(210, 210, 210);
 }
 
-.dark body {
+body {
     background-image: url(/custom/templates/RadomeWEB/uploads/bg.png);
     background-color: #18243c;
     color: rgb(210, 210, 210);
@@ -401,227 +401,227 @@ a,
     transform: scale(1.15);
   }
   
-.dark .card,
-.dark .popover,
-.dark .dropdown-menu,
-.dark .dropdown-item:focus,
-.dark .dropdown-item:active,
-.dark .panel-body,
-.dark .modal-body,
-.dark .elr-col-right,
-.dark .ui-menu-item,
-.dark .ui-menu-item-wrapper,
-.dark .ui-menu,
-.dark .ui-menu-item:hover,
-.dark .ui-menu-item-wrapper:hover {
+.card,
+.popover,
+.dropdown-menu,
+.dropdown-item:focus,
+.dropdown-item:active,
+.panel-body,
+.modal-body,
+.elr-col-right,
+.ui-menu-item,
+.ui-menu-item-wrapper,
+.ui-menu,
+.ui-menu-item:hover,
+.ui-menu-item-wrapper:hover {
     background-color: #202020;
     color: rgb(210, 210, 210);
 }
 
-.dark .token {
+.token {
     background-color: #202020 !important;
     color: rgb(210, 210, 210);
 }
 
-.dark .dropdown-item,
-.dark #chatbox .float-right a,
-.dark table,
-.dark .token .close {
+.dropdown-item,
+#chatbox .float-right a,
+table,
+.token .close {
     color: rgb(210, 210, 210) !important;
 }
 
-.dark .dropdown-item:hover,
-.dark .breadcrumb,
-.dark .server {
+.dropdown-item:hover,
+.breadcrumb,
+.server {
     background-color: #303030;
 }
 
-.dark .card-footer,
-.dark .panel-footer,
-.dark textarea,
-.dark textarea:focus,
-.dark input,
-.dark input:focus,
-.dark select,
-.dark select:hover,
-.dark option,
-.dark option:hover,
-.dark .popover,
-.dark .popover-body,
-.dark .btn-secondary,
-.dark .modal-footer,
-.dark .spoiler-text,
-.dark .spoiler-content,
-.dark .blockquote,
-.dark .tokenfield,
-.dark .form-control {
+.card-footer,
+.panel-footer,
+textarea,
+textarea:focus,
+input,
+input:focus,
+select,
+select:hover,
+option,
+option:hover,
+.popover,
+.popover-body,
+.btn-secondary,
+.modal-footer,
+.spoiler-text,
+.spoiler-content,
+.blockquote,
+.tokenfield,
+.form-control {
     background-color: #303030 !important;
     color: rgb(210, 210, 210) !important;
 }
 
-.dark .btn-secondary,
-.dark .modal-content,
-.dark .ui-menu-item,
-.dark .ui-menu-item-wrapper,
-.dark .ui-menu,
-.dark .ui-menu-item:hover,
-.dark .ui-menu-item-wrapper:hover,
-.dark .tokenfield,
-.dark .tokenfield:focus,
-.dark .tokenfield:hover,
-.dark .tokenfield.focus,
-.dark .token {
+.btn-secondary,
+.modal-content,
+.ui-menu-item,
+.ui-menu-item-wrapper,
+.ui-menu,
+.ui-menu-item:hover,
+.ui-menu-item-wrapper:hover,
+.tokenfield,
+.tokenfield:focus,
+.tokenfield:hover,
+.tokenfield.focus,
+.token {
     border: none !important;
 }
 
-.dark .pagination .page-item .page-link {
+.pagination .page-item .page-link {
     background-color: #303030;
     color: rgb(210, 210, 210);
 }
 
-.dark .panel-body,
-.dark .panel-footer,
-.dark .modal-header,
-.dark .pagination .page-item .page-link,
-.dark table,
-.dark table tr,
-.dark table tr th,
-.dark table tr td,
-.dark .forum-col,
-.dark .dropdown-divider,
-.dark .modal-footer {
+.panel-body,
+.panel-footer,
+.modal-header,
+.pagination .page-item .page-link,
+table,
+table tr,
+table tr th,
+table tr td,
+.forum-col,
+.dropdown-divider,
+.modal-footer {
     border-color: #303030;
 }
 
-.dark .btn-secondary:hover {
+.btn-secondary:hover {
     background-color: #404040 !important;
 }
 
-.dark hr {
+hr {
     border-top: 1px solid #303030;
 }
 
-.dark ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #18243c;
 }
 
-.dark ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background: #303030;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
     background: #444444;
 }
 
-.dark ::-webkit-scrollbar-corner {
+::-webkit-scrollbar-corner {
     background: #18243c;
 }
 
-.dark .tinymce-mobile-toolstrip ::-webkit-scrollbar-corner {
+.tinymce-mobile-toolstrip ::-webkit-scrollbar-corner {
     background: #ffffff;
 }
 
-.dark .tinymce-mobile-toolstrip ::-webkit-scrollbar-track {
+.tinymce-mobile-toolstrip ::-webkit-scrollbar-track {
     background: #FFFFFF;
 }
 
-.dark .tinymce-mobile-toolstrip ::-webkit-scrollbar-thumb {
+.tinymce-mobile-toolstrip ::-webkit-scrollbar-thumb {
     background: #C0C0C0;
     border-radius: 10px;
 }
 
-.dark .tinymce-mobile-toolstrip ::-webkit-scrollbar-thumb:hover {
+.tinymce-mobile-toolstrip ::-webkit-scrollbar-thumb:hover {
     background: #B8B8B8;
 }
 
-.dark .chat-item {
+.chat-item {
     border-top: 2px solid #303030;
 }
 
-.dark .chat-item:first-child {
+.chat-item:first-child {
     border-top: none;
 }
 
-.dark .white-link,
-.dark .white-link:focus {
+.white-link,
+.white-link:focus {
     color: #FFF !important;
 }
 
-.dark .white-link:hover {
+.white-link:hover {
     color: #E3E3E3 !important;
 }
 
-.dark .grey-link,
-.dark .grey-link:focus,
-.dark .grey-link:hover,
-.dark .message-people a,
-.dark .message-people a:focus,
-.dark .message-people a:hover {
+.grey-link,
+.grey-link:focus,
+.grey-link:hover,
+.message-people a,
+.message-people a:focus,
+.message-people a:hover {
     color: rgb(210, 210, 210) !important;
 }
 
-.dark textarea,
-.dark input,
-.dark select,
-.dark .form-control,
-.dark .input-group-text {
+textarea,
+input,
+select,
+.form-control,
+.input-group-text {
     border: none !important;
     box-shadow: none !important;
 }
 
-.dark .tokenfield.focus {
+.tokenfield.focus {
     box-shadow: none !important;
 }
 
-.dark .input-group-text {
+.input-group-text {
     background-color: #333333;
 }
 
-.dark .select2-container--default .select2-selection--multiple {
+.select2-container--default .select2-selection--multiple {
     background-color: #333333;
     border: none;
 }
 
-.dark .select2-container--default .select2-selection--multiple .select2-selection__choice {
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #404040;
     border: none;
 }
 
-.dark .select2-container--default .select2-results__option--selected {
+.select2-container--default .select2-results__option--selected {
     background-color: #333333;
 }
 
-.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
-.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover,
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
     background-color: #444444;
     color: rgb(210, 210, 210)
 }
 
-.dark .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
     border-right: none
 }
 
-.dark .select2-dropdown {
+.select2-dropdown {
     background-color: #404040;
     border: none
 }
 
-.dark .radomeweb-navbar-menu {
+.radomeweb-navbar-menu {
     background-color: #000000;
     color: rgb(210, 210, 210);
 }
 
-.dark .radomeweb-navbar-menu .nav-link-active,
-.dark .radomeweb-navbar-menu .nav-link:hover {
+.radomeweb-navbar-menu .nav-link-active,
+.radomeweb-navbar-menu .nav-link:hover {
     color: #FFFFFF !important
 }
 
-.dark .radomeweb-navbar-menu .nav-link-active {
+.radomeweb-navbar-menu .nav-link-active {
     border-bottom: 2px solid #FFF;
 }
 
-.dark .radomeweb-navbar-menu .nav-link,
-.dark .radomeweb-navbar-menu .nav-link:focus {
+.radomeweb-navbar-menu .nav-link,
+.radomeweb-navbar-menu .nav-link:focus {
     color: #E3E3E3;
 }
 
