@@ -74,7 +74,6 @@ if (!isset($_GET['action'])) {
 
 					// Update Vote Message
 					Util::setSetting('vote_message', Input::get('message'), 'Vote');
-
 					Util::setSetting('mcmp_key', Input::get('mcmp_key'), 'Vote');
 
 
