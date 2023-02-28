@@ -30,7 +30,7 @@ if (!isset($_GET['action'])) {
 		if (Token::check(Input::get('token'))) {
 			$validation = Validate::check($_POST, [
 				'message' => [
-					Validate::MAX => 2048
+					Validate::MAX => 65000
 				],
 				'link_location' => [
 					Validate::REQUIRED => true,
@@ -73,13 +73,9 @@ if (!isset($_GET['action'])) {
 					$cache->store('vote_icon', Input::get('icon'));
 
 					// Update Vote Message
-					DB::getInstance()->update('vote_settings', ['name', '=', 'vote_message'], [
-						'value' => Input::get('message'),
-					]);
+					Util::setSetting('vote_message', Input::get('message'), 'Vote');
 
-					DB::getInstance()->update('vote_settings', ['name', '=', 'mcmp_key'], [
-						'value' => Input::get('mcmp_key'),
-					]);
+					Util::setSetting('mcmp_key', Input::get('mcmp_key'), 'Vote');
 
 
                     Session::flash('staff_vote', $language->get('admin', 'settings_updated_successfully'));
@@ -97,10 +93,10 @@ if (!isset($_GET['action'])) {
 	}
 
 	// Get vote sites from database
-	$vote_sites = DB::getInstance()->get('vote_sites', ['id', '<>', 0])->results();
+	$vote_sites = DB::getInstance()->get('vote_sites', ['id', '<>', 0]);
 	$sites_array = [];
-	if (count($vote_sites)) {
-		foreach ($vote_sites as $site) {
+	if ($vote_sites->count()) {
+		foreach ($vote_sites->results() as $site) {
 			$sites_array[] = [
 				'edit_link' => URL::build('/panel/vote/', 'action=edit&id=' . Output::getClean($site->id)),
 				'title' => Output::getClean($site->name),
@@ -118,8 +114,6 @@ if (!isset($_GET['action'])) {
 	$icon = $cache->retrieve('vote_icon');
 
 	// Get vote 
-	$vote_message = DB::getInstance()->get('vote_settings', ['name', '=', "vote_message"])->results();
-	$vote_message = htmlspecialchars($vote_message[0]->value);
 	$mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
 	$mcmp_key = htmlspecialchars($mcmp_key[0]->value);
 
@@ -141,12 +135,18 @@ if (!isset($_GET['action'])) {
 		'SITE_LIST' => $sites_array,
 		'NO_VOTE_SITES' => $vote_language->get('vote', 'no_vote_sites'),
 		'MESSAGE' => $vote_language->get('vote', 'message'),
-		'MESSAGE_VALUE' => $vote_message,
+		'MESSAGE_VALUE' => Util::getSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote'),
 		'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
 		'CONFIRM_DELETE_SITE' => $vote_language->get('vote', 'delete_site'),
 		'YES' => $language->get('general', 'yes'),
 		'NO' => $language->get('general', 'no')
 	]);
+
+    $template->assets()->include([
+        AssetTree::TINYMCE,
+    ]);
+
+    $template->addJSScript(Input::createTinyEditor($language, 'InputMessage', null, false, true));
 
 	$template_file = 'vote/vote.tpl';
 } else {
@@ -185,8 +185,8 @@ if (!isset($_GET['action'])) {
 						// input into database
 						try {
 							DB::getInstance()->insert('vote_sites', [
-								'site' => htmlspecialchars(Input::get('vote_site_url')),
-								'name' => htmlspecialchars(Input::get('vote_site_name'))
+								'site' => Input::get('vote_site_url'),
+								'name' => Input::get('vote_site_name')
 							]);
 
 							Session::flash('staff_vote', $vote_language->get('vote', 'site_created_successfully'));
@@ -219,12 +219,12 @@ if (!isset($_GET['action'])) {
 				Redirect::to(URL::build('/panel/vote'));
 			}
 
-			$site = DB::getInstance()->get('vote_sites', ['id', '=', $_GET['id']])->results();
-			if (!count($site)) {
+			$site = DB::getInstance()->get('vote_sites', ['id', '=', $_GET['id']]);
+			if (!$site->count()) {
 				Redirect::to(URL::build('/panel/vote'));
 				die();
 			}
-			$site = $site[0];
+			$site = $site->first();
 
 			if (Input::exists()) {
 				$errors = [];
@@ -259,8 +259,8 @@ if (!isset($_GET['action'])) {
 						// input into database
 						try {
 							DB::getInstance()->update('vote_sites', $site->id, [
-								'site' => htmlspecialchars(Input::get('vote_site_url')),
-								'name' => htmlspecialchars(Input::get('vote_site_name'))
+								'site' => Input::get('vote_site_url'),
+								'name' => Input::get('vote_site_name')
 							]);
 
 							Session::flash('staff_vote', $vote_language->get('vote', 'site_updated_successfully'));

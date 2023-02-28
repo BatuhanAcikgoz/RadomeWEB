@@ -250,14 +250,6 @@ class DatabaseInitialiser {
             'value' => '821855877514133504',
             'module' => NULL
         ]);
-        DB::getInstance()->insert('vote_settings', [
-            'name' => 'vote_message',
-            'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
-        ]);
-        DB::getInstance()->insert('vote_settings', [
-            'name' => 'mcmp_key',
-            'value' => ''
-        ]);
         $this->_db->insert('wiki_settings', [
             'name' => 'home_page',
             'value' => '<div><span style="font-size:20px"><strong>RadomeWEB Wiki Sayfasına Hoşgeldin!</strong></span><br />Bu kısımda istediğin kadar wiki sayfası oluşturabilirsin,<br />Düğme metnini, başlığı, simgeyi, urlyi ve daha bir çok şeyi düzenleyebilirsin.<br /><br /><strong>Admin panelinden istediğin değişikliği yapabilirsin.</strong><br /><br /><strong>Not:</strong>&nbsp;Ayrıca bu kısımı&nbsp;<strong><u><a href="/panel/wiki">Admin Paneli -&gt; Wiki</a></u></strong>.<br /><br />Bağlantılar:</div><ul><li>Desteği bu  <strong><a rel="nofollow noopener" target="_blank" href="https://discord.verira.com">Discord</a></strong> sunucusundan alabilirsiniz.</li></ul>'
@@ -574,6 +566,8 @@ class DatabaseInitialiser {
         Util::setSetting('allow_guests', 0, 'Magaza');
         Util::setSetting('player_login', 0, 'Magaza');
         Util::setSetting('tier_list_page', 1);
+        Util::setSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
+        Util::setSetting('mcmp_key', '', 'Vote');
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',

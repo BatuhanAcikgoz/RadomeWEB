@@ -159,15 +159,6 @@ class Vote_Module extends Module {
             if (!DB::getInstance()->showTables('vote_settings')) {
                 DB::getInstance()->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)");
 
-                // Insert data
-                DB::getInstance()->insert('vote_settings', [
-                    'name' => 'vote_message',
-                    'value' => 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz'
-                ]);
-				DB::getInstance()->insert('vote_settings', [
-					'name' => 'mcmp_key',
-					'value' => '1234567'
-				]);
             }
         } catch (Exception $e) {
             // Error

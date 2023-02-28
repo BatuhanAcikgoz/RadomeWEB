@@ -14,15 +14,13 @@ $page_title = $vote_language->get('vote', 'vote');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Get message
-$vote_message = DB::getInstance()->get("vote_settings", ["name", "=", "vote_message"])->results();
-$vote_message = $vote_message[0]->value;
+$vote_message = Util::getSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
 
 // Is vote message empty?
 if (!empty($vote_message)) {
 	$message_enabled = true;
 }
-$mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
-$mcmp_key = $mcmp_key[0]->value;
+$mcmp_key =  Util::getSetting('mcmp_key', '', 'Vote');
 $minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
 $mcmp_vote_page = HttpClient::get($minecraftmp_top_voters);
 $mcmp_vote = $mcmp_vote_page->json();
@@ -63,11 +61,11 @@ if(!empty($sResults)){
 
 
 // Get sites from database
-$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0])->results();
+$sites = DB::getInstance()->get("vote_sites", ["id", "<>", 0]);
 
 
 $sites_array = [];
-foreach ($sites as $site) {
+foreach ($sites->results() as $site) {
     $sites_array[] = [
         'name' => Output::getClean($site->name),
         'url' => Output::getClean($site->site),
@@ -88,7 +86,7 @@ $smarty->assign([
     'SEARCH_RESULTS' => $sResults,
 	'DATE' => $vote_language->get('vote', 'date'),
 	'MESSAGE_ENABLED' => $message_enabled,
-	'MESSAGE' => Output::getClean($vote_message),
+	'MESSAGE' => Output::getPurified($vote_message),
 	'SITES' => $sites_array,
 	'MCMP_TOP_VOTERS' => $voters_array,
 	'MCMP_VOTES' => $votes_array,
