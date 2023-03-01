@@ -245,6 +245,7 @@ if (Input::exists()) {
 
                         // Create user
                         $user->create([
+                            'realname' => $username,
                             'username' => $username,
                             'password' => $password,
                             'pass_method' => 'default',
