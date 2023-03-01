@@ -113,8 +113,7 @@ if (!isset($_GET['action'])) {
 	$icon = $cache->retrieve('vote_icon');
 
 	// Get vote 
-	$mcmp_key = DB::getInstance()->get('vote_settings', ['name', '=', "mcmp_key"])->results();
-	$mcmp_key = htmlspecialchars($mcmp_key[0]->value);
+	$mcmp_key =  Util::getSetting('mcmp_key', '', 'Vote');
 
 	$smarty->assign([
 		'NEW_SITE' => $vote_language->get('vote', 'new_site'),
