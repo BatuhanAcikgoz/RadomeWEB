@@ -52,6 +52,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/sartlar', 'pages/terms.php');
         $pages->add('Core', '/gizlilik', 'pages/privacy.php');
         $pages->add('Core', '/sifremi_unuttum', 'pages/forgot_password.php');
+        $pages->add('Core', '/mailimi_unuttum', 'pages/forgot_mail.php');
         $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
         $pages->add('Core', '/durum', 'pages/status.php', 'status');
         $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
