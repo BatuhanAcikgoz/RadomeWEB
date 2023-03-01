@@ -1,6 +1,8 @@
 {
     "haberler\/average_haberlers": "Ortalama kullanıcı konu sayısı",
     "haberler\/by": "tarafından",
+    "haberler\/send_alert": "Bilgilendirme uyarsını gönder (işaretlenirse işlemi yavaşlatacaktır!)",
+    "haberler\/send_email": "Bilgilendirme maili yolla (işaretlenirse işlemi yavaşlatacaktır!)",
     "haberler\/can_create_topic": "Konu oluşturabilir mi?",
     "haberler\/can_edit_topic": "Yapabilmek Düzenle konular?",
     "haberler\/can_moderate_haberler": "Haberleru yönetebilir mi?",

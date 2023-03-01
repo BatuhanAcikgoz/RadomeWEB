@@ -151,7 +151,14 @@ if (Input::exists()) {
 
                 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
                 $content = Input::get('content');
+                if (isset($_POST['send_alert']) && $_POST['send_alert'] == 'on') $sendEmail = 1;
+                else $send_alert = 0;
+
+                if (isset($_POST['send_email']) && $_POST['send_email'] == 'on') $sendEmail = 1;
+                else $send_email = 0;
+
                 $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
+                    if ($send_alert == 1) {
                             if (count($users_following)) {
                                 $users_following_info = [];
                                 foreach ($users_following as $user_following) {
@@ -190,6 +197,7 @@ if (Input::exists()) {
                                 $subject = Output::getClean(SITE_NAME) . ' - ' . $language->get('emails', 'new_haber', ['author' => $user->data()->username, 'topic' => $topic[0]->haber_title]);
                 
                                 $reply_to = Email::getReplyTo();
+                            if ($send_email == 1) {
                                 foreach ($users_following_info as $user_info) {
                                     $sent = Email::send(
                                         ['email' => $user_info['email'], 'name' => $user_info['username']],
@@ -208,7 +216,8 @@ if (Input::exists()) {
                                     }
                                 }
                             }
-                
+                        }
+                    }
 
                 Session::flash('success_post', $haberler_language->get('haberler', 'post_successful'));
 
@@ -246,7 +255,8 @@ if ($haberler_query->topic_placeholder) {
 
 // Smarty variables
 $smarty->assign([
-    'LABELS' => $labels,
+    'SEND_ALERT' => $haberler_language->get('haberler', 'send_alert'),
+    'SEND_EMAIL' => $haberler_language->get('haberler', 'send_email'),
     'TOPIC_TITLE' => $haberler_language->get('haberler', 'topic_title'),
     'TOPIC_VALUE' => ((isset($_POST['title']) && $_POST['title']) ? Output::getClean(Input::get('title')) : ''),
     'LABEL' => $haberler_language->get('haberler', 'label'),

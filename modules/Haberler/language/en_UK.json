@@ -1,6 +1,8 @@
 {
     "haberler\/all_topics_unfollowed": "All topics have been unfollowed.",
     "haberler\/available_hooks": "Available Hooks",
+    "haberler\/send_alert": "Send notify alert (Will add submit slowness)",
+    "haberler\/send_email": "Send notify mail (Will add submit slowness)",
     "haberler\/average_haberlers": "Average user post count",
     "haberler\/topic_reply": "Topic reply",
     "haberler\/by": "by",

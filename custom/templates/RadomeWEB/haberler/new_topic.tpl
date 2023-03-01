@@ -29,6 +29,14 @@
                         <textarea class="form-control" style="width:100%" id="markdown" name="content" rows="20">{$CONTENT}</textarea>
                         <span class="float-right"><i data-toggle="popover" data-placement="top" data-html="true" data-content="{$MARKDOWN_HELP}" class="fa fa-question-circle text-info" aria-hidden="true"></i></span>
                     </div>
+                    <div class="form-group custom-control custom-switch">
+                        <input id="inputSendAlert" name="send_alert" type="checkbox" class="custom-control-input" />
+                        <label class="custom-control-label" for="inputSendAlert">{$SEND_ALERT}</label>
+                    </div>
+                    <div class="form-group custom-control custom-switch">
+                        <input id="inputSendEmail" name="send_email" type="checkbox" class="custom-control-input" />
+                        <label class="custom-control-label" for="inputSendEmail">{$SEND_EMAIL}</label>
+                    </div>
                     {/if} {$TOKEN}
                     <button type="submit" class="btn btn-theme">{$SUBMIT}</button>
                     <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#cancelModal">{$CANCEL}</a>
