@@ -82,5 +82,5 @@
     </div>
 </div>
 <div>
-<a style="position:relative;">{include file='footer.tpl'}</a>
+{include file='footer.tpl'}
 </div>
