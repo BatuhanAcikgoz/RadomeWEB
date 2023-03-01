@@ -1093,7 +1093,7 @@
     "user/disable": "Disable",
     "user/disabled": "Disabled",
     "user/email": "Email",
-    "user/mail_was_changed": "Your email adress has been changed!",
+    "user/mail_was_changed": "Your email adress has been changed! Confirm your new email to login to your account!",
     "general/new_mail_type": "Type new your email address.",
     "user/email_address": "Email Address",
     "user/email_already_exists": "The email address you have entered already exists.",

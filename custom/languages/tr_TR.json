@@ -828,7 +828,7 @@
     "user/disable": "Devre dışı",
     "user/disabled": "Devre dışı",
     "user/email": "E-Posta",
-    "user/mail_was_changed": "E-Posta adresiniz değiştirildi!",
+    "user/mail_was_changed": "E-Posta adresiniz değiştirildi! Hesabınıza giriş yapmak için yeni mailinizi onaylayın!",
     "user/email_address": "E-Posta Adresi",
     "user/email_already_exists": "Girdiğiniz e-posta adresi zaten var.",
     "user/email_changed_successfully": "E-posta adresi başarıyla değiştirildi.",
