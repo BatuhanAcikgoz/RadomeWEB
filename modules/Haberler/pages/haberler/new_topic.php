@@ -151,10 +151,10 @@ if (Input::exists()) {
 
                 $users_following = DB::getInstance()->get('users', ['active', 1])->results();
                 $content = Input::get('content');
-                if (isset($_POST['send_alert']) && $_POST['send_alert'] == 'on') $sendEmail = 1;
+                if (isset($_POST['send_alert']) && $_POST['send_alert'] == 'on') $send_alert = 1;
                 else $send_alert = 0;
 
-                if (isset($_POST['send_email']) && $_POST['send_email'] == 'on') $sendEmail = 1;
+                if (isset($_POST['send_email']) && $_POST['send_email'] == 'on') $send_email = 1;
                 else $send_email = 0;
 
                 $topic = DB::getInstance()->get('haberlers', ['id', $id])->results();
