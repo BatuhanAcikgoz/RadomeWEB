@@ -1108,6 +1108,8 @@
     "user/follow": "Follow",
     "user/forgot_password": "Forgot password?",
     "user/forgot_email": "Forgot email?",
+    "user/forgot_password2": "or password!",
+    "user/forgot_email2": "Reset my email",
     "user/forgot_password_change_successful": "Your password has been changed successfully. You can now log in.",
     "user/forgot_password_email_sent": "If an account with the email address exists, an email has been sent containing further instructions. If you can't find it, try checking your junk folder.",
     "user/forgot_password_instructions": "Please enter your email address so we can send you further instructions on resetting your password.",

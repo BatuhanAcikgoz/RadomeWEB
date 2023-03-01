@@ -906,6 +906,8 @@
     "user/password": "Şifre",
     "general/new_mail_type": "Yeni mailinizi girin.",
     "user/forgot_email": "Emailinizi mi unuttunuz?",
+    "user/forgot_password2": "veya şifremi sıfırla!",
+    "user/forgot_email2": "Emailimi",
     "user/forgot_email_instructions": "Lütfen oturum açma kimlik bilgilerinizi ve yeni postanızı girin, böylece postanızı değiştirebilir ve size hesabınızı aktif hale getirme konusunda daha fazla talimat gönderebiliriz.",
     "user/password_changed_successfully": "Parola başarıyla değiştirildi.",
     "user/password_minimum_6": "Şifreniz en az 6 karakterden oluşmalıdır.",

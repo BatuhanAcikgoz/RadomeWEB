@@ -61,14 +61,14 @@ if (Input::exists()) {
                         Validate::REQUIRED => true,
                         Validate::RATE_LIMIT => $rate_limit,
                     ],
+                    'password' => [
+                        Validate::REQUIRED => true
+                    ],
                     'email' => [
                         Validate::REQUIRED => true,
                         Validate::IS_BANNED => true,
                         Validate::RATE_LIMIT => $rate_limit,
                         Validate::UNIQUE => 'users',
-                    ],
-                    'password' => [
-                        Validate::REQUIRED => true
                     ]
                 ];
         

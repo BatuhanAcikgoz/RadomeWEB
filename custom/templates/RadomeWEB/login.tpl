@@ -63,13 +63,14 @@
 
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-4">
                                     <span class="button-checkbox">
                                         <span style="max-width: 100%" class="float-left"> {$REMEMBER_ME} <input type="checkbox" name="remember" id="remember" style="margin-left: 10px;" value="1"></span>
                                     </span>
                                 </div>
-                                <div class="col-6">
-                                    <a class="btn btn-secondary float-right" style="max-width: 100%" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
+                                <div class="col-8">
+                                    <a class="btn btn-secondary float-right" style="max-width: 60%" href="{$FORGOT_PASSWORD_URL}">{$FORGOT_PASSWORD}</a>
+                                    <a class="btn btn-secondary float-right" style="max-width: 50%" href="{$FORGOT_EMAIL_URL}">{$FORGOT_EMAIL}</a>
                                 </div>
                             </div>
                         </div>
