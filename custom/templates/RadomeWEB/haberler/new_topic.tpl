@@ -62,4 +62,5 @@
         </div>
     </div>
 </div>
+{include file='scripts.tpl'}
 {include file='footer.tpl'}
