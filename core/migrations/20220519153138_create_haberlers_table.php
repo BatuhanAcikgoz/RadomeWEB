@@ -10,7 +10,6 @@ final class CreateHaberlersTable extends AbstractMigration
         $table = $this->table('rw_haberlers');
 
         $table
-            ->addColumn('haber_id', 'integer', ['length' => 11])
             ->addColumn('haber_title', 'string', ['length' => 150])
             ->addColumn('post_creator', 'integer', ['length' => 11])
             ->addColumn('post_content', 'text')
@@ -21,9 +20,6 @@ final class CreateHaberlersTable extends AbstractMigration
 
         $table
             ->addForeignKey('post_creator', 'rw_users', 'id', ['delete' => 'CASCADE', 'update' => 'CASCADE']);
-
-        $table
-            ->addIndex('haber_id');
 
         $table->create();
     }

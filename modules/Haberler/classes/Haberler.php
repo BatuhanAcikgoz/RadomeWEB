@@ -323,7 +323,7 @@ class Haberler {
 
             $post = $news_post[0]->post_content;
             $return[] = [
-                'haber_id' => $item->id,
+                'id' => $item->id,
                 'post_date' => $post_date,
                 'haber_title' => $item->haber_title,
                 'post_views' => $item->post_views,
@@ -358,7 +358,7 @@ class Haberler {
 
             $post = $news_post[0]->post_content;
             $return[] = [
-                'haber_id' => $item->id,
+                'id' => $item->id,
                 'post_date' => $post_date,
                 'haber_title' => $item->haber_title,
                 'post_views' => $item->post_views,
