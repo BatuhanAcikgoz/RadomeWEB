@@ -107,13 +107,19 @@ if (Input::exists()) {
                         // Successful login?
                         if ($login) {
                             // Yes
+                            $user_query2 = $user->data();
+                            if (!$code) {
+                                $code = SecureRandom::alphanumeric();
+                                } else {
+                                    $code = $user_query2->reset_code;
+                            }
                             $user->update([
                                 'email' => Input::get('email'),
                                 'active' => 0,
+                                'reset_code' => $code,
                             ]);
-                            $user_query2 = $user->data();
                             require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
-                            if (sendRegisterEmail($language, Input::get('email'), $user_query2->username, $user_query2->id, $user_query2->reset_code)) {
+                            if (sendRegisterEmail($language, Input::get('email'), $user_query2->username, $user_query2->id, $code)) {
                                 Session::flash('edit_user_success', $language->get('admin', 'email_resent_successfully'));
                             } else {
                                 Session::flash('edit_user_error', $language->get('admin', 'email_resend_failed'));

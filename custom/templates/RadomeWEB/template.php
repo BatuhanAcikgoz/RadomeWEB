@@ -186,10 +186,6 @@ class RadomeWEB_Template extends TemplateBase {
         $page_load = microtime(true) - PAGE_START_TIME;
         define('PAGE_LOAD_TIME', $this->_language->get('general', 'page_loaded_in', ['time' => round($page_load, 3)]));
 
-        $this->addCSSFiles([
-            $this->_template['path'] . 'css/custom.css?v=200' => []
-        ]);
-
         $route = (isset($_GET['route']) ? rtrim($_GET['route'], '/') : '/');
 
         $JSVariables = [
@@ -224,11 +220,12 @@ class RadomeWEB_Template extends TemplateBase {
             'csrfToken' => Token::get(),
         ];
 
-        if (str_contains($route, '/forum/konu/') || PAGE === 'profile') {
+    	if (str_contains($route, '/forum/konu/') || PAGE === 'profile') {
             $this->assets()->include([
                 AssetTree::JQUERY_UI,
             ]);
 
+		}
         $JSVars = '';
         $i = 0;
         foreach ($JSVariables as $var => $value) {
@@ -239,16 +236,15 @@ class RadomeWEB_Template extends TemplateBase {
         $this->addJSScript($JSVars);
 
         $this->addJSFiles([
-            $this->_template['path'] . 'js/core/core.js?v=202' => [],
+            $this->_template['path'] . 'js/core/core.js' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
-            $this->_template['path'] . 'js/core/pages.js?v=202' => [],
+            $this->_template['path'] . 'js/core/pages.js' => [],
             $this->_template['path'] . 'js/scripts.js' => [],
         ]);
 
         foreach ($this->_pages->getAjaxScripts() as $script) {
             $this->addJSScript('$.getJSON(\'' . $script . '\', function(data) {});');
         }
-    }
 	}
 }
 $cache->setCache('settings');
