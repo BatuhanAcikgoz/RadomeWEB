@@ -63,6 +63,8 @@ class RadomeWEB_Template extends TemplateBase {
 
 		$this->addJSScript('var particles = "' . Output::getClean($particles) .'"; var swal_server_copy = "' . $radomeweb_language->get('language', 'swal_server_copy') .'";');
 
+		'<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1911195651506707" crossorigin="anonymous"></script>';
+
 		$this->addJSFiles([
 			'https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js' => [],
 			'https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js' => ['integrity' => 'sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx', 'crossorigin' => 'anonymous'],
@@ -234,7 +236,7 @@ class RadomeWEB_Template extends TemplateBase {
         }
 
         $this->addJSScript($JSVars);
-
+		
         $this->addJSFiles([
             $this->_template['path'] . 'js/core/core.js' => [],
             $this->_template['path'] . 'js/core/user.js' => [],
