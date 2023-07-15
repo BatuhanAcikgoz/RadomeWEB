@@ -292,91 +292,127 @@ class Core_Module extends Module {
         }
         $custom_pages = null;
 
-        // Hooks
-        EventHandler::registerEvent('registerUser',
-            $language->get('admin', 'register_hook_info'),
-            [
-                'user_id' => $language->get('admin', 'user_id'),
-                'username' => $language->get('user', 'username'),
-                'avatar_url' => $language->get('user', 'avatar'),
-                'content' => $language->get('general', 'content'),
-                'url' => $language->get('user', 'profile')
-            ]
-        );
+       // -- Events
+       EventHandler::registerEvent(AnnouncementCreatedEvent::class);
+       EventHandler::registerEvent(GroupClonedEvent::class);
+       EventHandler::registerEvent(ReportCreatedEvent::class);
+       EventHandler::registerEvent(UserBannedEvent::class);
+       EventHandler::registerEvent(UserDeletedEvent::class);
+       EventHandler::registerEvent(UserGroupAddedEvent::class);
+       EventHandler::registerEvent(UserGroupRemovedEvent::class);
+       EventHandler::registerEvent(UserIntegrationLinkedEvent::class);
+       EventHandler::registerEvent(UserIntegrationUnlinkedEvent::class);
+       EventHandler::registerEvent(UserIntegrationVerifiedEvent::class);
+       EventHandler::registerEvent(UserProfilePostCreatedEvent::class);
+       EventHandler::registerEvent(UserProfilePostReplyCreatedEvent::class);
+       EventHandler::registerEvent(UserRegisteredEvent::class);
+       EventHandler::registerEvent(UserValidatedEvent::class);
+       EventHandler::registerEvent(UserWarnedEvent::class);
 
-        EventHandler::registerEvent('createAnnouncement',
-            $language->get('admin', 'announcement_hook_info'),
-            [
-                'announcement_id' => $language->get('admin', 'announcement_id'),
-                'username' => $language->get('user', 'username'),
-                'header' => $language->get('admin', 'header'),
-                'message' => $language->get('admin', 'message'),
-                'avatar_url' => $language->get('user', 'avatar'),
-            ]
-        );
+       // -- Pipelines
 
-        EventHandler::registerEvent('userBanned',
-            $language->get('admin', 'ban_hook_info'),
-            [
-                'punished_id' => $language->get('admin', 'punished_id'),
-                'punisher_id' => $language->get('admin', 'punisher_id'),         
-                'reason' => $language->get('admin', 'reason'),
-                'ip_ban' => $language->get('admin', 'ip_ban'),
-            ]
-        );
+       EventHandler::registerEvent('preCustomPageCreate',
+           $language->get('admin', 'pre_custom_page_create_hook_info'),
+           [
+               'content' => $language->get('general', 'content'),
+               'user' => $language->get('general', 'user_object')
+           ],
+           true,
+           true
+       );
 
-        EventHandler::registerEvent('userWarned',
-            $language->get('admin', 'warning_hook_info'),
-            [
-                'punished_id' => $language->get('admin', 'punished_id'),
-                'punisher_id' => $language->get('admin', 'punisher_id'),
-                'reason' => $language->get('admin', 'reason'),
-            ]
-        );
+       EventHandler::registerEvent('preCustomPageEdit',
+           $language->get('admin', 'pre_custom_page_edit_hook_info'),
+           [
+               'content' => $language->get('general', 'content'),
+               'user' => $language->get('general', 'user_object')
+           ],
+           true,
+           true
+       );
 
-        EventHandler::registerEvent('cloneGroup',
-            $language->get('admin', 'clone_group'),
-            [
-                'group_id' => $language->get('admin', 'group_id'),
-                'cloned_group_id' => $language->get('admin', 'group_id')
-            ],
-            false,
-            true
-        );
+       EventHandler::registerEvent('renderCustomPage',
+           $language->get('admin', 'render_custom_page_hook_info'),
+           [
+               'content' => $language->get('general', 'content')
+           ],
+           true,
+           true
+       );
 
-        EventHandler::registerEvent('userGroupAdded',
-            $language->get('admin', 'user_group_added_hook_info'),
-            [
-                'group_id' => $language->get('admin', 'group_id'),
-                'group_name' => $language->get('admin', 'group_name'),
-                'username' => $language->get('user', 'username'),
-                'user_id' => $language->get('admin', 'user_id'),
-            ]
-        );
+       EventHandler::registerEvent('renderCustomPageEdit',
+           $language->get('admin', 'render_custom_page_edit_hook_info'),
+           [
+               'content' => $language->get('general', 'content')
+           ],
+           true,
+           true
+       );
 
-        EventHandler::registerEvent('userGroupRemoved',
-            $language->get('admin', 'user_group_removed_hook_info'),
-            [
-                'group_id' => $language->get('admin', 'group_id'),
-                'group_name' => $language->get('admin', 'group_name'),
-                'username' => $language->get('user', 'username'),
-                'user_id' => $language->get('admin', 'user_id'),
-            ]
-        );
+       EventHandler::registerEvent('renderPrivateMessage',
+           $language->get('admin', 'render_private_message'),
+           [
+               'content' => $language->get('general', 'content')
+           ],
+           true,
+           true
+       );
 
-        RadomeOAuth::getInstance()->registerProvider('discord', 'Core', [
-            'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
-            'user_id_name' => 'id',
-            'scope_id_name' => 'identify',
-            'icon' => 'fab fa-discord',
-        ]);
+       EventHandler::registerEvent('renderPrivateMessageEdit',
+           $language->get('admin', 'render_private_message_edit'),
+           [
+               'content' => $language->get('general', 'content')
+           ],
+           true,
+           true
+       );
 
-        RadomeOAuth::getInstance()->registerProvider('google', 'Core', [
-            'class' => \League\OAuth2\Client\Provider\Google::class,
-            'user_id_name' => 'sub',
-            'scope_id_name' => 'openid',
-            'icon' => 'fab fa-google',
-        ]);
+       EventHandler::registerEvent('renderProfilePost',
+           $language->get('admin', 'render_profile_post_hook_info'),
+           [
+               'content' => $language->get('general', 'content')
+           ],
+           true,
+           true
+       );
+
+       RadomeOAuth::getInstance()->registerProvider('discord', 'Core', [
+           'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
+           'user_id_name' => 'id',
+           'scope_id_name' => 'identify',
+           'icon' => 'fab fa-discord',
+           'button_css' => [
+               'background-color' => '#5865F2',
+               'color' => '#FFFFFF',
+           ],
+           'verify_email' => static fn () => true,
+       ]);
+
+       RadomeOAuth::getInstance()->registerProvider('google', 'Core', [
+           'class' => \League\OAuth2\Client\Provider\Google::class,
+           'user_id_name' => 'sub',
+           'scope_id_name' => 'openid',
+           'logo_url' => rtrim(URL::getSelfURL(), '/') . '/core/assets/img/google_logo.png',
+           // Google has strict restrictions (https://developers.google.com/identity/branding-guidelines) on how
+           // their logo should be formatted for login buttons, and should not be altered by any template
+           'logo_css' => [
+               'width' => '18px',
+               'height' => '18px',
+               'vertical-align' => 'middle',
+               'margin-bottom' => '-2px',
+               'margin-top' => '-2px',
+           ],
+           'button_css' => [
+               'background-color' => '#FFFFFF',
+               'color' => '#757575',
+               'line-height' => '.05em',
+               'box-shadow' => 'inset 0px 0px 0px 1px #DFDFDF;'
+           ],
+           'text_css' => [
+               'vertical-align' => 'middle',
+           ],
+           'verify_email' => static fn () => true,
+       ]);
 
         // Captcha
         $captchaPublicKey = Util::getSetting('recaptcha_key', '');
@@ -460,38 +496,37 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
+        EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
+
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPrivateMessage', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::purify');
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderPrivateMessageEdit', 'ContentHook::replaceAnchors', 15);
-
-        EventHandler::registerListener('cloneGroup', 'CloneGroupHook::execute');
 
         EventHandler::registerListener('preCustomPageCreate', 'MentionsHook::preCreate');
         EventHandler::registerListener('preCustomPageEdit', 'MentionsHook::preEdit');
 
         EventHandler::registerListener('renderCustomPage', 'ContentHook::purify');
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderCustomPage', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
-        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::decode', 20);
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
+
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'renderEmojis']);
+        EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener('renderProfilePost', [MentionsHook::class, 'parsePost'], 5);
 
         Email::addPlaceholder('[Sitename]', Output::getClean(SITE_NAME));
         Email::addPlaceholder('[Greeting]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'greeting'));
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
+
     }
 
     public static function getDashboardGraphs(): array {
@@ -654,7 +689,7 @@ class Core_Module extends Module {
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
-            EventHandler::registerListener('validateUser', 'ValidateHook::execute');
+            EventHandler::registerListener(UserValidatedEvent::class, ValidateHook::class);
             define('VALIDATED_DEFAULT', $validate_action['group']);
         }
 
@@ -1402,7 +1437,7 @@ class Core_Module extends Module {
             }
         }
 
-        EventHandler::registerListener('deleteUser', 'DeleteUserHook::execute');
+        EventHandler::registerListener(UserDeletedEvent::class, DeleteUserHook::class);
 
     }
 

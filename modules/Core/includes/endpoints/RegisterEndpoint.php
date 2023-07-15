@@ -158,17 +158,9 @@ class RegisterEndpoint extends KeyAuthEndpoint {
                 }
             }
             $default_language = new Language('core', DEFAULT_LANGUAGE);
-            EventHandler::executeEvent('registerUser', [
-                    'user_id' => $user_id,
-                    'username' => $user->getDisplayname(),
-                    'content' => $api->getLanguage()->get('user', 'user_x_has_registered', [
-                        'user' => $user->getDisplayname(),
-                    ]),
-                    'avatar_url' => $user->getAvatar(128, true),
-                    'url' => URL::getSelfURL() . ltrim($user->getProfileURL(), '/'),
-                    'language' => $api->getLanguage(),
-                ]
-            );
+            EventHandler::executeEvent(new UserRegisteredEvent(
+                $user,
+            ));
 
             if ($return) {
                 $api->returnArray(['message' => $api->getLanguage()->get('api', 'finish_registration_link'), 'user_id' => $user_id, 'link' => rtrim(URL::getSelfURL(), '/') . URL::build('/kaydi_tamamla/', 'c=' . urlencode($code))]);

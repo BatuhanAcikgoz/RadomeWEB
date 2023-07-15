@@ -140,6 +140,7 @@ if (isset($_GET['user'])) {
                         // Ensure user is not admin
                         if (!$is_admin) {
                             // Prevent ip banning if target ip match the user ip
+                             // TODO: Change message for when IP matches
                             if ($type != 3 || $user->data()->lastip != $banned_user->data()->lastip) {
                                 DB::getInstance()->insert('infractions', [
                                     'type' => $type,
@@ -148,7 +149,7 @@ if (isset($_GET['user'])) {
                                     'reason' => $_POST['reason'],
                                     'infraction_date' => date('Y-m-d H:i:s'),
                                     'created' => date('U'),
-                                    'acknowledged' => (($type == 2) ? 0 : 1)
+                                    'acknowledged' => ($type == 2) ? 0 : 1,
                                 ]);
 
                                 switch($type) {
@@ -176,25 +177,21 @@ if (isset($_GET['user'])) {
 
                                         // Fire userBanned event
                                         $default_language = new Language('core', DEFAULT_LANGUAGE);
-                                        EventHandler::executeEvent('userBanned', [
-                                            'punished_id' => $query->id,
-                                            'punisher_id' => $user->data()->id,
-                                            'punished_user' => $query->username,
-                                            'reason' => $_POST['reason'],
-                                            'ip_ban' => $type == 3,
-                                            'language' => $default_language,
-                                        ]);
+                                        EventHandler::executeEvent(new UserBannedEvent(
+                                            $banned_user,
+                                            $user,
+                                            $_POST['reason'],
+                                            $type == 3
+                                        ));
                                         break;
                                     case 2:
                                         // Fire userWarned event,
                                         $default_language = new Language('core', DEFAULT_LANGUAGE);
-                                        EventHandler::executeEvent('userWarned', [
-                                            'punished_id' => $query->id,
-                                            'punisher_id' => $user->data()->id,
-                                            'punished_user' => $query->username,
-                                            'reason' => $_POST['reason'],
-                                            'language' => $default_language,
-                                        ]);
+                                        EventHandler::executeEvent(new UserWarnedEvent(
+                                            $banned_user,
+                                            $user,
+                                            $_POST['reason']
+                                        ));
                                         break;
                                     case 4:
                                         // Need to delete any other avatars

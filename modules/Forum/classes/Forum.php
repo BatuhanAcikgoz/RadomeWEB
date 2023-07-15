@@ -12,13 +12,6 @@ class Forum {
     private DB $_db;
     private static array $_permission_cache = [];
     private static array $_count_cache = [];
-    private const URL_EXCLUDE_CHARS = [
-        '?',
-        '&',
-        '/',
-        '#',
-        '.',
-    ];
 
     public function __construct() {
         $this->_db = DB::getInstance();
@@ -192,7 +185,7 @@ class Forum {
                             if ($latest_topic->count() && $latest_topic = $latest_topic->first()) {
                                 $return[$forum->id]['subforums'][$item->id]->last_post = $latest_topic;
                                 $return[$forum->id]['subforums'][$item->id]->last_post->title = Output::getClean($latest_topic->topic_title);
-                                $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/topic/' . urlencode($latest_post[2]) . '-' . $this->titleToURL($latest_topic->topic_title), 'pid=' . $latest_topic->pid);
+                                $return[$forum->id]['subforums'][$item->id]->last_post->link = URL::build('/forum/konu/' . urlencode($latest_post[2]) . '-' . $this->titleToURL($latest_topic->topic_title), 'pid=' . $latest_topic->pid);
 
                             }
                         }
@@ -246,12 +239,7 @@ class Forum {
     }
 
     public function titleToURL(string $topic = null): string {
-        if ($topic) {
-            $topic = str_replace(self::URL_EXCLUDE_CHARS, '', Util::cyrillicToLatin($topic));
-            return Output::getClean(strtolower(urlencode(str_replace(' ', '-', $topic))));
-        }
-
-        return '';
+        return URL::urlSafe($topic ?? '');
     }
 
     // Returns true/false depending on whether the current user can view a forum

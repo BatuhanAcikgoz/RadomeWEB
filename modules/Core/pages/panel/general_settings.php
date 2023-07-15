@@ -112,7 +112,6 @@ if (Input::exists()) {
                 $errors = [$e->getMessage()];
             }
 
-            // Portal
             $home_type = 'news';
 
             Util::setSetting('home_type', $home_type);

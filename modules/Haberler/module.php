@@ -146,12 +146,12 @@ class Haberler_Module extends Module {
             ]
         );
 
-        EventHandler::registerListener('renderHaber', 'ContentHook::purify');
-        EventHandler::registerListener('renderHaber', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderHaber', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderHaber', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderHaber', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderHaber', 'MentionsHook::parsePost', 5);
+        EventHandler::registerListener('renderHaber', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderHaber', [ContentHook::class, 'codeTransform'], 15);
+        EventHandler::registerListener('renderHaber', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderHaber', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderHaber', [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener('renderHaber', [MentionsHook::class, 'parsePost'], 5);
     }
 
     public function onInstall() {

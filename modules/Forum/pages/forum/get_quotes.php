@@ -33,5 +33,5 @@ $post_author = new User($post['creator']);
 die(json_encode([
     'content' => Output::getPurified($content),
     'author_nickname' => $post_author->getDisplayname(),
-    'link' => URL::build('/forum/topic/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
+    'link' => URL::build('/forum/konu/' . urlencode($post['topic_id']), 'pid=' . urlencode($item))
 ]));

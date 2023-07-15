@@ -28,9 +28,18 @@ class DebugBarHelper extends Instanceable {
         $debugbar = new DebugBar();
 
         $debugbar->addCollector(new TimeDataCollector());
-        $debugbar->addCollector(new RequestDataCollector());
+
+        
+        $requestCollector = new RequestDataCollector();
+        $requestCollector->useHtmlVarDumper();
+        $debugbar->addCollector($requestCollector);
+
+        $debugbar->addCollector(EventCollector::getInstance());
+
+
 
         $configCollector = new ConfigCollector();
+        $configCollector->useHtmlVarDumper();
         $configCollector->setData(array_filter(Config::all(), static function ($key) {
             return $key !== 'mysql' && $key !== 'email';
         }, ARRAY_FILTER_USE_KEY));
@@ -40,7 +49,9 @@ class DebugBarHelper extends Instanceable {
         $pdoCollector->setRenderSqlWithParams(true, '`');
         $debugbar->addCollector($pdoCollector);
 
-        $debugbar->addCollector(new SmartyCollector($smarty));
+        $smartyCollector = new SmartyCollector($smarty);
+        $smartyCollector->useHtmlVarDumper();
+        $debugbar->addCollector($smartyCollector);
         $debugbar->addCollector(new PhpInfoCollector());
         $debugbar->addCollector(new MemoryCollector());
 
