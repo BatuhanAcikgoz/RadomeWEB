@@ -83,9 +83,7 @@ if (Input::exists()) {
             Util::setSetting('sitename', Input::get('sitename'));
 
             // Email address
-            DB::getInstance()->update('settings', ['name', 'incoming_email'], [
-                'value' => Output::getClean(Input::get('contact_email'))
-            ]);
+            Util::setSetting('incoming_email', Input::get('contact_email'));
 
             // Language
             // Get current default language
@@ -187,17 +185,13 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = DB::getInstance()->get('settings', ['name', 'timezone'])->results();
+$timezone = Util::getSetting('timezone');
 $timezone = $timezone[0]->value;
+$private_profile = Util::getSetting('private_profile');
 
+$displaynames = Util::getSetting('displaynames');
 $private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-$private_profile = $private_profile[0]->value;
-
-$displaynames = DB::getInstance()->get('settings', ['name', 'displaynames'])->results();
-$displaynames = $displaynames[0]->value;
-
-$method = DB::getInstance()->get('settings', ['name', 'login_method'])->results();
-$method = $method[0]->value;
+$method = Util::getSetting('login_method');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

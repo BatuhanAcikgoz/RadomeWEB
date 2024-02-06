@@ -914,6 +914,7 @@
     "general/brown": "Brown",
     "general/grey": "Grey",
     "general/deleted_user": "Deleted User",
+    "general/registration_disabled_message_fallback": "Registration is currently disabled.",
     "installer/back": "Back",
     "installer/cache_writable": "Cache Writable",
     "installer/character_set": "Character Set",
