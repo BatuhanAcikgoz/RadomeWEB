@@ -44,25 +44,16 @@ if (isset($_GET['leaderboard'])) {
                 $title = $title_input == '' ? null : $title_input;
                 $sort = Input::get('leaderboard_sort');
 
-                try {
-                    DB::getInstance()->query('UPDATE rw_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
-                        $enabled,
-                        $title,
-                        $sort,
-                        $placeholder->name,
-                        $placeholder->server_id
-                    ]);
+                DB::getInstance()->query('UPDATE rw_placeholders_settings SET leaderboard = ?, leaderboard_title = ?, leaderboard_sort = ? WHERE `name` = ? AND server_id = ?', [
+                    $enabled,
+                    $title,
+                    $sort,
+                    $placeholder->name,
+                    $placeholder->server_id
+                ]);
 
-                    Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
-                    Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
-                } catch (Exception $e) {
-                    $errors[] = $e->getMessage();
-                    $errors[] = 'Enabled - ' . $enabled;
-                    $errors[] = 'Title - ' . Output::getClean($title);
-                    $errors[] = 'Sort - ' . Output::getClean($sort);
-                    $errors[] = 'Name - ' . Output::getClean($placeholder->name);
-                    $errors[] = 'Server ID - ' . Output::getClean($placeholder->server_id);
-                }
+                Session::flash('placeholders_success', $language->get('admin', 'placeholder_leaderboard_updated'));
+                Redirect::to(URL::build('/panel/minecraft/placeholderlar'));
 
             } else {
                 $errors[] = $language->get('general', 'invalid_token');

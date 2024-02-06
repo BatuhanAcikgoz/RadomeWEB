@@ -27,7 +27,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
-            Util::setSetting('mc_integration', Input::get('enable_minecraft'));
+            Util::setSetting(Settings::MINECRAFT_INTEGRATION, Input::get('enable_minecraft'));
         }
 
     } else {
@@ -55,7 +55,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Check if Minecraft integration is enabled
-$minecraft_enabled = Util::getSetting('mc_integration');
+$minecraft_enabled = Util::getSetting(Settings::MINECRAFT_INTEGRATION);
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

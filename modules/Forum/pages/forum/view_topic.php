@@ -739,8 +739,11 @@ if ($user->isLoggedIn()) {
             $reactions = [];
         }
 
-        $smarty->assign('REACTIONS', $reactions);
-        $smarty->assign('REACTIONS_URL', URL::build('/forum/tepkiler'));
+        $smarty->assign([
+            'LIKE' => $language->get('user', 'like'),
+            'REACTIONS' => $reactions,
+            'REACTIONS_URL' => URL::build('/forum/tepkiler')
+        ]);
     }
 
     // Following?

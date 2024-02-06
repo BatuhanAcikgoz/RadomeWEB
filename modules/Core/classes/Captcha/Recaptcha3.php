@@ -16,7 +16,16 @@ class Recaptcha3 extends CaptchaBase {
     }
 
     public function validateToken(array $post): bool {
-        return true;
+        $token = $post['recaptcha'];
+
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+
+        $result = HttpClient::post($url, [
+            'secret' => $this->getPrivateKey(),
+            'response' => $token,
+        ])->json(true);
+
+        return $result['success'] == 'true';
     }
 
     public function validateSecret(string $secret) : bool {

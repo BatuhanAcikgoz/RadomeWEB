@@ -7,7 +7,7 @@ if (!defined('DEFAULT_LANGUAGE')) {
 
 
 if (isset($_GET['do'])) {
-    $_SESSION['action'] = ($_GET['do'] == 'upgrade' ? 'upgrade' : 'install');
+    $_SESSION['action'] = 'install';
 
     Redirect::to('?step=requirements_validation');
 }

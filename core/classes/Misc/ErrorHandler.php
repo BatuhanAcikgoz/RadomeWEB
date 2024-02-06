@@ -100,6 +100,13 @@ class ErrorHandler {
                         continue;
                     }
 
+                    // Skip frame if it is a closure
+                    // @phpstan-ignore-next-line (it does not know that $frame['function'] is valid)
+                    if (isset($frame['function']) && $frame['function'] === '{closure}') {
+                        ++$skip_frames;
+                        continue;
+                    }
+
                     $frames[] = self::parseFrame($exception, $frame['file'], $frame['line'], $i);
                     $i--;
                 }
@@ -132,8 +139,6 @@ class ErrorHandler {
             'JQUERY' => $path . 'vendor/jquery/dist/jquery.min.js',
             'PRISM_CSS' => $path . 'plugins/prism/prism_light_coy.css',
             'PRISM_JS' => $path . 'plugins/prism/prism.js',
-            'TOAST_CSS' => $path . 'css/fomantic.toast.min.css',
-            'TOAST_JS' => $path . 'js/fomantic.toast.min.js',
             'DETAILED_ERROR' => Debugging::canViewDetailedError(),
             'FATAL_ERROR_TITLE' => $language->get('errors', 'fatal_error_title'),
             'FATAL_ERROR_MESSAGE_ADMIN' => $language->get('errors', 'fatal_error_message_admin'),
@@ -165,7 +170,7 @@ class ErrorHandler {
      */
     private static function shouldUsePlainText(): bool {
         $route = $_REQUEST['route'] ?? '';
-        return str_contains($route, '/api/') || str_contains($route, '/queries/');
+        return str_contains($route, '/api/radome/') || str_contains($route, '/sorgu/')  || isset($_SERVER['HTTP_X_REQUESTED_WITH']);;
     }
 
     /**

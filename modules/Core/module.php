@@ -41,6 +41,8 @@ class Core_Module extends Module {
         $pages->add('Core', '/sorgu/bahsedilenler', 'queries/mention_users.php');
         $pages->add('Core', '/sorgu/uyarilar', 'queries/alerts.php');
         $pages->add('Core', '/sorgu/aydinlik_karanlik_mod', 'queries/dark_light_mode.php');
+        $pages->add('Core', '/sorgu/queue', 'queries/queue.php');
+        $pages->add('Core', '/sorgu/queue_status', 'queries/queue_status.php');
         $pages->add('Core', '/sorgu/pms', 'queries/pms.php');
         $pages->add('Core', '/sorgu/sunucular', 'queries/servers.php');
         $pages->add('Core', '/sorgu/sunucu', 'queries/server.php');
@@ -55,7 +57,9 @@ class Core_Module extends Module {
         $pages->add('Core', '/mailimi_unuttum', 'pages/forgot_mail.php');
         $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
         $pages->add('Core', '/durum', 'pages/status.php', 'status');
-        $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
+        if (Util::getSetting('mc_integration')) {
+            $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
+        }
         $pages->add('Core', '/tier_list', 'pages/tier_list.php');
         $pages->add('Core', '/oauth', 'pages/oauth.php');
 
@@ -91,6 +95,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/widgets', 'pages/panel/widgets.php');
         $pages->add('Core', '/panel/modules', 'pages/panel/modules.php');
         $pages->add('Core', '/panel/sayfalar', 'pages/panel/pages.php');
+        $pages->add('Core', '/panel/queue', 'pages/panel/queue.php');
         $pages->add('Core', '/panel/hooks', 'pages/panel/hooks.php');
         $pages->add('Core', '/panel/entegrasyonlar', 'pages/panel/integrations.php');
         $pages->add('Core', '/panel/minecraft/placeholderlar', 'pages/panel/placeholders.php');
@@ -114,6 +119,10 @@ class Core_Module extends Module {
 
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
+
+        if (Util::getSetting('queue_runner') == 'ajax') {
+            $pages->addAjaxScript(URL::build('/sorgu/queue'));
+        }
 
         // "More" dropdown
         $cache->setCache('navbar_icons');
@@ -376,6 +385,15 @@ class Core_Module extends Module {
            true
        );
 
+       EventHandler::registerEvent('renderProfilePost',
+            $language->get('admin', 'render_profile_post_hook_info'),
+            [
+                'content' => $language->get('general', 'content')
+            ],
+            true,
+            true
+        );
+
        RadomeOAuth::getInstance()->registerProvider('discord', 'Core', [
            'class' => \Wohali\OAuth2\Client\Provider\Discord::class,
            'user_id_name' => 'id',
@@ -527,6 +545,15 @@ class Core_Module extends Module {
         Email::addPlaceholder('[Message]', static fn(Language $viewing_language, string $email) => $viewing_language->get('emails', $email . '_message'));
         Email::addPlaceholder('[Thanks]', static fn(Language $viewing_language) => $viewing_language->get('emails', 'thanks'));
 
+        MemberListManager::getInstance()->registerListProvider(new RegisteredMembersListProvider($language));
+        MemberListManager::getInstance()->registerListProvider(new StaffMembersListProvider($language));
+
+        MemberListManager::getInstance()->registerMemberMetadataProvider(function (User $member) use ($language) {
+            return [
+                $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
+            ];
+        });
+
     }
 
     public static function getDashboardGraphs(): array {
@@ -584,6 +611,7 @@ class Core_Module extends Module {
             'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
             'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
             'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
+            'admincp.core.queue' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'queue'),
             'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
             'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
             'admincp.core.social_media' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'social_media'),
@@ -744,7 +772,7 @@ class Core_Module extends Module {
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
+        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
                 $leaderboards_order = 4;
@@ -1047,6 +1075,17 @@ class Core_Module extends Module {
                     }
 
                     $navs[2]->addItemToDropdown('core_configuration', 'privacy_and_terms', $language->get('admin', 'privacy_and_terms'), URL::build('/panel/gizlilik_ve_sartlar'), 'top', null, $icon, $order);
+                }
+
+                if ($user->hasPermission('admincp.core.queue')) {
+                    if (!$cache->isCached('queue_icon')) {
+                        $icon = '<i class="nav-icon fas fa-clock"></i>';
+                        $cache->store('queue_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('queue_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('core_configuration', 'queue', $language->get('admin', 'queue'), URL::build('/panel/core/queue'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
@@ -1499,7 +1538,7 @@ class Core_Module extends Module {
 
         return [
             'minecraft' => [
-                'mc_integration' => (bool)Util::getSetting('mc_integration'),
+                'mc_integration' => (bool)Util::getSetting(Settings::MINECRAFT_INTEGRATION),
                 'username_sync' => (bool)Util::getSetting('username_sync'),
                 'query_type' => Util::getSetting('query_type', 'internal'),
                 'servers' => $servers,

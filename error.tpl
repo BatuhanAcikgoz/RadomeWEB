@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{$CUSTOM}">
     <link rel="stylesheet" href="{$FONT_AWESOME}">
     <link rel="stylesheet" href="{$PRISM_CSS}">
-    <link rel="stylesheet" href="{$TOAST_CSS}">
 
 </head>
 
@@ -267,7 +266,6 @@
 <script src="{$JQUERY}"></script>
 <script src="{$BOOTSTRAP_JS}"></script>
 <script src="{$PRISM_JS}"></script>
-<script src="{$TOAST_JS}"></script>
 
 <script>
     function hideAllFrames() {

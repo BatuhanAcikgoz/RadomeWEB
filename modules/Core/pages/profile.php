@@ -698,7 +698,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                         'avatar' => $target_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
-                        'content' => Output::getPurified(Output::getDecoded($reply->content)),
+                        'content' => $content,
                         'self' => (($user->isLoggedIn() && $user->data()->id == $reply->author_id) ? 1 : 0),
                         'id' => $reply->id
                     ];
@@ -707,7 +707,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 $replies['count'] = $language->get('user', 'x_replies', ['count' => 0]);
             }
             $replies_query = null;
-
+            $content = EventHandler::executeEvent('renderProfilePost', ['content' => $nValue->content])['content'];
             $target_user = new User($post_user[0]->id);
             $wall_posts[] = [
                 'id' => $nValue->id,
@@ -716,7 +716,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 'profile' => $target_user->getProfileURL(),
                 'user_style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(500),
-                'content' => Output::getPurified(Output::getDecoded($nValue->content)),
+                'content' => $content,
                 'date_rough' => $timeago->inWords($nValue->time, $language),
                 'date' => date(DATE_FORMAT, $nValue->time),
                 'reactions' => $reactions,
