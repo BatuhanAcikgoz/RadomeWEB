@@ -120,7 +120,7 @@ class Core_Module extends Module {
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
 
-        if (Util::getSetting('queue_runner') == 'ajax') {
+        if (Util::getSetting('queue_runner', 'ajax') == 'ajax') {
             $pages->addAjaxScript(URL::build('/sorgu/queue'));
         }
 
