@@ -27,12 +27,12 @@ if (Input::exists()) {
     if (Token::check()) {
         // Update database values
         // Youtube URL
-        Util::setSetting('youtube_url', Input::get('youtubeurl'));
-        Util::setSetting('discord_url', Input::get('discordurl'));
-        Util::setSetting('instagram_url', Input::get('instagramurl'));
+        Settings::set('youtube_url', Input::get('youtubeurl'));
+        Settings::set('discord_url', Input::get('discordurl'));
+        Settings::set('instagram_url', Input::get('instagramurl'));
 
         // Twitter URL
-        Util::setSetting('twitter_url', Input::get('twitterurl'));
+        Settings::set('twitter_url', Input::get('twitterurl'));
 
         // Twitter dark theme
         if (isset($_POST['twitter_dark_theme']) && $_POST['twitter_dark_theme'] == 1) {
@@ -41,10 +41,10 @@ if (Input::exists()) {
             $theme = 'light';
         }
 
-        Util::setSetting('twitter_style', $theme);
+        Settings::set('twitter_style', $theme);
 
         // Facebook URL
-        Util::setSetting('fb_url', Input::get('fburl'));
+        Settings::set('fb_url', Input::get('fburl'));
 
         $success = $language->get('admin', 'social_media_settings_updated');
     } else {

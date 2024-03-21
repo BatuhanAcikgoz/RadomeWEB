@@ -56,8 +56,8 @@ if (Input::exists()) {
             $cache->setCache('nav_location');
             $cache->store('forum_location', $location);
 
-            Util::setSetting('forum_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
-            Util::setSetting('news_items_front_page', $_POST['news_items'], 'forum');
+            Settings::set('forum_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
+            Settings::set('news_items_front_page', $_POST['news_items'], 'forum');
 
             Session::flash('admin_forums_settings', $forum_language->get('forum', 'settings_updated_successfully'));
         } else {

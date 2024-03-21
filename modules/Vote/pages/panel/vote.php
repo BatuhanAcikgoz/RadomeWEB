@@ -73,8 +73,8 @@ if (!isset($_GET['action'])) {
 					$cache->store('vote_icon', Input::get('icon'));
 
 					// Update Vote Message
-					Util::setSetting('vote_message', Input::get('message'), 'Vote');
-					Util::setSetting('mcmp_key', Input::get('mcmp_key'), 'Vote');
+					Settings::set('vote_message', Input::get('message'), 'Vote');
+					Settings::set('mcmp_key', Input::get('mcmp_key'), 'Vote');
 
 
                     Session::flash('staff_vote', $language->get('admin', 'settings_updated_successfully'));

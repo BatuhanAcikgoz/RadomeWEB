@@ -59,7 +59,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        Util::setSetting('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
+        Settings::set('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
     }
 
     private function initialiseLanguages(): void {
@@ -533,53 +533,53 @@ class DatabaseInitialiser {
 
 
     private function initialiseSettings(): void {
-        Util::setSetting('registration_enabled', '1');
-        Util::setSetting('displaynames', '0');
-        Util::setSetting('recaptcha', '0');
-        Util::setSetting('recaptcha_type', 'Recaptcha3');
-        Util::setSetting('recaptcha_login', '0');
-        Util::setSetting('email_verification', '1');
-        Util::setSetting('radome_version', '2.0.2');
-        Util::setSetting('version_checked', date('U'));
-        Util::setSetting('phpmailer', '0');
-        Util::setSetting('phpmailer_type', 'smtp');
-        Util::setSetting('verify_accounts', '1');
-        Util::setSetting('user_avatars', '0');
-        Util::setSetting('forum_layout', '1');
-        Util::setSetting('avatar_site', 'cravatar');
-        Util::setSetting(Settings::MINECRAFT_INTEGRATION, '1');
-        Util::setSetting('discord_integration', '0');
-        Util::setSetting('avatar_type', 'helmavatar');
-        Util::setSetting('home_type', 'news');
-        Util::setSetting('forum_reactions', '1');
-        Util::setSetting('error_reporting', '0');
-        Util::setSetting('page_loading', '0');
-        Util::setSetting('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
-        Util::setSetting('use_api', 0);
-        Util::setSetting('mc_api_key', SecureRandom::alphanumeric());
-        Util::setSetting('query_type', 'internal');
-        Util::setSetting('player_list_limit', '20');
-        Util::setSetting('followers', '0');
-        Util::setSetting('language', '1');
-        Util::setSetting('timezone', $_SESSION['install_timezone']);
-        Util::setSetting('maintenance', '0');
-        Util::setSetting('maintenance_message', 'Sitemiz şu anda bakım modundadır. Daha sonra tekrar deneyiniz.');
-        Util::setSetting('authme', 0);
-        Util::setSetting('default_avatar_type', 'minecraft');
-        Util::setSetting('private_profile', '1');
-        Util::setSetting('validate_user_action', '{"action":"promote","group":1}');
-        Util::setSetting('login_method', 'email');
-        Util::setSetting('username_sync', '1');
-        Util::setSetting('status_page', '1');
-        Util::setSetting('placeholders', '1');
-        Util::setSetting('checkout_complete_content', 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.', 'Magaza');
-        Util::setSetting('currency', 'TL', 'Magaza');
-        Util::setSetting('currency_symbol', '₺', 'Magaza');
-        Util::setSetting('allow_guests', 0, 'Magaza');
-        Util::setSetting('player_login', 0, 'Magaza');
-        Util::setSetting('tier_list_page', 1);
-        Util::setSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
-        Util::setSetting('mcmp_key', '', 'Vote');
+        Settings::set('registration_enabled', '1');
+        Settings::set('displaynames', '0');
+        Settings::set('recaptcha', '0');
+        Settings::set('recaptcha_type', 'Recaptcha3');
+        Settings::set('recaptcha_login', '0');
+        Settings::set('email_verification', '1');
+        Settings::set('radome_version', '2.0.2');
+        Settings::set('version_checked', date('U'));
+        Settings::set('phpmailer', '0');
+        Settings::set('phpmailer_type', 'smtp');
+        Settings::set('verify_accounts', '1');
+        Settings::set('user_avatars', '0');
+        Settings::set('forum_layout', '1');
+        Settings::set('avatar_site', 'cravatar');
+        Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
+        Settings::set('discord_integration', '0');
+        Settings::set('avatar_type', 'helmavatar');
+        Settings::set('home_type', 'news');
+        Settings::set('forum_reactions', '1');
+        Settings::set('error_reporting', '0');
+        Settings::set('page_loading', '0');
+        Settings::set('unique_id', substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 62));
+        Settings::set('use_api', 0);
+        Settings::set('mc_api_key', SecureRandom::alphanumeric());
+        Settings::set('query_type', 'internal');
+        Settings::set('player_list_limit', '20');
+        Settings::set('followers', '0');
+        Settings::set('language', '1');
+        Settings::set('timezone', $_SESSION['install_timezone']);
+        Settings::set('maintenance', '0');
+        Settings::set('maintenance_message', 'Sitemiz şu anda bakım modundadır. Daha sonra tekrar deneyiniz.');
+        Settings::set('authme', 0);
+        Settings::set('default_avatar_type', 'minecraft');
+        Settings::set('private_profile', '1');
+        Settings::set('validate_user_action', '{"action":"promote","group":1}');
+        Settings::set('login_method', 'email');
+        Settings::set('username_sync', '1');
+        Settings::set('status_page', '1');
+        Settings::set('placeholders', '1');
+        Settings::set('checkout_complete_content', 'Ödemeniz için teşekkürler. Ödemenizin işleme koyulması 15 dakika kadar sürebilir.', 'Magaza');
+        Settings::set('currency', 'TL', 'Magaza');
+        Settings::set('currency_symbol', '₺', 'Magaza');
+        Settings::set('allow_guests', 0, 'Magaza');
+        Settings::set('player_login', 0, 'Magaza');
+        Settings::set('tier_list_page', 1);
+        Settings::set('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
+        Settings::set('mcmp_key', '', 'Vote');
 
         $this->_db->insert('privacy_terms', [
             'name' => 'terms',
@@ -600,7 +600,7 @@ class DatabaseInitialiser {
                         'Verira firması için yapılmış olup site tamamen site sorumluluğu ' .
                         'tamamen site yöneticisine aittir. Verira çalışanları veya RadomeWEB ' .
                         'yapımcıları herhangi bir sorumluluk kabul etmez.';
-        Util::setSetting('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $radome_terms . '</p>');
+        Settings::set('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $radome_terms . '</p>');
     }
 
     private function initialiseTasks(): void {

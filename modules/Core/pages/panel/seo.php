@@ -62,7 +62,7 @@ if (!isset($_GET['metadata'])) {
                 $success = $language->get('admin', 'sitemap_generated');
             } else {
                 if (Input::get('type') == 'google_analytics') {
-                    Util::setSetting('ga_script', Input::get('analyticsid'));
+                    Settings::set('ga_script', Input::get('analyticsid'));
                     $success = $language->get('admin', 'seo_settings_updated_successfully');
                 }
             }

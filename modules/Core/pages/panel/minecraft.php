@@ -27,7 +27,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_minecraft'])) {
             // Either enable or disable Minecraft integration
-            Util::setSetting(Settings::MINECRAFT_INTEGRATION, Input::get('enable_minecraft'));
+            Settings::set(Settings::MINECRAFT_INTEGRATION, Input::get('enable_minecraft'));
         }
 
     } else {

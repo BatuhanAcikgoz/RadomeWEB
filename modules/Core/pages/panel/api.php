@@ -30,7 +30,7 @@ if (!isset($_GET['view'])) {
                 // Generate new key
                 $new_api_key = SecureRandom::alphanumeric();
 
-                Util::setSetting('mc_api_key', $new_api_key);
+                Settings::set('mc_api_key', $new_api_key);
 
                 // Cache
                 file_put_contents(ROOT_PATH . DIRECTORY_SEPARATOR . 'cache' . DIRECTORY_SEPARATOR . sha1('apicache') . '.cache', $new_api_key);
@@ -40,11 +40,11 @@ if (!isset($_GET['view'])) {
                 Redirect::to(URL::build('/panel/api'));
             }
 
-            Util::setSetting('use_api', Input::get('enable_api'));
+            Settings::set('use_api', Input::get('enable_api'));
 
             // Update Username sync
             $username_sync = isset($_POST['username_sync']) && $_POST['username_sync'] == 'on' ? '1' : '0';
-            Util::setSetting('username_sync', $username_sync);
+            Settings::set('username_sync', $username_sync);
 
             Session::flash('api_success', $language->get('admin', 'api_settings_updated_successfully'));
 

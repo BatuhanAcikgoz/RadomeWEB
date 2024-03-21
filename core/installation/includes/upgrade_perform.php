@@ -437,7 +437,7 @@ try {
         $old = $old->results();
 
         foreach ($old as $item) {
-            Util::setSetting($item->name, $item->value);
+            Settings::set($item->name, $item->value);
         }
     }
 } catch (Exception $e) {
@@ -739,7 +739,7 @@ DB::getInstance()->insert('settings', [
     'value' => 'false'
 ]);
 
-Util::setSetting('recaptcha_type', 'Recaptcha3');
+Settings::set('recaptcha_type', 'Recaptcha3');
 
 // convert from "version" to "radome_version"
 $version = DB::getInstance()->get('settings', ['name', 'version'])->results();
@@ -756,7 +756,7 @@ if (count($version)) {
     ]);
 }
 
-Util::setSetting('version_update', null);
+Settings::set('version_update', null);
 
 $mcassoc = DB::getInstance()->get('settings', ['name', 'use_mcassoc'])->results();
 if (count($mcassoc)) {
@@ -792,7 +792,7 @@ DB::getInstance()->insert('settings', [
     'value' => false,
 ]);
 
-Util::setSetting('page_loading', '0');
+Settings::set('page_loading', '0');
 
 $use_plugin = DB::getInstance()->get('settings', ['name', 'use_plugin'])->results();
 if (count($use_plugin)) {

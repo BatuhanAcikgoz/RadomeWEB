@@ -36,16 +36,16 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update database
             // Is debug mode enabled or not?
-            Util::setSetting('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging']) ? '1' : '0');
+            Settings::set('error_reporting', (isset($_POST['enable_debugging']) && $_POST['enable_debugging']) ? '1' : '0');
 
             // Maintenance mode
-            Util::setSetting('maintenance', (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance']) ? '1' : '0');
-            Util::setSetting('maintenance_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Maintenance mode is enabled.');
+            Settings::set('maintenance', (isset($_POST['enable_maintenance']) && $_POST['enable_maintenance']) ? '1' : '0');
+            Settings::set('maintenance_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Maintenance mode is enabled.');
 
             // Log::getInstance()->log(Log::Action('admin/core/maintenance/update'));
 
             // Page load timer
-            Util::setSetting('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
+            Settings::set('page_loading', isset($_POST['enable_page_load_timer']) && $_POST['enable_page_load_timer'] == 1 ? '1' : '0');
 
             // Reload to update debugging
             Session::flash('debugging_success', $language->get('admin', 'debugging_settings_updated_successfully'));

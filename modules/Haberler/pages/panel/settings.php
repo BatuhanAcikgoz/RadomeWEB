@@ -43,7 +43,7 @@ if (Input::exists()) {
         $cache->setCache('nav_location');
         $cache->store('haberler_location', $location);
 
-        Util::setSetting('haberler_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
+        Settings::set('haberler_reactions', (isset($_POST['use_reactions']) && $_POST['use_reactions'] == 'on') ? '1' : 0);
 
         Session::flash('admin_haberlers_settings', $haberler_language->get('haberler', 'settings_updated_successfully'));
     } else {

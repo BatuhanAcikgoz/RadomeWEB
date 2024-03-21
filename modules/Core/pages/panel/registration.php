@@ -30,7 +30,7 @@ if (Input::exists()) {
         // Process input
         if (isset($_POST['enable_registration'])) {
             // Either enable or disable registration
-            Util::setSetting('registration_enabled', Input::get('enable_registration'));
+            Settings::set('registration_enabled', Input::get('enable_registration'));
         } else {
             // Registration settings
 
@@ -50,13 +50,13 @@ if (Input::exists()) {
 
             } else {
                 // Email verification
-                Util::setSetting('email_verification', (isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
+                Settings::set('email_verification', (isset($_POST['verification']) && $_POST['verification'] == 'on') ? '1' : '0');
 
                 // Registration disabled message
-                Util::setSetting('registration_disabled_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Website registration is disabled.');
+                Settings::set('registration_disabled_message', (isset($_POST['message']) && !empty($_POST['message'])) ? $_POST['message'] : 'Website registration is disabled.');
 
                 // reCAPTCHA type
-                Util::setSetting('recaptcha_type', Input::get('captcha_type'));
+                Settings::set('recaptcha_type', Input::get('captcha_type'));
 
                 // Validate captcha key and secret key
                 if (!empty(Input::get('recaptcha_key')) || !empty(Input::get('recaptcha_secret')) || Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
@@ -69,16 +69,16 @@ if (Input::exists()) {
                         ]);
                     }
 
-                    Util::setSetting('recaptcha_key', Input::get('recaptcha'));
-                    Util::setSetting('recaptcha_secret', Input::get('recaptcha_secret'));
+                    Settings::set('recaptcha_key', Input::get('recaptcha'));
+                    Settings::set('recaptcha_secret', Input::get('recaptcha_secret'));
 
                 } else if (empty(Input::get('recaptcha_key')) && empty(Input::get('recaptcha_secret'))) {
-                    Util::setSetting('recaptcha_key', '');
-                    Util::setSetting('recaptcha_secret', '');
+                    Settings::set('recaptcha_key', '');
+                    Settings::set('recaptcha_secret', '');
                 }
 
-                Util::setSetting('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
-                Util::setSetting('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
+                Settings::set('recaptcha', (isset($_POST['enable_recaptcha']) && $_POST['enable_recaptcha'] == '1') ? '1' : '0');
+                Settings::set('recaptcha_login', (isset($_POST['enable_recaptcha_login']) && $_POST['enable_recaptcha_login'] == '1') ? '1' : '0');
 
                 // Config value
                 if (Input::get('enable_recaptcha') == 1 || Input::get('enable_recaptcha_login') == 1) {
@@ -92,7 +92,7 @@ if (Input::exists()) {
                 // Validation group
                 $validation_action = json_decode(Settings::get('validate_user_action'), true);
                 $new_value = json_encode(['action' => $validation_action['action'] ?? 'promote', 'group' => $_POST['promote_group']]);
-                Util::setSetting('validate_user_action', $new_value);
+                Settings::set('validate_user_action', $new_value);
             }
         }
 

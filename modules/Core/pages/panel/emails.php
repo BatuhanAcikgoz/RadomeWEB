@@ -156,10 +156,10 @@ if (isset($_GET['action'])) {
                 Session::flash('emails_success', $language->get('admin', 'email_settings_updated_successfully'));
                 Redirect::to(URL::build('/panel/email', 'action=edit_messages'));
             } else {
-                Util::setSetting('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
+                Settings::set('phpmailer', (isset($_POST['enable_mailer']) && $_POST['enable_mailer']) ? '1' : '0');
 
                 if (!empty($_POST['email'])) {
-                    Util::setSetting('outgoing_email', $_POST['email']);
+                    Settings::set('outgoing_email', $_POST['email']);
                 }
 
                 if ($_POST['port'] && !is_numeric($_POST['port'])) {

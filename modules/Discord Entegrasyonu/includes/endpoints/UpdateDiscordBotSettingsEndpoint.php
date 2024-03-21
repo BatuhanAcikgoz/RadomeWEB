@@ -17,9 +17,9 @@ class UpdateDiscordBotSettingsEndpoint extends KeyAuthEndpoint {
 
     public function execute(Radome2API $api): void {
         if (isset($_POST['guild_id'])) {
-            Util::setSetting('discord_integration', 1);
-            Util::setSetting('discord_bot_username', $_POST['guild_id']);
-            Util::setSetting('discord_bot_url', $_POST['identifier']);
+            Settings::set('discord_integration', 1);
+            Settings::set('discord_bot_username', $_POST['guild_id']);
+            Settings::set('discord_bot_url', $_POST['identifier']);
             $api->returnArray(['message' => Discord::getLanguageTerm('discord_settings_updated')]);
             }
     }

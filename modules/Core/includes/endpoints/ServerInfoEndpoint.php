@@ -24,7 +24,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         if (isset($_POST['verify_command'])) {
-            Util::setSetting('minecraft_verify_command', $_POST['verify_command']);
+            Settings::set('minecraft_verify_command', $_POST['verify_command']);
         }
 
         try {

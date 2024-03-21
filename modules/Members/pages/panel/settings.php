@@ -14,8 +14,8 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 if (Input::exists()) {
     if (Token::check()) {
-        Util::setSetting('member_list_viewable_groups', json_encode(Input::get('groups')), 'Members');
-        Util::setSetting('member_list_hide_banned', Input::get('hide_banned_users'), 'Members');
+        Settings::set('member_list_viewable_groups', json_encode(Input::get('groups')), 'Members');
+        Settings::set('member_list_hide_banned', Input::get('hide_banned_users'), 'Members');
 
         // Update link location
         if (isset($_POST['link_location'])) {

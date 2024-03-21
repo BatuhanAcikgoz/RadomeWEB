@@ -258,8 +258,8 @@ if (isset($_GET['view'])) {
             ]);
 
             if ($validation->passed()) {
-                Util::setSetting('queue_runner', Input::get('runner'));
-                Util::setSetting('queue_interval', floatval(Input::get('interval')));
+                Settings::set('queue_runner', Input::get('runner'));
+                Settings::set('queue_interval', floatval(Input::get('interval')));
 
                 Session::flash('queue_success', $language->get('user', 'settings_updated_successfully'));
             } else {
@@ -290,7 +290,7 @@ if (isset($_GET['view'])) {
 
     if (!($cron_key = Settings::get('cron_key'))) {
         $cron_key = SecureRandom::alphanumeric();
-        Util::setSetting('cron_key', $cron_key);
+        Settings::set('cron_key', $cron_key);
     }
 
     $smarty->assign([

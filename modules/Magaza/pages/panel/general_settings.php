@@ -80,17 +80,17 @@ if (isset($_POST) && !empty($_POST)) {
             else
                 $store_path_input = '/magaza';
 
-            Util::setSetting('store_path', $store_path_input, 'Magaza');
-            Util::setSetting('allow_guests', $allow_guests, 'Magaza');
-            Util::setSetting('player_login', $player_login, 'Magaza');
-            Util::setSetting('currency', Input::get('currency'), 'Magaza');
-            Util::setSetting('currency_symbol', Input::get('currency_symbol'), 'Magaza');
-            Util::setSetting('currency_format', Input::get('currency_format'), 'Magaza');
-            Util::setSetting('store_content', Input::get('store_content'), 'Magaza');
-            Util::setSetting('checkout_complete_content', Input::get('checkout_complete_content'), 'Magaza');
+            Settings::set('store_path', $store_path_input, 'Magaza');
+            Settings::set('allow_guests', $allow_guests, 'Magaza');
+            Settings::set('player_login', $player_login, 'Magaza');
+            Settings::set('currency', Input::get('currency'), 'Magaza');
+            Settings::set('currency_symbol', Input::get('currency_symbol'), 'Magaza');
+            Settings::set('currency_format', Input::get('currency_format'), 'Magaza');
+            Settings::set('store_content', Input::get('store_content'), 'Magaza');
+            Settings::set('checkout_complete_content', Input::get('checkout_complete_content'), 'Magaza');
 
-            Util::setSetting('show_credits_amount', $show_credits_amount);
-            Util::setSetting('user_send_credits', $user_send_credits);
+            Settings::set('show_credits_amount', $show_credits_amount);
+            Settings::set('user_send_credits', $user_send_credits);
 
             // Update link location
             if (isset($_POST['link_location'])) {

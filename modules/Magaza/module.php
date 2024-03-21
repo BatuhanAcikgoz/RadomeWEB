@@ -519,11 +519,11 @@ class Magaza_Module extends Module {
         }
 
         if (!$this->_db->get('settings', ['module', '=', 'Magaza'])->count()) {
-            Util::setSetting('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
-            Util::setSetting('currency', 'USD', 'Magaza');
-            Util::setSetting('currency_symbol', '$', 'Magaza');
-            Util::setSetting('allow_guests', 0, 'Magaza');
-            Util::setSetting('player_login', 0, 'Magaza');
+            Settings::set('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
+            Settings::set('currency', 'USD', 'Magaza');
+            Settings::set('currency_symbol', '$', 'Magaza');
+            Settings::set('allow_guests', 0, 'Magaza');
+            Settings::set('player_login', 0, 'Magaza');
         }
 
         if (!$this->_db->showTables('store_gateways')) {

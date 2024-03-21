@@ -532,22 +532,22 @@ if (isset($_GET['action'])) {
                 }
 
                 // Group sync server
-                Util::setSetting('group_sync_mc_server', $new_group_sync_server);
+                Settings::set('group_sync_mc_server', $new_group_sync_server);
 
                 // Query type
-                Util::setSetting('query_type', $query_type);
+                Settings::set('query_type', $query_type);
 
                 // Player list limit
                 if ($player_list_limit != null) { // In case the field is hidden, we don't want to change this value
-                    Util::setSetting('player_list_limit', $player_list_limit);
+                    Settings::set('player_list_limit', $player_list_limit);
                 }
 
                 // Status page
-                Util::setSetting('status_page', $status);
+                Settings::set('status_page', $status);
 
                 // Query interval
                 if (isset($_POST['interval']) && is_numeric($_POST['interval']) && $_POST['interval'] <= 60 && $_POST['interval'] >= 5) {
-                    Util::setSetting('minecraft_query_interval', $_POST['interval']);
+                    Settings::set('minecraft_query_interval', $_POST['interval']);
                 }
 
                 $success = $language->get('admin', 'minecraft_settings_updated_successfully');

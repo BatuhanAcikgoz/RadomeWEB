@@ -80,10 +80,10 @@ if (Input::exists()) {
         if ($validation->passed()) {
             // Update settings
             // Sitename
-            Util::setSetting('sitename', Input::get('sitename'));
+            Settings::set('sitename', Input::get('sitename'));
 
             // Email address
-            Util::setSetting('incoming_email', Input::get('contact_email'));
+            Settings::set('incoming_email', Input::get('contact_email'));
 
             // Language
             // Get current default language
@@ -105,19 +105,19 @@ if (Input::exists()) {
 
             // Timezone
             try {
-                Util::setSetting('timezone', $_POST['timezone']);
+                Settings::set('timezone', $_POST['timezone']);
             } catch (Exception $e) {
                 $errors = [$e->getMessage()];
             }
 
             $home_type = 'news';
 
-            Util::setSetting('home_type', $home_type);
+            Settings::set('home_type', $home_type);
 
             // Private profile
 
             // Registration displaynames
-            Util::setSetting('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
+            Settings::set('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {

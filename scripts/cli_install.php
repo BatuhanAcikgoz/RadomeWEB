@@ -154,10 +154,10 @@ print('✍️  Inserting default data to database...' . PHP_EOL);
 
 DatabaseInitialiser::runPreUser();
 
-Util::setSetting('sitename', getEnvVar('RADOME_SITE_NAME'));
-Util::setSetting('incoming_email', getEnvVar('RADOME_SITE_CONTACT_EMAIL'));
-Util::setSetting('outgoing_email', getEnvVar('RADOME_SITE_OUTGOING_EMAIL'));
-Util::setSetting('email_verification', getEnvVar('RADOME_EMAIL_VERIFICATION', '1', ['0', '1']));
+Settings::set('sitename', getEnvVar('RADOME_SITE_NAME'));
+Settings::set('incoming_email', getEnvVar('RADOME_SITE_CONTACT_EMAIL'));
+Settings::set('outgoing_email', getEnvVar('RADOME_SITE_OUTGOING_EMAIL'));
+Settings::set('email_verification', getEnvVar('RADOME_EMAIL_VERIFICATION', '1', ['0', '1']));
 
 print('👮 Creating admin account...' . PHP_EOL);
 
