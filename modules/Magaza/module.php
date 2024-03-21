@@ -77,7 +77,7 @@ class Magaza_Module extends Module {
         EventHandler::registerListener('renderStoreProduct', 'ContentHook::renderEmojis', 10);
         EventHandler::registerListener('renderStoreProduct', 'ContentHook::replaceAnchors', 15);
 
-        define('STORE_CURRENCY_FORMAT', Util::getSetting('currency_format', '{price}{currencySymbol}', 'Magaza'));
+        define('STORE_CURRENCY_FORMAT', Settings::get('currency_format', '{price}{currencySymbol}', 'Magaza'));
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Magaza/includes/endpoints');
 

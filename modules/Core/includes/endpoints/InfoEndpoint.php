@@ -16,7 +16,7 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
     public function execute(Radome2API $api): void {
 
-        $site_id = Util::getSetting('unique_id');
+        $site_id = Settings::get('unique_id');
 
         if ($site_id === null) {
             $api->throwError(Radome2API::ERROR_NO_SITE_UID);
@@ -24,13 +24,13 @@ class InfoEndpoint extends KeyAuthEndpoint {
 
         $ret = [];
 
-        $ret['radome_version'] = Util::getSetting('radome_version');
+        $ret['radome_version'] = Settings::get('radome_version');
 
-        if (Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true') {
+        if (Settings::get('version_update') === 'urgent' || Settings::get('version_update') === 'true') {
             $ret['version_update'] = [
                 'update' => true,
-                'version' => Util::getSetting('new_version'),
-                'urgent' => Util::getSetting('version_update') === 'urgent',
+                'version' => Settings::get('new_version'),
+                'urgent' => Settings::get('version_update') === 'urgent',
             ];
         }
 

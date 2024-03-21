@@ -192,7 +192,7 @@ $smarty->assign([
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'GENERATE' => $language->get('admin', 'generate_sitemap'),
-    'GOOGLE_ANALYTICS_VALUE' => Util::getSetting('ga_script'),
+    'GOOGLE_ANALYTICS_VALUE' => Settings::get('ga_script'),
     'PAGE_TITLE' => $language->get('admin', 'page'),
     'PAGE_LIST' => $pages->returnPages(),
     'EDIT_LINK' => URL::build('/panel/seo/', 'metadata={x}'),

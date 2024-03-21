@@ -14,13 +14,13 @@ $page_title = $vote_language->get('vote', 'vote');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Get message
-$vote_message = Util::getSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
+$vote_message = Settings::get('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
 
 // Is vote message empty?
 if (!empty($vote_message)) {
 	$message_enabled = true;
 }
-$mcmp_key =  Util::getSetting('mcmp_key', '', 'Vote');
+$mcmp_key =  Settings::get('mcmp_key', '', 'Vote');
 $minecraftmp_top_voters = 'https://minecraft-mp.com/api/?object=servers&element=voters&key='.$mcmp_key.'&month=current&format=json&limit=5';
 $mcmp_vote_page = HttpClient::get($minecraftmp_top_voters);
 $mcmp_vote = $mcmp_vote_page->json();

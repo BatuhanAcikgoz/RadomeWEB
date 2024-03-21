@@ -14,7 +14,7 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Magaza/core/frontend_init.php');
 
-if (!Util::getSetting('allow_guests', '0', 'Magaza')) {
+if (!Settings::get('allow_guests', '0', 'Magaza')) {
     if (!$user->isLoggedIn()) {
         Redirect::to(URL::build('/giris/'));
     }
@@ -27,7 +27,7 @@ $store_url = $store->getMagazaURL();
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'complete') {
         // Checkout complete page
-        $checkout_complete_content = Util::getSetting('checkout_complete_content', '', 'Magaza');
+        $checkout_complete_content = Settings::get('checkout_complete_content', '', 'Magaza');
         $smarty->assign('CHECKOUT_COMPLETE_CONTENT', Output::getPurified(Output::getDecoded($checkout_complete_content)));
         
         $template_file = 'store/checkout_complete.tpl';

@@ -839,7 +839,7 @@
     "time/less_than_a_minute": "1 dakikadan az bir süre önce",
     "time/over_x_years": "{{count}} yıldan uzun bir süre önce",
     "user/1_new_alert": "1 yeni bildiriminiz var.",
-    "user/1_new_message": "{{count}} yeni mesajınız var",
+    "user/1_new_message": "1 yeni mesajınız var",
     "user/1_reaction": "1 reaksiyon",
     "user/1_reply": "1 cevap",
     "user/about": "Hakkında",

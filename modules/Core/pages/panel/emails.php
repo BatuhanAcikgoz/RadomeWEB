@@ -203,7 +203,7 @@ if (isset($_GET['action'])) {
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
         'EMAIL_ERRORS_LINK' => URL::build('/panel/email/hatalar'),
         'ENABLE_MAILER' => $language->get('admin', 'use_external_mail_server'),
-        'ENABLE_MAILER_VALUE' => Util::getSetting('phpmailer'),
+        'ENABLE_MAILER_VALUE' => Settings::get('phpmailer'),
         'INFO' => $language->get('general', 'info'),
         'ENABLE_MAILER_HELP' => $language->get('admin', 'enable_mailer_help', [
             'docLinkStart' => "<a href='https://docs.radome.web.tr/smtp' target='_blank'>",
@@ -211,7 +211,7 @@ if (isset($_GET['action'])) {
         ]),
         'OUTGOING_EMAIL' => $language->get('admin', 'outgoing_email'),
         'OUTGOING_EMAIL_INFO' => $language->get('admin', 'outgoing_email_info'),
-        'OUTGOING_EMAIL_VALUE' => Output::getClean(Util::getSetting('outgoing_email')),
+        'OUTGOING_EMAIL_VALUE' => Output::getClean(Settings::get('outgoing_email')),
         'USERNAME' => $language->get('user', 'username'),
         'USERNAME_VALUE' => Output::getClean(Config::get('email.username', '')),
         'PASSWORD' => $language->get('user', 'password'),

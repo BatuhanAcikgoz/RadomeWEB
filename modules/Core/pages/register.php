@@ -23,11 +23,11 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Core/includes/emails/register.php');
 
 // Check if registration is enabled
-if (!Util::getSetting('registration_enabled')) {
+if (!Settings::get('registration_enabled')) {
     // Registration is disabled, display a message
     // Get registration disabled message and assign to Smarty variable
     $fallback_message = $language->get('general', 'registration_disabled_message_fallback');
-    $message = Output::getPurified(Util::getSetting('registration_disabled_message', $fallback_message));
+    $message = Output::getPurified(Settings::get('registration_disabled_message', $fallback_message));
 
     $smarty->assign([
         'REGISTRATION_DISABLED' => $message,
@@ -290,7 +290,7 @@ if (Input::exists()) {
                             $user,
                         ));
 
-                        if (Util::getSetting('email_verification') === '1') {
+                        if (Settings::get('email_verification') === '1') {
                             // Send registration email
                             sendRegisterEmail($language, Output::getClean(Input::get('email')), $username, $user_id, $code);
 

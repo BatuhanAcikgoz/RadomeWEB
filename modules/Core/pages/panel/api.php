@@ -171,7 +171,7 @@ if (isset($errors) && count($errors)) {
 
 if (!isset($_GET['view'])) {
     // Is the API enabled?
-    $api_enabled = Util::getSetting('use_api');
+    $api_enabled = Settings::get('use_api');
 
     $smarty->assign(
         [
@@ -190,7 +190,7 @@ if (!isset($_GET['view'])) {
             'ENABLE_API' => $language->get('admin', 'enable_api'),
             'API_ENABLED' => $api_enabled,
             'API_KEY' => $language->get('admin', 'api_key'),
-            'API_KEY_VALUE' => Util::getSetting('mc_api_key'),
+            'API_KEY_VALUE' => Settings::get('mc_api_key'),
             'API_KEY_REGEN_URL' => URL::build('/panel/api/', 'action=api_regen'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_API_REGEN' => $language->get('admin', 'confirm_api_regen'),
@@ -203,7 +203,7 @@ if (!isset($_GET['view'])) {
             'COPY' => $language->get('admin', 'copy'),
             'USERNAME_SYNC' => $language->get('admin', 'enable_username_sync'),
             'USERNAME_SYNC_INFO' => $language->get('admin', 'enable_username_sync_info'),
-            'USERNAME_SYNC_VALUE' => Util::getSetting('username_sync') === '1',
+            'USERNAME_SYNC_VALUE' => Settings::get('username_sync') === '1',
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'COPIED' => $language->get('general', 'copied'),

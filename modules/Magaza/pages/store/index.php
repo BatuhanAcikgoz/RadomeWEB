@@ -13,7 +13,7 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 require_once(ROOT_PATH . '/modules/Magaza/core/frontend_init.php');
 
-$content = Util::getSetting('store_content', '', 'Magaza');
+$content = Settings::get('store_content', '', 'Magaza');
 $content = Output::getDecoded($content);
 $content = Output::getPurified($content);
 $categories_list = [];

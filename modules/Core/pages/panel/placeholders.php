@@ -158,7 +158,7 @@ if (isset($_GET['leaderboard'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'ENABLE_PLACEHOLDERS' => $language->get('admin', 'enable_placeholders'),
-        'ENABLE_PLACEHOLDERS_VALUE' => Util::getSetting('placeholders') === '1',
+        'ENABLE_PLACEHOLDERS_VALUE' => Settings::get('placeholders') === '1',
     ]);
 }
 

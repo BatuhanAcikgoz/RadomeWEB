@@ -7,7 +7,7 @@ class DatabaseInitialiser {
 
     private function __construct() {
         $this->_db = DB::getInstance();
-        $this->_cache = new Cache();
+        $this->_cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
     }
 
     public static function runPreUser() {
@@ -17,6 +17,7 @@ class DatabaseInitialiser {
         $instance->initialiseModules();
         $instance->initialiseIntegrations();
         $instance->initialiseSettings();
+        $instance->initialiseTasks();
         $instance->initialiseTemplates();
         $instance->initialiseWidgets();
         
@@ -601,6 +602,12 @@ class DatabaseInitialiser {
                         'yapımcıları herhangi bir sorumluluk kabul etmez.';
         Util::setSetting('t_and_c', 'Sitemize kayıt olarak şu maddeleri kabul etmiş sayılırsınız:<p>' . $radome_terms . '</p>');
     }
+
+    private function initialiseTasks(): void {
+        GenerateSitemap::schedule(new Language('core', 'tr_TR'));
+    }
+
+
 
     private function initialiseTemplates(): void {
         $this->_db->insert('templates', [

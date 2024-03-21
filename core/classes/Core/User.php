@@ -138,7 +138,7 @@ class User
      */
     public function addGroup(int $group_id, int $expire = 0): bool
     {
-        if (array_key_exists($group_id, $this->_groups ?? [])) {
+        if (array_key_exists($group_id, $this->getGroups())) {
             return false;
         }
 
@@ -152,6 +152,7 @@ class User
         $group = Group::find($group_id);
         if ($group) {
             $this->_groups[$group_id] = $group;
+            self::$_group_cache[$this->data()->id][$group_id] = $group;
         }
 
         EventHandler::executeEvent(new UserGroupAddedEvent(
@@ -567,27 +568,24 @@ class User
         }
 
         if (isset(self::$_group_cache[$this->data()->id])) {
-            $groups_query = self::$_group_cache[$this->data()->id];
+            $this->_groups = self::$_group_cache[$this->data()->id];
         } else {
             $groups_query = $this->_db->query('SELECT rw_groups.* FROM rw_users_groups INNER JOIN rw_groups ON group_id = rw_groups.id WHERE user_id = ? AND deleted = 0 ORDER BY `order`', [$this->data()->id]);
             if ($groups_query->count()) {
-                $groups_query = $groups_query->results();
+                foreach ($groups_query->results() as $item) {
+                    $this->_groups[$item->id] = new Group($item);
+                }
             } else {
-                $groups_query = [];
+                $this->_groups = [];
             }
-            self::$_group_cache[$this->data()->id] = $groups_query;
+            self::$_group_cache[$this->data()->id] = $this->_groups;
         }
 
-        if ($groups_query) {
-            foreach ($groups_query as $item) {
-                $this->_groups[$item->id] = new Group($item);
-            }
-        } else {
+        if (!count($this->_groups)) {
             // Get default group
             // TODO: Use PRE_VALIDATED_DEFAULT ?
             $default_group = Group::find(1, 'default_group');
             $default_group_id = $default_group->id ?? 1;
-
             $this->addGroup($default_group_id);
         }
         return $this->_groups;
@@ -598,8 +596,7 @@ class User
      *
      * @return IntegrationUser[] Their integrations.
      */
-    public function getIntegrations(): array
-    {
+    public function getIntegrations(): array {
         if (isset($this->_integrations)) {
             return $this->_integrations;
         }
@@ -609,7 +606,6 @@ class User
         if (isset(self::$_integration_cache[$this->data()->id])) {
             $integrations_query = self::$_integration_cache[$this->data()->id];
         } else {
-
             $integrations_query = $this->_db->query('SELECT rw_users_integrations.*, rw_integrations.name as integration_name FROM rw_users_integrations LEFT JOIN rw_integrations ON integration_id=rw_integrations.id WHERE user_id = ?', [$this->data()->id]);
             if ($integrations_query->count()) {
                 $integrations_query = $integrations_query->results();
@@ -627,9 +623,9 @@ class User
 
                 $integrations_list[$item->integration_name] = $integrationUser;
             }
-
-            return $this->_integrations = $integrations_list;
         }
+
+        return $this->_integrations = $integrations_list;
     }
     /**
      * Get the user's integration.
@@ -722,6 +718,7 @@ class User
         $group = Group::find($group_id);
         if ($group) {
             $this->_groups[$group_id] = $group;
+            self::$_group_cache[$this->data()->id] = $this->_groups;
         }
     }
 
@@ -753,7 +750,7 @@ class User
         ));
 
         unset($this->_groups[$group_id]);
-
+        unset(self::$_group_cache[$this->data()->id][$group_id]);
         return true;
     }
 
@@ -1053,7 +1050,7 @@ class User
      */
     public function canPrivateProfile(): bool
     {
-        return Util::getSetting('private_profile') === '1' && $this->hasPermission('usercp.private_profile');
+        return Settings::get('private_profile') === '1' && $this->hasPermission('usercp.private_profile');
     }
 
     /**

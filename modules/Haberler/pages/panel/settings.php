@@ -90,7 +90,7 @@ $smarty->assign([
     'LINK_FOOTER' => $language->get('admin', 'page_link_footer'),
     'LINK_NONE' => $language->get('admin', 'page_link_none'),
     'USE_REACTIONS' => $haberler_language->get('haberler', 'use_reactions'),
-    'USE_REACTIONS_VALUE' => Util::getSetting('haberler_reactions') === '1',
+    'USE_REACTIONS_VALUE' => Settings::get('haberler_reactions') === '1',
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit')

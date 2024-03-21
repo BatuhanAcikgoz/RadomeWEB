@@ -26,13 +26,13 @@ class MinecraftGroupSyncInjector implements GroupSyncInjector {
     }
 
     public function shouldEnable(): bool {
-        return Util::getSetting('group_sync_mc_server') != 0 && count($this->getSelectionOptions()) > 0;
+        return Settings::get('group_sync_mc_server') != 0 && count($this->getSelectionOptions()) > 0;
     }
 
     public function getSelectionOptions(): array {
         $row = DB::getInstance()->query(
             'SELECT `groups` FROM `rw_query_results` WHERE `server_id` = ? ORDER BY `id` DESC LIMIT 1',
-            [Util::getSetting('group_sync_mc_server')]
+            [Settings::get('group_sync_mc_server')]
         )->first();
 
         if ($row === null) {

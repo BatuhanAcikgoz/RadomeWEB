@@ -14,7 +14,7 @@
 $social_media_icons = [];
 
 // Facebook
-$social_media = Util::getSetting('fb_url');
+$social_media = Settings::get('fb_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'fb',
@@ -25,7 +25,7 @@ if ($social_media != null) {
 }
 
 // Twitter
-$social_media = Util::getSetting('twitter_url');
+$social_media = Settings::get('twitter_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'tw',
@@ -36,7 +36,7 @@ if ($social_media != null) {
 }
 
 // Youtube
-$social_media = Util::getSetting('youtube_url');
+$social_media = Settings::get('youtube_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'gp',
@@ -47,7 +47,7 @@ if ($social_media != null) {
 }
 
 // Discord
-$social_media = Util::getSetting('discord_url');
+$social_media = Settings::get('discord_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'dc',
@@ -59,7 +59,7 @@ if ($social_media != null) {
 
 
 //Instagram
-$social_media = Util::getSetting('instagram_url');
+$social_media = Settings::get('instagram_url');
 if ($social_media != null) {
     $social_media_icons[] = [
         'short' => 'insta',
@@ -69,18 +69,18 @@ if ($social_media != null) {
     ];
 }
 
-$youtube_url = Util::getSetting('youtube_url');
-$twitter_url = Util::getSetting('twitter_url');
-$instagram_url = Util::getSetting('instagram_url');
-$discord_url = Util::getSetting('discord_url');
-$twitter_style = Util::getSetting('twitter_style');
-$fb_url = Util::getSetting('fb_url');
+$youtube_url = Settings::get('youtube_url');
+$twitter_url = Settings::get('twitter_url');
+$instagram_url = Settings::get('instagram_url');
+$discord_url = Settings::get('discord_url');
+$twitter_style = Settings::get('twitter_style');
+$fb_url = Settings::get('fb_url');
 
 // Smarty template
 // Assign to Smarty variables
 $smarty->assign([
     'SOCIAL_MEDIA_ICONS' => $social_media_icons,
-    'PAGE_LOAD_TIME' => Util::getSetting('page_loading'),
+    'PAGE_LOAD_TIME' => Settings::get('page_loading'),
     'FACEBOOK_URL_VALUE' => Output::getClean($fb_url),
     'INSTAGRAM_URL_VALUE' => Output::getClean($instagram_url),
     'DISCORD_URL_VALUE' => Output::getClean($discord_url),

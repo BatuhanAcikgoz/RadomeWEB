@@ -27,7 +27,7 @@ $currency_symbol = Output::getClean(Magaza::getCurrencySymbol());
 if (Input::exists()) {
     $errors = [];
 
-    if (Token::check() && Util::getSetting('user_send_credits')) {
+    if (Token::check() && Settings::get('user_send_credits')) {
         $validation = Validate::check($_POST, [
             'to' => [
                 Validate::REQUIRED => true,
@@ -156,7 +156,7 @@ $smarty->assign([
 ]);
 
 
-$can_send_credits = Util::getSetting('user_send_credits');
+$can_send_credits = Settings::get('user_send_credits');
 if ($can_send_credits) {
     $smarty->assign([
         'CAN_SEND_CREDITS' => true,

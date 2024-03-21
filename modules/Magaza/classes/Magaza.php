@@ -31,7 +31,7 @@ class Magaza {
     }
 
     public function getMagazaURL(): string {
-        return Util::getSetting('store_path', '/magaza', 'Magaza');
+        return Settings::get('store_path', '/magaza', 'Magaza');
     }
 
     // Get all products
@@ -134,15 +134,15 @@ class Magaza {
     }
 
     public static function getMagazaPath(): string {
-        return Util::getSetting('store_path', '/magaza', 'Magaza');
+        return Settings::get('store_path', '/magaza', 'Magaza');
     }
 
     public static function getCurrency(): string {
-        return Util::getSetting('currency', 'TL', 'Magaza');
+        return Settings::get('currency', 'TL', 'Magaza');
     }
 
     public static function getCurrencySymbol(): string {
-        return Util::getSetting('currency_symbol', '₺', 'Magaza');
+        return Settings::get('currency_symbol', '₺', 'Magaza');
     }
 
     /**

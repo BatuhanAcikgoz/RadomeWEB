@@ -69,7 +69,7 @@ class AvatarSource {
         }
 
         // Attempt to get their MC avatar if Minecraft integration is enabled
-        if (Util::getSetting('mc_integration') && Config::get('core.installed') === true) {
+        if (Settings::get('mc_integration') && Config::get('core.installed') === true) {
             if ($data->uuid != null && $data->uuid != 'none') {
                 $uuid = $data->username;
             } else {

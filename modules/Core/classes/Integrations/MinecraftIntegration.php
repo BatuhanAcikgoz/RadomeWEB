@@ -21,7 +21,7 @@ class MinecraftIntegration extends IntegrationBase {
     }
 
     private function flashVerifyCommand(string $verification_code): void {
-        $verification_command = Output::getClean(Util::getSetting('minecraft_verify_command', '/verify'));
+        $verification_command = Output::getClean(Settings::get('minecraft_verify_command', '/verify'));
         $message = $this->_language->get('user', 'validate_account_command', ['command' => $verification_command . ' ' . $verification_code]);
         Session::flash('connections_success', $message);
     }

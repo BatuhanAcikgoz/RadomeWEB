@@ -17,7 +17,7 @@ if (!count($leaderboard_placeholders)) {
 }
 
 // Placeholders enabled?
-if (Util::getSetting('placeholders') !== '1') {
+if (Settings::get('placeholders') !== '1') {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

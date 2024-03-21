@@ -202,7 +202,7 @@ if ($login_method == 'email') {
     $smarty->assign('EMAIL', $language->get('user', 'email'));
 } else if ($login_method == 'email_or_username') {
     $smarty->assign('USERNAME', $language->get('user', 'email_or_username'));
-} else if (Util::getSetting('mc_integration')) {
+} else if (Settings::get('mc_integration')) {
     $smarty->assign('USERNAME', $language->get('user', 'minecraft_username'));
 } else {
     $smarty->assign('USERNAME', $language->get('user', 'username'));

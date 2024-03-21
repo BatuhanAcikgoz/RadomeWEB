@@ -71,12 +71,12 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get values from database
-$youtube_url = Util::getSetting('youtube_url');
-$twitter_url = Util::getSetting('twitter_url');
-$instagram_url = Util::getSetting('instagram_url');
-$discord_url = Util::getSetting('discord_url');
-$twitter_style = Util::getSetting('twitter_style');
-$fb_url = Util::getSetting('fb_url');
+$youtube_url = Settings::get('youtube_url');
+$twitter_url = Settings::get('twitter_url');
+$instagram_url = Settings::get('instagram_url');
+$discord_url = Settings::get('discord_url');
+$twitter_style = Settings::get('twitter_style');
+$fb_url = Settings::get('fb_url');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,

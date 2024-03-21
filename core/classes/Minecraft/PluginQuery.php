@@ -18,7 +18,7 @@ class PluginQuery {
      */
     public static function singleQuery(int $server_id, Language $language): array {
 
-        $player_list_limit = Util::getSetting('player_list_limit', 20);
+        $player_list_limit = Settings::get('player_list_limit', 20);
 
         $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
         $cache->setCache('latest_query');
@@ -63,17 +63,17 @@ class PluginQuery {
         $cache->setCache('latest_query');
 
         foreach ($servers as $server) {
-            $server_id = $server->id;
-            $data = $cache->retrieve($server_id);
+            $server_id = $server['id'];
             if (!$cache->isCached($server_id) && $accumulate === true) {
                 $to_return[] = [
-                    'name' => Output::getClean($data['name']),
+                    'name' => Output::getClean($server['name']),
                     'status_value' => 0,
                     'status' => $language->get('general', 'offline'),
                     'server_offline' => $language->get('general', 'server_offline')
                 ];
             } else {
                 // Server is online
+                $data = $cache->retrieve($server_id);
                 if ($accumulate === false) {
                     $to_return[] = [
                         'name' => Output::getClean($server['name']),

@@ -66,15 +66,16 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
         }
 
         $group_sync_log = [];
-        $should_group_sync = $server_id == Util::getSetting('group_sync_mc_server');
+        $should_group_sync = $server_id == Settings::get('group_sync_mc_server');
 
-        try {
-            $integration = Integrations::getInstance()->getIntegration('Minecraft');
+        if (Settings::get('mc_integration')) {
+            try {
+                $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
-            foreach ($_POST['players'] as $uuid => $player) {
-                $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
-                if ($integrationUser->exists()) {
-                    $this->updateUsername($integrationUser, $player);
+                foreach ($_POST['players'] as $uuid => $player) {
+                    $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
+                    if ($integrationUser->exists()) {
+                        $this->updateUsername($integrationUser, $player);
 
                     if ($should_group_sync) {
                         $log = $this->updateGroups($integrationUser, $player);
@@ -88,13 +89,14 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     }
                 }
             }
-        } catch (Exception $e) {
-            $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
+            } catch (Exception $e) {
+                $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
+            }
         }
 
         // Server query
         try {
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
             if ($query_type == 'plugin') {
                 $players_list = [];
                 foreach ($_POST['players'] as $uuid => $player) {
@@ -125,14 +127,14 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             ]);
         }
 
-        if (Util::getSetting('username_sync')) {
+        if (Settings::get('username_sync')) {
             $user = $integrationUser->getUser();
             if (!$user->exists() || $player['name'] == $user->data()->username) {
                 return;
             }
 
             // Update username
-            if (Util::getSetting('displaynames') === '1') {
+            if (Settings::get('displaynames') === '1') {
                 $user->update([
                     'username' => $player['name']
                 ]);

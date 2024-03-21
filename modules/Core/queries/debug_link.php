@@ -164,7 +164,7 @@ foreach (RadomeOAuth::getInstance()->getProviders() as $provider_name => $data) 
     ];
 }
 
-$radomeweb_version = Util::getSetting('radome_version');
+$radomeweb_version = Settings::get('radome_version');
 
 $uuid = DB::getInstance()->query('SELECT identifier FROM rw_users_integrations INNER JOIN rw_integrations on integration_id=rw_integrations.id WHERE name = \'Minecraft\' AND user_id = ?;', [$user->data()->id]);
 if ($uuid->count()) {
@@ -207,15 +207,15 @@ $data = [
     'user' => $user_data,
     'radomeweb' => [
         'version' => $radomeweb_version,
-        'update_available' => Util::getSetting('version_update') === 'urgent' || Util::getSetting('version_update') === 'true',
-        'update_checked' => (int) Util::getSetting('version_checked'),
+        'update_available' => Settings::get('version_update') === 'urgent' || Settings::get('version_update') === 'true',
+        'update_checked' => (int) Settings::get('version_checked'),
         'settings' => [
-            'phpmailer' => Util::getSetting('phpmailer') === '1',
-            'api_enabled' => Util::getSetting('use_api') === '1',
-            'email_verification' => Util::getSetting('email_verification') === '1',
-            'login_method' => Util::getSetting('login_method'),
-            'captcha_type' => Util::getSetting('recaptcha_type'),
-            'captcha_login' => Util::getSetting('recaptcha_login') === 'false' ? false : true, // dont ask
+            'phpmailer' => Settings::get('phpmailer') === '1',
+            'api_enabled' => Settings::get('use_api') === '1',
+            'email_verification' => Settings::get('email_verification') === '1',
+            'login_method' => Settings::get('login_method'),
+            'captcha_type' => Settings::get('recaptcha_type'),
+            'captcha_login' => Settings::get('recaptcha_login') === 'false' ? false : true, // dont ask
             'group_sync' => $group_sync,
             'webhooks' => [
                 'actions' => [

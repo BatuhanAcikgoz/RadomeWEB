@@ -278,17 +278,17 @@ if (isset($_GET['view'])) {
     $runners = [
         [
             'label' => $language->get('admin', 'queue_runner_ajax'),
-            'selected' => Util::getSetting('queue_runner') == 'ajax',
+            'selected' => Settings::get('queue_runner') == 'ajax',
             'value' => 'ajax',
         ],
         [
             'label' => $language->get('admin', 'queue_runner_cron'),
-            'selected' => Util::getSetting('queue_runner') == 'cron',
+            'selected' => Settings::get('queue_runner') == 'cron',
             'value' => 'cron',
         ],
     ];
 
-    if (!($cron_key = Util::getSetting('cron_key'))) {
+    if (!($cron_key = Settings::get('cron_key'))) {
         $cron_key = SecureRandom::alphanumeric();
         Util::setSetting('cron_key', $cron_key);
     }
@@ -299,7 +299,7 @@ if (isset($_GET['view'])) {
         'QUEUE_INFO' => $language->get('admin', 'queue_info'),
         'QUEUE_CRON_URL' => rtrim(URL::getSelfURL(), '/') . URL::build('/queries/queue', 'cron&key=' . $cron_key),
         'QUEUE_INTERVAL' => $language->get('admin', 'queue_interval'),
-        'QUEUE_INTERVAL_VALUE' => Util::getSetting('queue_interval'),
+        'QUEUE_INTERVAL_VALUE' => Settings::get('queue_interval'),
         'QUEUE_RUNNER' => $language->get('admin', 'queue_runner'),
         'QUEUE_RUNNERS' => $runners,
         'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),

@@ -182,7 +182,7 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
             if ($query_type === 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
             }
@@ -391,7 +391,7 @@ if (isset($_GET['action'])) {
             $available_parent_servers = DB::getInstance()->get('mc_servers', ['parent_server', 0])->results();
 
             // Display query information alert only if external query is selected
-            $query_type = Util::getSetting('query_type', 'internal');
+            $query_type = Settings::get('query_type', 'internal');
 
             if ($query_type == 'external') {
                 $smarty->assign('SERVER_QUERY_INFORMATION', $language->get('admin', 'server_query_information'));
@@ -589,10 +589,10 @@ if (isset($_GET['action'])) {
     }
 
    // Settings
-   $query_type = Util::getSetting('query_type', 'internal');
-   $status_page = Util::getSetting('status_page');
-   $group_sync_server = Util::getSetting('group_sync_mc_server');
-   $player_list_limit = Util::getSetting('player_list_limit', '20');
+   $query_type = Settings::get('query_type', 'internal');
+   $status_page = Settings::get('status_page');
+   $group_sync_server = Settings::get('group_sync_mc_server');
+   $player_list_limit = Settings::get('player_list_limit', '20');
 
     $smarty->assign([
         'NEW_SERVER' => $language->get('admin', 'add_server'),
@@ -615,7 +615,7 @@ if (isset($_GET['action'])) {
         'INTERNAL' => $language->get('admin', 'internal'),
         'EXTERNAL' => $language->get('admin', 'external'),
         'PLUGIN' => $language->get('admin', 'plugin'),
-        'QUERY_INTERVAL_VALUE' => Util::getSetting('minecraft_query_interval'),
+        'QUERY_INTERVAL_VALUE' => Settings::get('minecraft_query_interval'),
         'EXTERNAL_QUERY' => $language->get('admin', 'external_query'),
         'INFO' => $language->get('general', 'info'),
         'QUERY_TYPE_INFO' => $language->get('admin', 'query_type_help'),

@@ -57,7 +57,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/mailimi_unuttum', 'pages/forgot_mail.php');
         $pages->add('Core', '/kaydi_tamamla', 'pages/complete_signup.php');
         $pages->add('Core', '/durum', 'pages/status.php', 'status');
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             $pages->add('Core', '/siralama', 'pages/leaderboards.php', 'leaderboards');
         }
         $pages->add('Core', '/tier_list', 'pages/tier_list.php');
@@ -120,7 +120,7 @@ class Core_Module extends Module {
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
 
-        if (Util::getSetting('queue_runner', 'ajax') == 'ajax') {
+        if (Settings::get('queue_runner', 'ajax') == 'ajax') {
             $pages->addAjaxScript(URL::build('/sorgu/queue'));
         }
 
@@ -433,9 +433,9 @@ class Core_Module extends Module {
        ]);
 
         // Captcha
-        $captchaPublicKey = Util::getSetting('recaptcha_key', '');
-        $captchaPrivateKey = Util::getSetting('recaptcha_secret', '');
-        $activeCaptcha = Util::getSetting('recaptcha_type', 'Recaptcha3');
+        $captchaPublicKey = Settings::get('recaptcha_key', '');
+        $captchaPrivateKey = Settings::get('recaptcha_secret', '');
+        $activeCaptcha = Settings::get('recaptcha_type', 'Recaptcha3');
 
         CaptchaBase::addProvider(new hCaptcha($captchaPrivateKey, $captchaPublicKey));
         CaptchaBase::addProvider(new Recaptcha2($captchaPrivateKey, $captchaPublicKey));
@@ -510,7 +510,7 @@ class Core_Module extends Module {
         });
 
         // Minecraft Integration
-        if (Util::getSetting('mc_integration')) {
+        if (Settings::get('mc_integration')) {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
@@ -680,16 +680,16 @@ class Core_Module extends Module {
         if (defined('FRONT_END') || (defined('PANEL_PAGE') && str_contains(PANEL_PAGE, 'widget'))) {
             // Facebook
             $cache->setCache('social_media');
-            $fb_url = Util::getSetting('fb_url');
+            $fb_url = Settings::get('fb_url');
             if ($fb_url) {
                 $widgets->add(new FacebookWidget($smarty, $fb_url));
             }
 
             // Twitter
-            $twitter = Util::getSetting('twitter_url');
+            $twitter = Settings::get('twitter_url');
 
             if ($twitter) {
-                $theme = Util::getSetting('twitter_style');
+                $theme = Settings::get('twitter_style');
                 $widgets->add(new TwitterWidget($smarty, $twitter, $theme));
             }
 
@@ -713,7 +713,7 @@ class Core_Module extends Module {
         }
 
         // Validate user hook
-        $validate_action = Util::getSetting('validate_user_action');
+        $validate_action = Settings::get('validate_user_action');
         $validate_action = json_decode($validate_action, true);
 
         if ($validate_action['action'] == 'promote') {
@@ -736,14 +736,14 @@ class Core_Module extends Module {
         define('PRE_VALIDATED_DEFAULT', $group_id);
 
 
-        if (Util::getSetting('mc_integration') && Util::getSetting('status_page')) {
+        if (Settings::get('mc_integration') && Settings::get('status_page')) {
             // Status page?
             $cache->setCache('status_page');
             if ($cache->isCached('enabled')) {
                 $status_enabled = $cache->retrieve('enabled');
 
             } else {
-                $status_enabled = Util::getSetting('status_page') === '1' ? 1 : 0;
+                $status_enabled = Settings::get('status_page') === '1' ? 1 : 0;
                 $cache->store('enabled', $status_enabled);
 
             }
@@ -772,7 +772,7 @@ class Core_Module extends Module {
         $leaderboard_placeholders = Placeholders::getInstance()->getLeaderboardPlaceholders();
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('mc_integration') && Util::getSetting('placeholders') === '1' && count($leaderboard_placeholders)) {
+        if (Settings::get('mc_integration') && Settings::get('placeholders') === '1' && count($leaderboard_placeholders)) {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('leaderboards_order')) {
                 $leaderboards_order = 4;
@@ -793,7 +793,7 @@ class Core_Module extends Module {
 
 
         // Only add leaderboard link if there is at least one enabled placeholder
-        if (Util::getSetting('tier_list_page') === '1') {
+        if (Settings::get('tier_list_page') === '1') {
             $cache->setCache('navbar_order');
             if (!$cache->isCached('tier_list_order')) {
                 $tier_list_order = 20;
@@ -815,7 +815,7 @@ class Core_Module extends Module {
         // Check page type (frontend or backend)
         if (defined('FRONT_END')) {
             // Minecraft integration?
-            if (Util::getSetting('mc_integration')) {
+            if (Settings::get('mc_integration')) {
                 // Query main server
                 $cache->setCache('mc_default_server');
 
@@ -848,10 +848,10 @@ class Core_Module extends Module {
                     }
 
                     if (!is_null($default) && isset($default->ip)) {
-                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name];
+                        $full_ip = ['ip' => $default->ip . (is_null($default->port) ? '' : ':' . $default->port), 'pre' => $default->pre, 'name' => $default->name, 'id' => $default->id];
 
                         // Get query type
-                        $query_type = Util::getSetting('query_type', 'internal');
+                        $query_type = Settings::get('query_type', 'internal');
 
                         if (isset($sub_servers) && count($sub_servers)) {
                             $servers = [$full_ip];
@@ -1522,7 +1522,7 @@ class Core_Module extends Module {
 
     public function getDebugInfo(): array {
         $servers = [];
-        $group_sync_server_id = Util::getSetting('group_sync_mc_server');
+        $group_sync_server_id = Settings::get('group_sync_mc_server');
         foreach (DB::getInstance()->get('mc_servers', ['id', '<>', 0])->results() as $server) {
             $servers[(int)$server->id] = [
                 'id' => (int)$server->id,
@@ -1538,9 +1538,9 @@ class Core_Module extends Module {
 
         return [
             'minecraft' => [
-                'mc_integration' => (bool)Util::getSetting(Settings::MINECRAFT_INTEGRATION),
-                'username_sync' => (bool)Util::getSetting('username_sync'),
-                'query_type' => Util::getSetting('query_type', 'internal'),
+                'mc_integration' => (bool)Settings::get(Settings::MINECRAFT_INTEGRATION),
+                'username_sync' => (bool)Settings::get('username_sync'),
+                'query_type' => Settings::get('query_type', 'internal'),
                 'servers' => $servers,
             ]
         ];

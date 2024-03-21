@@ -111,7 +111,7 @@ if ($page != 'install') {
 
     // Error reporting
     if (!defined('DEBUGGING')) {
-        if (Util::getSetting('error_reporting') === '1') {
+        if (Settings::get('error_reporting') === '1') {
             ini_set('display_startup_errors', 1);
             ini_set('display_errors', 1);
             error_reporting(-1);
@@ -132,7 +132,7 @@ if ($page != 'install') {
     }
 
     // Get the Radome version
-    define('RADOME_VERSION', Util::getSetting('radome_version'));
+    define('RADOME_VERSION', Settings::get('radome_version'));
 
     // Set the date format
     define('DATE_FORMAT', Config::get('core.date_format') ?: 'd M Y, H:i');
@@ -183,7 +183,7 @@ if ($page != 'install') {
     }
 
     // Set timezone
-    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Util::getSetting('timezone', 'Europe/Istanbul'));
+    define('TIMEZONE', $user->isLoggedIn() ? $user->data()->timezone : Settings::get('timezone', 'Europe/Istanbul'));
     date_default_timezone_set(TIMEZONE);
 
     // Language
@@ -203,7 +203,7 @@ if ($page != 'install') {
     define('DEFAULT_LANGUAGE', $default_language);
 
     if (!$user->isLoggedIn() || !($user->data()->language_id)) {
-        if (Util::getSetting('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
+        if (Settings::get('auto_language_detection') && (!Cookie::exists('auto_language') || Cookie::get('auto_language') === 'true')) {
             // Attempt to get the requested language from the browser if it exists
             $automatic_locale = Language::acceptFromHttp(HttpUtils::getHeader('Accept-Language') ?? '');
             if ($automatic_locale !== false) {
@@ -230,7 +230,7 @@ if ($page != 'install') {
     $language = $container->get('Language');
 
     // Site name
-    $sitename = Util::getSetting('sitename');
+    $sitename = Settings::get('sitename');
     if ($sitename === null) {
         die('No sitename in settings table');
     }
@@ -394,7 +394,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/kullanici/oauth'));
 
     // Placeholders enabled?
-    if (Util::getSetting('placeholders') === '1') {
+    if (Settings::get('placeholders') === '1') {
         $cc_nav->add('cc_placeholders', $language->get('user', 'placeholders'), URL::build('/kullanici/placeholderlar'));
     }
 
@@ -455,6 +455,14 @@ if ($page != 'install') {
         return $a['priority'] - $b['priority'];
     });
 
+    // Load module dependencies
+    foreach ($enabled_modules as $module) {
+        if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php')) {
+            require_once ROOT_PATH . '/modules/' . $module['name'] . '/autoload.php';
+        }
+    }
+
+    // Load modules
     foreach ($enabled_modules as $module) {
         if (file_exists(ROOT_PATH . '/modules/' . $module['name'] . '/init.php')) {
             require(ROOT_PATH . '/modules/' . $module['name'] . '/init.php');
@@ -462,7 +470,7 @@ if ($page != 'install') {
     }
 
     // Maintenance mode?
-    if (Util::getSetting('maintenance') === '1') {
+    if (Settings::get('maintenance') === '1') {
         // Enabled
         // Admins only beyond this point
         if (!$user->isLoggedIn() || !$user->canViewStaffCP()) {
@@ -652,7 +660,7 @@ if ($page != 'install') {
         }
         
         // Auto language enabled?
-        if (Util::getSetting('auto_language_detection')) {
+        if (Settings::get('auto_language_detection')) {
             $smarty->assign('AUTO_LANGUAGE', true);
         }
     }

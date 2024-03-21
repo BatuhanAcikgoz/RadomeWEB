@@ -20,7 +20,7 @@ class Core_Sitemap {
         $sitemap->addItem(URL::build('/giris'), 0.8);
         $sitemap->addItem(URL::build('/kayit'));
 
-        $home_type = Util::getSetting('home_type');
+        $home_type = Settings::get('home_type');
 
         if ($home_type === 'portal') {
             $sitemap->addItem(URL::build('/anasayfa'), 0.9);

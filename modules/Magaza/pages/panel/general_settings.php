@@ -141,29 +141,29 @@ if (isset($errors) && count($errors))
     ]);
 
 // Can guest make purchases
-$allow_guests = Util::getSetting('allow_guests', '0', 'Magaza');
+$allow_guests = Settings::get('allow_guests', '0', 'Magaza');
 
 // Magaza content
-$store_index_content = Output::getClean(Output::getPurified(Output::getDecoded(Util::getSetting('store_content', '', 'Magaza'))));
+$store_index_content = Output::getClean(Output::getPurified(Output::getDecoded(Settings::get('store_content', '', 'Magaza'))));
 
 // Checkout complete content
-$checkout_complete_content = Output::getClean(Output::getPurified(Output::getDecoded(Util::getSetting('checkout_complete_content', '', 'Magaza'))));
+$checkout_complete_content = Output::getClean(Output::getPurified(Output::getDecoded(Settings::get('checkout_complete_content', '', 'Magaza'))));
 
 // Magaza Path
-$store_path = Util::getSetting('store_path', '/magaza', 'Magaza');
+$store_path = Settings::get('store_path', '/magaza', 'Magaza');
 
 // Currency
 $currency_list = ['TL', 'USD', 'EUR'];
-$currency = Util::getSetting('currency', 'TL', 'Magaza');
+$currency = Settings::get('currency', 'TL', 'Magaza');
 
 // Currency Symbol
-$currency_symbol = Util::getSetting('currency_symbol', '₺', 'Magaza');
+$currency_symbol = Settings::get('currency_symbol', '₺', 'Magaza');
 
 // Retrieve Link Location from cache
 $cache->setCache('nav_location');
 $link_location = $cache->retrieve('store_location');
 
-$show_credits_amount = Util::getSetting('show_credits_amount', '1');
+$show_credits_amount = Settings::get('show_credits_amount', '1');
 $show_credits_amount = ($show_credits_amount === '1' || $show_credits_amount === null ? true : false);
 
 $smarty->assign([
@@ -181,12 +181,12 @@ $smarty->assign([
     'SHOW_CREDITS_AMOUNT' => $store_language->get('admin', 'show_credits_amount'),
     'SHOW_CREDITS_AMOUNT_VALUE' => $show_credits_amount,
     'ALLOW_USERS_TO_SEND_CREDITS' => $store_language->get('admin', 'allow_users_to_send_credits'),
-    'ALLOW_USERS_TO_SEND_CREDITS_VALUE' => Util::getSetting('user_send_credits', '0'),
+    'ALLOW_USERS_TO_SEND_CREDITS_VALUE' => Settings::get('user_send_credits', '0'),
     'STORE_PATH' => $store_language->get('admin', 'store_path'),
     'STORE_PATH_VALUE' => $store_path,
     'CURRENCY_FORMAT' => $store_language->get('admin', 'currency_format'),
     'CURRENCY_FORMAT_INFO' => $store_language->get('admin', 'currency_format_info'),
-    'CURRENCY_FORMAT_VALUE' => Util::getSetting('currency_format', '{currencySymbol}{price} {currencyCode}', 'Magaza'),
+    'CURRENCY_FORMAT_VALUE' => Settings::get('currency_format', '{currencySymbol}{price} {currencyCode}', 'Magaza'),
     'CURRENCY' => $store_language->get('admin', 'currency'),
     'CURRENCY_LIST' => $currency_list,
     'CURRENCY_VALUE' => Output::getClean($currency),

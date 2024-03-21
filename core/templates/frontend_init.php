@@ -33,7 +33,7 @@ if (defined('PAGE') && PAGE != 'login' && PAGE != 'register' && PAGE != 404 && P
 }
 
 // Check if any integrations is required before user can continue
-if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections') {
+if ($user->isLoggedIn() && defined('PAGE') && PAGE != 'cc_connections' && PAGE != 'oauth') {
     foreach (Integrations::getInstance()->getEnabledIntegrations() as $integration) {
         if ($integration->data()->required && $integration->allowLinking()) {
             $integrationUser = $user->getIntegration($integration->getName());
@@ -146,7 +146,7 @@ if (!empty($favicon_image)) {
     $smarty->assign('FAVICON', Output::getClean($favicon_image));
 }
 
-$analytics_id = Util::getSetting('ga_script');
+$analytics_id = Settings::get('ga_script');
 if ($analytics_id) {
     $smarty->assign('ANALYTICS_ID', Output::getClean($analytics_id));
 }

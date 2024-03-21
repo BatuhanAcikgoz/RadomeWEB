@@ -17,7 +17,7 @@ if (!count($tier_list_db)) {
 }
 
 // Placeholders enabled?
-if (Util::getSetting('tier_list_page') !== '1') {
+if (Settings::get('tier_list_page') !== '1') {
     require_once(ROOT_PATH . '/404.php');
     die();
 }

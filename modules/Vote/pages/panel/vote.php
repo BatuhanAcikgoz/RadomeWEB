@@ -113,7 +113,7 @@ if (!isset($_GET['action'])) {
 	$icon = $cache->retrieve('vote_icon');
 
 	// Get vote 
-	$mcmp_key =  Util::getSetting('mcmp_key', '', 'Vote');
+	$mcmp_key =  Settings::get('mcmp_key', '', 'Vote');
 
 	$smarty->assign([
 		'NEW_SITE' => $vote_language->get('vote', 'new_site'),
@@ -133,7 +133,7 @@ if (!isset($_GET['action'])) {
 		'SITE_LIST' => $sites_array,
 		'NO_VOTE_SITES' => $vote_language->get('vote', 'no_vote_sites'),
 		'MESSAGE' => $vote_language->get('vote', 'message'),
-		'MESSAGE_VALUE' => Util::getSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote'),
+		'MESSAGE_VALUE' => Settings::get('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote'),
 		'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
 		'CONFIRM_DELETE_SITE' => $vote_language->get('vote', 'delete_site'),
 		'YES' => $language->get('general', 'yes'),

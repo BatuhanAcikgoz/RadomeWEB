@@ -185,13 +185,13 @@ for ($i = 0; $i < $count; $i++) {
     }
 }
 
-$timezone = Util::getSetting('timezone');
+$timezone = Settings::get('timezone');
 $timezone = $timezone[0]->value;
-$private_profile = Util::getSetting('private_profile');
+$private_profile = Settings::get('private_profile');
 
-$displaynames = Util::getSetting('displaynames');
+$displaynames = Settings::get('displaynames');
 $private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
-$method = Util::getSetting('login_method');
+$method = Settings::get('login_method');
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
