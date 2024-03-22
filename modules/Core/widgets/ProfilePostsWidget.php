@@ -1,46 +1,34 @@
 <?php
-
 /*
  *  Made by Aberdeener
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0-pr8
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.2
  *
  *  License: MIT
  *
  *  Profile Posts Widget
  */
 
-class ProfilePostsWidget extends WidgetBase
-{
+class ProfilePostsWidget extends WidgetBase {
 
     private Cache $_cache;
     private Language $_language;
     private User $_user;
     private TimeAgo $_timeago;
 
-    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago)
-    {
-        $this->_language = $language;
+    public function __construct(Smarty $smarty, Language $language, Cache $cache, User $user, TimeAgo $timeago) {
+        $this->_module = 'Core';
+        $this->_name = 'Latest Profile Posts';
+        $this->_description = 'Display the latest profile posts on your site.';
         $this->_smarty = $smarty;
+
+        $this->_language = $language;
         $this->_cache = $cache;
         $this->_user = $user;
         $this->_timeago = $timeago;
-
-        // Get widget
-        $widget_query = self::getData('Latest Profile Posts');
-
-        parent::__construct(self::parsePages($widget_query));
-
-        // Set widget variables
-        $this->_module = 'Core';
-        $this->_name = 'Latest Profile Posts';
-        $this->_location = $widget_query->location ?? null;
-        $this->_description = 'Display the latest profile posts on your site.';
-        $this->_order = $widget_query->order ?? null;
     }
 
-    public function initialise(): void
-    {
+    public function initialise(): void {
         // Generate HTML code for widget
         if ($this->_user->isLoggedIn()) {
             $user_id = $this->_user->data()->id;
@@ -82,6 +70,7 @@ class ProfilePostsWidget extends WidgetBase
                         SQL,
                 )->results();
             }
+
             foreach ($posts as $post) {
                 $post_author = new User($post->author_id);
                 $post_user = new User($post->user_id);

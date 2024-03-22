@@ -3,7 +3,7 @@
 /**
  * Represents an event which has specific parameters to send to a webhook.
  *
- * @package NamelessMC\Events
+ * @package RadomeWEB\Events
  * @author Aberdeener
  * @version 2.2.0
  * @license MIT

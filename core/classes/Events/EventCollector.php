@@ -8,7 +8,7 @@ use DebugBar\DataCollector\Renderable;
  * Interacts with the DebugBar to display executed events.
  *
  * @see DebugBarHelper
- * @package NamelessMC\Events
+ * @package RadomeWEB\Events
  * @author Aberdeener
  * @version 2.2.0
  * @license MIT

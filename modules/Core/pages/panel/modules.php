@@ -76,10 +76,7 @@ if (!isset($_GET['action'])) {
 
         if ($all_modules_query->hasError()) {
             $all_modules_error = $all_modules_query->getError();
-        }
 
-        if (isset($all_modules_error)) {
-            $smarty->assign('WEBSITE_MODULES_ERROR', $all_modules_error);
 
         } else {
             $all_modules_query = json_decode($all_modules_query->contents());
@@ -127,7 +124,7 @@ if (!isset($_GET['action'])) {
         'WEBSITE_MODULES' => $all_modules,
         'VIEW_ALL_MODULES' => $language->get('admin', 'view_all_modules'),
         'VIEW_ALL_MODULES_LINK' => 'https://radome.web.tr/resources/kategori/1-radomeweb-modules/',
-        'UNABLE_TO_RETRIEVE_MODULES' => $language->get('admin', 'unable_to_retrieve_modules'),
+        'UNABLE_TO_RETRIEVE_MODULES' => $all_modules_error ?? $language->get('admin', 'unable_to_retrieve_modules'),
         'VIEW' => $language->get('general', 'view'),
         'MODULE' => $language->get('admin', 'module'),
         'STATS' => $language->get('admin', 'stats'),

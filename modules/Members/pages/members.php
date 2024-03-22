@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.0
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.1.0
  *
  *  License: MIT
  *
@@ -30,7 +30,9 @@ if (isset($_GET['group'])) {
     $lists_viewing = [];
 } else {
     $viewing_list = $_GET['list'] ?? 'overview';
-    if ($viewing_list !== 'overview' && !MemberListManager::getInstance()->getList($viewing_list)->isEnabled()) {
+    if ($viewing_list !== 'overview'
+        && (!MemberListManager::getInstance()->listExists($viewing_list) || !MemberListManager::getInstance()->getList($viewing_list)->isEnabled())
+    ) {
         Redirect::to(URL::build('/members'));
     }
 
@@ -39,6 +41,7 @@ if (isset($_GET['group'])) {
         : [MemberListManager::getInstance()->getList($viewing_list)];
 }
 
+// TODO handle this in MemberListManager and cache it using UserRegisteredEvent
 $new_members = [];
 if (Settings::get('member_list_hide_banned', false, 'Members')) {
     $query = DB::getInstance()->query('SELECT id FROM rw_users WHERE isbanned = 0 ORDER BY joined DESC LIMIT 12');

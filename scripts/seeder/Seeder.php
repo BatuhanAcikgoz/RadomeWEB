@@ -27,6 +27,10 @@ abstract class Seeder {
         $date->setTimestamp($past);
         return $date->modify('+' .
             $faker->numberBetween(1, 10) . ' ' . $faker->randomElement(['days', 'months'])
+        )->modify('+' .
+            $faker->numberBetween(1, 24) . ' ' . $faker->randomElement(['hours', 'minutes'])
+        )->modify('+' .
+            $faker->numberBetween(1, 60) . ' ' . $faker->randomElement(['seconds'])
         );
     }
 }

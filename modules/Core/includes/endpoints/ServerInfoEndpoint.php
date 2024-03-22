@@ -65,10 +65,13 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
             $api->throwError(CoreApiErrors::ERROR_UNABLE_TO_UPDATE_SERVER_INFO, $e->getMessage(), 500);
         }
 
+        $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
+
         $group_sync_log = [];
         $should_group_sync = $server_id == Settings::get('group_sync_mc_server');
 
         if (Settings::get('mc_integration')) {
+            $cache->setCache('minecraft_last_online');
             try {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
 
@@ -76,6 +79,7 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $integrationUser = new IntegrationUser($integration, $uuid, 'identifier');
                     if ($integrationUser->exists()) {
                         $this->updateUsername($integrationUser, $player);
+                        $cache->store($integrationUser->data()->identifier, [date('U'), $server_id]);
 
                     if ($should_group_sync) {
                         $log = $this->updateGroups($integrationUser, $player);
@@ -103,7 +107,6 @@ class ServerInfoEndpoint extends KeyAuthEndpoint {
                     $players_list[] = ['id' => $uuid, 'name' => $player['name']];
                 }
 
-                $cache = new Cache(['name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/']);
                 $cache->setCache('latest_query');
                 $cache->store($server_id, [
                     'player_count' => count($_POST['players']),

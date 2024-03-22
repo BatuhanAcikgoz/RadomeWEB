@@ -9,6 +9,20 @@
     padding: 0.5em 10px;
 }
 
+.reaction-button {
+    opacity: 50%;
+}
+
+reaction-button:hover, .reaction-button-selected {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+/** Reaction modal tab buttons display non-native emojis as 2.5em wide by default */
+.ui.menu .item > img:not(.ui) {
+    width: 1em;
+}
+
 .timeline {
     position: relative;
     padding: 21px 0px 10px;

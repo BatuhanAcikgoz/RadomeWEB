@@ -2,7 +2,7 @@
 /**
  * Basic date helper functions
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.1.0
  * @license MIT

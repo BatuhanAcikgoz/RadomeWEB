@@ -2,7 +2,7 @@
 /**
  * Represents an event which is able to be sent as a Discord embed.
  *
- * @package NamelessMC\Events
+ * @package RadomeWEB\Events
  * @author Aberdeener
  * @version 2.2.0
  * @license MIT

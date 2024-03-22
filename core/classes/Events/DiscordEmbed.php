@@ -2,7 +2,7 @@
 /**
  * Builds a Discord embed to represent an event.
  *
- * @package NamelessMC\Events
+ * @package RadomeWEB\Events
  * @author Aberdeener
  * @version 2.2.0
  * @license MIT

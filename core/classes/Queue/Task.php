@@ -2,7 +2,7 @@
 /**
  * Abstract task class for queue task implementations
  *
- * @package NamelessMC\Queue
+ * @package RadomeWEB\Queue
  * @author Samerton
  * @version 2.1.0
  * @license MIT

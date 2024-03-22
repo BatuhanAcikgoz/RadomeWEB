@@ -166,10 +166,6 @@ if ($user->isLoggedIn() || (defined('COOKIE_CHECK') && COOKIES_ALLOWED)) {
     }
 }
 
-if ($user->isLoggedIn()) {
-    $template->addJSScript('var quotedPosts = [];');
-}
-
 // Assign Smarty variables to pass to template
 $parent_category = DB::getInstance()->get('haberlers', ['id', $haberler_parent[0]->parent])->results();
 
@@ -341,44 +337,6 @@ foreach ($results->data as $n => $nValue) {
             'name' => $haberler_placeholder->friendly_name,
             'value' => $haberler_placeholder->value
         ];
-    }
-
-    // Get post reactions
-    $post_reactions = [];
-    $total_karma = 0;
-    if ($reactions_enabled) {
-        $post_reactions_query = DB::getInstance()->get('haberlers_reactions', ['post_id', $nValue->id])->results();
-
-        if (count($post_reactions_query)) {
-            foreach ($post_reactions_query as $item) {
-                if (!isset($post_reactions[$item->reaction_id])) {
-                    $post_reactions[$item->reaction_id]['count'] = 1;
-
-                    $reaction = DB::getInstance()->get('reactions', ['id', $item->reaction_id])->results();
-                    $post_reactions[$item->reaction_id]['html'] = $reaction[0]->html;
-                    $post_reactions[$item->reaction_id]['name'] = $reaction[0]->name;
-
-                    if ($reaction[0]->type == 2) {
-                        $total_karma++;
-                    } else {
-                        if ($reaction[0]->type == 0) {
-                            $total_karma--;
-                        }
-                    }
-                } else {
-                    $post_reactions[$item->reaction_id]['count']++;
-                }
-
-                $reaction_user = new User($item->user_given);
-                $post_reactions[$item->reaction_id]['users'][] = [
-                    'username' => $reaction_user->getDisplayname(true),
-                    'nickname' => $reaction_user->getDisplayname(),
-                    'style' => $reaction_user->getGroupStyle(),
-                    'avatar' => $reaction_user->getAvatar(),
-                    'profile' => $reaction_user->getProfileURL()
-                ];
-            }
-        }
     }
 
     // Purify post content

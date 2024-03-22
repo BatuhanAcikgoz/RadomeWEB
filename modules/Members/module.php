@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Aberdeener
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.1.1
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.1.1
  *
  *  License: MIT
  *
@@ -21,9 +21,9 @@ class Members_Module extends Module {
         $name = 'Members';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
         $module_version = '2.1.1';
-        $nameless_version = '2.1.1';
+        $radome_version = '2.1.1';
 
-        parent::__construct($this, $name, $author, $module_version, $nameless_version);
+        parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         // Define URLs which belong to this module
         $pages->add('Members', '/members', 'pages/members.php');

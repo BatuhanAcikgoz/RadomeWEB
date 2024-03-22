@@ -47,6 +47,16 @@
 <div class="alert alert-danger">
     {$SESSION_FAILURE_POST}
 </div>
+        {if $REACTIONS_ENABLED}
+            <div class="ui small modal" id="modal-reactions">
+                <i class="close icon"></i>
+                <div class="header">
+                    {$REACTIONS_TEXT}
+                </div>
+                <div class="scrolling content">
+                </div>
+            </div>
+        {/if}
 {/if} {foreach from=$REPLIES item=reply name=arr}
 <div class="card">
     <div class="card-header text-white header-theme"><a href="{$reply.url}" class="white-text">{if count($TOPIC_LABELS)}{foreach from=$TOPIC_LABELS item=label}{$label} {/foreach}{/if}{if isset($LOCKED) && $smarty.foreach.arr.first}
@@ -119,29 +129,41 @@
                 <br/> {/if} {else}
                 <br/> {/if}
                 <hr/> {$reply.signature}
+
             </div>
         </div>
     </div>
 </div>
-{if count($reply.post_reactions)}
-<div class="modal fade" id="reactions{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="reactions{$reply.id}ModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title" id="reactions{$reply.id}ModalLabel">{$REACTIONS_TEXT}</span>
+        {if $REACTIONS_ENABLED && ((isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID) || count($reply.post_reactions))}
+            <div class="ui mini message" id="reactions">
+                {if count($reply.post_reactions)}
+                    <span class="left aligned">
+                                    {assign i 1}
+                        {foreach from=$reply.post_reactions name=reactions item=reaction}
+                            {if $i != 1} &nbsp; {/if}
+                            <span style="cursor: pointer;" onclick="openReactionModal({$reply.id}, {$reaction.id})" data-tooltip="{$reaction.name}">
+                                                {$reaction.html} {$reaction.count}
+                                            </span>
+                            {assign i $i+1}
+                        {/foreach}
+                                </span>
+                {/if}
+
+                {if (isset($LOGGED_IN_USER) && $reply.user_id !== $USER_ID)}
+                    <span class="right floated">
+                                    {foreach from=$REACTIONS item=reaction}
+                                        <span
+                                                data-toggle="tooltip" data-content="{$reaction->name}"
+                                                class="{if array_key_exists($reply.id, $REACTIONS_BY_USER) && in_array($reaction->id, $REACTIONS_BY_USER[$reply.id])}reaction-button-selected{else}reaction-button{/if}"
+                                                onclick="submitReaction({$reply.id}, {$reaction->id});"
+                                        >
+                                            {$reaction->html}
+                                        </span>
+                                    {/foreach}
+                                </span>
+                {/if}
             </div>
-            <div class="modal-body">
-                {foreach from=$reply.post_reactions name=reactions item=reaction}
-                <strong>{$reaction.html} x {$reaction.count}:</strong>
-                <br />{foreach from=$reaction.users item=user}
-                <a style="{$user.style}" href="{$user.profile}"><img src="{$user.avatar}" class="avatar-img" style="height:20px;width:20px;" alt="{$user.username}"/> {$user.username}</a>
-                <br/> {/foreach} {if !($smarty.foreach.reactions.last)}
-                <hr/> {/if} {/foreach}
-            </div>
-        </div>
-    </div>
-</div>
-{/if} {if isset($reply.buttons.report)}
+        {/if} {if isset($reply.buttons.report)}
 <div class="modal fade" id="report{$reply.id}Modal" tabindex="-1" role="dialog" aria-labelledby="report{$reply.id}ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -234,6 +256,37 @@
 </div>
 </div>
 </div>
+{if isset($UNFOLLOW)}
+    <div class="modal fade" id="unfollowModal" tabindex="-1" role="dialog" aria-labelledby="unfollowModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="unfollowModalLabel">{$UNFOLLOW}</span>
+                </div>
+                <div class="modal-body">
+                    {$FOLLOW}<br /><br />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
+                    <a href="{$UNFOLLOW_URL}" class="btn btn-theme">{$UNFOLLOW}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{elseif isset($FOLLOW)}
+    <div class="modal fade" id="followModal" tabindex="-1" role="dialog" aria-labelledby="followModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="followModalLabel">{$FOLLOW}</span>
+                </div>
+                <div class="modal-body">
+                    {$FOLLOW}<br /><br />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{$CANCEL}</button>
+                    <a href="{$FOLLOW_URL}" class="btn btn-theme">{$FOLLOW}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{/if}
 {if isset($CAN_MODERATE)}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -249,4 +302,41 @@
         </div>
     </div>
 </div>
+
+    {if $REACTIONS_ENABLED}
+        <script>
+            const submitReaction = (post_id, reaction_id) => {
+                $.post("{$REACTIONS_URL}", {
+                    token: "{$TOKEN}",
+                    reaction_id: reaction_id,
+                    reactable_id: post_id,
+                    context: 'forum_post',
+                }, (responseText) => {
+                    if (responseText.startsWith('Reaction ')) {
+                        window.location.replace(window.location.href.replace(/#.*$/, '') + '#post-' + post_id);
+                        window.location.reload();
+                    } else {
+                        console.error(responseText);
+                    }
+                }).fail((response) => {
+                    console.error(response);
+                });
+            }
+
+            const openReactionModal = (post_id, reaction_id) => {
+                const modal = $('#modal-reactions');
+                modal.modal('show');
+                modal.find('.content').html('<div class="ui active centered inline loader"></div>');
+                $.get("{$REACTIONS_URL}", {
+                    reactable_id: post_id,
+                    context: 'forum_post',
+                    tab: reaction_id,
+                }, (responseText) => {
+                    modal.find('.content').html(responseText);
+                }).fail((response) => {
+                    console.error(response);
+                });
+            }
+        </script>
+    {/if}
 {/if} {include file='footer.tpl'}

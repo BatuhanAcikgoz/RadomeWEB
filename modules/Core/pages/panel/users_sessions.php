@@ -1,8 +1,8 @@
 <?php
 /*
  *  Made by Supercrafter100
- *  https://github.com/NamelessMC/Nameless/
- *  NamelessMC version 2.0.3
+ *  https://github.com/RadomeWEB/Nameless/
+ *  RadomeWEB version 2.0.3
  *
  *  License: MIT
  *
