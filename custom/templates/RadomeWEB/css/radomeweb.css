@@ -9,8 +9,35 @@
     padding: 0.5em 10px;
 }
 
+#post-content #reactions {
+    margin-top: auto;
+}
+
 .reaction-button {
+    margin-left: 5px;
+    margin-right: 5px;
     opacity: 50%;
+}
+
+body.dark #modal-reactions .ui.menu {
+    background-color: #282828;
+    overflow-x: auto;
+}
+
+body.dark #modal-reactions .ui.menu .item {
+    color: #fff;
+}
+
+body.dark #modal-reactions .ui.menu .item.active {
+    background-color: #222;
+}
+
+body.dark #modal-reactions .ui.large.selection.divided.list.middle.aligned .item .content {
+    color: #fff;
+}
+
+body.dark ::-webkit-scrollbar-corner {
+    background-color: transparent;
 }
 
 reaction-button:hover, .reaction-button-selected {

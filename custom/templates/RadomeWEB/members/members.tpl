@@ -158,7 +158,7 @@
                         mainDiv.appendChild(avatarDiv);
                     {/if}
                     const nameDiv = document.createElement('span');
-                    nameDiv.style = member.group_style;
+                    nameDiv.style = member.group_style?.replace('&#039;', "'")?.replace('&quot;', '"');
                     {if $VIEWING_LIST != "overview"}
                         nameDiv.innerHTML = member.username + '&nbsp;' + member.group_html.join('');
                     {else}
