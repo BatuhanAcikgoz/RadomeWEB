@@ -1315,6 +1315,7 @@
     "installer/reload_page": "Sayfayı yenile",
     "admin/sending_mass_message": "Toplu Mesaj Gönderme",
     "admin/require_integration": "Kullanıcıların entegrasyonu bağlamasını ve doğrulamasını zorunlu kılın",
+    "admin/require_two_factor_for_staffcp": "Require two factor authentication for StaffCP login (if enabled for the user)",
     "admin/placeholders_info": "Yer tutucular, RadomeWEB Spigot eklentisinin, profillerinde ve forum gönderilerinde gösterebilmeleri için web sitenize her oyuncu hakkında istatistik göndermesine izin verir.",
     "admin/custom_content": "Özel içerik",
     "admin/custom_score": "Özel Skor",
