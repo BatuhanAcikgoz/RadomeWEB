@@ -116,6 +116,7 @@ if (!defined('PAGE_DESCRIPTION')) {
         if ($og_image) {
             $smarty->assign('OG_IMAGE', rtrim(URL::getSelfURL(), '/') . $og_image);
         }
+
     }
 } else {
     $smarty->assign([
