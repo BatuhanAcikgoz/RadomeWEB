@@ -1006,7 +1006,7 @@
     "user/to": "Kime?",
     "user/two_factor_auth": "İki Faktörlü Kimlik Doğrulama",
     "user/two_factor_auth_code": "Two Factor Authentication Code",
-    "user/unable_to_connect_to_authme_db": "AuthMe veritabanına bağlanılamıyor. Bu hata devam ederse, lütfen bir yöneticiye başvurun.",
+    "user/unable_to_connect_to_authme_db": "AuthMe veritabanına bağSession::flash('adm_auth_error', $language->get('user', 'incorrect_details'));lanılamıyor. Bu hata devam ederse, lütfen bir yöneticiye başvurun.",
     "user/unable_to_send_forgot_password_email": "Unutulan şifre e-postası gönderilemiyor. Lütfen bir yöneticiye başvurun.",
     "user/unblock_user": "Kullanıcının engelini kaldır",
     "user/upload": "Yükle",

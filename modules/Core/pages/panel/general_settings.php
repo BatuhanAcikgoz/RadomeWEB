@@ -20,7 +20,7 @@ const PANEL_PAGE = 'general_settings';
 $page_title = $language->get('admin', 'general_settings');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
-// Handle input
+/// Handle input
 if (isset($_GET['do'])) {
     if ($_GET['do'] == 'installLanguage') {
         // Install new language
@@ -46,7 +46,7 @@ if (isset($_GET['do'])) {
         if ($_GET['do'] == 'updateLanguages') {
             $active_language = DB::getInstance()->get('languages', ['is_default', true])->results();
             if (count($active_language)) {
-                DB::getInstance()->query('UPDATE rw_users SET language_id = ?', [$active_language[0]->id]);
+                DB::getInstance()->query('UPDATE nl2_users SET language_id = ?', [$active_language[0]->id]);
                 $language = new Language('core', $active_language[0]->short_code);
             }
 
@@ -54,7 +54,7 @@ if (isset($_GET['do'])) {
         }
     }
 
-    Redirect::to(URL::build('/panel/genel_ayarlar'));
+    Redirect::to(URL::build('/panel/core/general_settings'));
 }
 
 // Deal with input
@@ -110,37 +110,76 @@ if (Input::exists()) {
                 $errors = [$e->getMessage()];
             }
 
-            $home_type = 'news';
+            // Portal
+            if ($_POST['homepage'] === 'portal') {
+                $home_type = 'portal';
+            } else if ($_POST['homepage'] === 'news') {
+                $home_type = 'news';
+            } else if ($_POST['homepage'] === 'custom') {
+                $home_type = 'custom';
+            }
+            // TODO allow to select a custom page to use content as homepage
 
             Settings::set('home_type', $home_type);
 
             // Private profile
+            Settings::set('private_profile', $_POST['privateProfile'] ? '1' : '0');
 
             // Registration displaynames
             Settings::set('displaynames', (isset($_POST['displaynames']) && $_POST['displaynames'] == 'true') ? '1' : '0');
 
+            // Emoji style
+            Settings::set('emoji_style', $_POST['emoji_style']);
+
+            // Friendly URLs
+            $friendly = Input::get('friendlyURL') == 'true';
+
+            // Force HTTPS?
+            if (Input::get('forceHTTPS') == 'true') {
+                $https = true;
+            } else {
+                $https = false;
+            }
+
+            // Force WWW?
+            if (Input::get('forceWWW') == 'true') {
+                $www = true;
+            } else {
+                $www = false;
+            }
+
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 Config::setMultiple([
-                    'core.friendly' => true,
-                    'core.force_https' => true,
+                    'core.friendly' => $friendly,
+                    'core.force_https' => $https,
+                    'core.force_www' => $www
                 ]);
             } else {
                 $errors = [$language->get('admin', 'config_not_writable')];
             }
 
             // Login method
-            DB::getInstance()->update('settings', ['name', 'login_method'], [
-                'value' => $_POST['login_method']
-            ]);
+            Settings::set('login_method', $_POST['login_method']);
 
+            // Auto language
+            Settings::set('auto_language_detection', $_POST['auto_language'] === 'true' ? 1 : 0);
+
+            // StaffCP two-factor auth
+            Settings::set('require_staffcp_tfa', $_POST['require_staffcp_tfa'] === 'true' ? 1 : 0);
+            $latest_forums = [];
             Log::getInstance()->log(Log::Action('admin/core/general'));
 
             Session::flash('general_language', $language->get('admin', 'settings_updated_successfully'));
 
             // Redirect in case URL type has changed
             if (!isset($errors)) {
-                Redirect::to('/panel/genel_ayarlar');
+                if ($friendly === true) {
+                    $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
+                } else {
+                    $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
+                }
+                Redirect::to($redirect);
             }
         } else {
             $errors = $validation->errors();
@@ -173,8 +212,7 @@ if (isset($errors) && count($errors)) {
 }
 
 // Get form values
-$contact_email = DB::getInstance()->get('settings', ['name', 'incoming_email'])->results();
-$contact_email = Output::getClean($contact_email[0]->value);
+$contact_email = Output::getClean(Settings::get('incoming_email'));
 
 $languages = DB::getInstance()->get('languages', ['id', '<>', 0])->results();
 $count = count($languages);
@@ -186,11 +224,8 @@ for ($i = 0; $i < $count; $i++) {
 }
 
 $timezone = Settings::get('timezone');
-$timezone = $timezone[0]->value;
 $private_profile = Settings::get('private_profile');
-
 $displaynames = Settings::get('displaynames');
-$private_profile = DB::getInstance()->get('settings', ['name', 'private_profile'])->results();
 $method = Settings::get('login_method');
 
 $smarty->assign([
@@ -207,13 +242,13 @@ $smarty->assign([
     'INFO' => $language->get('general', 'info'),
     'DEFAULT_LANGUAGE' => $language->get('admin', 'default_language'),
     'DEFAULT_LANGUAGE_HELP' => $language->get('admin', 'default_language_help', [
-        'docLinkStart' => "<a href='https://docs.radome.web.tr/home#translations' target='_blank'>",
+        'docLinkStart' => "<a href='https://docs.namelessmc.com/home#translations' target='_blank'>",
         'docLinkEnd' => '</a>'
     ]),
     'DEFAULT_LANGUAGE_VALUES' => $languages,
-    'INSTALL_LANGUAGE_LINK' => URL::build('/panel/genel_ayarlar/', 'do=installLanguage'),
+    'INSTALL_LANGUAGE_LINK' => URL::build('/panel/core/general_settings/', 'do=installLanguage'),
     'INSTALL_LANGUAGE' => $language->get('admin', 'install_language'),
-    'UPDATE_USER_LANGUAGES_LINK' => URL::build('/panel/genel_ayarlar/', 'do=updateLanguages'),
+    'UPDATE_USER_LANGUAGES_LINK' => URL::build('/panel/core/general_settings/', 'do=updateLanguages'),
     'UPDATE_USER_LANGUAGES' => $language->get('admin', 'update_user_languages'),
     'UPDATE_USER_LANGUAGES_INFO' => $language->get('admin', 'update_user_languages_warning'),
     'YES' => $language->get('general', 'yes'),
@@ -222,14 +257,48 @@ $smarty->assign([
     'DEFAULT_TIMEZONE' => $language->get('admin', 'default_timezone'),
     'DEFAULT_TIMEZONE_LIST' => Util::listTimezones(),
     'DEFAULT_TIMEZONE_VALUE' => $timezone,
+    'HOMEPAGE_TYPE' => $language->get('admin', 'homepage_type'),
     'HOMEPAGE_NEWS' => $language->get('admin', 'homepage_news'),
+    'HOMEPAGE_PORTAL' => $language->get('admin', 'portal'),
+    'HOMEPAGE_CUSTOM' => $language->get('admin', 'custom_content'),
+    'HOMEPAGE_VALUE' => Settings::get('home_type'),
+    'USE_FRIENDLY_URLS' => $language->get('admin', 'use_friendly_urls'),
+    'USE_FRIENDLY_URLS_VALUE' => Config::get('core.friendly'),
+    'USE_FRIENDLY_URLS_HELP' => $language->get('admin', 'use_friendly_urls_help', [
+        'docLinkStart' => "<a href='https://docs.namelessmc.com/friendly-urls' target='_blank'>",
+        'docLinkEnd' => '</a>'
+    ]),
     'ENABLED' => $language->get('admin', 'enabled'),
     'DISABLED' => $language->get('admin', 'disabled'),
+    'PRIVATE_PROFILES' => $language->get('admin', 'private_profiles'),
+    'PRIVATE_PROFILES_VALUE' => $private_profile,
+    'FORCE_HTTPS' => $language->get('admin', 'force_https'),
+    'FORCE_HTTPS_VALUE' => (defined('FORCE_SSL')),
+    'FORCE_HTTPS_HELP' => $language->get('admin', 'force_https_help'),
+    'FORCE_WWW' => $language->get('admin', 'force_www'),
+    'FORCE_WWW_VALUE' => (defined('FORCE_WWW')),
+    'ENABLE_NICKNAMES' => $language->get('admin', 'enable_nicknames_on_registration'),
+    'ENABLE_NICKNAMES_VALUE' => $displaynames,
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
     'LOGIN_METHOD_VALUE' => $method,
     'EMAIL' => $language->get('user', 'email'),
     'EMAIL_OR_USERNAME' => $language->get('user', 'email_or_username'),
     'USERNAME' => $language->get('user', 'username'),
+    'EMOJI_STYLE' => $language->get('admin', 'emoji_style'),
+    'EMOJI_STYLE_HELP' => $language->get('admin', 'emoji_style_help', [
+        'nativeExample' => Text::renderEmojis('😀', 'native'),
+        'twemojiExample' => Text::renderEmojis('😀', 'twemoji'),
+        'joypixelsExample' => Text::renderEmojis('😀', 'joypixels'),
+    ]),
+    'EMOJI_STYLE_VALUE' => Settings::get('emoji_style', 'twemoji'),
+    'NATIVE' => $language->get('admin', 'emoji_native'),
+    'TWEMOJI' => $language->get('admin', 'emoji_twemoji'),
+    'JOYPIXELS' => $language->get('admin', 'emoji_joypixels'),
+    'AUTO_LANGUAGE_VALUE' => Settings::get('auto_language_detection'),
+    'ENABLE_AUTO_LANGUAGE' => $language->get('admin', 'enable_auto_language'),
+    'AUTO_LANGUAGE_HELP' => $language->get('admin', 'auto_language_help'),
+    'REQUIRE_STAFFCP_TFA' => $language->get('admin', 'require_two_factor_for_staffcp'),
+    'REQUIRE_STAFFCP_TFA_VALUE' => Settings::get('require_staffcp_tfa'),
 ]);
 
 $template->onPageLoad();

@@ -49,7 +49,7 @@ class Endpoints {
                                 ? Radome2API::ERROR_INVALID_API_KEY
                                 : Radome2API::ERROR_NOT_AUTHORIZED,
                             null,
-                            403
+                            Response::HTTP_UNAUTHORIZED
                         );
                     }
 
@@ -74,10 +74,10 @@ class Endpoints {
         }
 
         if ($matched_endpoint !== null) {
-            $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
+            $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", Response::HTTP_METHOD_NOT_ALLOWED);
         }
 
-        $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this means your API is functioning!', 404);
+        $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this means your API is functioning!', Response::HTTP_NOT_FOUND);
     }
 
     /**

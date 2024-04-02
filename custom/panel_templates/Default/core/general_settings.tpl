@@ -106,8 +106,94 @@
                                                     eq "email_or_username" } selected{/if}>{$EMAIL_OR_USERNAME}</option>
                                             </select>
                                         </div>
+                                        <div class="col-md-6">
+                                            <label for="inputDefaultLanguage">{$DEFAULT_LANGUAGE}</label> <span
+                                                class="badge badge-info"><i class="fas fa-question-circle"
+                                                    data-container="body" data-toggle="popover" data-placement="top"
+                                                    title="{$INFO}" data-content="{$DEFAULT_LANGUAGE_HELP}"></i></span>
+                                            <div class="input-group">
+                                                <select name="language" class="form-control" id="inputDefaultLanguage">
+                                                    {foreach from=$DEFAULT_LANGUAGE_VALUES item=item}
+                                                    <option value="{$item->id}" {if $item->is_default eq 1}
+                                                        selected{/if}>{$item->name}</option>
+                                                    {/foreach}
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <a class="btn btn-default" data-toggle="tooltip"
+                                                        title="{$INSTALL_LANGUAGE}" href="{$INSTALL_LANGUAGE_LINK}">
+                                                        <i class="fas fa-plus-circle"></i>
+                                                    </a>
+                                                    <a class="btn btn-default" data-toggle="tooltip"
+                                                        title="{$UPDATE_USER_LANGUAGES}" onclick="showLanguageModal()">
+                                                        <i class="fas fa-upload"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                <div class="row">
+                                <div class="col-md-6">
+                                            <label for="inputPrivateProfile">{$PRIVATE_PROFILES}</label>
+                                            <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                                <option value="1" {if $PRIVATE_PROFILES_VALUE} selected{/if}>{$ENABLED}
+                                                </option>
+                                                <option value="0" {if !$PRIVATE_PROFILES_VALUE} selected{/if}>
+                                                    {$DISABLED}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                            <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
+                                            <span class="badge badge-info">
+                                                <i class="fas fa-question-circle"
+                                                   data-container="body" data-toggle="popover" data-placement="top"
+                                                   title="{$INFO}" data-content='{$EMOJI_STYLE_HELP}'></i>
+                                            </span>
+                                            <select name="emoji_style" class="form-control" id="inputEmojiStyle">
+                                                <option value="native" {if $EMOJI_STYLE_VALUE eq "native" }selected{/if}>
+                                                    {$NATIVE}
+                                                </option>
+                                                <option value="twemoji" {if $EMOJI_STYLE_VALUE eq "twemoji" }selected{/if}>
+                                                    {$TWEMOJI}
+                                                </option>
+                                                <option value="joypixels" {if $EMOJI_STYLE_VALUE eq "joypixels" }selected{/if}>
+                                                    {$JOYPIXELS}
+                                                </option>
+                                            </select>
+                                        </div>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <div class="row">
+
+                                <div class="col-md-6">
+                                            <label for="inputAutoLanguage">{$ENABLE_AUTO_LANGUAGE}</label>
+                                            <span class="badge badge-info"><i class="fas fa-question-circle"
+                                                                              data-container="body" data-toggle="popover" data-placement="top"
+                                                                              title="{$INFO}" data-content="{$AUTO_LANGUAGE_HELP}"></i></span>
+                                            <select name="auto_language" class="form-control" id="inputAutoLanguage">
+                                                <option value="true" {if $AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$AUTO_LANGUAGE_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="inputRequirePanelTFA">{$REQUIRE_STAFFCP_TFA}</label>
+                                            <select name="require_staffcp_tfa" class="form-control" id="inputRequirePanelTFA">
+                                                <option value="true" {if $REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
+                                                    {$ENABLED}
+                                                </option>
+                                                <option value="false" {if !$REQUIRE_STAFFCP_TFA_VALUE} selected{/if}>
+                                                    {$DISABLED}
+                                                </option>
+                                            </select>
+                                        </div>
+                                
                                 </div>
                                 </div>
                                 <div class="form-group">

@@ -1,5 +1,5 @@
 <?php
-
+use Symfony\Component\HttpFoundation\Response;
 /**
  * @param string $url New Discord bot URL
  * @param string $id New Discord Guild/server ID

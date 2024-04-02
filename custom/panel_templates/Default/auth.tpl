@@ -17,34 +17,14 @@
                             </div>
                             {/if}
                             <form class="user" action="" method="post">
-                                {if isset($EMAIL)}
                                 <div class="form-group has-feedback">
-                                    <input type="email" name="email" id="email" autocomplete="off"
-                                        class="form-control form-control-user" placeholder="{$EMAIL}"
-                                        value="{$EMAIL_VALUE}">
-                                </div>
-                                {else}
-                                <div class="form-group has-feedback">
-                                    <input type="text" name="username" id="username" autocomplete="off"
-                                        class="form-control form-control-user" placeholder="{$USERNAME}"
-                                        value="{$USERNAME_VALUE}">
-                                </div>
-                                {/if}
-                                <div class="form-group has-feedback">
-                                    <input type="password" name="password" id $smarty->assign([
-                                    'DEFAULT_DESCRIPTION' => $language->get('admin', 'default_description'),
-                                    'DEFAULT_DESCRIPTION_VALUE' => Settings::get('default_meta_description'),
-                                    'DEFAULT_KEYWORDS' => $language->get('admin', 'default_keywords'),
-                                    'DEFAULT_KEYWORDS_VALUE' => Settings::get('default_meta_keywords'),
-                                    ]);
-
-                                    ="password"
+                                    <input type="password" name="password" id="password"
                                         class="form-control form-control-user" placeholder="{$PASSWORD}">
                                 </div>
                                 {if isset($TWO_FACTOR_AUTH)}
                                     <div class="form-group has-feedback">
                                         <input type="text" name="tfa_code" id="tfa"
-                                               class="form-control form-control-user" placeholder="{$TFA_ENTER_CODE}">
+                                            class="form-control form-control-user" placeholder="{$TFA_ENTER_CODE}">
                                     </div>
                                 {/if}
                                 <div class="row">
