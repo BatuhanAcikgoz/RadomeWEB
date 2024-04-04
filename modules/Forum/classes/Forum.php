@@ -66,7 +66,7 @@ class Forum {
                             f.*,
                             EXISTS (
                                 SELECT p.ID
-                                FROM nl2_forums_permissions p
+                                FROM rw_forums_permissions p
                                 WHERE p.group_id IN ($groups_in)
                                   AND p.forum_id = f.id
                                   AND p.view_other_topics = 1
@@ -718,11 +718,11 @@ class Forum {
                     p.created,
                     p.post_date,
                     p.post_creator
-                FROM nl2_topics t
-                    LEFT JOIN nl2_posts p
+                FROM rw_topics t
+                    LEFT JOIN rw_posts p
                         ON p.id = (
                             SELECT id
-                            FROM nl2_posts sp
+                            FROM rw_posts sp
                             WHERE sp.topic_id = t.id
                             AND sp.deleted = 0
                             ORDER BY sp.created DESC LIMIT 1

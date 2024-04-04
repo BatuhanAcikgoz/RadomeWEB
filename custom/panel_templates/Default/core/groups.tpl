@@ -54,12 +54,12 @@
                     </tr>
                   </thead>
                   <tbody id="sortable">
-                    {foreach from=$GROUP_LIST item=group}
+                    {foreach from=$GROUP_LIST item=gAssetTree::DATATABLES,roup}
                     <tr data-id="{$group.id}">
                       <td>{$group.order}</td>
                       <td>{$group.id}</td>
                       <td><a href="{$group.edit_link}">{$group.name}</a></td>
-                      <td>{$group.users}</td>
+                      <td><a href="{$group.users_link}">{$group.users}</a></td>
                       <td>
                         {if $group.staff}
                         <i class="fas fa-check-circle text-success"></i>
