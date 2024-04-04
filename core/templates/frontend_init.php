@@ -109,8 +109,8 @@ if (!defined('PAGE_DESCRIPTION')) {
     if ($page_metadata->count()) {
         $page_metadata = $page_metadata->first();
         $smarty->assign([
-            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified($page_metadata->description)),
-            'PAGE_KEYWORDS' => Output::getPurified($page_metadata->tags),
+            'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), addslashes(strip_tags($page_metadata->description))),
+            'PAGE_KEYWORDS' => addslashes(strip_tags($page_metadata->tags)),
         ]);
         $og_image = $page_metadata->image;
         if ($og_image) {
@@ -120,8 +120,8 @@ if (!defined('PAGE_DESCRIPTION')) {
     }
 } else {
     $smarty->assign([
-        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), Output::getPurified(PAGE_DESCRIPTION)),
-        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? Output::getPurified(PAGE_KEYWORDS) : '')
+        'PAGE_DESCRIPTION' => str_replace('{site}', Output::getClean(SITE_NAME), addslashes(strip_tags(PAGE_DESCRIPTION))),
+        'PAGE_KEYWORDS' => (defined('PAGE_KEYWORDS') ? addslashes(strip_tags(PAGE_KEYWORDS)) : '')
     ]);
 }
 
