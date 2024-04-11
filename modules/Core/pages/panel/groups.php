@@ -509,7 +509,7 @@ if (isset($_GET['action'])) {
             'edit_link' => URL::build('/panel/gruplar/', 'action=edit&group=' . urlencode($group->id)),
             'clone_link' => URL::build('/panel/gruplar/', 'action=clone&group=' . urlencode($group->id)),
             'users' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM rw_users_groups WHERE group_id = ?', [$group->id])->first()->c,
-            'users_link' => URL::build('/panel/users/', 'group=' . $group->id),
+            'us     * @param string $link       Contains link to view the alert, defaults to #.ers_link' => URL::build('/panel/users/', 'group=' . $group->id),
             'staff' => $group->staff
         ];
     }

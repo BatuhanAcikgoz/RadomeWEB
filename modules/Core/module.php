@@ -68,6 +68,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/kullanici/ayarlar', 'pages/user/settings.php');
         $pages->add('Core', '/kullanici/mesajlasma', 'pages/user/messaging.php');
         $pages->add('Core', '/kullanici/uyarilar', 'pages/user/alerts.php');
+        $pages->add('Core', '/kullanici/bildirim_ayarlari', 'pages/user/notification_settings.php');
         $pages->add('Core', '/kullanici/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/kullanici/placeholderlar', 'pages/user/placeholders.php');
         $pages->add('Core', '/kullanici/bilgilendirme', 'pages/user/acknowledge.php');
@@ -84,6 +85,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/hatalar', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/email', 'pages/panel/emails.php');
         $pages->add('Core', '/panel/email/hatalar', 'pages/panel/emails_errors.php');
+        $pages->add('Core', '/panel/toplu_mesaj', 'pages/panel/mass_message.php');
         $pages->add('Core', '/panel/email/toplu_mesaj', 'pages/panel/emails_mass_message.php');
         $pages->add('Core', '/panel/navigation', 'pages/panel/navigation.php');
         $pages->add('Core', '/panel/gizlilik_ve_sartlar', 'pages/panel/privacy_and_terms.php');
@@ -306,6 +308,7 @@ class Core_Module extends Module {
        EventHandler::registerEvent(AnnouncementCreatedEvent::class);
        EventHandler::registerEvent(GroupClonedEvent::class);
        EventHandler::registerEvent(ReportCreatedEvent::class);
+        EventHandler::registerEvent(GenerateNotificationContentEvent::class);
        EventHandler::registerEvent(UserBannedEvent::class);
        EventHandler::registerEvent(UserDeletedEvent::class);
        EventHandler::registerEvent(UserGroupAddedEvent::class);
@@ -533,6 +536,10 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
+
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
@@ -556,6 +563,9 @@ class Core_Module extends Module {
         });
 
         ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
+
+        // Notifications
+        Notification::addType('mass_message', $language->get('notification', 'mass_message'), Module::getIdFromName('Core'));
 
     }
 
@@ -614,6 +624,7 @@ class Core_Module extends Module {
             'admincp.core.emails' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails'),
             'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'emails_mass_message'),
             'admincp.core.navigation' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'navigation'),
+            'admincp.core.emails_mass_message' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'mass_message'),
             'admincp.core.queue' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'queue'),
             'admincp.core.reactions' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('user', 'reactions'),
             'admincp.core.registration' => $language->get('admin', 'core') . ' &raquo; ' . $language->get('admin', 'registration'),
@@ -1133,7 +1144,7 @@ class Core_Module extends Module {
                 }
             }
 
-            if ($user->hasPermission('admincp.core.announcements')) {
+            if ($user->hasPermission('admincp.core.announcements') || $user->hasPermission('admincp.core.emails_mass_message')) {
                 if (!$cache->isCached('announcements_order')) {
                     $order = 4;
                     $cache->store('announcements_order', 4);
@@ -1148,7 +1159,22 @@ class Core_Module extends Module {
                     $icon = $cache->retrieve('announcements_icon');
                 }
 
-                $navs[2]->add('announcements', $language->get('admin', 'announcements'), URL::build('/panel/duyurular'), 'top', null, $order, $icon);
+                $navs[2]->addDropdown('announcements', $language->get('admin', 'communications'), 'top', $order, $icon);
+
+                if ($user->hasPermission('admincp.core.announcements')) {
+                    $navs[2]->addItemToDropdown('announcements', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $icon, 1);
+                }
+
+                if ($user->hasPermission('admincp.core.emails_mass_message')) {
+                    if (!$cache->isCached('mass_message_icon')) {
+                        $icon = '<i class="nav-icon fas fa-envelopes-bulk"></i>';
+                        $cache->store('mass_message_icon', $icon);
+                    } else {
+                        $icon = $cache->retrieve('mass_message_icon');
+                    }
+
+                    $navs[2]->addItemToDropdown('announcements', 'mass_message', $language->get('admin', 'mass_message'), URL::build('/panel/core/mass_message'), 'top', null, $icon, 1);
+                }
             }
 
             if ($user->hasPermission('admincp.integrations')) {

@@ -153,7 +153,7 @@ abstract class Task {
             $this->_scheduledFor = $task->scheduled_for;
             $this->_status = $task->status;
             $this->_task = $task->task;
-            $this->_userId = $task->userId;
+            $this->_userId = $task->user_id;
 
             return $this;
         }

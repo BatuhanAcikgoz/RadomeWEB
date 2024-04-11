@@ -10,10 +10,10 @@
                 <div class="card-header header-theme">{$ALERTS}</div>
                 <div class="card-body">
                     {nocache} {if count($ALERTS_LIST)} {foreach from=$ALERTS_LIST item=alert}
-                    	{$alert->content}
-                        <a class="white-link" href="{$alert->view_link}">{$CLICK_TO_VIEW}</a>
+                    	{$alert.title}
+                        <a class="white-link" href="{$alert.view_link}">{$CLICK_TO_VIEW}</a>
                         <span class="float-right">
-				<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$alert->date}">{$alert->date_nice}</span>
+				<span data-toggle="tooltip" data-trigger="hover" data-original-title="{$alert.date}">{$alert.date_nice}</span>
                         </span>
 			<hr />
                     {/foreach}

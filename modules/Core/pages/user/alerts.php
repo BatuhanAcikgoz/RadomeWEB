@@ -7,6 +7,17 @@
  *  License: GPL-3.0
  *
  *  User alerts page
+ * /**
+ * @var Cache $cache
+ * @var Language $language
+ * @var Navigation $cc_nav
+ * @var Navigation $navigation
+ * @var Navigation $staffcp_nav
+ * @var Pages $pages
+ * @var Smarty $smarty
+ * @var TemplateBase $template
+ * @var User $user
+ * @var Widgets $widgets
  */
 
 // Must be logged in
@@ -16,35 +27,43 @@ if (!$user->isLoggedIn()) {
 
 // Always define page name for navbar
 const PAGE = 'cc_alerts';
-$page_title = $language->get('user', 'user_cp');
-require_once(ROOT_PATH . '/core/templates/frontend_init.php');
+$page_title = $language->get('user', 'alerts');
+require_once ROOT_PATH . '/core/templates/frontend_init.php';
 
-$timeago = new TimeAgo(TIMEZONE);
+$timeAgo = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     if (!isset($_GET['action'])) {
         // Get alerts
-        $alerts = DB::getInstance()->orderWhere('alerts', 'user_id = ' . $user->data()->id, 'created', 'DESC')->results();
+        $alerts = [];
+        $results = DB::getInstance()->query(
+            <<<'SQL'
+            SELECT
+                `id`,
+                `url`,
+                `content`,
+                `content_rich`,
+                `created`,
+                `read`
+            FROM nl2_alerts
+            WHERE `user_id` = ?
+            ORDER BY `created` DESC LIMIT 30
+            SQL,
+            [$user->data()->id]
+        );
 
-        $alerts_limited = [];
-        $n = 0;
+        if ($results->count()) {
+            $results = $results->results();
 
-        if (count($alerts) > 30) {
-            $limit = 30;
-        } else {
-            $limit = count($alerts);
-        }
-
-        while ($n < $limit) {
-            // Only display 30 alerts
-            // Get date
-            $alerts[$n]->date = date(DATE_FORMAT, $alerts[$n]->created);
-            $alerts[$n]->date_nice = $timeago->inWords($alerts[$n]->created, $language);
-            $alerts[$n]->view_link = URL::build('/kullanici/uyarilar/', 'view=' . urlencode($alerts[$n]->id));
-
-            $alerts_limited[] = $alerts[$n];
-
-            $n++;
+            $alerts = array_map(static fn ($alert) => [
+                'id' => $alert->id,
+                'title' => Output::getClean($alert->content),
+                'content_rich' => Output::getPurified($alert->content_rich),
+                'date' => date(DATE_FORMAT, $alert->created),
+                'date_nice' => $timeAgo->inWords($alert->created, $language),
+                'view_link' => URL::build('/user/alerts/', 'view=' . $alert->id),
+                'read' => $alert->read,
+            ], $results);
         }
 
         if (Session::exists('alerts_error')) {
@@ -55,37 +74,32 @@ if (!isset($_GET['view'])) {
         $smarty->assign([
             'USER_CP' => $language->get('user', 'user_cp'),
             'ALERTS' => $language->get('user', 'alerts'),
-            'ALERTS_LIST' => $alerts_limited,
+            'ALERTS_LIST' => $alerts,
             'DELETE_ALL' => $language->get('user', 'delete_all'),
             'DELETE_ALL_LINK' => URL::build('/kullanici/uyarilar/', 'action=purge'),
-            'CLICK_TO_VIEW' => $language->get('user', 'click_here_to_view'),
             'NO_ALERTS' => $language->get('user', 'no_alerts_usercp'),
-            'TOKEN' => Token::get()
         ]);
 
         // Load modules + template
         Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
 
-        require(ROOT_PATH . '/core/templates/cc_navbar.php');
+        require ROOT_PATH . '/core/templates/cc_navbar.php';
 
         $template->onPageLoad();
 
-        require(ROOT_PATH . '/core/templates/navbar.php');
-        require(ROOT_PATH . '/core/templates/footer.php');
+        require ROOT_PATH . '/core/templates/navbar.php';
+        require ROOT_PATH . '/core/templates/footer.php';
 
         // Display template
         $template->displayTemplate('user/alerts.tpl', $smarty);
 
-    } else {
-        if ($_GET['action'] == 'purge') {
-            if (Token::check()) {
-                DB::getInstance()->delete('alerts', ['user_id', $user->data()->id]);
-            } else {
-                Session::flash('alerts_error', $language->get('general', 'invalid_token'));
-            }
-
-            Redirect::to(URL::build('/kullanici/uyarilar'));
+    } elseif ($_GET['action'] == 'purge') {
+        if (Token::check()) {
+            DB::getInstance()->delete('alerts', ['user_id', $user->data()->id]);
+        } else {
+            Session::flash('alerts_error', $language->get('general', 'invalid_token'));
         }
+        Redirect::to(URL::build('/user/alerts'));
     }
 
 } else {
@@ -94,18 +108,71 @@ if (!isset($_GET['view'])) {
         Redirect::to(URL::build('/kullanici/uyarilar'));
     }
 
-    // Check the alert belongs to the user..
-    $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']])->results();
+    // Check the alert belongs to the user...
+    $alert = DB::getInstance()->get('alerts', ['id', $_GET['view']]);
 
-    if (!count($alert) || $alert[0]->user_id != $user->data()->id) {
+    if (!$alert->count() || $alert->first()->user_id !== $user->data()->id) {
         Redirect::to(URL::build('/kullanici/uyarilar'));
     }
 
-    if ($alert[0]->read == 0) {
-        DB::getInstance()->update('alerts', $alert[0]->id, [
+    $alert = $alert->first();
+
+    if (isset($_GET['delete'])) {
+        if (Token::check()) {
+            DB::getInstance()->delete('alerts', $alert->id);
+            Redirect::to('/user/alerts');
+        }
+
+        Session::flash('alerts_error', $language->get('general', 'invalid_token'));
+        Redirect::to(URL::build('/user/alerts', 'view=' . $alert->id));
+    }
+
+    if (!$alert->read) {
+        DB::getInstance()->update('alerts', $alert->id, [
             'read' => true,
         ]);
     }
 
-    Redirect::to($alert[0]->url != '#' ? $alert[0]->url : URL::build('/kullanici/uyarilar'));
+    if (!$alert->content_rich) {
+        Redirect::to($alert->url && $alert->url !== '#' ? $alert->url : URL::build('/user/alerts'));
+    }
+
+    if (Session::exists('alerts_error')) {
+        $smarty->assign('ERROR', Session::flash('alerts_error'));
+    }
+
+    if ($alert->url && $alert->url !== '#') {
+        $smarty->assign([
+            'VIEW' => $language->get('user', 'alerts_follow_link'),
+            'VIEW_LINK' => urlencode($alert->url),
+        ]);
+    }
+
+    $smarty->assign([
+        'USER_CP' => $language->get('user', 'user_cp'),
+        'ALERTS' => $language->get('user', 'alerts'),
+        'DELETE' => $language->get('general', 'delete'),
+        'DELETE_LINK' => URL::build('/user/alerts/', 'view=' . $alert->id . '&delete'),
+        'ALERT_TITLE' => Output::getClean($alert->content),
+        'ALERT_CONTENT' => $alert->bypass_purify ? $alert->content_rich : Output::getPurified($alert->content_rich),
+        'ALERT_DATE' => date(DATE_FORMAT, $alert->created),
+        'ALERT_DATE_NICE' => $timeAgo->inWords($alert->created, $language),
+        'ALERT_READ' => $alert->read,
+        'NEW' => $language->get('general', 'new'),
+        'BACK' => $language->get('general', 'back'),
+        'BACK_LINK' => URL::build('/user/alerts'),
+    ]);
+
+    // Load modules + template
+    Module::loadPage($user, $pages, $cache, $smarty, [$navigation, $cc_nav, $staffcp_nav], $widgets, $template);
+
+    require ROOT_PATH . '/core/templates/cc_navbar.php';
+
+    $template->onPageLoad();
+
+    require ROOT_PATH . '/core/templates/navbar.php';
+    require ROOT_PATH . '/core/templates/footer.php';
+
+    // Display template
+    $template->displayTemplate('user/alert.tpl', $smarty);
 }
