@@ -41,11 +41,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="inputGuestsView">{$GUESTS_VIEW}</label>
-                                <input id="inputGuestsView" name="guests_view" type="checkbox" value="1"{if $GUESTS_VIEW_VALUE eq 1} checked{/if} />
+                                <label for="inputGuestsView">{$GUESTS_VIEW}</label><div class="form-group custom-control custom-switch">
+                                <input type="checkbox" name="guests_view" id="inputGuestsView" class="custom-control-input" {if $GUESTS_VIEW_VALUE eq 1} checked{/if} />
+                                <label for="inputGuestsView" class="custom-control-label">{$GUESTS_VIEW}</label>
                             </div>
                             <hr />
-                            <strong>{$DATABASE_SETTINGS}</strong>
+                                if ($cache->isCached('infractions' . $page)) { <strong>{$DATABASE_SETTINGS}</strong>
                             <div class="form-group">
                                 <label for="inputHost">{$ADDRESS}</label>
                                 <input class="form-control" type="text" name="host" value="{$ADDRESS_VALUE}" id="inputAddress">
