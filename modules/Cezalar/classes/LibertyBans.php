@@ -45,7 +45,7 @@ abstract class LibertyBans extends Cezalar {
         // Cached?
         $cache = $this->_cache;
         $cache->setCache('infractions_infractions');
-        if ($cache->isCached('infractions' . $page) && false) {
+        if ($cache->isCached('infractions' . $page)) {
             $mapped_punishments = $cache->retrieve('infractions' . $page);
         } else {
             $this->initDB();
@@ -57,38 +57,36 @@ abstract class LibertyBans extends Cezalar {
             $infractions = $this->listAll($page, $limit);
 
             if (!empty($infractions)) {
-                foreach ($infractions as $punishment) {
-                    $mapped_punishments[] = (object) array(
-                        'id' => $punishment->id,
-                        'name' =>
-                            $punishment->victim_name ?: (
-                            $punishment->victim_uuid === '00000000000000000000000000000000'
-                                ? 'Unknown'
-                                : $this->getNameFromUUID(strtolower($punishment->victim_uuid))
-                            ),
-                        'uuid' => strtolower($punishment->victim_uuid),
-                        'reason' => $punishment->reason,
-                        'banned_by_uuid' =>
-                            $punishment->operator == '00000000000000000000000000000000'
-                                ? 'CONSOLE'
-                                : strtolower($punishment->operator),
-                        'banned_by_name' =>
-                            $punishment->operator == '00000000000000000000000000000000'
-                                ? 'CONSOLE'
-                                : (
-                            $punishment->operator_name ?:
-                                $this->getNameFromUUID(strtolower($punishment->operator))
-                            ),
-                        'removed_by_uuid' => '',
-                        'removed_by_name' => '',
-                        'removed_by_date' => '',
-                        'time' => $punishment->start,
-                        'until' => $punishment->end > 0 ? $punishment->end : null,
-                        'ipban' => (bool) $punishment->victim_address,
-                        'active' => !$punishment->end || $punishment->end > date('U'),
-                        'type' => $this->mapType($punishment->type)
-                    );
-                }
+                $mapped_punishments = array_merge($mapped_punishments, array_map(fn ($punishment) => (object) [
+                    'id' => $punishment->id,
+                    'name' =>
+                        $punishment->victim_name ?: (
+                        $punishment->victim_uuid === '00000000000000000000000000000000'
+                            ? 'Unknown'
+                            : $this->getNameFromUUID(strtolower($punishment->victim_uuid))
+                        ),
+                    'uuid' => strtolower($punishment->victim_uuid),
+                    'reason' => $punishment->reason,
+                    'banned_by_uuid' =>
+                        $punishment->operator == '00000000000000000000000000000000'
+                            ? 'CONSOLE'
+                            : strtolower($punishment->operator),
+                    'banned_by_name' =>
+                        $punishment->operator == '00000000000000000000000000000000'
+                            ? 'CONSOLE'
+                            : (
+                        $punishment->operator_name ?:
+                            $this->getNameFromUUID(strtolower($punishment->operator))
+                        ),
+                    'removed_by_uuid' => '',
+                    'removed_by_name' => '',
+                    'removed_by_date' => '',
+                    'time' => $punishment->start,
+                    'until' => $punishment->end > 0 ? $punishment->end : null,
+                    'ipban' => $punishment->victim_address !== '00000000',
+                    'active' => !$punishment->end || $punishment->end > date('U'),
+                    'type' => $this->mapType($punishment->type, $punishment->victim_address !== '00000000')
+                ], $infractions));
             }
 
             $cache->setCache('infractions_infractions');
@@ -116,12 +114,12 @@ abstract class LibertyBans extends Cezalar {
                     h.reason,
                     h.start,
                     h.end,
-                    h.victim_address,
+                    HEX(h.victim_address) as victim_address,
                     no.name AS operator_name,
                     nv.name AS victim_name
-                FROM libertybans_simple_history h
-                LEFT JOIN libertybans_latest_names no ON h.operator = no.uuid
-                LEFT JOIN libertybans_latest_names nv ON h.victim_uuid = nv.uuid
+                FROM {$this->_extra['history_view']} h
+                LEFT JOIN {$this->_extra['names_view']} no ON h.operator = no.uuid
+                LEFT JOIN {$this->_extra['names_view']} nv ON h.victim_uuid = nv.uuid
                 WHERE h.victim_type IN (0, 1)
                 ORDER BY h.start DESC LIMIT ?,?
             SQL,
@@ -162,7 +160,10 @@ abstract class LibertyBans extends Cezalar {
      * @param int $type
      * @return string
      */
-    private function mapType(int $type): string {
+    private function mapType(int $type, bool $ipBan): string {
+        if ($ipBan) {
+            return 'ipban';
+        }
         switch ($type) {
             case 0:
                 return 'ban';

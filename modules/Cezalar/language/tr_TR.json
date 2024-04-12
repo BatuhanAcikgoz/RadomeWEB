@@ -13,6 +13,8 @@
     "infractions\/infractions": "Cezalar",
     "infractions\/infractions_settings": "Cezalandırma Ayarları",
     "infractions\/infractions_settings_updated_successfully": "Cezalandırma ayarları başarıyla güncellendi.",
+    "infractions\/ipban": "IP Ban",
+    "infractions\/temp_ipban": "Temp IP Ban",
     "infractions\/issued": "Verilme Tarihi",
     "infractions\/kick": "Atılma",
     "infractions\/link_location": "Link Location",

@@ -12,7 +12,7 @@
 class LiteBans extends Cezalar {
 
     // Variables
-    protected $_extra;
+    protected array $_extra;
 
     // Constructor
     public function __construct($inf_db, $language) {
@@ -40,24 +40,49 @@ class LiteBans extends Cezalar {
         // Cached?
         $cache = $this->_cache;
         $cache->setCache('infractions_infractions');
-        if($cache->isCached('infractions' . $page)){
-            $infractions = $cache->retrieve('infractions' . $page);
+        if ($cache->isCached('infractions' . $page)) {
+            $mapped_punishments = $cache->retrieve('infractions' . $page);
         } else {
             $this->initDB();
 
-            $total = $this->getTotal()->first()->total;
-            $infractions = $this->listAll($page, $limit)->results();
+            $mapped_punishments = [];
+
+            $total = $this->getTotal();
+            $mapped_punishments['total'] = $total;
+
+            $infractions = $this->listAll($page, $limit);
+
+            if (!empty($infractions)) {
+                $mapped_punishments = array_merge($mapped_punishments, array_map(fn ($punishment) => (object) [
+                    'id' => $punishment->id,
+                    'name' => $punishment->name ?? 'Unknown',
+                    'uuid' => $punishment->uuid === '#offline#' ?
+                        'Unknown' : str_replace('-', '', $punishment->uuid),
+                    'reason' => $punishment->reason,
+                    'banned_by_uuid' => str_replace('-', '', $punishment->banned_by_uuid),
+                    'banned_by_name' => $punishment->banned_by_name,
+                    'removed_by_uuid' => str_replace('-', '', $punishment->removed_by_uuid ?? ''),
+                    'removed_by_name' => $punishment->removed_by_name,
+                    'removed_by_date' => $punishment->removed_by_date ?
+                        strtotime($punishment->removed_by_date) : null,
+                    'time' => $punishment->time / 1000,
+                    'until' => $punishment->until > 0 ? ($punishment->until / 1000) : null,
+                    'ipban' => $punishment->ipban ?: false,
+                    'active' => $punishment->active,
+                    'type' => $punishment->ipban ? 'ipban' : $punishment->type,
+                ], $infractions));
+            }
 	        $infractions['total'] = $total;
 
             $cache->setCache('infractions_infractions');
-            $cache->store('infractions' . $page, $infractions, 120);
+            $cache->store('infractions' . $page, $mapped_punishments, 120);
         }
 
-        return $infractions;
+        return $mapped_punishments;
     }
 
     // List all infractions
-	public function listAll($page, $limit): DB {
+	public function listAll($page, $limit): array {
     	$start = ($page - 1) * $limit;
 
     	return $this->_db->query(
@@ -65,13 +90,13 @@ class LiteBans extends Cezalar {
     		'(' . $this->getKicksQuery() . ') UNION ' .
     		'(' . $this->getMutesQuery() . ') UNION ' .
     		'(' . $this->getWarningsQuery() . ') ORDER BY `time` DESC LIMIT ?,?',
-		    array($start, $limit),
+            [$start, $limit],
 		    true
-	    );
+	    )->results();
 	}
 
     // List all bans
-    public function listBans(){
+    public function listBans() {
         // Cached?
         $cache = $this->_cache;
         $cache->setCache('infractions_bans');
@@ -90,7 +115,7 @@ class LiteBans extends Cezalar {
     }
 
     // List all kicks
-    public function listKicks(){
+    public function listKicks() {
         // Cached?
         $cache = $this->_cache;
         $cache->setCache('infractions_kicks');
@@ -155,17 +180,24 @@ class LiteBans extends Cezalar {
     }
 
     // Get creation time from infraction
-    public static function getCreationTime($item){
-        if(isset($item->time)){
-            return $item->time;
-        } else return false;
+    public static function getCreationTime($item) {
+        return $item->time ?? false;
     }
 
-    // Get total rows
-	protected function getTotal(){
-    	return $this->_db->query(
-    		'SELECT (SELECT COUNT(*) FROM ' . $this->_extra['bans_table'] . ') + (SELECT COUNT(*) FROM ' . $this->_extra['kicks_table'] . ') + (SELECT COUNT(*) FROM ' . $this->_extra['mutes_table'] . ') + (SELECT COUNT(*) FROM ' . $this->_extra['warnings_table'] . ') AS total', array()
-	    );
+    /**
+     * Retrieve total number of infractions
+     * @return int
+     */
+    protected function getTotal(): int {
+    	return $this->_db->query(<<<SQL
+                SELECT (
+                    (SELECT COUNT(*) FROM {$this->_extra['bans_table']}) +
+                    (SELECT COUNT(*) FROM {$this->_extra['kicks_table']}) + 
+                    (SELECT COUNT(*) FROM {$this->_extra['mutes_table']}) + 
+                    (SELECT COUNT(*) FROM {$this->_extra['warnings_table']})
+                ) AS total
+            SQL
+        )->first()->total;
 	}
 
     // Get bans query

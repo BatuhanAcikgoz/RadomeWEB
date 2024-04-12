@@ -45,7 +45,6 @@ abstract class Cezalar {
      * @param int $limit
      * @return array
      */
-    abstract public function listInfractions(int $page, int $limit): array;
 
     /**
      * Retrieve total number of infractions

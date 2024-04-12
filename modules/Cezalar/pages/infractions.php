@@ -99,6 +99,10 @@ if (!isset($_GET['view']) && !isset($_GET['id'])) {
                 $nameKey = "{$key}name";
                 $uuidKey = "{$key}uuid";
 
+                if (!$result->{$uuidKey}) {
+                    continue;
+                }
+
                 // Check if the punished/initiated/revoker user exists
                 if (!isset($usersArray[$result->{$uuidKey}])) {
                     $exists = false;
@@ -149,6 +153,15 @@ if (!isset($_GET['view']) && !isset($_GET['id'])) {
                         $type = $infractions_language->get('infractions', 'ban');
                     }
                     break;
+                case 'ipban':
+                    if ($result->until > 0) {
+                        $type_id = 8; // temp ban
+                        $type = $infractions_language->get('infractions', 'temp_ipban');
+                    } else {
+                        $type_id = 9; // ban
+                        $type = $infractions_language->get('infractions', 'ipban');
+                    }
+                    break;
                 case 'mute':
                     if ($result->until > 0) {
                         $type_id = 3; // temp mute
@@ -189,8 +202,8 @@ if (!isset($_GET['view']) && !isset($_GET['id'])) {
                 'issued_full' => date(DATE_FORMAT, $result->time),
                 'action' => $type,
                 'action_id' => $type_id,
-                'expires' => (($type_id == 1 || $type_id == 3) ? $timeago->inWords($result->until, $language) : null),
-                'expires_full' => (($type_id == 1 || $type_id == 3) ? date(DATE_FORMAT, $result->until) : null),
+                'expires' => (in_array($type_id, [1, 3, 8]) ? $timeago->inWords($result->until, $language) : null),
+                'expires_full' => (in_array($type_id, [1, 3, 8]) ? date(DATE_FORMAT, $result->until) : null),
                 'revoked' => ((isset($result->active) && $result->active == 1) ? 0 : 1),
                 'revoked_full' => ((!isset($result->active) || $result->active == 0) ? $infractions_language->get('infractions', 'expired') : $infractions_language->get('infractions', 'active')),
                 'reason' => Output::getPurified($result->reason),
