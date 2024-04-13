@@ -105,7 +105,7 @@
                           {/if}
                         
                           <div class="form-group">
-                            <textarea class="form-control" name="content" rows="5" placeholder="{$NEW_COMMENT}"></textarea>
+                              <textarea class="form-control" name="content" rows="5" placeholder="{$NEW_COMMENT}">{$COMMENT_VALUE}</textarea>
                           </div>
                           {if $CAN_USE_ANONYMOUS}
                             <div class="form-group custom-control custom-switch">

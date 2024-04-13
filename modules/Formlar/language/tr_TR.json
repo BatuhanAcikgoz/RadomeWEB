@@ -118,5 +118,6 @@
     "forms\/your_submission_updated": "Talebin güncellendi",
     "forms\/advanced": "Gelişmiş",
     "forms\/submission_source": "Talebi kaynağa gönder",
-    "forms\/submit_to_submission_forum": "Gönderim foruma gönderilsin mi?"
+    "forms\/submit_to_submission_forum": "Submit submission to forum?",
+    "forms/no_permission_to_select_status": "You don't have permission to select this status!"
 }
