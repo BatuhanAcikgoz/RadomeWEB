@@ -14,7 +14,7 @@ $page_title = $vote_language->get('vote', 'vote');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // Get message
-$vote_message = Settings::get('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
+$vote_message = Util::getSetting('vote_message', 'Sevdiğiniz sunucuya bu kısımdan oy verip ödüllerin sahibi olabilirsiniz', 'Vote');
 
 // Is vote message empty?
 if (!empty($vote_message)) {
@@ -29,8 +29,8 @@ $top_voters = $mcmp_vote->voters;
 $voters_array = [];
 foreach ($top_voters as $top_voters) {
 	$voters_array[] = [
-		'nickname' => Output::getClean($top_voters->nickname),
-		'votes' => Output::getClean($top_voters->votes),
+		'nickname' => Output::getPurified($top_voters->nickname),
+		'votes' => Output::getPurified($top_voters->votes),
 	];
 }
 

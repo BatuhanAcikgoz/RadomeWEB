@@ -34,6 +34,7 @@ class Vote_Module extends Module {
 		} else {
 			if ($module_version != $cache->retrieve('module_version')) {
 				// Version have changed, Perform actions
+                $this->initialiseUpdate($cache->retrieve('module_version'));
 				$cache->store('module_version', $module_version);
 
 				if ($cache->isCached('update_check')) {
@@ -136,6 +137,21 @@ class Vote_Module extends Module {
         return [];
     }
 
+    private function initialiseUpdate($old_version){
+        $old_version = str_replace([".", "-"], "", $old_version);
+
+        if ($old_version < 234) {
+            if (DB::getInstance()->showTables('vote_settings')) {
+                $message = DB::getInstance()->query('SELECT * FROM nl2_vote_settings WHERE name = \'vote_message\'');
+                if ($message->count()) {
+                    Util::setSetting('vote_message', $message->first()->value, 'Vote');
+                }
+
+                DB::getInstance()->query('DROP TABLE nl2_vote_settings');
+            }
+        }
+    }
+
     private function initialise() {
         // Generate tables
 		try {
@@ -151,29 +167,6 @@ class Vote_Module extends Module {
                     'name' => 'TOPG (Örnek)'
                 ]);
             }
-		} catch (Exception $e) {
-			// Error
-		}
-
-        try {
-            if (!DB::getInstance()->showTables('vote_settings')) {
-                DB::getInstance()->createTable("vote_settings", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(20) NOT NULL, `value` varchar(2048) NOT NULL, PRIMARY KEY (`id`)");
-
-            }
-        } catch (Exception $e) {
-            // Error
-        }
-
-		try {
-			// Update main admin group permissions
-			$group = DB::getInstance()->get('groups', ['id', '=', 2])->results();
-            $group = $group[0];
-
-			$group_permissions = json_decode($group->permissions, TRUE);
-			$group_permissions['admincp.vote'] = 1;
-
-			$group_permissions = json_encode($group_permissions);
-			DB::getInstance()->update('groups', 2, ['permissions' => $group_permissions]);
 		} catch (Exception $e) {
 			// Error
 		}
