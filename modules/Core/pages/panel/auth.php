@@ -51,7 +51,7 @@ if (Input::exists()) {
                     $user->data()->tfa_complete == 1
                 ) {
                     $success = false;
-                    $tfa = new \RobThree\Auth\TwoFactorAuth('NamelessMC');
+                    $tfa = new \RobThree\Auth\TwoFactorAuth('RadomeWEB');
 
                     if ($tfa->verifyCode($user->data()->tfa_secret, str_replace(' ', '', $_POST['tfa_code'])) !== true) {
                         Session::flash('adm_auth_error', $language->get('user', 'invalid_tfa'));

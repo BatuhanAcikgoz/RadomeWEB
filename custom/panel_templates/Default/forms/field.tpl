@@ -34,7 +34,7 @@
 
                 <div class="card shadow mb-4">
                     <div class="card-body">
-                        <h5 style="display:inline">{$EDITING_FIELD_FOR_X}</h5>
+                        <h5 style="display:inline">{$FIELD_TITLE_FOR_X}</h5>
                         <div class="float-md-right">
                             <a href="{$BACK_LINK}" class="btn btn-warning">{$BACK}</a>
                         </div>
@@ -55,6 +55,10 @@
                                     <option value="{$type.id}"{if $TYPE_VALUE eq {$type.id}} selected{/if}>{$type.name}</option>
                                   {/foreach}
                                 </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="InputDefault">Default Value</label>
+                                <input type="text" name="default" class="form-control" id="InputDefault" value="{$DEFAULT_VALUE}" placeholder="Default field value">
                             </div>
                             <div class="form-group">
                                 <label for="InputOptions">{$OPTIONS} / {$CHECKBOX} / {$RADIO} - {$OPTIONS_HELP}</label>
@@ -84,6 +88,10 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="form-group">
+                                <label for="InputRegex">Regex</label>
+                                <input type="text" name="regex" class="form-control" id="InputRegex" value="{$REGEX_VALUE}" placeholder="Regex validation">
+                            </div>
                             <div class="form-group custom-control custom-switch">
                                 <input id="inputRequired" name="required" type="checkbox" class="custom-control-input"{if $REQUIRED_VALUE eq 1} checked{/if} />
                                 <label class="custom-control-label" for="inputRequired">{$REQUIRED}</label>
@@ -94,19 +102,21 @@
                             </div>
                         </form>
 
+
+
                         {if !isset($PDS)}
-                            <div style="text-align: center;">
-                                <p>Forms Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></br>Support on <a href="https://discord.gg/TtH6tpp" target="_blank">Discord</a></br>
-                                    <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
-                                       data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
-                                    <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
-                                       data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
-                                    <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
-                                       data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
-                                    <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
-                                       data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
-                                </p>
-                            </div>
+                        <div style="text-align: center;">
+                            <p>Formlar Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a></br>Support on <a href="https://discord.gg/TtH6tpp" target="_blank">Discord</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </div>
                         {/if}
 
                     </div>

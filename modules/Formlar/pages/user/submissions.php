@@ -30,7 +30,7 @@ $timeago = new TimeAgo(TIMEZONE);
 
 if (!isset($_GET['view'])) {
     $submissions = [];
-    $submissions_query = DB::getInstance()->query('SELECT * FROM rw_forms_replies WHERE user_id = ? AND form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$user->data()->id])->results();
+    $submissions_query = DB::getInstance()->query('SELECT * FROM nl2_forms_replies WHERE source IS NULL AND user_id = ? AND form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view_own = 1 AND group_id IN('.$group_ids.')) ORDER BY created DESC', [$user->data()->id])->results();
 
     if (count($submissions_query)) {
         // Get page
@@ -115,6 +115,14 @@ if (!isset($_GET['view'])) {
     }
     $submission = new Submission(null, null, $submission->first());
 
+    // Check if submission is submitted to different source
+    if ($submission->data()->source != null) {
+        $source = Formlar::getInstance()->getSubmissionSource($submission->data()->source);
+        if ($source != null) {
+            Redirect::to($source->getURL($submission));
+        }
+    }
+
     $form = new Form($submission->data()->form_id);
     $status = new Status($submission->data()->status_id);
 
@@ -130,13 +138,15 @@ if (!isset($_GET['view'])) {
                     'content' => [
                         Validate::REQUIRED => true,
                         Validate::MIN => 3,
-                        Validate::MAX => 10000
+                        Validate::MAX => 10000,
+                        Validate::RATE_LIMIT => [1, 5],
                     ]
                 ])->messages([
                     'content' => [
                         Validate::REQUIRED => $forms_language->get('forms', 'comment_minimum'),
                         Validate::MIN => $forms_language->get('forms', 'comment_minimum'),
-                        Validate::MAX => $forms_language->get('forms', 'comment_maximum')
+                        Validate::MAX => $forms_language->get('forms', 'comment_maximum'),
+                        Validate::RATE_LIMIT => $forms_language->get('forms', 'post_rate_limit')
                     ]
                 ]);
 
@@ -160,21 +170,14 @@ if (!isset($_GET['view'])) {
                         'status_id' => $status_id
                     ]);
 
-                    $status = new Status($status_id);
-                    $status_color = $status->data()->color;
-                    EventHandler::executeEvent('updatedFormSubmission', [
-                        'event' => 'updatedFormSubmission',
-                        'username' => $form->data()->title,
-                        'content' => $forms_language->get('forms', 'updated_submission_text', [
-                            'form' => $form->data()->title,
-                            'user' => $user->getDisplayname()
-                        ]),
-                        'content_full' => Input::get('content'),
-                        'avatar_url' => $user->getAvatar(128, true),
-                        'title' => $form->data()->title,
-                        'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
-                        'color' => $status_color
-                    ]);
+                    EventHandler::executeEvent(new SubmissionUpdatedEvent(
+                        $user,
+                        $submission,
+                        Input::get('content'),
+                        false,
+                        false,
+                        json_decode($form->data()->hooks),
+                    ));
 
                     $success = $language->get('moderator', 'comment_created');
 
@@ -192,7 +195,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Get comments
-    $comments = DB::getInstance()->get('forms_comments', ['form_id', '=', $submission->data()->id])->results();
+    $comments = DB::getInstance()->get('forms_comments', [['form_id', $submission->data()->id], ['staff_only', 0]])->results();
     $smarty_comments = [];
     foreach ($comments as $comment) {
         // Check if comment user is 

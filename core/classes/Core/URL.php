@@ -88,7 +88,7 @@ class URL {
     /**
      * Build an asset path
      *
-     * @param string $path Contains the asset path relative to the root Nameless directory
+     * @param string $path Contains the asset path relative to the root Radome directory
      * @return string
      */
     public static function buildAssetPath(string $path): string {

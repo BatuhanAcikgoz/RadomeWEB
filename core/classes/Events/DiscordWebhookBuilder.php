@@ -13,7 +13,7 @@ class DiscordWebhookBuilder {
     private ?string $_avatar_url = null;
     private ?string $_content = null;
     /** @var DiscordEmbed[] */
-    private ?array $_embeds = null;
+    private ?array $_embeds = [];
 
     private function __construct() {
         // ...
@@ -62,9 +62,6 @@ class DiscordWebhookBuilder {
      * @return $this
      */
     public function addEmbed(Closure $closure): self {
-        if ($this->_embeds === null) {
-            $this->_embeds = [];
-        }
 
         $embed = $closure(new DiscordEmbed());
         if (!($embed instanceof DiscordEmbed)) {

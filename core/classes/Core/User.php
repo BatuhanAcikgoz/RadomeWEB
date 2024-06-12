@@ -1148,7 +1148,7 @@ class User
             $this->_db->get(
                 <<<SQL
                     SELECT `type`, `alert`, `email`
-                    FROM nl2_users_notification_preferences
+                    FROM rw_users_notification_preferences
                     WHERE $where
                 SQL,
                 $whereVars

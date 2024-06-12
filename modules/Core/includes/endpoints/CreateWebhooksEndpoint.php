@@ -17,7 +17,7 @@ class CreateWebhooksEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API  $api): void {
+    public function execute(Radome2API  $api): void {
         // Validation
         $validation = Validate::check($_POST, [
             'name' => [

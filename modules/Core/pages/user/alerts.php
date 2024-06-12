@@ -45,7 +45,7 @@ if (!isset($_GET['view'])) {
                 `content_rich`,
                 `created`,
                 `read`
-            FROM nl2_alerts
+            FROM rw_alerts
             WHERE `user_id` = ?
             ORDER BY `created` DESC LIMIT 30
             SQL,

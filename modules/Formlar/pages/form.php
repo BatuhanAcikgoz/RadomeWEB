@@ -49,6 +49,20 @@ define('PAGE', 'form-' . $form->data()->id);
 $page_title = $forms_language->get('forms', 'forms');
 require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
+// Execute event with allow modules to interact with it
+$renderFormEvent = EventHandler::executeEvent('renderForm', [
+    'user' => $user,
+    'form' => $form,
+    'content' => $form->data()->content,
+    'fields' => $form->getFields()
+]);
+
+// Check if the event returned any errors
+if (isset($renderFormEvent['errors']) && count($renderFormEvent['errors'])) {
+    Session::flash('home_error', $renderFormEvent['errors'][0]);
+    Redirect::to(URL::build('/'));
+}
+
 // Check if captcha is enabled
 $captcha = $form->data()->captcha ? true : false;
 if ($captcha) {
@@ -78,6 +92,14 @@ if (Input::exists()) {
                 if ($submission->create($form, $user, $_POST)) {
                     // Redirect to submission view if user have view access, if not redirect back 
                     if ($user->isLoggedIn() && $forms->canViewOwnSubmission($group_ids, $form->data()->id)) {
+                        // Check if submission is submitted to different source
+                        if ($submission->data()->source != null) {
+                            $source = Formlar::getInstance()->getSubmissionSource($submission->data()->source);
+                            if ($source != null) {
+                                Redirect::to($source->getURL($submission));
+                            }
+                        }
+
                         Session::flash('submission_success', $forms_language->get('forms', 'form_submitted'));
                         Redirect::to(URL::build('/kullanici/talepler/', 'view=' . Output::getClean($submission->data()->id)));
 
@@ -103,12 +125,12 @@ if (Input::exists()) {
 }
 
 $fields_array = [];
-foreach ($form->getFields() as $field) {
+foreach ($renderFormEvent['fields'] as $field) {
     $options = explode(',', Output::getClean(str_replace("\r" , "", $field->options)));
     $fields_array[] = [
         'id' => Output::getClean($field->id),
         'name' => Output::getClean($field->name),
-        'value' => is_array(Input::get($field->id)) ? Input::get($field->id) : Output::getClean(Input::get($field->id)),
+        'value' => isset($_POST[$field->id]) ? is_array(Input::get($field->id)) ? Input::get($field->id) : Output::getClean(Input::get($field->id)) : Output::getClean($field->default_value),
         'type' => Output::getClean($field->type),
         'required' => Output::getClean($field->required),
         'options' => $options,
@@ -132,8 +154,8 @@ if ($captcha) {
     }
 }
 
-if (!empty($form->data()->content)) {
-    $smarty->assign('CONTENT', Output::getPurified(Output::getDecoded($form->data()->content)));
+if (!empty($renderFormEvent['content'])) {
+    $smarty->assign('CONTENT', $renderFormEvent['content']);
 }
 
 $smarty->assign([

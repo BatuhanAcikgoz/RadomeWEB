@@ -70,7 +70,7 @@ if (!isset($_GET['view'])) {
     }
 
     $query = 'SELECT * FROM rw_forms_replies';
-    $where = ' WHERE form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
+    $where = ' WHERE source IS NULL AND form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
     $order = ' ORDER BY created DESC';
     $limit = '';
     $params = [];
@@ -193,14 +193,13 @@ if (!isset($_GET['view'])) {
     }
 
     // Get forms from database
-    $forms_query = DB::getInstance()->orderAll('forms', 'id', 'ASC')->results();
-    $forms_array = [];
-    if (count($forms_query)) {
+    $forms_query = DB::getInstance()->orderAll('forms', 'id', 'ASC');    $forms_array = [];
+    if ($forms_query->count()) {
         $forms_array[] = [
             'id' => 0,
             'name' => 'All',
         ];
-        foreach ($forms_query as $form) {
+        foreach ($forms_query->results() as $form) {
             $forms_array[] = [
                 'id' => $form->id,
                 'name' => Output::getClean($form->title),
@@ -209,14 +208,15 @@ if (!isset($_GET['view'])) {
     }
 
     // Get statuses from database
-    $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
+    $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
     $status_array = [];
-    if (count($statuses)) {
-            $status_array[] = [
-                'id' => 0,
-                'html' => 'All open'
-            ];
-        foreach ($statuses as $status) {
+    if ($statuses->count()) {
+        $status_array[] = [
+            'id' => 0,
+            'html' => 'All open'
+        ];
+
+        foreach ($statuses->results() as $status) {
             $status_array[] = [
                 'id' => $status->id,
                 'html' => Output::getPurified($status->html)
@@ -229,7 +229,6 @@ if (!isset($_GET['view'])) {
         'VIEW' => $language->get('general', 'view'),
         'NO_SUBMISSIONS' => $forms_language->get('forms', 'no_open_submissions'),
         'FORM' => $forms_language->get('forms', 'form'),
-        'USER' => $forms_language->get('forms', 'user'),
         'UPDATED_BY' => $forms_language->get('forms', 'updated_by'),
         'STATUS' => $forms_language->get('forms', 'status'),
         'ACTIONS' => $forms_language->get('forms', 'actions'),
@@ -251,6 +250,15 @@ if (!isset($_GET['view'])) {
         if (!$submission->exists()) {
             Redirect::to(URL::build('/panel/formlar/talepler'));
         }
+
+        // Check if submission is submitted to different source
+        if ($submission->data()->source != null) {
+            $source = Formlar::getInstance()->getSubmissionSource($submission->data()->source);
+            if ($source != null) {
+                Redirect::to($source->getURL($submission));
+            }
+        }
+
         $form = new Form($submission->data()->form_id);
         $status = new Status($submission->data()->status_id);
 
@@ -267,7 +275,7 @@ if (!isset($_GET['view'])) {
             $errors = [];
 
             // Check token
-            if (Token::check(Input::get('token'))) {
+            if (Token::check()) {
                 // Valid token
                 $validation = Validate::check($_POST, [
                     'content' => [
@@ -290,10 +298,13 @@ if (!isset($_GET['view'])) {
                     if (isset($_POST['notify_email']) && $_POST['notify_email'] == 'on') $sendEmail = 1;
                     else $sendEmail = 0;
 
+                    // Comment for staff only?
+                    if (isset($_POST['staff_only']) && $_POST['staff_only'] == 'on') $staff_only = 1;
+                    else $staff_only = 0;
+
                     // Check if status have changed
                     $status_id = $submission->data()->status_id;
                     $status_html = $status->data()->html;
-                    $status_color = $status->data()->color;
                     if ($submission->data()->status_id != $_POST['status']) {
                         $new_status = new Status($_POST['status']);
                         if ($new_status->exists()) {
@@ -324,7 +335,7 @@ if (!isset($_GET['view'])) {
                     }
 
                     // Was there any changes?
-                    if ($any_changes == true && !count($errors)) {
+                    if ($any_changes && !count($errors)) {
                         $submission->update([
                             'updated_by' => ($anonymous != 1 ? $user->data()->id : 0),
                             'updated' => date('U'),
@@ -339,32 +350,35 @@ if (!isset($_GET['view'])) {
                                 'user_id' => $user->data()->id,
                                 'created' => date('U'),
                                 'anonymous' => $anonymous,
-                                'content' => nl2br(Input::get('content'))
+                                'content' => nl2br(Input::get('content')),
+                                'staff_only' => $staff_only
                             ]);
                             $content = Output::getClean(Input::get('content'));
-                            if (isset($new_status)&& $new_status->exists()) {
-                                $content .= "\n\n" . $forms_language->get('forms', 'updated_submission_status', ['status' => strip_tags($status->data()->html), 'new_status' => strip_tags($new_status->data()->html)]);
-                            }
+                            if (isset($new_status) && $new_status->exists()) {
+                                $content .= "\n\n" . $forms_language->get('forms', 'updated_submission_status', [
+                                        'status' => strip_tags($status->data()->html),
+                                        'new_status' => strip_tags($new_status->data()->html)
+                                    ]);
                         } else {
                             // No comment, just status change
-                            $content = $forms_language->get('forms', 'updated_submission_status', ['status' => strip_tags($status->data()->html), 'new_status' => strip_tags($new_status->data()->html)]);
+                                $content = $forms_language->get('forms', 'updated_submission_status', [
+                                    'status' => strip_tags($status->data()->html),
+                                    'new_status' => strip_tags($new_status->data()->html)
+                                ]);
                         }
-                        EventHandler::executeEvent('updatedFormSubmissionStaff', [
-                            'event' => 'updatedFormSubmissionStaff',
-                            'user_id' => $user->data()->id,
-                            'username' => $user->getDisplayname(),
-                            'content' => $forms_language->get('forms', 'updated_submission_text', ['form' => $form->data()->title, 'user' => $user->getDisplayname()]),
-                            'content_full' => $content,
-                            'avatar_url' => $user->getAvatar(128, true),
-                            'title' => '[#' . $submission->data()->id . '] ' . $form->data()->title,
-                            'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $submission->data()->id),
-                            'color' => $status_color
-                        ]);
+                            EventHandler::executeEvent(new SubmissionUpdatedStaffEvent(
+                                $user,
+                                $submission,
+                                $content,
+                                $anonymous,
+                                $staff_only,
+                                json_decode($form->data()->hooks)
+                            ));
 
                         // Alert user?
-                        if ($submission->data()->user_id != null) {
+                            if (!$staff_only && $submission->data()->user_id != null) {
                             $target_user = new User($submission->data()->user_id);
-                            if ($target_user && $forms->canViewOwnSubmission(implode(',', $target_user->getAllGroupIds(false)), $submission->data()->form_id)) {
+                            if ($target_user->exists() && $forms->canViewOwnSubmission(implode(',', $target_user->getAllGroupIds()), $submission->data()->form_id)) {
                                 // Send alert to user
                                 Alert::create(
                                     $submission->data()->user_id,
@@ -464,6 +478,7 @@ if (!isset($_GET['view'])) {
                 'style' => $comment_user_style,
                 'avatar' => $comment_user_avatar,
                 'anonymous' => $comment->anonymous,
+                'staff_only' => $comment->staff_only,
                 'content' => Output::getPurified(Output::getDecoded($comment->content)),
                 'date' => date(DATE_FORMAT, $comment->created),
                 'date_friendly' => $timeago->inWords($comment->created, $language),
@@ -492,9 +507,9 @@ if (!isset($_GET['view'])) {
         // Form statuses
         $statuses = [];
 
-        $form_statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0')->results();
-        if (count($form_statuses)) {
-            foreach($form_statuses as $status_query) {
+            $form_statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
+            if ($form_statuses->count()) {
+                foreach ($form_statuses->results() as $status_query) {
                 $form_ids = explode(',', $status_query->fids);
 
                 if (in_array($submission->data()->form_id, $form_ids) || $status_query->id == 1) {
@@ -520,7 +535,7 @@ if (!isset($_GET['view'])) {
 
         // Can user view own submission?
         $can_view_own = false;
-        if ($submission->data()->user_id != null && $target_user && $forms->canViewOwnSubmission(implode(',', $user->getAllGroupIds()), $submission->data()->form_id)) {
+            if ($submission->data()->user_id != null && $target_user->exists() && $forms->canViewOwnSubmission(implode(',', $target_user->getAllGroupIds()), $submission->data()->form_id)) {
             $can_view_own = true;
         }
 
@@ -548,11 +563,13 @@ if (!isset($_GET['view'])) {
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
             'STATUSES' => $statuses,
-            'CAN_USE_ANONYMOUS' => ($can_view_own && $user->hasPermission('forms.anonymous') ? true : false),
+            'CAN_USE_ANONYMOUS' => $can_view_own && $user->hasPermission('forms.anonymous'),
             'ANONYMOUS' => $forms_language->get('forms', 'anonymous'),
+            'STAFF_ONLY' => $forms_language->get('forms', 'staff_only'),
             'SUBMIT_AS_ANONYMOUS' => $forms_language->get('forms', 'submit_as_anonymous'),
             'SEND_NOTIFY_EMAIL' => $forms_language->get('forms', 'send_notify_email'),
             'CAN_SEND_EMAIL' => $can_view_own,
+            'COMMENT_STAFF_ONLY' => $forms_language->get('forms', 'comment_staff_only'),
             'TOKEN' => Token::get(),
             'PATH_TO_UPLOADS' => ((defined('CONFIG_PATH')) ? CONFIG_PATH . '/' : '/') . 'uploads/forms_submissions/',
             'COMMENT_VALUE' => (isset($_POST['content']) ? Output::getClean(Input::get('content')) : ''),

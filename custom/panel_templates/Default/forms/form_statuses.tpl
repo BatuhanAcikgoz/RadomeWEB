@@ -53,6 +53,12 @@
                           <li class="nav-item">
                             <a class="nav-link active">{$STATUSES}</a>
                           </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{$ADVANCED_LINK}">{$ADVANCED}</a>
+                            </li>
                         </ul>
                         
                         </br>

@@ -11,7 +11,7 @@ class ListFormlarEndpoint extends KeyAuthEndpoint {
     public function execute(Radome2API $api): void {
         $forms_list = [];
         $forms_query = $api->getDb()->query('SELECT * FROM rw_forms')->results();
-        foreach($forms_query as $form) {
+        foreach ($forms_query as $form) {
             $forms_list[] = [
                 'id' => $form->id,
                 'url' => $form->url,
@@ -19,6 +19,7 @@ class ListFormlarEndpoint extends KeyAuthEndpoint {
                 'title' => $form->title,
                 'captcha' => (bool) $form->captcha,
                 'comment_status' => $form->comment_status,
+                'source' => $form->source,
             ];
         }
 

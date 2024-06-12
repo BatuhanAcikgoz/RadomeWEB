@@ -2,7 +2,7 @@
 class FormInfoEndpoint extends KeyAuthEndpoint {
 
     public function __construct() {
-        $this->_route = 'forms/{form}';
+        $this->_route = 'forms/form/{form}';
         $this->_module = 'Formlar';
         $this->_description = 'Get form details';
         $this->_method = 'GET';
@@ -16,6 +16,7 @@ class FormInfoEndpoint extends KeyAuthEndpoint {
             'title' => $form->data()->title,
             'captcha' => (bool) $form->data()->captcha,
             'comment_status' => $form->data()->comment_status,
+            'source' => $form->data()->source,
         ];
 
         $fields = [];
@@ -29,7 +30,9 @@ class FormInfoEndpoint extends KeyAuthEndpoint {
                 'max' => $field->max,
                 'placeholder' => $field->placeholder,
                 'options' => !empty($field->options) ? explode(',', str_replace("\r", "", $field->options)) : [],
-                'info' => $field->info
+                'info' => $field->info,
+                'regex' => $field->regex,
+                'default_value' => $field->default_value,
             ];
         }
         $return['fields'] = $fields;
@@ -45,6 +48,32 @@ class FormInfoEndpoint extends KeyAuthEndpoint {
             ];
         }
         $return['permissions'] = $permissions;
+
+        // Form statuses
+        $statuses = [];
+        $form_statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
+        if ($form_statuses->count()) {
+            foreach ($form_statuses->results() as $status_query) {
+                $form_ids = explode(',', $status_query->fids);
+
+                if (in_array($form->data()->id, $form_ids) || $status_query->id == 1) {
+                    $groups_list = [];
+                    $groups = explode(',', $status_query->gids);
+                    foreach ($groups as $group) {
+                        $groups_list[] = [
+                            'group_id' => (int) $group
+                        ];
+                    }
+
+                    $statuses[] = [
+                        'id' => $status_query->id,
+                        'html' => Output::getPurified($status_query->html),
+                        'permissions' => $groups_list
+                    ];
+                }
+            }
+        }
+        $return['statuses'] = $statuses;
 
         $api->returnArray($return);
     }

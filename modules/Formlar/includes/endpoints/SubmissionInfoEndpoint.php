@@ -10,24 +10,24 @@ class SubmissionInfoEndpoint extends KeyAuthEndpoint {
 
     public function execute(Radome2API $api, Submission $submission): void {
         $form = new Form($submission->data()->form_id);
-        $status = new Status($submission->data()->status_id);
-
-        $by_username = Formlar::getLanguage()->get('forms', 'guest');
+        $status = $submission->getStatus();
         if ($submission->data()->user_id != null) {
             $user = new User($submission->data()->user_id);
-            if (!$user->exists()) {
+            if ($user->exists()) {
+                $by_username = $user->getDisplayname(true);
+            } else {
                 $by_username = $api->getLanguage()->get('general', 'deleted_user');
             }
             $by_username = $user->getDisplayname(true);
         }
 
-        $updated_by_username = Formlar::getLanguage()->get('forms', 'guest');
         if ($submission->data()->updated_by != null) {
             $updated_by = new User($submission->data()->updated_by);
-            if (!$updated_by->exists()) {
+            if ($updated_by->exists()) {
+                $updated_by_username = $updated_by->getDisplayname(true);
+            } else {
                 $updated_by_username = $api->getLanguage()->get('general', 'deleted_user');
             }
-            $updated_by_username = $updated_by->getDisplayname(true);
         }
 
         $return = [
@@ -36,14 +36,14 @@ class SubmissionInfoEndpoint extends KeyAuthEndpoint {
                 'id' => $submission->data()->form_id,
                 'title' => $form->data()->title
             ],
-            'user' => [
+            'submitter' => $submission->data()->user_id ? [
                 'id' => $submission->data()->user_id,
                 'username' => $by_username,
-            ],
-            'updated_by_user' => [
+            ] : null,
+            'updated_by_user' => $submission->data()->updated_by != null ? [
                 'id' => $submission->data()->updated_by,
                 'username' => $updated_by_username,
-            ],
+            ] : null,
             'created' => $submission->data()->created,
             'last_updated' => $submission->data()->updated,
             'status' => [
@@ -51,7 +51,11 @@ class SubmissionInfoEndpoint extends KeyAuthEndpoint {
                 'name' => strip_tags($status->data()->html),
                 'open' => $status->data()->open,
             ],
-            'fields' => $submission->getFieldsAnswers()
+            'created' => $submission->data()->created,
+            'last_updated' => $submission->data()->updated,
+            'source' => $submission->data()->source,
+            'fields' => $submission->getFieldsAnswers(),
+            'url' => URL::getSelfURL() . ltrim(URL::build('/panel/forms/submissions/', 'view=' . $submission->data()->id), '/')
         ];
 
         $api->returnArray($return);

@@ -25,7 +25,7 @@ class MassMessage extends Task {
         $recipients = DB::getInstance()->query(
             <<<SQL
             SELECT `id`
-            FROM nl2_users
+            FROM rw_users
             $where
             LIMIT $start, 50
             SQL,

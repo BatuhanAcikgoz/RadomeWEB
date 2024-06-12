@@ -3,7 +3,7 @@
  * Notification class to handle sending notifications to a user or users
  * Notifications can be alerts or emails
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.2.0
  * @license MIT
@@ -69,7 +69,7 @@ class Notification {
             $preferences = DB::getInstance()->query(
                 <<<SQL
                     SELECT `alert`, `email`
-                    FROM nl2_users_notification_preferences
+                    FROM rw_users_notification_preferences
                     WHERE `type` = ? AND `user_id` = ?
                 SQL,
                 [$this->_type, $id]

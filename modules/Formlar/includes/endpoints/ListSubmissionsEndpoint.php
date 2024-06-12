@@ -10,10 +10,20 @@ class ListSubmissionsEndpoint extends KeyAuthEndpoint {
 
     public function execute(Radome2API $api): void {
         $query = 'SELECT * FROM rw_forms_replies';
-        $where = ' WHERE id <> 0';
+        $where = '';
         $order = ' ORDER BY `created` DESC';
         $limit = '';
         $params = [];
+
+        // Get submissions submitted to source
+        if (isset($_GET['source']) && is_numeric($_GET['source'])) {
+            $where .= ' AND `source` = ?';
+            $params[] = $_GET['status'];
+        } else {
+            $where .= ' WHERE source IS NULL';
+        }
+
+        // Get submissions from a specific form.
 
         if (isset($_GET['form']) && is_numeric($_GET['form'])) {
             $where .= ' AND `form_id` = ?';
@@ -41,7 +51,7 @@ class ListSubmissionsEndpoint extends KeyAuthEndpoint {
 
         $submissions_list = [];
         $submissions_query = $api->getDb()->query($query . $where . $order . $limit, $params)->results();
-        foreach($submissions_query as $submission) {
+        foreach ($submissions_query as $submission) {
             $submissions_list[] = [
                 'id' => $submission->id,
                 'form_id' => $submission->form_id,

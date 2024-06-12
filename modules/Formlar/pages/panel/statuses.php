@@ -32,7 +32,7 @@ if (!isset($_GET['action'])) {
             // Deal with input
             if (Input::exists()) {
                 // Check token
-                if (Token::check(Input::get('token'))) {
+                if (Token::check()) {
                     // Valid token
                     // Validate input
                     $validation = Validate::check($_POST, [

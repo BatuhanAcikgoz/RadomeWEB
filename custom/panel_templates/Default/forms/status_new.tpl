@@ -61,7 +61,7 @@
                           </div>
                           <div class="form-group">
                             <label for="status_forms">{$STATUS_FORMS}</label>
-                            <select name="status_forms[]" id="inputForms" class="form-control" multiple>
+                            <select name="status_forms[]" id="inputFormlar" class="form-control" multiple>
                               {if count($ALL_FORMS)}
                                 {foreach from=$ALL_FORMS item=item}
                                   <option value="{$item.id}"{if $item.selected} selected{/if}>{$item.name}</option>
@@ -139,7 +139,7 @@
 
 <script type="text/javascript">
     $(document).ready(() => {
-        $('#inputForms').select2({ placeholder: "No forms selected" });
+        $('#inputFormlar').select2({ placeholder: "No forms selected" });
     })
 
     $(document).ready(() => {

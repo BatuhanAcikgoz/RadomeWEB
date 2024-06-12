@@ -82,5 +82,14 @@ abstract class EndpointBase {
      * @return bool
      */
     abstract public function isAuthorised(Radome2API $api): bool;
-
+    /**
+     * Allow auth methods to add custom params to endpoint.
+     *
+     * @return array Custom endpoint params
+     */
+    public function customParams(): array
+    {
+        return [];
+    }
 }
+

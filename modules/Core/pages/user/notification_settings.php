@@ -62,7 +62,7 @@ if (Input::exists()) {
             DB::getInstance()->query(
                 <<<SQL
                 INSERT INTO
-                    nl2_users_notification_preferences
+                    rw_users_notification_preferences
                     (`user_id`, `type`, `alert`, `email`)
                 VALUES
                     $inserts
@@ -80,7 +80,7 @@ if (Input::exists()) {
 }
 
 $preferences = DB::getInstance()->query(
-    'SELECT `type`, `alert`, `email` FROM nl2_users_notification_preferences WHERE `user_id` = ?',
+    'SELECT `type`, `alert`, `email` FROM rw_users_notification_preferences WHERE `user_id` = ?',
     [$user->data()->id],
 )->results();
 

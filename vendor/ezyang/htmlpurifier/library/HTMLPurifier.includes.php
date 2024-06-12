@@ -156,7 +156,7 @@ require 'HTMLPurifier/DefinitionCache/Decorator/Memory.php';
 require 'HTMLPurifier/HTMLModule/Bdo.php';
 require 'HTMLPurifier/HTMLModule/CommonAttributes.php';
 require 'HTMLPurifier/HTMLModule/Edit.php';
-require 'HTMLPurifier/HTMLModule/Forms.php';
+require 'HTMLPurifier/HTMLModule/Formlar.php';
 require 'HTMLPurifier/HTMLModule/Hypertext.php';
 require 'HTMLPurifier/HTMLModule/Iframe.php';
 require 'HTMLPurifier/HTMLModule/Image.php';

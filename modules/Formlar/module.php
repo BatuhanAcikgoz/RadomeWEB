@@ -11,11 +11,12 @@
 
 class Formlar_Module extends Module {
     private DB $_db;
-    private $_language;
-    private $_forms_language;
-    private $_cache;
+    private Language $_language;
+    private Language $_forms_language;
+    private Cache $_cache;
 
-    public function __construct($language, $forms_language, $pages, $user, $navigation, $cache, $endpoints) {
+    public function __construct($language, $forms_language, $pages, $user, $navigation, $cache, $endpoints)
+    {
         $this->_db = DB::getInstance();
         $this->_language = $language;
         $this->_forms_language = $forms_language;
@@ -56,11 +57,21 @@ class Formlar_Module extends Module {
                     }
 
                     if (!$perm) {
-                        $hasperm = $this->_db->query('SELECT form_id FROM rw_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN('.$group_ids.')', array($form->id));
+                        $hasperm = $this->_db->query('SELECT form_id FROM nl2_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN(' . $group_ids . ')', array($form->id));
                         if ($hasperm->count()) {
                             $perm = true;
                         }
-                    }                 
+                    }
+
+                    // Check cache first
+                    $cache->setCache('navbar_order');
+                    if (!$cache->isCached('form-' . $form->id . '_order')) {
+                        // Create cache entry now
+                        $form_order = 5;
+                        $cache->store('form-' . $form->id . '_order', 5);
+                    } else {
+                        $form_order = $cache->retrieve('form-' . $form->id . '_order');
+                    }
 
                     // Add link location to navigation if user have permission
                     if ($perm) {
@@ -80,12 +91,10 @@ class Formlar_Module extends Module {
                             break;
                             case 2:
                                 // "More" dropdown
-                                $navigation->addItemToDropdown('more_dropdown', 'form-' . $form->id, Output::getClean($form->title), URL::build(Output::getClean($form->url)), 'top', null, $form->icon);
-                            break;
+                                $navigation->addItemToDropdown('more_dropdown', 'form-' . $form->id, Output::getClean($form->title), URL::build(Output::getClean($form->url)), 'top', null, $form->icon, $form_order);                            break;
                             case 3:
                                 // Footer
-                                $navigation->add('form-' . $form->id, Output::getClean($form->title), URL::build(Output::getClean($form->url)), 'footer', null, 2000, $form->icon);
-                            break;
+                                $navigation->add('form-' . $form->id, Output::getClean($form->title), URL::build(Output::getClean($form->url)), 'footer', null, $form_order, $form->icon);                            break;
                         }
                     }
                     
@@ -96,15 +105,24 @@ class Formlar_Module extends Module {
         }
         
         // Hooks
-        EventHandler::registerEvent('newFormSubmission', $forms_language->get('forms', 'new_form_submission'));
-        EventHandler::registerEvent('updatedFormSubmission', $forms_language->get('forms', 'updated_form_submission'));
-        EventHandler::registerEvent('updatedFormSubmissionStaff', $forms_language->get('forms', 'updated_form_submission_staff'));
+        EventHandler::registerEvent(SubmissionCreatedEvent::class);
+        EventHandler::registerEvent(SubmissionUpdatedEvent::class);
+        EventHandler::registerEvent(SubmissionUpdatedStaffEvent::class);
 
-        require_once ROOT_PATH . '/modules/Formlar/hooks/CloneGroupFormlarHook.php';
-        EventHandler::registerListener('cloneGroup', 'CloneGroupFormlarHook::execute');
+        EventHandler::registerEvent('renderForm', 'renderForm', [], true, true);
 
-        require_once ROOT_PATH . '/modules/Formlar/hooks/DeleteUserFormlarHook.php';
-        EventHandler::registerListener('deleteUser', 'DeleteUserFormlarHook::execute');
+
+        EventHandler::registerListener('renderForm', [FormHook::class, 'globalLimit']);
+        EventHandler::registerListener('renderForm', [FormHook::class, 'userLimit']);
+        EventHandler::registerListener('renderForm', [FormHook::class, 'requiredIntegrations']);
+
+        EventHandler::registerListener('renderForm', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderForm', [ContentHook::class, 'codeTransform'], 15);
+        EventHandler::registerListener('renderForm', [ContentHook::class, 'decode'], 20);
+        EventHandler::registerListener('renderForm', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderForm', [ContentHook::class, 'replaceAnchors'], 5);
+        EventHandler::registerListener(GroupClonedEvent::class, CloneGroupFormlarHook::class);
+        EventHandler::registerListener(UserDeletedEvent::class, DeleteUserFormlarHook::class);
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Formlar/includes/endpoints');
 
@@ -197,9 +215,9 @@ class Formlar_Module extends Module {
     }
 
     public function getDebugInfo(): array {
-// Forms
+        // Formlar
         $forms_list = [];
-        $forms_query = $this->_db->query('SELECT * FROM nl2_forms')->results();
+        $forms_query = $this->_db->query('SELECT * FROM rw_forms')->results();
         foreach ($forms_query as $data) {
             $form = new Form($data->id);
 
@@ -215,13 +233,15 @@ class Formlar_Module extends Module {
                     'max' => (int)$field->max,
                     'placeholder' => $field->placeholder,
                     'options' => $field->options,
-                    'info' => $field->info
+                    'info' => $field->info,
+                    'regex' => $field->regex,
+                    'default_value' => $field->default_value,
                 ];
             }
 
             // Form permissions
             $permissions = [];
-            $permissions_query = $this->_db->query('SELECT * FROM nl2_forms_permissions WHERE form_id = ?', [$form->data()->id])->results();
+            $permissions_query = $this->_db->query('SELECT * FROM rw_forms_permissions WHERE form_id = ?', [$form->data()->id])->results();
             foreach ($permissions_query as $permission) {
                 $permissions[] = [
                     'group_id' => (int)$permission->group_id,
@@ -242,6 +262,8 @@ class Formlar_Module extends Module {
                 'captcha' => (bool)$form->data()->captcha,
                 'comment_status' => (int)$form->data()->comment_status,
                 'source' => $form->data()->source,
+                'hooks' => $form->data()->hooks,
+                'discord_fields' => (bool)$form->data()->discord_fields,
                 'forum_id' => (int)$form->data()->forum_id,
                 'fields' => $fields,
                 'permissions' => $permissions
@@ -250,7 +272,7 @@ class Formlar_Module extends Module {
 
         // Statuses
         $statuses_list = [];
-        $statuses_query = $this->_db->query('SELECT * FROM nl2_forms_statuses')->results();
+        $statuses_query = $this->_db->query('SELECT * FROM rw_forms_statuses')->results();
         foreach ($statuses_query as $data) {
             $statuses_list[] = [
                 'id' => (int)$data->id,
@@ -269,7 +291,7 @@ class Formlar_Module extends Module {
         // Generate tables
         if (!$this->_db->showTables('forms')) {
             try {
-                $this->_db->createTable("forms", " `id` int(11) NOT NULL AUTO_INCREMENT, `url` varchar(32) NOT NULL, `title` varchar(32) NOT NULL, `guest` tinyint(1) NOT NULL DEFAULT '0', `link_location` tinyint(1) NOT NULL DEFAULT '1', `icon` varchar(64) NULL, `can_view` tinyint(1) NOT NULL DEFAULT '0', `captcha` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NULL DEFAULT NULL, `comment_status` int(11) NOT NULL DEFAULT '0', `source` varchar(32) NOT NULL DEFAULT 'forms', `forum_id` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+                $this->_db->createTable("forms", " `id` int(11) NOT NULL AUTO_INCREMENT, `url` varchar(32) NOT NULL, `title` varchar(32) NOT NULL, `guest` tinyint(1) NOT NULL DEFAULT '0', `link_location` tinyint(1) NOT NULL DEFAULT '1', `icon` varchar(64) NULL, `can_view` tinyint(1) NOT NULL DEFAULT '0', `captcha` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NULL DEFAULT NULL, `comment_status` int(11) NOT NULL DEFAULT '0', `source` varchar(32) NOT NULL DEFAULT 'forms', `forum_id` int(11) NOT NULL DEFAULT '0', `hooks` varchar(512) DEFAULT NULL, `discord_fields` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
 
                 $this->_db->insert('forms', array(
                     'url' => '/destek',
@@ -314,7 +336,7 @@ class Formlar_Module extends Module {
 
         if (!$this->_db->showTables('forms_comments')) {
             try {
-                $this->_db->createTable("forms_comments", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `created` int(11) NOT NULL, `anonymous` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NOT NULL, PRIMARY KEY (`id`)");
+                $this->_db->createTable("forms_comments", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NOT NULL, `created` int(11) NOT NULL, `anonymous` tinyint(1) NOT NULL DEFAULT '0', `content` mediumtext NOT NULL, `staff_only` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
             } catch (Exception $e) {
                 // Error
             }
@@ -322,7 +344,7 @@ class Formlar_Module extends Module {
 
         if (!$this->_db->showTables('forms_fields')) {
             try {
-                $this->_db->createTable("forms_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `name` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `placeholder` varchar(255) NULL DEFAULT NULL, `options` text NULL, `info` text NULL, `deleted` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+                $this->_db->createTable("forms_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `name` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `placeholder` varchar(255) NULL DEFAULT NULL, `options` text NULL, `info` text NULL, `regex` varchar(64) DEFAULT NULL, `default_value` varchar(64) NOT NULL DEFAULT '', `deleted` tinyint(1) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
                 
                 $this->_db->insert('forms_fields', array(
                     'form_id' => 1,
@@ -368,7 +390,7 @@ class Formlar_Module extends Module {
 
         if (!$this->_db->showTables('forms_replies')) {
             try {
-                $this->_db->createTable("forms_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NULL, `updated_by` int(11) NULL, `created` int(11) NOT NULL, `updated` int(11) NOT NULL, `content` mediumtext NULL DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+                $this->_db->createTable("forms_replies", " `id` int(11) NOT NULL AUTO_INCREMENT, `form_id` int(11) NOT NULL, `user_id` int(11) NULL, `updated_by` int(11) NULL, `created` int(11) NOT NULL, `updated` int(11) NOT NULL, `content` mediumtext NULL DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT '1', `source` varchar(32) DEFAULT NULL, `source_id` int(11) DEFAULT NULL, PRIMARY KEY (`id`)");
             } catch (Exception $e) {
                 // Error
             }

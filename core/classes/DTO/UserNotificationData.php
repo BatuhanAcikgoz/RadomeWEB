@@ -2,7 +2,7 @@ userId<?php
 /**
  * Represents notification data which belongs to a user.
  *
- * @package NamelessMC\DTO
+ * @package RadomeWEB\DTO
  * @author Samerton
  * @version 2.2.0
  * @license MIT

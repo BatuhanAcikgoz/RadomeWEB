@@ -73,7 +73,7 @@
     "forms\/new_form": "Yeni Form",
     "forms\/new_form_submission": "Yeni talep",
     "forms\/new_status": "Yeni Durum",
-    "forms\/new_submission_text": "{{form}}, {{user}} tarafından yeni talep oluşturuldu",
+    "forms\/new_submission_in_form": "{{form}}, {{user}} tarafından yeni talep oluşturuldu",
     "forms\/new_update_available_x": "{{module}} için güncelleme mevcut",
     "forms\/new_urgent_update_available_x": "{{module}} için yeni güncelleme mevcut. Lütfen en kısa sürede güncelleyiniz!",
     "forms\/new_version_x": "Yeni Eklenti Sürümü: {{new_version}}",
@@ -107,10 +107,10 @@
     "forms\/submissions": "Talepler",
     "forms\/submit_as_anonymous": "Anonim olarak gönder",
     "forms\/updated_by": "Tarafından güncellendi",
-    "forms\/updated_form_submission": "Yeni talep yanıtı",
-    "forms\/updated_form_submission_staff": "Moderatör tarafından talebe cevap verildi",
+    "forms\/new_form_submission_comment": "Yeni talep yanıtı",
+    "forms\/new_form_submission_comment_staff": "Moderatör tarafından talebe cevap verildi",
     "forms\/updated_submission_status": "Talebin durumu {{new_status}} durumuna güncellendi",
-    "forms\/updated_submission_text": "{{form}} talebinde {{user}} tarafından cevap verildi",
+    "forms\/new_submission_comment": "{{form}} talebinde {{user}} tarafından cevap verildi",
     "forms\/user": "Kullanıcı",
     "forms\/view_resource": "Kaynağa Bak",
     "forms\/x_field_maximum_y": "{{field}} alanı maksimum {{max}} karakter olmalı.",
@@ -119,5 +119,9 @@
     "forms\/advanced": "Gelişmiş",
     "forms\/submission_source": "Talebi kaynağa gönder",
     "forms\/submit_to_submission_forum": "Submit submission to forum?",
-    "forms/no_permission_to_select_status": "You don't have permission to select this status!"
+    "forms/no_permission_to_select_status": "You don't have permission to select this status!",
+    "forms/limits_and_requirements": "Limits & Requirements",
+    "forms/form_global_limit_reached": "To many users have recently submitted to this form, Please try again later",
+    "forms/form_user_limit_reached": "You have reached the limit of times you can submit to this form!",
+    "forms/form_requires_integration": "This form requires you to link your {{integration}} account, You can do this at {{linkStart}}account connections{{linkEnd}}"
 }

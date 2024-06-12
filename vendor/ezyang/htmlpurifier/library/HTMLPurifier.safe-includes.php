@@ -150,7 +150,7 @@ require_once $__dir . '/HTMLPurifier/DefinitionCache/Decorator/Memory.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/Bdo.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/CommonAttributes.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/Edit.php';
-require_once $__dir . '/HTMLPurifier/HTMLModule/Forms.php';
+require_once $__dir . '/HTMLPurifier/HTMLModule/Formlar.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/Hypertext.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/Iframe.php';
 require_once $__dir . '/HTMLPurifier/HTMLModule/Image.php';

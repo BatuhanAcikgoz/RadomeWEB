@@ -139,9 +139,6 @@ if (!isset($_GET['action'])) {
     }
 
     $smarty->assign([
-        'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
-        'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/panel/formlar'),
         'FORM_NAME' => $forms_language->get('forms', 'form_name'),
         'FORM_NAME_VALUE' => Output::getClean(htmlspecialchars_decode($form->data()->title)),
         'FORM_ICON' => $forms_language->get('forms', 'form_icon'),
@@ -223,7 +220,9 @@ if (!isset($_GET['action'])) {
                                 'info' => Output::getClean(nl2br(Input::get('info'))),
                                 'order' => Input::get('order'),
                                 'min' => Input::get('minimum'),
-                                'max' => Input::get('maximum')
+                                'max' => Input::get('maximum'),
+                                'default_value' => Input::get('default'),
+                                'regex' => !empty(Input::get('regex')) ? Input::get('regex') : null
                             ]);
                                     
                             Session::flash('staff_forms', $forms_language->get('forms', 'field_created_successfully'));
@@ -241,7 +240,7 @@ if (!isset($_GET['action'])) {
             }
         
             $smarty->assign([
-                'NEW_FIELD_FOR_X' => $forms_language->get('forms', 'new_field_for_x', ['form' => Output::getClean($form->data()->title)]),
+                'FIELD_TITLE_FOR_X' => $forms_language->get('forms', 'new_field_for_x', ['form' => Output::getClean($form->data()->title)]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/form/', 'form=' . Output::getClean($form->data()->id)),
                 'FIELD_NAME' => $language->get('admin', 'field_name'),
@@ -252,12 +251,17 @@ if (!isset($_GET['action'])) {
                 'CHECKBOX' => $forms_language->get('forms', 'checkbox'),
                 'RADIO' => $forms_language->get('forms', 'radio'),
                 'FIELD_ORDER' => $forms_language->get('forms', 'field_order'),
+                'ORDER_VALUE' => ((isset($_POST['order']) && $_POST['order']) ? Output::getClean(Input::get('order')) : '1'),
+                'DEFAULT_VALUE' => ((isset($_POST['default']) && $_POST['default']) ? Output::getClean(Input::get('default')) : ''),
                 'MINIMUM_CHARACTERS' => $forms_language->get('forms', 'minimum_characters'),
+                'MINIMUM_CHARACTERS_VALUE' => ((isset($_POST['minimum']) && $_POST['minimum']) ? Output::getClean(Input::get('minimum')) : '0'),
                 'MAXIMUM_CHARACTERS' => $forms_language->get('forms', 'maximum_characters'),
+                'MAXIMUM_CHARACTERS_VALUE' => ((isset($_POST['maximum']) && $_POST['maximum']) ? Output::getClean(Input::get('maximum')) : '0'),
+                'REGEX_VALUE' => ((isset($_POST['regex']) && $_POST['regex']) ? Output::getClean(Input::get('regex')) : ''),
                 'REQUIRED' => $language->get('admin', 'required'),
             ]);
         
-            $template_file = 'forms/field_new.tpl';
+            $template_file = 'forms/field.tpl';
         break;
         case 'edit':
             if (!is_numeric($_GET['id'])) {
@@ -314,7 +318,9 @@ if (!isset($_GET['action'])) {
                                 'info' => nl2br(Input::get('info')),
                                 'min' => Input::get('minimum'),
                                 'max' => Input::get('maximum'),
-                                'order' => Input::get('order')
+                                'order' => Input::get('order'),
+                                'default_value' => Input::get('default'),
+                                'regex' => !empty(Input::get('regex')) ? Input::get('regex') : null
                             ]);
                                     
                             Session::flash('staff_forms', $forms_language->get('forms', 'field_updated_successfully'));
@@ -339,7 +345,7 @@ if (!isset($_GET['action'])) {
             }
         
             $smarty->assign([
-                'EDITING_FIELD_FOR_X' => $forms_language->get('forms', 'editing_field_for_x', ['form' => Output::getClean($form->data()->title)]),
+                'FIELD_TITLE_FOR_X' => $forms_language->get('forms', 'editing_field_for_x', ['form' => Output::getClean($form->data()->title)]),
                 'BACK' => $language->get('general', 'back'),
                 'BACK_LINK' => URL::build('/panel/form/', 'form=' . Output::getClean($form->data()->id)),
                 'FIELD_NAME' => $language->get('admin', 'field_name'),
@@ -355,10 +361,12 @@ if (!isset($_GET['action'])) {
                 'INFO_VALUE' => Output::getClean($field->info),
                 'FIELD_ORDER' => $forms_language->get('forms', 'field_order'),
                 'ORDER_VALUE' => $field->order,
+                'DEFAULT_VALUE' => Output::getClean($field->default_value),
                 'MINIMUM_CHARACTERS' => $forms_language->get('forms', 'minimum_characters'),
                 'MINIMUM_CHARACTERS_VALUE' => $field->min,
                 'MAXIMUM_CHARACTERS' => $forms_language->get('forms', 'maximum_characters'),
                 'MAXIMUM_CHARACTERS_VALUE' => $field->max,
+                'REGEX_VALUE' => Output::getClean($field->regex ?? ''),
                 'REQUIRED' => $language->get('admin', 'required'),
                 'REQUIRED_VALUE' => $field->required,
             ]);
@@ -392,9 +400,6 @@ if (!isset($_GET['action'])) {
             }
             
             $smarty->assign([
-                'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/formlar'),
                 'FIELD_NAME' => $language->get('admin', 'field_name'),
                 'ORDER' => $forms_language->get('forms', 'field_order'),
                 'TYPE' => $language->get('admin', 'type'),
@@ -448,7 +453,7 @@ if (!isset($_GET['action'])) {
                     }
                     
                     try {
-                        if ($cat_perm_exists != 0) { // Permission already exists, update
+                        if ($cat_perm_exists != 0) { // Permission already exists, update.
                             // Update the category
                             DB::getInstance()->update('forms_permissions', $update_id, [
                                 'post' => $post,
@@ -528,9 +533,6 @@ if (!isset($_GET['action'])) {
             $group_query = DB::getInstance()->query('SELECT id, name, can_post, can_view_own, can_view, can_delete FROM rw_groups A LEFT JOIN (SELECT group_id, post AS can_post, `view_own` AS can_view_own, `view` AS can_view, can_delete FROM rw_forms_permissions WHERE form_id = ?) B ON A.id = B.group_id ORDER BY `order` ASC', [$form->data()->id])->results();
         
             $smarty->assign([
-                'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/formlar'),
                 'USER' => $language->get('admin', 'user'),
                 'STAFFCP' => $language->get('moderator', 'staff_cp'),
                 'GROUP' => $language->get('admin', 'group'),
@@ -614,9 +616,6 @@ if (!isset($_GET['action'])) {
             }
 
             $smarty->assign([
-                'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
-                'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/formlar'),
                 'SELECT_STATUSES' => $forms_language->get('forms', 'select_statuses_to_form'),
                 'ALL_STATUSES' => $status_array,
                 'CHANGE_STATUS_ON_COMMENT' => $forms_language->get('forms', 'change_status_on_comment'),
@@ -626,6 +625,102 @@ if (!isset($_GET['action'])) {
             
             $template_file = 'forms/form_statuses.tpl';
         break;
+        case 'limits_requirements':
+            // Limits and requirements
+            if (Input::exists()) {
+                $errors = [];
+
+                if (Token::check(Input::get('token'))) {
+                    $global_limit = [
+                        'limit' => $_POST['global_limit'] ?? 0,
+                        'interval' => $_POST['global_limit_interval'] ?? 1,
+                        'period' => $_POST['global_limit_period'] ?? 'no_period'
+                    ];
+
+                    $user_limit = [
+                        'limit' => $_POST['user_limit'] ?? 0,
+                        'interval' => $_POST['user_limit_interval'] ?? 1,
+                        'period' => $_POST['user_limit_period'] ?? 'no_period'
+                    ];
+
+                    $player_age = [
+                        'interval' => $_POST['player_age_interval'] ?? 0,
+                        'period' => $_POST['player_age_period'] ?? 'hour'
+                    ];
+
+                    $player_playtime = [
+                        'playtime' => $_POST['player_playtime'] ?? 0,
+                        'interval' => $_POST['player_playtime_interval'] ?? 1,
+                        'period' => $_POST['player_playtime_period'] ?? 'all_time'
+                    ];
+
+                    $required_integrations = $_POST['required_integrations'];
+
+                    $form->update([
+                        'global_limit' => json_encode($global_limit),
+                        'user_limit' => json_encode($user_limit),
+                        'min_player_age' => json_encode($player_age),
+                        'min_player_playtime' => json_encode($player_playtime),
+                        'required_integrations' =>  json_encode(isset($required_integrations) && is_array($required_integrations) ? $required_integrations : [])
+                    ]);
+
+                    Session::flash('staff_forms', $forms_language->get('forms', 'form_updated_successfully'));
+                    Redirect::to(URL::build('/panel/form/', 'form='.$form->data()->id.'&action=limits_requirements'));
+                } else {
+                    // Invalid token
+                    $errors[] = $language->get('general', 'invalid_token');
+                }
+            }
+
+            $global_limit_json = json_decode($form->data()->global_limit, true) ?? [];
+            $global_limit = [
+                'limit' => $global_limit_json['limit'] ?? 0,
+                'interval' => $global_limit_json['interval'] ?? 1,
+                'period' => $global_limit_json['period'] ?? 'no_period'
+            ];
+
+            $user_limit_json = json_decode($form->data()->user_limit, true) ?? [];
+            $user_limit = [
+                'limit' => $user_limit_json['limit'] ?? 0,
+                'interval' => $user_limit_json['interval'] ?? 1,
+                'period' => $user_limit_json['period'] ?? 'no_period'
+            ];
+
+            $integrations_list = [];
+            $selected_integrations = json_decode($form->data()->required_integrations, true) ?? [];
+            foreach (Integrations::getInstance()->getEnabledIntegrations() as $item) {
+                $integrations_list[] = [
+                    'id' => $item->data()->id,
+                    'name' => Output::getClean($item->getName()),
+                    'selected' => in_array($item->data()->id, $selected_integrations)
+                ];
+            }
+
+            $player_age_json = json_decode($form->data()->min_player_age, true) ?? [];
+            $player_age = [
+                'interval' => $player_age_json['interval'] ?? 0,
+                'period' => $player_age_json['period'] ?? 'hour'
+            ];
+
+            $player_playtime_json = json_decode($form->data()->min_player_playtime, true) ?? [];
+            $player_playtime = [
+                'playtime' => $player_playtime_json['playtime'] ?? 0,
+                'interval' => $player_playtime_json['interval'] ?? 1,
+                'period' => $player_playtime_json['period'] ?? 'all_time'
+            ];
+
+            $smarty->assign([
+                'GLOBAL_LIMIT_VALUE' => $global_limit,
+                'USER_LIMIT_VALUE' => $user_limit,
+                'INTEGRATIONS_LIST' => $integrations_list,
+                'MCSTATISTICS_ENABLED' => Util::isModuleEnabled('MCStatistics'),
+                'PLAYER_AGE_VALUE' => $player_age,
+                'PLAYER_PLAYTIME_VALUE' => $player_playtime,
+            ]);
+
+            $template_file = 'forms/form_limits_requirements.tpl';
+            break;
+
         default:
         Redirect::to(URL::build('/panel/formlar'));
     break;
@@ -654,6 +749,9 @@ $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'PAGE' => PANEL_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
+    'EDITING_FORM' => $forms_language->get('forms', 'editing_x', ['form' => Output::getClean($form->data()->title)]),
+    'BACK' => $language->get('general', 'back'),
+    'BACK_LINK' => URL::build('/panel/formlar'),
     'INFO' => $language->get('general', 'info'),
     'FORMS' => $forms_language->get('forms', 'forms'),
     'TOKEN' => Token::get(),
@@ -661,11 +759,13 @@ $smarty->assign([
     'GENERAL_SETTINGS' => $language->get('admin', 'general_settings'),
     'GENERAL_SETTINGS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id),
     'FIELDS' => $forms_language->get('forms', 'fields'),
-    'FIELDS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=fields'),
+    'FIELDS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&action=fields'),
     'PERMISSIONS' => $language->get('admin', 'permissions'),
-    'PERMISSIONS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=permissions'),
+    'PERMISSIONS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&action=permissions'),
     'STATUSES' => $forms_language->get('forms', 'statuses'),
-    'STATUSES_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&amp;action=statuses'),
+    'STATUSES_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&action=statuses'),
+    'LIMITS_AND_REQUIREMENTS' => $forms_language->get('forms', 'limits_and_requirements'),
+    'LIMITS_AND_REQUIREMENTS_LINK' => URL::build('/panel/form/', 'form='.$form->data()->id.'&action=limits_requirements'),
     'GUEST_VALUE' => $form->data()->guest
 ]);
 

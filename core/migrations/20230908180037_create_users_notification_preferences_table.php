@@ -16,7 +16,7 @@ final class CreateUsersNotificationPreferencesTable extends AbstractMigration
             ->addColumn('alert', 'boolean', ['default' => false])
             ->addColumn('email', 'boolean', ['default' => false]);
 
-        $table->addForeignKey('user_id', 'nl2_users', 'id', ['delete' => 'CASCADE']);
+        $table->addForeignKey('user_id', 'rw_users', 'id', ['delete' => 'CASCADE']);
 
         $table->create();
     }

@@ -68,7 +68,7 @@ if (Input::exists()) {
                     $in = implode(',', array_map(static fn ($g) => '?', $_POST['exclude_groups']));
                     $excludeUsers = DB::getInstance()->query(
                         <<<SQL
-                        SELECT id FROM nl2_users WHERE id IN (SELECT user_id FROM nl2_users_groups WHERE group_id IN ($in))
+                        SELECT id FROM rw_users WHERE id IN (SELECT user_id FROM rw_users_groups WHERE group_id IN ($in))
                         SQL,
                         $_POST['exclude_groups'],
                     )->results();
@@ -84,7 +84,7 @@ if (Input::exists()) {
                     $in = implode(',', array_map(static fn ($g) => '?', $_POST['include_groups']));
                     $includeUsers = DB::getInstance()->query(
                         <<<SQL
-                        SELECT id FROM nl2_users WHERE id IN (SELECT user_id FROM nl2_users_groups WHERE group_id IN ($in))
+                        SELECT id FROM rw_users WHERE id IN (SELECT user_id FROM rw_users_groups WHERE group_id IN ($in))
                         SQL,
                         $_POST['include_groups'],
                     )->results();
@@ -97,7 +97,7 @@ if (Input::exists()) {
                 $join = '';
                 $clause = '';
                 if (!isset($_POST['ignore_opt_in']) || !$_POST['ignore_opt_in']) {
-                    $join = 'INNER JOIN nl2_users_notification_preferences unp ON unp.user_id = u.id';
+                    $join = 'INNER JOIN rw_users_notification_preferences unp ON unp.user_id = u.id';
                     $clause = 'unp.`type` = \'mass_message\' AND (unp.alert = 1 OR unp.email = 1)';
                 }
 
@@ -124,7 +124,7 @@ if (Input::exists()) {
                     $ids = array_merge($filterGroups ?? [], $filterUsers ?? []);
                     $users = DB::getInstance()->query(
                         <<<SQL
-                        SELECT u.id FROM nl2_users u
+                        SELECT u.id FROM rw_users u
                         $join
                         WHERE $excludeClause $glue $includeClause
                         $clause
@@ -136,7 +136,7 @@ if (Input::exists()) {
 
                     $users = DB::getInstance()->query(
                         <<<SQL
-                        SELECT u.id FROM nl2_users u
+                        SELECT u.id FROM rw_users u
                         $join
                         $where
                         SQL
@@ -182,7 +182,7 @@ if (Input::exists()) {
     }
 }
 
-$allGroups = DB::getInstance()->query('SELECT id, name FROM nl2_groups')->results();
+$allGroups = DB::getInstance()->query('SELECT id, name FROM rw_groups')->results();
 
 $smarty->assign([
     'SENDING_MASS_MESSAGE' => $language->get('admin', 'sending_mass_message'),

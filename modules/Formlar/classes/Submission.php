@@ -54,6 +54,12 @@ class Submission {
      * @param User|null $user The user who submitted this submission.
      */
     public function create(Form $form, ?User $user, array $fields_values): bool {
+        $fields = $form->getFields();
+        if (!count($fields)) {
+            $this->addError('There are no fields for this form, You need to add fields for this form at StaffCP -> Formlar');
+            return false;
+        }
+
         $user_id = ($user != null && $user->exists()) ? $user->data()->id : null;
 
         $this->_db->insert('forms_replies', [
@@ -73,7 +79,7 @@ class Submission {
         try {
             $inserts = [];
             $insert_values = [];
-            foreach ($form->getFields() as $field) {
+            foreach ($fields as $field) {
                 if ($field->type != 10) {
                     // Normal POST value
                     if (isset($fields_values[$field->id])) {
@@ -113,8 +119,7 @@ class Submission {
 
             $query = 'INSERT INTO rw_forms_replies_fields (submission_id, field_id, value) VALUES ';
             $query .= implode('', $inserts);
-            DB::getInstance()->query(rtrim($query, ','), $insert_values);
-        } catch (Exception $e) {
+            DB::getInstance()->query(rtrim($query, ','), $insert_values);        } catch (Exception $e) {
             $this->addError($e->getMessage());
             DB::getInstance()->delete('forms_replies', ['id', '=', $submission_id]);
             return false;
@@ -124,21 +129,22 @@ class Submission {
         if ($data->count()) {
             $this->_data = $data->first();
 
-            $status = new Status(1);
-            $status_color = $status->data()->color;
-            EventHandler::executeEvent('newFormSubmission', [
-                'event' => 'newFormSubmission',
-                'username' => $form->data()->title,
-                'content' => Formlar::getLanguage()->get('forms', 'new_submission_text', [
-                    'form' => $form->data()->title,
-                    'user' => ($user != null && $user->exists() ? $user->getDisplayname() : Formlar::getLanguage()->get('forms', 'guest'))
-                ]),
-                'content_full' => '',
-                'avatar_url' => ($user != null && $user->exists() ? $user->getAvatar(128, true) : null),
-                'title' => $form->data()->title,
-                'url' => rtrim(URL::getSelfURL(), '/') . URL::build('/panel/formlar/talepler/', 'view=' . $this->data()->id),
-                'color' => $status_color
-            ]);
+            EventHandler::executeEvent(new SubmissionCreatedEvent(
+                $user,
+                $form,
+                $this,
+                json_decode($form->data()->hooks)
+            ));
+
+            // Submit submission to another source?
+            if ($form->data()->source != 'forms') {
+                $source = Formlar::getInstance()->getSubmissionSource($form->data()->source);
+
+                if (!$source->create($form, $this, $user, $fields_values)) {
+                    $this->delete();
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -155,6 +161,9 @@ class Submission {
         if (!$this->_db->update('forms_replies', $this->data()->id, $fields)) {
             throw new Exception('There was a problem updating submission');
         }
+        foreach ($fields as $key => $value) {
+            $this->_data->$key = $value;
+        }
     }
 
     /**
@@ -166,11 +175,12 @@ class Submission {
         $answer_array = [];
         if (empty($this->data()->content)) {
             // New fields generation
-            $fields = $this->_db->query('SELECT name, value, type FROM rw_forms_replies_fields LEFT JOIN rw_forms_fields ON field_id=rw_forms_fields.id WHERE submission_id = ?', [$this->data()->id])->results();
+            $fields = $this->_db->query('SELECT name, value, type, field_id FROM rw_forms_replies_fields LEFT JOIN rw_forms_fields ON field_id=rw_forms_fields.id WHERE submission_id = ?', [$this->data()->id])->results();
             foreach ($fields as $field) {
                 $answer_array[] = [
+                    'field_id' => (int) Output::getClean($field->field_id),
+                    'field_type' => (int) Output::getClean($field->type),
                     'question' => Output::getClean($field->name),
-                    'field_type' => Output::getClean($field->type),
                     'answer' => Output::getPurified(Output::getDecoded($field->value))
                 ];
             }
@@ -181,14 +191,24 @@ class Submission {
             foreach ($answers as $answer) {
                 $question = $this->_db->get('forms_fields', ['id', '=', $answer[0]])->results();
                 $answer_array[] = [
-                    'question' => Output::getClean($question[0]->name),
+                    'field_id' => 1,
                     'field_type' => 1,
+                    'question' => Output::getClean($question[0]->name),
                     'answer' => Output::getPurified(Output::getDecoded($answer[1]))
                 ];
             }
         }
 
         return $answer_array;
+    }
+
+    /*
+    * Get current submission status.
+    *
+    * @return Status Get current submission status.
+    */
+    public function getStatus(): Status {
+        return new Status($this->data()->status_id);
     }
 
     /**

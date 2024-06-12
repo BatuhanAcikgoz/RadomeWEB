@@ -1,8 +1,8 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/samerton/Nameless-Cezalar
- *  NamelessMC version 2.1.0
+ *  https://github.com/samerton/Radome-Cezalar
+ *  RadomeWEB version 2.1.0
  *
  *  Licence: MIT
  *

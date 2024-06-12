@@ -85,6 +85,9 @@ class Form {
         $to_validate = [];
         $to_validate_messages = [];
 
+        $to_validate['token'] = [Validate::RATE_LIMIT => [1, 5]];
+        $to_validate_messages['token'] = [Validate::RATE_LIMIT => $forms_language->get('forms', 'post_rate_limit')];
+
         foreach ($this->getFields() as $field) {
             $field_validation = [];
             $field_validation_message = [];
@@ -102,6 +105,11 @@ class Form {
             if ($field->max != 0) {
                 $field_validation[Validate::MAX] = $field->max;
                 $field_validation_message[Validate::MAX] = $forms_language->get('forms', 'x_field_maximum_y', ['field' => Output::getClean($field->name), 'max' => $field->max]);
+            }
+
+            if ($field->regex != null) {
+                $field_validation[Validate::REGEX] = $field->regex;
+                $field_validation_message[Validate::REGEX] = $forms_language->get('forms', 'x_field_regex', ['field' => Output::getClean($field->name)]);
             }
 
             if (count($field_validation)) {

@@ -142,12 +142,12 @@ class Vote_Module extends Module {
 
         if ($old_version < 234) {
             if (DB::getInstance()->showTables('vote_settings')) {
-                $message = DB::getInstance()->query('SELECT * FROM nl2_vote_settings WHERE name = \'vote_message\'');
+                $message = DB::getInstance()->query('SELECT * FROM rw_vote_settings WHERE name = \'vote_message\'');
                 if ($message->count()) {
                     Util::setSetting('vote_message', $message->first()->value, 'Vote');
                 }
 
-                DB::getInstance()->query('DROP TABLE nl2_vote_settings');
+                DB::getInstance()->query('DROP TABLE rw_vote_settings');
             }
         }
     }
