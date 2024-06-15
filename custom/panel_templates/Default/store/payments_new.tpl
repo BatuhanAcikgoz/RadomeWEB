@@ -61,8 +61,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                <label for="InputPrice">{$PRICE}</label>
-                                <input type="number" name="price" class="form-control" id="InputPrice" step="0.01" min="0.00" value="0.00">
+                                    <label for="InputPrice">{$PRICE}</label>
+                                    <input type="number" name="price" class="form-control" id="InputPrice" step="0.01" min="0.00" value="0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPaymentStatus">Payment Status</label>
+                                    <select class="form-control" name="payment_status" id="inputPaymentStatus">
+                                        <option value="COMPLETED">Completed</option>
+                                        <option value="PENDING">Pending</option>
+                                        <option value="REFUNDED">Refunded</option>
+                                        <option value="REVERSED">Reversed</option>
+                                        <option value="DENIED">Denied</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
@@ -71,7 +81,18 @@
                             </form>
                         {/if}
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

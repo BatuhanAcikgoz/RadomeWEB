@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -61,8 +63,8 @@ if (Input::exists()) {
                 // Success perform transaction
                 $target_customer = new Customer($target_user);
                 if ($target_customer->exists()) {
-                    $customer->removeCents($cents);
-                    $target_customer->addCents($cents);
+                    $customer->removeCents($cents, 'Received credits from user', $user->data()->id);
+                    $target_customer->addCents($cents, 'Sent credits to user', $user->data()->id);
 
                     $credits = Magaza::fromCents($cents);
                     Alert::create(
@@ -70,7 +72,7 @@ if (Input::exists()) {
                         'received_credits',
                         ['path' => ROOT_PATH . '/modules/Magaza/language', 'file' => 'general', 'term' => 'received_x_credits_from_x', 'replace' => ['{{amount}}', '{{user}}'], 'replace_with' => [$credits, $user->getDisplayname(true)]],
                         ['path' => ROOT_PATH . '/modules/Magaza/language', 'file' => 'general', 'term' => 'received_x_credits_from_x', 'replace' => ['{{amount}}', '{{user}}'], 'replace_with' => [$credits, $user->getDisplayname(true)]],
-                        URL::build('/user/store')
+                        URL::build('/kullanici/magaza')
                     );
                     Session::flash('user_store_success', $store_language->get('general', 'successfully_sent_credits', [
                         'amount' => $credits,
@@ -101,7 +103,7 @@ if ($transactions->count()) {
                 Magaza::formatPrice(
                     $transaction->amount_cents,
                     $currency,
-                    Magaza::getCurrencySymbol(),
+                    $currency_symbol,
                     STORE_CURRENCY_FORMAT,
                 )
             ),
@@ -110,22 +112,6 @@ if ($transactions->count()) {
             'fee' => Output::getClean($transaction->fee),
             'date_full' => date(DATE_FORMAT, $transaction->created),
             'date_friendly' => $timeago->inWords($transaction->created, $language)
-        ];
-    }
-}
-$purchase_list = [];
-$purchases = DB::getInstance()->query('SELECT rw_store_payments.*, rw_store_products.name FROM rw_store_payments INNER JOIN rw_store_orders ON order_id=rw_store_orders.id LEFT JOIN rw_store_orders_products on rw_store_orders.id=rw_store_orders_products.order_id LEFT JOIN rw_store_products on rw_store_orders_products.product_id=rw_store_products.id WHERE from_customer_id = ?  ORDER BY rw_store_payments.created DESC', [$customer->data()->id]);if ($transactions->count()) {
-    foreach ($purchases->results() as $purchase) {
-        $purchase_list[] = [
-            'gateway' => Output::getClean($purchase->gateway_id),
-            'transaction' => Output::getClean($purchase->transaction),
-            'amount' => Output::getClean($purchase->amount),
-            'name' => Output::getClean($purchase->name),
-            'currency' => Output::getClean($purchase->currency),
-            'currency_symbol' => $currency_symbol,
-            'fee' => Output::getClean($purchase->fee),
-            'date_full' => date(DATE_FORMAT, $purchase->created),
-            'date_friendly' => $timeago->inWords($purchase->created, $language)
         ];
     }
 }
@@ -143,18 +129,14 @@ $smarty->assign([
         )
     ),
     'MY_TRANSACTIONS' => $store_language->get('general', 'my_transactions'),
-    'URUN' => $store_language->get('admin', 'product_name'),
-    'URUNLER' => $store_language->get('admin', 'products'),
     'NO_TRANSACTIONS' => $store_language->get('general', 'no_transactions'),
     'TRANSACTION' => $store_language->get('admin', 'transaction'),
     'AMOUNT' => $store_language->get('admin', 'amount'),
     'DATE' => $store_language->get('admin', 'date'),
     'TRANSACTIONS_LIST' => $transactions_list,
-    'PURCHASES_LIST' => $purchase_list,
     'CURRENCY' => $currency,
     'CURRENCY_SYMBOL' => $currency_symbol
 ]);
-
 
 $can_send_credits = Settings::get('user_send_credits');
 if ($can_send_credits) {
@@ -205,4 +187,4 @@ require(ROOT_PATH . '/core/templates/navbar.php');
 require(ROOT_PATH . '/core/templates/footer.php');
 
 // Display template
-$template->displayTemplate('store/user/store.tpl', $smarty);
+$template->displayTemplate('store/kullanici/magaza.tpl', $smarty);

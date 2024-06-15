@@ -49,8 +49,8 @@
                             <a class="nav-link" href="{$ACTIONS_LINK}">{$ACTIONS}</a>
                           </li>
                           <li class="nav-item">
-                          <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
-                        </li>
+                            <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
+                          </li>
                         </ul>
 
                         </br>
@@ -116,6 +116,33 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="inputPaymentType">{$RECURRING_PAYMENT}</label>
+                                        <select name="payment_type" class="form-control" id="inputPaymentType">
+                                            <option value="1" {if $RECURRING_PAYMENT_VALUE == 1} selected{/if}>{$CHARGE_CUSTOMER_ONCE}</option>
+                                            <option value="2" {if $RECURRING_PAYMENT_VALUE == 2} selected{/if} disabled>{$CHARGE_RECURRING_SUBSCRIPTION}</option>
+                                            <option value="3" {if $RECURRING_PAYMENT_VALUE == 3} selected{/if} disabled>{$ONE_OFF_AND_RECURRING}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputDurability">{$REMOVE_AFTER_EXPIRE}</label>
+                                        <div class="input-group">
+                                            <input type="number" name="durability_interval" class="form-control" id="inputDurabilityInterval" value="{$DURABILITY.interval}" min="1">
+                                            <select name="durability_period" class="form-control" id="inputDurabilityPeriod">
+                                                <option value="never" {if $DURABILITY.period == 'never'} selected{/if}>Never</option>
+                                                <option value="min" {if $DURABILITY.period == 'min'} selected{/if}>Min</option>
+                                                <option value="hour" {if $DURABILITY.period == 'hour'} selected{/if}>Hour</option>
+                                                <option value="day" {if $DURABILITY.period == 'day'} selected{/if}>Day</option>
+                                                <option value="week" {if $DURABILITY.period == 'week'} selected{/if}>Week</option>
+                                                <option value="month" {if $DURABILITY.period == 'month'} selected{/if}>Month</option>
+                                                <option value="year" {if $DURABILITY.period == 'year'} selected{/if}>Year</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group custom-control custom-switch">
                                 <input id="inputHidden" name="hidden" type="checkbox" class="custom-control-input"{if $HIDE_PRODUCT_VALUE eq 1} checked{/if} />
                                 <label class="custom-control-label" for="inputHidden">{$HIDE_PRODUCT}</label>
@@ -154,12 +181,21 @@
                                         {foreach from=$ACTION_LIST item=action}
                                             <tr data-id="{$command.id}">
                                                 <td>{$action.type}</td>
-                                                <td>{$action.service}</td>
+                                                <td>{$action.service}{if $action.warning}
+                                                        <button role="button" class="btn btn-sm btn-warning" data-toggle="popover"
+                                                                data-title="{$WARNING}" data-content="{$action.warning}"><i
+                                                                    class="fa fa-exclamation-triangle"></i></button>
+                                                    {/if}</td>
                                                 <td>{$action.command}</td>
                                                 <td>
                                                     <div class="float-md-right">
-                                                        <a class="btn btn-warning btn-sm" href="{$action.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
-                                                        <a class="btn btn-danger btn-sm" href="{$action.delete_link}"><i class="fas fa-trash fa-fw"></i></a>
+                                                        {if $action.action_type == 'product'}
+                                                            <a class="btn btn-warning btn-sm" href="{$action.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
+                                                            <a class="btn btn-danger btn-sm" href="{$action.delete_link}"><i class="fas fa-trash fa-fw"></i></a>
+                                                        {else}
+                                                            <span data-toggle="tooltip" data-placement="top" title="Edit global actions from global actions page!"><a class="btn btn-warning btn-sm disabled"><i class="fas fa-edit fa-fw"></i></a></span>
+                                                            <span data-toggle="tooltip" data-placement="top" title="Delete global actions from global actions page!"><a class="btn btn-danger btn-sm disabled"><i class="fas fa-trash fa-fw"></i></a></span>
+                                                        {/if}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -197,7 +233,18 @@
                                 {/if}
                             {/if}
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

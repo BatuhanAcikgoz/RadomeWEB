@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -37,13 +39,13 @@ if (!isset($_GET['action'])) {
                             Validate::MIN => 1,
                             Validate::MAX => 128
                         ],
-                        'image' => [
-                                Validate::REQUIRED => true,
-                                Validate::MIN => 1,
-                                Validate::MAX => 512
-                            ],
                         'description' => [
                             Validate::MAX => 100000
+                        ],
+                        'pretty_url' => [
+                            Validate::MIN => 1,
+                            Validate::MAX => 32,
+                            Validate::REGEX => '/^[a-zA-Z0-9-_]+$/'
                         ]
                     ])->messages([
                         'name' => [
@@ -53,6 +55,9 @@ if (!isset($_GET['action'])) {
                         ],
                         'description' => [
                             Validate::MAX => $store_language->get('admin', 'description_max_100000')
+                        ],
+                        'pretty_url' => [
+                            Validate::REGEX => $store_language->get('admin', 'pretty_url_regex_error')
                         ]
                     ]);
 
@@ -80,12 +85,12 @@ if (!isset($_GET['action'])) {
                         DB::getInstance()->insert('store_categories', [
                             'name' => Input::get('name'),
                             'description' => Input::get('description'),
-                            'image' => Input::get('image'),
                             'parent_category' => $parent_category != 0 ? $parent_category : null,
                             'only_subcategories' => $only_subcategories,
                             'hidden' => $hidden,
                             'disabled' => $disabled,
                             'order' => $last_order + 1,
+                            'url' => empty(Input::get('pretty_url')) ? null : Input::get('pretty_url'),
                         ]);
 
                         Session::flash('products_success', $store_language->get('admin', 'category_created_successfully'));
@@ -116,18 +121,19 @@ if (!isset($_GET['action'])) {
                 'CATEGORY_NAME_VALUE' => ((isset($_POST['name']) && $_POST['name']) ? Output::getClean(Input::get('name')) : ''),
                 'CATEGORY_DESCRIPTION' => $store_language->get('admin', 'category_description'),
                 'CATEGORY_DESCRIPTION_VALUE' => ((isset($_POST['description']) && $_POST['description']) ? Output::getClean(Input::get('description')) : ''),
+                'PRETTY_URL' => $store_language->get('admin', 'pretty_url'),
+                'PRETTY_URL_VALUE' => ((isset($_POST['pretty_url']) && $_POST['pretty_url']) ? Output::getClean(Input::get('pretty_url')) : ''),
                 'PARENT_CATEGORY' => $store_language->get('admin', 'parent_category'),
                 'PARENT_CATEGORY_LIST' => $categories_list,
                 'PARENT_CATEGORY_VALUE' => ((isset($_POST['parent_category']) && $_POST['parent_category']) ? Output::getClean(Input::get('parent_category')) : 0),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
-                'CATEGORY_IMAGE' => $store_language->get('admin', 'category_image'),
-                'CATEGORY_IMAGE_VALUE' => Output::getClean($category->image),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => ((isset($_POST['only_subcategories'])) ? 1 : 0),
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
                 'HIDE_CATEGORY_VALUE' => ((isset($_POST['hidden'])) ? 1 : 0),
                 'DISABLE_CATEGORY' => $store_language->get('admin', 'disable_category'),
                 'DISABLE_CATEGORY_VALUE' => ((isset($_POST['disabled'])) ? 1 : 0),
+                'URL_LABEL' => rtrim(URL::getSelfURL(), '/') . URL::build(Magaza::getMagazaPath() . '/kategori/')
             ]);
 
             $template->assets()->include([
@@ -162,6 +168,23 @@ if (!isset($_GET['action'])) {
                         ],
                         'description' => [
                             Validate::MAX => 100000
+                        ],
+                        'pretty_url' => [
+                            Validate::MIN => 1,
+                            Validate::MAX => 32,
+                            Validate::REGEX => '/^[a-zA-Z0-9-_]+$/'
+                        ]
+                    ])->messages([
+                        'name' => [
+                            Validate::REQUIRED => $store_language->get('admin', 'name_required'),
+                            Validate::MIN => $store_language->get('admin', 'name_minimum_x', ['min' => '1']),
+                            Validate::MAX => $store_language->get('admin', 'name_maximum_x', ['max' => '128'])
+                        ],
+                        'description' => [
+                            Validate::MAX => $store_language->get('admin', 'description_max_100000')
+                        ],
+                        'pretty_url' => [
+                            Validate::REGEX => $store_language->get('admin', 'pretty_url_regex_error')
                         ]
                     ]);
 
@@ -184,17 +207,17 @@ if (!isset($_GET['action'])) {
                         DB::getInstance()->update('store_categories', $category->id, [
                             'name' => Input::get('name'),
                             'description' => Input::get('description'),
-                            'image' => Input::get('image'),
                             'parent_category' => $parent_category != 0 ? $parent_category : null,
                             'only_subcategories' => $only_subcategories,
                             'hidden' => $hidden,
-                            'disabled' => $disabled
+                            'disabled' => $disabled,
+                            'url' => empty(Input::get('pretty_url')) ? null : Input::get('pretty_url'),
                         ]);
 
                         Session::flash('products_success', $store_language->get('admin', 'category_updated_successfully'));
                         Redirect::to(URL::build('/panel/magaza/urunler'));
                     } else {
-                        $errors[] = $store_language->get('admin', 'description_max_100000');
+                        $errors = $validation->errors();
                     }
                 } else {
                     // Invalid token
@@ -219,18 +242,19 @@ if (!isset($_GET['action'])) {
                 'CATEGORY_NAME_VALUE' => Output::getClean($category->name),
                 'CATEGORY_DESCRIPTION' => $store_language->get('admin', 'category_description'),
                 'CATEGORY_DESCRIPTION_VALUE' => Output::getPurified(Output::getDecoded($category->description)),
+                'PRETTY_URL' => $store_language->get('admin', 'pretty_url'),
+                'PRETTY_URL_VALUE' => Output::getClean($category->url),
                 'PARENT_CATEGORY' => $store_language->get('admin', 'parent_category'),
                 'PARENT_CATEGORY_LIST' => $categories_list,
                 'PARENT_CATEGORY_VALUE' => Output::getClean($category->parent_category),
                 'NO_PARENT' => $store_language->get('admin', 'no_parent'),
-                'CATEGORY_IMAGE' => $store_language->get('admin', 'category_image'),
-                'CATEGORY_IMAGE_VALUE' => Output::getClean($category->image),
                 'ONLY_SUBCATEGORIES' => $store_language->get('admin', 'hide_category_from_dropdown_menu'),
                 'ONLY_SUBCATEGORIES_VALUE' => $category->only_subcategories,
                 'HIDE_CATEGORY' => $store_language->get('admin', 'hide_category_from_menu'),
                 'HIDE_CATEGORY_VALUE' => $category->hidden,
                 'DISABLE_CATEGORY' => $store_language->get('admin', 'disable_category'),
                 'DISABLE_CATEGORY_VALUE' => $category->disabled,
+                'URL_LABEL' => rtrim(URL::getSelfURL(), '/') . URL::build(Magaza::getMagazaPath() . '/kategori/')
             ]);
 
             $template->assets()->include([

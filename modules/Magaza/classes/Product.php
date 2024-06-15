@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Product {
@@ -219,41 +219,7 @@ class Product {
      * @return Action Actions for this product.
      */
     public function getActions(int $type = null): array {
-        $this->_actions ??= (function (): array {
-            $this->_actions = [];
-
-            $actions_query = $this->_db->query('SELECT * FROM rw_store_products_actions WHERE product_id = ? ORDER BY `order` ASC', [$this->data()->id]);
-            if ($actions_query->count()) {
-                $actions_query = $actions_query->results();
-                
-                $services = Services::getInstance();
-                foreach ($actions_query as $data) {
-                    $service = $services->get($data->service_id);
-                    if ($service == null) {
-                        continue;
-                    }
-
-                    $action = new Action($service, null, null, $data);
-
-                    $this->_actions[$action->data()->id] = $action;
-                }
-            }
-            
-            return $this->_actions;
-        })();
-
-        if ($type) {
-            $return = [];
-            foreach ($this->_actions as $action) {
-                if ($action->data()->type == $type) {
-                    $return[$action->data()->id] = $action;
-                }
-            }
-
-            return $return;
-        }
-
-        return $this->_actions;
+        return ActionsHandler::getInstance()->getActions($this, $type);
     }
 
     /**
@@ -264,7 +230,7 @@ class Product {
      * @return Action|null Action by id otherwise null.
      */
     public function getAction(int $id): ?Action {
-        return $this->getActions()[$id] ?? null;
+        return ActionsHandler::getInstance()->getAction($id);
     }
 
     /**
@@ -277,16 +243,16 @@ class Product {
 
         $integrations = Integrations::getInstance();
         foreach ($this->getActions() as $action) {
-            if ($action->getService()->getId() == 2) {
-                $integration = $integrations->getIntegration('Minecraft');
-                if ($integration != null) {
-                    $required_integrations_list[$integration->data()->id] = $integration;
+                if ($action->getService()->getId() == 2) {
+                    $integration = $integrations->getIntegration('Minecraft');
+                    if ($integration != null) {
+                        $required_integrations_list[$integration->data()->id] = $integration;
+                    }
                 }
-            }
         }
 
         $enabled_integrations = $integrations->getEnabledIntegrations();
-        $required_integrations = json_decode($this->data()->required_integrations, true) ?? [];
+        $required_integrations = json_decode($this->data()->required_integrations ?? '[]', true);
         foreach ($required_integrations as $item) {
             foreach ($enabled_integrations as $integration) {
                 if ($integration->data()->id == $item) {
@@ -305,7 +271,7 @@ class Product {
     public function delete() {
         if ($this->exists()) {
             $this->update([
-                'deleted' => 1
+                'deleted' => date('U')
             ]);
             
             $this->_db->query('DELETE FROM `rw_store_pending_actions` WHERE `product_id` = ?', [$this->data()->id]);

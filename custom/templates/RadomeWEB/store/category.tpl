@@ -65,6 +65,20 @@
                     <div class="btn btn-secondary">
                       {$CLOSE}
                     </div>
+                      {if $product.subscribe_link != null}
+                          <a class="btn btn-primary" href="{$product.subscribe_link}">
+                              {$SUBSCRIBE}
+                              <i class="shopping cart icon"></i>
+                          </a>
+                      {/if}
+
+                      {if $product.link != null}
+                      <a class="btn btn-primary" href="{$product.link}">
+                          {$ADD_TO_CART}
+                          <i class="shopping cart icon"></i>
+                      </a>
+                      {/if}
+
                     <a class="btn btn-primary" href="{$product.link}">
                       {$BUY}
                       <i class="fas fa-shopping-cart"></i>

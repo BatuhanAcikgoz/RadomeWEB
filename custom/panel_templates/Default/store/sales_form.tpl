@@ -32,6 +32,12 @@
 
                 <!-- Update Notification -->
                 {include file='includes/update.tpl'}
+                
+                <div class="alert alert-warning" role="alert">
+                    This features is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you
+                    </br></br>
+                    <a href="https://partydragen.com/patreon/" target="_blank" class="btn btn-primary">Patreon</a>
+                </div>
 
                 <div class="card shadow mb-4">
                     <div class="card-body">
@@ -70,7 +76,7 @@
                               <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="InputDiscountAmount">{$AMOUNT}</label>
-                                    <input type="number" name="discount_amount" class="form-control" id="InputDiscountAmount" placeholder="{$AMOUNT}" value="{$AMOUNT_VALUE}">
+                                    <input type="number" name="discount_amount" class="form-control" id="InputDiscountAmount" placeholder="{$AMOUNT}" value="{$AMOUNT_VALUE}" min="0">
                                 </div>
                               </div>
                             </div>
@@ -90,9 +96,22 @@
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
-                                <span data-toggle="popover" data-title="Early access" data-content="This feature is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you"><input type="submit" class="btn btn-primary" value="{$SUBMIT}"></span>
+                                <span data-toggle="popover" data-title="Early access" data-content="This feature is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you"><input type="submit" class="btn btn-primary" value="{$SUBMIT}" disabled></span>
                             </div>
                         </form>
+
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

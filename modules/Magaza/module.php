@@ -1,7 +1,9 @@
 <?php
 /*
- *
- *  RadomeWEB version 2.0.0-pr13
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
+ *  RadomeWEB version 2.1.2
  *
  *  License: MIT
  *
@@ -11,7 +13,6 @@
 class Magaza_Module extends Module {
     private DB $_db;
     private $_store_language, $_language, $_cache, $_store_url;
-
     public function __construct($language, $store_language, $pages, $cache, $endpoints) {
         $this->_db = DB::getInstance();
         $this->_language = $language;
@@ -20,9 +21,9 @@ class Magaza_Module extends Module {
         $this->_store_url = Magaza::getMagazaPath();
 
         $name = 'Magaza';
-        $author = '<a href="https://batuhanacikgoz.com.tr/" target="_blank" rel="nofollow noopener">Reeignn</a>';
-        $module_version = '1.4.3';
-        $radome_version = '2.0.2';
+        $author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a>';
+        $module_version = '1.7.1';
+        $radome_version = '2.1.2';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
@@ -30,58 +31,159 @@ class Magaza_Module extends Module {
         $pages->add('Magaza', $this->_store_url, 'pages/store/index.php', 'store', true);
         $pages->add('Magaza', $this->_store_url . '/kategori', 'pages/store/category.php', 'product', true);
         $pages->add('Magaza', $this->_store_url . '/checkout', 'pages/store/checkout.php');
-        $pages->add('Magaza', $this->_store_url . '/kontrol', 'pages/store/check.php');
-        $pages->add('Magaza', $this->_store_url . '/iptal', 'pages/store/cancel.php');
-        $pages->add('Magaza', $this->_store_url . '/goruntule', 'pages/store/view.php');
+        $pages->add('Magaza', $this->_store_url . '/check', 'pages/store/check.php');
+        $pages->add('Magaza', $this->_store_url . '/cancel', 'pages/store/cancel.php');
+        $pages->add('Magaza', $this->_store_url . '/view', 'pages/store/view.php');
         $pages->add('Magaza', '/magaza/islem', 'pages/backend/process.php');
         $pages->add('Magaza', '/magaza/listener', 'pages/backend/listener.php');
         $pages->add('Magaza', '/panel/magaza/genel_ayarlar', 'pages/panel/general_settings.php');
+        $pages->add('Magaza', '/panel/magaza/eylemler', 'pages/panel/actions.php');
         $pages->add('Magaza', '/panel/magaza/gateways', 'pages/panel/gateways.php');
         $pages->add('Magaza', '/panel/magaza/urunler', 'pages/panel/products.php');
         $pages->add('Magaza', '/panel/magaza/urun', 'pages/panel/product.php');
         $pages->add('Magaza', '/panel/magaza/kategoriler', 'pages/panel/categories.php');
         $pages->add('Magaza', '/panel/magaza/odemeler', 'pages/panel/payments.php');
+        $pages->add('Magaza', '/panel/magaza/abonelikler', 'pages/panel/subscriptions.php');
         $pages->add('Magaza', '/panel/magaza/baglantilar', 'pages/panel/connections.php');
         $pages->add('Magaza', '/panel/magaza/alanlar', 'pages/panel/fields.php');
-        $pages->add('Magaza', '/panel/magaza/indirimler', 'pages/panel/sales.php');
-        $pages->add('Magaza', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
+        $pages->add('Magaza', '/panel/magaza/kuponlar', 'pages/panel/sales.php');
         $pages->add('Magaza', '/panel/magaza/kuponlar', 'pages/panel/coupons.php');
+        $pages->add('Magaza', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
+        $pages->add('Magaza', '/sorgu/odemeler', 'queries/payments.php');
         $pages->add('Magaza', '/sorgu/redeem_coupon', 'queries/redeem_coupon.php');
 
-        $pages->add('Magaza', '/kullanici/magaza', 'pages/user/store.php');
+        $pages->add('Magaza', '/kullanici/magaza', 'pages/kullanici/magaza.php');
 
-        EventHandler::registerEvent('paymentPending',  $store_language->get('admin', 'payment_pending'));
-        EventHandler::registerEvent('paymentCompleted', $store_language->get('admin', 'payment_completed'));
-        EventHandler::registerEvent('paymentRefunded', $store_language->get('admin', 'payment_refunded'));
-        EventHandler::registerEvent('paymentReversed', $store_language->get('admin', 'payment_reversed'));
-        EventHandler::registerEvent('paymentDenied', $store_language->get('admin', 'payment_denied'));
-        EventHandler::registerEvent('storeCheckoutAddProduct', 'storeCheckoutAddProduct', [], true, true);
-        EventHandler::registerEvent('renderStoreProduct', 'renderStoreProduct', [], true, true);
-        EventHandler::registerEvent('storeCheckoutAddProduct', 'storeCheckoutAddProduct', [], true, true);
-        EventHandler::registerEvent('storeCheckoutFieldsValidation', 'storeCheckoutFieldsValidation', [], true, true);
+        EventHandler::registerEvent(PaymentPendingEvent::class);
+        EventHandler::registerEvent(PaymentCompletedEvent::class);
+        EventHandler::registerEvent(PaymentRefundedEvent::class);
+        EventHandler::registerEvent(PaymentReversedEvent::class);
+        EventHandler::registerEvent(PaymentDeniedEvent::class);
+        EventHandler::registerEvent(SubscriptionCreatedEvent::class);
+        EventHandler::registerEvent(SubscriptionCancelledEvent::class);
+        EventHandler::registerEvent(CheckoutAddProductEvent::class);
+        EventHandler::registerEvent(CheckoutFieldsValidationEvent::class);
+        EventHandler::registerEvent(CustomerProductExpiredEvent::class);
+        EventHandler::registerEvent(ParseActionCommandEvent::class);
+        EventHandler::registerEvent('renderMagazaCategory', 'renderMagazaCategory', [], true, true);
+        EventHandler::registerEvent('renderMagazaProduct', 'renderMagazaProduct', [], true, true);
 
-        require_once(ROOT_PATH . '/modules/Magaza/hooks/CheckoutAddProductHook.php');
-        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::globalLimit');
-        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::userLimit');
-        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredProducts');
-        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredGroups');
-        EventHandler::registerListener('storeCheckoutAddProduct', 'CheckoutAddProductHook::requiredIntegrations');
-        EventHandler::registerListener('renderStoreCategory', 'ContentHook::purify');
-        EventHandler::registerListener('renderStoreCategory', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderStoreCategory', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderStoreCategory', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderStoreCategory', 'ContentHook::replaceAnchors', 15);
-        EventHandler::registerListener('renderStoreProduct', 'ContentHook::purify');
-        EventHandler::registerListener('renderStoreProduct', 'ContentHook::codeTransform', 15);
-        EventHandler::registerListener('renderStoreProduct', 'ContentHook::decode', 20);
-        EventHandler::registerListener('renderStoreProduct', 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener('renderStoreProduct', 'ContentHook::replaceAnchors', 15);
-
-        define('STORE_CURRENCY_FORMAT', Settings::get('currency_format', '{price}{currencySymbol}', 'Magaza'));
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'globalLimit']);
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'userLimit']);
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'requiredProducts']);
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'requiredGroups']);
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'requiredIntegrations']);
+        EventHandler::registerListener(CheckoutAddProductEvent::class, [CheckoutAddProductHook::class, 'cancel']);
+        EventHandler::registerListener(ParseActionCommandEvent::class, [ParseActionCommandListener::class, 'placeholders']);
+        EventHandler::registerListener(ParseActionCommandEvent::class, [ParseActionCommandListener::class, 'conditions'], 15);
+        EventHandler::registerListener('renderMagazaCategory', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderMagazaCategory', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderMagazaCategory', [ContentHook::class, 'replaceAnchors'], 15);
+        EventHandler::registerListener('renderMagazaProduct', [ContentHook::class, 'purify']);
+        EventHandler::registerListener('renderMagazaProduct', [ContentHook::class, 'renderEmojis'], 10);
+        EventHandler::registerListener('renderMagazaProduct', [ContentHook::class, 'replaceAnchors'], 15);
 
         $endpoints->loadEndpoints(ROOT_PATH . '/modules/Magaza/includes/endpoints');
 
+        define('STORE_CURRENCY_FORMAT', Settings::get('currency_format', '{currencySymbol}{price} {currencyCode}', 'Magaza'));
+
+        if (Util::isModuleEnabled('Members')) {
+            MemberListManager::getInstance()->registerListProvider(new MostPurchasesMemberListProvider($this->_store_language));
+            MemberListManager::getInstance()->registerListProvider(new MostSpentMemberListProvider($this->_store_language));
+            MemberListManager::getInstance()->registerListProvider(new MostCreditsMemberListProvider($this->_store_language));
+        }
+
         // Check if module version changed
+        $cache->setCache('store_module_cache');
+        if (!$cache->isCached('module_version')) {
+            $cache->store('module_version', $module_version);
+        } else {
+            if ($module_version != $cache->retrieve('module_version')) {
+                // Version have changed, Perform actions
+                $this->initialiseUpdate($cache->retrieve('module_version'));
+                
+                $cache->store('module_version', $module_version);
+                
+                if ($cache->isCached('update_check')) {
+                    $cache->erase('update_check');
+                }
+            }
+        }
+
+        ActionsHandler::getInstance()->registerPlaceholders('Magaza', static function (Order $order, Item $item, Payment $payment) {
+            $placeholders = [];
+
+            $product = $item->getProduct();
+            $customer = $order->customer();
+            $recipient = $order->recipient();
+            $placeholders['itemId'] = $item->getId();
+            $placeholders['quantity'] = $item->getQuantity();
+            $placeholders['userId'] = $recipient->exists() ? $recipient->data()->user_id ?? 0 : 0;
+            $placeholders['username'] = $recipient->getUsername();
+            $placeholders['uuid'] = $recipient->getIdentifier();
+            $placeholders['productId'] = $product->data()->id;
+            $placeholders['productPrice'] = Magaza::fromCents($product->data()->price_cents);
+            $placeholders['productName'] = $product->data()->name;
+            $placeholders['transaction'] = $payment->data()->transaction;
+            $placeholders['amount'] = Magaza::fromCents($payment->data()->amount_cents ?? 0);
+            $placeholders['currency'] = $payment->data()->currency;
+            $placeholders['subscriptionId'] = $payment->data()->subscription_id ?? 0;
+            $placeholders['ip'] = $order->data()->ip;
+            $placeholders['time'] = date('H:i', $payment->data()->created);
+            $placeholders['date'] = date('d M Y', $payment->data()->created);
+            $placeholders['gateway'] = $payment->getGateway() != null ? $payment->getGateway()->getName() : 'Unknown';
+            $placeholders['purchaserUserId'] = $customer->exists() ? $customer->data()->user_id ?? 0 : 0;
+            $placeholders['purchaserName'] = $customer->getUsername();
+            $placeholders['purchaserUuid'] = $customer->getIdentifier();
+
+            $placeholders['orderId'] = $payment->data()->order_id;
+            $placeholders['orderAmount'] = Magaza::fromCents($order->getAmount()->getTotalCents());
+            $placeholders['orderCurrency'] = $order->getAmount()->getCurrency();
+            $placeholders['orderProducts'] = $order->getDescription();
+
+            // Coupon
+            $coupon = new Coupon($order->data()->coupon_id);
+            if ($coupon->exists()) {
+                $placeholders['couponId'] = $coupon->data()->id;
+                $placeholders['couponCode'] = $coupon->data()->code;
+            }
+
+            // User Integrations
+            $user = $order->recipient()->getUser();
+            foreach ($user->getIntegrations() as $integrationUser) {
+                $integrationName = strtolower($integrationUser->getIntegration()->getName());
+
+                $placeholders[$integrationName . 'Username'] = $integrationUser->data()->username;
+                $placeholders[$integrationName . 'Identifier'] = $integrationUser->data()->identifier;
+                $placeholders[$integrationName . 'Verified'] = (bool) $integrationUser->data()->verified;
+            }
+
+            // Custom fields
+            foreach ($item->getFields() as $field) {
+                $placeholders[$field['identifier']] = Output::getClean($field['value']);
+            }
+
+            return $placeholders;
+        });
+
+        if (Util::isModuleEnabled('Referrals')) {
+            ActionsHandler::getInstance()->registerPlaceholders('Referrals', static function (Order $order, Item $item, Payment $payment) {
+                $placeholders = [];
+
+                if ($order->data()->referral_id != null) {
+                    $referral = new Referral($order->data()->referral_id);
+                    if ($referral->exists()) {
+                        $referral_user = new User($referral->data()->user_id);
+
+                        $placeholders['referralId'] = $referral->data()->id;
+                        $placeholders['referralUser'] = $referral_user->exists() ? $referral_user->getDisplayname() : 'Unknown';
+                        $placeholders['referralCode'] = $referral->data()->code;
+                    }
+                }
+
+                return $placeholders;
+            });
+        }
     }
 
     public function onInstall() {
@@ -122,15 +224,9 @@ class Magaza_Module extends Module {
 
         $cache->setCache('navbar_icons');
         if (!$cache->isCached('store_icon'))
-            $icon = '<i class="fas fa-store"></i>';
+            $icon = '';
         else
             $icon = $cache->retrieve('store_icon');
-
-        $cache->setCache('store_settings');
-        if ($cache->isCached('navbar_position'))
-            $navbar_pos = $cache->retrieve('navbar_position');
-        else
-            $navbar_pos = 'top';
 
         switch ($link_location) {
             case 1:
@@ -162,7 +258,12 @@ class Magaza_Module extends Module {
                 'staffcp.store.gateways' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'gateways'),
                 'staffcp.store.products' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'products'),
                 'staffcp.store.payments' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'payments'),
-                'staffcp.store.connections' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'connections'),
+                'staffcp.store.payments.create' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'payments') . ' &raquo; ' . $this->_store_language->get('admin', 'create_payment'),
+                'staffcp.store.payments.delete' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'payments') . ' &raquo; ' . $this->_store_language->get('admin', 'delete_payment'),
+                'staffcp.store.subscriptions' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'subscriptions'),
+                'staffcp.store.subscriptions.cancel' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'subscriptions') . ' &raquo; ' . $this->_store_language->get('general', 'cancel_subscription'),
+                'staffcp.store.subscriptions.sync' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'subscriptions') . ' &raquo; ' . $this->_store_language->get('admin', 'sync_subscription'),
+                'staffcp.store.connections' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'service_connections'),
                 'staffcp.store.fields' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'fields'),
                 'staffcp.store.manage_credits' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'manage_users_credits'),
                 'staffcp.store.sales' => $this->_language->get('moderator', 'staff_cp') . ' &raquo; ' . $this->_store_language->get('admin', 'sales'),
@@ -229,6 +330,16 @@ class Magaza_Module extends Module {
                 }
 
                 if ($user->hasPermission('staffcp.store.products')) {
+                    if (!$cache->isCached('store_actions_icon')) {
+                        $icon = '<i class="nav-icon fas fa-code"></i>';
+                        $cache->store('store_actions_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('store_actions_icon');
+
+                    $navs[2]->addItemToDropdown('store_configuration', 'store_actions', $this->_store_language->get('admin', 'global_actions'), URL::build('/panel/magaza/eylemler'), 'top', null, $icon, $order + 0.6);
+                }
+
+                if ($user->hasPermission('staffcp.store.products')) {
                     if (!$cache->isCached('store_products_icon')) {
                         $icon = '<i class="nav-icon fas fa-box-open"></i>';
                         $cache->store('store_products_icon', $icon);
@@ -248,6 +359,16 @@ class Magaza_Module extends Module {
                     $navs[2]->add('store_payments', $this->_store_language->get('admin', 'payments'), URL::build('/panel/magaza/odemeler'), 'top', null, ($order + 0.7), $icon);
                 }
 
+                if ($user->hasPermission('staffcp.store.subscriptions')) {
+                    if (!$cache->isCached('store_subscriptions_icon')) {
+                        $icon = '<i class="nav-icon fa-solid fa-handshake"></i>';
+                        $cache->store('store_subscriptions_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('store_subscriptions_icon');
+
+                    $navs[2]->add('store_subscriptions', $this->_store_language->get('admin', 'subscriptions'), URL::build('/panel/magaza/abonelikler'), 'top', null, ($order + 0.7), $icon);
+                }
+
                 if ($user->hasPermission('staffcp.store.sales')) {
                     if (!$cache->isCached('store_sales_icon')) {
                         $icon = '<i class="nav-icon fa-solid fa-tag"></i>';
@@ -255,71 +376,93 @@ class Magaza_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_sales_icon');
 
-                        $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/magaza/indirimler'), 'top', null, ($order + 0.8), $icon);
-                    }
-    
-                    if ($user->hasPermission('staffcp.store.coupons')) {
-                        if (!$cache->isCached('store_coupons_icon')) {
-                            $icon = '<i class="nav-icon fas fa-ticket-alt"></i>';
-                            $cache->store('store_coupons_icon', $icon);
-                        } else
-                            $icon = $cache->retrieve('store_coupons_icon');
-    
-                        $navs[2]->add('store_coupons', $this->_store_language->get('admin', 'coupons'), URL::build('/panel/magaza/kuponlar'), 'top', null, ($order + 0.9), $icon);
+                    $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/magaza/kuponlar'), 'top', null, ($order + 0.8), $icon);
+                }
+
+                if ($user->hasPermission('staffcp.store.coupons')) {
+                    if (!$cache->isCached('store_coupons_icon')) {
+                        $icon = '<i class="nav-icon fas fa-ticket-alt"></i>';
+                        $cache->store('store_coupons_icon', $icon);
+                    } else
+                        $icon = $cache->retrieve('store_coupons_icon');
+
+                    $navs[2]->add('store_coupons', $this->_store_language->get('admin', 'coupons'), URL::build('/panel/magaza/kuponlar'), 'top', null, ($order + 0.9), $icon);
                 }
             }
 
             if ($user->hasPermission('staffcp.store.payments'))
                 Core_Module::addUserAction($this->_store_language->get('general', 'store'), URL::build('/panel/kullanicilar/magaza/', 'user={id}'));
 
-                if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
-                    // Dashboard graph
+            if (defined('PANEL_PAGE') && PANEL_PAGE == 'dashboard') {
+                // Dashboard graph
+                $cache->setCache('dashboard_graph');
+                if ($cache->isCached('payments_data')) {
+                    $data = $cache->retrieve('payments_data');
 
-                    // Get data for topics and payments
-                    $start_time = strtotime('7 days ago');
-
+                } else {
                     $payments = DB::getInstance()->query(
                         <<<SQL
                             SELECT DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d') d, COUNT(*) c
                             FROM rw_store_payments
-                            WHERE `created` > ? AND `status_id` = 1 AND `created` < UNIX_TIMESTAMP()
+                            WHERE status_id = 1 AND `created` > ? AND `created` < UNIX_TIMESTAMP()
                             GROUP BY DATE_FORMAT(FROM_UNIXTIME(`created`), '%Y-%m-%d')
                         SQL,
-                        [$start_time],
+                        [strtotime('7 days ago')],
                     );
-                    $payments = $payments->results();
 
-                    $cache->setCache('dashboard_graph');
-                    if ($cache->isCached('store_data')) {
-                        $data = $cache->retrieve('store_data');
+                    // Output array
+                    $data = [];
 
-                    } else {
-                        $data = [];
+                    $data['datasets']['payments']['label'] = 'store_language/admin/payments'; // for $store_language->get('admin', 'payments');
+                    $data['datasets']['payments']['colour'] = '#4cf702';
 
-                        $data['datasets']['payments']['label'] = 'store_language/admin/payments'; // for $forum_language->get('forum', 'posts_title');
-                        $data['datasets']['payments']['colour'] = '#4cf702';
-
-                        if (count($payments)) {
-                            foreach ($payments as $day) {
-                                if (isset($data['_' . $day->d])) {
-                                    $data['_' . $day->d]['payments'] = $day->c;
-                                } else {
-                                    $data['_' . $day->d] = ['payments' => $day->c];
-                                }
-                            }
+                    if ($payments->count()) {
+                        foreach ($payments->results() as $day) {
+                            $data['_' . $day->d] = ['payments' => $day->c];
                         }
-
-                        $data = Core_Module::fillMissingGraphDays($data, 'payments');
-
-                        // Sort by date
-                        ksort($data);
-
-                        $cache->store('store_data', $data, 120);
-
                     }
 
-                    Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
+                    $payments = null;
+
+                    $data = Core_Module::fillMissingGraphDays($data, 'payments');
+
+                    // Sort by date
+                    ksort($data);
+
+                    $cache->store('payments_data', $data, 120);
                 }
+
+                Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
+            }
+        }
+
+        // Check for module updates
+        if (isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')) {
+            // Page belong to this module?
+            $page = $pages->getActivePage();
+            if ($page['module'] == 'Magaza') {
+
+                $cache->setCache('store_module_cache');
+                if ($cache->isCached('update_check')) {
+                    $update_check = $cache->retrieve('update_check');
+                } else {
+                    require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
+                    $update_check = Magaza::updateCheck();
+                    $cache->store('update_check', $update_check, 3600);
+                }
+
+                $update_check = json_decode($update_check);
+                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {  
+                    $smarty->assign([
+                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $this->_store_language->get('admin', 'new_urgent_update_available_x', ['module' => $this->getName()]) : $this->_store_language->get('admin', 'new_update_available_x', ['module' => $this->getName()]),
+                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
+                        'CURRENT_VERSION' => $this->_store_language->get('admin', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
+                        'NEW_VERSION' => $this->_store_language->get('admin', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
+                        'NAMELESS_UPDATE' => $this->_store_language->get('admin', 'view_resource'),
+                        'NAMELESS_UPDATE_LINK' => Output::getClean($update_check->link)
+                    ]);
+                }
+            }
         }
     }
 
@@ -328,8 +471,8 @@ class Magaza_Module extends Module {
         $services_list = [];
         foreach (Services::getInstance()->getAll() as $service) {
             $services_list[] = [
-                'id' => Output::getClean($service->getId()),
-                'name' => Output::getClean($service->getName()),
+                'id' => $service->getId(),
+                'name' => $service->getName(),
             ];
         }
 
@@ -339,10 +482,11 @@ class Magaza_Module extends Module {
         foreach ($connections_query as $data) {
             $connections_list[] = [
                 'id' => (int)$data->id,
-                'name' => Output::getClean($data->name),
+                'name' => $data->name,
                 'service_id' => $data->service_id,
                 'last_fetch' => (int)$data->last_fetch,
                 'pending_actions' => (int)$this->_db->query('SELECT COUNT(*) AS c FROM rw_store_pending_actions WHERE connection_id = ? AND status = 0', [$data->id])->first()->c,
+                'completed_actions' => (int)$this->_db->query('SELECT COUNT(*) AS c FROM rw_store_pending_actions WHERE connection_id = ? AND status = 1', [$data->id])->first()->c,
             ];
         }
 
@@ -352,12 +496,14 @@ class Magaza_Module extends Module {
         foreach ($fields_query as $data) {
             $fields_list[] = [
                 'id' => $data->id,
-                'identifier' => Output::getClean($data->identifier),
+                'identifier' => $data->identifier,
                 'type' => $data->type,
                 'required' => $data->required,
                 'min' => $data->min,
                 'max' => $data->max,
-                'options' => Output::getClean($data->options),
+                'options' => $data->options,
+                'regex' => $data->regex,
+                'default_value' => $data->default_value,
             ];
         }
 
@@ -394,13 +540,15 @@ class Magaza_Module extends Module {
                     'own_connections' => $action->data()->own_connections,
                     'service_id' => $action->data()->service_id,
                     'connections' => $action_connections,
+                    'each_quantity' => $action->data()->each_quantity,
+                    'each_product' => $action->data()->each_product,
                 ];
             }
 
             $products_list[] = [
                 'id' => $product->data()->id,
-                'name' => Output::getClean($product->data()->name),
-                'price' => Output::getClean($product->data()->price_cents),
+                'name' => $product->data()->name,
+                'price_cents' => $product->data()->price_cents,
                 'hidden' => $product->data()->hidden,
                 'disabled' => $product->data()->disabled,
                 'connections' => $connections,
@@ -409,7 +557,31 @@ class Magaza_Module extends Module {
             ];
         }
 
-        return ['services' => $services_list, 'connections' => $connections_list, 'fields' => $fields_list, 'products' => $products_list];
+        $gateways_list = [];
+        foreach (Gateways::getInstance()->getAll() as $gateway) {
+            $gateways_list[] = [
+                'name' => $gateway->getName(),
+                'version' => $gateway->getVersion(),
+                'store_version' => $gateway->getMagazaVersion(),
+                'author' => $gateway->getAuthor(),
+                'enabled' => $gateway->isEnabled()
+            ];
+        }
+
+        return [
+            'settings' => [
+                'allow_guests' => Settings::get('allow_guests', '0', 'Magaza'),
+                'store_path' => Settings::get('store_path', '/magaza', 'Magaza'),
+                'currency' => Settings::get('currency', 'USD', 'Magaza'),
+                'currency_symbol' => Settings::get('currency_symbol', '$', 'Magaza'),
+                'username_validation_method' => Settings::get('username_validation_method', 'radome', 'Magaza'),
+            ],
+            'services' => $services_list,
+            'connections' => $connections_list,
+            'fields' => $fields_list,
+            'products' => $products_list,
+            'gateways' => $gateways_list
+        ];
     }
 
     private function initialise() {
@@ -424,7 +596,13 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_categories')) {
             try {
-                $this->_db->createTable('store_categories', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `only_subcategories` tinyint(1) NOT NULL DEFAULT \'0\', `parent_category` int(11) DEFAULT NULL, `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_categories', ' `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(128) NOT NULL, `description` mediumtext, `url` varchar(255) DEFAULT NULL, `image` varchar(128) DEFAULT NULL, `only_subcategories` tinyint(1) NOT NULL DEFAULT \'0\', `parent_category` int(11) DEFAULT NULL, `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+
+                $this->_db->insert('store_categories', [
+                    'name' => 'Home',
+                    'description' => '',
+                    'order' => 0
+                ]);
             } catch (Exception $e) {
                 // Error
             }
@@ -432,7 +610,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_products')) {
             try {
-                $this->_db->createTable('store_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `category_id` int(11) NOT NULL, `name` varchar(128) NOT NULL, `price_cents` int(11) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `global_limit` varchar(128) DEFAULT NULL, `user_limit` varchar(128) DEFAULT NULL, `required_products` varchar(128) DEFAULT NULL, `required_groups` varchar(128) DEFAULT NULL, `required_integrations` varchar(128) DEFAULT NULL, `payment_type` tinyint(1) NOT NULL DEFAULT \'1\', `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `category_id` int(11) NOT NULL, `name` varchar(128) NOT NULL, `price_cents` int(11) NOT NULL, `description` mediumtext, `image` varchar(128) DEFAULT NULL, `durability` varchar(128) DEFAULT NULL, `recurring_payment_type` int(11) NOT NULL DEFAULT \'1\', `global_limit` varchar(128) DEFAULT NULL, `user_limit` varchar(128) DEFAULT NULL, `required_products` varchar(128) DEFAULT NULL, `require_one_product` tinyint(1) NOT NULL DEFAULT \'0\', `required_groups` varchar(128) DEFAULT NULL, `required_integrations` varchar(128) DEFAULT NULL, `min_player_age` varchar(128) DEFAULT NULL, `min_player_playtime` varchar(128) DEFAULT NULL, `allowed_gateways` varchar(128) DEFAULT NULL, `payment_type` tinyint(1) NOT NULL DEFAULT \'1\', `hidden` tinyint(1) NOT NULL DEFAULT \'0\', `disabled` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, `deleted` int(11) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -440,7 +618,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_products_connections')) {
             try {
-                $this->_db->createTable('store_products_connections', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `action_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_products_connections', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) DEFAULT NULL, `action_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -456,7 +634,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_products_actions')) {
             try {
-                $this->_db->createTable('store_products_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `service_id` int(11) NOT NULL, `command` varchar(2048) NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `own_connections` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_products_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) DEFAULT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `service_id` int(11) NOT NULL, `command` text NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `own_connections` tinyint(1) NOT NULL DEFAULT \'0\', `each_quantity` tinyint(1) NOT NULL DEFAULT \'1\', `each_product` tinyint(1) NOT NULL DEFAULT \'1\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -464,7 +642,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_pending_actions')) {
             try {
-                $this->_db->createTable('store_pending_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `action_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `customer_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `command` varchar(2048) NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `status` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_pending_actions', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `action_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `customer_id` int(11) DEFAULT NULL, `connection_id` int(11) NOT NULL, `type` int(11) NOT NULL DEFAULT \'1\', `command` text NOT NULL, `require_online` tinyint(1) NOT NULL DEFAULT \'1\', `status` tinyint(1) NOT NULL DEFAULT \'0\', `order` int(11) NOT NULL, PRIMARY KEY (`id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -472,7 +650,10 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_orders')) {
             try {
-                $this->_db->createTable('store_orders', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) DEFAULT NULL, `from_customer_id` int(11) NOT NULL, `to_customer_id` int(11) NOT NULL, `created` int(11) NOT NULL, `ip` varchar(128) DEFAULT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_orders', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) DEFAULT NULL, `from_customer_id` int(11) NOT NULL, `to_customer_id` int(11) NOT NULL, `created` int(11) NOT NULL, `ip` varchar(128) DEFAULT NULL, `coupon_id` int(11) DEFAULT NULL, `referral_id` int(11) DEFAULT NULL, PRIMARY KEY (`id`)');
+
+                $this->_db->query('ALTER TABLE `rw_store_orders` ADD INDEX `rw_store_orders_idx_to_customer_id` (`to_customer_id`)');
+                $this->_db->query('ALTER TABLE `rw_store_orders` ADD INDEX `rw_store_orders_idx_from_customer_id` (`from_customer_id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -480,7 +661,10 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_orders_products')) {
             try {
-                $this->_db->createTable('store_orders_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `quantity` int(11) NOT NULL DEFAULT \'1\', PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_orders_products', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `product_id` int(11) NOT NULL, `quantity` int(11) NOT NULL DEFAULT \'1\', `amount_cents` int(11) NOT NULL, `expire` int(11) DEFAULT NULL, `task_id` int(11) DEFAULT NULL, PRIMARY KEY (`id`)');
+
+                $this->_db->query('ALTER TABLE `rw_store_orders_products` ADD INDEX `rw_store_orders_products_idx_order_id` (`order_id`)');
+                $this->_db->query('ALTER TABLE `rw_store_orders_products` ADD INDEX `rw_store_orders_products_idx_product_id` (`product_id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -496,7 +680,9 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->showTables('store_payments')) {
             try {
-                $this->_db->createTable('store_payments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `payment_id` varchar(64) DEFAULT NULL, `agreement_id` varchar(64) DEFAULT NULL, `transaction` varchar(32) DEFAULT NULL, `amount_cents` int(11) DEFAULT NULL, `currency` varchar(11) DEFAULT NULL, `fee_cents` int(11) DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `created` int(11) NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
+                $this->_db->createTable('store_payments', ' `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `payment_id` varchar(64) DEFAULT NULL, `subscription_id` int(11) DEFAULT NULL, `transaction` varchar(32) DEFAULT NULL, `amount_cents` int(11) DEFAULT NULL, `currency` varchar(11) DEFAULT NULL, `fee_cents` int(11) DEFAULT NULL, `status_id` int(11) NOT NULL DEFAULT \'0\', `created` int(11) NOT NULL, `last_updated` int(11) NOT NULL, PRIMARY KEY (`id`)');
+
+                $this->_db->query('ALTER TABLE `rw_store_payments` ADD INDEX `rw_store_payments_idx_order_id` (`order_id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -505,6 +691,8 @@ class Magaza_Module extends Module {
         if (!$this->_db->showTables('store_customers')) {
             try {
                 $this->_db->createTable('store_customers', ' `id` int(11) NOT NULL AUTO_INCREMENT, `user_id` int(11) DEFAULT NULL, `integration_id` int(11) NOT NULL, `username` varchar(64) DEFAULT NULL, `identifier` varchar(64) DEFAULT NULL, `cents` bigint(20) NOT NULL DEFAULT \'0\', PRIMARY KEY (`id`)');
+
+                $this->_db->query('ALTER TABLE `rw_store_customers` ADD INDEX `rw_store_customers_idx_user_id` (`user_id`)');
             } catch (Exception $e) {
                 // Error
             }
@@ -523,7 +711,6 @@ class Magaza_Module extends Module {
             Settings::set('currency', 'USD', 'Magaza');
             Settings::set('currency_symbol', '$', 'Magaza');
             Settings::set('allow_guests', 0, 'Magaza');
-            Settings::set('player_login', 0, 'Magaza');
         }
 
         if (!$this->_db->showTables('store_gateways')) {
@@ -544,10 +731,80 @@ class Magaza_Module extends Module {
             ]);
 
             $this->_db->insert('store_gateways', [
-                'name' => 'Kredi',
-                'displayname' => 'Kredi',
+                'name' => 'Magaza Credits',
+                'displayname' => 'Magaza Credits',
                 'enabled' => 1
             ]);
+        }
+
+        if (!$this->_db->showTables('store_fields')) {
+            try {
+                $this->_db->createTable("store_fields", " `id` int(11) NOT NULL AUTO_INCREMENT, `identifier` varchar(32) NOT NULL, `description` varchar(255) NOT NULL, `type` int(11) NOT NULL, `required` tinyint(1) NOT NULL DEFAULT '0', `min` int(11) NOT NULL DEFAULT '0', `max` int(11) NOT NULL DEFAULT '0', `options` text NULL, `regex` varchar(64) DEFAULT NULL, `default_value` varchar(64) NOT NULL DEFAULT '', `deleted` int(11) NOT NULL DEFAULT '0', `order` int(11) NOT NULL DEFAULT '1', PRIMARY KEY (`id`)");
+
+                $this->_db->insert('store_fields', [
+                    'identifier' => 'quantity',
+                    'description' => 'Quantity',
+                    'type' => '4',
+                    'required' => '1',
+                    'min' => '1',
+                    'max' => '2',
+                    'default_value' => '1',
+                    'order' => '0'
+                ]);
+
+                $this->_db->insert('store_fields', [
+                    'identifier' => 'price',
+                    'description' => 'Pay what you want',
+                    'type' => '4',
+                    'required' => '1',
+                    'min' => '1',
+                    'max' => '9',
+                    'default_value' => '',
+                    'order' => '1'
+                ]);
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_sales')) {
+            try {
+                $this->_db->createTable("store_sales", " `id` int(11) NOT NULL AUTO_INCREMENT, `name` varchar(64) NOT NULL, `effective_on` varchar(256) NOT NULL, `discount_type` int(11) NOT NULL, `discount_amount` int(11) NOT NULL, `start_date` int(11) NOT NULL, `expire_date` int(11) NOT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_coupons')) {
+            try {
+                $this->_db->createTable("store_coupons", " `id` int(11) NOT NULL AUTO_INCREMENT, `code` varchar(64) NOT NULL, `effective_on` varchar(256) NOT NULL, `discount_type` int(11) NOT NULL, `discount_amount` int(11) NOT NULL, `start_date` int(11) NOT NULL, `expire_date` int(11) NOT NULL, `redeem_limit` int(11) NOT NULL DEFAULT '0', `customer_limit` int(11) NOT NULL DEFAULT '0', `min_basket` int(11) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_subscriptions')) {
+            try {
+                $this->_db->createTable("store_subscriptions", " `id` int(11) NOT NULL AUTO_INCREMENT, `order_id` int(11) NOT NULL, `gateway_id` int(11) NOT NULL, `customer_id` int(11) NOT NULL, `agreement_id` varchar(64) NOT NULL, `status_id` int(11) NOT NULL DEFAULT '0', `amount_cents` int(11) NOT NULL, `currency` varchar(16) NOT NULL, `frequency` varchar(16) NOT NULL, `frequency_interval` int(11) NOT NULL, `email` varchar(128) DEFAULT NULL, `verified` tinyint(1) NOT NULL DEFAULT '0', `payer_id` varchar(64) DEFAULT NULL, `last_payment_date` int(11) DEFAULT NULL, `next_billing_date` int(11) NOT NULL, `failed_attempts` int(11) NOT NULL DEFAULT '0', `created` int(11) NOT NULL, `updated` int(11) NOT NULL, `expired` tinyint(1) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_transactions')) {
+            try {
+                $this->_db->createTable("store_transactions", " `id` int(11) NOT NULL AUTO_INCREMENT, `customer_id` int(11) NOT NULL, `received_by` int(11) DEFAULT NULL, `action` varchar(64) NOT NULL, `cents` int(11) NOT NULL, `time` int(11) NOT NULL, `info` TEXT NOT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
+        }
+
+        if (!$this->_db->showTables('store_products_meta')) {
+            try {
+                $this->_db->createTable("store_products_meta", " `id` int(11) NOT NULL AUTO_INCREMENT, `product_id` int(11) NOT NULL, `name` varchar(64) NOT NULL, `value` varchar(2048) DEFAULT NULL, PRIMARY KEY (`id`)");
+            } catch (Exception $e) {
+                // Error
+            }
         }
 
         try {
@@ -569,5 +826,7 @@ class Magaza_Module extends Module {
         } catch (Exception $e) {
             // Error
         }
+
+        HandleSubscriptionsTask::schedule();
     }
 }

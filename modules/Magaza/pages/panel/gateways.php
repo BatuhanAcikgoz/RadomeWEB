@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -21,7 +23,6 @@ $page_title = $store_language->get('admin', 'gateways');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 $store = new Magaza($cache, $store_language);
-$gateways = new Gateways();
 
 if (!isset($_GET['gateway'])) {
 
@@ -29,7 +30,9 @@ if (!isset($_GET['gateway'])) {
     $config_path = ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Magaza' . DIRECTORY_SEPARATOR . 'config.php';
     if (!file_exists($config_path)) {
         if (is_writable(ROOT_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'Magaza')) {
-            MagazaConfig::set(['installed' => true]);
+            MagazaConfig::write([
+                'installed' => true
+            ]);
         } else {
             $errors = [$store_language->get('admin', 'unavailable_generate_config')];
         }
@@ -37,15 +40,16 @@ if (!isset($_GET['gateway'])) {
 
     if (!isset($errors)) {
         $gateways_list = [];
-        foreach ($gateways->getAll() as $gateway) {
+        foreach (Gateways::getInstance()->getAll() as $gateway) {
             $gateways_list[] = [
                 'name' => Output::getClean($gateway->getName()),
                 'version' => Output::getClean($gateway->getVersion()),
-                'store_version' => Output::getClean($gateway->getStoreVersion()),
+                'store_version' => Output::getClean($gateway->getMagazaVersion()),
                 'author' => Output::getPurified($gateway->getAuthor()),
                 'author_x' => $language->get('admin', 'author_x', ['author' => Output::getPurified($gateway->getAuthor())]),
                 'enabled' => $gateway->isEnabled(),
                 'edit_link' => URL::build('/panel/magaza/gateways/', 'gateway=' . Output::getClean($gateway->getName())),
+                'supports_subscriptions' => $gateway instanceof SupportSubscriptions
             ];
         }
 
@@ -59,11 +63,12 @@ if (!isset($_GET['gateway'])) {
         'EDIT' => $language->get('general', 'edit'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'DISABLED' => $language->get('admin', 'disabled'),
+        'SUPPORTS_SUBSCRIPTIONS' => $store_language->get('admin', 'supports_subscriptions')
     ]);
 
     $template_file = 'store/gateways.tpl';
 } else {
-    $gateway = $gateways->get($_GET['gateway']);
+    $gateway = Gateways::getInstance()->get($_GET['gateway']);
 
     $securityPolicy->secure_dir = [ROOT_PATH . '/modules/Magaza', ROOT_PATH . '/custom/panel_templates'];
 

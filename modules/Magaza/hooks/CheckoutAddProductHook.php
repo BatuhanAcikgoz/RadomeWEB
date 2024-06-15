@@ -1,16 +1,18 @@
 <?php
 /*
- *
- *  RadomeWEB version 2.0.2
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
+ *  RadomeWEB version 2.1.0
  *
  *  CheckoutAddProduct hooks
  */
 
 class CheckoutAddProductHook extends HookBase {
+
     // Check global product limit
-    public static function globalLimit(array $params = []): array {
-        $product = $params['product'];
-        $recipient = $params['recipient'];
+    public static function globalLimit(CheckoutAddProductEvent $event): void {
+        $product = $event->product;
 
         $global_limit = json_decode($product->data()->global_limit, true) ?? [];
         if (isset($global_limit['limit']) && $global_limit['limit'] > 0) {
@@ -22,72 +24,68 @@ class CheckoutAddProductHook extends HookBase {
             }
 
             if (count($limit->results()) >= $global_limit['limit']) {
-                $params['errors'][] = Magaza::getLanguage()->get('general', 'product_global_limit_reached');
+                $event->setCancelled(true, Magaza::getLanguage()->get('general', 'product_global_limit_reached'));
             }
         }
-
-        return $params;
     }
 
     // Check user product limit
-    public static function userLimit(array $params = []): array {
-        $user = $params['user'];
+    public static function userLimit(CheckoutAddProductEvent $event): void {
+        $product = $event->product;
+        $recipient = $event->recipient;
 
-        if ($user->isLoggedIn()) {
-            $product = $params['product'];
-            $recipient = $params['recipient'];
+        $user_limit = json_decode($product->data()->user_limit, true) ?? [];
+        if (isset($user_limit['limit']) && $user_limit['limit'] > 0) {
+            // Check if period is used
+            if (isset($user_limit['period']) && $user_limit['period'] != 'no_period' && isset($user_limit['interval']) && $user_limit['interval'] > 0) {
+                $limit = DB::getInstance()->query('SELECT DISTINCT(rw_store_orders_products.order_id) FROM rw_store_orders_products INNER JOIN rw_store_orders ON rw_store_orders.id=rw_store_orders_products.order_id INNER JOIN rw_store_payments ON rw_store_payments.order_id=rw_store_orders_products.order_id WHERE product_id = ? AND to_customer_id = ? AND rw_store_orders.created > ?', [$product->data()->id, $recipient->data()->id, strtotime('-'.$user_limit['interval'].' ' . $user_limit['period'])]);
+            } else {
+                $limit = DB::getInstance()->query('SELECT DISTINCT(rw_store_orders_products.order_id) FROM rw_store_orders_products INNER JOIN rw_store_orders ON rw_store_orders.id=rw_store_orders_products.order_id INNER JOIN rw_store_payments ON rw_store_payments.order_id=rw_store_orders_products.order_id WHERE product_id = ? AND to_customer_id = ?', [$product->data()->id, $recipient->data()->id]);
+            }
 
-            $user_limit = json_decode($product->data()->user_limit, true) ?? [];
-            if (isset($user_limit['limit']) && $user_limit['limit'] > 0) {
-                // Check if period is used
-                if (isset($user_limit['period']) && $user_limit['period'] != 'no_period' && isset($user_limit['interval']) && $user_limit['interval'] > 0) {
-                    $limit = DB::getInstance()->query('SELECT DISTINCT(rw_store_orders_products.order_id) FROM rw_store_orders_products INNER JOIN rw_store_orders ON rw_store_orders.id=rw_store_orders_products.order_id INNER JOIN rw_store_payments ON rw_store_payments.order_id=rw_store_orders_products.order_id WHERE product_id = ? AND to_customer_id = ? AND rw_store_orders.created > ?', [$product->data()->id, $recipient->data()->id, strtotime('-'.$user_limit['interval'].' ' . $user_limit['period'])]);
-                } else {
-                    $limit = DB::getInstance()->query('SELECT DISTINCT(rw_store_orders_products.order_id) FROM rw_store_orders_products INNER JOIN rw_store_orders ON rw_store_orders.id=rw_store_orders_products.order_id INNER JOIN rw_store_payments ON rw_store_payments.order_id=rw_store_orders_products.order_id WHERE product_id = ? AND to_customer_id = ?', [$product->data()->id, $recipient->data()->id]);
-                }
-
-                if (count($limit->results()) >= $user_limit['limit']) {
-                    $params['errors'][] = Magaza::getLanguage()->get('general', 'product_user_limit_reached');
-                }
+            if (count($limit->results()) >= $user_limit['limit']) {
+                $event->setCancelled(true, Magaza::getLanguage()->get('general', 'product_user_limit_reached'));
             }
         }
-
-        return $params;
     }
 
     // Check for required products
-    public static function requiredProducts(array $params = []): array {
-        $user = $params['user'];
+    public static function requiredProducts(CheckoutAddProductEvent $event): void {
+        $product = $event->product;
+        $recipient = $event->recipient;
 
-        if ($user->isLoggedIn()) {
-            $product = $params['product'];
-            $recipient = $params['recipient'];
+        $required_products = json_decode($product->data()->required_products, true) ?? [];
+        if (count($required_products)) {
+            $has_bought = [];
+            $bought_products = $recipient->getPurchasedProducts();
+            foreach ($required_products as $item) {
+                if (array_key_exists($item, $bought_products)) {
+                    $has_bought[] = $item;
+                }
+            }
 
-            $required_products = json_decode($product->data()->required_products, true) ?? [];
-            if (count($required_products)) {
-                $bought_products = $recipient->getPurchasedProducts();
+            // Check if user only need one or all of the required products.
+            if ($product->data()->require_one_product ? count($has_bought) < 1 : count($has_bought) != count($required_products)) {
                 foreach ($required_products as $item) {
-                    if(!array_key_exists($item, $bought_products)) {
+                    if (!array_key_exists($item, $bought_products)) {
                         $target_product = new Product($item);
- 
-                        $params['errors'][] = Magaza::getLanguage()->get('general', 'product_requires_products', [
+
+                        $event->setCancelled(true, Magaza::getLanguage()->get('general', 'product_requires_products', [
                             'product' => Output::getClean($target_product->data()->name)
-                        ]);
+                        ]));
                     }
                 }
             }
         }
-
-        return $params;
     }
 
     // Check for required groups
-    public static function requiredGroups(array $params = []): array {
-        $user = $params['user'];
+    public static function requiredGroups(CheckoutAddProductEvent $event): void {
+        $user = $event->user;
 
         if ($user->isLoggedIn()) {
-            $product = $params['product'];
-            $recipient = $params['recipient'];
+            $product = $event->product;
+            $recipient = $event->recipient;
 
             $required_groups = json_decode($product->data()->required_groups, true) ?? [];
             if (count($required_groups)) {
@@ -96,37 +94,38 @@ class CheckoutAddProductHook extends HookBase {
                     if(!array_key_exists($item, $user_groups)) {
                         $group = DB::getInstance()->query('SELECT name FROM rw_groups WHERE id = ?', [$item])->first();
 
-                        $params['errors'][] = Magaza::getLanguage()->get('general', 'product_requires_groups', [
+                        $event->setCancelled(true, Magaza::getLanguage()->get('general', 'product_requires_groups', [
                             'group' => Output::getClean($group->name ?? 'Unknown')
-                        ]);
+                        ]));
                     }
                 }
             }
         }
-
-        return $params;
     }
 
     // Check for any required integrations
-    public static function requiredIntegrations(array $params = []): array {
-        $user = $params['user'];
+    public static function requiredIntegrations(CheckoutAddProductEvent $event): void {
+        $user = $event->user;
 
         if ($user->isLoggedIn()) {
-            $product = $params['product'];
-            $recipient = $params['recipient'];
+            $product = $event->product;
 
             foreach ($product->getRequiredIntegrations() as $integration) {
                 $integrationUser = $user->getIntegration($integration->getName());
                 if ($integrationUser == null || $integrationUser->data()->username == null || $integrationUser->data()->identifier == null) {
-                    $params['errors'][] = Magaza::getLanguage()->get('general', 'product_requires_integration', [
+                    $event->setCancelled(true, Magaza::getLanguage()->get('general', 'product_requires_integration', [
                         'integration' => Output::getClean($integration->getName()),
                         'linkStart' => '<a href="' . URL::build('/user/connections') . '">',
                         'linkEnd' => '</a>'
-                    ]);
+                    ]));
                 }
             }
         }
+    }
 
-        return $params;
+    public static function cancel(CheckoutAddProductEvent $event): void {
+        if (isset($_GET['type']) && $_GET['type'] == 'subscribe') {
+            $event->setCancelled(true, 'Subscription feature is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you');
+        }
     }
 }

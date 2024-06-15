@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Customer {
@@ -119,7 +119,7 @@ class Customer {
     /**
      * Get the customer data.
      *
-     * @return object This customer data.
+     * @return object|null This customer data.
      */
     public function data() {
         return $this->_data;
@@ -137,7 +137,7 @@ class Customer {
             } else if ($this->data()->identifier != null) {
                 $integration = Integrations::getInstance()->getIntegration('Minecraft');
                 if ($integration != null) {
-                    $integration_user = new IntegrationUser($integration, $this->data()->identifier, 'identifier');
+                    $integration_user = new IntegrationUser($integration, str_replace('-', '', $this->data()->identifier), 'identifier');
                     if ($integration_user->exists()) {
                         return $integration_user->getUser();
                     }
@@ -160,19 +160,45 @@ class Customer {
     /**
      * Add credits to the customer.
      *
-     * @param int $cents The amount of cents to add to their balance
+     * @param int $cents The amount of cents to add to their balance.
+     * @param string $info Transaction information.
+     * @return int Returns the Transaction id.
      */
-    public function addCents(int $cents): void {
+    public function addCents(int $cents, string $info = '', int $user_id = null): int {
         $this->_db->query('UPDATE rw_store_customers SET cents = cents + ? WHERE id = ?', [$cents, $this->_data->id]);
+
+        $this->_db->insert('store_transactions', [
+            'customer_id' => $this->_data->id,
+            'received_by' => $user_id,
+            'action' => 'add_cents',
+            'cents' => $cents,
+            'time' => date('U'),
+            'info' => $info
+        ]);
+
+        return $this->_db->lastId();
     }
 
     /**
      * Remove credits from the customer.
      *
-     * @param int $cents The amount of cents to remove from their balance
+     * @param int $cents The amount of cents to remove from their balance.
+     * @param string $info Transaction information.
+     * @return int Returns the Transaction id.
      */
-    public function removeCents(int $cents): void {
+    public function removeCents(int $cents, string $info = '', int $user_id = null): int {
         $this->_db->query('UPDATE rw_store_customers SET cents = cents - ? WHERE id = ?', [$cents, $this->_data->id]);
+
+        $this->_db->insert('store_transactions', [
+            'customer_id' => $this->_data->id,
+            'received_by' => $user_id,
+            'action' => 'remove_cents',
+            'cents' => '-' . $cents,
+            'time' => date('U'),
+            'info' => $info
+        ]);
+
+        return $this->_db->lastId();
     }
 
     public function getPayments(): array {
@@ -221,43 +247,38 @@ class Customer {
     }
     
     public function login($username, $save = true) {
-        // Online mode or offline mode?
-    {
-            // Offline mode
-            if ($this->find($username, 'username')) {
-                // Customer already exist in database
-                $this->_isLoggedIn = true;
-                if ($save)
-                    Session::put('store_customer', $this->data()->id);
+        $validation_method = Settings::get('username_validation_method', 'radome', 'Magaza');
+        if ($validation_method == 'radome') {
+            $validation_method = 'no_validation';
+        }
 
-                return true;
-            } else {
-                // Register new customer
-                $this->create([
-                    'integration_id' => 1,
-                    'username' => $username,
-                    'identifier' => null
-                ]);
-                $this->_isLoggedIn = true;
+        switch ($validation_method) {
 
-                if ($save)
-                    Session::put('store_customer', $this->data()->id);
+            case 'no_validation':
+                if ($this->find($username, 'username')) {
+                    // Customer already exist in database
+                    $this->_isLoggedIn = true;
+                    if ($save)
+                        Session::put('store_customer', $this->data()->id);
 
-                return true;
-            }
+                    return true;
+                } else {
+                    // Register new customer
+                    $this->create([
+                        'integration_id' => 1,
+                        'username' => $username,
+                        'identifier' => null
+                    ]);
+                    $this->_isLoggedIn = true;
+
+                    if ($save)
+                        Session::put('store_customer', $this->data()->id);
+
+                    return true;
+                }
         }
 
         return false;
-    }
-
-    public static function formatUUID($uuid) {
-        $uid = "";
-        $uid .= substr($uuid, 0, 8)."-";
-        $uid .= substr($uuid, 8, 4)."-";
-        $uid .= substr($uuid, 12, 4)."-";
-        $uid .= substr($uuid, 16, 4)."-";
-        $uid .= substr($uuid, 20);
-        return $uid;
     }
 
     /**
@@ -281,6 +302,10 @@ class Customer {
 
     public function getIdentifier(): string {
         if ($this->exists()) {
+            if (strlen($this->_data->identifier) == 32) {
+                return Output::getClean($this->formatUUID($this->_data->identifier));
+            }
+
             return Output::getClean($this->_data->identifier ?? 'none');
         }
 
@@ -289,7 +314,7 @@ class Customer {
 
     public function getUsername(): string {
         if ($this->exists()) {
-            return Output::getClean($this->_data->username ?? 'Unknown');
+            return Output::getClean($this->_data->username ?? ($this->getUser()->exists() ? $this->getUser()->data()->username : 'Unknown'));
         }
 
         return 'Unknown';

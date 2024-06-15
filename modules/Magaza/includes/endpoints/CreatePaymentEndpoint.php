@@ -19,6 +19,7 @@ class CreatePaymentEndpoint extends KeyAuthEndpoint {
         $payment = new Payment();
         $payment->handlePaymentEvent(Payment::COMPLETED, [
             'order_id' => $order->data()->id,
+            'gateway_id' => $_POST['gateway_id'] ?? 0,
             'amount_cents' => Magaza::toCents($_POST['amount']),
             'transaction' => $_POST['transaction'] ?? null,
             'currency' => $_POST['currency']

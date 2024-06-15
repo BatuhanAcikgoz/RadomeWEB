@@ -62,7 +62,7 @@
                                         {foreach from=$USER_PAYMENTS item=payment}
                                             <tr>
                                                 <td><a href="{$payment.user_link}" style="{$payment.user_style}"><img src="{$payment.user_avatar}" class="rounded" style="max-width:32px;max-height:32px;" alt="{$payment.username}" /> {$payment.username}</a></td>
-                                                <td>{$payment.amount_format}</td>
+                                                <td>{$payment.amount_format}{if $payment.is_subscription} <i class="fa-solid fa-recycle"></i>{/if}</td>
                                                 <td>{$payment.status}</td>
                                                 <td data-sort="{$payment.date_unix}">{$payment.date}</td>
                                                 <td><a href="{$payment.link}" class="btn btn-primary btn-sm">{$VIEW}</a></td>
@@ -73,7 +73,18 @@
                             </div>
                         {/if}
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

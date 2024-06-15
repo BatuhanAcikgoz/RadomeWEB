@@ -1,7 +1,9 @@
 <?php
 /*
- *
- *  RadomeWEB version 2.0.3
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
+ *  RadomeWEB version 2.1.0
  *
  *  Price Adjustment hooks
  */
@@ -13,7 +15,7 @@ class PriceAdjustmentHook extends HookBase {
 
         // Handle sales
         foreach ($sales as $sale) {
-            $products = json_decode($sale->effective_on ?? []);
+            $products = json_decode($sale->effective_on ?? '[]');
 
             $product = $params['product'];
             if (in_array($product->data()->id, $products)) {
@@ -30,6 +32,7 @@ class PriceAdjustmentHook extends HookBase {
                     $product->data()->sale_discount_cents = Magaza::toCents($sale->discount_amount);
                 }
             }
+
             // Prevent the discount from being more than the price itself
             if ($product->data()->sale_discount_cents >= $product->data()->price_cents) {
                 $product->data()->sale_discount_cents = $product->data()->price_cents;
@@ -39,7 +42,7 @@ class PriceAdjustmentHook extends HookBase {
         // Handle coupon
         $coupon = $params['shopping_cart']->getCoupon();
         if ($coupon != null) {
-            $products = json_decode($coupon->data()->effective_on ?? []);
+            $products = json_decode($coupon->data()->effective_on ?? '[]');
 
             $product = $params['product'];
             if (in_array($product->data()->id, $products)) {
@@ -57,11 +60,10 @@ class PriceAdjustmentHook extends HookBase {
                 }
             }
 
-        // Prevent the discount from being more than the price itself
-        // Prevent the discount from being more than the price itself
-        if ($product->data()->sale_discount_cents >= $product->data()->price_cents) {
-            $product->data()->sale_discount_cents = $product->data()->price_cents;
-        }
+            // Prevent the discount from being more than the price itself
+            if ($product->data()->sale_discount_cents >= $product->data()->price_cents) {
+                $product->data()->sale_discount_cents = $product->data()->price_cents;
+            }
         }
 
         return $params;

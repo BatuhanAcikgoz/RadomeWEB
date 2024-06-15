@@ -2,12 +2,17 @@
 /**
  * Item class.
  *
- * @package Modules\Store
+ * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.3
+ * @version 2.2.0
  * @license MIT
  */
 class Item {
+
+    /**
+     * @var int Get the item id.
+     */
+    private int $_item_id;
 
     /**
      * @var Product The product for this item.
@@ -20,18 +25,39 @@ class Item {
     private int $_quantity;
 
     /**
-     * @var array The custom fields for this item.
+     * @var ?array The custom fields for this item.
      */
-    private array $_fields = [];
+    private array $_fields;
 
-    public function __construct(Product $product, int $quantity, array $fields) {
-        $this->_product = $product;
-        $this->_quantity = $quantity;
-        $this->_fields = $fields;
+    public function __construct(int $item_id, Product $product = null, int $quantity = null, array $fields = []) {
+        $this->_item_id = $item_id;
+
+        if ($product != null) {
+            $this->_product = $product;
+            $this->_quantity = $quantity;
+            $this->_fields = $fields;
+        } else {
+            $item_query = DB::getInstance()->query('SELECT rw_store_products.*, rw_store_orders_products.quantity, rw_store_orders_products.id AS item_id FROM rw_store_orders_products INNER JOIN rw_store_products ON rw_store_products.id=product_id WHERE rw_store_orders_products.id = ?', [$item_id]);
+            if ($item_query->count()) {
+                $item_query = $item_query->first();
+
+                $this->_product = new Product(null, null, $item_query);
+                $this->_quantity = $item_query->quantity;
+            }
+        }
     }
 
     /**
      * Get the product for this item.
+     *
+     * @return int
+     */
+    public function getId(): int {
+        return $this->_item_id;
+    }
+
+    /**
+     * Get the item id.
      *
      * @return Product
      */
@@ -49,7 +75,7 @@ class Item {
     }
 
     /**
-     * Item cost after any discounts in cents. (e.g., 100 cents to charge $1.00, a zero-decimal currency)
+     * Item cost after any discounts in cents for a single quantity. (e.g., 100 cents is $1.00, a zero-decimal currency)
      *
      * @return int
      */

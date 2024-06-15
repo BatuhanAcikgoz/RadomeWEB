@@ -26,7 +26,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{$PANEL_INDEX}">{$DASHBOARD}</a></li>
                         <li class="breadcrumb-item active">{$STORE}</li>
-                        <li class="breadcrumb-item active">{$PRODUCTS}</li>
+                        <li class="breadcrumb-item active">{$ACTIONS}</li>
                     </ol>
                 </div>
 
@@ -81,7 +81,18 @@
                             </form>
                         {/if}
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 
@@ -153,11 +164,15 @@
                         </tr>
                         <tr>
                             <td>{userId}</td>
-                            <td>The ID of the RadomeWEB User if user was logged in</td>
+                            <td>The ID of the NamelessMC User if user was logged in</td>
                         </tr>
                         <tr>
                             <td>{orderId}</td>
                             <td>The ID of the order</td>
+                        </tr>
+                        <tr>
+                            <td>{orderProducts}</td>
+                            <td>List of all products for this order</td>
                         </tr>
                         <tr>
                             <td>{productId}</td>
@@ -172,6 +187,22 @@
                             <td>The name of the product</td>
                         </tr>
                         <tr>
+                            <td>{gateway}</td>
+                            <td>The gateway name used for the payment</td>
+                        </tr>
+                        <tr>
+                            <td>{quantity}</td>
+                            <td>The quantity of the product that was purchased.</td>
+                        </tr>
+                        <tr>
+                            <td>{couponCode}</td>
+                            <td>The coupon code used if any.</td>
+                        </tr>
+                        <tr>
+                            <td>{subscriptionId}</td>
+                            <td>The subscription id if any.</td>
+                        </tr>
+                        <tr>
                             <th><strong>Custom Fields</strong></th>
                             <th><strong></strong></th>
                         <tr>
@@ -179,9 +210,39 @@
                             <td>{your field name}</td>
                             <td>The value the customer entered</td>
                         </tr>
+                        <tr>
+                            <th><strong>User Integrations</strong></th>
+                            <td>(For each integration you have - Replaces if user is registered and have the integration linked)</td>
+                        <tr>
+                        <tr>
+                            <td>{discordUsername}</td>
+                            <td>The username of the linked integration</td>
+                        </tr>
+                        <tr>
+                            <td>{discordIdentifier}</td>
+                            <td>The identifier of the linked integration</td>
+                        </tr>
+                        <tr>
+                            <td>{discordVerified}</td>
+                            <td>Whenever the linked integration is verified or not</td>
+                        </tr>
+                        <tr>
+                            <th><strong>Referrals Module</strong></th>
+                            <td>If you have referrals module installed</td>
+                        <tr>
+                        <tr>
+                            <td>{referralCode}</td>
+                            <td>Referral code</td>
+                        </tr>
+                        <tr>
+                            <td>{referralUser}</td>
+                            <td>The user the referral code belongs too.</td>
+                        </tr>
                         {/literal}
                     </tbody>
                 </table>
+
+                <center>You can view all placeholders <a href="https://store-demo.partydragen.com/placeholders/" target="_blank">here</a></center>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

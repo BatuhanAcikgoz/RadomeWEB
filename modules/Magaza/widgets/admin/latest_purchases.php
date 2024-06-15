@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -15,7 +17,7 @@ if (Input::exists()) {
 		if (isset($_POST['limit']) && $_POST['limit'] > 0)
 			$cache->store('purchase_limit', (int)$_POST['limit']);
 		else
-			$cache->store('purchase_limit', 5);
+			$cache->store('purchase_limit', 10);
 
 	} else {
 		$errors = [$language->get('general', 'invalid_token')];
@@ -25,7 +27,7 @@ if (Input::exists()) {
 if ($cache->isCached('purchase_limit'))
 	$purchase_limit = (int)$cache->retrieve('purchase_limit');
 else
-	$purchase_limit = 5;
+	$purchase_limit = 10;
 
 $smarty->assign([
 	'LATEST_PURCHASES_LIMIT' => $store_language->get('general', 'latest_purchases_limit'),

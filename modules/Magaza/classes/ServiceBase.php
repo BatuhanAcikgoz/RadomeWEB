@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 abstract class ServiceBase {
@@ -88,11 +88,6 @@ abstract class ServiceBase {
     }
 
     /**
-     * Called when connection settings page is loaded
-     */
-    abstract public function onConnectionSettingsPageLoad(TemplateBase $template, Fields $fields);
-
-    /**
      * Called when action settings page is loaded
      */
     abstract public function onActionSettingsPageLoad(TemplateBase $template, Fields $fields);
@@ -100,5 +95,7 @@ abstract class ServiceBase {
     /**
      * Execute product action on connection
      */
-    abstract public function executeAction(Action $action, Order $order, Product $product, Payment $payment, array $placeholders);
+    abstract public function scheduleAction(Action $action, Order $order, Item $item, Payment $payment, array $placeholders);
+
+    abstract public function executeAction(ActionTask $task);
 }

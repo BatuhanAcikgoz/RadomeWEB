@@ -1,14 +1,14 @@
 <?php
-/*
+/**
+ *  Gateways class
  *
- *
- *  License: MIT
- *
- *  Magaza module
+ * @package Modules\Magaza
+ * @author Partydragen
+ * @version 2.2.0
+ * @license MIT
  */
-
-class Gateways {
-    private $_gateways;
+class Gateways extends Instanceable {
+    private array $_gateways = [];
 
     // Constructor, connect to database
     public function __construct() {
@@ -25,14 +25,24 @@ class Gateways {
     }
 
     // Get all gateways
-    public function getAll() {
+    public function getAll(): array {
         return $this->_gateways;
     }
 
     // Get gateway by name
-    public function get($name) {
-        if (array_key_exists($name, $this->_gateways)) {
-            return $this->_gateways[$name];
+    public function get($value): ?GatewayBase {
+        if (!is_numeric($value)) {
+            // Get gateway by name
+            if (array_key_exists($value, $this->_gateways)) {
+                return $this->_gateways[$value];
+            }
+        } else {
+            // Get gateway by id
+            foreach ($this->_gateways as $gateway) {
+                if ($gateway->getId() == $value) {
+                    return $gateway;
+                }
+            }
         }
 
         return null;

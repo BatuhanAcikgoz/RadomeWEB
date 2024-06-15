@@ -10,7 +10,7 @@ class RemoveCreditsEndpoint extends KeyAuthEndpoint {
 
     public function execute(Radome2API $api, User $user): void {
         if (!isset($_POST['cents']) && !isset($_POST['credits'])) {
-            $this->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS);
+            $api->throwError(Radome2API::ERROR_INVALID_POST_CONTENTS);
         }
 
         $credits = $_POST['cents'] ?? $_POST['credits'];
@@ -20,9 +20,9 @@ class RemoveCreditsEndpoint extends KeyAuthEndpoint {
 
         $customer = new Customer($user);
         if (isset($_POST['cents'])) {
-            $customer->removeCents($credits);
+            $customer->removeCents($credits, 'API');
         } else {
-            $customer->removeCents(Magaza::toCents($credits));
+            $customer->removeCents(Magaza::toCents($credits), 'API');
         }
 
         $api->returnArray(['message' => 'Successfully removed credits from user']);

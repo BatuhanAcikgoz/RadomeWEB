@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 abstract class GatewayBase {
@@ -19,7 +19,7 @@ abstract class GatewayBase {
      */
     private string $_name;
 
-        /**
+    /**
      * @var string The gateway author
      */
     private string $_author;
@@ -54,7 +54,7 @@ abstract class GatewayBase {
      */
     private array $_errors = [];
 
-    public function __construct(string $name, string $settings, string $author = 'Unknown', string $version = 'Unknown', string $store_version = 'Unknown') {
+    public function __construct(string $name, string $author, string $version, string $store_version, string $settings) {
         $this->_name = $name;
         $this->_settings = $settings;
         $this->_author = $author;
@@ -154,6 +154,10 @@ abstract class GatewayBase {
         return $this->_errors;
     }
 
+    public function logError(string $error): void {
+        ErrorHandler::logWarning('[Magaza] [' . $this->getName() . '] ' . $error);
+    }
+
     /**
      * Called when customer view checkout page
      *
@@ -181,7 +185,6 @@ abstract class GatewayBase {
      */
     abstract public function handleListener(): void;
 
-    
     /**
      * Get this gateway's author.
      *
@@ -201,11 +204,11 @@ abstract class GatewayBase {
     }
 
     /**
-     * Get this gateway's supported Store version.
+     * Get this gateway's supported Magaza version.
      *
-     * @return string The supported Store version of this gateway.
+     * @return string The supported Magaza version of this gateway.
      */
-    public function getStoreVersion(): string {
+    public function getMagazaVersion(): string {
         return $this->_store_version;
     }
 }

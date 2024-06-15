@@ -57,6 +57,7 @@
                                             <th>{$CONNECTION_ID}</th>
                                             <th>{$NAME}</th>
                                             <th>Service Name</th>
+                                            <th>{$QUEUED_ACTIONS}</th>
                                             <th class="float-md-right">{$ACTIONS}</th>
                                         </tr>
                                     </thead>
@@ -71,6 +72,7 @@
                                             {/if}</td>
                                             <td>{$connection.name}</td>
                                             <td>{$connection.service}</td>
+                                            <td>{$connection.queued_actions}</td>
                                             <td class="float-md-right">
                                                 <a href="{$connection.edit_link}" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></a>
                                                 <a href="#" onclick="showDeleteModal({$connection.id})" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></a>
@@ -88,12 +90,23 @@
                     
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <p style="margin-top: 7px; margin-bottom: 7px;">İndirmeler</p>
+                            <p style="margin-top: 7px; margin-bottom: 7px;">Downloads</p>
                             <hr>
                             
-                            RadomeWEB Bağlantı Eklentisi - <a href="https://radome.web.tr/eklenti" target="_blank" class="btn btn-primary btn-sm">Site üzerinden indirin</a>
-                            
-                            
+                            Minecraft Plugin - <a href="https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/" target="_blank" class="btn btn-primary btn-sm">Go to Spigot</a>
+
+                            <center>
+                                <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                    <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                       data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                    <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                       data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                    <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                       data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                    <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                       data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                                </p>
+                            </center>
                         </div>
                     </div>
 

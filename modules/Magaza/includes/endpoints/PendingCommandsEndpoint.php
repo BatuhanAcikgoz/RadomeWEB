@@ -14,11 +14,18 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
         $order = ' ORDER BY `order` ASC';
         $params = [];
 
-        if (isset($_GET['connection_id']) || isset($_GET['server_id'])) {
-            $where .= ' AND connection_id = ?';
-            array_push($params, (isset($_GET['connection_id']) ? $_GET['connection_id'] : $_GET['server_id']));
+        if (isset($_GET['connection_id'])) {
+            $connection_id = $_GET['connection_id'];
 
-            $api->getDb()->update('store_connections', isset($_GET['connection_id']) ? $_GET['connection_id'] : $_GET['server_id'], [
+            $connection = $api->getDb()->query('SELECT id FROM rw_store_connections WHERE id = ?', [$connection_id]);
+            if (!$connection->count()) {
+                $api->throwError(MagazaApiErrors::ERROR_CONNECTION_NOT_FOUND);
+            }
+
+            $where .= ' AND connection_id = ?';
+            $params[] = $connection_id;
+
+            $api->getDb()->update('store_connections', $connection_id, [
                 'last_fetch' => date('U')
             ]);
         }
@@ -29,7 +36,7 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
         $customers_commands = [];
         foreach ($commands_query as $command) {
             $customers_commands[$command->customer_id][] = [
-                'id' => (int)$command->id,
+                'id' => (int) $command->id,
                 'command' => $command->command,
                 'order_id' => (int) $command->order_id,
                 'require_online' => (boolean) $command->require_online
@@ -43,18 +50,27 @@ class PendingCommandsEndpoint extends KeyAuthEndpoint {
                 $customers[] = [
                     'customer_id' => (int) $customer->data()->id,
                     'user_id' => (int) $customer->data()->user_id,
-                    'identifier' => $customer->data()->identifier != null,
+                    'identifier' => $customer->data()->identifier != null ? $this->formatUUID(str_replace('-', '', $customer->data()->identifier)) : null,
                     'username' => $customer->data()->username,
                     'commands' => $commands
                 ];
             }
         }
 
-        $api->returnArray(['online_mode' => 1, 'customers' => $customers]);
+        $api->returnArray(['online_mode' => 0, 'customers' => $customers]);
     }
     
     /**
     * @param $uuid string UUID to format
     * @return string Properly formatted UUID (According to UUID v4 Standards xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx WHERE y = 8,9,A,or B and x = random digits.)
     */
+    public static function formatUUID($uuid) {
+        $uid = "";
+        $uid .= substr($uuid, 0, 8)."-";
+        $uid .= substr($uuid, 8, 4)."-";
+        $uid .= substr($uuid, 12, 4)."-";
+        $uid .= substr($uuid, 16, 4)."-";
+        $uid .= substr($uuid, 20);
+        return $uid;
+    }
 }

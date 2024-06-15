@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -21,25 +23,24 @@ if (!strlen($category_id)) {
     die();
 }
 
-$category_id = explode('-', $category_id);
-if (!is_numeric($category_id[0])) {
-    require_once(ROOT_PATH . '/404.php');
-    die();
+if (is_numeric($category_id)) {
+    // Query category by id
+    $category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE id = ? AND disabled = 0', [$category_id]);
+} else {
+    // Query category by url
+    $category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE url = ? AND disabled = 0', [$category_id]);
 }
-$category_id = $category_id[0];
 
-// Query category
-$category = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE id = ? AND disabled = 0', [$category_id]);
 if (!$category->count()) {
     require_once(ROOT_PATH . '/404.php');
     die();
 }
 
 $category = $category->first();
-
+$category_id = $category->id;
 $store_url = $store->getMagazaURL();
 
-$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '=', $store_url . '/goruntule'])->results();
+$page_metadata = DB::getInstance()->get('page_descriptions', ['page', '=', $store_url . '/view'])->results();
 if (count($page_metadata)) {
     define('PAGE_DESCRIPTION', str_replace(['{site}', '{category_title}', '{description}'], [SITE_NAME, Output::getClean($category->name), Output::getClean(strip_tags(Output::getDecoded($category->description)))], $page_metadata[0]->description));
     define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -86,11 +87,11 @@ if (!$products->count()) {
     foreach ($products->results() as $item) {
         $product = new Product(null, null, $item);
 
-        $renderProductEvent = EventHandler::executeEvent('renderStoreProduct', [
+        $renderProductEvent = EventHandler::executeEvent('renderMagazaProduct', [
             'product' => $product,
             'name' => $product->data()->name,
             'content' => $product->data()->description,
-            'image' => (isset($product->data()->image) && !is_null($product->data()->image) ? (defined('CONFIG_PATH') ? CONFIG_PATH . '/' : '/' . 'uploads/store/' . Output::getClean(Output::getDecoded($product->data()->image))) : null),
+            'image' => (isset($product->data()->image) && !is_null($product->data()->image) ? ((defined('CONFIG_PATH') ? CONFIG_PATH : '') . '/uploads/store/' . Output::getClean(Output::getDecoded($product->data()->image))) : null),
             'link' => URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->data()->id)),
             'hidden' => false,
             'shopping_cart' => $shopping_cart
@@ -133,7 +134,8 @@ if (!$products->count()) {
             'sale_active' => $product->data()->sale_active,
             'description' => $renderProductEvent['content'],
             'image' => $renderProductEvent['image'],
-            'link' => $renderProductEvent['link']
+            'link' => $product->data()->payment_type != 2 ? URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->data()->id) . '&type=single') : null,
+            'subscribe_link' => $product->data()->payment_type != 1 ? URL::build($store_url . '/checkout', 'add=' . Output::getClean($product->data()->id) . '&type=subscribe') : null,
         ];
     }
 
@@ -141,17 +143,10 @@ if (!$products->count()) {
 }
 
 // Category description
-$renderCategoryEvent = EventHandler::executeEvent('renderStoreCategory', [
+$renderCategoryEvent = EventHandler::executeEvent('renderMagazaCategory', [
     'id' => $category->id,
     'name' => $category->name,
     'content' => $category->description
-]);
-
-$smarty->assign([
-    'ACTIVE_CATEGORY' => Output::getClean($category->name),
-    'BUY' => $store_language->get('general', 'buy'),
-    'CLOSE' => $language->get('general', 'close'),
-    'SALE' => $store_language->get('general', 'sale')
 ]);
 
 if (isset($errors) && count($errors))
@@ -165,7 +160,13 @@ $smarty->assign([
     'CATEGORIES' => $store->getNavbarMenu($category->name),
     'CATEGORY_ID' => $renderCategoryEvent['id'],
     'CATEGORY_NAME' => $renderCategoryEvent['name'],
-    'CONTENT' => $renderCategoryEvent['content'],
+    'CONTENT' => str_replace('{credits}', $from_customer->getCredits(), $renderCategoryEvent['content']),
+    'ACTIVE_CATEGORY' => Output::getClean($category->name),
+    'BUY' => $store_language->get('general', 'buy'),
+    'ADD_TO_CART' => $store_language->get('general', 'add_to_cart'),
+    'SUBSCRIBE' => $store_language->get('general', 'subscribe'),
+    'CLOSE' => $language->get('general', 'close'),
+    'SALE' => $store_language->get('general', 'sale'),
     'TOKEN' => Token::get(),
 ]);
 

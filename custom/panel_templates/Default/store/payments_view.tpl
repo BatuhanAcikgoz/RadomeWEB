@@ -62,11 +62,15 @@
                                         <tbody>
                                             <tr>
                                                 <td><strong>{$IGN}</strong></td>
-                                                <td><img src="{$AVATAR}" class="rounded" style="max-height:32px;max-width:32px;" alt="{$IGN_VALUE}"> <a style="{$STYLE}" href="{$USER_LINK}">{$IGN_VALUE}</a></td>
+                                                <td><img src="{$RECIPIENT_AVATAR}" class="rounded" style="max-height:32px;max-width:32px;" alt="{$IGN_VALUE}"> <a style="{$RECIPIENT_STYLE}" href="{$RECIPIENT_LINK}">{$IGN_VALUE}</a></td>
                                             </tr>
                                             <tr>
                                                 <td><strong>{$STATUS}</strong></td>
                                                 <td>{$STATUS_VALUE}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>{$ORDER_ID}</strong></td>
+                                                <td>{$ORDER_ID_VALUE}</td>
                                             </tr>
                                             <tr>
                                                 <td><strong>{$TRANSACTION}</strong></td>
@@ -84,10 +88,22 @@
                                                 <td><strong>{$PRICE}</strong></td>
                                                 <td>{$PRICE_FORMAT_VALUE}</td>
                                             </tr>
+                                            {if isset($SUBSCRIPTION)}
+                                            <tr>
+                                                <td><strong>{$SUBSCRIPTION}</strong></td>
+                                                <td><a href="{$SUBSCRIPTION_LINK}">{$SUBSCRIPTION_VALUE}</a></td>
+                                            </tr>
+                                            {/if}
                                             <tr>
                                                 <td><strong>{$DATE}</strong></td>
                                                 <td>{$DATE_VALUE}</td>
                                             </tr>
+                                            {if isset($COUPON)}
+                                            <tr>
+                                                <td><strong>{$COUPON}</strong></td>
+                                                <td><a href="{$COUPON_LINK}">{$COUPON_CODE}</a></td>
+                                            </tr>
+                                            {/if}
                                         </tbody>
                                     </table>
                                 </div>
@@ -151,12 +167,42 @@
                                     <p>{$NO_PROCESSED_COMMANDS}</p>
                                 {/if}
 
-                                
+                                <center>
+                                    <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                        <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                           data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                        <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                           data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                        <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                           data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                        <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                           data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                                    </p>
+                                </center>
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-md-3">
+
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <h5 style="display:inline">{$CUSTOMER}</h5>
+                                <hr>
+
+                                {$CUSTOMER}: <span class="float-right"><img src="{$CUSTOMER_AVATAR}" class="rounded" style="max-height:32px;max-width:32px;" alt="{$CUSTOMER_USERNAME}"> <a style="{$CUSTOMER_STYLE}" href="{$CUSTOMER_LINK}">{$CUSTOMER_USERNAME}</a></span>
+                            </div>
+                        </div>
+
+                        <div class="card shadow mb-4">
+                            <div class="card-body">
+                                <h5 style="display:inline">{$RECIPIENT}</h5>
+                                <hr>
+
+                                {$RECIPIENT}: <span class="float-right"><img src="{$RECIPIENT_AVATAR}" class="rounded" style="max-height:32px;max-width:32px;" alt="{$RECIPIENT_USERNAME}"> <a style="{$RECIPIENT_STYLE}" href="{$RECIPIENT_LINK}">{$RECIPIENT_USERNAME}</a></span>
+                            </div>
+                        </div>
+
                         <div class="card shadow mb-4">
                             <div class="card-body">
                                 <h5 style="display:inline">{$PRODUCTS}</h5>

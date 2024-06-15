@@ -50,7 +50,6 @@ class ListPaymentsEndpoint extends KeyAuthEndpoint {
         $payments_list = [];
         foreach ($payments_query as $payment) {
             $customer = new Customer(null, $payment->from_customer_id);
-
             $recipient = new Customer(null, $payment->to_customer_id);
 
             $products = [];
@@ -67,10 +66,10 @@ class ListPaymentsEndpoint extends KeyAuthEndpoint {
                 'order_id' => (int)$payment->order_id,
                 'gateway_id' => (int)$payment->gateway_id,
                 'transaction' => $payment->transaction,
-                'amount' => Magaza::fromCents($payment->amount_cents),
+                'amount' => Magaza::fromCents($payment->amount_cents), // Deprecated
                 'amount_cents' => (int) $payment->amount_cents ?? 0,
                 'currency' => $payment->currency,
-                'fee' => (float) Magaza::fromCents($payment->fee_cents ?? 0),
+                'fee' => Magaza::fromCents($payment->fee_cents ?? 0), // Deprecated
                 'fee_cents' => (int) $payment->fee_cents ?? 0,
                 'status_id' => (int)$payment->status_id,
                 'created' => (int)$payment->created,

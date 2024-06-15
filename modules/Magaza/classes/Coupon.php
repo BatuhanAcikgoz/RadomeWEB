@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.3
+ * @version 2.2.0
  * @license MIT
  */
 class Coupon {

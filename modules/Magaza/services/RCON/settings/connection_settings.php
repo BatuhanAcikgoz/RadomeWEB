@@ -44,7 +44,7 @@ if ($_GET['action'] == 'new') {
                 ]);
 
                 Session::flash('connections_success', $store_language->get('admin', 'connection_updated_successfully'));
-                Redirect::to(URL::build('/panel/magaza/connections'));
+                Redirect::to(URL::build('/panel/magaza/baglantilar'));
             } else {
                 // Errors
                 $errors = $validation->errors();

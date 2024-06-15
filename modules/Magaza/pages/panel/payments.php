@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -72,11 +74,12 @@ if (isset($_GET['customer'])) {
                     Magaza::formatPrice(
                         $paymentQuery->amount_cents,
                         $paymentQuery->currency,
-                        $currency_symbol,
+                        Magaza::getCurrencySymbol(),
                         STORE_CURRENCY_FORMAT,
                     )
                 ),
                 'date' => date(DATE_FORMAT, $paymentQuery->created),
+                'is_subscription' => $paymentQuery->subscription_id != null,
                 'link' => URL::build('/panel/magaza/odemeler', 'payment=' . Output::getClean($paymentQuery->id))
             ];
         }
@@ -138,7 +141,7 @@ if (isset($_GET['customer'])) {
         if (Token::check(Input::get('token'))) {
             if (Input::get('action') == 'delete_payment') {
                 // Delete payment only if payment is manual
-                if ($payment->data()->gateway_id == 0) {
+                if ($user->hasPermission('staffcp.store.payments.delete') && ($payment->data()->gateway_id == 0 || (defined('DEBUGGING') && DEBUGGING))) {
                     $payment->delete();
 
                     Session::flash('store_payment_success', $store_language->get('admin', 'payment_deleted_successfully'));
@@ -155,32 +158,50 @@ if (isset($_GET['customer'])) {
 
     $order = $payment->getOrder();
 
+    // Customer
+    $customer = $order->customer();
+    if ($customer->exists() && $customer->getUser()->exists()) {
+        $customer_user = $customer->getUser();
+        $customer_username = $customer->getUsername();
+        $customer_avatar = $customer_user->getAvatar();
+        $customer_style = $customer_user->getGroupStyle();
+        $customer_uuid = Output::getClean($customer->getIdentifier());
+        $customer_link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $customer_user->data()->id);
+    } else {
+        $customer_username = $customer->getUsername();
+        $customer_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($customer->getIdentifier()));
+        $customer_style = '';
+        $customer_uuid = Output::getClean($customer->getIdentifier());
+        $customer_link = URL::build('/panel/magaza/odemeler/', 'customer=' . $customer_username);
+    }
+
     // Recipient
     $recipient = $order->recipient();
     if ($recipient->exists() && $recipient->getUser()->exists()) {
         $recipient_user = $recipient->getUser();
-        $username = $recipient->getUsername();
-        $avatar = $recipient_user->getAvatar();
-        $style = $recipient_user->getGroupStyle();
-        $uuid = Output::getClean($recipient->getIdentifier());
-        $link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
+        $recipient_username = $recipient->getUsername();
+        $recipient_avatar = $recipient_user->getAvatar();
+        $recipient_style = $recipient_user->getGroupStyle();
+        $recipient_uuid = Output::getClean($recipient->getIdentifier());
+        $recipient_link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
     } else {
-        $username = $recipient->getUsername();
-        $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
-        $style = '';
-        $uuid = Output::getClean($recipient->getIdentifier());
-        $link = URL::build('/panel/magaza/odemeler/', 'customer=' . $username);
+        $recipient_username = $recipient->getUsername();
+        $recipient_avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
+        $recipient_style = '';
+        $recipient_uuid = Output::getClean($recipient->getIdentifier());
+        $recipient_link = URL::build('/panel/magaza/odemeler/', 'customer=' . $recipient_username);
     }
 
     // Get Products
     $products_list = [];
-    foreach ($order->getProducts() as $product) {
+    foreach ($order->items()->getItems() as $item) {
+        $product = $item->getProduct();
+
         $fields_array = [];
-        $fields = DB::getInstance()->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$payment->data()->order_id, $product->data()->id])->results();
-        foreach ($fields as $field) {
+        foreach ($item->getFields() as $field) {
             $fields_array[] = [
-                'identifier' => Output::getClean($field->identifier),
-                'value' => Output::getClean($field->value)
+                'identifier' => Output::getClean($field['identifier']),
+                'value' => Output::getClean($field['value'])
             ];
         }
 
@@ -197,7 +218,7 @@ if (isset($_GET['customer'])) {
         $pending_commands_array[] = [
             'command' => Output::getClean($command->command),
             'connection_name' => Output::getClean($command->name),
-            'error' => $command->service_id == 2 && $command->last_fetch < strtotime('-1 hour') ? 'Son bir saat içinde API getirilmedi, RadomeWEB eklentisi yüklendi ve modules.yml da mağaza modülü entegrasyonu etkin mi?' : false
+            'error' => $command->service_id == 2 && $command->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false
         ];
     }
 
@@ -211,28 +232,51 @@ if (isset($_GET['customer'])) {
     }
 
     // Allow manual payment deletion
-    if ($payment->data()->gateway_id == 0) {
+    if ($user->hasPermission('staffcp.store.payments.delete') && ($payment->data()->gateway_id == 0 || (defined('DEBUGGING') && DEBUGGING))) {
         $smarty->assign([
             'DELETE_PAYMENT' => $language->get('admin', 'delete'),
             'CONFIRM_DELETE_PAYMENT' => $store_language->get('admin', 'confirm_payment_deletion'),
         ]);
     }
 
-    $payment_method = 'Manual';
-    if ($payment->data()->gateway_id != 0) {
-        $payment_method = DB::getInstance()->query('SELECT name FROM rw_store_gateways WHERE id = ?', [$payment->data()->gateway_id])->first();
-        $payment_method = $payment_method->name;
+    $gateway = $payment->getGateway();
+    if ($gateway != null) {
+        $payment_method = $gateway->getName();
+    } else {
+        $payment_method = $payment->data()->gateway_id == 0 ? 'Manual' : 'Unknown';
+    }
+
+    // Coupon used for this payment?
+    if ($order->data()->coupon_id != null) {
+        $coupon = new Coupon($order->data()->coupon_id);
+        if ($coupon->exists()) {
+            $smarty->assign([
+                'COUPON' => $store_language->get('general', 'coupon'),
+                'COUPON_ID' => Output::getClean($coupon->data()->id),
+                'COUPON_CODE' => Output::getClean($coupon->data()->code),
+                'COUPON_LINK' => URL::build('/panel/magaza/kuponlar', 'action=edit&id=' . $coupon->data()->id)
+            ]);
+        }
     }
 
     $smarty->assign([
         'VIEWING_PAYMENT' => $store_language->get('admin', 'viewing_payment', ['payment' => Output::getClean($payment->data()->transaction)]),
         'BACK' => $language->get('general', 'back'),
         'BACK_LINK' => URL::build('/panel/magaza/odemeler'),
+        'CUSTOMER' => $store_language->get('admin', 'customer'),
+        'CUSTOMER_USERNAME' => $customer_username,
+        'CUSTOMER_LINK' => $customer_link,
+        'CUSTOMER_AVATAR' => $customer_avatar,
+        'CUSTOMER_STYLE' => $customer_style,
+        'RECIPIENT' => $store_language->get('admin', 'recipient'),
+        'RECIPIENT_USERNAME' => $recipient_username,
+        'RECIPIENT_LINK' => $recipient_link,
+        'RECIPIENT_AVATAR' => $recipient_avatar,
+        'RECIPIENT_STYLE' => $recipient_style,
         'IGN' => $store_language->get('admin', 'ign'),
-        'IGN_VALUE' => $username,
-        'USER_LINK' => $link,
-        'AVATAR' => $avatar,
-        'STYLE' => $style,
+        'IGN_VALUE' => $recipient_username,
+        'ORDER_ID' => $store_language->get('admin', 'order_id'),
+        'ORDER_ID_VALUE' => Output::getClean($payment->data()->order_id),
         'TRANSACTION' => $store_language->get('admin', 'transaction'),
         'TRANSACTION_VALUE' => Output::getClean($payment->data()->transaction),
         'PAYMENT_METHOD' => $store_language->get('admin', 'payment_method'),
@@ -240,7 +284,7 @@ if (isset($_GET['customer'])) {
         'STATUS' => $store_language->get('admin', 'status'),
         'STATUS_VALUE' => $payment->getStatusHtml(),
         'UUID' => $store_language->get('admin', 'uuid'),
-        'UUID_VALUE' => $uuid,
+        'UUID_VALUE' => $recipient_uuid,
         'PRICE' => $store_language->get('general', 'price'),
         'PRICE_VALUE' => Magaza::fromCents($payment->data()->amount_cents),
         'PRICE_FORMAT_VALUE' => Output::getPurified(
@@ -271,11 +315,23 @@ if (isset($_GET['customer'])) {
         'WARNING' => $language->get('general', 'warning')
     ]);
 
+    if ($payment->data()->subscription_id != null) {
+        $smarty->assign([
+            'SUBSCRIPTION' => $store_language->get('admin', 'subscription'),
+            'SUBSCRIPTION_VALUE' => Output::getClean($payment->data()->subscription_id),
+            'SUBSCRIPTION_LINK' => URL::build('/panel/magaza/abonelikler/', 'subscription=' . $payment->data()->subscription_id),
+        ]);
+    }
+
     $template_file = 'store/payments_view.tpl';
 
 } else if (isset($_GET['action'])) {
     if ($_GET['action'] == 'create') {
         // Create payment
+        if (!$user->hasPermission('staffcp.store.payments.create')) {
+            Redirect::to(URL::build('/panel/magaza/odemeler'));
+        }
+
         if (Input::exists()) {
             $errors = [];
 
@@ -288,8 +344,17 @@ if (isset($_GET['customer'])) {
 
                 // Valid, continue with validation
                 $validation = Validate::check($_POST, $to_validation);
-                      if ($validation->passed()) {
-                        {
+                if ($validation->passed()) {
+
+                    if ($store->isPlayerSystemEnabled()) {
+                        // Attempt to load recipient
+                        $recipient = new Customer();
+                        if (!$recipient->login(Output::getClean(Input::get('username')), false)) {
+                            $errors[] = $language->get('user', 'invalid_mcname');
+                        }
+
+                        $target_user = new User(Output::getClean(Input::get('username')), 'username');
+                    } else {
                         // User required
                         $target_user = new User(Output::getClean(Input::get('username')), 'username');
                         if (!$target_user->exists()) {
@@ -299,26 +364,29 @@ if (isset($_GET['customer'])) {
                         $recipient = new Customer($target_user);
                     }
 
-                    $items = [];
+                    $items = new ItemList();
                     $selected_products = $_POST['products'];
                     foreach ($selected_products as $item) {
-                        $items[$item] = [
-                            'id' => $item,
-                            'quantity' => 1
-                        ];
+                        $items->addItem(new Item(
+                            0,
+                            new Product($item),
+                            1,
+                            []
+                        ));
                     }
 
-                    if (!count($errors) && count($items)) {
+                    if (!count($errors) && $items->getItems()) {
                         // Register order
                         $order = new Order();
                         $order->create($target_user, $recipient, $recipient, $items);
 
                         // Register payment
                         $payment = new Payment();
-                        $payment->handlePaymentEvent(Payment::COMPLETED, [
+                        $payment->handlePaymentEvent(Input::get('payment_status'), [
                             'order_id' => $order->data()->id,
                             'gateway_id' => 0,
                             'amount_cents' => Magaza::toCents(Input::get('price')),
+                            'transaction' => 'Manual',
                             'currency' => Magaza::getCurrency()
                         ]);
 
@@ -355,6 +423,7 @@ if (isset($_GET['customer'])) {
             }
 
             $smarty->assign([
+                'USERNAME' => $language->get('user', 'username'),
                 'PRODUCTS' => $store_language->get('general', 'products') . ' ' . $store_language->get('admin', 'select_multiple_with_ctrl'),
                 'PRODUCTS_LIST' => $template_products
             ]);
@@ -365,112 +434,42 @@ if (isset($_GET['customer'])) {
         $template_file = 'store/payments_new.tpl';
     }
 } else {
-    $payments = $store->getAllPayments();
-
-    if (count($payments)) {
-        $template_payments = [];
-
-        foreach ($payments as $paymentQuery) {
-            $payment = new Payment(null, null, $paymentQuery);
-
-            // Recipient
-            if ($paymentQuery->to_customer_id) {
-                $recipient = new Customer(null, $paymentQuery->to_customer_id, 'id');
-            } else {
-                $recipient = new Customer(null, $paymentQuery->user_id, 'user_id');
-            }
-
-            if ($recipient->exists() && $recipient->getUser()->exists()) {
-                $recipient_user = $recipient->getUser();
-                $username = $recipient->getUsername();
-                $avatar = $recipient_user->getAvatar();
-                $style = $recipient_user->getGroupStyle();
-                $identifier = Output::getClean($recipient->getIdentifier());
-                $link = URL::build('/panel/kullanicilar/magaza/', 'user=' . $recipient_user->data()->id);
-            } else {
-                $username = $recipient->getUsername();
-                $avatar = AvatarSource::getAvatarFromUUID(Output::getClean($recipient->getIdentifier()));
-                $style = '';
-                $identifier = Output::getClean($recipient->getIdentifier());
-                $link = URL::build('/panel/magaza/odemeler/', 'customer=' . $username);
-            }
-
-            $template_payments[] = [
-                'user_link' =>  $link,
-                'user_style' => $style,
-                'user_avatar' => $avatar,
-                'username' => $username,
-                'uuid' => $identifier,
-                'status_id' => $paymentQuery->status_id,
-                'status' => $payment->getStatusHtml(),
-                'currency_symbol' => Output::getClean(Magaza::getCurrencySymbol()),
-                'amount' => Magaza::fromCents($paymentQuery->amount_cents),
-                'amount_format' => Output::getPurified(
-                    Magaza::formatPrice(
-                        $paymentQuery->amount_cents,
-                        $paymentQuery->currency,
-                        Magaza::getCurrencySymbol(),
-                        STORE_CURRENCY_FORMAT,
-                    )
-                ),
-                'date' => date(DATE_FORMAT, $paymentQuery->created),
-                'date_unix' => Output::getClean($paymentQuery->created),
-                'link' => URL::build('/panel/magaza/odemeler/', 'payment=' . Output::getClean($paymentQuery->id))
-            ];
-        }
-
-        $smarty->assign([
-            'VIEW' => $store_language->get('admin', 'view'),
-            'ALL_PAYMENTS' => $template_payments
-        ]);
-
-        if (!defined('TEMPLATE_STORE_SUPPORT')) {
-            $template->assets()->include([
-                AssetTree::DATATABLES
-            ]);
-
-            $template->addJSScript('
-                $(document).ready(function() {
-                    $(\'.dataTables-payments\').dataTable({
-                        responsive: true,
-                        order: [[ 3, "desc" ]],
-                        language: {
-                            "lengthMenu": "' . $language->get('table', 'display_records_per_page') . '",
-                            "zeroRecords": "' . $language->get('table', 'nothing_found') . '",
-                            "info": "' . $language->get('table', 'page_x_of_y') . '",
-                            "infoEmpty": "' . $language->get('table', 'no_records') . '",
-                            "infoFiltered": "' . $language->get('table', 'filtered') . '",
-                            "search": "' . $language->get('general', 'search') . '",
-                            "paginate": {
-                                "next": "' . $language->get('general', 'next') . '",
-                                "previous": "' . $language->get('general', 'previous') . '"
-                            }
-                        }
-                    });
-                });
-            ');
-        }
-
-    } else
-        $smarty->assign('NO_PAYMENTS', $store_language->get('admin', 'no_payments'));
-
-    $smarty->assign([
-        'CREATE_PAYMENT' => $store_language->get('admin', 'create_payment'),
-        'CREATE_PAYMENT_LINK' => URL::build('/panel/magaza/odemeler/', 'action=create')
+    // View all payments
+    $template->assets()->include([
+        AssetTree::DATATABLES
     ]);
 
-    $template_file = 'store/payments.tpl';
+    $smarty->assign([
+        'VIEW' => $store_language->get('admin', 'view'),
+        'QUERY_PAYMENTS_LINK' => URL::build('/sorgu/odemeler'),
+        'VIEW_PAYMENT_LINK' => URL::build('/panel/magaza/odemeler/', 'payment='),
+        'DISPLAY_RECORDS_PER_PAGE' => $language->get('table', 'display_records_per_page'),
+        'NOTHING_FOUND' => $language->get('table', 'nothing_found'),
+        'PAGE_X_OF_Y' => $language->get('table', 'page_x_of_y'),
+        'NO_RECORDS' => $language->get('table', 'no_records'),
+        'FILTERED' => $language->get('table', 'filtered'),
+        'SEARCH' => $language->get('general', 'search'),
+        'NEXT' => $language->get('general', 'next'),
+        'PREVIOUS' => $language->get('general', 'previous')
+    ]);
 
+    if ($user->hasPermission('staffcp.store.payments.create')) {
+        $smarty->assign([
+            'CREATE_PAYMENT' => $store_language->get('admin', 'create_payment'),
+            'CREATE_PAYMENT_LINK' => URL::build('/panel/magaza/odemeler/', 'action=create'),
+        ]);
+    }
+
+    $template_file = 'store/payments.tpl';
 }
 
 $smarty->assign([
     'PARENT_PAGE' => PARENT_PAGE,
     'DASHBOARD' => $language->get('admin', 'dashboard'),
-    'STORE' => $store_language->get('admin', 'store'),
+    'STORE' => $store_language->get('general', 'store'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
     'SUBMIT' => $language->get('general', 'submit'),
-    'STORE' => $store_language->get('general', 'store'),
     'PAYMENTS' => $store_language->get('admin', 'payments'),
     'USER' => $store_language->get('admin', 'user'),
     'AMOUNT' => $store_language->get('admin', 'amount'),

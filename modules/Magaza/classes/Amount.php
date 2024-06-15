@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Amount {
@@ -38,7 +38,7 @@ class Amount {
     }
 
     /**
-     *  Set the amount of cents to charge.
+     * Set the amount of cents to charge.
      *
      * @param int $total
      */

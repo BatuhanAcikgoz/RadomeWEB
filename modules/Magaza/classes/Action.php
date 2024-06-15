@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Action {
@@ -13,6 +13,7 @@ class Action {
     public const CHANGEBACK = 3;
     public const RENEWAL = 4;
     public const EXPIRE = 5;
+
 
     private DB $_db;
 
@@ -144,59 +145,32 @@ class Action {
     /**
      * Execute actions for product and make placeholders
      */
-    public function execute(Order $order, Product $product, Payment $payment) {
-        $placeholders = [];
-
-        $quantity = 1;
-        $custom_fields = $this->_db->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$order->data()->id, $product->data()->id])->results();
-        foreach ($custom_fields as $field) {
-            $placeholders['{'.$field->identifier.'}'] = Output::getClean($field->value);
-
-            if ($field->identifier == 'quantity') {
-                $quantity = $field->value;
-            }
-        }
-
-        $customer = $order->customer();
-        $recipient = $order->recipient();
-        $placeholders['{userId}'] = $recipient->exists() ? $recipient->data()->user_id ?? 0 : 0;
-        $placeholders['{username}'] = $recipient->getUsername();
-        $placeholders['{uuid}'] = $recipient->getIdentifier();
-        $placeholders['{productId}'] = $product->data()->id;
-        $placeholders['{productPrice}'] = Magaza::fromCents($product->data()->price_cents);
-        $placeholders['{productName}'] = $product->data()->name;
-        $placeholders['{transaction}'] = $payment->data()->transaction;
-        $placeholders['{amount}'] = Magaza::fromCents($payment->data()->amount_cents ?? 0);
-        $placeholders['{currency}'] = $payment->data()->currency;
-        $placeholders['{orderId}'] = $payment->data()->order_id;
-        $placeholders['{ip}'] = $order->data()->ip;
-        $placeholders['{time}'] = date('H:i', $payment->data()->created);
-        $placeholders['{date}'] = date('d M Y', $payment->data()->created);
-        $placeholders['{purchaserUserId}'] = $customer->exists() ? $customer->data()->user_id ?? 0 : 0;
-        $placeholders['{purchaserName}'] = $customer->getUsername();
-        $placeholders['{purchaserUuid}'] = $customer->getIdentifier();
-
-        // User Integrations placeholders
-        $user = $order->recipient()->getUser();
-        foreach ($user->getIntegrations() as $integrationUser) {
-            $integrationName = strtolower($integrationUser->getIntegration()->getName());
-
-            $placeholders['{' . $integrationName . 'Username}'] = $integrationUser->data()->username;
-            $placeholders['{' . $integrationName . 'Identifier}'] = $integrationUser->data()->identifier;
-            $placeholders['{' . $integrationName . 'Verified}'] = $integrationUser->data()->verified ? true : false;
-        }
+    public function execute(Order $order, Item $item, Payment $payment): void {
+        $placeholders = ActionsHandler::getInstance()->getPlaceholders($this, $order, $item, $payment);
 
         try {
-            // For each quantity
-            for($i = 0; $i < $quantity; $i++){
-                $this->_service->executeAction($this, $order, $product, $payment, $placeholders);
+            if ($this->data()->each_quantity) {
+                // For each quantity
+                for ($i = 0; $i < $item->getQuantity(); $i++) {
+                    $this->_service->scheduleAction($this, $order, $item, $payment, $placeholders);
+                }
+            } else {
+                // Run once
+                $this->_service->scheduleAction($this, $order, $item, $payment, $placeholders);
             }
         } catch (Exception $e) {
 
         }
     }
 
-    public function delete() {
+    public function parseCommand(string $command, Order $order, Item $item, Payment $payment, array $placeholders): string {
+        $event = new ParseActionCommandEvent($command, $this, $order, $item, $payment, $placeholders);
+        EventHandler::executeEvent($event);
+
+        return $event->command;
+    }
+
+    public function delete(): bool {
         if ($this->exists()) {
             $this->_db->query('DELETE FROM `rw_store_products_actions` WHERE `id` = ?', [$this->data()->id]);
             $this->_db->query('DELETE FROM `rw_store_products_connections` WHERE `action_id` = ?', [$this->data()->id]);

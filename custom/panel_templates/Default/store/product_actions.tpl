@@ -49,7 +49,7 @@
                             <a class="nav-link active">{$ACTIONS}</a>
                           </li>
                           <li class="nav-item">
-                          <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
+                            <a class="nav-link" href="{$LIMITS_AND_REQUIREMENTS_LINK}">{$LIMITS_AND_REQUIREMENTS}</a>
                           </li>
                         </ul>
 
@@ -71,12 +71,21 @@
                                     {foreach from=$ACTION_LIST item=action}
                                         <tr data-id="{$command.id}">
                                             <td>{$action.type}</td>
-                                            <td>{$action.service}</td>
+                                            <td>{$action.service}{if $action.warning}
+                                                    <button role="button" class="btn btn-sm btn-warning" data-toggle="popover"
+                                                            data-title="{$WARNING}" data-content="{$action.warning}"><i
+                                                                class="fa fa-exclamation-triangle"></i></button>
+                                                {/if}</td>
                                             <td>{$action.command}</td>
                                             <td>
                                                 <div class="float-md-right">
-                                                    <a class="btn btn-warning btn-sm" href="{$action.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
-                                                    <a class="btn btn-danger btn-sm" href="{$action.delete_link}"><i class="fas fa-trash fa-fw"></i></a>
+                                                    {if $action.action_type == 'product'}
+                                                        <a class="btn btn-warning btn-sm" href="{$action.edit_link}"><i class="fas fa-edit fa-fw"></i></a>
+                                                        <a class="btn btn-danger btn-sm" href="{$action.delete_link}"><i class="fas fa-trash fa-fw"></i></a>
+                                                    {else}
+                                                        <span data-toggle="tooltip" data-placement="top" title="Edit global actions from global actions page!"><a class="btn btn-warning btn-sm disabled"><i class="fas fa-edit fa-fw"></i></a></span>
+                                                        <span data-toggle="tooltip" data-placement="top" title="Delete global actions from global actions page!"><a class="btn btn-danger btn-sm disabled"><i class="fas fa-trash fa-fw"></i></a></span>
+                                                    {/if}
                                                 </div>
                                             </td>
                                         </tr>
@@ -90,7 +99,18 @@
                             <p>There are no actions yet.</p>
                         {/if}
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

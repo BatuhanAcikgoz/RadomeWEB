@@ -4,16 +4,16 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.0.3
  * @license MIT
  */
 class PayPal_Gateway extends GatewayBase {
 
     public function __construct() {
         $name = 'PayPal';
-        $author = '<a href="https://radome.web.tr/" target="_blank" rel="nofollow noopener">RadomeWEB</a>';
-        $gateway_version = '1.4.3';
-        $store_version = '1.4.3';
+        $author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a>';
+        $gateway_version = '1.7.1';
+        $store_version = '1.7.1';
         $settings = ROOT_PATH . '/modules/Magaza/gateways/PayPal/gateway_settings/settings.php';
 
         parent::__construct($name, $author, $gateway_version, $store_version, $settings);
@@ -24,8 +24,8 @@ class PayPal_Gateway extends GatewayBase {
     }
 
     public function processOrder(Order $order): void {
-        $paypal_email = MagazaConfig::get('paypal/email');
-        if ($paypal_email == null || empty($paypal_email)) {
+        $paypal_email = MagazaConfig::get('paypal.email');
+        if (empty($paypal_email)) {
             $this->addError('Administration have not completed the configuration of this gateway!');
             return;
         }
@@ -120,6 +120,8 @@ class PayPal_Gateway extends GatewayBase {
         if (!($res = curl_exec($ch))) {
             // error_log("Got " . curl_error($ch) . " when processing IPN data");
             curl_close($ch);
+
+            ErrorHandler::logWarning('[Magaza] [PayPal Gateway] Curl error ' . curl_error($ch));
             exit;
         }
         curl_close($ch);
@@ -146,7 +148,7 @@ class PayPal_Gateway extends GatewayBase {
             $payer_email = $_POST['payer_email'];
             $order_id = $_POST['custom'];
 
-            $paypal_email = MagazaConfig::get('paypal/email');
+            $paypal_email = MagazaConfig::get('paypal.email');
 
             if ($paypal_email == $receiver_email) {
 
@@ -197,10 +199,14 @@ class PayPal_Gateway extends GatewayBase {
 
                 echo 'success';
             } else {
-                echo 'fail 2';
+                http_response_code(500);
+                $this->logError('Paypal email mismatch!');
+                die('Error');
             }
         } else {
-            echo 'fail';
+            http_response_code(500);
+            $this->logError('Could not verify payment!');
+            die('Error');
         }
     }
 }

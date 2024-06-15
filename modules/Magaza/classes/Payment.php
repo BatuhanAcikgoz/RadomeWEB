@@ -4,7 +4,7 @@
  *
  * @package Modules\Magaza
  * @author Partydragen
- * @version 2.0.0-pr13
+ * @version 2.2.0
  * @license MIT
  */
 class Payment {
@@ -82,13 +82,13 @@ class Payment {
     /**
      * Get the payment data.
      *
-     * @return PaymentData This payment data.
+     * @return null|PaymentData This payment data.
      */
     public function data(): ?PaymentData {
         return $this->_data;
     }
 
-    public function getOrder() {
+    public function getOrder(): Order {
         if ($this->_order == null) {
             $this->_order = new Order($this->data()->order_id);
         }
@@ -98,10 +98,14 @@ class Payment {
 
     /**
      * Handle payment event change
+     *
+     * @param string $event Payment event.
+     * @param array $extra_data Payment data to save to database.
+     * @throws Exception
      */
-    public function handlePaymentEvent(string $event, array $extra_data = []) {
+    public function handlePaymentEvent(string $event, array $extra_data = []): void {
         $store_language = new Language(ROOT_PATH . '/modules/Magaza/language', LANGUAGE);
-        $default_language = new Language('core', DEFAULT_LANGUAGE);
+
         if ($this->exists()) {
             // Payment exist, Continue with event handling
 
@@ -116,17 +120,20 @@ class Payment {
 
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
-                    EventHandler::executeEvent('paymentPending', [
-                        'event' => 'paymentPending',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'payment_id' => $this->data()->id,
-                        'username' => $username,
-                        'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
-                    ]);
+                    EventHandler::executeEvent(new PaymentPendingEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
+
                 break;
                 case self::COMPLETED:
                     // Payment completed
+                    if ($this->data()->status_id == 1) {
+                        return;
+                    }
+
                     $update_array = [
                         'status_id' => 1,
                         'last_updated' => date('U')
@@ -134,21 +141,40 @@ class Payment {
 
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
-                    $this->executeAllActions(Action::PURCHASE);
+                    if ($this->data()->subscription_id == null) {
+                        // This is a non-subscription payment
+                        // Schedule any products for expiration?
+                        foreach ($this->getOrder()->items()->getItems() as $item) {
+                            if ($item->getProduct()->data()->durability != null) {
+                                ExpireCustomerProductTask::schedule($this->getOrder(), $item, $this);
+                            }
+                        }
 
-                    EventHandler::executeEvent('paymentCompleted', [
-                        'event' => 'paymentCompleted',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'username' => $username,
-                        'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
-                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
-                        'payment_id' => $this->data()->id,
-                    ]);
+                        $this->executeActions(Action::PURCHASE);
+                    } else {
+                        // Handle subscription payment
+                        // Is this a first or renewal payment?
+                        $subscription_payments = DB::getInstance()->query('SELECT count(*) AS c FROM rw_store_payments WHERE subscription_id = ?', [$this->data()->subscription_id])->first()->c;
+                        if ($subscription_payments == 1) {
+                            $this->executeActions(Action::PURCHASE);
+                        } else {
+                            $this->executeActions(Action::RENEWAL);
+                        }
+                    }
+
+                    EventHandler::executeEvent(new PaymentCompletedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
                 break;
                 case self::REFUNDED:
                     // Payment refunded
+                    if ($this->data()->status_id == 2) {
+                        return;
+                    }
+
                     $update_array = [
                         'status_id' => 2,
                         'last_updated' => date('U')
@@ -157,19 +183,21 @@ class Payment {
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
                     $this->deletePendingActions();
-                    $this->executeAllActions(Action::REFUND);
+                    $this->executeActions(Action::REFUND);
 
-                    EventHandler::executeEvent('paymentRefunded', [
-                        'event' => 'paymentRefunded',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'payment_id' => $this->data()->id,
-                        'username' => $username,
-                        'content_full' => $store_language->get('general', 'refunded_payment_text', ['user' => $username]),
-                    ]);
+                    EventHandler::executeEvent(new PaymentRefundedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
                 break;
                 case self::REVERSED:
                     // Payment reversed
+                    if ($this->data()->status_id == 3) {
+                        return;
+                    }
+
                     $update_array = [
                         'status_id' => 3,
                         'last_updated' => date('U')
@@ -178,19 +206,21 @@ class Payment {
                     $this->_db->update('store_payments', $this->data()->id, array_merge($update_array, $extra_data));
 
                     $this->deletePendingActions();
-                    $this->executeAllActions(Action::CHANGEBACK);
+                    $this->executeActions(Action::CHANGEBACK);
 
-                    EventHandler::executeEvent('paymentReversed', [
-                        'event' => 'paymentReversed',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'payment_id' => $this->data()->id,
-                        'username' => $username,
-                        'content_full' => $store_language->get('general', 'reversed_payment_text', ['user' => $username]),
-                    ]);
+                    EventHandler::executeEvent(new PaymentReversedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
                 break;
                 case self::DENIED:
                     // Payment denied
+                    if ($this->data()->status_id == 4) {
+                        return;
+                    }
+
                     $update_array = [
                         'status_id' => 4,
                         'last_updated' => date('U')
@@ -225,15 +255,12 @@ class Payment {
 
                     $this->create(array_merge($insert_array, $extra_data));
 
-                    $username = $this->getOrder()->recipient()->getUsername();
-                    EventHandler::executeEvent('paymentPending', [
-                        'event' => 'paymentPending',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'payment_id' => $this->data()->id,
-                        'username' => $username,
-                        'content_full' => $store_language->get('general', 'pending_payment_text', ['user' => $username]),
-                    ]);
+                    EventHandler::executeEvent(new PaymentPendingEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
                 break;
                 case self::COMPLETED:
                     // Payment completed
@@ -245,74 +272,180 @@ class Payment {
 
                     $this->create(array_merge($insert_array, $extra_data));
 
-                    $this->executeAllActions(Action::PURCHASE);
+                    if ($this->data()->subscription_id == null) {
+                        // This is a non-subscription payment
+                        // Schedule any products for expiration?
+                        foreach ($this->getOrder()->items()->getItems() as $item) {
+                            if ($item->getProduct()->data()->durability != null) {
+                                ExpireCustomerProductTask::schedule($this->getOrder(), $item, $this);
+                            }
+                        }
 
-                    $username = $this->getOrder()->recipient()->getUsername();
-                    EventHandler::executeEvent('paymentCompleted', [
-                        'event' => 'paymentCompleted',
-                        'order' => $this->getOrder(),
-                        'order_id' => $this->data()->order_id,
-                        'payment_id' => $this->data()->id,
-                        'username' => $username,
-                        'image' => ('https://' . Config::get('core.hostname'). '/uploads/store/' . $this->getOrder()->getImage()),
-                        'content_full' => $store_language->get('general', 'completed_payment_text', ['user' => $username, 'products' => $this->getOrder()->getDescription()]),
-                        'footer' => $default_language->get('general', 'radomeweb'),
-                    ]);
+                        $this->executeActions(Action::PURCHASE);
+                    } else {
+                        // Handle subscription payment
+                        // Is this a first or renewal payment?
+                        $subscription_payments = DB::getInstance()->query('SELECT count(*) AS c FROM rw_store_payments WHERE subscription_id = ?', [$this->data()->subscription_id])->first()->c;
+                        if ($subscription_payments == 1) {
+                            $this->executeActions(Action::PURCHASE);
+                        } else {
+                            $this->executeActions(Action::RENEWAL);
+                        }
+                    }
+
+                    EventHandler::executeEvent(new PaymentCompletedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
                 break;
+                case self::REFUNDED:
+                    // Payment refunded
+                    $insert_array = [
+                        'status_id' => 2,
+                        'created' => date('U'),
+                        'last_updated' => date('U')
+                    ];
+
+                    $this->create(array_merge($insert_array, $extra_data));
+
+                    $this->executeActions(Action::REFUND);
+
+                    EventHandler::executeEvent(new PaymentRefundedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
+                    break;
+                case self::REVERSED:
+                    // Payment reversed
+                    $insert_array = [
+                        'status_id' => 3,
+                        'created' => date('U'),
+                        'last_updated' => date('U')
+                    ];
+
+                    $this->create(array_merge($insert_array, $extra_data));
+
+                    $this->executeActions(Action::CHANGEBACK);
+
+                    EventHandler::executeEvent(new PaymentReversedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
+                    break;
+                case self::DENIED:
+                    // Payment denied
+                    $insert_array = [
+                        'status_id' => 4,
+                        'created' => date('U'),
+                        'last_updated' => date('U')
+                    ];
+
+                    $this->create(array_merge($insert_array, $extra_data));
+
+                    EventHandler::executeEvent(new PaymentDeniedEvent(
+                        $this,
+                        $this->getOrder(),
+                        $this->getOrder()->customer(),
+                        $this->getOrder()->recipient()
+                    ));
+                    break;
             }
         }
     }
 
     /**
-     * Execute all actions for the called trigger for each product in this order
+     * Execute all actions for the called trigger all products or specific product.
+     *
+     * @param int $type Action type.
+     * @param Item|null $item execute actions from specific item if isset.
      */
-    public function executeAllActions($type) {
+    public function executeActions(int $type, Item $item = null): void {
         $order = $this->getOrder();
 
-        foreach ($order->getProducts() as $product) {
-            if ($product->data()->deleted == 0) {
-                foreach ($product->getActions($type) as $action) {
-                    $action->execute($order, $product, $this);
+        if ($item) {
+            foreach ($item->getProduct()->getActions($type) as $action) {
+                if ($action->data()->product_id != null || $action->data()->each_product)
+                    $action->execute($order, $item, $this);
+            }
+        } else {
+            foreach ($order->items()->getItems() as $item) {
+                $product = $item->getProduct();
+
+                if ($product->data()->deleted == 0) {
+                    foreach ($product->getActions($type) as $action) {
+                        if ($action->data()->product_id != null || $action->data()->each_product)
+                            $action->execute($order, $item, $this);
+                    }
                 }
             }
         }
+
+        // Global actions without assigning product for products with
+        $actions = ActionsHandler::getInstance()->getActions(null, $type);
+        foreach ($actions as $action) {
+            if (!$action->data()->each_product)
+                $action->execute($order, $item ?? $this->getOrder()->items()->getItems()[0], $this);
+        }
     }
 
     /**
-     * Delete any pending actions
+     * Delete any pending actions for all products or specific product.
+     *
+     * @param int|null $product_id Delete pending actions from specific product if isset.
      */
-    public function deletePendingActions() {
-        $this->_db->query('DELETE FROM rw_store_pending_actions WHERE order_id = ? AND status = 0', [$this->data()->order_id])->results();
+    public function deletePendingActions(int $product_id = null): void {
+        if ($product_id) {
+            $this->_db->query('DELETE FROM rw_store_pending_actions WHERE order_id = ? AND status = 0 AND product_id = ?', [$this->data()->order_id, $product_id])->results();
+        } else {
+            $this->_db->query('DELETE FROM rw_store_pending_actions WHERE order_id = ? AND status = 0', [$this->data()->order_id])->results();
+        }
     }
 
-    public function getStatusHtml() {
-        $status = '<span class="badge badge-danger">Bilinmiyor</span>';
-
+    public function getStatusHtml(): string {
         switch ($this->data()->status_id) {
             case 0;
-                $status = '<span class="badge badge-warning">Bekleniyor</span>';
+                $status = '<span class="badge badge-warning">Pending</span>';
             break;
             case 1;
-                $status = '<span class="badge badge-success">Tamamlandı</span>';
+                $status = '<span class="badge badge-success">Complete</span>';
             break;
             case 2;
-                $status = '<span class="badge badge-primary">İade Edildi</span>';
+                $status = '<span class="badge badge-primary">Refunded</span>';
             break;
             case 3;
                 $status = '<span class="badge badge-info">Changeback</span>';
             break;
             case 4;
-                $status = '<span class="badge badge-danger">Reddedildi</span>';
+                $status = '<span class="badge badge-danger">Denied</span>';
             break;
             default:
-                $status = '<span class="badge badge-danger">Bilinmiyor</span>';
+                $status = '<span class="badge badge-danger">Unknown</span>';
             break;
         }
 
         return $status;
     }
 
-    public function delete() {
+    /**
+     * Get gateway used for this payment
+     *
+     * @return null|GatewayBase Gateway used for this payment.
+     */
+    public function getGateway(): ?GatewayBase {
+        if ($this->exists() && $this->data()->gateway_id != 0) {
+            return Gateways::getInstance()->get($this->data()->gateway_id);
+        }
+
+        return null;
+    }
+
+    public function delete(): bool {
         if ($this->exists()) {
             $this->_db->query('DELETE FROM `rw_store_payments` WHERE `id` = ?', [$this->data()->id]);
             $this->_db->query('DELETE FROM `rw_store_orders` WHERE `id` = ?', [$this->data()->order_id]);

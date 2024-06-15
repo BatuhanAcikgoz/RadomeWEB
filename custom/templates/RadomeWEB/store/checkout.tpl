@@ -89,7 +89,7 @@
           <div class="form-group">
               <input type="hidden" name="token" value="{$TOKEN}">
               <label>{$AGREE_T_AND_C_PURCHASE} <input type="checkbox" name="t_and_c" value="1" required><div class="row justify-content-center" style="padding-top: 20px;"><button
-                  class="btn btn-success">{$PURCHASE} &raquo;</button></div></label>
+                  class="btn btn-success">{if isset($CHECKOUT_SUBSCRIBE)}{$CHECKOUT_SUBSCRIBE}{else}{$PURCHASE}{/if} &raquo;</button></div></label>
           </div>
           </br>
         </form>

@@ -1,22 +1,20 @@
 <?php
-/*
+/**
+ * Main store class.
  *
- *
- *  License: MIT
- *
- *  Magaza module
+ * @package Modules\Magaza
+ * @author Partydragen
+ * @version 2.2.0
+ * @license MIT
  */
-
 class Magaza {
-    private $_db,
-            $_cache;
 
-   /**
+    private DB $_db;
+
+    /**
      * @var array The list of the active sales.
      */
     private static array $_active_sales;
-
-
 
     /**
      * @var Language Instance of Language class for translations
@@ -24,14 +22,12 @@ class Magaza {
     private static Language $_store_language;
 
     // Constructor, connect to database
-    public function __construct($cache, $store_language) {
+    public function __construct() {
         $this->_db = DB::getInstance();
-
-        $this->_cache = $cache;
     }
 
     public function getMagazaURL(): string {
-        return Settings::get('store_path', '/magaza', 'Magaza');
+        return Settings::get('store_path', '/store', 'Magaza');
     }
 
     // Get all products
@@ -93,7 +89,7 @@ class Magaza {
         $categories_query = DB::getInstance()->query('SELECT * FROM rw_store_categories WHERE parent_category IS NULL AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC')->results();
         if (count($categories_query)) {
             foreach ($categories_query as $item) {
-                $subcategories_query = DB::getInstance()->query('SELECT id, `name` FROM rw_store_categories WHERE parent_category = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$item->id])->results();
+                $subcategories_query = DB::getInstance()->query('SELECT id, `name`, `url` FROM rw_store_categories WHERE parent_category = ? AND disabled = 0 AND hidden = 0 AND deleted = 0 ORDER BY `order` ASC', [$item->id])->results();
 
                 $subcategories = [];
                 $sub_active = false;
@@ -102,7 +98,7 @@ class Magaza {
                         $sub_active = Output::getClean($active) == Output::getClean($subcategory->name);
 
                         $subcategories[] = [
-                            'url' => URL::build($store_url . '/kategori/' . Output::getClean($subcategory->id)),
+                            'url' => URL::build($store_url . '/kategori/' . (empty($subcategory->url) ? $subcategory->id : $subcategory->url)),
                             'title' => Output::getClean($subcategory->name),
                             'active' => $sub_active
                         ];
@@ -110,7 +106,7 @@ class Magaza {
                 }
 
                 $categories[$item->id] = [
-                    'url' => URL::build($store_url . '/kategori/' . Output::getClean($item->id)),
+                    'url' => URL::build($store_url . '/kategori/' . (empty($item->url) ? $item->id : $item->url)),
                     'title' => Output::getClean($item->name),
                     'subcategories' => $subcategories,
                     'active' => !$sub_active && Output::getClean($active) == Output::getClean($item->name),
@@ -121,7 +117,6 @@ class Magaza {
 
         return $categories;
     }
-
     /**
      * @return Language The current language instance for translations
      */
@@ -134,15 +129,15 @@ class Magaza {
     }
 
     public static function getMagazaPath(): string {
-        return Settings::get('store_path', '/magaza', 'Magaza');
+        return Settings::get('store_path', '/store', 'Magaza');
     }
 
     public static function getCurrency(): string {
-        return Settings::get('currency', 'TL', 'Magaza');
+        return Settings::get('currency', 'USD', 'Magaza');
     }
 
     public static function getCurrencySymbol(): string {
-        return Settings::get('currency_symbol', '₺', 'Magaza');
+        return Settings::get('currency_symbol', '$', 'Magaza');
     }
 
     /**
@@ -167,17 +162,13 @@ class Magaza {
     }
 
     /**
-     * Get the active sales .
+     * Get the active sales.
      *
-     * @return Product[] The products for this order.
+     * @return array The active sales.
      */
     public static function getActiveSales(): array {
         return self::$_active_sales ??= (function (): array {
-            $active_sales = [];
-
-            $sales = DB::getInstance()->query('SELECT * FROM rw_store_sales WHERE start_date < ? AND expire_date > ? ORDER BY `expire_date` DESC', [date('U'), date('U')])->results();
-
-            return $sales;
+            return DB::getInstance()->query('SELECT * FROM rw_store_sales WHERE start_date < ? AND expire_date > ? ORDER BY `expire_date` DESC', [date('U'), date('U')])->results();
         })();
     }
 
@@ -185,10 +176,38 @@ class Magaza {
      *  Check for Module updates
      *  Returns JSON object with information about any updates
      */
+    public static function updateCheck() {
+        $current_version = Settings::get('radome_version');
+        $uid = Settings::get('unique_id');
+
+        $enabled_modules = Module::getModules();
+        foreach ($enabled_modules as $enabled_item) {
+            if ($enabled_item->getName() == 'Magaza') {
+                $module = $enabled_item;
+                break;
+            }
+        }
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_URL, 'https://api.partydragen.com/stats.php?uid=' . $uid . '&version=' . $current_version . '&module=Magaza&module_version='.$module->getVersion() . '&domain='. URL::getSelfURL());
+
+        $update_check = curl_exec($ch);
+        curl_close($ch);
+
+        $info = json_decode($update_check);
+        if (isset($info->message)) {
+            die($info->message);
+        }
+
+        return $update_check;
+    }
+
     public static function toCents($value): int {
         return (int) (string) ((float) preg_replace("/[^0-9.]/", "", $value) * 100);
     }
-
+    
     public static function fromCents(int $cents): string {
         return sprintf('%0.2f', $cents / 100);
     }

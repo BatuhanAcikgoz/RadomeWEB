@@ -1,9 +1,9 @@
 <?php
-class MinecraftServerService extends ServiceBase {
+class MinecraftServerService extends ServiceBase implements ConnectionsBase {
     public function __construct() {
         $id = 2;
-        $name = 'Minecraft Sunucusu';
-        $description = 'Minecraft sunucularınızı servis bağlantılarıyla bağlayın ve komutlarınızı yürütün';
+        $name = 'Minecraft Server';
+        $description = 'Connect your Minecraft servers with Service Connections and make actions execute commands on they';
         $connection_settings = ROOT_PATH . '/modules/Magaza/services/MinecraftServer/settings/connection_settings.php';
         $action_settings = ROOT_PATH . '/modules/Magaza/services/MinecraftServer/settings/action_settings.php';
 
@@ -18,34 +18,30 @@ class MinecraftServerService extends ServiceBase {
 
     }
 
-    public function executeAction(Action $action, Order $order, Product $product, Payment $payment, array $placeholders) {
+    public function scheduleAction(Action $action, Order $order, Item $item, Payment $payment, array $placeholders) {
         // Plugin handle username and uuid replacement
-        unset($placeholders['{username}']);
-        unset($placeholders['{uuid}']);
+        unset($placeholders['username']);
+        unset($placeholders['uuid']);
 
         // Execute this action on all selected connections
+        $product = $item->getProduct();
         $connections = ($action->data()->own_connections ? $action->getConnections() : $product->getConnections($this->getId()));
         foreach ($connections as $connection) {
             // Replace existing placeholder
-            $placeholders['{connection}'] = $connection->name;
+            $placeholders['connection'] = $connection->name;
 
             // Replace the command placeholders
-            $command = $action->data()->command;
-            $command = str_replace(array_keys($placeholders), array_values($placeholders), $command);
+            $command = $action->parseCommand($action->data()->command, $order, $item, $payment, $placeholders);
 
-            // Save queued command
-            DB::getInstance()->insert('store_pending_actions', [
-                'order_id' => $payment->data()->order_id,
-                'action_id' => $action->data()->id,
-                'product_id' => $product->data()->id,
-                'customer_id' => $order->data()->to_customer_id,
-                'connection_id' => $connection->id,
-                'type' => $action->data()->type,
-                'command' => $command,
-                'require_online' => $action->data()->require_online,
-                'order' => $action->data()->order,
+            $task = new ActionTask();
+            $task->create($command, $action, $order, $item, $payment, [
+                'connection_id' => $connection->id
             ]);
         }
+    }
+
+    public function executeAction(ActionTask $task) {
+
     }
 }
 

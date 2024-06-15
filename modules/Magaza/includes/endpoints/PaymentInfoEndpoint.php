@@ -20,49 +20,41 @@ class PaymentInfoEndpoint extends KeyAuthEndpoint {
         $order = $payment->getOrder();
 
         $products = [];
-        foreach ($order->getProducts() as $product) {
-            $fields_array = [];
-            $fields = DB::getInstance()->query('SELECT identifier, value FROM rw_store_orders_products_fields INNER JOIN rw_store_fields ON field_id=rw_store_fields.id WHERE order_id = ? AND product_id = ?', [$payment->data()->order_id, $product->data()->id])->results();
-            foreach ($fields as $field) {
-                $fields_array[] = [
-                    'identifier' => Output::getClean($field->identifier),
-                    'value' => Output::getClean($field->value)
-                ];
-            }
+        foreach ($order->items()->getItems() as $item) {
+            $product = $item->getProduct();
 
             $products[] = [
-                'id' => (int)$product->data()->id,
+                'id' => $product->data()->id,
                 'name' => $product->data()->name,
                 'quantity' => 1,
-                'fields' => $fields_array
+                'fields' => $item->getFields()
             ];
         }
 
         $customer = $order->customer();
-
-
         $recipient = $order->recipient();
 
-
         $return = [
-            'id' => (int) $payment->data()->id,
-            'order_id' => (int) $payment->data()->order_id,
-            'gateway_id' => (int) $payment->data()->gateway_id,
+            'id' => $payment->data()->id,
+            'order_id' => $payment->data()->order_id,
+            'gateway_id' => $payment->data()->gateway_id,
             'transaction' => $payment->data()->transaction,
-            'amount' => Magaza::fromCents($payment->data()->amount_cents ?? 0),
-            'amount_cents' => (int) $payment->data()->amount_cents ?? 0,
+            'amount' => Magaza::fromCents($payment->data()->amount_cents ?? 0), // Deprecated
+            'amount_cents' => $payment->data()->amount_cents ?? 0,
             'currency' => $payment->data()->currency,
-            'fee' => (float) Magaza::fromCents($payment->data()->fee_cents ?? 0),
-            'fee_cents' => (int) $payment->data()->fee_cents ?? 0,
-            'status_id' => (int) $payment->data()->status_id,
-            'created' => (int) $payment->data()->created,
-            'last_updated' => (int) $payment->data()->last_updated,
+            'fee' => Magaza::fromCents($payment->data()->fee_cents ?? 0), // Deprecated
+            'fee_cents' => $payment->data()->fee_cents ?? 0,
+            'status_id' => $payment->data()->status_id,
+            'created' => $payment->data()->created,
+            'last_updated' => $payment->data()->last_updated,
             'customer' => [
+                'customer_id' => $payment->data()->from_customer_id,
                 'user_id' => $customer->exists() ? $customer->data()->user_id ?? 0 : 0,
                 'username' => $customer->getUsername(),
                 'identifier' => $customer->getIdentifier(),
             ],
             'recipient' => [
+                'customer_id' => $payment->data()->to_customer_id,
                 'user_id' => $recipient->exists() ? $recipient->data()->user_id ?? 0 : 0,
                 'username' => $recipient->getUsername(),
                 'identifier' => $recipient->getIdentifier(),

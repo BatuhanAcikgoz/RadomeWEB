@@ -1,6 +1,8 @@
 <?php
 /*
- *
+ *  Made by Partydragen
+ *  https://partydragen.com/resources/resource/5-store-module/
+ *  https://partydragen.com/
  *
  *  License: MIT
  *
@@ -38,8 +40,12 @@ if (!isset($_GET['action'])) {
                 'id' => Output::getClean($connection->id),
                 'name' => Output::getClean($connection->name),
                 'service' => Output::getClean($service->getName()),
-                'edit_link' => URL::build('/panel/magaza/baglantilar/', 'action=edit&id=' . Output::getClean($connection->id)),
-                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'Son bir saat içinde API getirilmedi, RadomeWEB eklentisi yüklendi ve modules.yml da mağaza modülü entegrasyonu etkin mi?' : false
+                'edit_link' => URL::build('/panel/magaza/baglantilar/', 'action=edit&id=' . $connection->id),
+                'error' => $service->getId() == 2 && $connection->last_fetch < strtotime('-1 hour') ? 'There has been no API fetch within the last hour, Is the radome plugin installed, and is store module integration enabled in modules.yaml?' : false,
+                'queued_actions' => $store_language->get('admin', 'queued_actions_results', [
+                    'pending_actions' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM rw_store_pending_actions WHERE connection_id = ? AND status = 0', [$connection->id])->first()->c,
+                    'completed_actions' => DB::getInstance()->query('SELECT COUNT(*) AS c FROM rw_store_pending_actions WHERE connection_id = ? AND status = 1', [$connection->id])->first()->c
+                ]),
             ];
         }
 
@@ -61,7 +67,8 @@ if (!isset($_GET['action'])) {
         'TOKEN' => Token::get(),
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
-        'WARNING' => $language->get('general', 'warning')
+        'WARNING' => $language->get('general', 'warning'),
+        'QUEUED_ACTIONS' => $store_language->get('admin', 'queued_actions'),
     ]);
     
     $template_file = 'store/connections.tpl';
@@ -73,7 +80,7 @@ if (!isset($_GET['action'])) {
                 // Select service type
                 $services_list = [];
                 foreach ($services->getAll() as $service) {
-                    if ($service->getConnectionSettings() == null) {
+                    if (!$service instanceof ConnectionsBase) {
                         continue;
                     }
 
@@ -86,7 +93,7 @@ if (!isset($_GET['action'])) {
                 }
 
                 $smarty->assign([
-                    'CONNECTIONS_TITLE' => 'Bağlantı Türünü Seç',
+                    'CONNECTIONS_TITLE' => 'Select Connection Type',
                     'BACK' => $language->get('general', 'back'),
                     'BACK_LINK' => URL::build('/panel/magaza/baglantilar/'),
                     'SERVICES_LIST' => $services_list

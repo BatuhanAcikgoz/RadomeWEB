@@ -41,7 +41,7 @@
                             <a href="{$BACK_LINK}" class="btn btn-primary">{$BACK}</a>
                         </div>
                         <hr />
-     
+
                         <!-- Success and Error Alerts -->
                         {include file='includes/alerts.tpl'}
 
@@ -64,8 +64,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="InputName">{$CATEGORY_IMAGE}</label>
-                                <input type="text" name="image" class="form-control" id="InputName" value="{$CATEGORY_IMAGE_VALUE}" placeholder="{$CATEGORY_IMAGE}" required>
+                                <label for="inputURL">{$PRETTY_URL}</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">{$URL_LABEL}</span>
+                                    </div>
+                                    <input type="text" class="form-control" name="pretty_url" id="inputURL" placeholder="{$PRETTY_URL}" value="{$PRETTY_URL_VALUE}">
+                                </div>
                             </div>
                             <div class="form-group custom-control custom-switch">
                                 <input id="inputOnlySubCategories" name="only_subcategories" type="checkbox" class="custom-control-input"{if $ONLY_SUBCATEGORIES_VALUE eq 1} checked{/if} />
@@ -85,7 +90,18 @@
                             </div>
                         </form>
 
-                        
+                        <center>
+                            <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>
+                                <a class="ml-1" href="https://partydragen.com/suggestions/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="You can submit suggestions here"><i class="fa-solid fa-thumbs-up text-warning"></i></a>
+                                <a class="ml-1" href="https://discord.gg/TtH6tpp" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Discord"><i class="fab fa-discord fa-fw text-discord"></i></a>
+                                <a class="ml-1" href="https://partydragen.com/" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Website"><i class="fas fa-globe fa-fw text-primary"></i></a>
+                                <a class="ml-1" href="https://www.patreon.com/partydragen" target="_blank" data-toggle="tooltip"
+                                   data-placement="top" title="Support the development on Patreon"><i class="fas fa-heart fa-fw text-danger"></i></a>
+                            </p>
+                        </center>
                     </div>
                 </div>
 

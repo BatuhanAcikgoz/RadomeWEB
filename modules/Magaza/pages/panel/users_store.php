@@ -15,12 +15,12 @@ if (!$user->handlePanelPageLoad('staffcp.store.payments')) {
 }
 
 if (!isset($_GET['user']) || !is_numeric($_GET['user'])) {
-    Redirect::to(URL::build('/panel/kullanicilar'));
+    Redirect::to(URL::build('/panel/users'));
 }
 
 $view_user = new User($_GET['user']);
 if (!$view_user->exists()) {
-    Redirect::to('/panel/kullanicilar');
+    Redirect::to('/panel/users');
 }
 $customer = new Customer($view_user);
 
@@ -51,19 +51,17 @@ if (Input::exists()) {
             if ($user->hasPermission('staffcp.store.manage_credits')) {
                 $credits = Input::get('credits');
 
-
-
                 if (Input::get('action') == 'addCredits') {
-                    $customer->addCents(Magaza::toCents($credits));
+                    $customer->addCents(Magaza::toCents($credits), 'Staff User', $user->data()->id);
 
                     Session::flash('users_store_success', $store_language->get('admin', 'successfully_added_credits', ['amount' => $credits]));
                 } else if (Input::get('action') == 'removeCredits') {
-                    $customer->removeCents(Magaza::toCents($credits));
+                    $customer->removeCents(Magaza::toCents($credits), 'Staff User', $user->data()->id);
 
                     Session::flash('users_store_success', $store_language->get('admin', 'successfully_removed_credits', ['amount' => $credits]));
                 }
 
-                 Redirect::to(URL::build('/panel/kullanicilar/magaza/', 'user=' . $view_user->data()->id));
+                Redirect::to(URL::build('/panel/kullanicilar/magaza/', 'user=' . $view_user->data()->id));
             }
         } else {
             $errors = $validation->errors();
