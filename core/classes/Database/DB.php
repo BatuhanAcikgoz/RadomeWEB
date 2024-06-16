@@ -2,7 +2,7 @@
 /**
  * Creates a singleton connection to the database with credentials from the config file.
  *
- * @package NamelessMC\Database
+ * @package RadomeWEB\Database
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
