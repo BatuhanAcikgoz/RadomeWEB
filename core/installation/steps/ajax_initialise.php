@@ -3,11 +3,8 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
             $message = PhinxAdapter::migrate();
-
-            $redirect_url = ('?step=site_configuration');
-
             $json = [
-                'message' => 'deneme',
+                'message' => $language->get('installer', 'database_configured'),
                 'redirect_url' => '?step=site_configuration',
             ];
 
@@ -16,7 +13,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
             } else {
                 $_SESSION['database_initialized'] = true;
             }
-
         } else {
             if ($_GET['initialise'] === 'site') {
                 DatabaseInitialiser::runPreUser();
@@ -27,7 +23,6 @@ if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
                 ];
 
                 $_SESSION['site_initialized'] = true;
-
             }
         }
     } catch (Exception $e) {
