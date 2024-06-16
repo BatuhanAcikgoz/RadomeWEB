@@ -20,7 +20,15 @@ final class CreateFormlarTable extends AbstractMigration
             ->addColumn('content', 'text', ['null' => true, 'default' => null])
             ->addColumn('comment_status', 'integer', ['length' => 11, 'null' => false, 'default' => 0])
             ->addColumn('source', 'string', ['length' => 32, 'null' => false, 'default' => 'forum'])
-            ->addColumn('forum_id', 'integer', ['length' => 11, 'null' => false, 'default' => 0]);
+            ->addColumn('forum_id', 'integer', ['length' => 11, 'null' => false, 'default' => 0])
+            ->addColumn('global_limit', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('user_limit', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('required_integrations', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('min_player_age', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('min_player_playtime', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('hooks', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
+            ->addColumn('discord_fields', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0]);
+
 
         $table->create();
     }

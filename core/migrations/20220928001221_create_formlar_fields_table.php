@@ -19,6 +19,8 @@ final class CreateFormlarFieldsTable extends AbstractMigration
             ->addColumn('placeholder', 'string', ['length' => 255, 'null' => true, 'default' => NULL])
             ->addColumn('options', 'text', ['null' => true, 'default' => null])
             ->addColumn('info', 'text', ['null' => true, 'default' => null])
+            ->addColumn('regex', 'string', ['length' => 65, 'null' => true, 'default' => NULL])
+            ->addColumn('default_value', 'string', ['length' => 65, 'null' => false, 'default' => ""])
             ->addColumn('deleted', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('order', 'integer', ['length' => 11, 'null' => false, 'default' => 1]);
 

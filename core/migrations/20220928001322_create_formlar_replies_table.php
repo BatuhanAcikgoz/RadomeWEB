@@ -16,7 +16,10 @@ final class CreateFormlarRepliesTable extends AbstractMigration
             ->addColumn('created', 'integer', ['length' => 11])
             ->addColumn('updated', 'integer', ['length' => 11])
             ->addColumn('content', 'text', ['null' => true, 'default' => null])
-            ->addColumn('status_id', 'integer', ['length' => 11, 'null' => false, 'default' => 1]);
+            ->addColumn('status_id', 'integer', ['length' => 11, 'null' => false, 'default' => 1])
+            ->addColumn('source', 'string', ['length' => 32, 'null' => true, 'default' => null])
+            ->addColumn('source_id', 'integer', ['length' => 11, 'null' => true, 'default' => null]);
+
 
         $table->create();
     }

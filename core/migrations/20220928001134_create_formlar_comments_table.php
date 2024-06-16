@@ -14,7 +14,9 @@ final class CreateFormlarCommentsTable extends AbstractMigration
             ->addColumn('user_id', 'integer', ['length' => 11])
             ->addColumn('created', 'integer', ['length' => 11])
             ->addColumn('anonymous', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
-            ->addColumn('content', 'text', ['null' => true, 'default' => null]);
+            ->addColumn('content', 'text', ['null' => true, 'default' => null])
+            ->addColumn('staff_only', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0]);
+
 
         $table->create();
     }

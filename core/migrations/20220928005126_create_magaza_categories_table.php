@@ -12,6 +12,7 @@ final class CreateMagazaCategoriesTable extends AbstractMigration
         $table
             ->addColumn('name', 'string', ['length' => 128])
             ->addColumn('description', 'text', ['null' => false])
+            ->addColumn('url', 'string', ['length' => 256, 'null' => true, 'default' => NULL])
             ->addColumn('image', 'string', ['length' => 512, 'null' => true, 'default' => NULL])
             ->addColumn('only_subcategories', 'smallinteger', ['length' => 1, 'default' => 0])
             ->addColumn('parent_category', 'smallinteger', ['length' => 1, 'null' => true, 'default' => NULL])
