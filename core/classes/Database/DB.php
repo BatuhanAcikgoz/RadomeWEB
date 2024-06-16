@@ -2,7 +2,7 @@
 /**
  * Creates a singleton connection to the database with credentials from the config file.
  *
- * @package RadomeWEB\Database
+ * @package NamelessMC\Database
  * @author Samerton
  * @version 2.0.0-pr13
  * @license MIT
@@ -21,7 +21,7 @@ class DB {
     private int $_count = 0;
     protected QueryRecorder $_query_recorder;
 
-        private function __construct(
+    private function __construct(
         string $host,
         string $database,
         string $username,
@@ -110,7 +110,7 @@ class DB {
         return $this->_pdo;
     }
 
-        /**
+    /**
      * Begin a MySQL transaction
      */
     public function beginTransaction(): void {
@@ -184,16 +184,6 @@ class DB {
         return $this->_count;
     }
 
-
-    /**
-     * Get whether any results exist.
-     *
-     * @return bool Whether any results exist.
-     */
-    public function exists(): bool {
-        return $this->_count > 0;
-    }
-
     /**
      * Get the last inserted ID
      *
@@ -216,27 +206,21 @@ class DB {
      * Perform a SELECT query on the database.
      *
      * @param string $table The table to select from.
-     * @param mixed $where The where clause. If not an array, it will be used for "id" column lookup.
+     * @param array $where The where clause.
      * @return static|false This instance if successful, false otherwise.
      */
-    public function get(string $table, $where = []) {
-        if (!is_array($where)) {
-            $where = ['id', '=', $where];
-        }
+    public function get(string $table, array $where = []) {
         return $this->action('SELECT *', $table, $where);
     }
 
     /**
-     * Perform a DELTE query on the database.
+     * Perform a DELETE query on the database.
      *
      * @param string $table The table to delete from.
-     * @param mixed $where The where clause. If not an array, it will be used for "id" column lookup.
+     * @param array $where The where clause.
      * @return static|false This instance if successful, false otherwise.
      */
-    public function delete(string $table, $where) {
-        if (!is_array($where)) {
-            $where = ['id', '=', $where];
-        }
+    public function delete(string $table, array $where) {
         return $this->action('DELETE', $table, $where);
     }
 
@@ -439,6 +423,7 @@ class DB {
     public function createTable(string $name, string $table_schema): bool {
         $name = $this->_prefix . $name;
         $sql = "CREATE TABLE `{$name}` ({$table_schema}) ENGINE=InnoDB";
+
         if ($this->_force_charset) {
             $sql .= ' DEFAULT CHARSET=' . $this->_force_charset;
         }

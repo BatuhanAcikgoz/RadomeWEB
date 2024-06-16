@@ -59,7 +59,7 @@ class DatabaseInitialiser {
             'staff' => true,
         ]);
 
-        Settings::set('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
+
     }
 
     private function initialiseLanguages(): void {
@@ -247,11 +247,6 @@ class DatabaseInitialiser {
             'banner_background' => 'background.png',
             'show_ip' => '1',
             'order' => '1'
-        ]);
-        DB::getInstance()->insert('settings', [
-            'name' => 'discord',
-            'value' => '821855877514133504',
-            'module' => NULL
         ]);
         $this->_db->insert('wiki_settings', [
             'name' => 'home_page',
@@ -533,6 +528,7 @@ class DatabaseInitialiser {
 
 
     private function initialiseSettings(): void {
+        Settings::set('discord', '821855877514133504');
         Settings::set('registration_enabled', '1');
         Settings::set('displaynames', '0');
         Settings::set('recaptcha', '0');
@@ -546,6 +542,7 @@ class DatabaseInitialiser {
         Settings::set('verify_accounts', '1');
         Settings::set('user_avatars', '0');
         Settings::set('forum_layout', '1');
+        Settings::set('member_list_viewable_groups', json_encode([1, 2, 3, 4]), 'Members');
         Settings::set('avatar_site', 'cravatar');
         Settings::set(Settings::MINECRAFT_INTEGRATION, '1');
         Settings::set('discord_integration', '0');
