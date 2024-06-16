@@ -13,9 +13,11 @@ $scripts = [
         $(document).ready(function() {
             $.post("?step=ajax_initialise&initialise=db", {perform: "true"}, function(response) {
                 if (response.success) {
+                    console.log("olumluuuu");
                     window.location.replace(response.redirect_url);
                 } else {
                     if (response.error) {
+                        console.log("olumsuz");
                         $("#info").parent().attr("class", "ui red message");
                         $("#info").html(response.error);
                         $("#continue-button").before("<button onclick=\"window.location.reload()\" class=\"ui small button\" id=\"reload-button\">' . $language->get('installer', 'reload') . '</button>");
