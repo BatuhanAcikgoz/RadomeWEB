@@ -70,7 +70,7 @@ if (!isset($_GET['view'])) {
     }
 
     $query = 'SELECT * FROM rw_forms_replies';
-    $where = ' WHERE source IS NULL AND form_id IN (SELECT form_id FROM nl2_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
+    $where = ' WHERE source IS NULL AND form_id IN (SELECT form_id FROM rw_forms_permissions WHERE view = 1 AND group_id IN('.$group_ids.'))';
     $order = ' ORDER BY created DESC';
     $limit = '';
     $params = [];
@@ -208,7 +208,7 @@ if (!isset($_GET['view'])) {
     }
 
     // Get statuses from database
-    $statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
+    $statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0');
     $status_array = [];
     if ($statuses->count()) {
         $status_array[] = [
@@ -507,7 +507,7 @@ if (!isset($_GET['view'])) {
         // Form statuses
         $statuses = [];
 
-            $form_statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
+            $form_statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0');
             if ($form_statuses->count()) {
                 foreach ($form_statuses->results() as $status_query) {
                 $form_ids = explode(',', $status_query->fids);

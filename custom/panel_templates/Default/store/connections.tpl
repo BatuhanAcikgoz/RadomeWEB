@@ -93,7 +93,7 @@
                             <p style="margin-top: 7px; margin-bottom: 7px;">Downloads</p>
                             <hr>
                             
-                            Minecraft Plugin - <a href="https://www.spigotmc.org/resources/nameless-plugin-for-v2.59032/" target="_blank" class="btn btn-primary btn-sm">Go to Spigot</a>
+                            Minecraft Plugin - <a href="https://www.spigotmc.org/resources/radome-plugin-for-v2.59032/" target="_blank" class="btn btn-primary btn-sm">Go to Spigot</a>
 
                             <center>
                                 <p>Magaza Module by <a href="https://partydragen.com/" target="_blank">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a></br>

@@ -8,7 +8,7 @@ class UpdateSubmissionEndpoint extends KeyAuthEndpoint {
         $this->_method = 'POST';
     }
 
-    public function execute(Nameless2API $api, Submission $submission): void {
+    public function execute(Radome2API $api, Submission $submission): void {
         $api->validateParams($_POST, ['user']);
 
         $user = $this::transformUser($api, $_POST['user']);
@@ -52,7 +52,7 @@ class UpdateSubmissionEndpoint extends KeyAuthEndpoint {
         }
     }
 
-    private function transformUser(Nameless2API $api, string $value) {
+    private function transformUser(Radome2API $api, string $value) {
         return Endpoints::getAllTransformers()['user']['transformer']($api, $value);
     }
 }

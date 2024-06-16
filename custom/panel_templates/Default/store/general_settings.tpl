@@ -110,7 +110,7 @@
                                         <div class="form-group">
                                             <label for="inputValidationMethod">Minecraft Username Validation Method</label>
                                             <select class="form-control" id="inputValidationMethod" name="validation_method">
-                                                <option value="nameless" {if $VALIDATION_METHOD_VALUE eq 'nameless'}selected{/if}>Nameless (Use same setting as your site)</option>
+                                                <option value="radome" {if $VALIDATION_METHOD_VALUE eq 'radome'}selected{/if}>Radome (Use same setting as your site)</option>
                                                 <option value="mojang" {if $VALIDATION_METHOD_VALUE eq 'mojang'}selected{/if}>Mojang (Online Mode)</option>
                                                 <option value="no_validation" {if $VALIDATION_METHOD_VALUE eq 'no_validation'}selected{/if}>No Validation (Offline - UUID wont work)</option>
                                                 <option value="mcstatistics" {if $VALIDATION_METHOD_VALUE eq 'mcstatistics'}selected{/if} {if !$MCSTATISTICS_ENABLED}disabled{/if}>MCStatistics</option>

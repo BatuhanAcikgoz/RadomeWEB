@@ -57,7 +57,7 @@ class Formlar_Module extends Module {
                     }
 
                     if (!$perm) {
-                        $hasperm = $this->_db->query('SELECT form_id FROM nl2_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN(' . $group_ids . ')', array($form->id));
+                        $hasperm = $this->_db->query('SELECT form_id FROM rw_forms_permissions WHERE form_id = ? AND post = 1 AND group_id IN(' . $group_ids . ')', array($form->id));
                         if ($hasperm->count()) {
                             $perm = true;
                         }

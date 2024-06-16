@@ -51,7 +51,7 @@ class FormInfoEndpoint extends KeyAuthEndpoint {
 
         // Form statuses
         $statuses = [];
-        $form_statuses = DB::getInstance()->query('SELECT * FROM nl2_forms_statuses WHERE deleted = 0');
+        $form_statuses = DB::getInstance()->query('SELECT * FROM rw_forms_statuses WHERE deleted = 0');
         if ($form_statuses->count()) {
             foreach ($form_statuses->results() as $status_query) {
                 $form_ids = explode(',', $status_query->fids);
