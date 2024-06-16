@@ -1,0 +1,84 @@
+# THIS FILE IS FOR DEVELOPMENT. For production, see https://github.com/NamelessMC/Nameless-Docker
+
+# INSTRUCTIONS
+#
+# Set up:
+# sudo mkdir /opt/radomeweb
+#
+# Run:
+# docker compose up
+#
+# Update:
+# docker compose pull
+#
+# Reinstall:
+# docker compose exec php php -f dev/scripts/cli_install.php '--' '--iSwearIKnowWhatImDoing' '--reinstall'
+#
+# Uninstall
+# docker compose down
+# rm -rf core/config.php cache/*
+# sudo rm -r /opt/radomeweb
+# docker image prune -af
+
+version: '3.2'
+
+services:
+
+  web:
+    image: radomeweb/nginx:dev
+    ports: ['8080:8080']
+    volumes:
+      - type: bind
+        source: .
+        target: /data
+    user: '1000' # set this to your user id!
+    depends_on: [php]
+    environment:
+      PHP_FPM: php:9000
+
+  php:
+    image: radomeweb/php:dev
+    volumes:
+      - type: bind
+        source: .
+        target: /data
+    user: '1000' # set this to your user id!
+    environment:
+      RADOME_HOSTNAME: localhost
+      RADOME_DATABASE_ADDRESS: db
+      RADOME_DATABASE_NAME: radome
+      RADOME_DATABASE_USERNAME: radome
+      RADOME_DATABASE_PASSWORD: radome
+      RADOME_FRIENDLY_URLS: 'true'
+      RADOME_SITE_NAME: 'Development'
+      RADOME_SITE_CONTACT_EMAIL: admin@radomeweb.com
+      RADOME_SITE_OUTGOING_EMAIL: admin@radomeweb.com
+      RADOME_ADMIN_USERNAME: admin
+      RADOME_ADMIN_EMAIL: admin@radomeweb.com
+      RADOME_ADMIN_PASSWORD: password
+      RADOME_DEBUGGING: 'enabled'
+      RADOME_AUTO_INSTALL: 'yes please'
+      RADOME_ALWAYS_INSTALL_DEPENDENCIES: 'yes please'
+      RADOME_EMAIL_VERIFICATION: '0'
+
+  db:
+    image: mariadb
+    volumes:
+      - type: bind
+        source: /opt/radomeweb
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: radome
+      MYSQL_USER: radome
+      MYSQL_PASSWORD: radome
+      MYSQL_DATABASE: radome
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports: ['8181:80']
+    depends_on: [db]
+    environment:
+      PMA_HOST: db
+      PMA_ABSOLUTE_URI: http://localhost:8080
+      PMA_USER: radome
+      PMA_PASSWORD: radome
