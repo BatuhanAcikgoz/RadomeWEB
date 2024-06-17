@@ -308,7 +308,6 @@ class Core_Module extends Module {
        EventHandler::registerEvent(AnnouncementCreatedEvent::class);
        EventHandler::registerEvent(GroupClonedEvent::class);
        EventHandler::registerEvent(ReportCreatedEvent::class);
-        EventHandler::registerEvent(GenerateNotificationContentEvent::class);
        EventHandler::registerEvent(UserBannedEvent::class);
        EventHandler::registerEvent(UserDeletedEvent::class);
        EventHandler::registerEvent(UserGroupAddedEvent::class);
