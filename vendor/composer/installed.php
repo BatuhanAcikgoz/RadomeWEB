@@ -244,6 +244,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'matomo/device-detector' => array(
+            'pretty_version' => '6.1.0',
+            'version' => '6.1.0.0',
+            'reference' => 'bcbf10f2e0e158b338c6c5db9e89862313405215',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../matomo/device-detector',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'php-di/phpdoc-reader' => array(
             'pretty_version' => '2.2.1',
             'version' => '2.2.1.0',

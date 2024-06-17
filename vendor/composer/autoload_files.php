@@ -20,6 +20,7 @@ return array(
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '667aeda72477189d0494fecd327c3641' => $vendorDir . '/symfony/var-dumper/Resources/functions/dump.php',
     '948ad5488880985ff1c06721a4e447fe' => $vendorDir . '/cakephp/utility/bootstrap.php',
+    '04c6c5c2f7095ccf6c481d3e53e1776f' => $vendorDir . '/mustangostang/spyc/Spyc.php',
     '2cffec82183ee1cea088009cef9a6fc3' => $vendorDir . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
     'e40631d46120a9c38ea139981f8dab26' => $vendorDir . '/ircmaxell/password-compat/lib/password.php',
     'b33e3d135e5d9e47d845c576147bda89' => $vendorDir . '/php-di/php-di/src/functions.php',

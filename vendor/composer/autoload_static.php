@@ -21,6 +21,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '948ad5488880985ff1c06721a4e447fe' => __DIR__ . '/..' . '/cakephp/utility/bootstrap.php',
+        '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
@@ -103,6 +104,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         ),
         'D' => 
         array (
+            'DeviceDetector\\' => 15,
             'DebugBar\\' => 9,
             'DI\\' => 3,
         ),
@@ -266,6 +268,10 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'DeviceDetector\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/matomo/device-detector',
+            ),
         'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
