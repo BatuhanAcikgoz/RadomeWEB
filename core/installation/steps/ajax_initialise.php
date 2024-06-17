@@ -3,7 +3,7 @@
 if (isset($_POST['perform']) && $_POST['perform'] == 'true') {
     try {
         if ($_GET['initialise'] === 'db') {
-            $message = PhinxAdapter::migrate('Core');
+            $message = PhinxAdapter::migrate();
             $json = [
                 'message' => $language->get('installer', 'database_configured'),
                 'redirect_url' => '?step=site_configuration',
