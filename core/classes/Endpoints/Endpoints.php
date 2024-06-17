@@ -49,7 +49,7 @@ class Endpoints {
                                 ? Radome2API::ERROR_INVALID_API_KEY
                                 : Radome2API::ERROR_NOT_AUTHORIZED,
                             null,
-                            Response::HTTP_UNAUTHORIZED
+                            403
                         );
                     }
 
@@ -58,14 +58,15 @@ class Endpoints {
                     }
 
                     $reflection = new ReflectionMethod($endpoint, 'execute');
-                    if ($reflection->getNumberOfParameters() !== (count($endpoint->customParams()) + count($vars) + 1)) {
-                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($endpoint->customParams()) + count($vars) + 1) . ' arguments. Endpoint: ' . $endpoint->getRoute());
+                    if ($reflection->getNumberOfParameters() !== (count($vars) + 1)) {
+                        throw new InvalidArgumentException("Endpoint's 'execute()' method must take " . (count($vars) + 1) . " arguments. Endpoint: " . $endpoint->getRoute());
+                    }
 
                     $endpoint->execute(
                         $api,
-                        ...array_merge($endpoint->customParams(), array_map(function ($type, $value) use ($api) {
+                        ...array_map(function ($type, $value) use ($api) {
                             return $this::transform($api, $type, $value);
-                        }, array_keys($vars), $vars))
+                        }, array_keys($vars), $vars)
                     );
                     return;
                 }
@@ -73,10 +74,10 @@ class Endpoints {
         }
 
         if ($matched_endpoint !== null) {
-            $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", Response::HTTP_METHOD_NOT_ALLOWED);
+            $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, "The $route endpoint only accepts " . implode(', ', $available_methods) . ", $method was used.", 405);
         }
 
-        $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this means your API is functioning!', Response::HTTP_NOT_FOUND);
+        $api->throwError(Radome2API::ERROR_INVALID_API_METHOD, 'If you are seeing this while in a browser, this means your API is functioning!', 404);
     }
 
     /**
