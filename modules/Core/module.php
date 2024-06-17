@@ -536,10 +536,6 @@ class Core_Module extends Module {
         EventHandler::registerListener('renderCustomPage', 'ContentHook::replaceAnchors', 15);
         EventHandler::registerListener('renderCustomPage', 'MentionsHook::parsePost', 5);
 
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
-        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
-
         EventHandler::registerListener('renderCustomPageEdit', 'ContentHook::replaceAnchors', 15);
 
         EventHandler::registerListener('renderProfilePost', [ContentHook::class, 'decode'], 20);
