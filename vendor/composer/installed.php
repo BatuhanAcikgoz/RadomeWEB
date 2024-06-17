@@ -182,6 +182,33 @@
       ),
       'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
     ),
+      'php-di/invoker' => array(
+          'pretty_version' => '2.3.4',
+          'version' => '2.3.4.0',
+          'reference' => '33234b32dafa8eb69202f950a1fc92055ed76a86',
+          'type' => 'library',
+          'install_path' => __DIR__ . '/../php-di/invoker',
+          'aliases' => array(),
+          'dev_requirement' => false,
+      ),
+      'php-di/php-di' => array(
+          'pretty_version' => '6.4.0',
+          'version' => '6.4.0.0',
+          'reference' => 'ae0f1b3b03d8b29dff81747063cbfd6276246cc4',
+          'type' => 'library',
+          'install_path' => __DIR__ . '/../php-di/php-di',
+          'aliases' => array(),
+          'dev_requirement' => false,
+      ),
+      'php-di/phpdoc-reader' => array(
+          'pretty_version' => '2.2.1',
+          'version' => '2.2.1.0',
+          'reference' => '66daff34cbd2627740ffec9469ffbac9f8c8185c',
+          'type' => 'library',
+          'install_path' => __DIR__ . '/../php-di/phpdoc-reader',
+          'aliases' => array(),
+          'dev_requirement' => false,
+          ),
     'phpmailer/phpmailer' => 
     array (
       'pretty_version' => 'v6.6.3',
