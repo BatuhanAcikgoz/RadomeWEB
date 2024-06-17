@@ -3,7 +3,7 @@
 	use xPaw\MinecraftPingException;
 
 	// Edit this ->
-	define( 'MQ_SERVER_ADDR', '10.11.20.100' );
+	define( 'MQ_SERVER_ADDR', 'localhost' );
 	define( 'MQ_SERVER_PORT', 25565 );
 	define( 'MQ_TIMEOUT', 1 );
 	// Edit this <-
@@ -25,7 +25,7 @@
 		$Query = new MinecraftPing( MQ_SERVER_ADDR, MQ_SERVER_PORT, MQ_TIMEOUT );
 
 		$Info = $Query->Query( );
-		$Info = $Info['players'];
+
 		if( $Info === false )
 		{
 			/*

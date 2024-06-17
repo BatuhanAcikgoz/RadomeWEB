@@ -71,7 +71,7 @@ class TableSchema implements TableSchemaInterface, SqlGeneratorInterface
     /**
      * Options for the table.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $_options = [];
 
@@ -471,13 +471,6 @@ class TableSchema implements TableSchemaInterface, SqlGeneratorInterface
             throw new DatabaseException(sprintf(
                 'Invalid index type "%s" in index "%s" in table "%s".',
                 $attrs['type'],
-                $name,
-                $this->_table
-            ));
-        }
-        if (empty($attrs['columns'])) {
-            throw new DatabaseException(sprintf(
-                'Index "%s" in table "%s" must have at least one column.',
                 $name,
                 $this->_table
             ));

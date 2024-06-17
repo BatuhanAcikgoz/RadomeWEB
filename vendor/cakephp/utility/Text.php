@@ -377,13 +377,6 @@ class Text
         }
         $options += ['width' => 72, 'wordWrap' => true, 'indent' => null, 'indentAt' => 0];
 
-        if (!empty($options['indentAt']) && $options['indentAt'] === 0) {
-            $indentLength = !empty($options['indent']) ? strlen($options['indent']) : 0;
-            $options['width'] -= $indentLength;
-
-            return self::wrap($text, $options);
-        }
-
         $wrapped = self::wrap($text, $options);
 
         if (!empty($options['indent'])) {
@@ -954,7 +947,7 @@ class Text
      * to the decimal value of the character
      *
      * @param string $string String to convert.
-     * @return array
+     * @return array<int>
      */
     public static function utf8(string $string): array
     {

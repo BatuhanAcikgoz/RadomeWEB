@@ -1,14 +1,14 @@
 <?php
 
 /**
- * XHTML 1.1 Formlar module, defines all form-related elements found in HTML 4.
+ * XHTML 1.1 Forms module, defines all form-related elements found in HTML 4.
  */
-class HTMLPurifier_HTMLModule_Formlar extends HTMLPurifier_HTMLModule
+class HTMLPurifier_HTMLModule_Forms extends HTMLPurifier_HTMLModule
 {
     /**
      * @type string
      */
-    public $name = 'Formlar';
+    public $name = 'Forms';
 
     /**
      * @type bool
@@ -28,7 +28,7 @@ class HTMLPurifier_HTMLModule_Formlar extends HTMLPurifier_HTMLModule
      */
     public function setup($config)
     {
-        if ($config->get('HTML.Formlar')) {
+        if ($config->get('HTML.Forms')) {
             $this->safe = true;
         }
 

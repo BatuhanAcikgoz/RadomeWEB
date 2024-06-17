@@ -30,7 +30,7 @@ if (!function_exists('h')) {
      *
      * @param mixed $text Text to wrap through htmlspecialchars. Also works with arrays, and objects.
      *    Arrays will be mapped and have all their elements escaped. Objects will be string cast if they
-     *    implement a `__toString` method. Otherwise the class name will be used.
+     *    implement a `__toString` method. Otherwise, the class name will be used.
      *    Other scalar types will be returned unchanged.
      * @param bool $double Encode existing html entities.
      * @param string|null $charset Character set to use when escaping.
@@ -206,8 +206,10 @@ if (!function_exists('env')) {
             $key = 'SCRIPT_URL';
         }
 
+        /** @var string|null $val */
         $val = $_SERVER[$key] ?? $_ENV[$key] ?? null;
         if ($val == null && getenv($key) !== false) {
+            /** @var string|false $val */
             $val = getenv($key);
         }
 
@@ -287,7 +289,12 @@ if (!function_exists('deprecationWarning')) {
             $frame = $trace[$stackFrame];
             $frame += ['file' => '[internal]', 'line' => '??'];
 
-            $relative = str_replace(DIRECTORY_SEPARATOR, '/', substr($frame['file'], strlen(ROOT) + 1));
+            // Assuming we're installed in vendor/cakephp/cakephp/src/Core/functions.php
+            $root = dirname(__DIR__, 5);
+            if (defined('ROOT')) {
+                $root = ROOT;
+            }
+            $relative = str_replace(DIRECTORY_SEPARATOR, '/', substr($frame['file'], strlen($root) + 1));
             $patterns = (array)Configure::read('Error.ignoredDeprecationPaths');
             foreach ($patterns as $pattern) {
                 $pattern = str_replace(DIRECTORY_SEPARATOR, '/', $pattern);

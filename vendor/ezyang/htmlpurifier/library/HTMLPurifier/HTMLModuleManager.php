@@ -83,7 +83,7 @@ class HTMLPurifier_HTMLModuleManager
             'Presentation', 'Edit', 'Bdo', 'Tables', 'Image',
             'StyleAttribute',
             // Unsafe:
-            'Scripting', 'Object', 'Formlar',
+            'Scripting', 'Object', 'Forms',
             // Sorta legacy, but present in strict:
             'Name',
         );

@@ -3,9 +3,9 @@
 	use xPaw\MinecraftQueryException;
 
 	// Edit this ->
-	define( 'MQ_SERVER_ADDR', '10.11.20.100' );
+	define( 'MQ_SERVER_ADDR', 'localhost' );
 	define( 'MQ_SERVER_PORT', 25565 );
-	define( 'MQ_TIMEOUT', 3 );
+	define( 'MQ_TIMEOUT', 1 );
 	// Edit this <-
 
 	// Display everything in browser, because some people can't look in logs for errors
