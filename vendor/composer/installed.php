@@ -182,6 +182,15 @@
       ),
       'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
     ),
+      'phpstan/phpstan' => array(
+          'pretty_version' => '1.6.9',
+          'version' => '1.6.9.0',
+          'reference' => '8c98899c7c54251a098befd23b50a983594a20f9',
+          'type' => 'library',
+          'install_path' => __DIR__ . '/../phpstan/phpstan',
+          'aliases' => array(),
+          'dev_requirement' => true,
+      ),
       'php-di/invoker' => array(
           'pretty_version' => '2.3.4',
           'version' => '2.3.4.0',
