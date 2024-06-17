@@ -390,7 +390,7 @@ if ($page != 'install') {
     $cc_nav->add('cc_alerts', $language->get('user', 'alerts'), URL::build('/kullanici/uyarilar'));
     $cc_nav->add('cc_messaging', $language->get('user', 'messaging'), URL::build('/kullanici/mesajlasma'));
     $cc_nav->add('cc_connections', $language->get('user', 'connections'), URL::build('/kullanici/baglantilar'));
-    $cc_nav->add('cc_notification_settings', $languagez->get('user', 'notification_settings'), URL::build('/kullanici/bildirim_ayarlari'));
+    $cc_nav->add('cc_notification_settings', $language->get('user', 'notification_settings'), URL::build('/kullanici/bildirim_ayarlari'));
     $cc_nav->add('cc_settings', $language->get('user', 'profile_settings'), URL::build('/kullanici/ayarlar'));
     $cc_nav->add('cc_oauth', $language->get('admin', 'oauth'), URL::build('/kullanici/oauth'));
 
