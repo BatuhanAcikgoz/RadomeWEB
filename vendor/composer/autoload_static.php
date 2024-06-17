@@ -4,24 +4,23 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
+class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
 {
     public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '72142d7b40a3a0b14e91825290b5ad82' => __DIR__ . '/..' . '/cakephp/core/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '948ad5488880985ff1c06721a4e447fe' => __DIR__ . '/..' . '/cakephp/utility/bootstrap.php',
-        '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
         'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
@@ -51,6 +50,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Filesystem\\' => 29,
@@ -68,6 +68,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
+            'PhpDocReader\\' => 13,
             'Phinx\\' => 6,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
@@ -78,16 +79,32 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'L' => 
         array (
             'League\\OAuth2\\Client\\' => 21,
+            'Laravel\\SerializableClosure\\' => 28,
+        ),
+        'J' => 
+        array (
+            'JoyPixels\\' => 10,
+        ),
+        'I' => 
+        array (
+            'Invoker\\' => 8,
         ),
         'G' => 
         array (
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
+            'GuzzleHttp\\Profiling\\Debugbar\\' => 30,
+            'GuzzleHttp\\Profiling\\' => 21,
             'GuzzleHttp\\' => 11,
+        ),
+        'F' => 
+        array (
+            'Faker\\' => 6,
         ),
         'D' => 
         array (
-            'DeviceDetector\\' => 15,
+            'DebugBar\\' => 9,
+            'DI\\' => 3,
         ),
         'C' => 
         array (
@@ -147,6 +164,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
         'Symfony\\Component\\String\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
@@ -181,8 +202,8 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -192,10 +213,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'PhpDocReader\\' =>
-            array (
-                0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
-            ),
+        'PhpDocReader\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+        ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
@@ -213,10 +234,18 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
             1 => __DIR__ . '/..' . '/league/oauth2-google/src',
         ),
-        'Invoker\\' =>
-            array (
-                0 => __DIR__ . '/..' . '/php-di/invoker/src',
-            ),
+        'Laravel\\SerializableClosure\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
+        ),
+        'JoyPixels\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/joypixels/emoji-toolkit/lib/php/src',
+        ),
+        'Invoker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/invoker/src',
+        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -225,18 +254,30 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
+        'GuzzleHttp\\Profiling\\Debugbar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hannesvdvreken/guzzle-debugbar/src',
+        ),
+        'GuzzleHttp\\Profiling\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hannesvdvreken/guzzle-profiler/src',
+        ),
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'DeviceDetector\\' => 
+        'Faker\\' => 
         array (
-            0 => __DIR__ . '/..' . '/matomo/device-detector',
+            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'DI\\' =>
-            array (
-                0 => __DIR__ . '/..' . '/php-di/php-di/src',
-            ),
+        'DebugBar\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maximebf/debugbar/src/DebugBar',
+        ),
+        'DI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-di/php-di/src',
+        ),
         'Cake\\Utility\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/utility',
@@ -265,6 +306,13 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             'SitemapPHP' => 
             array (
                 0 => __DIR__ . '/..' . '/evert/sitemap-php/src',
+            ),
+        ),
+        'J' => 
+        array (
+            'Junker' => 
+            array (
+                0 => __DIR__ . '/..' . '/junker/debugbar-smarty/src',
             ),
         ),
         'H' => 
@@ -339,8 +387,6 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'Fields' => __DIR__ . '/../..' . '/core/classes/Core/Fields.php',
         'Forum' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum.php',
         'Forum_Sitemap' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum_Sitemap.php',
-        'Haberler' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler.php',
-        'Haberler_Sitemap' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler_Sitemap.php',
         'GenerateSitemap' => __DIR__ . '/../..' . '/modules/Core/classes/Tasks/GenerateSitemap.php',
         'Group' => __DIR__ . '/../..' . '/core/classes/DTO/Group.php',
         'GroupClonedEvent' => __DIR__ . '/../..' . '/modules/Core/classes/Events/GroupClonedEvent.php',
@@ -627,10 +673,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3::$classMap;
 
         }, null, ClassLoader::class);
     }
