@@ -147,7 +147,7 @@ class XmlReferenceDumper
                 }
 
                 if ($child instanceof BaseNode && $example = $child->getExample()) {
-                    $comments[] = 'Example: '.(\is_array($example) ? implode(', ', $example) : $example);
+                    $comments[] = 'Example: '.$example;
                 }
 
                 if ($child->isRequired()) {

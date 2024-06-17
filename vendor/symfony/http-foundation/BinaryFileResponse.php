@@ -34,7 +34,7 @@ class BinaryFileResponse extends Response
     protected $offset = 0;
     protected $maxlen = -1;
     protected $deleteFileAfterSend = false;
-    protected $chunkSize = 16 * 1024;
+    protected $chunkSize = 8 * 1024;
 
     /**
      * @param \SplFileInfo|string $file               The file to stream
@@ -206,19 +206,15 @@ class BinaryFileResponse extends Response
      */
     public function prepare(Request $request)
     {
-        if ($this->isInformational() || $this->isEmpty()) {
-            parent::prepare($request);
-
-            $this->maxlen = 0;
-
-            return $this;
-        }
-
         if (!$this->headers->has('Content-Type')) {
             $this->headers->set('Content-Type', $this->file->getMimeType() ?: 'application/octet-stream');
         }
 
-        parent::prepare($request);
+        if ('HTTP/1.0' !== $request->server->get('SERVER_PROTOCOL')) {
+            $this->setProtocolVersion('1.1');
+        }
+
+        $this->ensureIEOverSSLCompatibility($request);
 
         $this->offset = 0;
         $this->maxlen = -1;
@@ -226,7 +222,6 @@ class BinaryFileResponse extends Response
         if (false === $fileSize = $this->file->getSize()) {
             return $this;
         }
-        $this->headers->remove('Transfer-Encoding');
         $this->headers->set('Content-Length', $fileSize);
 
         if (!$this->headers->has('Accept-Ranges')) {
@@ -267,7 +262,7 @@ class BinaryFileResponse extends Response
                 $range = $request->headers->get('Range');
 
                 if (str_starts_with($range, 'bytes=')) {
-                    [$start, $end] = explode('-', substr($range, 6), 2) + [1 => 0];
+                    [$start, $end] = explode('-', substr($range, 6), 2) + [0];
 
                     $end = ('' === $end) ? $fileSize - 1 : (int) $end;
 
@@ -296,10 +291,6 @@ class BinaryFileResponse extends Response
             }
         }
 
-        if ($request->isMethod('HEAD')) {
-            $this->maxlen = 0;
-        }
-
         return $this;
     }
 
@@ -321,49 +312,40 @@ class BinaryFileResponse extends Response
      */
     public function sendContent()
     {
-        try {
-            if (!$this->isSuccessful()) {
-                return parent::sendContent();
+        if (!$this->isSuccessful()) {
+            return parent::sendContent();
+        }
+
+        if (0 === $this->maxlen) {
+            return $this;
+        }
+
+        $out = fopen('php://output', 'w');
+        $file = fopen($this->file->getPathname(), 'r');
+
+        ignore_user_abort(true);
+
+        if (0 !== $this->offset) {
+            fseek($file, $this->offset);
+        }
+
+        $length = $this->maxlen;
+        while ($length && !feof($file)) {
+            $read = ($length > $this->chunkSize) ? $this->chunkSize : $length;
+            $length -= $read;
+
+            stream_copy_to_stream($file, $out, $read);
+
+            if (connection_aborted()) {
+                break;
             }
+        }
 
-            if (0 === $this->maxlen) {
-                return $this;
-            }
+        fclose($out);
+        fclose($file);
 
-            $out = fopen('php://output', 'w');
-            $file = fopen($this->file->getPathname(), 'r');
-
-            ignore_user_abort(true);
-
-            if (0 !== $this->offset) {
-                fseek($file, $this->offset);
-            }
-
-            $length = $this->maxlen;
-            while ($length && !feof($file)) {
-                $read = $length > $this->chunkSize || 0 > $length ? $this->chunkSize : $length;
-
-                if (false === $data = fread($file, $read)) {
-                    break;
-                }
-                while ('' !== $data) {
-                    $read = fwrite($out, $data);
-                    if (false === $read || connection_aborted()) {
-                        break 2;
-                    }
-                    if (0 < $length) {
-                        $length -= $read;
-                    }
-                    $data = substr($data, $read);
-                }
-            }
-
-            fclose($out);
-            fclose($file);
-        } finally {
-            if ($this->deleteFileAfterSend && is_file($this->file->getPathname())) {
-                unlink($this->file->getPathname());
-            }
+        if ($this->deleteFileAfterSend && is_file($this->file->getPathname())) {
+            unlink($this->file->getPathname());
         }
 
         return $this;
