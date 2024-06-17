@@ -151,7 +151,7 @@ if (Input::exists()) {
             // Update config
             if (is_writable(ROOT_PATH . '/' . implode(DIRECTORY_SEPARATOR, ['core', 'config.php']))) {
                 Config::setMultiple([
-                    'core.friendly' => $friendly,
+                    'core.friendly' => true,
                     'core.force_https' => $https,
                     'core.force_www' => $www
                 ]);
@@ -174,11 +174,7 @@ if (Input::exists()) {
 
             // Redirect in case URL type has changed
             if (!isset($errors)) {
-                if ($friendly === true) {
-                    $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
-                } else {
-                    $redirect = URL::build('/panel/core/general_settings', '', 'non-friendly');
-                }
+                $redirect = URL::build('/panel/core/general_settings', '', 'friendly');
                 Redirect::to($redirect);
             }
         } else {

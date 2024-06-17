@@ -26,26 +26,8 @@ class URL {
      * @return string Assembled URL, false on failure.
      */
     public static function build(string $url, string $params = '', ?string $force = null): string {
-        if ($force === 'friendly') {
-            return self::buildFriendly($url, $params);
-        }
-
-        if ($force === 'non-friendly') {
-            return self::buildFriendly($url, $params);
-        }
-
-        // Use non-friendly URLs if RadomeWEB is not installed yet
-        if (!Config::exists()) {
-            return self::buildFriendly($url, $params);
-        }
-
         if (!is_null($force)) {
             throw new InvalidArgumentException('Invalid force string: ' . $force);
-        }
-
-        if ((defined('FRIENDLY_URLS') && FRIENDLY_URLS == true) || (!defined('FRIENDLY_URLS') && Config::get('core.friendly') == true)) {
-            // Friendly URLs are enabled
-            return self::buildFriendly($url, $params);
         }
 
         // Friendly URLs are disabled, we need to change it
@@ -64,22 +46,6 @@ class URL {
         // Check for params
         if ($params != '') {
             $params = '?' . $params;
-        }
-
-        return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
-    }
-
-    /**
-     * Returns a non-friendly URL.
-     * Internal class use only. All external calls should use `build()`.
-     *
-     * @param string $url Contains the URL which will be formatted
-     * @param string $params URL paramaters to append to end.
-     * @return string Assembled URL.
-     */
-    private static function buildNonFriendly(string $url, string $params): string {
-        if ($params != '') {
-            return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;
         }
 
         return (defined('CONFIG_PATH') ? CONFIG_PATH : '') . $url . ((substr($url, -1) == '/') ? '' : '/') . $params;

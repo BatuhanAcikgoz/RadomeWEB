@@ -52,14 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <p><?php echo $language->get('installer', 'host_help'); ?></p>
                             <div class="ui divider"></div>
                         </div>
-
-                        <div <?php if (getenv('RADOME_FRIENDLY_URLS_HIDE') !== false) echo 'style="display: none"' ?>>
-                            <?php create_field('select', $language->get('installer', 'friendly_urls'), 'friendly', 'inputFriendly', getenv('RADOME_FRIENDLY_URLS') ?: 'true', [
-                                'true' => $language->get('installer', 'enabled'),
-                                'false' => $language->get('installer', 'disabled'),
-                            ]); ?>
-                            <p><?php echo $language->get('installer', 'friendly_urls_info'); ?></p>
-                        </div>
                     </div>
                 </div>
             </div>

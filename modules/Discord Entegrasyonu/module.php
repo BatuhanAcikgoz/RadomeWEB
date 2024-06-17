@@ -10,7 +10,7 @@ class Discord_Module extends Module {
         $name = 'Discord Entegrasyonu';
         $author = '<a href="https://tadhg.sh" target="_blank" rel="nofollow noopener">Aberdeener</a>';
         $module_version = '2.0.2';
-        $radome_version = '2.0.2';
+        $radome_version = '3.0.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 

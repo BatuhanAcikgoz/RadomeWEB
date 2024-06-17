@@ -23,7 +23,7 @@ class Magaza_Module extends Module {
         $name = 'Magaza';
         $author = '<a href="https://partydragen.com" target="_blank" rel="nofollow noopener">Partydragen</a> and my <a href="https://partydragen.com/supporters/" target="_blank">Sponsors</a>';
         $module_version = '1.7.1';
-        $radome_version = '2.1.2';
+        $radome_version = '3.0.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 

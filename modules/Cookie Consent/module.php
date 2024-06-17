@@ -21,7 +21,7 @@ class CookieConsent_Module extends Module {
         $name = 'Cookie Consent';
         $author = '<a href="https://batuhanacikgoz.com.tr" target="_blank" rel="nofollow noopener">Reeignn</a>';
         $module_version = '2.0.2';
-        $radome_version = '2.0.2';
+        $radome_version = '3.0.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
