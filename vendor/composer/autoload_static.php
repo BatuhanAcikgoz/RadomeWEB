@@ -375,6 +375,7 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         'SecureRandom' => __DIR__ . '/../..' . '/core/classes/Core/SecureRandom.php',
         'ServerStatusWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/ServerStatusWidget.php',
         'Session' => __DIR__ . '/../..' . '/core/classes/Core/Session.php',
+        'Settings' => __DIR__ . '/../..' . '/core/classes/Core/Settings.php',
         'Smarty' => __DIR__ . '/..' . '/smarty/smarty/libs/Smarty.class.php',
         'SmartyCompilerException' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smartycompilerexception.php',
         'SmartyException' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smartyexception.php',

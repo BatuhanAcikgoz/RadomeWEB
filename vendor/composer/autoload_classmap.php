@@ -119,6 +119,7 @@ return array(
     'SecureRandom' => $baseDir . '/core/classes/Core/SecureRandom.php',
     'ServerStatusWidget' => $baseDir . '/modules/Core/widgets/ServerStatusWidget.php',
     'Session' => $baseDir . '/core/classes/Core/Session.php',
+    'Settings' => $baseDir . '/core/classes/Core/Settings.php',
     'Smarty' => $vendorDir . '/smarty/smarty/libs/Smarty.class.php',
     'SmartyCompilerException' => $vendorDir . '/smarty/smarty/libs/sysplugins/smartycompilerexception.php',
     'SmartyException' => $vendorDir . '/smarty/smarty/libs/sysplugins/smartyexception.php',
