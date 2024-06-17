@@ -24,6 +24,8 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         '04c6c5c2f7095ccf6c481d3e53e1776f' => __DIR__ . '/..' . '/mustangostang/spyc/Spyc.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         'e40631d46120a9c38ea139981f8dab26' => __DIR__ . '/..' . '/ircmaxell/password-compat/lib/password.php',
+        'b33e3d135e5d9e47d845c576147bda89' => __DIR__ . '/..' . '/php-di/php-di/src/functions.php',
+        '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -190,6 +192,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'PhpDocReader\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/php-di/phpdoc-reader/src/PhpDocReader',
+            ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
@@ -207,6 +213,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
             0 => __DIR__ . '/..' . '/league/oauth2-client/src',
             1 => __DIR__ . '/..' . '/league/oauth2-google/src',
         ),
+        'Invoker\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/php-di/invoker/src',
+            ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -223,6 +233,10 @@ class ComposerStaticInit8bd87dfaed773ee8a35e82b74dbf3279
         array (
             0 => __DIR__ . '/..' . '/matomo/device-detector',
         ),
+        'DI\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/php-di/php-di/src',
+            ),
         'Cake\\Utility\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/utility',
