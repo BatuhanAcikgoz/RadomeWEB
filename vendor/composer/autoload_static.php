@@ -393,6 +393,8 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'Fields' => __DIR__ . '/../..' . '/core/classes/Core/Fields.php',
         'Forum' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum.php',
         'Forum_Sitemap' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum_Sitemap.php',
+        'Haberler' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler.php',
+        'Haberler_Sitemap' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler_Sitemap.php',
         'GenerateSitemap' => __DIR__ . '/../..' . '/modules/Core/classes/Tasks/GenerateSitemap.php',
         'Group' => __DIR__ . '/../..' . '/core/classes/DTO/Group.php',
         'GroupClonedEvent' => __DIR__ . '/../..' . '/modules/Core/classes/Events/GroupClonedEvent.php',

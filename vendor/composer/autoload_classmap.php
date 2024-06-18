@@ -69,7 +69,7 @@ return array(
     'Forum' => $baseDir . '/modules/Forum/classes/Forum.php',
     'Forum_Sitemap' => $baseDir . '/modules/Forum/classes/Forum_Sitemap.php',
     'Haberler' => $baseDir . '/modules/Haberler/classes/Haberler.php',
-    'Haberler_Sitemap' => $baseDir . '/modules/Forum/classes/Haberler_Sitemap.php',
+    'Haberler_Sitemap' => $baseDir . '/modules/Haberler/classes/Haberler_Sitemap.php',
     'GenerateSitemap' => $baseDir . '/modules/Core/classes/Tasks/GenerateSitemap.php',
     'Group' => $baseDir . '/core/classes/DTO/Group.php',
     'GroupClonedEvent' => $baseDir . '/modules/Core/classes/Events/GroupClonedEvent.php',
