@@ -8,7 +8,7 @@
  * @version 2.1.0
  * @license MIT
  */
-class HighestForumReactionScoresMemberListProvider extends MemberListProvider {
+class HighestReactionScoresMemberListProvider extends MemberListProvider {
 
     public function __construct(Language $language) {
         $this->_name = 'highest_forum_reaction_scores';
