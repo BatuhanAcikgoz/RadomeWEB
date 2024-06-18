@@ -460,6 +460,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'ProfileUtils' => __DIR__ . '/../..' . '/core/classes/Minecraft/ProfileUtils.php',
         'QueryRecorder' => __DIR__ . '/../..' . '/core/classes/Database/QueryRecorder.php',
         'Queue' => __DIR__ . '/../..' . '/core/classes/Queue/Queue.php',
+        'Reactions' => __DIR__ . '/../..' . '/core/classes/DTO/Reactions.php',
         'Recaptcha2' => __DIR__ . '/../..' . '/modules/Core/classes/Captcha/Recaptcha2.php',
         'Recaptcha3' => __DIR__ . '/../..' . '/modules/Core/classes/Captcha/Recaptcha3.php',
         'Redirect' => __DIR__ . '/../..' . '/core/classes/Core/Redirect.php',
