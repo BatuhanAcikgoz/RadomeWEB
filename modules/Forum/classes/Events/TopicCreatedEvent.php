@@ -1,6 +1,6 @@
 <?php
 
-class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
+class TopicCreatedEvent extends AbstractEvent implements HasWebhookParams, DiscordDispatchable {
 
     public User $creator;
     public string $forum_title;
@@ -49,6 +49,43 @@ class TopicCreatedEvent extends AbstractEvent implements DiscordDispatchable {
                     ->setTitle($this->topic_title)
                     ->setDescription(Text::embedSafe($this->content))
                     ->setUrl(URL::getSelfURL() . ltrim(URL::build('/forum/konu/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
+            });
+    }
+
+    public function webhookParams(): array {
+        $forum = new Forum();
+
+        return [
+            'user_id' => $this->creator->data()->id,
+            'username' => $this->creator->getDisplayname(),
+            'forum' => [
+                'title' => $this->forum_title
+            ],
+            'topic' => [
+                'id' => $this->topic_id,
+                'title' => $this->topic_title
+            ],
+            'content' => $this->content,
+            'url' => URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/')
+        ];
+    }
+
+    public function toDiscordWebhook(): DiscordWebhookBuilder {
+        $language = new Language(ROOT_PATH . '/modules/Forum/language', DEFAULT_LANGUAGE);
+        $forum = new Forum();
+
+        return DiscordWebhookBuilder::make()
+            ->setUsername($this->creator->getDisplayname() . ' | ' . SITE_NAME)
+            ->setAvatarUrl($this->creator->getAvatar(128, true))
+            ->setContent($language->get('forum', 'new_topic_text', [
+                'forum' => $this->forum_title,
+                'author' => $this->creator->getDisplayname(),
+            ]))
+            ->addEmbed(function (DiscordEmbed $embed) use ($forum) {
+                return $embed
+                    ->setTitle($this->topic_title)
+                    ->setDescription(Text::embedSafe($this->content))
+                    ->setUrl(URL::getSelfURL() . ltrim(URL::build('/forum/topic/' . urlencode($this->topic_id) . '-' . $forum->titleToURL($this->topic_title)), '/'));
             });
     }
 }
