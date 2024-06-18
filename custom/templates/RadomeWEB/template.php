@@ -26,7 +26,7 @@ class RadomeWEB_Template extends TemplateBase {
 		$template = [
 			'name' => 'RadomeWEB',
 			'version' => Output::getClean($radomeweb_local_version),
-			'nl_version' => '2.0.2',
+			'nl_version' => '3.0.0',
 			'author' => '<a href="' . Output::getClean($radomeweb_url) . '" target="_blank" rel="nofollow noopener">Verira.com</a>',
 		];
 		

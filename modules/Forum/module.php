@@ -20,7 +20,7 @@ class Forum_Module extends Module {
 
         $name = 'Forum';
         $author = '<a href="https://samerton.me" target="_blank" rel="nofollow noopener">Reeignn</a>';
-        $module_version = '2.0.2';
+        $module_version = '3.0.0';
         $radome_version = '3.0.0';
 
         parent::__construct($this, $name, $author, $module_version, $radome_version);

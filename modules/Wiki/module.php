@@ -13,7 +13,7 @@ class Wiki_Module extends Module {
 
         $name = 'Wiki';
 		$author = '<a href="https://reflexlabs.xyz/" target="_blank">reflexLabs</a>';
-		$module_version = '2.0.2';
+		$module_version = '3.0.0';
 		$radome_version = '3.0.0';
 
 		parent::__construct($this, $name, $author, $module_version, $radome_version);

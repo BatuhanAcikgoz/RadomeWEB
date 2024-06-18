@@ -535,7 +535,7 @@ class DatabaseInitialiser {
         Settings::set('recaptcha_type', 'Recaptcha3');
         Settings::set('recaptcha_login', '0');
         Settings::set('email_verification', '1');
-        Settings::set('radome_version', '2.0.2');
+        Settings::set('radome_version', '3.0.0');
         Settings::set('version_checked', date('U'));
         Settings::set('phpmailer', '0');
         Settings::set('phpmailer_type', 'smtp');
@@ -636,27 +636,23 @@ class DatabaseInitialiser {
         $this->_db->insert('widgets', [
             'name' => 'Server Status',
             'enabled' => true,
-            'order' => 1,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Statistics',
             'enabled' => true,
-            'order' => 3,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
         $this->_db->insert('widgets', [
             'name' => 'User Query Widget',
             'enabled' => true,
-            'order' => 4,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 
         $this->_db->insert('widgets', [
             'name' => 'Latest Purchases',
             'enabled' => true,
-            'order' => 5,
             'pages' => '["index","forum","vote","form-1"]'
         ]);
 

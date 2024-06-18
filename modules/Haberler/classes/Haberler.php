@@ -4,7 +4,7 @@
  *
  * @package Modules\Haberler
  * @author Reeignn
- * @version 2.0.2
+ * @version 3.0.0
  * @license MIT
  */
 class Haberler {

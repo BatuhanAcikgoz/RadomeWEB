@@ -23,7 +23,7 @@ class Iframe extends Module
         $name = $INFO_MODULE['name'];
         $author = $INFO_MODULE['author'];
         $module_version = $INFO_MODULE['module_ver'];
-        $radome_version = $INFO_MODULE['nml_ver'];
+        $radome_version = $INFO_MODULE['rw_ver'];
         parent::__construct($this, $name, $author, $module_version, $radome_version);
 
         $pages->add('Iframe', '/panel/iframe', 'pages/panel/iframe.php');
