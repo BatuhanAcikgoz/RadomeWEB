@@ -322,6 +322,7 @@ return array(
     'TopicCreatedEvent' => $baseDir . '/modules/Forum/classes/Events/TopicCreatedEvent.php',
     'TopicReplyCreatedEvent' => $baseDir . '/modules/Forum/classes/Events/TopicReplyCreatedEvent.php',
     'TwitterWidget' => $baseDir . '/modules/Core/widgets/TwitterWidget.php',
+    'UserQueryWidget' => $baseDir . '/modules/Core/widgets/UserQueryWidget.php',
     'URL' => $baseDir . '/core/classes/Core/URL.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'UpdateCheck' => $baseDir . '/core/classes/DTO/UpdateCheck.php',

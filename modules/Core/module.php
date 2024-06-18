@@ -710,7 +710,7 @@ class Core_Module extends Module {
 
             // Statistics
             $widgets->add(new StatsWidget($smarty, $language, $cache));
-            
+
             // Statistics
             $widgets->add(new UserQueryWidget($smarty, $language, $cache));            
         }

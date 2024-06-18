@@ -645,6 +645,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'TopicCreatedEvent' => __DIR__ . '/../..' . '/modules/Forum/classes/Events/TopicCreatedEvent.php',
         'TopicReplyCreatedEvent' => __DIR__ . '/../..' . '/modules/Forum/classes/Events/TopicReplyCreatedEvent.php',
         'TwitterWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/TwitterWidget.php',
+        'UserQueryWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/UserQueryWidget.php',
         'URL' => __DIR__ . '/../..' . '/core/classes/Core/URL.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'UpdateCheck' => __DIR__ . '/../..' . '/core/classes/DTO/UpdateCheck.php',
