@@ -710,15 +710,7 @@ class Core_Module extends Module {
 
             // Statistics
             $widgets->add(new StatsWidget($smarty, $language, $cache));
-
-            // Reactions profile widget
-            $widgets->add(new ReactionsProfileWidget($smarty, $language));
-
-            // Minecraft account profile widget
-            if (Settings::get('mc_integration')) {
-                $widgets->add(new MinecraftAccountProfileWidget($smarty, $cache, $language));
-            }
-
+            
             // Statistics
             $widgets->add(new UserQueryWidget($smarty, $language, $cache));            
         }
