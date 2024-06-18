@@ -17,17 +17,11 @@ class FacebookWidget extends WidgetBase {
     public function __construct(Smarty $smarty, ?string $fb_url = '') {
         $this->_smarty = $smarty;
 
-        // Get widget
-        $widget_query = self::getData('Facebook');
-
-        parent::__construct(self::parsePages($widget_query), true);
-
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'Facebook';
-        $this->_location = $widget_query->location;
         $this->_description = 'Display a feed from your Facebook page on your site. Make sure you have entered your Facebook URL in the StaffCP -> Core -> Social Media tab first!';
-        $this->_order = $widget_query->order;
+
         $this->_fb_url = $fb_url;
     }
 

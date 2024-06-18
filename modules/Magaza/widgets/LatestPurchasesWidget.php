@@ -29,7 +29,7 @@ class LatestMagazaPurchasesWidget extends WidgetBase {
 		$this->_location = $widget_query->location;
 		$this->_description = 'Displays a list of your store\'s most recent purchases.';
 		$this->_settings = ROOT_PATH . '/modules/Magaza/widgets/admin/latest_purchases.php';
-		$this->_order = $widget_query->order ;
+		$this->_order = $widget_query->order;
 	}
 
 	public function initialise(): void {
