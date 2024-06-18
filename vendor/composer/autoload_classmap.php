@@ -55,7 +55,7 @@ return array(
     'DiscordHook' => $baseDir . '/modules/Discord Entegrasyonu/hooks/DiscordHook.php',
     'DiscordIntegration' => $baseDir . '/modules/Discord Entegrasyonu/classes/DiscordIntegration.php',
     'DiscordWebhookBuilder' => $baseDir . '/core/classes/Events/DiscordWebhookBuilder.php',
-    'DiscordWebhookFormatterEvent' => $baseDir . '/modules/Discord Entegrasyonu/classes/Events/DiscordWebhookFormatterEvent.php',
+    'DiscordWebhookFormatterEvent' => $baseDir . '/modules/Discord Entegrasyonu/classes/DiscordWebhookFormatterEvent.php',
     'DiscordWidget' => $baseDir . '/modules/Discord Entegrasyonu/widgets/DiscordWidget.php',
     'Email' => $baseDir . '/core/classes/Core/Email.php',
     'EndpointBase' => $baseDir . '/core/classes/Endpoints/EndpointBase.php',

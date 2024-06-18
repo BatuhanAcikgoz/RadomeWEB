@@ -380,7 +380,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'DiscordHook' => __DIR__ . '/../..' . '/modules/Discord Entegrasyonu/hooks/DiscordHook.php',
         'DiscordIntegration' => __DIR__ . '/../..' . '/modules/Discord Entegrasyonu/classes/DiscordIntegration.php',
         'DiscordWebhookBuilder' => __DIR__ . '/../..' . '/core/classes/Events/DiscordWebhookBuilder.php',
-        'DiscordWebhookFormatterEvent' => __DIR__ . '/../..' . '/modules/Discord Entegrasyonu/classes/Events/DiscordWebhookFormatterEvent.php',
+        'DiscordWebhookFormatterEvent' => __DIR__ . '/../..' . '/modules/Discord Entegrasyonu/classes/DiscordWebhookFormatterEvent.php',
         'DiscordWidget' => __DIR__ . '/../..' . '/modules/Discord Entegrasyonu/widgets/DiscordWidget.php',
         'Email' => __DIR__ . '/../..' . '/core/classes/Core/Email.php',
         'EndpointBase' => __DIR__ . '/../..' . '/core/classes/Endpoints/EndpointBase.php',

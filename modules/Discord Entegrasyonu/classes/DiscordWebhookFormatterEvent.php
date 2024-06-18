@@ -22,7 +22,7 @@ class DiscordWebhookFormatterEvent extends AbstractEvent {
     }
 
     public static function description(): string {
-        return 'Discord webhook formatter';
+        return "Discord webhook formatter";
     }
 
     public static function return(): bool {
