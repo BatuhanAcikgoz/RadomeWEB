@@ -556,10 +556,6 @@ class Core_Module extends Module {
                 $language->get('general', 'joined') => date(DATE_FORMAT, $member->data()->joined),
             ];
         });
-
-        // Notifications
-        Notification::addType('mass_message', $language->get('notification', 'mass_message'), Module::getIdFromName('Core'));
-
     }
 
     public static function getDashboardGraphs(): array {
