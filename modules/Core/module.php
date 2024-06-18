@@ -557,8 +557,6 @@ class Core_Module extends Module {
             ];
         });
 
-        ReactionContextsManager::getInstance()->provideContext(new ProfilePostReactionContext());
-
         // Notifications
         Notification::addType('mass_message', $language->get('notification', 'mass_message'), Module::getIdFromName('Core'));
 
