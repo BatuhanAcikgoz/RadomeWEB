@@ -16,6 +16,7 @@ class DatabaseInitialiser {
         $instance->initialiseLanguages();
         $instance->initialiseModules();
         $instance->initialiseIntegrations();
+        $instance->initialiseReactions();
         $instance->initialiseSettings();
         $instance->initialiseTasks();
         $instance->initialiseTemplates();
@@ -526,6 +527,51 @@ class DatabaseInitialiser {
         ]);
     }
 
+    private function initialiseReactions(): void
+    {
+        $this->_db->insert('reactions', [
+            'name' => 'Like',
+            'html' => '👍',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Dislike',
+            'html' => '👎',
+            'enabled' => true,
+            'type' => Reaction::TYPE_NEGATIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Meh',
+            'html' => '😐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_NEUTRAL,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Helpful',
+            'html' => '🛠️',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Creative',
+            'html' => '🌈',
+            'enabled' => true,
+            'type' => Reaction::TYPE_POSITIVE,
+        ]);
+
+        $this->_db->insert('reactions', [
+            'name' => 'Amazing',
+            'html' => '⭐',
+            'enabled' => true,
+            'type' => Reaction::TYPE_CUSTOM,
+            'custom_score' => 5,
+        ]);
+    }
 
     private function initialiseSettings(): void {
         Settings::set('discord', '821855877514133504');

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AbstractEvent' => $baseDir . '/core/classes/Events/AbstractEvent.php',
+    'AbstractWidget' => $baseDir . '/core/classes/Widgets/AbstractWidget.php',
     'Alert' => $baseDir . '/core/classes/Core/Alert.php',
     'Announcement' => $baseDir . '/core/classes/DTO/Announcement.php',
     'AnnouncementCreatedEvent' => $baseDir . '/modules/Core/classes/Events/AnnouncementCreatedEvent.php',
@@ -68,6 +69,7 @@ return array(
     'Fields' => $baseDir . '/core/classes/Core/Fields.php',
     'Forum' => $baseDir . '/modules/Forum/classes/Forum.php',
     'Forum_Sitemap' => $baseDir . '/modules/Forum/classes/Forum_Sitemap.php',
+    'ForumPostReactionContext' => $baseDir . '/modules/Forum/classes/ForumPostReactionContext.php',
     'Haberler' => $baseDir . '/modules/Haberler/classes/Haberler.php',
     'Haberler_Sitemap' => $baseDir . '/modules/Haberler/classes/Haberler_Sitemap.php',
     'GenerateSitemap' => $baseDir . '/modules/Core/classes/Tasks/GenerateSitemap.php',
@@ -112,6 +114,7 @@ return array(
     'RadomeWEBAvatarSource' => $baseDir . '/modules/Core/classes/Avatars/RadomeWEBAvatarSource.php',
     'RadomeWEBGroupSyncInjector' => $baseDir . '/modules/Core/classes/Group_Sync/RadomeWEBGroupSyncInjector.php',
     'RadomeOAuth' => $baseDir . '/core/classes/Misc/RadomeOAuth.php',
+    'ReactionContext' => $baseDir . '/core/classes/Misc/ReactionContext.php',
     'Navigation' => $baseDir . '/core/classes/Core/Navigation.php',
     'NoAuthEndpoint' => $baseDir . '/core/classes/Endpoints/NoAuthEndpoint.php',
     'Normalizer' => $vendorDir . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -125,6 +128,8 @@ return array(
     'PhpToken' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
     'Placeholders' => $baseDir . '/core/classes/Misc/Placeholders.php',
     'PluginQuery' => $baseDir . '/core/classes/Minecraft/PluginQuery.php',
+    'ProfileWidgetBase' => $baseDir . '/core/classes/Widgets/ProfileWidgetBase.php',
+    'ProfilePostReactionContext' => $baseDir . '/core/classes/Misc/ProfilePostReactionContext.php',
     'ProfileField' => $baseDir . '/core/classes/DTO/ProfileField.php',
     'ProfilePostsWidget' => $baseDir . '/modules/Core/widgets/ProfilePostsWidget.php',
     'ProfileUtils' => $baseDir . '/core/classes/Minecraft/ProfileUtils.php',
@@ -351,5 +356,6 @@ return array(
     'WebhookDispatcher' => $baseDir . '/core/classes/Events/WebhookDispatcher.php',
     'WidgetBase' => $baseDir . '/core/classes/Widgets/WidgetBase.php',
     'Widgets' => $baseDir . '/core/classes/Widgets/Widgets.php',
+    'WidgetData' => $baseDir . '/core/classes/Widgets/WidgetData.php',
     'hCaptcha' => $baseDir . '/modules/Core/classes/Captcha/hCaptcha.php',
 );

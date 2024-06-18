@@ -332,6 +332,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
 
     public static $classMap = array (
         'AbstractEvent' => __DIR__ . '/../..' . '/core/classes/Events/AbstractEvent.php',
+        'AbstractWidget' =>__DIR__ . '/../..' . '/core/classes/Widgets/AbstractWidget.php',
         'Alert' => __DIR__ . '/../..' . '/core/classes/Core/Alert.php',
         'Announcement' => __DIR__ . '/../..' . '/core/classes/DTO/Announcement.php',
         'AnnouncementCreatedEvent' => __DIR__ . '/../..' . '/modules/Core/classes/Events/AnnouncementCreatedEvent.php',
@@ -393,6 +394,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'Fields' => __DIR__ . '/../..' . '/core/classes/Core/Fields.php',
         'Forum' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum.php',
         'Forum_Sitemap' => __DIR__ . '/../..' . '/modules/Forum/classes/Forum_Sitemap.php',
+        'ForumPostReactionContext' => __DIR__ . '/../..' . '/modules/Forum/classes/ForumPostReactionContext.php',
         'Haberler' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler.php',
         'Haberler_Sitemap' => __DIR__ . '/../..' . '/modules/Haberler/classes/Haberler_Sitemap.php',
         'GenerateSitemap' => __DIR__ . '/../..' . '/modules/Core/classes/Tasks/GenerateSitemap.php',
@@ -437,6 +439,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'RadomeWEBAvatarSource' => __DIR__ . '/../..' . '/modules/Core/classes/Avatars/RadomeWEBAvatarSource.php',
         'RadomeWEBGroupSyncInjector' => __DIR__ . '/../..' . '/modules/Core/classes/Group_Sync/RadomeWEBGroupSyncInjector.php',
         'RadomeOAuth' => __DIR__ . '/../..' . '/core/classes/Misc/RadomeOAuth.php',
+        'ReactionContext' => __DIR__ . '/../..' . '/core/classes/Misc/ReactionContext.php',
         'Navigation' => __DIR__ . '/../..' . '/core/classes/Core/Navigation.php',
         'NoAuthEndpoint' => __DIR__ . '/../..' . '/core/classes/Endpoints/NoAuthEndpoint.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -452,6 +455,8 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'PluginQuery' => __DIR__ . '/../..' . '/core/classes/Minecraft/PluginQuery.php',
         'ProfileField' => __DIR__ . '/../..' . '/core/classes/DTO/ProfileField.php',
         'ProfilePostsWidget' => __DIR__ . '/../..' . '/modules/Core/widgets/ProfilePostsWidget.php',
+        'ProfileWidgetBase' => __DIR__ . '/../..' . '/core/classes/Widgets/ProfileWidgetBase.php',
+        'ProfilePostReactionContext' => __DIR__ . '/../..' . '/core/classes/Misc/ProfilePostReactionContext.php',
         'ProfileUtils' => __DIR__ . '/../..' . '/core/classes/Minecraft/ProfileUtils.php',
         'QueryRecorder' => __DIR__ . '/../..' . '/core/classes/Database/QueryRecorder.php',
         'Queue' => __DIR__ . '/../..' . '/core/classes/Queue/Queue.php',
@@ -675,6 +680,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'WebHook' => __DIR__ . '/../..' . '/modules/Core/hooks/WebHook.php',
         'WebhookDispatcher' => __DIR__ . '/../..' . '/core/classes/Events/WebhookDispatcher.php',
         'WidgetBase' => __DIR__ . '/../..' . '/core/classes/Widgets/WidgetBase.php',
+        'WidgetData' => __DIR__ . '/../..' . '/core/classes/Widgets/WidgetData.php',
         'Widgets' => __DIR__ . '/../..' . '/core/classes/Widgets/Widgets.php',
         'hCaptcha' => __DIR__ . '/../..' . '/modules/Core/classes/Captcha/hCaptcha.php',
     );
