@@ -16,13 +16,21 @@ class TwitterWidget extends WidgetBase {
     private string $_theme;
 
     public function __construct(Smarty $smarty, ?string $twitter = '', ?string $theme = '') {
-        $this->_module = 'Core';
-        $this->_name = 'Twitter';
-        $this->_description = 'Display your Twitter feed on your site. Make sure you have entered your Twitter URL in the StaffCP -> Core -> Social Media tab first!';
+        $this->_cache = $cache;
         $this->_smarty = $smarty;
+        $this->_language = $language;
 
-        $this->_twitter_url = $twitter;
-        $this->_theme = $theme;
+        // Get widget
+        $widget_query = self::getData('Statistics');
+
+        parent::__construct(self::parsePages($widget_query));
+
+        // Set widget variables
+        $this->_module = 'Core';
+        $this->_name = 'Statistics';
+        $this->_location = $widget_query->location;
+        $this->_description = 'Displays the basic statistics of your website.';
+        $this->_order = $widget_query->order;
     }
 
     public function initialise(): void {
