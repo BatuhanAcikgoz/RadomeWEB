@@ -439,6 +439,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'Module' => __DIR__ . '/../..' . '/core/classes/Core/Module.php',
         'MostPostsMemberListProvider' => __DIR__ . '/../..' . '/modules/Forum/classes/MostPostsMemberListProvider.php',
         'MassMessage' => __DIR__ . '/../..' . '/modules/Core/classes/Tasks/MassMessage.php',
+        'Notification' => __DIR__ . '/../..' . '/modules/Core/classes/Core/Notification.php',
         'Radome2API' => __DIR__ . '/../..' . '/modules/Core/classes/Misc/Radome2API.php',
         'RadomeWEBAvatarSource' => __DIR__ . '/../..' . '/modules/Core/classes/Avatars/RadomeWEBAvatarSource.php',
         'RadomeWEBGroupSyncInjector' => __DIR__ . '/../..' . '/modules/Core/classes/Group_Sync/RadomeWEBGroupSyncInjector.php',

@@ -114,6 +114,7 @@ return array(
     'Module' => $baseDir . '/core/classes/Core/Module.php',
     'MostPostsMemberListProvider' => $baseDir . '/modules/Forum/classes/MostPostsMemberListProvider.php',
     'MassMessage' => $baseDir . '/modules/Core/classes/Tasks/MassMessage.php',
+    'Notification' => $baseDir . '/modules/Core/classes/Tasks/Notification.php',
     'Reaction' => $baseDir . '/core/classes/DTO/Reaction.php',
     'Radome2API' => $baseDir . '/modules/Core/classes/Misc/Radome2API.php',
     'RadomeWEBAvatarSource' => $baseDir . '/modules/Core/classes/Avatars/RadomeWEBAvatarSource.php',
