@@ -1151,7 +1151,7 @@ class Core_Module extends Module {
                 $navs[2]->addDropdown('announcements', $language->get('admin', 'communications'), 'top', $order, $icon);
 
                 if ($user->hasPermission('admincp.core.announcements')) {
-                    $navs[2]->addItemToDropdown('announcements', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/core/announcements'), 'top', null, $icon, 1);
+                    $navs[2]->addItemToDropdown('announcements', 'announcements', $language->get('admin', 'announcements'), URL::build('/panel/duyurular'), 'top', null, $icon, 1);
                 }
 
                 if ($user->hasPermission('admincp.core.emails_mass_message')) {

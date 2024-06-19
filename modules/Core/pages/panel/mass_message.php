@@ -170,7 +170,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
 
                 Session::flash('mass_message_success', $language->get('admin', 'sent_mass_message'));
-                Redirect::to(URL::build('/panel/core/mass_message'));
+                Redirect::to(URL::build('/panel/toplu_mesaj'));
             } else {
                 $errors = [$language->get('admin', 'mass_message_type_required')];
             }
