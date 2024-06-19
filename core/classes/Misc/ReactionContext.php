@@ -2,7 +2,7 @@
 /**
  * Represents a context in which reactions can be given and received.
  *
- * @package NamelessMC\Misc
+ * @package RadomeWEB\Misc
  * @author Aberdeener
  * @version 2.2.0
  * @license MIT

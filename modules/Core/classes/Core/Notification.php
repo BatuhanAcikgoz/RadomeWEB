@@ -3,7 +3,7 @@
  * Notification class to handle sending notifications to a user or users
  * Notifications can be alerts or emails
  *
- * @package NamelessMC\Core
+ * @package RadomeWEB\Core
  * @author Samerton
  * @version 2.2.0
  * @license MIT

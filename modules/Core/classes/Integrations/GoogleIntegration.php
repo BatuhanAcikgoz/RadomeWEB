@@ -22,7 +22,7 @@ class GoogleIntegration extends IntegrationBase {
     public function onLinkRequest(User $user) {
         Session::put('oauth_method', 'link_integration');
 
-        $providers = NamelessOAuth::getInstance()->getProvidersAvailable();
+        $providers = RadomeOAuth::getInstance()->getProvidersAvailable();
         $provider = $providers['google'];
 
         Redirect::to($provider['url']);
@@ -108,7 +108,7 @@ class GoogleIntegration extends IntegrationBase {
     }
 
     public function allowLinking(): bool {
-        return NamelessOAuth::getInstance()->isSetup('google');
+        return RadomeOAuth::getInstance()->isSetup('google');
     }
 
     public function onRegistrationPageLoad(Fields $fields) {
