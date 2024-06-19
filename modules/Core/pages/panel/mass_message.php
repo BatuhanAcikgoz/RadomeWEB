@@ -170,7 +170,7 @@ if (Input::exists()) {
                 Log::getInstance()->log(Log::Action('admin/core/email/mass_message'));
 
                 Session::flash('mass_message_success', $language->get('admin', 'sent_mass_message'));
-                Redirect::to(URL::build('/panel/toplu_mesaj'));
+                Redirect::to(URL::build('/panel/core/mass_message'));
             } else {
                 $errors = [$language->get('admin', 'mass_message_type_required')];
             }
@@ -245,10 +245,7 @@ $smarty->assign([
     'EMAILS' => $language->get('admin', 'emails'),
     'PAGE' => PANEL_PAGE,
     'TOKEN' => Token::get(),
-    'SUBMIT' => $language->get('gener->addColumn('bypass_purify', 'boolean', ['default' => false])
-            ->update();
-    }
-}al', 'submit'),
+    'SUBMIT' => $language->get('general', 'submit'),
 ]);
 
 $template->onPageLoad();

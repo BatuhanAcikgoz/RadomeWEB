@@ -160,7 +160,7 @@ abstract class AbstractWidget
     private function cache(): Cache
     {
         $cache = $this->_cache ??= new Cache([
-            'name' => 'nameless', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/',
+            'name' => 'radome', 'extension' => '.cache', 'path' => ROOT_PATH . '/cache/',
         ]);
 
         $cache->setCache(

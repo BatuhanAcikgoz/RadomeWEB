@@ -307,6 +307,7 @@ class Core_Module extends Module {
 
        // -- Events
        EventHandler::registerEvent(AnnouncementCreatedEvent::class);
+       EventHandler::registerEvent(GenerateNotificationContentEvent::class);
        EventHandler::registerEvent(GroupClonedEvent::class);
        EventHandler::registerEvent(ReportCreatedEvent::class);
        EventHandler::registerEvent(UserBannedEvent::class);
@@ -518,7 +519,13 @@ class Core_Module extends Module {
             Integrations::getInstance()->registerIntegration(new MinecraftIntegration($language));
         }
 
+        Integrations::getInstance()->registerIntegration(new GoogleIntegration($language));
+
         EventHandler::registerListener(GroupClonedEvent::class, CloneGroupHook::class);
+
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::purify');
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'ContentHook::renderEmojis', 10);
+        EventHandler::registerListener(GenerateNotificationContentEvent::class, 'MentionsHook::parsePost', 5);
 
         // TODO: Use [class, 'method'] callable syntax
         EventHandler::registerListener('renderPrivateMessage', 'ContentHook::purify');
