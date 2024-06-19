@@ -22,7 +22,7 @@ class ProfilePostReactionContext extends ReactionContext
 
     public function getUserReceived(User $user): array
     {
-        return DB::getInstance()->query('SELECT r.reaction_id FROM nl2_user_profile_wall_posts_reactions r JOIN nl2_user_profile_wall_posts w ON r.post_id = w.id WHERE w.author_id = ?', [
+        return DB::getInstance()->query('SELECT r.reaction_id FROM rw_user_profile_wall_posts_reactions r JOIN rw_user_profile_wall_posts w ON r.post_id = w.id WHERE w.author_id = ?', [
             $user->data()->id,
         ])->results();
     }

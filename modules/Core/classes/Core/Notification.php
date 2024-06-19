@@ -69,7 +69,7 @@ class Notification {
             $preferences = DB::getInstance()->query(
                 <<<SQL
                     SELECT `alert`, `email`
-                    FROM nl2_users_notification_preferences
+                    FROM rw_users_notification_preferences
                     WHERE `type` = ? AND `user_id` = ?
                 SQL,
                 [$this->_type, $id]
