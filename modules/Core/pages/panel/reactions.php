@@ -71,7 +71,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
         $template_reactions[] = [
             'id' => $reaction->id,
-            'edit_link' => URL::build('/panel/core/reactions/', 'id=' . urlencode($reaction->id)),
+            'edit_link' => URL::build('/panel/tepkiler/', 'id=' . urlencode($reaction->id)),
             'name' => Output::getClean($reaction->name),
             'html' => $reaction->html,
             'type_id' => $reaction->type,
@@ -83,14 +83,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
     $smarty->assign([
         'NEW_REACTION' => $language->get('admin', 'new_reaction'),
-        'NEW_REACTION_LINK' => URL::build('/panel/core/reactions/', 'action=new'),
+        'NEW_REACTION_LINK' => URL::build('/panel/tepkiler/', 'action=new'),
         'NAME' => $language->get('admin', 'name'),
         'ICON' => $language->get('admin', 'icon'),
         'TYPE' => $language->get('admin', 'type'),
         'ENABLED' => $language->get('admin', 'enabled'),
         'REACTIONS_LIST' => $template_reactions,
         'NO_REACTIONS' => $language->get('admin', 'no_reactions'),
-        'REORDER_DRAG_URL' => URL::build('/panel/core/reactions', 'action=order'),
+        'REORDER_DRAG_URL' => URL::build('/panel/tepkiler', 'action=order'),
     ]);
 
     $template_file = 'core/reactions.tpl';
@@ -152,7 +152,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                             ]);
 
                             Session::flash('api_reactions', $language->get('admin', 'reaction_created_successfully'));
-                            Redirect::to(URL::build('/panel/core/reactions'));
+                            Redirect::to(URL::build('/panel/tepkiler'));
                         }
 
                         // Validation error
@@ -165,7 +165,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
                 $smarty->assign([
                     'CANCEL' => $language->get('general', 'cancel'),
-                    'CANCEL_LINK' => URL::build('/panel/core/reactions'),
+                    'CANCEL_LINK' => URL::build('/panel/tepkiler'),
                     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                     'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
                     'YES' => $language->get('general', 'yes'),
@@ -193,7 +193,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
             case 'delete':
                 // Check reaction is specified
                 if (!isset($_GET['reaction']) || !is_numeric($_GET['reaction'])) {
-                    Redirect::to(URL::build('/panel/core/reactions'));
+                    Redirect::to(URL::build('/panel/tepkiler'));
                 }
 
                 if (Token::check($_POST['token'])) {
@@ -206,7 +206,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 }
 
                 // Redirect
-                Redirect::to(URL::build('/panel/core/reactions'));
+                Redirect::to(URL::build('/panel/tepkiler'));
             case 'order':
                 if (isset($_GET['reactions'])) {
                     if (!Token::check()) {
@@ -225,14 +225,14 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                 die('Complete');
 
             default:
-                Redirect::to(URL::build('/panel/core/reactions'));
+                Redirect::to(URL::build('/panel/tepkiler'));
         }
     } else {
         // Get reaction
         $reaction = Reaction::find($_GET['id']);
         if (!$reaction) {
             // Reaction doesn't exist
-            Redirect::to(URL::build('/panel/core/reactions'));
+            Redirect::to(URL::build('/panel/tepkiler'));
         }
 
         // Deal with input
@@ -296,7 +296,7 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
                     DB::getInstance()->update('reactions', $_GET['id'], $fields);
 
                     Session::flash('api_reactions', $language->get('admin', 'reaction_edited_successfully'));
-                    Redirect::to(URL::build('/panel/core/reactions'));
+                    Redirect::to(URL::build('/panel/tepkiler'));
                 }
 
                 // Validation error
@@ -309,13 +309,13 @@ if (!isset($_GET['id']) && !isset($_GET['action'])) {
 
         $smarty->assign([
             'CANCEL' => $language->get('general', 'cancel'),
-            'CANCEL_LINK' => URL::build('/panel/core/reactions'),
+            'CANCEL_LINK' => URL::build('/panel/tepkiler'),
             'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
             'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
             'DELETE' => $language->get('general', 'delete'),
-            'DELETE_LINK' => URL::build('/panel/core/reactions/', 'action=delete&reaction=' . urlencode($reaction->id)),
+            'DELETE_LINK' => URL::build('/panel/tepkiler/', 'action=delete&reaction=' . urlencode($reaction->id)),
             'CONFIRM_DELETE' => $language->get('admin', 'confirm_delete_reaction'),
             'EDITING_REACTION' => $language->get('admin', 'editing_reaction'),
             'NAME' => $language->get('admin', 'name'),

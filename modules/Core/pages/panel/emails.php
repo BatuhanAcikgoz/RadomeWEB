@@ -188,15 +188,15 @@ if (isset($_GET['action'])) {
 
     if ($user->hasPermission('admincp.core.emails_mass_message')) {
         $smarty->assign(['MASS_MESSAGE' => $language->get('admin', 'mass_message'),
-            'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
+            'MASS_MESSAGE_LINK' => URL::build('/panel/toplu_mesaj'),
             'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
-            'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
+            'MASS_MESSAGE_LINK' => URL::build('/panel/toplu_mesaj'),
         ]);
     }
 
     $smarty->assign([
         'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
-        'MASS_MESSAGE_LINK' => URL::build('/panel/core/mass_message'),
+        'MASS_MESSAGE_LINK' => URL::build('/panel/toplu_mesaj'),
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
        e 'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/email/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),

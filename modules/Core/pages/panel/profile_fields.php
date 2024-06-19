@@ -85,7 +85,7 @@ if (isset($_GET['action'])) {
 
                         // Redirect
                         Session::flash('profile_field_success', $language->get('admin', 'profile_field_created_successfully'));
-                        Redirect::to(URL::build('/panel/core/profile_fields'));
+                        Redirect::to(URL::build('/panel/profil_alanlari'));
                     } catch (Exception $e) {
                         $errors[] = $e->getMessage();
                     }
@@ -106,7 +106,7 @@ if (isset($_GET['action'])) {
             'CONFIRM_CANCEL' => $language->get('general', 'confirm_cancel'),
             'YES' => $language->get('general', 'yes'),
             'NO' => $language->get('general', 'no'),
-            'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
+            'CANCEL_LINK' => URL::build('/panel/profil_alanlari'),
             'TOKEN' => Token::get(),
             'SUBMIT' => $language->get('general', 'submit'),
             'FIELD_NAME' => $language->get('admin', 'field_name'),
@@ -136,7 +136,7 @@ if (isset($_GET['action'])) {
             $field = ProfileField::find($id);
 
             if (!$field) {
-                Redirect::to(URL::build('/panel/core/profile_fields'));
+                Redirect::to(URL::build('/panel/profil_alanlari'));
             }
 
             if (Input::exists()) {
@@ -199,7 +199,7 @@ if (isset($_GET['action'])) {
 
                                 // Redirect
                                 Session::flash('profile_field_success', $language->get('admin', 'profile_field_updated_successfully'));
-                                Redirect::to(URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)));
+                                Redirect::to(URL::build('/panel/profil_alanlari/', 'action=edit&id=' . urlencode($field->id)));
                             } catch (Exception $e) {
                                 $errors[] = $e->getMessage();
                             }
@@ -214,7 +214,7 @@ if (isset($_GET['action'])) {
                             DB::getInstance()->delete('profile_fields', ['id', (int)$_POST['id']]);
 
                             Session::flash('profile_field_success', $language->get('admin', 'profile_field_deleted_successfully'));
-                            Redirect::to(URL::build('/panel/core/profile_fields'));
+                            Redirect::to(URL::build('/panel/profil_alanlari'));
                         }
                     }
                 } else {
@@ -231,8 +231,8 @@ if (isset($_GET['action'])) {
                 'CONFIRM_DELETE' => $language->get('general', 'confirm_deletion'),
                 'YES' => $language->get('general', 'yes'),
                 'NO' => $language->get('general', 'no'),
-                'CANCEL_LINK' => URL::build('/panel/core/profile_fields'),
-                'DELETE_LINK' => URL::build('/panel/core/profile_fields/'),
+                'CANCEL_LINK' => URL::build('/panel/profil_alanlari'),
+                'DELETE_LINK' => URL::build('/panel/profil_alanlari/'),
                 'TOKEN' => Token::get(),
                 'SUBMIT' => $language->get('general', 'submit'),
                 'FIELD_ID' => Output::getClean($field->id),
@@ -260,7 +260,7 @@ if (isset($_GET['action'])) {
 
             $template_file = 'core/profile_fields_edit.tpl';
         } else {
-            Redirect::to(URL::build('/panel/core/profile_fields'));
+            Redirect::to(URL::build('/panel/profil_alanlari'));
         }
     }
 } else {
@@ -282,7 +282,7 @@ if (isset($_GET['action'])) {
         }
 
         $template_fields[] = [
-            'edit_link' => URL::build('/panel/core/profile_fields/', 'action=edit&id=' . urlencode($field->id)),
+            'edit_link' => URL::build('/panel/profil_alanlari/', 'action=edit&id=' . urlencode($field->id)),
             'name' => Output::getClean($field->name),
             'type' => $type,
             'required' => $field->required,
@@ -296,7 +296,7 @@ if (isset($_GET['action'])) {
         'FIELDS' => $template_fields,
         'NO_FIELDS' => $language->get('admin', 'no_custom_fields'),
         'NEW_FIELD' => $language->get('admin', 'new_field'),
-        'NEW_FIELD_LINK' => URL::build('/panel/core/profile_fields/', 'action=new'),
+        'NEW_FIELD_LINK' => URL::build('/panel/profil_alanlari/', 'action=new'),
         'FIELD_NAME' => $language->get('admin', 'field_name'),
         'TYPE' => $language->get('admin', 'type'),
         'REQUIRED' => $language->get('admin', 'required'),

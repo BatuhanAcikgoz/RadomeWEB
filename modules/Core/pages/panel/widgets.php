@@ -38,9 +38,9 @@ if (!isset($_GET['action'])) {
             'description' => Output::getClean($widget->getDescription()),
             'order' => $widget->getOrder(),
             'enabled' => $widgets->isEnabled($widget),
-            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=disable&w=' . urlencode($widget_id)) : null),
-            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=enable&w=' . urlencode($widget_id)) : null),
-            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget_id)) : null),
+            'disable_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=disable&w=' . urlencode($widget_id)) : null),
+            'enable_link' => ((!$widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=enable&w=' . urlencode($widget_id)) : null),
+            'settings_link' => (($widgets->isEnabled($widget)) ? URL::build('/panel/widgets/', 'action=edit&w=' . urlencode($widget_id)) : null),
         ];
         if ($widget instanceof ProfileWidgetBase) {
             $profile_widgets_list[] = $entry;
@@ -189,7 +189,7 @@ if (!isset($_GET['action'])) {
         if ($widget_instance->getSettings() !== null) {
             $smarty->assign([
                 'SETTINGS' => $language->get('admin', 'settings'),
-                'SETTINGS_LINK' => URL::build('/panel/core/widgets/', 'action=settings&w=' . urlencode($widget->id)),
+                'SETTINGS_LINK' => URL::build('/panel/widgets/', 'action=settings&w=' . urlencode($widget->id)),
             ]);
         }
 
@@ -204,7 +204,7 @@ if (!isset($_GET['action'])) {
                 'widget' => Text::bold(Output::getClean($widget->name)),
             ]),
             'BACK' => $language->get('general', 'back'),
-            'BACK_LINK' => URL::build('/panel/core/widgets'),
+            'BACK_LINK' => URL::build('/panel/widgets'),
             'IS_PROFILE_WIDGET' => $is_profile_widget,
             'ORDER' => $order,
             'WIDGET_ORDER' => $language->get('admin', 'widget_order'),
@@ -244,7 +244,7 @@ if (!isset($_GET['action'])) {
                     'widget' => Text::bold(Output::getClean($widget->name)),
                 ]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/widgets/', 'action=edit&w=' . urlencode($widget->id)),
+                'BACK_LINK' => URL::build('/panel/widgets/', 'action=edit&w=' . urlencode($widget->id)),
             ]);
 
             $template_file = 'core/widget_settings.tpl';

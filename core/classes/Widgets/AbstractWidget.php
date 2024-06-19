@@ -2,7 +2,7 @@
 
 abstract class AbstractWidget
 {
-    protected string $_name;
+    protected string $_name  = ''; // Başlangıç değeri ataması yapıldı
     protected string $_content;
     protected string $_description;
     protected string $_module;

@@ -82,6 +82,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/seo', 'pages/panel/seo.php');
         $pages->add('Core', '/panel/avatarlar', 'pages/panel/avatars.php');
         $pages->add('Core', '/panel/bakim_sorun_giderme', 'pages/panel/debugging_and_maintenance.php');
+        $pages->add('Core', '/panel/profil_alanlari', 'pages/panel/profile_fields.php');
         $pages->add('Core', '/panel/hatalar', 'pages/panel/errors.php');
         $pages->add('Core', '/panel/email', 'pages/panel/emails.php');
         $pages->add('Core', '/panel/email/hatalar', 'pages/panel/emails_errors.php');
@@ -1088,7 +1089,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('queue_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('core_configuration', 'queue', $language->get('admin', 'queue'), URL::build('/panel/core/queue'), 'top', null, $icon, $order);
+                    $navs[2]->addItemToDropdown('core_configuration', 'queue', $language->get('admin', 'queue'), URL::build('/panel/queue'), 'top', null, $icon, $order);
                 }
 
                 if ($user->hasPermission('admincp.core.registration')) {
@@ -1154,7 +1155,7 @@ class Core_Module extends Module {
                         $icon = $cache->retrieve('mass_message_icon');
                     }
 
-                    $navs[2]->addItemToDropdown('announcements', 'mass_message', $language->get('admin', 'mass_message'), URL::build('/panel/core/mass_message'), 'top', null, $icon, 1);
+                    $navs[2]->addItemToDropdown('announcements', 'mass_message', $language->get('admin', 'mass_message'), URL::build('/panel/toplu_mesaj'), 'top', null, $icon, 1);
                 }
             }
 

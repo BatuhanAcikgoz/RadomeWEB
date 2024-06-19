@@ -19,17 +19,10 @@ class UserQueryWidget extends WidgetBase {
         $this->_smarty = $smarty;
         $this->_language = $language;
 
-        // Get widget
-        $widget_query = self::getData('User Query Widget');
-
-        parent::__construct(self::parsePages($widget_query));
-
         // Set widget variables
         $this->_module = 'Core';
         $this->_name = 'User Query Widget';
-        $this->_location = $widget_query->location;
         $this->_description = 'User query tool widget.';
-        $this->_order = $widget_query->order;
     }
 
     public function initialise(): void {

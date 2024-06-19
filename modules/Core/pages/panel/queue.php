@@ -44,7 +44,7 @@ if (isset($_GET['view'])) {
 
             $smarty->assign([
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/core/queue'),
+                'BACK_LINK' => URL::build('/panel/queue'),
                 'CANCEL' => $language->get('admin', 'queue_cancel_task'),
                 'NAME' => $language->get('admin', 'queue_task_name'),
                 'RETRY' => $language->get('admin', 'queue_retry_task'),
@@ -98,7 +98,7 @@ if (isset($_GET['view'])) {
                         }
                     });
                     $(\'.dataTables-queue\').on(\'click\', \'tr\', function(){
-                        window.location.href = "' . URL::build('/panel/core/queue', 'view=task&id=') . '" + queueTable.row(this).data().id;
+                        window.location.href = "' . URL::build('/panel/queue', 'view=task&id=') . '" + queueTable.row(this).data().id;
                     });
                 });
             ');
@@ -111,13 +111,13 @@ if (isset($_GET['view'])) {
             $taskId = intval($_GET['id']);
 
             if (!$taskId) {
-                Redirect::to(URL::build('/panel/core/queue', 'view=status'));
+                Redirect::to(URL::build('/panel/queue', 'view=status'));
             }
 
             $task = DB::getInstance()->get('queue', ['id', $taskId]);
 
             if (!$task->count()) {
-                Redirect::to(URL::build('/panel/core/queue', 'view=status'));
+                Redirect::to(URL::build('/panel/queue', 'view=status'));
             }
 
             $task = $task->first();
@@ -151,7 +151,7 @@ if (isset($_GET['view'])) {
                     Session::put('queue_error', [$language->get('general', 'invalid_token')]);
                 }
 
-                Redirect::to(URL::build('/panel/core/queue', 'view=task&id=' . $taskId));
+                Redirect::to(URL::build('/panel/queue', 'view=task&id=' . $taskId));
             }
 
             if (in_array($task->status, [Task::STATUS_READY, Task::STATUS_ERROR, Task::STATUS_IN_PROGRESS])) {
@@ -188,8 +188,8 @@ if (isset($_GET['view'])) {
                 'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
                 'BACK' => $language->get('general', 'back'),
                 'NO' => $language->get('general', 'no'),
-                'QUEUE_LINK' => URL::build('/panel/core/queue'),
-                'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),
+                'QUEUE_LINK' => URL::build('/panel/queue'),
+                'QUEUE_STATUS_LINK' => URL::build('/panel/queue', 'view=status'),
                 'TASK' => $language->get('admin', 'queue_task'),
                 'TASK_VALUE' => Output::getClean($task->task),
                 'TASK_ENTITY' => $language->get('admin', 'queue_task_entity'),
@@ -227,7 +227,7 @@ if (isset($_GET['view'])) {
             break;
 
         default:
-            Redirect::to(URL::build('/panel/core/queue'));
+            Redirect::to(URL::build('/panel/queue'));
     }
 
 } else {
@@ -272,7 +272,7 @@ if (isset($_GET['view'])) {
             Session::put('queue_error', [$language->get('general', 'invalid_token')]);
         }
 
-        Redirect::to(URL::build('/panel/core/queue'));
+        Redirect::to(URL::build('/panel/queue'));
     }
 
     $runners = [
@@ -302,7 +302,7 @@ if (isset($_GET['view'])) {
         'QUEUE_INTERVAL_VALUE' => Settings::get('queue_interval'),
         'QUEUE_RUNNER' => $language->get('admin', 'queue_runner'),
         'QUEUE_RUNNERS' => $runners,
-        'QUEUE_STATUS_LINK' => URL::build('/panel/core/queue', 'view=status'),
+        'QUEUE_STATUS_LINK' => URL::build('/panel/queue', 'view=status'),
     ]);
 
     $template_file = 'core/queue.tpl';

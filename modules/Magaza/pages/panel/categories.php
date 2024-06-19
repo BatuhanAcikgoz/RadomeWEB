@@ -24,7 +24,7 @@ require_once(ROOT_PATH . '/core/templates/backend_init.php');
 $store = new Magaza($cache, $store_language);
 
 if (!isset($_GET['action'])) {
-    Redirect::to(URL::build('/panel/core/products'));
+    Redirect::to(URL::build('/panel/urunler'));
 } else {
     switch ($_GET['action']) {
         case 'new';
@@ -294,7 +294,7 @@ if (!isset($_GET['action'])) {
             Redirect::to(URL::build('/panel/magaza/urunler'));
         break;
         default:
-            Redirect::to(URL::build('/panel/core/products'));
+            Redirect::to(URL::build('/panel/urunler'));
         break;
     }
 }

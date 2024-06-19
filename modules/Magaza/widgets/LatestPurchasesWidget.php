@@ -18,18 +18,11 @@ class LatestMagazaPurchasesWidget extends WidgetBase {
 		$this->_store_language = $store_language;
 		$this->_cache = $cache;
 
-        // Get widget
-        $widget_query = self::getData('Latest Purchases');
-
-        parent::__construct(self::parsePages($widget_query));
-
 		// Set widget variables
 		$this->_module = 'Magaza';
 		$this->_name = 'Latest Purchases';
-		$this->_location = $widget_query->location;
 		$this->_description = 'Displays a list of your store\'s most recent purchases.';
 		$this->_settings = ROOT_PATH . '/modules/Magaza/widgets/admin/latest_purchases.php';
-		$this->_order = $widget_query->order;
 	}
 
 	public function initialise(): void {
