@@ -21,7 +21,7 @@ class Magaza {
      */
     private static Language $_store_language;
 
-    // Constructor, connect to database
+    // Constructor, connect tosorgu/queue/ database
     public function __construct() {
         $this->_db = DB::getInstance();
     }
