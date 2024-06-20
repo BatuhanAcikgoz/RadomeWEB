@@ -27,7 +27,7 @@ class Magaza {
     }
 
     public function getMagazaURL(): string {
-        return Settings::get('store_path', '/store', 'Magaza');
+        return Settings::get('store_path', '/magaza', 'Magaza');
     }
 
     // Get all products
@@ -129,7 +129,7 @@ class Magaza {
     }
 
     public static function getMagazaPath(): string {
-        return Settings::get('store_path', '/store', 'Magaza');
+        return Settings::get('store_path', '/magaza', 'Magaza');
     }
 
     public static function getCurrency(): string {
