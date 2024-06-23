@@ -457,7 +457,7 @@ if (isset($_GET['do'])) {
 }
 
 // Check if store customer is required and isset
-if ($store->isPlayerSystemEnabled() && !$to_customer->isLoggedIn()) {
+if (!$to_customer->isLoggedIn()) {
     Redirect::to(URL::build($store_url));
 }
 
