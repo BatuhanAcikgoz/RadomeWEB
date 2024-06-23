@@ -141,7 +141,6 @@
                                                         <option value="0" {if !$PRIVATE_PROFILES_VALUE} selected{/if}>
                                                             {$DISABLED}</option>
                                                     </select>
-                                                </div>
                                         </div>
                                         <div class="col-md-6">
                                                 <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
@@ -161,8 +160,9 @@
                                                         {$JOYPIXELS}
                                                     </option>
                                                 </select>
-                                            </div>
                                         </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="row">
