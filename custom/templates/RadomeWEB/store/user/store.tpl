@@ -69,7 +69,7 @@
             <div class="card">
             <h3 class="card-header header-theme">{$URUNLER}</h3>
             {nocache}
-                {if count($PURCHASES_LIST)}
+                {if count($TRANSACTIONS_LIST)}
                     <table class="ui fixed single line selectable unstackable small padded res table">
                         <thead>
                             <tr>
@@ -79,7 +79,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {foreach from=$PURCHASES_LIST item=purchase}
+                            {foreach from=$TRANSACTIONS_LIST item=purchase}
                                 <tr>
                                     <td>{$purchase.name}</td>
                                     <td>{$purchase.currency_symbol}{$purchase.amount} {$purchase.currency}</td>
