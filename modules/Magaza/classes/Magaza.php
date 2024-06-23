@@ -149,7 +149,7 @@ class Magaza {
      * @param $format ?string Format
      * @return string Formatted price with currency
      */
-    public static function formatPrice(int $price_cents, string $currencyCode, string $currencySymbol, ?string $format = '{currencySymbol}{price} {currencyCode}'): string {
+    public static function formatPrice(int $price_cents, string $currencyCode, string $currencySymbol, ?string $format = '{price}{currencySymbol}'): string {
         return str_replace([
             '{currencyCode}',
             '{currencySymbol}',
@@ -176,34 +176,6 @@ class Magaza {
      *  Check for Module updates
      *  Returns JSON object with information about any updates
      */
-    public static function updateCheck() {
-        $current_version = Settings::get('radome_version');
-        $uid = Settings::get('unique_id');
-
-        $enabled_modules = Module::getModules();
-        foreach ($enabled_modules as $enabled_item) {
-            if ($enabled_item->getName() == 'Magaza') {
-                $module = $enabled_item;
-                break;
-            }
-        }
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_URL, 'https://api.partydragen.com/stats.php?uid=' . $uid . '&version=' . $current_version . '&module=Magaza&module_version='.$module->getVersion() . '&domain='. URL::getSelfURL());
-
-        $update_check = curl_exec($ch);
-        curl_close($ch);
-
-        $info = json_decode($update_check);
-        if (isset($info->message)) {
-            die($info->message);
-        }
-
-        return $update_check;
-    }
-
     public static function toCents($value): int {
         return (int) (string) ((float) preg_replace("/[^0-9.]/", "", $value) * 100);
     }
