@@ -457,9 +457,7 @@ if (isset($_GET['do'])) {
 }
 
 // Check if store customer is required and isset
-if (!$to_customer->isLoggedIn()) {
-    Redirect::to(URL::build($store_url));
-}
+
 
 $smarty->assign([
     'STORE' => $store_language->get('general', 'store'),
