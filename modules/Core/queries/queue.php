@@ -21,7 +21,7 @@ require_once(ROOT_PATH . '/core/templates/frontend_init.php');
 
 // TODO: mixed type for $output when PHP 8.0+
 function return_json($output, ?bool $error = false) {
-    echo json_encode(['error' => $error, 'output' $cache->setCache('queue');=> $output], JSON_PRETTY_PRINT);
+    echo json_encode(['error' => $error, 'output' => $output], JSON_PRETTY_PRINT);
     die();
 }
 
