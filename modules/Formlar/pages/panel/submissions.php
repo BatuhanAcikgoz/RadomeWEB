@@ -454,6 +454,7 @@ if (!isset($_GET['view'])) {
                 $errors[] = $language->get('general', 'invalid_token');
             }
         }
+        }
 
         // Get comments
         $comments = DB::getInstance()->get('forms_comments', ['form_id', '=', $submission->data()->id])->results();
