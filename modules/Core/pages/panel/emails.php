@@ -198,7 +198,7 @@ if (isset($_GET['action'])) {
         'MASS_MESSAGE' => $language->get('admin', 'mass_message'),
         'MASS_MESSAGE_LINK' => URL::build('/panel/toplu_mesaj'),
         'EDIT_EMAIL_MESSAGES' => $language->get('admin', 'edit_email_messages'),
-       e 'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/email/', 'action=edit_messages'),
+       'EDIT_EMAIL_MESSAGES_LINK' => URL::build('/panel/email/', 'action=edit_messages'),
         'SEND_TEST_EMAIL' => $language->get('admin', 'send_test_email'),
         'SEND_TEST_EMAIL_LINK' => URL::build('/panel/email/', 'action=test'),
         'EMAIL_ERRORS' => $language->get('admin', 'email_errors'),
