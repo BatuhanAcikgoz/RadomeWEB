@@ -1,124 +1,123 @@
+// @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&dn=expat.txt Expat/MIT
 if (!('Notification' in window)) {
 	window.Notification = null;
 }
 
 if (loggedIn == 1) {
 
+	let countPms = 0;
+	let countAlerts = 0;
 
-	if ($(".pms").length || $(".alerts").length) {
-		$(document).ready(function () {
-			if (Notification) {
-				if (Notification.permission !== "granted")
-					Notification.requestPermission();
+	function updateAlerts(data) {
+		if (data.value > 0) {
+			$("#button-alerts").removeClass('default').addClass('red');
+			let alerts_list = '';
+			for (const alert of data.alerts) {
+				alerts_list += '<a class="item" href="' + URLBuild('kullanici/uyarilar/?view=' + alert.id) + '">' + alert.content_short + '</a>';
 			}
+			$('#list-alerts').html(alerts_list);
+		} else {
+			$("#button-alerts").removeClass('red').addClass('default');
+			$('#list-alerts').html('<a class="item">' + noAlerts + '</a>');
+		}
 
-			window.setInterval(function () {
-				$.getJSON(URLBuild('sorgu/pms'), function (data) {
-					if (data.value > 0 && $('.pms').is(':empty')) {
-						$(".pms").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
+		countAlerts = data.value;
+	}
 
-						if (data.value !== 1) {
-							var x_messages = newMessagesX;
-						}
+	function notifyAlerts(data, canNotify) {
+		if (data.value > 0) {
+			const message = data.value == 1 ? newAlert1 : newAlertsX.replace("{{count}}", data.value);
+			$('body').toast({
+				showIcon: 'exclamation move-right',
+				message: message,
+				showProgress: 'top',
+				displayTime: 5000,
+				position: 'bottom left',
+				onClick: () => redirect(URLBuild('user/alerts')),
+			});
 
-						var pm_dropdown = $(".pm_dropdown");
-
-						var new_pm_dropdown = '';
-
-						for (i in data.pms) {
-							new_pm_dropdown += '<a class="dropdown-item alert-msg-list" href="' + URLBuild('user/messaging?action=view&amp;message=' + data.pms[i].id) + '">' + data.pms[i].title + '</a>';
-						}
-
-						pm_dropdown.html(new_pm_dropdown);
-
-						pm_dropdown.removeClass('dropdown-item');
-
-						if (Notification.permission !== "granted")
-							Notification.requestPermission();
-						else {
-							if (data.value == 1) {
-								var notification = new Notification(siteName, {
-									body: newMessage1,
-								});
-							} else {
-								var notification = new Notification(siteName, {
-									body: x_messages.replace("{{count}}", data.value),
-								});
-							}
-
-							notification.onclick = function () {
-								window.location.replace(URLBuild('kullanici/mesajlasma'));
-							};
-
-						}
-					}
+			if (canNotify) {
+				const notification = new Notification(siteName, {
+					body: message,
+					icon: logoImage !== null ? logoImage : undefined,
 				});
+				notification.onclick = () => window.open(URLBuild('kullanici/uyarilar', true));
+			}
+			countAlerts = data.value;
+		}
+	}
 
-				$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
-					if (data.value > 0 && $('.alerts').is(':empty')) {
-						$(".alerts").html(' <span class="badge badge-danger"><i class="fa fa-exclamation-circle custom-nav-exclaim"></i></span>');
+	function updatePMs(data) {
+		if (data.value > 0) {
+			$("#button-pms").removeClass('default').addClass("red");
+			let pms_list = '';
+			for (const pm of data.pms) {
+				pms_list += '<a class="item" href="' + URLBuild('kullanici/mesajlasma/?action=view&amp;message=' + pm.id) + '">' + pm.title + '</a>';
+			}
+			$('#list-pms').html(pms_list);
+		} else {
+			$("#button-pms").removeClass('red').addClass('default');
+			$('#list-pms').html('<a class="item">' + noMessages + '</a>');
+		}
 
-						if (data.value !== 1) {
-							var x_alerts = newAlertsX;
-						}
+		countPms = data.value;
+	}
 
-						var alert_dropdown = $(".alert_dropdown");
+	function notifyPMs(data, canNotify) {
+		if (data.value > 0) {
+			const message = data.value == 1 ? newMessage1 : newMessagesX.replace("{{count}}", data.value);
+			$('body').toast({
+				showIcon: 'comments move-right',
+				message: message,
+				showProgress: 'top',
+				displayTime: 5000,
+				position: 'bottom left',
+				onClick: () => redirect(URLBuild('user/messaging')),
+			});
 
-						var new_alert_dropdown = '';
-
-						for (i in data.alerts) {
-							new_alert_dropdown += '<a class="dropdown-item" href="' + URLBuild('kullanici/uyarilar?view=' + data.alerts[i].id) + '">' + data.alerts[i].content_short + '</a>';
-						}
-
-						alert_dropdown.html(new_alert_dropdown);
-
-						alert_dropdown.removeClass('dropdown-item');
-
-						if (Notification.permission !== "granted")
-							Notification.requestPermission();
-						else {
-							if (data.value == 1) {
-								var notification = new Notification(siteName, {
-									body: newAlert1,
-								});
-							} else {
-								var notification = new Notification(siteName, {
-									body: x_alerts.replace("{{count}}", data.value),
-								});
-							}
-
-							notification.onclick = function () {
-								window.location.replace(URLBuild('kullanici/uyarilar'));
-							};
-
-						}
-					}
+			if (canNotify) {
+				const notification = new Notification(siteName, {
+					body: message,
+					icon: logoImage !== null ? logoImage : undefined,
 				});
-			}, 20000);
+				notification.onclick = () => window.open(URLBuild('user/messaging', true));
+			}
+			countPms = data.value;
+		}
+	}
+
+	$(document).ready(function () {
+		const canNotify = window.isSecureContext && Notification.permission === "granted";
+		if (!canNotify) {
+			Notification.requestPermission();
+		}
+
+		$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
+			updateAlerts(data);
 		});
 
-		$('.alert-dropdown, .user-dropdown, .pm-dropdown').hover(
-			function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(25).fadeIn();
-			},
-			function () {
-				$(this).find('.dropdown-menu').stop(true, true).delay(25).fadeOut();
-			}
-		);
+		$.getJSON(URLBuild('sorgu/pms'), function (data) {
+			updatePMs(data);
+		});
 
-		$('.alert-dropdown-menu, .user-dropdown-menu, .pm-dropdown-menu').hover(
-			function () {
-				$(this).stop(true, true);
-			},
-			function () {
-				$(this).stop(true, true).delay(25).fadeOut();
-			}
-		);
+		window.setInterval(function () {
+			$.getJSON(URLBuild('sorgu/uyarilar'), function (data) {
+				if (countAlerts < data.value) {
+					notifyAlerts(data, canNotify);
+				}
 
-	}
+				updateAlerts(data);
+			});
 
-	if ($('div.show-punishment').length) {
-		$('.show-punishment').modal('show');
-	}
+			$.getJSON(URLBuild('sorgu/pms'), function (data) {
+				if (countPms < data.value) {
+					notifyPMs(data, canNotify);
+				}
+
+				updatePMs(data);
+			});
+		}, 10000);
+	});
 
 }
+// @license-end
