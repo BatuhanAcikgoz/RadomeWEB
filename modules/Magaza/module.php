@@ -46,7 +46,7 @@ class Magaza_Module extends Module {
         $pages->add('Magaza', '/panel/magaza/abonelikler', 'pages/panel/subscriptions.php');
         $pages->add('Magaza', '/panel/magaza/baglantilar', 'pages/panel/connections.php');
         $pages->add('Magaza', '/panel/magaza/alanlar', 'pages/panel/fields.php');
-        $pages->add('Magaza', '/panel/magaza/kuponlar', 'pages/panel/sales.php');
+        $pages->add('Magaza', '/panel/magaza/indirimler', 'pages/panel/sales.php');
         $pages->add('Magaza', '/panel/magaza/kuponlar', 'pages/panel/coupons.php');
         $pages->add('Magaza', '/panel/kullanicilar/magaza', 'pages/panel/users_store.php');
         $pages->add('Magaza', '/sorgu/odemeler', 'queries/payments.php');
@@ -376,7 +376,7 @@ class Magaza_Module extends Module {
                     } else
                         $icon = $cache->retrieve('store_sales_icon');
 
-                    $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/magaza/kuponlar'), 'top', null, ($order + 0.8), $icon);
+                    $navs[2]->add('store_sales', $this->_store_language->get('admin', 'sales'), URL::build('/panel/magaza/indirimler'), 'top', null, ($order + 0.8), $icon);
                 }
 
                 if ($user->hasPermission('staffcp.store.coupons')) {

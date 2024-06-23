@@ -33,8 +33,8 @@ if (!isset($_GET['action'])) {
             $sales_list[] = [
                 'name' => Output::getClean($sale->name),
                 'active' => date('U') > $sale->start_date && $sale->expire_date > date('U'),
-                'edit_link' => URL::build('/panel/magaza/kuponlar/', 'action=edit&id=' . $sale->id),
-                'delete_link' => URL::build('/panel/magaza/kuponlar/', 'action=delete&id=' . $sale->id)
+                'edit_link' => URL::build('/panel/magaza/indirimler/', 'action=edit&id=' . $sale->id),
+                'delete_link' => URL::build('/panel/magaza/indirimler/', 'action=delete&id=' . $sale->id)
             ];
         }
 
@@ -51,7 +51,7 @@ if (!isset($_GET['action'])) {
 
     $smarty->assign([
         'NEW_SALE' => $store_language->get('admin', 'new_sale'),
-        'NEW_SALE_LINK' => URL::build('/panel/magaza/kuponlar/', 'action=new'),
+        'NEW_SALE_LINK' => URL::build('/panel/magaza/indirimler/', 'action=new'),
         'NO_SALES' => $store_language->get('admin', 'no_sales'),
     ]);
 
@@ -108,7 +108,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('sales_success', $store_language->get('admin', 'sale_created_successfully'));
-                            Redirect::to(URL::build('/panel/magaza/kuponlar/'));
+                            Redirect::to(URL::build('/panel/magaza/indirimler/'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -134,7 +134,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'SALE_TITLE' => $store_language->get('admin', 'creating_sale'),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/magaza/kuponlar/'),
+                'BACK_LINK' => URL::build('/panel/magaza/indirimler/'),
                 'PRODUCTS_LIST' => $products_list,
                 'NAME' => $store_language->get('admin', 'name'),
                 'NAME_VALUE' => ((isset($_POST['name']) && $_POST['name']) ? Output::getClean(Input::get('name')) : ''),
@@ -156,12 +156,12 @@ if (!isset($_GET['action'])) {
         break;
         case 'edit';
             if (!is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/magaza/kuponlar/'));
+                Redirect::to(URL::build('/panel/magaza/indirimler/'));
             }
 
             $sale = DB::getInstance()->get('store_sales', ['id', '=', $_GET['id']]);
             if (!$sale->count()) {
-                Redirect::to(URL::build('/panel/magaza/kuponlar/'));
+                Redirect::to(URL::build('/panel/magaza/indirimler/'));
             }
             $sale = $sale->first();
 
@@ -214,7 +214,7 @@ if (!isset($_GET['action'])) {
                             ]);
 
                             Session::flash('sales_success', $store_language->get('admin', 'sale_updated_successfully'));
-                            Redirect::to(URL::build('/panel/magaza/kuponlar/'));
+                            Redirect::to(URL::build('/panel/magaza/indirimler/'));
                         } catch (Exception $e) {
                             $errors[] = $e->getMessage();
                         }
@@ -241,7 +241,7 @@ if (!isset($_GET['action'])) {
             $smarty->assign([
                 'SALE_TITLE' => $store_language->get('admin', 'editing_sale_x', ['sale' => Output::getClean($sale->name)]),
                 'BACK' => $language->get('general', 'back'),
-                'BACK_LINK' => URL::build('/panel/magaza/kuponlar/'),
+                'BACK_LINK' => URL::build('/panel/magaza/indirimler/'),
                 'PRODUCTS_LIST' => $products_list,
                 'NAME' => $store_language->get('admin', 'name'),
                 'NAME_VALUE' => Output::getClean($sale->name),
@@ -264,7 +264,7 @@ if (!isset($_GET['action'])) {
         case 'delete';
             // Delete sale
             if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-                Redirect::to(URL::build('/panel/magaza/kuponlar/'));
+                Redirect::to(URL::build('/panel/magaza/indirimler/'));
             }
 
             if (Token::check()) {
