@@ -193,8 +193,6 @@
                                                 </option>
                                             </select>
                                         </div>
-                                
-                                </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="token" value="{$TOKEN}">
@@ -240,6 +238,8 @@
             </div>
         </div>
 
+        </div>
+    </div>
     {include file='scripts.tpl'}
 
     <script type="text/javascript">
