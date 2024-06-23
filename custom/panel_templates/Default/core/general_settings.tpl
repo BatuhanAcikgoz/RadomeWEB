@@ -132,43 +132,41 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <div class="row">
-                                <div class="col-md-6">
-                                            <label for="inputPrivateProfile">{$PRIVATE_PROFILES}</label>
-                                            <select name="privateProfile" class="form-control" id="inputPrivateProfile">
-                                                <option value="1" {if $PRIVATE_PROFILES_VALUE} selected{/if}>{$ENABLED}
-                                                </option>
-                                                <option value="0" {if !$PRIVATE_PROFILES_VALUE} selected{/if}>
-                                                    {$DISABLED}</option>
-                                            </select>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                                    <label for="inputPrivateProfile">{$PRIVATE_PROFILES}</label>
+                                                    <select name="privateProfile" class="form-control" id="inputPrivateProfile">
+                                                        <option value="1" {if $PRIVATE_PROFILES_VALUE} selected{/if}>{$ENABLED}
+                                                        </option>
+                                                        <option value="0" {if !$PRIVATE_PROFILES_VALUE} selected{/if}>
+                                                            {$DISABLED}</option>
+                                                    </select>
+                                                </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
-                                            <span class="badge badge-info">
-                                                <i class="fas fa-question-circle"
-                                                   data-container="body" data-toggle="popover" data-placement="top"
-                                                   title="{$INFO}" data-content='{$EMOJI_STYLE_HELP}'></i>
-                                            </span>
-                                            <select name="emoji_style" class="form-control" id="inputEmojiStyle">
-                                                <option value="native" {if $EMOJI_STYLE_VALUE eq "native" }selected{/if}>
-                                                    {$NATIVE}
-                                                </option>
-                                                <option value="twemoji" {if $EMOJI_STYLE_VALUE eq "twemoji" }selected{/if}>
-                                                    {$TWEMOJI}
-                                                </option>
-                                                <option value="joypixels" {if $EMOJI_STYLE_VALUE eq "joypixels" }selected{/if}>
-                                                    {$JOYPIXELS}
-                                                </option>
-                                            </select>
+                                        <div class="col-md-6">
+                                                <label for="inputEmojiStyle">{$EMOJI_STYLE}</label>
+                                                <span class="badge badge-info">
+                                                    <i class="fas fa-question-circle"
+                                                       data-container="body" data-toggle="popover" data-placement="top"
+                                                       title="{$INFO}" data-content='{$EMOJI_STYLE_HELP}'></i>
+                                                </span>
+                                                <select name="emoji_style" class="form-control" id="inputEmojiStyle">
+                                                    <option value="native" {if $EMOJI_STYLE_VALUE eq "native" }selected{/if}>
+                                                        {$NATIVE}
+                                                    </option>
+                                                    <option value="twemoji" {if $EMOJI_STYLE_VALUE eq "twemoji" }selected{/if}>
+                                                        {$TWEMOJI}
+                                                    </option>
+                                                    <option value="joypixels" {if $EMOJI_STYLE_VALUE eq "joypixels" }selected{/if}>
+                                                        {$JOYPIXELS}
+                                                    </option>
+                                                </select>
+                                            </div>
                                         </div>
-                                </div>
-                                </div>
                                 </div>
                                 <div class="form-group">
-                                <div class="row">
-
-                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <label for="inputAutoLanguage">{$ENABLE_AUTO_LANGUAGE}</label>
                                             <span class="badge badge-info"><i class="fas fa-question-circle"
                                                                               data-container="body" data-toggle="popover" data-placement="top"
@@ -193,11 +191,11 @@
                                                 </option>
                                             </select>
                                         </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="token" value="{$TOKEN}">
-                                    <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
-                                </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="token" value="{$TOKEN}">
+                                        <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
+                                    </div>
                             </form>
 
                         </div>
