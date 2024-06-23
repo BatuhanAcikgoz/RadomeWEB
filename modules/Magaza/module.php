@@ -52,7 +52,7 @@ class Magaza_Module extends Module {
         $pages->add('Magaza', '/sorgu/odemeler', 'queries/payments.php');
         $pages->add('Magaza', '/sorgu/redeem_coupon', 'queries/redeem_coupon.php');
 
-        $pages->add('Magaza', '/kullanici/magaza', 'pages/kullanici/magaza.php');
+        $pages->add('Magaza', '/kullanici/magaza', 'pages/user/store.php');
 
         EventHandler::registerEvent(PaymentPendingEvent::class);
         EventHandler::registerEvent(PaymentCompletedEvent::class);
