@@ -1,9 +1,9 @@
 <?php
 /*
- *  Made by Partydragen
+ *  Made by Reeignn
  *  https://github.com/partydragen/Radome-Formlar
  *  https://partydragen.com/
- *  RadomeWEB version 2.0.1
+ *  RadomeWEB version 3.0.0
  *
  *  License: MIT
  */
@@ -17,7 +17,7 @@ class Submission {
     // Constructor, connect to database
     public function __construct(?string $value = null, ?string $field = 'id', $query_data = null) {
         $this->_db = DB::getInstance();
-        
+
         if (!$query_data && $value) {
             $data = $this->_db->get('forms_replies', [$field, '=', $value]);
             if ($data->count()) {
@@ -41,7 +41,7 @@ class Submission {
     /**
      * Get the submission data.
      *
-     * @return object This submission data.
+     * @return object|null This submission data.
      */
     public function data(): ?object {
         return $this->_data;
@@ -119,7 +119,8 @@ class Submission {
 
             $query = 'INSERT INTO rw_forms_replies_fields (submission_id, field_id, value) VALUES ';
             $query .= implode('', $inserts);
-            DB::getInstance()->query(rtrim($query, ','), $insert_values);        } catch (Exception $e) {
+            DB::getInstance()->query(rtrim($query, ','), $insert_values);
+        } catch (Exception $e) {
             $this->addError($e->getMessage());
             DB::getInstance()->delete('forms_replies', ['id', '=', $submission_id]);
             return false;
@@ -156,11 +157,13 @@ class Submission {
      * Update a submission data in the database.
      *
      * @param array $fields Column names and values to update.
+     * @throws Exception
      */
     public function update(array $fields = []): void {
         if (!$this->_db->update('forms_replies', $this->data()->id, $fields)) {
             throw new Exception('There was a problem updating submission');
         }
+
         foreach ($fields as $key => $value) {
             $this->_data->$key = $value;
         }
@@ -202,11 +205,11 @@ class Submission {
         return $answer_array;
     }
 
-    /*
-    * Get current submission status.
-    *
-    * @return Status Get current submission status.
-    */
+    /**
+     * Get current submission status.
+     *
+     * @return Status Get current submission status.
+     */
     public function getStatus(): Status {
         return new Status($this->data()->status_id);
     }
@@ -229,7 +232,7 @@ class Submission {
         return $this->_errors;
     }
 
-    /**
+    /*
      * Delete this submission.
      */
     public function delete(): void {
