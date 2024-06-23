@@ -346,23 +346,13 @@ if (isset($_GET['customer'])) {
                 $validation = Validate::check($_POST, $to_validation);
                 if ($validation->passed()) {
 
-                    if ($store->isPlayerSystemEnabled()) {
-                        // Attempt to load recipient
-                        $recipient = new Customer();
-                        if (!$recipient->login(Output::getClean(Input::get('username')), false)) {
-                            $errors[] = $language->get('user', 'invalid_mcname');
-                        }
-
-                        $target_user = new User(Output::getClean(Input::get('username')), 'username');
-                    } else {
-                        // User required
-                        $target_user = new User(Output::getClean(Input::get('username')), 'username');
-                        if (!$target_user->exists()) {
-                            $errors[] = $store_language->get('admin', 'user_dont_exist');
-                        }
-
-                        $recipient = new Customer($target_user);
+                    // User required
+                    $target_user = new User(Output::getClean(Input::get('username')), 'username');
+                    if (!$target_user->exists()) {
+                        $errors[] = $store_language->get('admin', 'user_dont_exist');
                     }
+
+                    $recipient = new Customer($target_user);
 
                     $items = new ItemList();
                     $selected_products = $_POST['products'];
