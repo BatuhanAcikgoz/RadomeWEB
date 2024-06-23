@@ -209,11 +209,12 @@
 
                 <!-- End Main Content -->
             </div>
-
-            {include file='footer.tpl'}
-
             <!-- End Content Wrapper -->
         </div>
+
+        {include file='footer.tpl'}
+
+
 
         <!-- User language modal -->
         <div class="modal fade" id="languageModal" tabindex="-1" role="dialog">
