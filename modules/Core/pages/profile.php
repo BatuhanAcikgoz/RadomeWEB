@@ -1,8 +1,8 @@
 <?php
 /*
  *	Made by Samerton
- *  https://github.com/RadomeWEB/Radome/
- *  RadomeWEB version 2.0.0-pr13
+ *  https://github.com/NamelessMC/Nameless/
+ *  NamelessMC version 2.1.0
  *
  *  License: MIT
  *
@@ -19,7 +19,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // User specified
     $md_profile = $profile[count($profile) - 1];
 
-    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profil'])->results();
+    $page_metadata = DB::getInstance()->get('page_descriptions', ['page', '/profile'])->results();
     if (count($page_metadata)) {
         define('PAGE_DESCRIPTION', str_replace(['{site}', '{profile}'], [Output::getClean(SITE_NAME), Output::getClean($md_profile)], $page_metadata[0]->description));
         define('PAGE_KEYWORDS', $page_metadata[0]->tags);
@@ -39,11 +39,11 @@ $template->assets()->include([
     AssetTree::TINYMCE_SPOILER,
 ]);
 
-$template->addCSSStyle(
-    '.thumbnails li img{
+$template->addCSSStyle('
+    .thumbnails li img {
       width: 200px;
-    }'
-);
+    }
+');
 
 if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $profile[count($profile) - 2] == 'profile') && !isset($_GET['error'])) {
     // User specified
@@ -170,7 +170,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                                 Validate::REQUIRED => true,
                                 Validate::RATE_LIMIT => 3,
                             ]
-                            ])
+                        ])
                             ->message($language->get('user', 'invalid_wall_post'))
                             ->messages([
                                 'post' => [
@@ -379,8 +379,6 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     if (isset($_GET['action']) && $user->isLoggedIn()) {
         switch ($_GET['action']) {
-
-
             case 'reset_banner':
                 if (Token::check($_POST['token'])) {
                     if ($user->hasPermission('modcp.profile_banner_reset')) {
@@ -431,7 +429,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     // Set Can view
-    if ($profile_user->isPrivateProfile() && $user->canPrivateProfile()) {
+    if ($profile_user->isPrivateProfile() && !$user->canBypassPrivateProfile()) {
         $smarty->assign([
             'PRIVATE_PROFILE' => $language->get('user', 'private_profile_page'),
             'CAN_VIEW' => false
@@ -549,6 +547,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     }
 
     $smarty->assign([
+        'NICKNAME' => $profile_user->getDisplayname(true),
         'USERNAME' => $profile_user->getDisplayname(),
         'GROUPS' => (isset($query) ? $profile_user->getAllGroupHtml() : [Output::getPurified($group)]),
         'USERNAME_COLOUR' => $profile_user->getGroupStyle(),
@@ -559,7 +558,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
         'POST_ON_WALL' => $language->get('user', 'post_on_wall', ['user' => Output::getClean($profile_user->getDisplayname())]),
         'FEED' => $language->get('user', 'feed'),
         'ABOUT' => $language->get('user', 'about'),
-        'REACTIONS_TITLE' => $language->get('user', 'likes'),
+        'LIKE' => $language->get('user', 'like'),
         'CLOSE' => $language->get('general', 'close'),
         'REPLIES_TITLE' => $language->get('user', 'replies'),
         'NO_REPLIES' => $language->get('user', 'no_replies_yet'),
@@ -577,9 +576,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
     // Wall posts
     $wall_posts = [];
     $wall_posts_query = DB::getInstance()->orderWhere('user_profile_wall_posts', 'user_id = ' . $query->id, 'time', 'DESC')->results();
+
     $reactions_by_user = [];
     $all_reactions = Reaction::find(true, 'enabled');
-
     if (count($wall_posts_query)) {
         // Pagination
         $paginator = new Paginator(
@@ -594,9 +593,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         // Display the correct number of posts
         foreach ($results->data as $nValue) {
-        // Get reactions
+            // Get reactions
             $post_reactions = [];
-
             $reactions_query = DB::getInstance()->get('user_profile_wall_posts_reactions', ['post_id', $nValue->id])->results();
             if (count($reactions_query)) {
                 $reactions['count'] = count($reactions_query) === 1
@@ -623,6 +621,7 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                     }
                 }
             }
+
             // Sort reactions by their order
             usort($post_reactions, static function ($a, $b) {
                 return $a['order'] - $b['order'];
@@ -639,13 +638,16 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
                 }
 
                 foreach ($replies_query as $reply) {
-                    $target_user = new User($reply->author_id);
+                    $reply_user = new User($reply->author_id);
+                    $content = EventHandler::executeEvent('renderProfilePost', ['content' => $reply->content])['content'];
+
                     $replies['replies'][] = [
                         'user_id' => Output::getClean($reply->author_id),
-                        'username' => $target_user->getDisplayname(true),
-                        'style' => $target_user->getGroupStyle(),
-                        'profile' => $target_user->getProfileURL(),
-                        'avatar' => $target_user->getAvatar(500),
+                        'username' => $reply_user->getDisplayname(true),
+                        'nickname' => $reply_user->getDisplayname(),
+                        'style' => $reply_user->getGroupStyle(),
+                        'profile' => $reply_user->getProfileURL(),
+                        'avatar' => $reply_user->getAvatar(500),
                         'time_friendly' => $timeago->inWords($reply->time, $language),
                         'time_full' => date(DATE_FORMAT, $reply->time),
                         'content' => $content,
@@ -656,10 +658,9 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
             } else {
                 $replies['count'] = $language->get('user', 'x_replies', ['count' => 0]);
             }
-            $post_user = new User($nValue->author_id);
 
+            $post_user = new User($nValue->author_id);
             $content = EventHandler::executeEvent('renderProfilePost', ['content' => $nValue->content])['content'];
-            $target_user = new User($post_user[0]->id);
             $wall_posts[] = [
                 'id' => $nValue->id,
                 'user_id' => Output::getClean($post_user->data()->id),
@@ -812,8 +813,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
     $template->onPageLoad();
 
-    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
-    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
+    $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left', $profile_user));
+    $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right', $profile_user));
 
     require(ROOT_PATH . '/core/templates/navbar.php');
     require(ROOT_PATH . '/core/templates/footer.php');
@@ -833,8 +834,8 @@ if (count($profile) >= 3 && ($profile[count($profile) - 1] != 'profile' || $prof
 
         $template->onPageLoad();
 
-        $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left', $profile_user));
-        $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right', $profile_user));
+        $smarty->assign('WIDGETS_LEFT', $widgets->getWidgets('left'));
+        $smarty->assign('WIDGETS_RIGHT', $widgets->getWidgets('right'));
 
         require(ROOT_PATH . '/core/templates/navbar.php');
         require(ROOT_PATH . '/core/templates/footer.php');
