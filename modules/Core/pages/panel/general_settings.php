@@ -174,7 +174,7 @@ if (Input::exists()) {
 
             // Redirect in case URL type has changed
             if (!isset($errors)) {
-                $redirect = URL::build('/panel/genel_ayarlar', '', 'friendly');
+                $redirect = URL::build('/panel/genel_ayarlar', '');
                 Redirect::to($redirect);
             }
         } else {

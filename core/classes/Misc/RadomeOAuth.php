@@ -91,7 +91,7 @@ class RadomeOAuth extends Instanceable {
      */
     public function getProviderInstance(string $provider): AbstractProvider {
         [$clientId, $clientSecret] = $this->getCredentials($provider);
-        $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider), 'friendly');
+        $url = rtrim(URL::getSelfURL(), '/') . URL::build('/oauth', "provider=" . urlencode($provider));
         $options = [
             'clientId' => $clientId,
             'clientSecret' => $clientSecret,
