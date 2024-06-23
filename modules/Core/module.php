@@ -119,7 +119,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/panel/kullanicilar/cezalar', 'pages/panel/users_punishments.php');
         $pages->add('Core', '/panel/kullanicilar/raporlar', 'pages/panel/users_reports.php');
         $pages->add('Core', '/panel/kullanici/sessions', 'pages/panel/users_sessions.php');
-        $pages->add('Core', '/panel/user', 'pages/panel/user.php');
+        $pages->add('Core', '/panel/kullanici', 'pages/panel/user.php');
 
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
