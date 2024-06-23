@@ -239,9 +239,6 @@
                 </div>
             </div>
         </div>
-    </div>
-        <!-- End Wrapper -->
-    </div>
 
     {include file='scripts.tpl'}
 
