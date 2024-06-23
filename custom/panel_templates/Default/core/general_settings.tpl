@@ -192,6 +192,8 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <!-- Spacing -->
+                                    <div style="height:1rem;"></div>
                                     <div class="form-group">
                                         <input type="hidden" name="token" value="{$TOKEN}">
                                         <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
@@ -201,8 +203,7 @@
                         </div>
                     </div>
 
-                    <!-- Spacing -->
-                    <div style="height:1rem;"></div>
+
 
                     <!-- End Page Content -->
                 </div>
