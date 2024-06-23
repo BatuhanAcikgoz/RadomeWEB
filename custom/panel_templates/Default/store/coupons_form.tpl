@@ -112,7 +112,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="hidden" name="token" value="{$TOKEN}">
-                                <span data-toggle="popover" data-title="Early access" data-content="This feature is currently for patreon supporters, it will be available for everyone in the future with means this wont function for you"><input type="submit" class="btn btn-primary" value="{$SUBMIT}" disabled></span>
+                                <input type="submit" class="btn btn-primary" value="{$SUBMIT}">
                             </div>
                         </form>
 
