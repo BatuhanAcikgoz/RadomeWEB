@@ -131,6 +131,7 @@
                                             </div>
                                     </div>
                                 </div>
+                                    <div style="height:1rem;"></div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
