@@ -238,8 +238,8 @@
             </div>
         </div>
 
-        </div>
     </div>
+
     {include file='scripts.tpl'}
 
     <script type="text/javascript">
