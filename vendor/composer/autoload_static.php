@@ -445,6 +445,7 @@ class ComposerStaticInit534487763fa08e65d1d12a5fc08f45c3
         'RadomeWEBGroupSyncInjector' => __DIR__ . '/../..' . '/modules/Core/classes/Group_Sync/RadomeWEBGroupSyncInjector.php',
         'RadomeOAuth' => __DIR__ . '/../..' . '/core/classes/Misc/RadomeOAuth.php',
         'ReactionContext' => __DIR__ . '/../..' . '/core/classes/Misc/ReactionContext.php',
+        'NotificationTypeNotFoundException' => __DIR__ . '/../..' . '/modules/Core/classes/Exceptions/NotificationTypeNotFoundException.php',
         'Navigation' => __DIR__ . '/../..' . '/core/classes/Core/Navigation.php',
         'NoAuthEndpoint' => __DIR__ . '/../..' . '/core/classes/Endpoints/NoAuthEndpoint.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
