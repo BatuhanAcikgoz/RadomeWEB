@@ -572,7 +572,7 @@ class Magaza_Module extends Module {
             'settings' => [
                 'allow_guests' => Settings::get('allow_guests', '0', 'Magaza'),
                 'store_path' => Settings::get('store_path', '/magaza', 'Magaza'),
-                'currency' => Settings::get('currency', 'USD', 'Magaza'),
+                'currency' => Settings::get('currency', 'TL', 'Magaza'),
                 'currency_symbol' => Settings::get('currency_symbol', '$', 'Magaza'),
                 'username_validation_method' => Settings::get('username_validation_method', 'radome', 'Magaza'),
             ],
@@ -708,7 +708,7 @@ class Magaza_Module extends Module {
 
         if (!$this->_db->get('settings', ['module', '=', 'Magaza'])->count()) {
             Settings::set('checkout_complete_content', 'Thanks for your payment, It can take up to 15 minutes for your payment to be processed', 'Magaza');
-            Settings::set('currency', 'USD', 'Magaza');
+            Settings::set('currency', 'TL', 'Magaza');
             Settings::set('currency_symbol', '$', 'Magaza');
             Settings::set('allow_guests', 0, 'Magaza');
         }

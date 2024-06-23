@@ -133,7 +133,7 @@ class Magaza {
     }
 
     public static function getCurrency(): string {
-        return Settings::get('currency', 'USD', 'Magaza');
+        return Settings::get('currency', 'TL', 'Magaza');
     }
 
     public static function getCurrencySymbol(): string {

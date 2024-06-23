@@ -22,7 +22,7 @@ $page_title = $store_language->get('general', 'store');
 require_once(ROOT_PATH . '/core/templates/backend_init.php');
 
 // Supported currency
-$currency_list = ['USD', 'EUR', 'GBP', 'NOK', 'SEK', 'PLN', 'DKK', 'CAD', 'BRL', 'AUD'];
+$currency_list = ['TL'];
 
 if (isset($_POST) && !empty($_POST)) {
     $errors = [];
@@ -36,10 +36,6 @@ if (isset($_POST) && !empty($_POST)) {
             ],
             'checkout_complete_content' => [
                 Validate::MAX => 60000
-            ],
-            'custom_currency' => [
-                Validate::MIN => 3,
-                Validate::MAX => 3,
             ],
         ])->messages([
             'currency_format' => [
@@ -77,8 +73,7 @@ if (isset($_POST) && !empty($_POST)) {
             else
                 $store_path_input = '/store';
 
-            $custom_currency = strtoupper(Input::get('custom_currency'));
-            $currency = empty($custom_currency) ? Input::get('currency') : $custom_currency;
+            $currency = Input::get('currency');
 
             Settings::set('store_path', $store_path_input, 'Magaza');
             Settings::set('allow_guests', $allow_guests, 'Magaza');
@@ -147,7 +142,7 @@ $allow_guests = Settings::get('allow_guests', '0', 'Magaza');
 $checkout_complete_content = Output::getClean(Output::getPurified(Output::getDecoded(Settings::get('checkout_complete_content', '', 'Magaza'))));
 
 // Magaza Path
-$store_path = Settings::get('store_path', '/store', 'Magaza');
+$store_path = Settings::get('store_path', '/magaza', 'Magaza');
 
 // Currency
 $currency = Settings::get('currency', 'USD', 'Magaza');
@@ -184,7 +179,6 @@ $smarty->assign([
     'CURRENCY' => $store_language->get('admin', 'currency'),
     'CURRENCY_LIST' => $currency_list,
     'CURRENCY_VALUE' => Output::getClean($currency),
-    'CUSTOM_CURRENCY_VALUE' => in_array($currency, $currency_list) ? null : $currency,
     'CURRENCY_SYMBOL' => $store_language->get('admin', 'currency_symbol'),
     'CURRENCY_SYMBOL_VALUE' => Output::getClean($currency_symbol),
     'CHECKOUT_COMPLETE_CONTENT' => $store_language->get('admin', 'checkout_complete_content'),
