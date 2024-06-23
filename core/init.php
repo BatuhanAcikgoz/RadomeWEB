@@ -630,7 +630,7 @@ if ($page != 'install') {
         $smarty->assign('LOGGED_IN_USER', [
             'username' => $user->getDisplayname(true),
             'profile' => $user->getProfileURL(),
-            'panel_profile' => URL::build('/panel/user/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
+            'panel_profile' => URL::build('/panel/kullanici/' . urlencode($user->data()->id) . '-' . urlencode($user->data()->username)),
             'username_style' => $user->getGroupStyle(),
             'user_title' => Output::getClean($user->data()->user_title),
             'avatar' => $user->getAvatar(),

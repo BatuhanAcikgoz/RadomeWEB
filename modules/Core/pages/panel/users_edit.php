@@ -351,7 +351,7 @@ $smarty->assign([
     'EDITING_USER' => $language->get('admin', 'editing_user_x', [
         'user' => Output::getClean($user_query->username),
     ]),
-    'BACK_LINK' => URL::build('/panel/user/' . $user_query->id),
+    'BACK_LINK' => URL::build('/panel/kullanici/' . $user_query->id),
     'BACK' => $language->get('general', 'back'),
     'ACTIONS' => $language->get('general', 'actions'),
     'USER_ID' => Output::getClean($user_query->id),

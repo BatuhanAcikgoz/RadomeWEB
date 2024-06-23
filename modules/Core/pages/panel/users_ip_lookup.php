@@ -88,7 +88,7 @@ if (isset($_GET['uid'])) {
                 if (count($username)) {
                     $accounts[] = [
                         'username' => Output::getClean($username[0]->username),
-                        'profile' => URL::build('/panel/user/' . urlencode($username[0]->id . '-' . $username[0]->username)),
+                        'profile' => URL::build('/panel/kullanici/' . urlencode($username[0]->id . '-' . $username[0]->username)),
                         'account_ips' => URL::build('/panel/kullanicilar/ip_sorgu/', 'uid=' . urlencode($account->user_id)),
                         'style' => $user->getGroupStyle()
                     ];

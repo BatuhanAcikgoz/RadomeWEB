@@ -177,7 +177,7 @@ if (isset($_GET['view'])) {
                         'TASK_USERNAME' => $taskUser->getDisplayname(),
                         'TASK_USERNAME_STYLE' => $taskUser->getGroupStyle(),
                         'TASK_AVATAR' => $taskUser->getAvatar(),
-                        'TASK_PROFILE' => URL::build('/panel/user/' . Output::getClean($taskUser->data()->id)),
+                        'TASK_PROFILE' => URL::build('/panel/kullanici/' . Output::getClean($taskUser->data()->id)),
                         'PROFILE' => $language->get('general', 'profile'),
                     ]);
                 }

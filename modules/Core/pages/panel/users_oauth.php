@@ -72,7 +72,7 @@ $smarty->assign([
         'user' => Text::bold(Output::getClean($user_query->username))
     ]),
     'USER_ID' => $user_query->id,
-    'BACK_LINK' => URL::build('/panel/user/' . urlencode($user_query->id)),
+    'BACK_LINK' => URL::build('/panel/kullanici/' . urlencode($user_query->id)),
     'BACK' => $language->get('general', 'back'),
     'ARE_YOU_SURE' => $language->get('general', 'are_you_sure'),
     'ARE_YOU_SURE_MESSAGE' => $language->get('admin', 'unlink_account_confirm'),

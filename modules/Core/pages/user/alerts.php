@@ -61,7 +61,7 @@ if (!isset($_GET['view'])) {
                 'content_rich' => Output::getPurified($alert->content_rich),
                 'date' => date(DATE_FORMAT, $alert->created),
                 'date_nice' => $timeAgo->inWords($alert->created, $language),
-                'view_link' => URL::build('/user/alerts/', 'view=' . $alert->id),
+                'view_link' => URL::build('/kullanici/uyarilar/', 'view=' . $alert->id),
                 'read' => $alert->read,
             ], $results);
         }
@@ -99,7 +99,7 @@ if (!isset($_GET['view'])) {
         } else {
             Session::flash('alerts_error', $language->get('general', 'invalid_token'));
         }
-        Redirect::to(URL::build('/user/alerts'));
+        Redirect::to(URL::build('/kullanici/uyarilar'));
     }
 
 } else {
@@ -120,11 +120,11 @@ if (!isset($_GET['view'])) {
     if (isset($_GET['delete'])) {
         if (Token::check()) {
             DB::getInstance()->delete('alerts', $alert->id);
-            Redirect::to('/user/alerts');
+            Redirect::to('/kullanici/uyarilar');
         }
 
         Session::flash('alerts_error', $language->get('general', 'invalid_token'));
-        Redirect::to(URL::build('/user/alerts', 'view=' . $alert->id));
+        Redirect::to(URL::build('/kullanici/uyarilar', 'view=' . $alert->id));
     }
 
     if (!$alert->read) {
@@ -134,7 +134,7 @@ if (!isset($_GET['view'])) {
     }
 
     if (!$alert->content_rich) {
-        Redirect::to($alert->url && $alert->url !== '#' ? $alert->url : URL::build('/user/alerts'));
+        Redirect::to($alert->url && $alert->url !== '#' ? $alert->url : URL::build('/kullanici/uyarilar'));
     }
 
     if (Session::exists('alerts_error')) {
@@ -152,7 +152,7 @@ if (!isset($_GET['view'])) {
         'USER_CP' => $language->get('user', 'user_cp'),
         'ALERTS' => $language->get('user', 'alerts'),
         'DELETE' => $language->get('general', 'delete'),
-        'DELETE_LINK' => URL::build('/user/alerts/', 'view=' . $alert->id . '&delete'),
+        'DELETE_LINK' => URL::build('/kullanici/uyarilar/', 'view=' . $alert->id . '&delete'),
         'ALERT_TITLE' => Output::getClean($alert->content),
         'ALERT_CONTENT' => $alert->bypass_purify ? $alert->content_rich : Output::getPurified($alert->content_rich),
         'ALERT_DATE' => date(DATE_FORMAT, $alert->created),
@@ -160,7 +160,7 @@ if (!isset($_GET['view'])) {
         'ALERT_READ' => $alert->read,
         'NEW' => $language->get('general', 'new'),
         'BACK' => $language->get('general', 'back'),
-        'BACK_LINK' => URL::build('/user/alerts'),
+        'BACK_LINK' => URL::build('/kullanici/uyarilar'),
     ]);
 
     // Load modules + template

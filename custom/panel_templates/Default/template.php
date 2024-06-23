@@ -369,7 +369,7 @@ if (!class_exists('Default_Panel_Template')) {
                                 });
 
                                 $(\'.dataTables-users tbody\').on(\'click\', \'tr\', function(){
-                                    window.location.href = "' . URL::build('/panel/user/') . '" + usersTable.row(this).data().id;
+                                    window.location.href = "' . URL::build('/panel/kullanici/') . '" + usersTable.row(this).data().id;
                                 });
                             });
                             ');

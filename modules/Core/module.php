@@ -67,7 +67,7 @@ class Core_Module extends Module {
         $pages->add('Core', '/kullanici', 'pages/user/index.php');
         $pages->add('Core', '/kullanici/ayarlar', 'pages/user/settings.php');
         $pages->add('Core', '/kullanici/mesajlasma', 'pages/user/messaging.php');
-        $pages->add('Core', '/kullanici/uyarilar', 'pages/user/alerts.php');
+        $pages->add('Core', '/kullanici/uyarilar', 'pages/users/alerts.php');
         $pages->add('Core', '/kullanici/bildirim_ayarlari', 'pages/user/notification_settings.php');
         $pages->add('Core', '/kullanici/oauth', 'pages/user/oauth.php');
         $pages->add('Core', '/kullanici/placeholderlar', 'pages/user/placeholders.php');

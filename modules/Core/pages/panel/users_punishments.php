@@ -316,7 +316,7 @@ if (isset($_GET['user'])) {
                 'revoked' => $punishment->revoked,
                 'acknowledged' => $punishment->acknowledged,
                 'reason' => Output::getClean($punishment->reason),
-                'issued_by_profile' => URL::build('/panel/user/' . urlencode($punishment->staff . '-' . $issued_by_user->data()->username)),
+                'issued_by_profile' => URL::build('/panel/kullanici/' . urlencode($punishment->staff . '-' . $issued_by_user->data()->username)),
                 'issued_by_style' => $issued_by_user->getGroupStyle(),
                 'issued_by_avatar' => $issued_by_user->getAvatar(),
                 'date_full' => ($punishment->created ? date(DATE_FORMAT, $punishment->created) : date(DATE_FORMAT, strtotime($punishment->infraction_date))),
@@ -349,7 +349,7 @@ if (isset($_GET['user'])) {
 
     $smarty->assign([
         'HAS_AVATAR' => $query->has_avatar,
-        'BACK_LINK' => URL::build('/panel/user/' . urlencode($view_user->data()->id)),
+        'BACK_LINK' => URL::build('/panel/kullanici/' . urlencode($view_user->data()->id)),
         'BACK' => $language->get('general', 'back'),
         'VIEWING_USER' => $language->get('moderator', 'viewing_user_x', ['user' => $view_user->getDisplayname()]),
         'PREVIOUS_PUNISHMENTS' => $language->get('moderator', 'previous_punishments'),
@@ -438,11 +438,11 @@ if (isset($_GET['user'])) {
 
             $smarty_results[] = [
                 'username' => $target_user->getDisplayname(true),
-                'profile' => URL::build('/panel/user/' . urlencode($result->punished . '-' . $target_user->data()->username)),
+                'profile' => URL::build('/panel/kullanici/' . urlencode($result->punished . '-' . $target_user->data()->username)),
                 'style' => $target_user->getGroupStyle(),
                 'avatar' => $target_user->getAvatar(),
                 'staff_username' => $staff_user->getDisplayname(true),
-                'staff_profile' => URL::build('/panel/user/' . urlencode($result->staff . '-' . $staff_user->data()->username)),
+                'staff_profile' => URL::build('/panel/kullanici/' . urlencode($result->staff . '-' . $staff_user->data()->username)),
                 'staff_style' => $staff_user->getGroupStyle(),
                 'staff_avatar' => $staff_user->getAvatar(),
                 'type' => $type,

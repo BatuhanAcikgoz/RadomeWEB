@@ -69,7 +69,7 @@ if (!isset($_GET['action']) || !isset($_GET['integration'])) {
         'YES' => $language->get('general', 'yes'),
         'NO' => $language->get('general', 'no'),
         'UNLINK' => $language->get('admin', 'unlink'),
-        'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
+        'BACK_LINK' => URL::build('/panel/kullanici/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
         'UNLINK_LINK' => URL::build('/panel/kullanicilar/entegrasyonlar/', 'id=' . $view_user->data()->id . '&action=unlink&integration='),
         'USERNAME' => $language->get('user', 'username'),
         'IDENTIFIER' => $language->get('admin', 'identifier'),

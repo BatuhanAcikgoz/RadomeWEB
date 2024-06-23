@@ -54,7 +54,7 @@ class RadomeWEBService extends ServiceBase {
                 DB::getInstance()->insert('alerts', [
                     'user_id' => $user->data()->id,
                     'type' => 'store',
-                    'url' => URL::build('/user/alerts'),
+                    'url' => URL::build('/kullanici/uyarilar'),
                     'content_short' => $alert,
                     'content' => $alert,
                     'created' => date('U')

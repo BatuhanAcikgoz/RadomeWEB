@@ -145,7 +145,7 @@ if (!isset($_GET['view'])) {
                 $target_user = new User($submission->user_id);
                 if ($target_user->exists()) {
                     $user_name = $target_user->getDisplayname();
-                    $user_profile = URL::build('/panel/user/' . Output::getClean($submission->user_id . '-' . $target_user->getDisplayname(true)));
+                    $user_profile = URL::build('/panel/kullanici/' . Output::getClean($submission->user_id . '-' . $target_user->getDisplayname(true)));
                     $user_style = $target_user->getGroupStyle();
                     $user_avatar = $target_user->getAvatar();
                 } else {
@@ -163,7 +163,7 @@ if (!isset($_GET['view'])) {
                 $updated_by_user = new User($submission->updated_by);
                 if ($updated_by_user->exists()) {
                     $updated_by_name = $updated_by_user->getDisplayname();
-                    $updated_by_profile = URL::build('/panel/user/' . Output::getClean($submission->updated_by . '-' . $updated_by_user->getDisplayname(true)));
+                    $updated_by_profile = URL::build('/panel/kullanici/' . Output::getClean($submission->updated_by . '-' . $updated_by_user->getDisplayname(true)));
                     $updated_by_style = $updated_by_user->getGroupStyle();
                     $updated_by_avatar = $updated_by_user->getAvatar();
                 } else {
@@ -462,7 +462,7 @@ if (!isset($_GET['view'])) {
             $comment_user = new User($comment->user_id);
             if ($comment_user->exists()) {
                 $comment_user_name = $comment_user->getDisplayname();
-                $comment_user_profile = URL::build('/panel/user/' . Output::getClean($comment->user_id . '-' . $comment_user->getDisplayname(true)));
+                $comment_user_profile = URL::build('/panel/kullanici/' . Output::getClean($comment->user_id . '-' . $comment_user->getDisplayname(true)));
                 $comment_user_style = $comment_user->getGroupStyle();
                 $comment_user_avatar = $comment_user->getAvatar();
             } else {
@@ -496,7 +496,7 @@ if (!isset($_GET['view'])) {
             $target_user = new User($submission->data()->user_id);
             if ($target_user->exists()) {
                 $user_name = $target_user->getDisplayname();
-                $user_profile = URL::build('/panel/user/' . Output::getClean($submission->data()->user_id . '-' . $target_user->getDisplayname(true)));
+                $user_profile = URL::build('/panel/kullanici/' . Output::getClean($submission->data()->user_id . '-' . $target_user->getDisplayname(true)));
                 $user_style = $target_user->getGroupStyle();
                 $user_avatar = $target_user->getAvatar();
             } else {

@@ -52,7 +52,7 @@ class RecentRegistrationsItem extends CollectionItemBase {
                 foreach ($query as $item) {
                     $target_user = new User($item->id);
                     $data[] = [
-                        'url' => URL::build('/panel/user/' . urlencode($item->id) . '-' . urlencode($item->username)),
+                        'url' => URL::build('/panel/kullanici/' . urlencode($item->id) . '-' . urlencode($item->username)),
                         'username' => $target_user->getDisplayname(true),
                         'style' => $target_user->getGroupStyle(),
                         'avatar' => $target_user->getAvatar(),

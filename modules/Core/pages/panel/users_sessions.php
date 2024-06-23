@@ -84,7 +84,7 @@ $smarty->assign([
     'DEVICE' => $language->get('general', 'device'),
     'ACTIVE' => $language->get('admin', 'active'),
     'LOGIN_METHOD' => $language->get('admin', 'login_method'),
-    'BACK_LINK' => URL::build('/panel/user/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
+    'BACK_LINK' => URL::build('/panel/kullanici/' . Output::getClean($view_user->data()->id . '-' . $view_user->data()->username)),
     'LOGOUT' => $language->get('general', 'log_out'),
     'IP_ADDRESS' => $language->get('admin', 'ip_address'),
     'LAST_SEEN' => $language->get('admin', 'last_seen'),

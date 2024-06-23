@@ -105,7 +105,7 @@ $smarty->assign([
     'USER_MANAGEMENT' => $language->get('admin', 'user_management'),
     'STORE' => $store_language->get('general', 'store'),
     'VIEWING_USER' => $language->get('moderator', 'viewing_user_x', ['user' => $view_user->getDisplayname()]),
-    'BACK_LINK' => URL::build('/panel/user/' . $view_user->data()->id),
+    'BACK_LINK' => URL::build('/panel/kullanici/' . $view_user->data()->id),
     'BACK' => $language->get('general', 'back'),
     'CREDITS' => $store_language->get('general', 'credits'),
     'CREDITS_VALUE' => $customer->getCredits(),
