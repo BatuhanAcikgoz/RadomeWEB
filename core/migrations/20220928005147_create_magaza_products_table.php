@@ -20,7 +20,7 @@ final class CreateMagazaProductsTable extends AbstractMigration
             ->addColumn('global_limit', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('user_limit', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('required_products', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
-            ->addColumn('required_one_product', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
+            ->addColumn('require_one_product', 'smallinteger', ['length' => 1, 'null' => false, 'default' => 0])
             ->addColumn('required_groups', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('required_integrations', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
             ->addColumn('min_player_age', 'string', ['length' => 128, 'null' => true, 'default' => NULL])
