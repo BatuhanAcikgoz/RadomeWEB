@@ -140,11 +140,7 @@ class Submission {
             // Submit submission to another source?
             if ($form->data()->source != 'forms') {
                 $source = Formlar::getInstance()->getSubmissionSource($form->data()->source);
-
-                if (!$source->create($form, $this, $user, $fields_values)) {
-                    $this->delete();
-                    return false;
-                }
+                
             }
 
             return true;
