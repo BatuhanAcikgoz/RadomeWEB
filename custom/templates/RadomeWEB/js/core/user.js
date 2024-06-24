@@ -33,7 +33,7 @@ if (loggedIn == 1) {
 				showProgress: 'top',
 				displayTime: 5000,
 				position: 'bottom left',
-				onClick: () => redirect(URLBuild('user/alerts')),
+				onClick: () => redirect(URLBuild('kullanici/uyarilar')),
 			});
 
 			if (canNotify) {
@@ -72,7 +72,7 @@ if (loggedIn == 1) {
 				showProgress: 'top',
 				displayTime: 5000,
 				position: 'bottom left',
-				onClick: () => redirect(URLBuild('user/messaging')),
+				onClick: () => redirect(URLBuild('kullanici/mesajlasma')),
 			});
 
 			if (canNotify) {
@@ -80,7 +80,7 @@ if (loggedIn == 1) {
 					body: message,
 					icon: logoImage !== null ? logoImage : undefined,
 				});
-				notification.onclick = () => window.open(URLBuild('user/messaging', true));
+				notification.onclick = () => window.open(URLBuild('kullanici/mesajlasma', true));
 			}
 			countPms = data.value;
 		}
