@@ -60,14 +60,9 @@ class Input {
      * @return string Script to render on page
      */
     public static function createTinyEditor(Language $language, string $name, ?string $content = null, bool $mentions = false, bool $admin = false): string {
-        if (
-            (defined('DARK_MODE') && DARK_MODE) ||
-            (Cookie::exists('nmc_panel_theme') && Cookie::get('nmc_panel_theme') === 'dark')
-        ) {
-            $skin = 'oxide-dark';
-        } else {
-            $skin = 'oxide';
-        }
+
+        $skin = 'oxide-dark';
+
 
         $js = '';
 

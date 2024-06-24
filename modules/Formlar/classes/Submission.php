@@ -140,7 +140,7 @@ class Submission {
             // Submit submission to another source?
             if ($form->data()->source != 'forms') {
                 $source = Formlar::getInstance()->getSubmissionSource($form->data()->source);
-                
+
             }
 
             return true;
