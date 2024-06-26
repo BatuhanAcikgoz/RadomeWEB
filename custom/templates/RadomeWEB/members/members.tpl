@@ -8,18 +8,14 @@
 <br />
 
 {if isset($ERROR)}
-<div class="ui error icon message">
-    <i class="x icon"></i>
-    <div class="content">
-        <div class="header">{$ERROR_TITLE}</div>
+    <div class="alert alert-danger" role="alert">
         {$ERROR}
-    </div>
 </div>
 {/if}
 
-<div class="ui stackable equal width grid">
-    <div class="ui centered row">
-        <div class="ui four wide column">
+<div class="container" style="min-height: calc(-175.133px + 100vh);">
+    <div class="row">
+        <div class="col-md-9">
             <div class="ui fluid vertical menu pointing">
                 <a class="item {if $VIEWING_LIST eq "overview"}active{/if}" href="{$MEMBER_LIST_URL}">
                     <i class="ellipsis horizontal icon"></i>{$OVERVIEW}
@@ -30,10 +26,10 @@
                     </a>
                 {/foreach}
             </div>
-            <div class="ui fluid card">
+            <div class="card">
                 <div class="content">
-                    <h4 class="ui header">{$FIND_MEMBER}</h4>
-                    <div class="description">
+                    <div class="card-header header-theme">{$FIND_MEMBER}</div>
+                    <div class="card-body" style="overflow-x: auto">
                         <div class="ui search">
                             <div class="ui icon fluid input">
                                 <input class="prompt" type="text" minlength="2" required placeholder="{$NAME}" autocomplete="off">
@@ -45,7 +41,7 @@
                 </div>
             </div>
             {if $GROUPS|count}
-                <div class="ui fluid card">
+                <div class="card">
                     <div class="content">
                         <h4 class="ui header">{$VIEW_GROUP}</h4>
                         <div class="description">
@@ -59,7 +55,7 @@
                     </div>
                 </div>
             {/if}
-            <div class="ui fluid card">
+            <div class="card">
                 <div class="content">
                     <h4 class="ui header">{$NEW_MEMBERS}</h4>
                     <div class="description">

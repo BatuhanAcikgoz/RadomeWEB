@@ -1,4 +1,4 @@
-<div class="ui fluid card">
+<div class="card">
     <div class="content">
         <h4 class="ui header">{$REACTIONS_TEXT}</h4>
         <table class="ui table center aligned">

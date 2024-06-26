@@ -1,4 +1,4 @@
-<div class="ui fluid card">
+<div class="card">
     <div class="content" style="padding-bottom: 0;">
         <h4 class="ui header">{$MINECRAFT_ACCOUNT}</h4>
         <div class="center aligned">
