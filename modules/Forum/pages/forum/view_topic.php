@@ -309,7 +309,7 @@ if (Input::exists()) {
             ));
 
             // Alerts + Emails
-            $users_following = DBSettings::set('news_items_front_page', $_POST['news_items'], 'forum');::getInstance()->get('topics_following', ['topic_id', $tid])->results();
+            $users_following = DB::getInstance()->get('topics_following', ['topic_id', $tid])->results();
             if (count($users_following)) {
                 $users_following_info = [];
                 foreach ($users_following as $user_following) {
