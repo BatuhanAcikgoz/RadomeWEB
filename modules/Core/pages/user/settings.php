@@ -351,21 +351,7 @@ if (isset($_GET['do'])) {
                         if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
 
                             // Hash new password
-                            function generateSalt($length) {
-                                $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                                $randomString = '';
-                                for ($i = 0; $i < $length; $i++) {
-                                    $randomString .= $characters[rand(0, strlen($characters) - 1)];
-                                }
-                                return $randomString;
-                            }
-                            function createSHA256($new_password){
-                                $salt = generateSalt(16);
-                                $hash = '$SHA$'.$salt.'$'.hash('sha256', hash('sha256', $new_password).$salt);
-                                return $hash;
-                            }
-                            $new_password = createSHA256(Input::get('new_password'));
-
+                            $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 13]);
                             // Update password
                             $user->update([
                                 'password' => $new_password,

@@ -363,14 +363,8 @@ class User
                     return (sha1($password) == $this->data()->password);
 
                 default:
-                    // Default to sha256
-                    $exploded = explode('$', $this->data()->password);
-
-                    $salt = $exploded[2];
-                    $pass = $exploded[3];
-
-                    return ($salt . hash('sha256', hash('sha256', $password) . $salt) == $salt . $pass);
-                    break;
+                    // Default to bcrypt
+                    return password_verify($password, $this->data()->password);
             }
         }
 
