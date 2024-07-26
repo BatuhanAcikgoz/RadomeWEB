@@ -435,35 +435,6 @@ class Magaza_Module extends Module {
                 Core_Module::addDataToDashboardGraph($this->_language->get('admin', 'overview'), $data);
             }
         }
-
-        // Check for module updates
-        if (isset($_GET['route']) && $user->isLoggedIn() && $user->hasPermission('admincp.update')) {
-            // Page belong to this module?
-            $page = $pages->getActivePage();
-            if ($page['module'] == 'Magaza') {
-
-                $cache->setCache('store_module_cache');
-                if ($cache->isCached('update_check')) {
-                    $update_check = $cache->retrieve('update_check');
-                } else {
-                    require_once(ROOT_PATH . '/modules/Magaza/classes/Magaza.php');
-                    $update_check = Magaza::updateCheck();
-                    $cache->store('update_check', $update_check, 3600);
-                }
-
-                $update_check = json_decode($update_check);
-                if (!isset($update_check->error) && !isset($update_check->no_update) && isset($update_check->new_version)) {  
-                    $smarty->assign([
-                        'NEW_UPDATE' => (isset($update_check->urgent) && $update_check->urgent == 'true') ? $this->_store_language->get('admin', 'new_urgent_update_available_x', ['module' => $this->getName()]) : $this->_store_language->get('admin', 'new_update_available_x', ['module' => $this->getName()]),
-                        'NEW_UPDATE_URGENT' => (isset($update_check->urgent) && $update_check->urgent == 'true'),
-                        'CURRENT_VERSION' => $this->_store_language->get('admin', 'current_version_x', ['version' => Output::getClean($this->getVersion())]),
-                        'NEW_VERSION' => $this->_store_language->get('admin', 'new_version_x', ['new_version' => Output::getClean($update_check->new_version)]),
-                        'RADOME_UPDATE' => $this->_store_language->get('admin', 'view_resource'),
-                        'RADOME_UPDATE_LINK' => Output::getClean($update_check->link)
-                    ]);
-                }
-            }
-        }
     }
 
     public function getDebugInfo(): array {
