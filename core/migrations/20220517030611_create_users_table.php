@@ -11,11 +11,14 @@ final class CreateUsersTable extends AbstractMigration
 
         $table
             ->addColumn('username', 'string', ['length' => 20])
+            ->addColumn('realname', 'string', ['length' => 20])
             ->addColumn('password', 'string', ['length' => 255])
+            ->addColumn('uuid', 'string', ['length' => 128, 'null' => false])
             ->addColumn('pass_method', 'string', ['length' => 12, 'default' => 'default'])
             ->addColumn('joined', 'integer', ['length' => 11])
             ->addColumn('email', 'string', ['length' => 64])
             ->addColumn('isbanned', 'boolean', ['default' => false])
+            ->addColumn('regip', 'string', ['length' => 128, 'null' => true])
             ->addColumn('lastip', 'string', ['length' => 128, 'null' => true])
             ->addColumn('active', 'boolean', ['default' => false])
             ->addColumn('signature', 'text', ['null' => true, 'default' => null])
@@ -26,6 +29,7 @@ final class CreateUsersTable extends AbstractMigration
             ->addColumn('gravatar', 'boolean', ['default' => false])
             ->addColumn('topic_updates', 'boolean', ['default' => true])
             ->addColumn('private_profile', 'boolean', ['default' => false])
+            ->addColumn('last_login', 'integer', ['length' => 11, 'null' => true])
             ->addColumn('last_online', 'integer', ['length' => 11, 'null' => true])
             ->addColumn('user_title', 'string', ['length' => 64, 'null' => true])
             ->addColumn('theme_id', 'integer', ['length' => 11, 'null' => true])

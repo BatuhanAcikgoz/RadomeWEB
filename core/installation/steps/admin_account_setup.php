@@ -93,10 +93,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $user->create([
                 'username' => Input::get('username'),
+                'realname' => strtolower(Input::get('username')),
+                'uuid' => User::constructOfflinePlayerUuid(Input::get('username')),
                 'password' => $password,
                 'pass_method' => 'default',
                 'joined' => date('U'),
                 'email' => Input::get('email'),
+                'regip' => $ip,
                 'lastip' => $ip,
                 'active' => true,
                 'last_online' => date('U'),

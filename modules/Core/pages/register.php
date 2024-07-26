@@ -226,11 +226,14 @@ if (Input::exists()) {
                         // Create user
                         $user->create([
                             'username' => $username,
+                            'realname' => strtolower(Input::get('username')),
+                            'uuid' => User::constructOfflinePlayerUuid(Input::get('username')),
                             'password' => $password,
                             'pass_method' => 'default',
                             'joined' => $date,
                             'email' => Input::get('email'),
                             'reset_code' => $code,
+                            'regip' => $ip,
                             'lastip' => $ip,
                             'last_online' => $date,
                             'language_id' => $language_id,

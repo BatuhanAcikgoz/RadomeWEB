@@ -45,10 +45,6 @@ $date = date('U');
 $next_run = $last_run + ($interval * 60);
 $diff = $next_run - $date;
 
-if ($last_run && $diff > 0) {
-    return_json("Please wait $diff seconds before executing the queue", true);
-}
-
 // Update last run immediately
 $cache->store('last_run', $date);
 
