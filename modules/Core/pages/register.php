@@ -188,7 +188,7 @@ if (Input::exists()) {
                             // TODO: Invalid IP, do something
                         }
 
-        $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 10]);
+        $password = password_hash(Input::get('password'), PASSWORD_DEFAULT, ['cost' => 10]);
                         // Get current unix time
                         $date = new DateTime();
                         $date = $date->getTimestamp();
