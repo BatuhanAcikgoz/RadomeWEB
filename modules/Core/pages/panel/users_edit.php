@@ -218,7 +218,7 @@ if (Input::exists()) {
 
             if ($validation->passed()) {
                 $password = Input::get('password');
-                $password = password_hash(Input::get('password'), PASSWORD_DEFAULT, ['cost' => 10]);
+                $password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 10]);
                 $view_user->update([
                     'password' => $password
                 ]);

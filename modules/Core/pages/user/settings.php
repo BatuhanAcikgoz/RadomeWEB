@@ -351,7 +351,7 @@ if (isset($_GET['do'])) {
                         if ($user->checkCredentials($user->data()->username, $old_password, 'username')) {
 
                             // Hash new password
-                            $new_password = password_hash(Input::get('password'), PASSWORD_DEFAULT, ['cost' => 10]);
+                            $new_password = password_hash(Input::get('password'), PASSWORD_BCRYPT, ['cost' => 10]);
                             // Update password
                             $user->update([
                                 'password' => $new_password,
