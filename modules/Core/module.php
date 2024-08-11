@@ -124,10 +124,6 @@ class Core_Module extends Module {
         // Ajax GET requests
         $pages->addAjaxScript(URL::build('/sorgu/sunucular'));
 
-        if (Settings::get('queue_runner', 'ajax') == 'ajax') {
-            $pages->addAjaxScript(URL::build('/sorgu/queue'));
-        }
-
         // "More" dropdown
         $cache->setCache('navbar_icons');
         if ($cache->isCached('more_dropdown_icon')) {
